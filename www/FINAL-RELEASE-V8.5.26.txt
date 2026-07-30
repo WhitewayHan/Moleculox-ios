@@ -1,0 +1,5 @@
+MOLECULOX V8.5.26
+- Premium code-drawn Dr. E reaction icon family added.
+- Signature two-atom bonding animation preserved.
+- Clears above 230% of PAR earn 0 stars and 0 Career RP, but still unlock the next level.
+- Zero-star clears cannot create best-move or speed-run records.

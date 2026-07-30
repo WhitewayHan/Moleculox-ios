@@ -1,0 +1,21 @@
+MOLECULOX V8.5.23 — FINAL RELEASE CANDIDATE
+Date: 2026-07-30
+
+This build is based on V8.5.22 Independent Full Audit.
+
+Final safe release fixes:
+- Updated in-game APP_VERSION to v8.5.23.
+- Replaced stale hard-coded footer version v8.5.11 with the current APP_VERSION.
+- Updated game.js and firebase.js cache-busting query strings.
+- Updated PWA manifest description/version to v8.5.23.
+- Updated Service Worker cache namespace to V8.5.23.
+
+Verification completed:
+- JavaScript syntax checks passed for all JavaScript files.
+- Manifest JSON validation passed.
+- Referenced local HTML assets were checked; no missing local references found.
+- Independent solver verification passed: 301 campaign + 832 daily = 1133/1133.
+- ZIP integrity test passed after packaging.
+
+No gameplay balance, level layout, reward economy, Firebase rules, or visual mechanics were changed in this final pass.
+Real-device checks remain the publisher's final acceptance test.

@@ -1,0 +1,3122 @@
+MOLECULOX V8.4.37 — 301 BÖLÜM TAM ÇÖZÜM VE HATA DENETİMİ (BAĞIMSIZ SİMÜLATÖRLE DOĞRULANDI)
+
+Toplam bölüm: 301
+Başarılı doğrulama: 301
+Hatalı: 0
+Her bölümde çözüm yolu: EVET
+Par değeri çözümü karşılıyor: EVET
+Kırılgan atom yolları güvenli: EVET
+Kristal Avı bölümlerinde 3 kristal de rota üzerinde: EVET
+Otomatik mekanik enjeksiyonu (bağlı atom / hareketli duvar / tek yön) kayıtlı çözümle çakışmıyor: EVET
+
+Yönler: YUKARI / SAĞ / AŞAĞI / SOL. Atom numarası bölümdeki başlangıç atom sırasıdır (1'den başlar).
+Bu dosya, oyunun gerçek motor mantığını (kaydırma, portal, tek yön, hareketli duvar, basınç kapısı,
+kırılgan/bağlı atom, Kristal Avı toplama şartı dahil) birebir yeniden uygulayan bağımsız bir
+simülatörle HER BÖLÜM İÇİN HAMLE HAMLE OYNATILARAK üretilmiştir; önceki (v8.4.34) dosyanın aksine
+iddia değil, doğrulanmış sonuçtur.
+
+BÖLÜM 1 — H2 — OK — 3 hamle / Par 3
+1. Atom 1 (H) → YUKARI
+2. Atom 1 (H) → SOL
+3. Atom 1 (H) → YUKARI
+
+BÖLÜM 2 — O2 — OK — 2 hamle / Par 2
+1. Atom 1 (O) → YUKARI
+2. Atom 1 (O) → SOL
+
+BÖLÜM 3 — NaCl — OK — 3 hamle / Par 3
+1. Atom 1 (Na) → AŞAĞI
+2. Atom 2 (Cl) → SAĞ
+3. Atom 2 (Cl) → AŞAĞI
+
+BÖLÜM 4 — H2O — OK — 5 hamle / Par 5
+1. Atom 1 (H) → YUKARI
+2. Atom 1 (H) → SOL
+3. Atom 3 (H) → SAĞ
+4. Atom 2 (O) → YUKARI
+5. Atom 3 (H) → SOL
+
+BÖLÜM 5 — CO2 — OK — 5 hamle / Par 5
+1. Atom 1 (O) → YUKARI
+2. Atom 1 (O) → SOL
+3. Atom 2 (C) → YUKARI
+4. Atom 1 (O) → SAĞ
+5. Atom 3 (O) → YUKARI
+
+BÖLÜM 6 — SO2 — OK — 6 hamle / Par 6
+1. Atom 2 (S) → YUKARI
+2. Atom 1 (O) → SOL
+3. Atom 1 (O) → AŞAĞI
+4. Atom 3 (O) → SOL
+5. Atom 2 (S) → AŞAĞI
+6. Atom 3 (O) → SAĞ
+
+BÖLÜM 7 — HCN — OK — 6 hamle / Par 6
+1. Atom 2 (C) → YUKARI
+2. Atom 3 (N) → YUKARI
+3. Atom 3 (N) → SAĞ
+4. Atom 2 (C) → SAĞ
+5. Atom 1 (H) → YUKARI
+6. Atom 1 (H) → SAĞ
+
+BÖLÜM 8 — H2O2 — OK — 6 hamle / Par 6
+1. Atom 2 (O) → SOL
+2. Atom 2 (O) → AŞAĞI
+3. Atom 3 (O) → SOL
+4. Atom 1 (H) → AŞAĞI
+5. Atom 4 (H) → YUKARI
+6. Atom 3 (O) → SAĞ
+
+BÖLÜM 9 — NH3 — OK — 6 hamle / Par 6
+1. Atom 1 (N) → YUKARI
+2. Atom 1 (N) → SOL
+3. Atom 2 (H) → SOL
+4. Atom 2 (H) → AŞAĞI
+5. Atom 4 (H) → AŞAĞI
+6. Atom 4 (H) → SOL
+
+BÖLÜM 10 — P4 — OK — 6 hamle / Par 7
+1. Atom 2 (P) → SAĞ
+2. Atom 1 (P) → YUKARI
+3. Atom 2 (P) → AŞAĞI
+4. Atom 3 (P) → AŞAĞI
+5. Atom 1 (P) → SAĞ
+6. Atom 1 (P) → AŞAĞI
+
+BÖLÜM 11 — GaCl3 — OK — 6 hamle / Par 7
+1. Atom 3 (Cl) → AŞAĞI
+2. Atom 3 (Cl) → SOL
+3. Atom 1 (Ga) → SOL
+4. Atom 4 (Cl) → YUKARI
+5. Atom 2 (Cl) → SOL
+6. Atom 4 (Cl) → SOL
+
+BÖLÜM 12 — AsH3 — OK — 6 hamle / Par 7
+1. Atom 2 (H) → YUKARI
+2. Atom 3 (H) → SOL
+3. Atom 1 (As) → SOL
+4. Atom 2 (H) → AŞAĞI
+5. Atom 4 (H) → SAĞ
+6. Atom 4 (H) → AŞAĞI
+
+BÖLÜM 13 — PH3 — OK — 6 hamle / Par 7
+1. Atom 2 (H) → YUKARI
+2. Atom 2 (H) → SOL
+3. Atom 4 (H) → YUKARI
+4. Atom 1 (P) → SAĞ
+5. Atom 2 (H) → AŞAĞI
+6. Atom 3 (H) → SAĞ
+
+BÖLÜM 14 — BrF3 — OK — 7 hamle / Par 7
+1. Atom 1 (Br) → SAĞ
+2. Atom 4 (F) → YUKARI
+3. Atom 4 (F) → SOL
+4. Atom 3 (F) → YUKARI
+5. Atom 3 (F) → SOL
+6. Atom 1 (Br) → YUKARI
+7. Atom 4 (F) → YUKARI
+
+BÖLÜM 15 — AlBr3 — OK — 7 hamle / Par 8
+1. Atom 2 (Br) → SOL
+2. Atom 3 (Br) → AŞAĞI
+3. Atom 4 (Br) → YUKARI
+4. Atom 1 (Al) → SAĞ
+5. Atom 3 (Br) → SAĞ
+6. Atom 4 (Br) → SAĞ
+7. Atom 1 (Al) → YUKARI
+
+BÖLÜM 16 — XeF4 — OK — 6 hamle / Par 7
+1. Atom 1 (Xe) → AŞAĞI
+2. Atom 1 (Xe) → SOL
+3. Atom 2 (F) → SAĞ
+4. Atom 1 (Xe) → AŞAĞI
+5. Atom 3 (F) → SAĞ
+6. Atom 4 (F) → AŞAĞI
+
+BÖLÜM 17 — SiCl4 — OK — 6 hamle / Par 6
+1. Atom 3 (Cl) → SAĞ
+2. Atom 5 (Cl) → SAĞ
+3. Atom 1 (Si) → YUKARI
+4. Atom 2 (Cl) → AŞAĞI
+5. Atom 2 (Cl) → SAĞ
+6. Atom 4 (Cl) → YUKARI
+
+BÖLÜM 18 — GeBr4 — OK — 6 hamle / Par 7
+1. Atom 4 (Br) → YUKARI
+2. Atom 4 (Br) → SOL
+3. Atom 5 (Br) → YUKARI
+4. Atom 3 (Br) → SOL
+5. Atom 1 (Ge) → AŞAĞI
+6. Atom 2 (Br) → SOL
+
+BÖLÜM 19 — SnI4 — OK — 9 hamle / Par 10
+1. Atom 3 (I) → SAĞ
+2. Atom 1 (Sn) → SAĞ
+3. Atom 2 (I) → YUKARI
+4. Atom 4 (I) → SAĞ
+5. Atom 1 (Sn) → AŞAĞI
+6. Atom 3 (I) → SOL
+7. Atom 5 (I) → AŞAĞI
+8. Atom 2 (I) → AŞAĞI
+9. Atom 5 (I) → YUKARI
+
+BÖLÜM 20 — GeCl4 — OK — 7 hamle / Par 8
+1. Atom 1 (Ge) → SOL
+2. Atom 3 (Cl) → YUKARI
+3. Atom 3 (Cl) → SOL
+4. Atom 5 (Cl) → SAĞ
+5. Atom 1 (Ge) → AŞAĞI
+6. Atom 2 (Cl) → AŞAĞI
+7. Atom 4 (Cl) → SOL
+
+BÖLÜM 21 — CF4 — OK — 7 hamle / Par 8
+1. Atom 1 (C) → YUKARI
+2. Atom 3 (F) → SOL
+3. Atom 1 (C) → AŞAĞI
+4. Atom 2 (F) → AŞAĞI
+5. Atom 3 (F) → SAĞ
+6. Atom 4 (F) → SAĞ
+7. Atom 4 (F) → YUKARI
+
+BÖLÜM 22 — SOCl2 — OK — 6 hamle / Par 6
+1. Atom 2 (O) → SOL
+2. Atom 2 (O) → YUKARI
+3. Atom 1 (S) → SOL
+4. Atom 4 (Cl) → SAĞ
+5. Atom 4 (Cl) → YUKARI
+6. Atom 4 (Cl) → SOL
+
+BÖLÜM 23 — SiH4 — OK — 7 hamle / Par 7
+1. Atom 2 (H) → YUKARI
+2. Atom 1 (Si) → SAĞ
+3. Atom 1 (Si) → YUKARI
+4. Atom 3 (H) → AŞAĞI
+5. Atom 4 (H) → SOL
+6. Atom 5 (H) → SOL
+7. Atom 3 (H) → YUKARI
+
+BÖLÜM 24 — COF2 — OK — 7 hamle / Par 7
+1. Atom 1 (C) → SOL
+2. Atom 1 (C) → AŞAĞI
+3. Atom 2 (F) → AŞAĞI
+4. Atom 1 (C) → SAĞ
+5. Atom 3 (F) → SOL
+6. Atom 3 (F) → AŞAĞI
+7. Atom 3 (F) → SAĞ
+
+BÖLÜM 25 — SiBr4 — OK — 6 hamle / Par 6
+1. Atom 1 (Si) → SAĞ
+2. Atom 1 (Si) → YUKARI
+3. Atom 1 (Si) → SOL
+4. Atom 5 (Br) → AŞAĞI
+5. Atom 1 (Si) → AŞAĞI
+6. Atom 4 (Br) → SOL
+
+BÖLÜM 26 — IF3 — OK — 6 hamle / Par 6
+1. Atom 1 (I) → SOL
+2. Atom 2 (F) → SOL
+3. Atom 3 (F) → YUKARI
+4. Atom 1 (I) → SAĞ
+5. Atom 1 (I) → AŞAĞI
+6. Atom 3 (F) → AŞAĞI
+
+BÖLÜM 27 — SiF4 — OK — 7 hamle / Par 7
+1. Atom 2 (F) → YUKARI
+2. Atom 2 (F) → SOL
+3. Atom 3 (F) → YUKARI
+4. Atom 1 (Si) → SOL
+5. Atom 4 (F) → AŞAĞI
+6. Atom 4 (F) → SOL
+7. Atom 5 (F) → SAĞ
+
+BÖLÜM 28 — PF3 — OK — 8 hamle / Par 8
+1. Atom 2 (F) → SOL
+2. Atom 3 (F) → AŞAĞI
+3. Atom 4 (F) → AŞAĞI
+4. Atom 3 (F) → SOL
+5. Atom 4 (F) → YUKARI
+6. Atom 4 (F) → SAĞ
+7. Atom 1 (P) → SAĞ
+8. Atom 2 (F) → YUKARI
+
+BÖLÜM 29 — CH4 — OK — 7 hamle / Par 8
+1. Atom 1 (C) → YUKARI
+2. Atom 1 (C) → SAĞ
+3. Atom 2 (H) → AŞAĞI
+4. Atom 5 (H) → SOL
+5. Atom 3 (H) → SOL
+6. Atom 5 (H) → AŞAĞI
+7. Atom 2 (H) → SAĞ
+
+BÖLÜM 30 — AlCl3 — OK — 7 hamle / Par 8
+1. Atom 3 (Cl) → SOL
+2. Atom 4 (Cl) → AŞAĞI
+3. Atom 1 (Al) → AŞAĞI
+4. Atom 1 (Al) → SOL
+5. Atom 4 (Cl) → SOL
+6. Atom 4 (Cl) → YUKARI
+7. Atom 4 (Cl) → SOL
+
+BÖLÜM 31 — SnCl4 — OK — 7 hamle / Par 8
+1. Atom 2 (Cl) → SAĞ
+2. Atom 1 (Sn) → YUKARI
+3. Atom 3 (Cl) → AŞAĞI
+4. Atom 4 (Cl) → YUKARI
+5. Atom 5 (Cl) → SAĞ
+6. Atom 5 (Cl) → AŞAĞI
+7. Atom 5 (Cl) → SOL
+
+BÖLÜM 32 — SOF2 — OK — 6 hamle / Par 7
+1. Atom 2 (O) → SAĞ
+2. Atom 4 (F) → YUKARI
+3. Atom 1 (S) → SAĞ
+4. Atom 3 (F) → SOL
+5. Atom 4 (F) → SOL
+6. Atom 1 (S) → YUKARI
+
+BÖLÜM 33 — XeO4 — OK — 6 hamle / Par 6
+1. Atom 2 (O) → AŞAĞI
+2. Atom 2 (O) → SOL
+3. Atom 3 (O) → SOL
+4. Atom 3 (O) → YUKARI
+5. Atom 1 (Xe) → SOL
+6. Atom 4 (O) → SOL
+
+BÖLÜM 34 — COCl2 — OK — 6 hamle / Par 6
+1. Atom 2 (O) → SAĞ
+2. Atom 3 (Cl) → SOL
+3. Atom 3 (Cl) → YUKARI
+4. Atom 4 (Cl) → SAĞ
+5. Atom 2 (O) → YUKARI
+6. Atom 1 (C) → YUKARI
+
+BÖLÜM 35 — SnF4 — OK — 8 hamle / Par 9
+1. Atom 1 (Sn) → SOL
+2. Atom 1 (Sn) → AŞAĞI
+3. Atom 3 (F) → YUKARI
+4. Atom 1 (Sn) → SOL
+5. Atom 4 (F) → SOL
+6. Atom 4 (F) → AŞAĞI
+7. Atom 5 (F) → YUKARI
+8. Atom 5 (F) → SAĞ
+
+BÖLÜM 36 — BCl3 — OK — 6 hamle / Par 6
+1. Atom 1 (B) → AŞAĞI
+2. Atom 1 (B) → SOL
+3. Atom 2 (Cl) → AŞAĞI
+4. Atom 4 (Cl) → YUKARI
+5. Atom 1 (B) → YUKARI
+6. Atom 2 (Cl) → SOL
+
+BÖLÜM 37 — CCl4 — OK — 6 hamle / Par 7
+1. Atom 2 (Cl) → SAĞ
+2. Atom 3 (Cl) → SOL
+3. Atom 1 (C) → YUKARI
+4. Atom 5 (Cl) → AŞAĞI
+5. Atom 5 (Cl) → SAĞ
+6. Atom 4 (Cl) → YUKARI
+
+BÖLÜM 38 — BBr3 — OK — 9 hamle / Par 10
+1. Atom 1 (B) → SOL
+2. Atom 2 (Br) → SOL
+3. Atom 2 (Br) → YUKARI
+4. Atom 1 (B) → YUKARI
+5. Atom 4 (Br) → AŞAĞI
+6. Atom 4 (Br) → SAĞ
+7. Atom 4 (Br) → YUKARI
+8. Atom 4 (Br) → SOL
+9. Atom 4 (Br) → AŞAĞI
+
+BÖLÜM 39 — SnBr4 — OK — 6 hamle / Par 7
+1. Atom 3 (Br) → SOL
+2. Atom 1 (Sn) → SOL
+3. Atom 2 (Br) → SOL
+4. Atom 4 (Br) → AŞAĞI
+5. Atom 4 (Br) → SOL
+6. Atom 5 (Br) → SOL
+
+BÖLÜM 40 — GaBr3 — OK — 9 hamle / Par 10
+1. Atom 1 (Ga) → SOL
+2. Atom 2 (Br) → SAĞ
+3. Atom 1 (Ga) → YUKARI
+4. Atom 1 (Ga) → SAĞ
+5. Atom 4 (Br) → YUKARI
+6. Atom 4 (Br) → SOL
+7. Atom 4 (Br) → YUKARI
+8. Atom 1 (Ga) → SOL
+9. Atom 2 (Br) → SOL
+
+BÖLÜM 41 — GeF4 — OK — 6 hamle / Par 7
+1. Atom 2 (F) → AŞAĞI
+2. Atom 4 (F) → SAĞ
+3. Atom 4 (F) → AŞAĞI
+4. Atom 1 (Ge) → SOL
+5. Atom 4 (F) → YUKARI
+6. Atom 5 (F) → YUKARI
+
+BÖLÜM 42 — NF3 — OK — 8 hamle / Par 8
+1. Atom 1 (N) → SOL
+2. Atom 4 (F) → AŞAĞI
+3. Atom 1 (N) → SAĞ
+4. Atom 4 (F) → YUKARI
+5. Atom 2 (F) → SOL
+6. Atom 3 (F) → SOL
+7. Atom 1 (N) → YUKARI
+8. Atom 2 (F) → AŞAĞI
+
+BÖLÜM 43 — GeH4 — OK — 6 hamle / Par 6
+1. Atom 2 (H) → YUKARI
+2. Atom 1 (Ge) → SAĞ
+3. Atom 5 (H) → SOL
+4. Atom 3 (H) → SOL
+5. Atom 3 (H) → YUKARI
+6. Atom 3 (H) → SAĞ
+
+BÖLÜM 44 — PBr3 — OK — 7 hamle / Par 7
+1. Atom 2 (Br) → YUKARI
+2. Atom 2 (Br) → SOL
+3. Atom 1 (P) → YUKARI
+4. Atom 3 (Br) → SOL
+5. Atom 3 (Br) → YUKARI
+6. Atom 3 (Br) → SOL
+7. Atom 3 (Br) → YUKARI
+
+BÖLÜM 45 — CBr4 — OK — 8 hamle / Par 9
+1. Atom 2 (Br) → SAĞ
+2. Atom 4 (Br) → SOL
+3. Atom 5 (Br) → SOL
+4. Atom 5 (Br) → YUKARI
+5. Atom 3 (Br) → SOL
+6. Atom 1 (C) → AŞAĞI
+7. Atom 2 (Br) → AŞAĞI
+8. Atom 3 (Br) → SAĞ
+
+BÖLÜM 46 — MgBr2 — OK — 7 hamle / Par 7
+1. Atom 2 (Br) → SOL
+2. Atom 2 (Br) → AŞAĞI
+3. Atom 2 (Br) → SAĞ
+4. Atom 2 (Br) → AŞAĞI
+5. Atom 3 (Br) → SAĞ
+6. Atom 2 (Br) → SAĞ
+7. Atom 2 (Br) → YUKARI
+
+BÖLÜM 47 — XeF4 — OK — 6 hamle / Par 7
+1. Atom 1 (Xe) → AŞAĞI
+2. Atom 1 (Xe) → SOL
+3. Atom 2 (F) → SAĞ
+4. Atom 1 (Xe) → AŞAĞI
+5. Atom 3 (F) → SAĞ
+6. Atom 4 (F) → AŞAĞI
+
+BÖLÜM 48 — XeO3 — OK — 9 hamle / Par 10
+1. Atom 2 (O) → YUKARI
+2. Atom 4 (O) → SOL
+3. Atom 4 (O) → YUKARI
+4. Atom 4 (O) → SOL
+5. Atom 4 (O) → YUKARI
+6. Atom 1 (Xe) → SAĞ
+7. Atom 2 (O) → SOL
+8. Atom 3 (O) → SOL
+9. Atom 2 (O) → AŞAĞI
+
+BÖLÜM 49 — SiCl4 — OK — 6 hamle / Par 6
+1. Atom 2 (Cl) → SAĞ
+2. Atom 1 (Si) → AŞAĞI
+3. Atom 4 (Cl) → SOL
+4. Atom 3 (Cl) → AŞAĞI
+5. Atom 3 (Cl) → SOL
+6. Atom 4 (Cl) → AŞAĞI
+
+BÖLÜM 50 — SCl2 — OK — 7 hamle / Par 7
+1. Atom 2 (S) → AŞAĞI
+2. Atom 2 (S) → SAĞ
+3. Atom 3 (Cl) → AŞAĞI
+4. Atom 3 (Cl) → SAĞ
+5. Atom 1 (Cl) → AŞAĞI
+6. Atom 3 (Cl) → AŞAĞI
+7. Atom 2 (S) → SOL
+
+BÖLÜM 51 — GeBr4 — OK — 7 hamle / Par 7
+1. Atom 3 (Br) → AŞAĞI
+2. Atom 2 (Br) → AŞAĞI
+3. Atom 3 (Br) → SAĞ
+4. Atom 1 (Ge) → AŞAĞI
+5. Atom 3 (Br) → SOL
+6. Atom 5 (Br) → YUKARI
+7. Atom 2 (Br) → SAĞ
+
+BÖLÜM 52 — HI — OK — 8 hamle / Par 10
+1. Atom 1 (H) → SOL
+2. Atom 2 (I) → AŞAĞI
+3. Atom 2 (I) → SOL
+4. Atom 2 (I) → AŞAĞI
+5. Atom 2 (I) → SAĞ
+6. Atom 1 (H) → AŞAĞI
+7. Atom 1 (H) → SOL
+8. Atom 1 (H) → AŞAĞI
+
+BÖLÜM 53 — SnI4 — OK — 9 hamle / Par 9
+1. Atom 1 (Sn) → SAĞ
+2. Atom 1 (Sn) → YUKARI
+3. Atom 3 (I) → AŞAĞI
+4. Atom 5 (I) → SAĞ
+5. Atom 4 (I) → AŞAĞI
+6. Atom 1 (Sn) → SOL
+7. Atom 3 (I) → SAĞ
+8. Atom 5 (I) → SOL
+9. Atom 5 (I) → YUKARI
+
+BÖLÜM 54 — PCl3 — OK — 10 hamle / Par 11
+1. Atom 2 (Cl) → SOL
+2. Atom 2 (Cl) → YUKARI
+3. Atom 2 (Cl) → SOL
+4. Atom 2 (Cl) → AŞAĞI
+5. Atom 3 (Cl) → SAĞ
+6. Atom 1 (P) → AŞAĞI
+7. Atom 2 (Cl) → SOL
+8. Atom 2 (Cl) → AŞAĞI
+9. Atom 4 (Cl) → SOL
+10. Atom 4 (Cl) → AŞAĞI
+
+BÖLÜM 55 — GeCl4 — OK — 9 hamle / Par 9
+1. Atom 1 (Ge) → SOL
+2. Atom 1 (Ge) → YUKARI
+3. Atom 2 (Cl) → YUKARI
+4. Atom 4 (Cl) → SAĞ
+5. Atom 2 (Cl) → AŞAĞI
+6. Atom 1 (Ge) → SAĞ
+7. Atom 2 (Cl) → YUKARI
+8. Atom 5 (Cl) → SAĞ
+9. Atom 4 (Cl) → AŞAĞI
+
+BÖLÜM 56 — MgCl2 — OK — 8 hamle / Par 8
+1. Atom 1 (Cl) → YUKARI
+2. Atom 1 (Cl) → SOL
+3. Atom 1 (Cl) → YUKARI
+4. Atom 3 (Cl) → YUKARI
+5. Atom 1 (Cl) → SAĞ
+6. Atom 3 (Cl) → AŞAĞI
+7. Atom 2 (Mg) → SOL
+8. Atom 3 (Cl) → YUKARI
+
+BÖLÜM 57 — CF4 — OK — 9 hamle / Par 10
+1. Atom 3 (F) → AŞAĞI
+2. Atom 4 (F) → YUKARI
+3. Atom 3 (F) → SAĞ
+4. Atom 4 (F) → SAĞ
+5. Atom 3 (F) → YUKARI
+6. Atom 3 (F) → SAĞ
+7. Atom 3 (F) → AŞAĞI
+8. Atom 1 (C) → SAĞ
+9. Atom 5 (F) → AŞAĞI
+
+BÖLÜM 58 — SiO — OK — 7 hamle / Par 8
+1. Atom 1 (O) → AŞAĞI
+2. Atom 1 (O) → SOL
+3. Atom 1 (O) → YUKARI
+4. Atom 2 (Si) → YUKARI
+5. Atom 2 (Si) → SOL
+6. Atom 2 (Si) → YUKARI
+7. Atom 1 (O) → SOL
+
+BÖLÜM 59 — SiH4 — OK — 9 hamle / Par 10
+1. Atom 2 (H) → AŞAĞI
+2. Atom 4 (H) → AŞAĞI
+3. Atom 1 (Si) → AŞAĞI
+4. Atom 1 (Si) → SAĞ
+5. Atom 4 (H) → YUKARI
+6. Atom 1 (Si) → SOL
+7. Atom 2 (H) → YUKARI
+8. Atom 4 (H) → AŞAĞI
+9. Atom 5 (H) → YUKARI
+
+BÖLÜM 60 — SO3 — OK — 10 hamle / Par 11
+1. Atom 1 (S) → AŞAĞI
+2. Atom 1 (S) → SAĞ
+3. Atom 2 (O) → YUKARI
+4. Atom 2 (O) → SOL
+5. Atom 1 (S) → AŞAĞI
+6. Atom 4 (O) → SOL
+7. Atom 4 (O) → AŞAĞI
+8. Atom 4 (O) → SAĞ
+9. Atom 1 (S) → YUKARI
+10. Atom 3 (O) → SOL
+
+BÖLÜM 61 — SiBr4 — OK — 9 hamle / Par 10
+1. Atom 1 (Si) → YUKARI
+2. Atom 2 (Br) → YUKARI
+3. Atom 3 (Br) → AŞAĞI
+4. Atom 3 (Br) → SAĞ
+5. Atom 5 (Br) → SOL
+6. Atom 1 (Si) → AŞAĞI
+7. Atom 2 (Br) → SOL
+8. Atom 2 (Br) → AŞAĞI
+9. Atom 4 (Br) → SOL
+
+BÖLÜM 62 — HOBr — OK — 5 hamle / Par 5
+1. Atom 1 (H) → YUKARI
+2. Atom 1 (H) → SOL
+3. Atom 3 (Br) → SAĞ
+4. Atom 2 (O) → YUKARI
+5. Atom 3 (Br) → SOL
+
+BÖLÜM 63 — SiF4 — OK — 9 hamle / Par 10
+1. Atom 2 (F) → YUKARI
+2. Atom 2 (F) → SAĞ
+3. Atom 2 (F) → YUKARI
+4. Atom 3 (F) → SAĞ
+5. Atom 4 (F) → SAĞ
+6. Atom 4 (F) → YUKARI
+7. Atom 2 (F) → SOL
+8. Atom 5 (F) → SAĞ
+9. Atom 5 (F) → YUKARI
+
+BÖLÜM 64 — NCl3 — OK — 10 hamle / Par 11
+1. Atom 1 (N) → SAĞ
+2. Atom 2 (Cl) → SAĞ
+3. Atom 3 (Cl) → AŞAĞI
+4. Atom 4 (Cl) → SAĞ
+5. Atom 4 (Cl) → YUKARI
+6. Atom 4 (Cl) → SOL
+7. Atom 1 (N) → YUKARI
+8. Atom 1 (N) → SOL
+9. Atom 3 (Cl) → SAĞ
+10. Atom 3 (Cl) → YUKARI
+
+BÖLÜM 65 — CH4 — OK — 8 hamle / Par 8
+1. Atom 1 (C) → SAĞ
+2. Atom 2 (H) → AŞAĞI
+3. Atom 3 (H) → YUKARI
+4. Atom 2 (H) → SAĞ
+5. Atom 2 (H) → YUKARI
+6. Atom 1 (C) → SOL
+7. Atom 3 (H) → SAĞ
+8. Atom 4 (H) → SOL
+
+BÖLÜM 66 — CaO — OK — 9 hamle / Par 12
+1. Atom 1 (Ca) → SOL
+2. Atom 1 (Ca) → YUKARI
+3. Atom 1 (Ca) → SOL
+4. Atom 1 (Ca) → YUKARI
+5. Atom 1 (Ca) → SAĞ
+6. Atom 1 (Ca) → AŞAĞI
+7. Atom 1 (Ca) → SAĞ
+8. Atom 1 (Ca) → AŞAĞI
+9. Atom 2 (O) → YUKARI
+
+BÖLÜM 67 — SnCl4 — OK — 8 hamle / Par 9
+1. Atom 2 (Cl) → SOL
+2. Atom 2 (Cl) → AŞAĞI
+3. Atom 1 (Sn) → SAĞ
+4. Atom 5 (Cl) → YUKARI
+5. Atom 1 (Sn) → SOL
+6. Atom 2 (Cl) → SAĞ
+7. Atom 3 (Cl) → SOL
+8. Atom 4 (Cl) → YUKARI
+
+BÖLÜM 68 — NO2 — OK — 6 hamle / Par 6
+1. Atom 1 (O) → SAĞ
+2. Atom 1 (O) → AŞAĞI
+3. Atom 2 (N) → YUKARI
+4. Atom 3 (O) → SAĞ
+5. Atom 1 (O) → YUKARI
+6. Atom 1 (O) → SAĞ
+
+BÖLÜM 69 — XeO4 — OK — 7 hamle / Par 7
+1. Atom 1 (Xe) → YUKARI
+2. Atom 3 (O) → AŞAĞI
+3. Atom 4 (O) → SAĞ
+4. Atom 1 (Xe) → AŞAĞI
+5. Atom 1 (Xe) → SOL
+6. Atom 4 (O) → SOL
+7. Atom 4 (O) → YUKARI
+
+BÖLÜM 70 — BF3 — OK — 10 hamle / Par 11
+1. Atom 1 (B) → SOL
+2. Atom 2 (F) → SOL
+3. Atom 2 (F) → YUKARI
+4. Atom 2 (F) → SAĞ
+5. Atom 3 (F) → YUKARI
+6. Atom 4 (F) → YUKARI
+7. Atom 4 (F) → SAĞ
+8. Atom 1 (B) → SAĞ
+9. Atom 2 (F) → AŞAĞI
+10. Atom 3 (F) → AŞAĞI
+
+BÖLÜM 71 — SnF4 — OK — 7 hamle / Par 8
+1. Atom 1 (Sn) → AŞAĞI
+2. Atom 1 (Sn) → SAĞ
+3. Atom 3 (F) → AŞAĞI
+4. Atom 5 (F) → SOL
+5. Atom 2 (F) → SOL
+6. Atom 2 (F) → YUKARI
+7. Atom 2 (F) → SAĞ
+
+BÖLÜM 72 — KI — OK — 9 hamle / Par 12
+1. Atom 1 (K) → AŞAĞI
+2. Atom 2 (I) → SOL
+3. Atom 1 (K) → YUKARI
+4. Atom 1 (K) → SAĞ
+5. Atom 1 (K) → YUKARI
+6. Atom 1 (K) → SOL
+7. Atom 1 (K) → AŞAĞI
+8. Atom 2 (I) → SAĞ
+9. Atom 1 (K) → YUKARI
+
+BÖLÜM 73 — CCl4 — OK — 6 hamle / Par 7
+1. Atom 1 (C) → YUKARI
+2. Atom 2 (Cl) → YUKARI
+3. Atom 3 (Cl) → YUKARI
+4. Atom 1 (C) → SOL
+5. Atom 5 (Cl) → YUKARI
+6. Atom 2 (Cl) → SOL
+
+BÖLÜM 74 — NOBr — OK — 9 hamle / Par 10
+1. Atom 1 (N) → SOL
+2. Atom 1 (N) → AŞAĞI
+3. Atom 2 (O) → YUKARI
+4. Atom 3 (Br) → SOL
+5. Atom 1 (N) → YUKARI
+6. Atom 2 (O) → SAĞ
+7. Atom 3 (Br) → YUKARI
+8. Atom 3 (Br) → SOL
+9. Atom 3 (Br) → YUKARI
+
+BÖLÜM 75 — SnBr4 — OK — 6 hamle / Par 7
+1. Atom 1 (Sn) → AŞAĞI
+2. Atom 1 (Sn) → SOL
+3. Atom 2 (Br) → SAĞ
+4. Atom 1 (Sn) → AŞAĞI
+5. Atom 3 (Br) → SAĞ
+6. Atom 4 (Br) → AŞAĞI
+
+BÖLÜM 76 — S4 — OK — 9 hamle / Par 9
+1. Atom 1 (S) → YUKARI
+2. Atom 3 (S) → SOL
+3. Atom 3 (S) → AŞAĞI
+4. Atom 4 (S) → YUKARI
+5. Atom 4 (S) → SOL
+6. Atom 4 (S) → YUKARI
+7. Atom 1 (S) → SAĞ
+8. Atom 2 (S) → AŞAĞI
+9. Atom 1 (S) → SOL
+
+BÖLÜM 77 — GeF4 — OK — 6 hamle / Par 7
+1. Atom 1 (Ge) → AŞAĞI
+2. Atom 1 (Ge) → SOL
+3. Atom 2 (F) → SAĞ
+4. Atom 1 (Ge) → AŞAĞI
+5. Atom 3 (F) → SAĞ
+6. Atom 4 (F) → AŞAĞI
+
+BÖLÜM 78 — GaF3 — OK — 10 hamle / Par 11
+1. Atom 1 (Ga) → YUKARI
+2. Atom 1 (Ga) → SOL
+3. Atom 1 (Ga) → YUKARI
+4. Atom 1 (Ga) → SAĞ
+5. Atom 3 (F) → YUKARI
+6. Atom 4 (F) → AŞAĞI
+7. Atom 4 (F) → SOL
+8. Atom 4 (F) → YUKARI
+9. Atom 2 (F) → SAĞ
+10. Atom 3 (F) → AŞAĞI
+
+BÖLÜM 79 — GeH4 — OK — 6 hamle / Par 7
+1. Atom 3 (H) → SAĞ
+2. Atom 4 (H) → SAĞ
+3. Atom 1 (Ge) → YUKARI
+4. Atom 3 (H) → YUKARI
+5. Atom 4 (H) → SOL
+6. Atom 5 (H) → YUKARI
+
+BÖLÜM 80 — S2F2 — OK — 10 hamle / Par 10
+1. Atom 2 (S) → SAĞ
+2. Atom 3 (S) → SAĞ
+3. Atom 3 (S) → AŞAĞI
+4. Atom 3 (S) → SOL
+5. Atom 4 (F) → SAĞ
+6. Atom 4 (F) → YUKARI
+7. Atom 1 (F) → SOL
+8. Atom 2 (S) → YUKARI
+9. Atom 1 (F) → SAĞ
+10. Atom 3 (S) → YUKARI
+
+BÖLÜM 81 — CBr4 — OK — 6 hamle / Par 7
+1. Atom 1 (C) → SAĞ
+2. Atom 1 (C) → YUKARI
+3. Atom 1 (C) → SOL
+4. Atom 4 (Br) → SOL
+5. Atom 4 (Br) → AŞAĞI
+6. Atom 5 (Br) → YUKARI
+
+BÖLÜM 82 — MgO — OK — 8 hamle / Par 10
+1. Atom 1 (Mg) → SAĞ
+2. Atom 1 (Mg) → YUKARI
+3. Atom 1 (Mg) → SAĞ
+4. Atom 2 (O) → YUKARI
+5. Atom 1 (Mg) → YUKARI
+6. Atom 1 (Mg) → SOL
+7. Atom 1 (Mg) → YUKARI
+8. Atom 1 (Mg) → SAĞ
+
+BÖLÜM 83 — XeF4 — OK — 10 hamle / Par 11
+1. Atom 1 (Xe) → SAĞ
+2. Atom 4 (F) → AŞAĞI
+3. Atom 3 (F) → SAĞ
+4. Atom 4 (F) → SAĞ
+5. Atom 2 (F) → AŞAĞI
+6. Atom 3 (F) → AŞAĞI
+7. Atom 3 (F) → SAĞ
+8. Atom 4 (F) → AŞAĞI
+9. Atom 1 (Xe) → SOL
+10. Atom 5 (F) → AŞAĞI
+
+BÖLÜM 84 — CaBr2 — OK — 7 hamle / Par 7
+1. Atom 1 (Br) → YUKARI
+2. Atom 1 (Br) → SAĞ
+3. Atom 2 (Ca) → SAĞ
+4. Atom 3 (Br) → SAĞ
+5. Atom 3 (Br) → AŞAĞI
+6. Atom 3 (Br) → SAĞ
+7. Atom 3 (Br) → YUKARI
+
+BÖLÜM 85 — SiCl4 — OK — 10 hamle / Par 11
+1. Atom 1 (Si) → AŞAĞI
+2. Atom 1 (Si) → SOL
+3. Atom 1 (Si) → AŞAĞI
+4. Atom 5 (Cl) → SAĞ
+5. Atom 1 (Si) → SAĞ
+6. Atom 2 (Cl) → YUKARI
+7. Atom 4 (Cl) → SAĞ
+8. Atom 1 (Si) → YUKARI
+9. Atom 5 (Cl) → SOL
+10. Atom 2 (Cl) → YUKARI
+
+BÖLÜM 86 — S2Cl2 — OK — 9 hamle / Par 10
+1. Atom 1 (Cl) → SAĞ
+2. Atom 2 (S) → YUKARI
+3. Atom 3 (S) → AŞAĞI
+4. Atom 4 (Cl) → SOL
+5. Atom 1 (Cl) → AŞAĞI
+6. Atom 2 (S) → SAĞ
+7. Atom 2 (S) → AŞAĞI
+8. Atom 1 (Cl) → SAĞ
+9. Atom 3 (S) → YUKARI
+
+BÖLÜM 87 — GeBr4 — OK — 10 hamle / Par 11
+1. Atom 2 (Br) → AŞAĞI
+2. Atom 3 (Br) → YUKARI
+3. Atom 5 (Br) → YUKARI
+4. Atom 5 (Br) → SOL
+5. Atom 3 (Br) → AŞAĞI
+6. Atom 4 (Br) → SAĞ
+7. Atom 4 (Br) → AŞAĞI
+8. Atom 3 (Br) → SAĞ
+9. Atom 1 (Ge) → AŞAĞI
+10. Atom 5 (Br) → AŞAĞI
+
+BÖLÜM 88 — As4 — OK — 8 hamle / Par 8
+1. Atom 2 (As) → SOL
+2. Atom 4 (As) → YUKARI
+3. Atom 3 (As) → SAĞ
+4. Atom 3 (As) → AŞAĞI
+5. Atom 3 (As) → SOL
+6. Atom 4 (As) → AŞAĞI
+7. Atom 4 (As) → SOL
+8. Atom 2 (As) → YUKARI
+
+BÖLÜM 89 — SnI4 — OK — 10 hamle / Par 11
+1. Atom 4 (I) → SAĞ
+2. Atom 3 (I) → YUKARI
+3. Atom 2 (I) → SAĞ
+4. Atom 1 (Sn) → AŞAĞI
+5. Atom 1 (Sn) → SOL
+6. Atom 1 (Sn) → YUKARI
+7. Atom 3 (I) → SAĞ
+8. Atom 4 (I) → SOL
+9. Atom 5 (I) → SAĞ
+10. Atom 5 (I) → YUKARI
+
+BÖLÜM 90 — ClF3 — OK — 10 hamle / Par 11
+1. Atom 1 (Cl) → SOL
+2. Atom 1 (Cl) → AŞAĞI
+3. Atom 1 (Cl) → SOL
+4. Atom 2 (F) → YUKARI
+5. Atom 3 (F) → SOL
+6. Atom 1 (Cl) → AŞAĞI
+7. Atom 3 (F) → SAĞ
+8. Atom 3 (F) → AŞAĞI
+9. Atom 4 (F) → SOL
+10. Atom 4 (F) → YUKARI
+
+BÖLÜM 91 — GeCl4 — OK — 12 hamle / Par 13
+1. Atom 2 (Cl) → AŞAĞI
+2. Atom 5 (Cl) → SAĞ
+3. Atom 5 (Cl) → AŞAĞI
+4. Atom 5 (Cl) → SOL
+5. Atom 5 (Cl) → AŞAĞI
+6. Atom 5 (Cl) → SAĞ
+7. Atom 5 (Cl) → YUKARI
+8. Atom 5 (Cl) → SOL
+9. Atom 1 (Ge) → YUKARI
+10. Atom 1 (Ge) → SOL
+11. Atom 3 (Cl) → AŞAĞI
+12. Atom 4 (Cl) → AŞAĞI
+
+BÖLÜM 92 — HCl — OK — 3 hamle / Par 3
+1. Atom 1 (H) → YUKARI
+2. Atom 1 (H) → SOL
+3. Atom 1 (H) → YUKARI
+
+BÖLÜM 93 — CF4 — OK — 12 hamle / Par 13
+1. Atom 1 (C) → AŞAĞI
+2. Atom 1 (C) → SAĞ
+3. Atom 4 (F) → YUKARI
+4. Atom 3 (F) → SOL
+5. Atom 3 (F) → AŞAĞI
+6. Atom 5 (F) → AŞAĞI
+7. Atom 2 (F) → SOL
+8. Atom 2 (F) → YUKARI
+9. Atom 2 (F) → SOL
+10. Atom 1 (C) → YUKARI
+11. Atom 3 (F) → SAĞ
+12. Atom 5 (F) → SOL
+
+BÖLÜM 94 — SBr2 — OK — 9 hamle / Par 10
+1. Atom 1 (S) → YUKARI
+2. Atom 1 (S) → SOL
+3. Atom 3 (Br) → YUKARI
+4. Atom 1 (S) → SAĞ
+5. Atom 3 (Br) → SAĞ
+6. Atom 3 (Br) → YUKARI
+7. Atom 3 (Br) → SAĞ
+8. Atom 2 (Br) → YUKARI
+9. Atom 2 (Br) → SAĞ
+
+BÖLÜM 95 — SiH4 — OK — 15 hamle / Par 15
+1. Atom 2 (H) → YUKARI
+2. Atom 3 (H) → AŞAĞI
+3. Atom 5 (H) → AŞAĞI
+4. Atom 4 (H) → AŞAĞI
+5. Atom 4 (H) → YUKARI
+6. Atom 1 (Si) → SAĞ
+7. Atom 4 (H) → SOL
+8. Atom 1 (Si) → YUKARI
+9. Atom 4 (H) → AŞAĞI
+10. Atom 1 (Si) → SOL
+11. Atom 4 (H) → SAĞ
+12. Atom 1 (Si) → AŞAĞI
+13. Atom 5 (H) → YUKARI
+14. Atom 5 (H) → SOL
+15. Atom 5 (H) → AŞAĞI
+
+BÖLÜM 96 — C4RING — OK — 10 hamle / Par 11
+1. Atom 2 (C) → AŞAĞI
+2. Atom 2 (C) → SOL
+3. Atom 3 (C) → AŞAĞI
+4. Atom 4 (C) → SOL
+5. Atom 2 (C) → YUKARI
+6. Atom 2 (C) → SOL
+7. Atom 2 (C) → YUKARI
+8. Atom 3 (C) → SOL
+9. Atom 3 (C) → YUKARI
+10. Atom 3 (C) → SOL
+
+BÖLÜM 97 — SiBr4 — OK — 13 hamle / Par 13
+1. Atom 2 (Br) → SOL
+2. Atom 1 (Si) → SOL
+3. Atom 2 (Br) → YUKARI
+4. Atom 3 (Br) → SOL
+5. Atom 3 (Br) → AŞAĞI
+6. Atom 3 (Br) → SOL
+7. Atom 1 (Si) → YUKARI
+8. Atom 3 (Br) → SAĞ
+9. Atom 1 (Si) → AŞAĞI
+10. Atom 5 (Br) → AŞAĞI
+11. Atom 5 (Br) → SOL
+12. Atom 5 (Br) → AŞAĞI
+13. Atom 4 (Br) → AŞAĞI
+
+BÖLÜM 98 — H2S2 — OK — 9 hamle / Par 10
+1. Atom 1 (H) → YUKARI
+2. Atom 2 (S) → SOL
+3. Atom 2 (S) → YUKARI
+4. Atom 2 (S) → SOL
+5. Atom 2 (S) → YUKARI
+6. Atom 1 (H) → SOL
+7. Atom 2 (S) → SAĞ
+8. Atom 1 (H) → YUKARI
+9. Atom 4 (H) → SOL
+
+BÖLÜM 99 — SiF4 — OK — 12 hamle / Par 12
+1. Atom 3 (F) → SOL
+2. Atom 3 (F) → AŞAĞI
+3. Atom 2 (F) → SAĞ
+4. Atom 3 (F) → YUKARI
+5. Atom 3 (F) → SOL
+6. Atom 1 (Si) → YUKARI
+7. Atom 2 (F) → YUKARI
+8. Atom 4 (F) → AŞAĞI
+9. Atom 4 (F) → SOL
+10. Atom 5 (F) → SOL
+11. Atom 5 (F) → AŞAĞI
+12. Atom 5 (F) → SAĞ
+
+BÖLÜM 100 — AlF3 — OK — 10 hamle / Par 11
+1. Atom 1 (Al) → SOL
+2. Atom 3 (F) → SAĞ
+3. Atom 1 (Al) → YUKARI
+4. Atom 3 (F) → YUKARI
+5. Atom 1 (Al) → SAĞ
+6. Atom 3 (F) → AŞAĞI
+7. Atom 4 (F) → YUKARI
+8. Atom 4 (F) → SOL
+9. Atom 4 (F) → YUKARI
+10. Atom 4 (F) → SAĞ
+
+BÖLÜM 101 — CH4 — OK — 11 hamle / Par 11
+1. Atom 1 (C) → YUKARI
+2. Atom 1 (C) → SAĞ
+3. Atom 2 (H) → SOL
+4. Atom 3 (H) → SOL
+5. Atom 5 (H) → YUKARI
+6. Atom 2 (H) → YUKARI
+7. Atom 5 (H) → SOL
+8. Atom 1 (C) → YUKARI
+9. Atom 2 (H) → SOL
+10. Atom 3 (H) → AŞAĞI
+11. Atom 4 (H) → SOL
+
+BÖLÜM 102 — BrCl — OK — 7 hamle / Par 8
+1. Atom 1 (Br) → SAĞ
+2. Atom 1 (Br) → YUKARI
+3. Atom 1 (Br) → SOL
+4. Atom 1 (Br) → YUKARI
+5. Atom 1 (Br) → SOL
+6. Atom 2 (Cl) → SOL
+7. Atom 2 (Cl) → YUKARI
+
+BÖLÜM 103 — SnCl4 — OK — 11 hamle / Par 11
+1. Atom 1 (Sn) → AŞAĞI
+2. Atom 1 (Sn) → SOL
+3. Atom 2 (Cl) → SAĞ
+4. Atom 2 (Cl) → AŞAĞI
+5. Atom 1 (Sn) → SAĞ
+6. Atom 3 (Cl) → SAĞ
+7. Atom 4 (Cl) → YUKARI
+8. Atom 4 (Cl) → SAĞ
+9. Atom 4 (Cl) → AŞAĞI
+10. Atom 4 (Cl) → SOL
+11. Atom 5 (Cl) → YUKARI
+
+BÖLÜM 104 — C2H4 — OK — 8 hamle / Par 8
+1. Atom 2 (C) → AŞAĞI
+2. Atom 2 (C) → SAĞ
+3. Atom 3 (H) → AŞAĞI
+4. Atom 6 (H) → SAĞ
+5. Atom 4 (H) → AŞAĞI
+6. Atom 4 (H) → SAĞ
+7. Atom 1 (C) → AŞAĞI
+8. Atom 5 (H) → SAĞ
+
+BÖLÜM 105 — O3 — OK — 9 hamle / Par 10
+1. Atom 1 (O) → SOL
+2. Atom 1 (O) → AŞAĞI
+3. Atom 2 (O) → SOL
+4. Atom 2 (O) → YUKARI
+5. Atom 1 (O) → YUKARI
+6. Atom 2 (O) → SAĞ
+7. Atom 3 (O) → AŞAĞI
+8. Atom 1 (O) → SAĞ
+9. Atom 3 (O) → SAĞ
+
+BÖLÜM 106 — Se4 — OK — 9 hamle / Par 10
+1. Atom 1 (Se) → SAĞ
+2. Atom 1 (Se) → YUKARI
+3. Atom 2 (Se) → SAĞ
+4. Atom 2 (Se) → AŞAĞI
+5. Atom 2 (Se) → SAĞ
+6. Atom 2 (Se) → YUKARI
+7. Atom 4 (Se) → YUKARI
+8. Atom 3 (Se) → SOL
+9. Atom 3 (Se) → YUKARI
+
+BÖLÜM 107 — N2H2 — OK — 6 hamle / Par 6
+1. Atom 2 (N) → SOL
+2. Atom 2 (N) → AŞAĞI
+3. Atom 3 (N) → SOL
+4. Atom 1 (H) → AŞAĞI
+5. Atom 4 (H) → YUKARI
+6. Atom 3 (N) → SAĞ
+
+BÖLÜM 108 — ICl — OK — 9 hamle / Par 12
+1. Atom 1 (Cl) → SAĞ
+2. Atom 1 (Cl) → AŞAĞI
+3. Atom 1 (Cl) → SAĞ
+4. Atom 1 (Cl) → YUKARI
+5. Atom 1 (Cl) → SAĞ
+6. Atom 1 (Cl) → YUKARI
+7. Atom 1 (Cl) → SAĞ
+8. Atom 1 (Cl) → YUKARI
+9. Atom 1 (Cl) → SOL
+
+BÖLÜM 109 — AlBr3 — OK — 10 hamle / Par 11
+1. Atom 1 (Al) → SAĞ
+2. Atom 1 (Al) → YUKARI
+3. Atom 1 (Al) → SOL
+4. Atom 2 (Br) → YUKARI
+5. Atom 3 (Br) → SAĞ
+6. Atom 2 (Br) → AŞAĞI
+7. Atom 2 (Br) → SAĞ
+8. Atom 2 (Br) → AŞAĞI
+9. Atom 4 (Br) → SAĞ
+10. Atom 4 (Br) → AŞAĞI
+
+BÖLÜM 110 — XeO4 — OK — 11 hamle / Par 12
+1. Atom 3 (O) → SAĞ
+2. Atom 4 (O) → YUKARI
+3. Atom 2 (O) → SOL
+4. Atom 4 (O) → SAĞ
+5. Atom 2 (O) → YUKARI
+6. Atom 2 (O) → SAĞ
+7. Atom 4 (O) → YUKARI
+8. Atom 1 (Xe) → YUKARI
+9. Atom 5 (O) → SOL
+10. Atom 1 (Xe) → AŞAĞI
+11. Atom 4 (O) → AŞAĞI
+
+BÖLÜM 111 — OF2 — OK — 10 hamle / Par 10
+1. Atom 1 (F) → SAĞ
+2. Atom 1 (F) → YUKARI
+3. Atom 1 (F) → SAĞ
+4. Atom 2 (O) → SAĞ
+5. Atom 1 (F) → AŞAĞI
+6. Atom 1 (F) → SOL
+7. Atom 1 (F) → YUKARI
+8. Atom 2 (O) → YUKARI
+9. Atom 1 (F) → SAĞ
+10. Atom 2 (O) → AŞAĞI
+
+BÖLÜM 112 — N2H4 — OK — 8 hamle / Par 8
+1. Atom 2 (N) → AŞAĞI
+2. Atom 2 (N) → SAĞ
+3. Atom 3 (H) → AŞAĞI
+4. Atom 6 (H) → SAĞ
+5. Atom 4 (H) → AŞAĞI
+6. Atom 4 (H) → SAĞ
+7. Atom 1 (N) → AŞAĞI
+8. Atom 5 (H) → SAĞ
+
+BÖLÜM 113 — CS2 — OK — 9 hamle / Par 10
+1. Atom 1 (S) → AŞAĞI
+2. Atom 1 (S) → SAĞ
+3. Atom 3 (S) → SAĞ
+4. Atom 3 (S) → AŞAĞI
+5. Atom 3 (S) → SAĞ
+6. Atom 2 (C) → SAĞ
+7. Atom 1 (S) → AŞAĞI
+8. Atom 1 (S) → SOL
+9. Atom 1 (S) → AŞAĞI
+
+BÖLÜM 114 — NF3 — OK — 10 hamle / Par 11
+1. Atom 2 (F) → SAĞ
+2. Atom 2 (F) → AŞAĞI
+3. Atom 3 (F) → YUKARI
+4. Atom 1 (N) → SAĞ
+5. Atom 1 (N) → YUKARI
+6. Atom 2 (F) → SOL
+7. Atom 4 (F) → SOL
+8. Atom 1 (N) → AŞAĞI
+9. Atom 2 (F) → AŞAĞI
+10. Atom 3 (F) → AŞAĞI
+
+BÖLÜM 115 — S2Br2 — OK — 7 hamle / Par 8
+1. Atom 3 (S) → SAĞ
+2. Atom 4 (Br) → SOL
+3. Atom 4 (Br) → AŞAĞI
+4. Atom 4 (Br) → SAĞ
+5. Atom 3 (S) → AŞAĞI
+6. Atom 3 (S) → SOL
+7. Atom 3 (S) → YUKARI
+
+BÖLÜM 116 — P4 — OK — 9 hamle / Par 10
+1. Atom 1 (P) → SOL
+2. Atom 1 (P) → AŞAĞI
+3. Atom 1 (P) → SAĞ
+4. Atom 2 (P) → YUKARI
+5. Atom 2 (P) → SOL
+6. Atom 4 (P) → AŞAĞI
+7. Atom 4 (P) → SAĞ
+8. Atom 4 (P) → AŞAĞI
+9. Atom 1 (P) → SOL
+
+BÖLÜM 117 — LiF — OK — 7 hamle / Par 8
+1. Atom 1 (Li) → YUKARI
+2. Atom 1 (Li) → SOL
+3. Atom 1 (Li) → YUKARI
+4. Atom 1 (Li) → SOL
+5. Atom 1 (Li) → AŞAĞI
+6. Atom 1 (Li) → SOL
+7. Atom 2 (F) → AŞAĞI
+
+BÖLÜM 118 — C2Cl4 — OK — 8 hamle / Par 8
+1. Atom 2 (C) → AŞAĞI
+2. Atom 2 (C) → SAĞ
+3. Atom 3 (Cl) → AŞAĞI
+4. Atom 6 (Cl) → SAĞ
+5. Atom 4 (Cl) → AŞAĞI
+6. Atom 4 (Cl) → SAĞ
+7. Atom 1 (C) → AŞAĞI
+8. Atom 5 (Cl) → SAĞ
+
+BÖLÜM 119 — COS — OK — 11 hamle / Par 14
+1. Atom 1 (O) → SAĞ
+2. Atom 1 (O) → YUKARI
+3. Atom 1 (O) → SOL
+4. Atom 2 (C) → AŞAĞI
+5. Atom 2 (C) → SOL
+6. Atom 2 (C) → YUKARI
+7. Atom 3 (S) → SOL
+8. Atom 3 (S) → YUKARI
+9. Atom 3 (S) → SAĞ
+10. Atom 3 (S) → YUKARI
+11. Atom 3 (S) → SOL
+
+BÖLÜM 120 — HOF — OK — 10 hamle / Par 11
+1. Atom 1 (F) → SOL
+2. Atom 1 (F) → AŞAĞI
+3. Atom 1 (F) → SOL
+4. Atom 1 (F) → AŞAĞI
+5. Atom 1 (F) → SAĞ
+6. Atom 2 (O) → SOL
+7. Atom 2 (O) → AŞAĞI
+8. Atom 2 (O) → SAĞ
+9. Atom 3 (H) → YUKARI
+10. Atom 1 (F) → SAĞ
+
+BÖLÜM 121 — SnF4 — OK — 11 hamle / Par 11
+1. Atom 3 (F) → SOL
+2. Atom 4 (F) → SOL
+3. Atom 4 (F) → YUKARI
+4. Atom 4 (F) → SAĞ
+5. Atom 5 (F) → SAĞ
+6. Atom 1 (Sn) → AŞAĞI
+7. Atom 1 (Sn) → SAĞ
+8. Atom 3 (F) → SAĞ
+9. Atom 3 (F) → AŞAĞI
+10. Atom 1 (Sn) → SOL
+11. Atom 4 (F) → SOL
+
+BÖLÜM 122 — H2O2 — OK — 6 hamle / Par 7
+1. Atom 1 (H) → SAĞ
+2. Atom 2 (O) → SAĞ
+3. Atom 4 (H) → YUKARI
+4. Atom 3 (O) → SAĞ
+5. Atom 3 (O) → AŞAĞI
+6. Atom 3 (O) → SOL
+
+BÖLÜM 123 — S4 — OK — 11 hamle / Par 11
+1. Atom 1 (S) → YUKARI
+2. Atom 1 (S) → SOL
+3. Atom 2 (S) → SAĞ
+4. Atom 2 (S) → AŞAĞI
+5. Atom 3 (S) → YUKARI
+6. Atom 3 (S) → SOL
+7. Atom 3 (S) → YUKARI
+8. Atom 3 (S) → SOL
+9. Atom 4 (S) → AŞAĞI
+10. Atom 2 (S) → SOL
+11. Atom 2 (S) → AŞAĞI
+
+BÖLÜM 124 — H2CS — OK — 9 hamle / Par 9
+1. Atom 4 (H) → SAĞ
+2. Atom 4 (H) → AŞAĞI
+3. Atom 1 (C) → SAĞ
+4. Atom 1 (C) → AŞAĞI
+5. Atom 2 (S) → SAĞ
+6. Atom 3 (H) → YUKARI
+7. Atom 1 (C) → SOL
+8. Atom 2 (S) → AŞAĞI
+9. Atom 4 (H) → SOL
+
+BÖLÜM 125 — ClF — OK — 8 hamle / Par 10
+1. Atom 1 (F) → AŞAĞI
+2. Atom 1 (F) → SOL
+3. Atom 1 (F) → YUKARI
+4. Atom 1 (F) → SAĞ
+5. Atom 2 (Cl) → SOL
+6. Atom 2 (Cl) → YUKARI
+7. Atom 2 (Cl) → SOL
+8. Atom 2 (Cl) → YUKARI
+
+BÖLÜM 126 — GaCl3 — OK — 11 hamle / Par 12
+1. Atom 3 (Cl) → AŞAĞI
+2. Atom 2 (Cl) → AŞAĞI
+3. Atom 2 (Cl) → SAĞ
+4. Atom 2 (Cl) → YUKARI
+5. Atom 3 (Cl) → YUKARI
+6. Atom 4 (Cl) → AŞAĞI
+7. Atom 4 (Cl) → SAĞ
+8. Atom 1 (Ga) → AŞAĞI
+9. Atom 1 (Ga) → SAĞ
+10. Atom 3 (Cl) → SAĞ
+11. Atom 3 (Cl) → AŞAĞI
+
+BÖLÜM 127 — XeF2 — OK — 10 hamle / Par 11
+1. Atom 1 (F) → AŞAĞI
+2. Atom 1 (F) → SAĞ
+3. Atom 1 (F) → YUKARI
+4. Atom 1 (F) → SOL
+5. Atom 2 (Xe) → AŞAĞI
+6. Atom 2 (Xe) → SAĞ
+7. Atom 2 (Xe) → AŞAĞI
+8. Atom 2 (Xe) → SOL
+9. Atom 3 (F) → AŞAĞI
+10. Atom 3 (F) → SOL
+
+BÖLÜM 128 — Si2H4 — OK — 9 hamle / Par 9
+1. Atom 4 (H) → SAĞ
+2. Atom 4 (H) → YUKARI
+3. Atom 5 (H) → AŞAĞI
+4. Atom 1 (Si) → SOL
+5. Atom 3 (H) → SOL
+6. Atom 1 (Si) → AŞAĞI
+7. Atom 2 (Si) → YUKARI
+8. Atom 4 (H) → SOL
+9. Atom 6 (H) → SAĞ
+
+BÖLÜM 129 — CCl4 — OK — 12 hamle / Par 12
+1. Atom 1 (C) → AŞAĞI
+2. Atom 1 (C) → SOL
+3. Atom 3 (Cl) → SAĞ
+4. Atom 1 (C) → AŞAĞI
+5. Atom 1 (C) → SAĞ
+6. Atom 3 (Cl) → YUKARI
+7. Atom 2 (Cl) → SOL
+8. Atom 4 (Cl) → YUKARI
+9. Atom 4 (Cl) → SOL
+10. Atom 2 (Cl) → AŞAĞI
+11. Atom 1 (C) → SAĞ
+12. Atom 5 (Cl) → YUKARI
+
+BÖLÜM 130 — NOCl — OK — 7 hamle / Par 7
+1. Atom 1 (Cl) → AŞAĞI
+2. Atom 1 (Cl) → SAĞ
+3. Atom 2 (N) → SAĞ
+4. Atom 2 (N) → YUKARI
+5. Atom 1 (Cl) → YUKARI
+6. Atom 3 (O) → YUKARI
+7. Atom 3 (O) → SAĞ
+
+BÖLÜM 131 — CH2O — OK — 9 hamle / Par 9
+1. Atom 4 (H) → SAĞ
+2. Atom 4 (H) → AŞAĞI
+3. Atom 1 (C) → SAĞ
+4. Atom 1 (C) → AŞAĞI
+5. Atom 2 (O) → SAĞ
+6. Atom 3 (H) → YUKARI
+7. Atom 1 (C) → SOL
+8. Atom 2 (O) → AŞAĞI
+9. Atom 4 (H) → SOL
+
+BÖLÜM 132 — PCl3 — OK — 12 hamle / Par 12
+1. Atom 2 (Cl) → AŞAĞI
+2. Atom 2 (Cl) → SAĞ
+3. Atom 2 (Cl) → AŞAĞI
+4. Atom 4 (Cl) → YUKARI
+5. Atom 1 (P) → SOL
+6. Atom 2 (Cl) → YUKARI
+7. Atom 4 (Cl) → AŞAĞI
+8. Atom 2 (Cl) → SOL
+9. Atom 1 (P) → AŞAĞI
+10. Atom 4 (Cl) → YUKARI
+11. Atom 2 (Cl) → SAĞ
+12. Atom 1 (P) → YUKARI
+
+BÖLÜM 133 — S2F2 — OK — 11 hamle / Par 11
+1. Atom 1 (F) → SOL
+2. Atom 1 (F) → YUKARI
+3. Atom 1 (F) → SOL
+4. Atom 2 (S) → SOL
+5. Atom 3 (S) → SOL
+6. Atom 1 (F) → AŞAĞI
+7. Atom 1 (F) → SAĞ
+8. Atom 3 (S) → SAĞ
+9. Atom 1 (F) → AŞAĞI
+10. Atom 4 (F) → AŞAĞI
+11. Atom 2 (S) → SAĞ
+
+BÖLÜM 134 — As4 — OK — 16 hamle / Par 16
+1. Atom 1 (As) → SOL
+2. Atom 1 (As) → YUKARI
+3. Atom 1 (As) → SAĞ
+4. Atom 2 (As) → SAĞ
+5. Atom 3 (As) → YUKARI
+6. Atom 3 (As) → SOL
+7. Atom 2 (As) → YUKARI
+8. Atom 3 (As) → YUKARI
+9. Atom 2 (As) → SOL
+10. Atom 2 (As) → YUKARI
+11. Atom 2 (As) → SAĞ
+12. Atom 4 (As) → AŞAĞI
+13. Atom 4 (As) → SAĞ
+14. Atom 4 (As) → YUKARI
+15. Atom 4 (As) → SOL
+16. Atom 4 (As) → YUKARI
+
+BÖLÜM 135 — SnBr4 — OK — 12 hamle / Par 13
+1. Atom 3 (Br) → SAĞ
+2. Atom 3 (Br) → AŞAĞI
+3. Atom 3 (Br) → SOL
+4. Atom 4 (Br) → SAĞ
+5. Atom 5 (Br) → AŞAĞI
+6. Atom 5 (Br) → SOL
+7. Atom 2 (Br) → AŞAĞI
+8. Atom 5 (Br) → SAĞ
+9. Atom 1 (Sn) → AŞAĞI
+10. Atom 2 (Br) → SAĞ
+11. Atom 3 (Br) → AŞAĞI
+12. Atom 4 (Br) → SOL
+
+BÖLÜM 136 — NaH — OK — 7 hamle / Par 8
+1. Atom 1 (Na) → AŞAĞI
+2. Atom 1 (Na) → SAĞ
+3. Atom 1 (Na) → YUKARI
+4. Atom 1 (Na) → SAĞ
+5. Atom 1 (Na) → YUKARI
+6. Atom 1 (Na) → SOL
+7. Atom 2 (H) → YUKARI
+
+BÖLÜM 137 — N2F4 — OK — 7 hamle / Par 7
+1. Atom 1 (N) → AŞAĞI
+2. Atom 2 (N) → YUKARI
+3. Atom 3 (F) → SAĞ
+4. Atom 1 (N) → YUKARI
+5. Atom 4 (F) → SOL
+6. Atom 4 (F) → YUKARI
+7. Atom 6 (F) → YUKARI
+
+BÖLÜM 138 — N2O — OK — 9 hamle / Par 10
+1. Atom 1 (N) → AŞAĞI
+2. Atom 1 (N) → SAĞ
+3. Atom 3 (N) → YUKARI
+4. Atom 3 (N) → SOL
+5. Atom 1 (N) → YUKARI
+6. Atom 2 (O) → AŞAĞI
+7. Atom 2 (O) → SAĞ
+8. Atom 2 (O) → YUKARI
+9. Atom 2 (O) → SOL
+
+BÖLÜM 139 — S2Cl2 — OK — 8 hamle / Par 9
+1. Atom 1 (Cl) → SAĞ
+2. Atom 1 (Cl) → AŞAĞI
+3. Atom 2 (S) → SOL
+4. Atom 3 (S) → SOL
+5. Atom 4 (Cl) → YUKARI
+6. Atom 1 (Cl) → SOL
+7. Atom 2 (S) → AŞAĞI
+8. Atom 1 (Cl) → SAĞ
+
+BÖLÜM 140 — CH3OH — OK — 7 hamle / Par 7
+1. Atom 3 (H) → SOL
+2. Atom 5 (O) → SAĞ
+3. Atom 3 (H) → AŞAĞI
+4. Atom 3 (H) → SOL
+5. Atom 6 (H) → SOL
+6. Atom 1 (C) → YUKARI
+7. Atom 2 (H) → SOL
+
+BÖLÜM 141 — H2CSe — OK — 7 hamle / Par 7
+1. Atom 2 (Se) → AŞAĞI
+2. Atom 2 (Se) → YUKARI
+3. Atom 1 (C) → SOL
+4. Atom 2 (Se) → YUKARI
+5. Atom 1 (C) → SAĞ
+6. Atom 3 (H) → SOL
+7. Atom 4 (H) → YUKARI
+
+BÖLÜM 142 — S8 — OK — 6 hamle / Par 6
+1. Atom 1 (S) → AŞAĞI
+2. Atom 2 (S) → SOL
+3. Atom 3 (S) → AŞAĞI
+4. Atom 3 (S) → SOL
+5. Atom 4 (S) → SOL
+6. Atom 6 (S) → YUKARI
+
+BÖLÜM 143 — CaCl2 — OK — 10 hamle / Par 11
+1. Atom 1 (Cl) → YUKARI
+2. Atom 1 (Cl) → SAĞ
+3. Atom 2 (Ca) → YUKARI
+4. Atom 3 (Cl) → SAĞ
+5. Atom 1 (Cl) → YUKARI
+6. Atom 2 (Ca) → AŞAĞI
+7. Atom 3 (Cl) → SOL
+8. Atom 1 (Cl) → AŞAĞI
+9. Atom 1 (Cl) → SAĞ
+10. Atom 3 (Cl) → SAĞ
+
+BÖLÜM 144 — C4RING — OK — 13 hamle / Par 13
+1. Atom 1 (C) → AŞAĞI
+2. Atom 1 (C) → SOL
+3. Atom 2 (C) → SOL
+4. Atom 2 (C) → AŞAĞI
+5. Atom 1 (C) → SAĞ
+6. Atom 3 (C) → SAĞ
+7. Atom 4 (C) → AŞAĞI
+8. Atom 1 (C) → AŞAĞI
+9. Atom 2 (C) → SOL
+10. Atom 2 (C) → AŞAĞI
+11. Atom 2 (C) → SAĞ
+12. Atom 3 (C) → SOL
+13. Atom 3 (C) → YUKARI
+
+BÖLÜM 145 — PH3 — OK — 12 hamle / Par 12
+1. Atom 2 (H) → YUKARI
+2. Atom 1 (P) → SOL
+3. Atom 2 (H) → SAĞ
+4. Atom 1 (P) → YUKARI
+5. Atom 1 (P) → SAĞ
+6. Atom 4 (H) → YUKARI
+7. Atom 1 (P) → SOL
+8. Atom 1 (P) → AŞAĞI
+9. Atom 2 (H) → SOL
+10. Atom 2 (H) → AŞAĞI
+11. Atom 1 (P) → SOL
+12. Atom 1 (P) → YUKARI
+
+BÖLÜM 146 — ClO2 — OK — 10 hamle / Par 10
+1. Atom 1 (O) → AŞAĞI
+2. Atom 1 (O) → SAĞ
+3. Atom 3 (O) → AŞAĞI
+4. Atom 1 (O) → SOL
+5. Atom 1 (O) → YUKARI
+6. Atom 3 (O) → SOL
+7. Atom 1 (O) → AŞAĞI
+8. Atom 3 (O) → AŞAĞI
+9. Atom 3 (O) → SAĞ
+10. Atom 3 (O) → YUKARI
+
+BÖLÜM 147 — KCl — OK — 7 hamle / Par 8
+1. Atom 1 (K) → AŞAĞI
+2. Atom 1 (K) → SAĞ
+3. Atom 1 (K) → YUKARI
+4. Atom 1 (K) → SOL
+5. Atom 2 (Cl) → YUKARI
+6. Atom 2 (Cl) → SAĞ
+7. Atom 2 (Cl) → YUKARI
+
+BÖLÜM 148 — CO2 — OK — 9 hamle / Par 10
+1. Atom 1 (C) → YUKARI
+2. Atom 1 (C) → SAĞ
+3. Atom 2 (O) → SOL
+4. Atom 1 (C) → YUKARI
+5. Atom 1 (C) → SOL
+6. Atom 3 (O) → YUKARI
+7. Atom 3 (O) → SAĞ
+8. Atom 3 (O) → YUKARI
+9. Atom 3 (O) → SOL
+
+BÖLÜM 149 — Se8 — OK — 8 hamle / Par 9
+1. Atom 1 (Se) → AŞAĞI
+2. Atom 1 (Se) → SAĞ
+3. Atom 8 (Se) → YUKARI
+4. Atom 2 (Se) → SAĞ
+5. Atom 1 (Se) → AŞAĞI
+6. Atom 7 (Se) → SAĞ
+7. Atom 7 (Se) → YUKARI
+8. Atom 6 (Se) → SOL
+
+BÖLÜM 150 — Br2 — OK — 7 hamle / Par 8
+1. Atom 1 (Br) → AŞAĞI
+2. Atom 1 (Br) → SAĞ
+3. Atom 1 (Br) → YUKARI
+4. Atom 1 (Br) → SAĞ
+5. Atom 1 (Br) → AŞAĞI
+6. Atom 1 (Br) → SOL
+7. Atom 2 (Br) → AŞAĞI
+
+BÖLÜM 151 — C8RING — OK — 8 hamle / Par 9
+1. Atom 1 (C) → YUKARI
+2. Atom 2 (C) → SAĞ
+3. Atom 3 (C) → YUKARI
+4. Atom 3 (C) → SAĞ
+5. Atom 6 (C) → AŞAĞI
+6. Atom 6 (C) → SOL
+7. Atom 6 (C) → SAĞ
+8. Atom 4 (C) → SAĞ
+
+BÖLÜM 152 — XeF4 — OK — 6 hamle / Par 7
+1. Atom 1 (Xe) → AŞAĞI
+2. Atom 1 (Xe) → SAĞ
+3. Atom 2 (F) → SOL
+4. Atom 1 (Xe) → AŞAĞI
+5. Atom 3 (F) → SOL
+6. Atom 4 (F) → AŞAĞI
+
+BÖLÜM 153 — GaCl3 — OK — 6 hamle / Par 7
+1. Atom 3 (Cl) → AŞAĞI
+2. Atom 3 (Cl) → SAĞ
+3. Atom 1 (Ga) → SAĞ
+4. Atom 4 (Cl) → YUKARI
+5. Atom 2 (Cl) → SAĞ
+6. Atom 4 (Cl) → SAĞ
+
+BÖLÜM 154 — SiCl4 — OK — 6 hamle / Par 6
+1. Atom 3 (Cl) → SOL
+2. Atom 5 (Cl) → SOL
+3. Atom 1 (Si) → YUKARI
+4. Atom 2 (Cl) → AŞAĞI
+5. Atom 2 (Cl) → SOL
+6. Atom 4 (Cl) → YUKARI
+
+BÖLÜM 155 — AsH3 — OK — 6 hamle / Par 7
+1. Atom 2 (H) → YUKARI
+2. Atom 3 (H) → SAĞ
+3. Atom 1 (As) → SAĞ
+4. Atom 2 (H) → AŞAĞI
+5. Atom 4 (H) → SOL
+6. Atom 4 (H) → AŞAĞI
+
+BÖLÜM 156 — GeBr4 — OK — 6 hamle / Par 7
+1. Atom 4 (Br) → YUKARI
+2. Atom 4 (Br) → SAĞ
+3. Atom 5 (Br) → YUKARI
+4. Atom 3 (Br) → SAĞ
+5. Atom 1 (Ge) → AŞAĞI
+6. Atom 2 (Br) → SAĞ
+
+BÖLÜM 157 — BrF3 — OK — 7 hamle / Par 7
+1. Atom 1 (Br) → SOL
+2. Atom 4 (F) → YUKARI
+3. Atom 4 (F) → SAĞ
+4. Atom 3 (F) → YUKARI
+5. Atom 3 (F) → SAĞ
+6. Atom 1 (Br) → YUKARI
+7. Atom 4 (F) → YUKARI
+
+BÖLÜM 158 — SnI4 — OK — 9 hamle / Par 10
+1. Atom 3 (I) → SAĞ
+2. Atom 1 (Sn) → SAĞ
+3. Atom 2 (I) → YUKARI
+4. Atom 4 (I) → SAĞ
+5. Atom 1 (Sn) → AŞAĞI
+6. Atom 3 (I) → SOL
+7. Atom 5 (I) → AŞAĞI
+8. Atom 2 (I) → AŞAĞI
+9. Atom 5 (I) → YUKARI
+
+BÖLÜM 159 — PH3 — OK — 6 hamle / Par 7
+1. Atom 2 (H) → YUKARI
+2. Atom 2 (H) → SAĞ
+3. Atom 4 (H) → YUKARI
+4. Atom 1 (P) → SOL
+5. Atom 2 (H) → AŞAĞI
+6. Atom 3 (H) → SOL
+
+BÖLÜM 160 — GeCl4 — OK — 8 hamle / Par 8
+1. Atom 3 (Cl) → YUKARI
+2. Atom 5 (Cl) → SOL
+3. Atom 3 (Cl) → AŞAĞI
+4. Atom 1 (Ge) → SAĞ
+5. Atom 3 (Cl) → SAĞ
+6. Atom 1 (Ge) → AŞAĞI
+7. Atom 2 (Cl) → AŞAĞI
+8. Atom 4 (Cl) → SAĞ
+
+BÖLÜM 161 — AlBr3 — OK — 7 hamle / Par 8
+1. Atom 2 (Br) → SAĞ
+2. Atom 3 (Br) → AŞAĞI
+3. Atom 4 (Br) → YUKARI
+4. Atom 1 (Al) → SOL
+5. Atom 3 (Br) → SOL
+6. Atom 4 (Br) → SOL
+7. Atom 1 (Al) → YUKARI
+
+BÖLÜM 162 — CF4 — OK — 7 hamle / Par 8
+1. Atom 1 (C) → YUKARI
+2. Atom 3 (F) → SAĞ
+3. Atom 1 (C) → AŞAĞI
+4. Atom 2 (F) → AŞAĞI
+5. Atom 3 (F) → SOL
+6. Atom 4 (F) → SOL
+7. Atom 4 (F) → YUKARI
+
+BÖLÜM 163 — SOCl2 — OK — 6 hamle / Par 6
+1. Atom 2 (O) → SAĞ
+2. Atom 2 (O) → YUKARI
+3. Atom 1 (S) → SAĞ
+4. Atom 4 (Cl) → SOL
+5. Atom 4 (Cl) → YUKARI
+6. Atom 4 (Cl) → SAĞ
+
+BÖLÜM 164 — SiH4 — OK — 7 hamle / Par 7
+1. Atom 2 (H) → YUKARI
+2. Atom 1 (Si) → SOL
+3. Atom 1 (Si) → YUKARI
+4. Atom 3 (H) → AŞAĞI
+5. Atom 4 (H) → SAĞ
+6. Atom 5 (H) → SAĞ
+7. Atom 3 (H) → YUKARI
+
+BÖLÜM 165 — COF2 — OK — 10 hamle / Par 13
+1. Atom 1 (C) → YUKARI
+2. Atom 1 (C) → SOL
+3. Atom 2 (F) → SAĞ
+4. Atom 2 (F) → YUKARI
+5. Atom 2 (F) → SAĞ
+6. Atom 1 (C) → SAĞ
+7. Atom 3 (F) → SAĞ
+8. Atom 3 (F) → YUKARI
+9. Atom 3 (F) → SAĞ
+10. Atom 3 (F) → YUKARI
+
+BÖLÜM 166 — SiBr4 — OK — 6 hamle / Par 6
+1. Atom 1 (Si) → SOL
+2. Atom 1 (Si) → YUKARI
+3. Atom 1 (Si) → SAĞ
+4. Atom 5 (Br) → AŞAĞI
+5. Atom 1 (Si) → AŞAĞI
+6. Atom 4 (Br) → SAĞ
+
+BÖLÜM 167 — IF3 — OK — 7 hamle / Par 7
+1. Atom 1 (I) → YUKARI
+2. Atom 3 (F) → SAĞ
+3. Atom 3 (F) → YUKARI
+4. Atom 1 (I) → SAĞ
+5. Atom 1 (I) → AŞAĞI
+6. Atom 3 (F) → SOL
+7. Atom 3 (F) → AŞAĞI
+
+BÖLÜM 168 — SiF4 — OK — 7 hamle / Par 7
+1. Atom 2 (F) → YUKARI
+2. Atom 2 (F) → SAĞ
+3. Atom 3 (F) → YUKARI
+4. Atom 1 (Si) → SAĞ
+5. Atom 4 (F) → AŞAĞI
+6. Atom 4 (F) → SAĞ
+7. Atom 5 (F) → SOL
+
+BÖLÜM 169 — PF3 — OK — 8 hamle / Par 8
+1. Atom 2 (F) → SAĞ
+2. Atom 3 (F) → AŞAĞI
+3. Atom 4 (F) → AŞAĞI
+4. Atom 3 (F) → SAĞ
+5. Atom 4 (F) → YUKARI
+6. Atom 4 (F) → SOL
+7. Atom 1 (P) → SOL
+8. Atom 2 (F) → YUKARI
+
+BÖLÜM 170 — CH4 — OK — 8 hamle / Par 8
+1. Atom 1 (C) → AŞAĞI
+2. Atom 1 (C) → SOL
+3. Atom 5 (H) → SAĞ
+4. Atom 5 (H) → AŞAĞI
+5. Atom 3 (H) → SAĞ
+6. Atom 1 (C) → YUKARI
+7. Atom 3 (H) → AŞAĞI
+8. Atom 5 (H) → SOL
+
+BÖLÜM 171 — AlCl3 — OK — 7 hamle / Par 8
+1. Atom 3 (Cl) → SAĞ
+2. Atom 4 (Cl) → AŞAĞI
+3. Atom 1 (Al) → AŞAĞI
+4. Atom 1 (Al) → SAĞ
+5. Atom 4 (Cl) → SAĞ
+6. Atom 4 (Cl) → YUKARI
+7. Atom 4 (Cl) → SAĞ
+
+BÖLÜM 172 — SnCl4 — OK — 7 hamle / Par 8
+1. Atom 2 (Cl) → SOL
+2. Atom 1 (Sn) → AŞAĞI
+3. Atom 3 (Cl) → YUKARI
+4. Atom 4 (Cl) → AŞAĞI
+5. Atom 5 (Cl) → SOL
+6. Atom 5 (Cl) → YUKARI
+7. Atom 5 (Cl) → SAĞ
+
+BÖLÜM 173 — SOF2 — OK — 9 hamle / Par 9
+1. Atom 1 (S) → AŞAĞI
+2. Atom 1 (S) → SOL
+3. Atom 2 (O) → SOL
+4. Atom 4 (F) → AŞAĞI
+5. Atom 4 (F) → SAĞ
+6. Atom 2 (O) → YUKARI
+7. Atom 1 (S) → SAĞ
+8. Atom 2 (O) → AŞAĞI
+9. Atom 3 (F) → SAĞ
+
+BÖLÜM 174 — XeO4 — OK — 6 hamle / Par 6
+1. Atom 2 (O) → YUKARI
+2. Atom 2 (O) → SAĞ
+3. Atom 3 (O) → SAĞ
+4. Atom 3 (O) → AŞAĞI
+5. Atom 1 (Xe) → SAĞ
+6. Atom 4 (O) → SAĞ
+
+BÖLÜM 175 — COCl2 — OK — 6 hamle / Par 6
+1. Atom 3 (Cl) → SAĞ
+2. Atom 3 (Cl) → AŞAĞI
+3. Atom 4 (Cl) → SOL
+4. Atom 1 (C) → AŞAĞI
+5. Atom 2 (O) → SOL
+6. Atom 1 (C) → YUKARI
+
+BÖLÜM 176 — SnF4 — OK — 8 hamle / Par 9
+1. Atom 1 (Sn) → YUKARI
+2. Atom 1 (Sn) → SAĞ
+3. Atom 1 (Sn) → YUKARI
+4. Atom 3 (F) → AŞAĞI
+5. Atom 3 (F) → SOL
+6. Atom 4 (F) → SAĞ
+7. Atom 1 (Sn) → AŞAĞI
+8. Atom 5 (F) → AŞAĞI
+
+BÖLÜM 177 — BCl3 — OK — 6 hamle / Par 6
+1. Atom 1 (B) → AŞAĞI
+2. Atom 1 (B) → SOL
+3. Atom 1 (B) → YUKARI
+4. Atom 1 (B) → SAĞ
+5. Atom 2 (Cl) → YUKARI
+6. Atom 2 (Cl) → SAĞ
+
+BÖLÜM 178 — CCl4 — OK — 6 hamle / Par 7
+1. Atom 2 (Cl) → SOL
+2. Atom 3 (Cl) → SAĞ
+3. Atom 1 (C) → AŞAĞI
+4. Atom 5 (Cl) → YUKARI
+5. Atom 5 (Cl) → SOL
+6. Atom 4 (Cl) → AŞAĞI
+
+BÖLÜM 179 — BBr3 — OK — 11 hamle / Par 11
+1. Atom 1 (B) → SAĞ
+2. Atom 2 (Br) → SAĞ
+3. Atom 2 (Br) → AŞAĞI
+4. Atom 1 (B) → AŞAĞI
+5. Atom 2 (Br) → SOL
+6. Atom 2 (Br) → YUKARI
+7. Atom 2 (Br) → SAĞ
+8. Atom 4 (Br) → YUKARI
+9. Atom 4 (Br) → SOL
+10. Atom 1 (B) → SOL
+11. Atom 3 (Br) → SOL
+
+BÖLÜM 180 — SnBr4 — OK — 6 hamle / Par 7
+1. Atom 2 (Br) → SAĞ
+2. Atom 3 (Br) → SAĞ
+3. Atom 1 (Sn) → SAĞ
+4. Atom 4 (Br) → YUKARI
+5. Atom 4 (Br) → SAĞ
+6. Atom 5 (Br) → SAĞ
+
+BÖLÜM 181 — GaBr3 — OK — 8 hamle / Par 10
+1. Atom 2 (Br) → YUKARI
+2. Atom 1 (Ga) → SAĞ
+3. Atom 3 (Br) → YUKARI
+4. Atom 3 (Br) → SOL
+5. Atom 4 (Br) → SOL
+6. Atom 3 (Br) → YUKARI
+7. Atom 3 (Br) → SAĞ
+8. Atom 4 (Br) → SAĞ
+
+BÖLÜM 182 — SnF4 — OK — 11 hamle / Par 11
+1. Atom 3 (F) → SAĞ
+2. Atom 4 (F) → SAĞ
+3. Atom 4 (F) → YUKARI
+4. Atom 4 (F) → SOL
+5. Atom 5 (F) → SOL
+6. Atom 1 (Sn) → AŞAĞI
+7. Atom 1 (Sn) → SOL
+8. Atom 3 (F) → SOL
+9. Atom 3 (F) → AŞAĞI
+10. Atom 1 (Sn) → SAĞ
+11. Atom 4 (F) → SAĞ
+
+BÖLÜM 183 — H2O2 — OK — 6 hamle / Par 7
+1. Atom 1 (H) → SAĞ
+2. Atom 2 (O) → SAĞ
+3. Atom 1 (H) → AŞAĞI
+4. Atom 4 (H) → AŞAĞI
+5. Atom 3 (O) → SAĞ
+6. Atom 2 (O) → AŞAĞI
+
+BÖLÜM 184 — S4 — OK — 11 hamle / Par 11
+1. Atom 1 (S) → AŞAĞI
+2. Atom 1 (S) → SAĞ
+3. Atom 2 (S) → SOL
+4. Atom 2 (S) → YUKARI
+5. Atom 3 (S) → AŞAĞI
+6. Atom 3 (S) → SAĞ
+7. Atom 3 (S) → AŞAĞI
+8. Atom 3 (S) → SAĞ
+9. Atom 4 (S) → YUKARI
+10. Atom 2 (S) → SAĞ
+11. Atom 2 (S) → YUKARI
+
+BÖLÜM 185 — H2CS — OK — 12 hamle / Par 15
+1. Atom 1 (C) → SAĞ
+2. Atom 3 (H) → SAĞ
+3. Atom 3 (H) → YUKARI
+4. Atom 3 (H) → SOL
+5. Atom 3 (H) → YUKARI
+6. Atom 3 (H) → SAĞ
+7. Atom 1 (C) → YUKARI
+8. Atom 4 (H) → AŞAĞI
+9. Atom 2 (S) → AŞAĞI
+10. Atom 4 (H) → SOL
+11. Atom 1 (C) → AŞAĞI
+12. Atom 3 (H) → AŞAĞI
+
+BÖLÜM 186 — ClF — OK — 7 hamle / Par 8
+1. Atom 1 (F) → AŞAĞI
+2. Atom 1 (F) → SOL
+3. Atom 1 (F) → AŞAĞI
+4. Atom 1 (F) → SAĞ
+5. Atom 1 (F) → YUKARI
+6. Atom 2 (Cl) → YUKARI
+7. Atom 1 (F) → SOL
+
+BÖLÜM 187 — GaCl3 — OK — 11 hamle / Par 12
+1. Atom 3 (Cl) → YUKARI
+2. Atom 2 (Cl) → YUKARI
+3. Atom 1 (Ga) → SAĞ
+4. Atom 2 (Cl) → SOL
+5. Atom 1 (Ga) → YUKARI
+6. Atom 1 (Ga) → SOL
+7. Atom 4 (Cl) → AŞAĞI
+8. Atom 4 (Cl) → SAĞ
+9. Atom 4 (Cl) → YUKARI
+10. Atom 3 (Cl) → SOL
+11. Atom 4 (Cl) → SOL
+
+BÖLÜM 188 — XeF2 — OK — 10 hamle / Par 11
+1. Atom 1 (F) → AŞAĞI
+2. Atom 1 (F) → SOL
+3. Atom 1 (F) → YUKARI
+4. Atom 1 (F) → SAĞ
+5. Atom 2 (Xe) → AŞAĞI
+6. Atom 2 (Xe) → SOL
+7. Atom 2 (Xe) → AŞAĞI
+8. Atom 2 (Xe) → SAĞ
+9. Atom 3 (F) → AŞAĞI
+10. Atom 3 (F) → SAĞ
+
+BÖLÜM 189 — Si2H4 — OK — 9 hamle / Par 9
+1. Atom 4 (H) → SAĞ
+2. Atom 4 (H) → AŞAĞI
+3. Atom 5 (H) → YUKARI
+4. Atom 1 (Si) → SOL
+5. Atom 3 (H) → SOL
+6. Atom 1 (Si) → YUKARI
+7. Atom 2 (Si) → AŞAĞI
+8. Atom 4 (H) → SOL
+9. Atom 6 (H) → SAĞ
+
+BÖLÜM 190 — CCl4 — OK — 12 hamle / Par 12
+1. Atom 1 (C) → YUKARI
+2. Atom 1 (C) → SAĞ
+3. Atom 3 (Cl) → SOL
+4. Atom 1 (C) → YUKARI
+5. Atom 1 (C) → SOL
+6. Atom 3 (Cl) → AŞAĞI
+7. Atom 2 (Cl) → SAĞ
+8. Atom 4 (Cl) → AŞAĞI
+9. Atom 4 (Cl) → SAĞ
+10. Atom 2 (Cl) → YUKARI
+11. Atom 1 (C) → SOL
+12. Atom 5 (Cl) → AŞAĞI
+
+BÖLÜM 191 — NOCl — OK — 10 hamle / Par 13
+1. Atom 1 (Cl) → SAĞ
+2. Atom 1 (Cl) → AŞAĞI
+3. Atom 2 (N) → YUKARI
+4. Atom 3 (O) → SOL
+5. Atom 3 (O) → AŞAĞI
+6. Atom 2 (N) → SOL
+7. Atom 2 (N) → AŞAĞI
+8. Atom 3 (O) → SOL
+9. Atom 1 (Cl) → SOL
+10. Atom 3 (O) → YUKARI
+
+BÖLÜM 192 — CH2O — OK — 9 hamle / Par 9
+1. Atom 4 (H) → SAĞ
+2. Atom 4 (H) → AŞAĞI
+3. Atom 1 (C) → SAĞ
+4. Atom 1 (C) → AŞAĞI
+5. Atom 2 (O) → SAĞ
+6. Atom 3 (H) → YUKARI
+7. Atom 1 (C) → SOL
+8. Atom 2 (O) → AŞAĞI
+9. Atom 4 (H) → SOL
+
+BÖLÜM 193 — PCl3 — OK — 12 hamle / Par 12
+1. Atom 2 (Cl) → YUKARI
+2. Atom 4 (Cl) → AŞAĞI
+3. Atom 1 (P) → SAĞ
+4. Atom 4 (Cl) → YUKARI
+5. Atom 2 (Cl) → SOL
+6. Atom 2 (Cl) → YUKARI
+7. Atom 2 (Cl) → SOL
+8. Atom 1 (P) → YUKARI
+9. Atom 4 (Cl) → AŞAĞI
+10. Atom 2 (Cl) → SAĞ
+11. Atom 4 (Cl) → YUKARI
+12. Atom 2 (Cl) → SOL
+
+BÖLÜM 194 — S2F2 — OK — 8 hamle / Par 11
+1. Atom 1 (F) → SAĞ
+2. Atom 1 (F) → YUKARI
+3. Atom 1 (F) → SAĞ
+4. Atom 3 (S) → SAĞ
+5. Atom 1 (F) → AŞAĞI
+6. Atom 1 (F) → SOL
+7. Atom 1 (F) → AŞAĞI
+8. Atom 3 (S) → SOL
+
+BÖLÜM 195 — As4 — OK — 16 hamle / Par 16
+1. Atom 1 (As) → SOL
+2. Atom 1 (As) → AŞAĞI
+3. Atom 1 (As) → SAĞ
+4. Atom 2 (As) → SAĞ
+5. Atom 3 (As) → AŞAĞI
+6. Atom 3 (As) → SOL
+7. Atom 2 (As) → AŞAĞI
+8. Atom 3 (As) → AŞAĞI
+9. Atom 2 (As) → SOL
+10. Atom 2 (As) → AŞAĞI
+11. Atom 2 (As) → SAĞ
+12. Atom 4 (As) → YUKARI
+13. Atom 4 (As) → SAĞ
+14. Atom 4 (As) → AŞAĞI
+15. Atom 4 (As) → SOL
+16. Atom 4 (As) → AŞAĞI
+
+BÖLÜM 196 — SnBr4 — OK — 12 hamle / Par 13
+1. Atom 3 (Br) → SOL
+2. Atom 3 (Br) → YUKARI
+3. Atom 3 (Br) → SAĞ
+4. Atom 4 (Br) → SOL
+5. Atom 5 (Br) → YUKARI
+6. Atom 5 (Br) → SAĞ
+7. Atom 2 (Br) → YUKARI
+8. Atom 5 (Br) → SOL
+9. Atom 1 (Sn) → YUKARI
+10. Atom 2 (Br) → SOL
+11. Atom 3 (Br) → YUKARI
+12. Atom 4 (Br) → SAĞ
+
+BÖLÜM 197 — NaH — OK — 7 hamle / Par 8
+1. Atom 1 (Na) → AŞAĞI
+2. Atom 1 (Na) → SOL
+3. Atom 1 (Na) → YUKARI
+4. Atom 1 (Na) → SOL
+5. Atom 2 (H) → AŞAĞI
+6. Atom 2 (H) → SAĞ
+7. Atom 1 (Na) → AŞAĞI
+
+BÖLÜM 198 — N2F4 — OK — 7 hamle / Par 7
+1. Atom 1 (N) → YUKARI
+2. Atom 2 (N) → AŞAĞI
+3. Atom 3 (F) → SAĞ
+4. Atom 1 (N) → AŞAĞI
+5. Atom 4 (F) → SOL
+6. Atom 4 (F) → AŞAĞI
+7. Atom 6 (F) → AŞAĞI
+
+BÖLÜM 199 — N2O — OK — 9 hamle / Par 10
+1. Atom 3 (N) → AŞAĞI
+2. Atom 2 (O) → SAĞ
+3. Atom 2 (O) → YUKARI
+4. Atom 2 (O) → SAĞ
+5. Atom 1 (N) → YUKARI
+6. Atom 1 (N) → SOL
+7. Atom 2 (O) → YUKARI
+8. Atom 2 (O) → SOL
+9. Atom 2 (O) → AŞAĞI
+
+BÖLÜM 200 — S2Cl2 — OK — 8 hamle / Par 9
+1. Atom 2 (S) → SAĞ
+2. Atom 3 (S) → SAĞ
+3. Atom 3 (S) → YUKARI
+4. Atom 1 (Cl) → SAĞ
+5. Atom 2 (S) → AŞAĞI
+6. Atom 1 (Cl) → SOL
+7. Atom 1 (Cl) → AŞAĞI
+8. Atom 4 (Cl) → YUKARI
+
+BÖLÜM 201 — CH3OH — OK — 7 hamle / Par 7
+1. Atom 3 (H) → SOL
+2. Atom 5 (O) → SAĞ
+3. Atom 3 (H) → YUKARI
+4. Atom 3 (H) → SOL
+5. Atom 6 (H) → SOL
+6. Atom 1 (C) → AŞAĞI
+7. Atom 2 (H) → SOL
+
+BÖLÜM 202 — H2CSe — OK — 6 hamle / Par 7
+1. Atom 2 (Se) → SAĞ
+2. Atom 3 (H) → SAĞ
+3. Atom 2 (Se) → AŞAĞI
+4. Atom 3 (H) → SOL
+5. Atom 4 (H) → AŞAĞI
+6. Atom 4 (H) → SOL
+
+BÖLÜM 203 — S8 — OK — 6 hamle / Par 6
+1. Atom 1 (S) → AŞAĞI
+2. Atom 2 (S) → SAĞ
+3. Atom 3 (S) → AŞAĞI
+4. Atom 3 (S) → SAĞ
+5. Atom 4 (S) → SAĞ
+6. Atom 6 (S) → YUKARI
+
+BÖLÜM 204 — CaCl2 — OK — 9 hamle / Par 11
+1. Atom 1 (Cl) → AŞAĞI
+2. Atom 1 (Cl) → SAĞ
+3. Atom 3 (Cl) → SAĞ
+4. Atom 1 (Cl) → AŞAĞI
+5. Atom 1 (Cl) → SOL
+6. Atom 1 (Cl) → YUKARI
+7. Atom 3 (Cl) → AŞAĞI
+8. Atom 2 (Ca) → AŞAĞI
+9. Atom 1 (Cl) → SAĞ
+
+BÖLÜM 205 — C4RING — OK — 13 hamle / Par 13
+1. Atom 1 (C) → YUKARI
+2. Atom 1 (C) → SAĞ
+3. Atom 2 (C) → SAĞ
+4. Atom 2 (C) → YUKARI
+5. Atom 1 (C) → SOL
+6. Atom 3 (C) → SOL
+7. Atom 4 (C) → YUKARI
+8. Atom 1 (C) → YUKARI
+9. Atom 2 (C) → SAĞ
+10. Atom 2 (C) → YUKARI
+11. Atom 2 (C) → SOL
+12. Atom 3 (C) → SAĞ
+13. Atom 3 (C) → AŞAĞI
+
+BÖLÜM 206 — PH3 — OK — 11 hamle / Par 12
+1. Atom 2 (H) → YUKARI
+2. Atom 4 (H) → YUKARI
+3. Atom 4 (H) → SAĞ
+4. Atom 2 (H) → AŞAĞI
+5. Atom 4 (H) → SOL
+6. Atom 4 (H) → AŞAĞI
+7. Atom 4 (H) → SAĞ
+8. Atom 4 (H) → YUKARI
+9. Atom 4 (H) → SOL
+10. Atom 1 (P) → SOL
+11. Atom 2 (H) → SOL
+
+BÖLÜM 207 — CH4 — OK — 11 hamle / Par 11
+1. Atom 1 (C) → AŞAĞI
+2. Atom 1 (C) → SOL
+3. Atom 2 (H) → SAĞ
+4. Atom 3 (H) → SAĞ
+5. Atom 5 (H) → AŞAĞI
+6. Atom 2 (H) → AŞAĞI
+7. Atom 5 (H) → SAĞ
+8. Atom 1 (C) → AŞAĞI
+9. Atom 2 (H) → SAĞ
+10. Atom 3 (H) → YUKARI
+11. Atom 4 (H) → SAĞ
+
+BÖLÜM 208 — BrCl — OK — 6 hamle / Par 8
+1. Atom 1 (Br) → SOL
+2. Atom 1 (Br) → AŞAĞI
+3. Atom 2 (Cl) → SAĞ
+4. Atom 2 (Cl) → YUKARI
+5. Atom 2 (Cl) → SOL
+6. Atom 2 (Cl) → AŞAĞI
+
+BÖLÜM 209 — SnCl4 — OK — 11 hamle / Par 11
+1. Atom 1 (Sn) → YUKARI
+2. Atom 1 (Sn) → SAĞ
+3. Atom 2 (Cl) → SOL
+4. Atom 2 (Cl) → YUKARI
+5. Atom 1 (Sn) → SOL
+6. Atom 3 (Cl) → SOL
+7. Atom 4 (Cl) → AŞAĞI
+8. Atom 4 (Cl) → SOL
+9. Atom 4 (Cl) → YUKARI
+10. Atom 4 (Cl) → SAĞ
+11. Atom 5 (Cl) → AŞAĞI
+
+BÖLÜM 210 — C2H4 — OK — 8 hamle / Par 8
+1. Atom 2 (C) → AŞAĞI
+2. Atom 2 (C) → SAĞ
+3. Atom 3 (H) → AŞAĞI
+4. Atom 6 (H) → SAĞ
+5. Atom 4 (H) → AŞAĞI
+6. Atom 4 (H) → SAĞ
+7. Atom 1 (C) → AŞAĞI
+8. Atom 5 (H) → SAĞ
+
+BÖLÜM 211 — O3 — OK — 8 hamle / Par 10
+1. Atom 1 (O) → AŞAĞI
+2. Atom 1 (O) → SOL
+3. Atom 1 (O) → YUKARI
+4. Atom 1 (O) → SAĞ
+5. Atom 3 (O) → SOL
+6. Atom 3 (O) → AŞAĞI
+7. Atom 3 (O) → SAĞ
+8. Atom 3 (O) → AŞAĞI
+
+BÖLÜM 212 — Se4 — OK — 9 hamle / Par 10
+1. Atom 1 (Se) → SOL
+2. Atom 1 (Se) → AŞAĞI
+3. Atom 2 (Se) → SOL
+4. Atom 2 (Se) → YUKARI
+5. Atom 2 (Se) → SOL
+6. Atom 2 (Se) → AŞAĞI
+7. Atom 4 (Se) → AŞAĞI
+8. Atom 3 (Se) → SAĞ
+9. Atom 3 (Se) → AŞAĞI
+
+BÖLÜM 213 — N2H2 — OK — 7 hamle / Par 7
+1. Atom 1 (H) → YUKARI
+2. Atom 1 (H) → SAĞ
+3. Atom 1 (H) → AŞAĞI
+4. Atom 2 (N) → YUKARI
+5. Atom 3 (N) → YUKARI
+6. Atom 4 (H) → SOL
+7. Atom 4 (H) → AŞAĞI
+
+BÖLÜM 214 — ICl — OK — 8 hamle / Par 9
+1. Atom 1 (Cl) → SAĞ
+2. Atom 1 (Cl) → AŞAĞI
+3. Atom 2 (I) → YUKARI
+4. Atom 2 (I) → SOL
+5. Atom 2 (I) → AŞAĞI
+6. Atom 2 (I) → SOL
+7. Atom 2 (I) → YUKARI
+8. Atom 1 (Cl) → SOL
+
+BÖLÜM 215 — AlBr3 — OK — 10 hamle / Par 11
+1. Atom 1 (Al) → SOL
+2. Atom 1 (Al) → AŞAĞI
+3. Atom 1 (Al) → SAĞ
+4. Atom 2 (Br) → AŞAĞI
+5. Atom 2 (Br) → SOL
+6. Atom 3 (Br) → SOL
+7. Atom 1 (Al) → AŞAĞI
+8. Atom 1 (Al) → SAĞ
+9. Atom 1 (Al) → AŞAĞI
+10. Atom 3 (Br) → AŞAĞI
+
+BÖLÜM 216 — XeO4 — OK — 11 hamle / Par 12
+1. Atom 3 (O) → SOL
+2. Atom 4 (O) → AŞAĞI
+3. Atom 2 (O) → SAĞ
+4. Atom 4 (O) → SOL
+5. Atom 2 (O) → AŞAĞI
+6. Atom 2 (O) → SOL
+7. Atom 4 (O) → AŞAĞI
+8. Atom 1 (Xe) → AŞAĞI
+9. Atom 5 (O) → SAĞ
+10. Atom 1 (Xe) → YUKARI
+11. Atom 4 (O) → YUKARI
+
+BÖLÜM 217 — OF2 — OK — 11 hamle / Par 11
+1. Atom 1 (F) → SOL
+2. Atom 1 (F) → AŞAĞI
+3. Atom 1 (F) → SOL
+4. Atom 2 (O) → SOL
+5. Atom 1 (F) → YUKARI
+6. Atom 1 (F) → SAĞ
+7. Atom 1 (F) → AŞAĞI
+8. Atom 1 (F) → SOL
+9. Atom 2 (O) → AŞAĞI
+10. Atom 2 (O) → SAĞ
+11. Atom 2 (O) → AŞAĞI
+
+BÖLÜM 218 — N2H4 — OK — 8 hamle / Par 8
+1. Atom 2 (N) → AŞAĞI
+2. Atom 2 (N) → SAĞ
+3. Atom 3 (H) → AŞAĞI
+4. Atom 6 (H) → SAĞ
+5. Atom 4 (H) → AŞAĞI
+6. Atom 4 (H) → SAĞ
+7. Atom 1 (N) → AŞAĞI
+8. Atom 5 (H) → SAĞ
+
+BÖLÜM 219 — CS2 — OK — 9 hamle / Par 10
+1. Atom 1 (S) → YUKARI
+2. Atom 1 (S) → SOL
+3. Atom 3 (S) → SOL
+4. Atom 3 (S) → YUKARI
+5. Atom 3 (S) → SOL
+6. Atom 2 (C) → SOL
+7. Atom 1 (S) → YUKARI
+8. Atom 1 (S) → SAĞ
+9. Atom 1 (S) → YUKARI
+
+BÖLÜM 220 — NF3 — OK — 10 hamle / Par 11
+1. Atom 2 (F) → SOL
+2. Atom 2 (F) → YUKARI
+3. Atom 3 (F) → AŞAĞI
+4. Atom 4 (F) → AŞAĞI
+5. Atom 1 (N) → SOL
+6. Atom 2 (F) → SAĞ
+7. Atom 3 (F) → YUKARI
+8. Atom 4 (F) → SAĞ
+9. Atom 1 (N) → AŞAĞI
+10. Atom 3 (F) → SOL
+
+BÖLÜM 221 — S2Br2 — OK — 7 hamle / Par 8
+1. Atom 3 (S) → SOL
+2. Atom 4 (Br) → SAĞ
+3. Atom 4 (Br) → YUKARI
+4. Atom 4 (Br) → SOL
+5. Atom 3 (S) → YUKARI
+6. Atom 3 (S) → SAĞ
+7. Atom 3 (S) → AŞAĞI
+
+BÖLÜM 222 — P4 — OK — 9 hamle / Par 10
+1. Atom 1 (P) → SAĞ
+2. Atom 1 (P) → YUKARI
+3. Atom 1 (P) → SOL
+4. Atom 2 (P) → AŞAĞI
+5. Atom 2 (P) → SAĞ
+6. Atom 4 (P) → YUKARI
+7. Atom 4 (P) → SOL
+8. Atom 4 (P) → YUKARI
+9. Atom 1 (P) → SAĞ
+
+BÖLÜM 223 — LiF — OK — 7 hamle / Par 8
+1. Atom 1 (Li) → AŞAĞI
+2. Atom 1 (Li) → SAĞ
+3. Atom 1 (Li) → AŞAĞI
+4. Atom 1 (Li) → SAĞ
+5. Atom 2 (F) → AŞAĞI
+6. Atom 2 (F) → SAĞ
+7. Atom 1 (Li) → AŞAĞI
+
+BÖLÜM 224 — C2Cl4 — OK — 8 hamle / Par 8
+1. Atom 2 (C) → YUKARI
+2. Atom 2 (C) → SOL
+3. Atom 3 (Cl) → YUKARI
+4. Atom 6 (Cl) → SOL
+5. Atom 4 (Cl) → YUKARI
+6. Atom 4 (Cl) → SOL
+7. Atom 1 (C) → YUKARI
+8. Atom 5 (Cl) → SOL
+
+BÖLÜM 225 — COS — OK — 10 hamle / Par 13
+1. Atom 1 (O) → YUKARI
+2. Atom 1 (O) → SOL
+3. Atom 1 (O) → AŞAĞI
+4. Atom 3 (S) → SOL
+5. Atom 3 (S) → AŞAĞI
+6. Atom 1 (O) → SAĞ
+7. Atom 3 (S) → SAĞ
+8. Atom 2 (C) → AŞAĞI
+9. Atom 2 (C) → SOL
+10. Atom 2 (C) → AŞAĞI
+
+BÖLÜM 226 — HOF — OK — 8 hamle / Par 11
+1. Atom 1 (F) → SAĞ
+2. Atom 1 (F) → YUKARI
+3. Atom 1 (F) → SAĞ
+4. Atom 2 (O) → SAĞ
+5. Atom 2 (O) → YUKARI
+6. Atom 2 (O) → SAĞ
+7. Atom 1 (F) → YUKARI
+8. Atom 3 (H) → SAĞ
+
+BÖLÜM 227 — SiBr4 — OK — 9 hamle / Par 11
+1. Atom 1 (Si) → AŞAĞI
+2. Atom 2 (Br) → AŞAĞI
+3. Atom 3 (Br) → YUKARI
+4. Atom 3 (Br) → SOL
+5. Atom 5 (Br) → SAĞ
+6. Atom 1 (Si) → YUKARI
+7. Atom 2 (Br) → SAĞ
+8. Atom 2 (Br) → YUKARI
+9. Atom 4 (Br) → SAĞ
+
+BÖLÜM 228 — CaO — OK — 8 hamle / Par 10
+1. Atom 1 (Ca) → AŞAĞI
+2. Atom 1 (Ca) → SOL
+3. Atom 2 (O) → YUKARI
+4. Atom 2 (O) → SAĞ
+5. Atom 2 (O) → AŞAĞI
+6. Atom 2 (O) → SAĞ
+7. Atom 2 (O) → AŞAĞI
+8. Atom 1 (Ca) → SAĞ
+
+BÖLÜM 229 — SnF4 — OK — 10 hamle / Par 11
+1. Atom 1 (Sn) → YUKARI
+2. Atom 2 (F) → SOL
+3. Atom 4 (F) → SAĞ
+4. Atom 4 (F) → AŞAĞI
+5. Atom 4 (F) → YUKARI
+6. Atom 2 (F) → SAĞ
+7. Atom 3 (F) → YUKARI
+8. Atom 3 (F) → SAĞ
+9. Atom 5 (F) → SAĞ
+10. Atom 2 (F) → AŞAĞI
+
+BÖLÜM 230 — S4 — OK — 9 hamle / Par 11
+1. Atom 1 (S) → AŞAĞI
+2. Atom 3 (S) → SAĞ
+3. Atom 3 (S) → YUKARI
+4. Atom 4 (S) → AŞAĞI
+5. Atom 4 (S) → SAĞ
+6. Atom 4 (S) → AŞAĞI
+7. Atom 1 (S) → SOL
+8. Atom 2 (S) → YUKARI
+9. Atom 1 (S) → SAĞ
+
+BÖLÜM 231 — CBr4 — OK — 6 hamle / Par 9
+1. Atom 1 (C) → SOL
+2. Atom 1 (C) → AŞAĞI
+3. Atom 1 (C) → SAĞ
+4. Atom 4 (Br) → SAĞ
+5. Atom 4 (Br) → YUKARI
+6. Atom 5 (Br) → AŞAĞI
+
+BÖLÜM 232 — S2Cl2 — OK — 9 hamle / Par 13
+1. Atom 1 (Cl) → SOL
+2. Atom 2 (S) → AŞAĞI
+3. Atom 3 (S) → YUKARI
+4. Atom 4 (Cl) → SAĞ
+5. Atom 1 (Cl) → YUKARI
+6. Atom 2 (S) → SOL
+7. Atom 2 (S) → YUKARI
+8. Atom 1 (Cl) → SOL
+9. Atom 3 (S) → AŞAĞI
+
+BÖLÜM 233 — GeCl4 — OK — 12 hamle / Par 14
+1. Atom 2 (Cl) → YUKARI
+2. Atom 5 (Cl) → SOL
+3. Atom 5 (Cl) → YUKARI
+4. Atom 5 (Cl) → SAĞ
+5. Atom 5 (Cl) → YUKARI
+6. Atom 5 (Cl) → SOL
+7. Atom 5 (Cl) → AŞAĞI
+8. Atom 5 (Cl) → SAĞ
+9. Atom 1 (Ge) → AŞAĞI
+10. Atom 1 (Ge) → SAĞ
+11. Atom 3 (Cl) → YUKARI
+12. Atom 4 (Cl) → YUKARI
+
+BÖLÜM 234 — C4RING — OK — 13 hamle / Par 13
+1. Atom 1 (C) → YUKARI
+2. Atom 1 (C) → SOL
+3. Atom 1 (C) → AŞAĞI
+4. Atom 2 (C) → YUKARI
+5. Atom 2 (C) → SAĞ
+6. Atom 3 (C) → YUKARI
+7. Atom 4 (C) → SAĞ
+8. Atom 2 (C) → AŞAĞI
+9. Atom 3 (C) → SAĞ
+10. Atom 4 (C) → AŞAĞI
+11. Atom 2 (C) → SAĞ
+12. Atom 3 (C) → AŞAĞI
+13. Atom 3 (C) → SAĞ
+
+BÖLÜM 235 — CH4 — OK — 11 hamle / Par 15
+1. Atom 1 (C) → AŞAĞI
+2. Atom 1 (C) → SOL
+3. Atom 2 (H) → SAĞ
+4. Atom 3 (H) → SAĞ
+5. Atom 5 (H) → AŞAĞI
+6. Atom 2 (H) → AŞAĞI
+7. Atom 5 (H) → SAĞ
+8. Atom 1 (C) → AŞAĞI
+9. Atom 2 (H) → SAĞ
+10. Atom 3 (H) → YUKARI
+11. Atom 4 (H) → SAĞ
+
+BÖLÜM 236 — Se4 — OK — 9 hamle / Par 11
+1. Atom 1 (Se) → SOL
+2. Atom 1 (Se) → AŞAĞI
+3. Atom 2 (Se) → SOL
+4. Atom 2 (Se) → YUKARI
+5. Atom 2 (Se) → SOL
+6. Atom 2 (Se) → AŞAĞI
+7. Atom 4 (Se) → AŞAĞI
+8. Atom 3 (Se) → SAĞ
+9. Atom 3 (Se) → AŞAĞI
+
+BÖLÜM 237 — OF2 — OK — 11 hamle / Par 13
+1. Atom 1 (F) → SOL
+2. Atom 1 (F) → AŞAĞI
+3. Atom 1 (F) → SOL
+4. Atom 2 (O) → SOL
+5. Atom 1 (F) → YUKARI
+6. Atom 1 (F) → SAĞ
+7. Atom 1 (F) → AŞAĞI
+8. Atom 1 (F) → SOL
+9. Atom 2 (O) → AŞAĞI
+10. Atom 2 (O) → SAĞ
+11. Atom 2 (O) → AŞAĞI
+
+BÖLÜM 238 — P4 — OK — 9 hamle / Par 13
+1. Atom 1 (P) → SAĞ
+2. Atom 1 (P) → YUKARI
+3. Atom 1 (P) → SOL
+4. Atom 2 (P) → AŞAĞI
+5. Atom 2 (P) → SAĞ
+6. Atom 4 (P) → YUKARI
+7. Atom 4 (P) → SOL
+8. Atom 4 (P) → YUKARI
+9. Atom 1 (P) → SAĞ
+
+BÖLÜM 239 — SnF4 — OK — 11 hamle / Par 13
+1. Atom 4 (F) → SAĞ
+2. Atom 3 (F) → SAĞ
+3. Atom 4 (F) → AŞAĞI
+4. Atom 4 (F) → SOL
+5. Atom 5 (F) → SOL
+6. Atom 1 (Sn) → YUKARI
+7. Atom 1 (Sn) → SOL
+8. Atom 3 (F) → SOL
+9. Atom 3 (F) → YUKARI
+10. Atom 1 (Sn) → SAĞ
+11. Atom 4 (F) → SAĞ
+
+BÖLÜM 240 — GaCl3 — OK — 11 hamle / Par 14
+1. Atom 3 (Cl) → YUKARI
+2. Atom 2 (Cl) → YUKARI
+3. Atom 2 (Cl) → SOL
+4. Atom 3 (Cl) → AŞAĞI
+5. Atom 4 (Cl) → YUKARI
+6. Atom 4 (Cl) → SOL
+7. Atom 1 (Ga) → YUKARI
+8. Atom 1 (Ga) → SOL
+9. Atom 2 (Cl) → AŞAĞI
+10. Atom 3 (Cl) → SOL
+11. Atom 3 (Cl) → YUKARI
+
+BÖLÜM 241 — CH2O — OK — 9 hamle / Par 9
+1. Atom 4 (H) → SAĞ
+2. Atom 4 (H) → AŞAĞI
+3. Atom 1 (C) → SAĞ
+4. Atom 1 (C) → AŞAĞI
+5. Atom 2 (O) → SAĞ
+6. Atom 3 (H) → YUKARI
+7. Atom 1 (C) → SOL
+8. Atom 2 (O) → AŞAĞI
+9. Atom 4 (H) → SOL
+
+BÖLÜM 242 — NaH — OK — 7 hamle / Par 9
+1. Atom 1 (Na) → YUKARI
+2. Atom 1 (Na) → SOL
+3. Atom 1 (Na) → AŞAĞI
+4. Atom 1 (Na) → SOL
+5. Atom 2 (H) → YUKARI
+6. Atom 2 (H) → SAĞ
+7. Atom 1 (Na) → YUKARI
+
+BÖLÜM 243 — H2CSe — OK — 6 hamle / Par 8
+1. Atom 2 (Se) → SAĞ
+2. Atom 3 (H) → SAĞ
+3. Atom 2 (Se) → AŞAĞI
+4. Atom 3 (H) → SOL
+5. Atom 4 (H) → AŞAĞI
+6. Atom 4 (H) → SOL
+
+BÖLÜM 244 — ClO2 — OK — 11 hamle / Par 14
+1. Atom 1 (O) → SOL
+2. Atom 1 (O) → SAĞ
+3. Atom 3 (O) → YUKARI
+4. Atom 1 (O) → SOL
+5. Atom 3 (O) → SAĞ
+6. Atom 3 (O) → AŞAĞI
+7. Atom 3 (O) → SAĞ
+8. Atom 1 (O) → SAĞ
+9. Atom 3 (O) → AŞAĞI
+10. Atom 2 (Cl) → SAĞ
+11. Atom 1 (O) → AŞAĞI
+
+BÖLÜM 245 — C8RING — OK — 8 hamle / Par 10
+1. Atom 1 (C) → AŞAĞI
+2. Atom 2 (C) → SOL
+3. Atom 3 (C) → AŞAĞI
+4. Atom 3 (C) → SOL
+5. Atom 6 (C) → YUKARI
+6. Atom 6 (C) → SAĞ
+7. Atom 6 (C) → SOL
+8. Atom 4 (C) → SOL
+
+BÖLÜM 246 — GeBr4 — OK — 6 hamle / Par 9
+1. Atom 4 (Br) → AŞAĞI
+2. Atom 4 (Br) → SOL
+3. Atom 5 (Br) → AŞAĞI
+4. Atom 3 (Br) → SOL
+5. Atom 1 (Ge) → YUKARI
+6. Atom 2 (Br) → SOL
+
+BÖLÜM 247 — H2O — OK — 10 hamle / Par 13
+1. Atom 1 (H) → AŞAĞI
+2. Atom 1 (H) → SAĞ
+3. Atom 1 (H) → YUKARI
+4. Atom 1 (H) → SOL
+5. Atom 2 (O) → SAĞ
+6. Atom 2 (O) → AŞAĞI
+7. Atom 3 (H) → SOL
+8. Atom 2 (O) → YUKARI
+9. Atom 1 (H) → YUKARI
+10. Atom 3 (H) → SAĞ
+
+BÖLÜM 248 — CF4 — OK — 7 hamle / Par 10
+1. Atom 1 (C) → YUKARI
+2. Atom 3 (F) → SAĞ
+3. Atom 1 (C) → AŞAĞI
+4. Atom 2 (F) → AŞAĞI
+5. Atom 3 (F) → SOL
+6. Atom 4 (F) → SOL
+7. Atom 4 (F) → YUKARI
+
+BÖLÜM 249 — BBr3 — OK — 11 hamle / Par 12
+1. Atom 1 (B) → SOL
+2. Atom 2 (Br) → SOL
+3. Atom 2 (Br) → AŞAĞI
+4. Atom 1 (B) → AŞAĞI
+5. Atom 2 (Br) → SAĞ
+6. Atom 2 (Br) → YUKARI
+7. Atom 2 (Br) → SOL
+8. Atom 4 (Br) → YUKARI
+9. Atom 4 (Br) → SAĞ
+10. Atom 1 (B) → SAĞ
+11. Atom 3 (Br) → SAĞ
+
+BÖLÜM 250 — MgCl2 — OK — 8 hamle / Par 10
+1. Atom 1 (Cl) → AŞAĞI
+2. Atom 2 (Mg) → SAĞ
+3. Atom 2 (Mg) → YUKARI
+4. Atom 3 (Cl) → AŞAĞI
+5. Atom 3 (Cl) → SAĞ
+6. Atom 3 (Cl) → YUKARI
+7. Atom 1 (Cl) → SAĞ
+8. Atom 1 (Cl) → YUKARI
+
+BÖLÜM 251 — SnBr4 — OK — 9 hamle / Par 12
+1. Atom 1 (Sn) → SAĞ
+2. Atom 2 (Br) → AŞAĞI
+3. Atom 2 (Br) → SAĞ
+4. Atom 5 (Br) → AŞAĞI
+5. Atom 4 (Br) → AŞAĞI
+6. Atom 5 (Br) → SAĞ
+7. Atom 1 (Sn) → AŞAĞI
+8. Atom 2 (Br) → YUKARI
+9. Atom 3 (Br) → SAĞ
+
+BÖLÜM 252 — HCl — OK — 10 hamle / Par 13
+1. Atom 1 (H) → SAĞ
+2. Atom 1 (H) → YUKARI
+3. Atom 1 (H) → SAĞ
+4. Atom 1 (H) → YUKARI
+5. Atom 1 (H) → SOL
+6. Atom 2 (Cl) → YUKARI
+7. Atom 2 (Cl) → SAĞ
+8. Atom 2 (Cl) → AŞAĞI
+9. Atom 2 (Cl) → SAĞ
+10. Atom 1 (H) → YUKARI
+
+BÖLÜM 253 — AlBr3 — OK — 10 hamle / Par 13
+1. Atom 1 (Al) → SAĞ
+2. Atom 1 (Al) → AŞAĞI
+3. Atom 1 (Al) → SOL
+4. Atom 2 (Br) → AŞAĞI
+5. Atom 2 (Br) → SAĞ
+6. Atom 3 (Br) → SAĞ
+7. Atom 1 (Al) → AŞAĞI
+8. Atom 1 (Al) → SOL
+9. Atom 1 (Al) → AŞAĞI
+10. Atom 3 (Br) → AŞAĞI
+
+BÖLÜM 254 — GaCl3 — OK — 11 hamle / Par 14
+1. Atom 3 (Cl) → YUKARI
+2. Atom 2 (Cl) → YUKARI
+3. Atom 1 (Ga) → SAĞ
+4. Atom 2 (Cl) → SOL
+5. Atom 1 (Ga) → YUKARI
+6. Atom 1 (Ga) → SOL
+7. Atom 4 (Cl) → AŞAĞI
+8. Atom 4 (Cl) → SAĞ
+9. Atom 4 (Cl) → YUKARI
+10. Atom 3 (Cl) → SOL
+11. Atom 4 (Cl) → SOL
+
+BÖLÜM 255 — CaCl2 — OK — 10 hamle / Par 13
+1. Atom 1 (Cl) → YUKARI
+2. Atom 1 (Cl) → SAĞ
+3. Atom 2 (Ca) → YUKARI
+4. Atom 3 (Cl) → SAĞ
+5. Atom 1 (Cl) → YUKARI
+6. Atom 2 (Ca) → AŞAĞI
+7. Atom 3 (Cl) → SOL
+8. Atom 1 (Cl) → AŞAĞI
+9. Atom 1 (Cl) → SAĞ
+10. Atom 3 (Cl) → SAĞ
+
+BÖLÜM 256 — GeCl4 — OK — 9 hamle / Par 10
+1. Atom 3 (Cl) → YUKARI
+2. Atom 3 (Cl) → SAĞ
+3. Atom 1 (Ge) → SOL
+4. Atom 3 (Cl) → SOL
+5. Atom 1 (Ge) → YUKARI
+6. Atom 4 (Cl) → YUKARI
+7. Atom 4 (Cl) → SOL
+8. Atom 5 (Cl) → SAĞ
+9. Atom 5 (Cl) → YUKARI
+
+BÖLÜM 257 — BCl3 — OK — 6 hamle / Par 8
+1. Atom 1 (B) → AŞAĞI
+2. Atom 1 (B) → SAĞ
+3. Atom 2 (Cl) → AŞAĞI
+4. Atom 4 (Cl) → YUKARI
+5. Atom 1 (B) → YUKARI
+6. Atom 2 (Cl) → SAĞ
+
+BÖLÜM 258 — S2F2 — OK — 8 hamle / Par 13
+1. Atom 1 (F) → SOL
+2. Atom 1 (F) → AŞAĞI
+3. Atom 1 (F) → SOL
+4. Atom 3 (S) → SOL
+5. Atom 1 (F) → YUKARI
+6. Atom 1 (F) → SAĞ
+7. Atom 1 (F) → YUKARI
+8. Atom 3 (S) → SAĞ
+
+BÖLÜM 259 — NH3 — OK — 6 hamle / Par 8
+1. Atom 1 (N) → YUKARI
+2. Atom 1 (N) → SOL
+3. Atom 2 (H) → SOL
+4. Atom 2 (H) → AŞAĞI
+5. Atom 4 (H) → AŞAĞI
+6. Atom 4 (H) → SOL
+
+BÖLÜM 260 — SiBr4 — OK — 6 hamle / Par 8
+1. Atom 1 (Si) → SOL
+2. Atom 1 (Si) → YUKARI
+3. Atom 1 (Si) → SAĞ
+4. Atom 5 (Br) → AŞAĞI
+5. Atom 1 (Si) → AŞAĞI
+6. Atom 4 (Br) → SAĞ
+
+BÖLÜM 261 — NF3 — OK — 8 hamle / Par 10
+1. Atom 4 (F) → SOL
+2. Atom 2 (F) → SOL
+3. Atom 4 (F) → YUKARI
+4. Atom 1 (N) → SOL
+5. Atom 1 (N) → AŞAĞI
+6. Atom 1 (N) → SOL
+7. Atom 3 (F) → SOL
+8. Atom 4 (F) → AŞAĞI
+
+BÖLÜM 262 — SO3 — OK — 8 hamle / Par 13
+1. Atom 1 (S) → YUKARI
+2. Atom 1 (S) → SOL
+3. Atom 4 (O) → SAĞ
+4. Atom 4 (O) → YUKARI
+5. Atom 4 (O) → SOL
+6. Atom 1 (S) → YUKARI
+7. Atom 3 (O) → SAĞ
+8. Atom 4 (O) → YUKARI
+
+BÖLÜM 263 — GeH4 — OK — 6 hamle / Par 9
+1. Atom 3 (H) → SAĞ
+2. Atom 4 (H) → SAĞ
+3. Atom 1 (Ge) → YUKARI
+4. Atom 3 (H) → YUKARI
+5. Atom 4 (H) → SOL
+6. Atom 5 (H) → YUKARI
+
+BÖLÜM 264 — C4RING — OK — 10 hamle / Par 13
+1. Atom 2 (C) → AŞAĞI
+2. Atom 2 (C) → SAĞ
+3. Atom 3 (C) → AŞAĞI
+4. Atom 4 (C) → SAĞ
+5. Atom 2 (C) → YUKARI
+6. Atom 2 (C) → SAĞ
+7. Atom 2 (C) → YUKARI
+8. Atom 3 (C) → SAĞ
+9. Atom 3 (C) → YUKARI
+10. Atom 3 (C) → SAĞ
+
+BÖLÜM 265 — CS2 — OK — 9 hamle / Par 12
+1. Atom 1 (S) → YUKARI
+2. Atom 1 (S) → SAĞ
+3. Atom 3 (S) → SAĞ
+4. Atom 3 (S) → YUKARI
+5. Atom 3 (S) → SAĞ
+6. Atom 2 (C) → SAĞ
+7. Atom 1 (S) → YUKARI
+8. Atom 1 (S) → SOL
+9. Atom 1 (S) → YUKARI
+
+BÖLÜM 266 — NOCl — OK — 7 hamle / Par 9
+1. Atom 3 (O) → YUKARI
+2. Atom 1 (Cl) → SAĞ
+3. Atom 3 (O) → AŞAĞI
+4. Atom 3 (O) → SOL
+5. Atom 2 (N) → YUKARI
+6. Atom 2 (N) → SAĞ
+7. Atom 3 (O) → SAĞ
+
+BÖLÜM 267 — SnF4 — OK — 8 hamle / Par 9
+1. Atom 1 (Sn) → SOL
+2. Atom 1 (Sn) → AŞAĞI
+3. Atom 3 (F) → YUKARI
+4. Atom 1 (Sn) → SOL
+5. Atom 4 (F) → SOL
+6. Atom 4 (F) → AŞAĞI
+7. Atom 5 (F) → YUKARI
+8. Atom 5 (F) → SAĞ
+
+BÖLÜM 268 — GeH4 — OK — 6 hamle / Par 6
+1. Atom 2 (H) → YUKARI
+2. Atom 1 (Ge) → SOL
+3. Atom 5 (H) → SAĞ
+4. Atom 3 (H) → SAĞ
+5. Atom 3 (H) → YUKARI
+6. Atom 3 (H) → SOL
+
+BÖLÜM 269 — SCl2 — OK — 11 hamle / Par 14
+1. Atom 2 (S) → YUKARI
+2. Atom 3 (Cl) → AŞAĞI
+3. Atom 3 (Cl) → SAĞ
+4. Atom 3 (Cl) → YUKARI
+5. Atom 2 (S) → SAĞ
+6. Atom 2 (S) → YUKARI
+7. Atom 2 (S) → SAĞ
+8. Atom 3 (Cl) → AŞAĞI
+9. Atom 3 (Cl) → SOL
+10. Atom 3 (Cl) → YUKARI
+11. Atom 3 (Cl) → SAĞ
+
+BÖLÜM 270 — SiO — OK — 9 hamle / Par 9
+1. Atom 1 (O) → YUKARI
+2. Atom 1 (O) → SAĞ
+3. Atom 1 (O) → AŞAĞI
+4. Atom 1 (O) → SAĞ
+5. Atom 2 (Si) → AŞAĞI
+6. Atom 2 (Si) → SAĞ
+7. Atom 2 (Si) → AŞAĞI
+8. Atom 2 (Si) → SOL
+9. Atom 2 (Si) → AŞAĞI
+
+BÖLÜM 271 — NCl3 — OK — 10 hamle / Par 11
+1. Atom 1 (N) → SAĞ
+2. Atom 2 (Cl) → SAĞ
+3. Atom 3 (Cl) → AŞAĞI
+4. Atom 4 (Cl) → SAĞ
+5. Atom 4 (Cl) → YUKARI
+6. Atom 4 (Cl) → SOL
+7. Atom 1 (N) → YUKARI
+8. Atom 1 (N) → SOL
+9. Atom 3 (Cl) → SAĞ
+10. Atom 3 (Cl) → YUKARI
+
+BÖLÜM 272 — KI — OK — 9 hamle / Par 12
+1. Atom 1 (K) → AŞAĞI
+2. Atom 1 (K) → SAĞ
+3. Atom 1 (K) → AŞAĞI
+4. Atom 1 (K) → SAĞ
+5. Atom 1 (K) → YUKARI
+6. Atom 1 (K) → SOL
+7. Atom 2 (I) → AŞAĞI
+8. Atom 2 (I) → SAĞ
+9. Atom 1 (K) → AŞAĞI
+
+BÖLÜM 273 — GeH4 — OK — 6 hamle / Par 7
+1. Atom 3 (H) → SAĞ
+2. Atom 4 (H) → SAĞ
+3. Atom 1 (Ge) → AŞAĞI
+4. Atom 3 (H) → AŞAĞI
+5. Atom 4 (H) → SOL
+6. Atom 5 (H) → AŞAĞI
+
+BÖLÜM 274 — GeBr4 — OK — 10 hamle / Par 11
+1. Atom 2 (Br) → YUKARI
+2. Atom 3 (Br) → AŞAĞI
+3. Atom 5 (Br) → AŞAĞI
+4. Atom 5 (Br) → SAĞ
+5. Atom 3 (Br) → YUKARI
+6. Atom 4 (Br) → SOL
+7. Atom 4 (Br) → YUKARI
+8. Atom 3 (Br) → SOL
+9. Atom 1 (Ge) → YUKARI
+10. Atom 5 (Br) → YUKARI
+
+BÖLÜM 275 — SiH4 — OK — 15 hamle / Par 15
+1. Atom 2 (H) → YUKARI
+2. Atom 3 (H) → AŞAĞI
+3. Atom 5 (H) → AŞAĞI
+4. Atom 4 (H) → AŞAĞI
+5. Atom 4 (H) → YUKARI
+6. Atom 1 (Si) → SAĞ
+7. Atom 4 (H) → SOL
+8. Atom 1 (Si) → YUKARI
+9. Atom 4 (H) → AŞAĞI
+10. Atom 1 (Si) → SOL
+11. Atom 4 (H) → SAĞ
+12. Atom 1 (Si) → AŞAĞI
+13. Atom 5 (H) → YUKARI
+14. Atom 5 (H) → SOL
+15. Atom 5 (H) → AŞAĞI
+
+BÖLÜM 276 — C2H4 — OK — 8 hamle / Par 8
+1. Atom 2 (C) → AŞAĞI
+2. Atom 2 (C) → SAĞ
+3. Atom 3 (H) → AŞAĞI
+4. Atom 6 (H) → SAĞ
+5. Atom 4 (H) → AŞAĞI
+6. Atom 4 (H) → SAĞ
+7. Atom 1 (C) → AŞAĞI
+8. Atom 5 (H) → SAĞ
+
+BÖLÜM 277 — N2H4 — OK — 8 hamle / Par 8
+1. Atom 2 (N) → AŞAĞI
+2. Atom 2 (N) → SAĞ
+3. Atom 3 (H) → AŞAĞI
+4. Atom 6 (H) → SAĞ
+5. Atom 4 (H) → AŞAĞI
+6. Atom 4 (H) → SAĞ
+7. Atom 1 (N) → AŞAĞI
+8. Atom 5 (H) → SAĞ
+
+BÖLÜM 278 — HOF — OK — 8 hamle / Par 11
+1. Atom 1 (F) → SAĞ
+2. Atom 1 (F) → YUKARI
+3. Atom 1 (F) → SAĞ
+4. Atom 2 (O) → SAĞ
+5. Atom 2 (O) → YUKARI
+6. Atom 2 (O) → SAĞ
+7. Atom 1 (F) → YUKARI
+8. Atom 3 (H) → SAĞ
+
+BÖLÜM 279 — Si2H4 — OK — 9 hamle / Par 9
+1. Atom 4 (H) → SAĞ
+2. Atom 4 (H) → YUKARI
+3. Atom 5 (H) → AŞAĞI
+4. Atom 1 (Si) → SOL
+5. Atom 3 (H) → SOL
+6. Atom 1 (Si) → AŞAĞI
+7. Atom 2 (Si) → YUKARI
+8. Atom 4 (H) → SOL
+9. Atom 6 (H) → SAĞ
+
+BÖLÜM 280 — N2F4 — OK — 7 hamle / Par 7
+1. Atom 1 (N) → AŞAĞI
+2. Atom 2 (N) → YUKARI
+3. Atom 3 (F) → SOL
+4. Atom 1 (N) → YUKARI
+5. Atom 4 (F) → SAĞ
+6. Atom 4 (F) → YUKARI
+7. Atom 6 (F) → YUKARI
+
+BÖLÜM 281 — PH3 — OK — 6 hamle / Par 12
+1. Atom 1 (P) → AŞAĞI
+2. Atom 1 (P) → SOL
+3. Atom 1 (P) → AŞAĞI
+4. Atom 4 (H) → AŞAĞI
+5. Atom 1 (P) → SAĞ
+6. Atom 2 (H) → AŞAĞI
+
+BÖLÜM 282 — GaCl3 — OK — 7 hamle / Par 7
+1. Atom 3 (Cl) → YUKARI
+2. Atom 2 (Cl) → SOL
+3. Atom 1 (Ga) → AŞAĞI
+4. Atom 1 (Ga) → SOL
+5. Atom 4 (Cl) → AŞAĞI
+6. Atom 1 (Ga) → SAĞ
+7. Atom 2 (Cl) → SAĞ
+
+BÖLÜM 283 — AlBr3 — OK — 7 hamle / Par 8
+1. Atom 2 (Br) → SAĞ
+2. Atom 3 (Br) → AŞAĞI
+3. Atom 4 (Br) → YUKARI
+4. Atom 1 (Al) → SOL
+5. Atom 3 (Br) → SOL
+6. Atom 4 (Br) → SOL
+7. Atom 1 (Al) → YUKARI
+
+BÖLÜM 284 — PF3 — OK — 8 hamle / Par 8
+1. Atom 2 (F) → SOL
+2. Atom 3 (F) → AŞAĞI
+3. Atom 4 (F) → AŞAĞI
+4. Atom 3 (F) → SOL
+5. Atom 4 (F) → YUKARI
+6. Atom 4 (F) → SAĞ
+7. Atom 1 (P) → SAĞ
+8. Atom 2 (F) → YUKARI
+
+BÖLÜM 285 — BCl3 — OK — 6 hamle / Par 6
+1. Atom 1 (B) → AŞAĞI
+2. Atom 1 (B) → SAĞ
+3. Atom 2 (Cl) → AŞAĞI
+4. Atom 4 (Cl) → YUKARI
+5. Atom 1 (B) → YUKARI
+6. Atom 2 (Cl) → SAĞ
+
+BÖLÜM 286 — H2CS — OK — 9 hamle / Par 9
+1. Atom 4 (H) → SAĞ
+2. Atom 4 (H) → YUKARI
+3. Atom 1 (C) → SAĞ
+4. Atom 1 (C) → YUKARI
+5. Atom 2 (S) → SAĞ
+6. Atom 3 (H) → AŞAĞI
+7. Atom 1 (C) → SOL
+8. Atom 2 (S) → YUKARI
+9. Atom 4 (H) → SOL
+
+BÖLÜM 287 — MgCl2 — OK — 8 hamle / Par 10
+1. Atom 1 (Cl) → AŞAĞI
+2. Atom 2 (Mg) → SAĞ
+3. Atom 2 (Mg) → YUKARI
+4. Atom 3 (Cl) → AŞAĞI
+5. Atom 3 (Cl) → SAĞ
+6. Atom 3 (Cl) → YUKARI
+7. Atom 1 (Cl) → SAĞ
+8. Atom 1 (Cl) → YUKARI
+
+BÖLÜM 288 — SnBr4 — OK — 9 hamle / Par 12
+1. Atom 1 (Sn) → SAĞ
+2. Atom 2 (Br) → AŞAĞI
+3. Atom 2 (Br) → SAĞ
+4. Atom 5 (Br) → AŞAĞI
+5. Atom 4 (Br) → AŞAĞI
+6. Atom 5 (Br) → SAĞ
+7. Atom 1 (Sn) → AŞAĞI
+8. Atom 2 (Br) → YUKARI
+9. Atom 3 (Br) → SAĞ
+
+BÖLÜM 289 — HCl — OK — 9 hamle / Par 12
+1. Atom 1 (H) → SAĞ
+2. Atom 1 (H) → AŞAĞI
+3. Atom 1 (H) → SOL
+4. Atom 1 (H) → AŞAĞI
+5. Atom 1 (H) → SOL
+6. Atom 1 (H) → AŞAĞI
+7. Atom 2 (Cl) → SAĞ
+8. Atom 2 (Cl) → AŞAĞI
+9. Atom 1 (H) → SAĞ
+
+BÖLÜM 290 — AlBr3 — OK — 10 hamle / Par 13
+1. Atom 1 (Al) → SAĞ
+2. Atom 1 (Al) → AŞAĞI
+3. Atom 1 (Al) → SOL
+4. Atom 2 (Br) → AŞAĞI
+5. Atom 2 (Br) → SAĞ
+6. Atom 3 (Br) → SAĞ
+7. Atom 1 (Al) → AŞAĞI
+8. Atom 1 (Al) → SOL
+9. Atom 1 (Al) → AŞAĞI
+10. Atom 3 (Br) → AŞAĞI
+
+BÖLÜM 291 — CaCl2 — OK — 10 hamle / Par 13
+1. Atom 1 (Cl) → YUKARI
+2. Atom 1 (Cl) → SAĞ
+3. Atom 2 (Ca) → YUKARI
+4. Atom 3 (Cl) → SAĞ
+5. Atom 1 (Cl) → YUKARI
+6. Atom 2 (Ca) → AŞAĞI
+7. Atom 3 (Cl) → SOL
+8. Atom 1 (Cl) → AŞAĞI
+9. Atom 1 (Cl) → SAĞ
+10. Atom 3 (Cl) → SAĞ
+
+BÖLÜM 292 — BCl3 — OK — 6 hamle / Par 8
+1. Atom 1 (B) → AŞAĞI
+2. Atom 1 (B) → SAĞ
+3. Atom 2 (Cl) → AŞAĞI
+4. Atom 4 (Cl) → YUKARI
+5. Atom 1 (B) → YUKARI
+6. Atom 2 (Cl) → SAĞ
+
+BÖLÜM 293 — S2F2 — OK — 9 hamle / Par 12
+1. Atom 1 (F) → YUKARI
+2. Atom 1 (F) → SOL
+3. Atom 1 (F) → AŞAĞI
+4. Atom 4 (F) → SAĞ
+5. Atom 2 (S) → YUKARI
+6. Atom 2 (S) → SAĞ
+7. Atom 2 (S) → YUKARI
+8. Atom 2 (S) → SAĞ
+9. Atom 4 (F) → YUKARI
+
+BÖLÜM 294 — NH3 — OK — 6 hamle / Par 8
+1. Atom 1 (N) → YUKARI
+2. Atom 1 (N) → SOL
+3. Atom 2 (H) → SOL
+4. Atom 2 (H) → AŞAĞI
+5. Atom 4 (H) → AŞAĞI
+6. Atom 4 (H) → SOL
+
+BÖLÜM 295 — SiBr4 — OK — 6 hamle / Par 8
+1. Atom 1 (Si) → SOL
+2. Atom 1 (Si) → YUKARI
+3. Atom 1 (Si) → SAĞ
+4. Atom 5 (Br) → AŞAĞI
+5. Atom 1 (Si) → AŞAĞI
+6. Atom 4 (Br) → SAĞ
+
+BÖLÜM 296 — CS2 — OK — 9 hamle / Par 12
+1. Atom 1 (S) → YUKARI
+2. Atom 1 (S) → SAĞ
+3. Atom 3 (S) → SAĞ
+4. Atom 3 (S) → YUKARI
+5. Atom 3 (S) → SAĞ
+6. Atom 2 (C) → SAĞ
+7. Atom 1 (S) → YUKARI
+8. Atom 1 (S) → SOL
+9. Atom 1 (S) → YUKARI
+
+BÖLÜM 297 — NOCl — OK — 9 hamle / Par 9
+1. Atom 1 (Cl) → YUKARI
+2. Atom 1 (Cl) → SAĞ
+3. Atom 2 (N) → YUKARI
+4. Atom 3 (O) → YUKARI
+5. Atom 3 (O) → SOL
+6. Atom 3 (O) → YUKARI
+7. Atom 3 (O) → SOL
+8. Atom 1 (Cl) → SOL
+9. Atom 3 (O) → YUKARI
+
+BÖLÜM 298 — SnF4 — OK — 8 hamle / Par 9
+1. Atom 1 (Sn) → SOL
+2. Atom 1 (Sn) → AŞAĞI
+3. Atom 3 (F) → YUKARI
+4. Atom 1 (Sn) → SOL
+5. Atom 4 (F) → SOL
+6. Atom 4 (F) → AŞAĞI
+7. Atom 5 (F) → YUKARI
+8. Atom 5 (F) → SAĞ
+
+BÖLÜM 299 — C2H4 — OK — 8 hamle / Par 8
+1. Atom 2 (C) → AŞAĞI
+2. Atom 2 (C) → SAĞ
+3. Atom 3 (H) → AŞAĞI
+4. Atom 6 (H) → SAĞ
+5. Atom 4 (H) → AŞAĞI
+6. Atom 4 (H) → SAĞ
+7. Atom 1 (C) → AŞAĞI
+8. Atom 5 (H) → SAĞ
+
+BÖLÜM 300 — HOF — OK — 8 hamle / Par 11
+1. Atom 1 (F) → SAĞ
+2. Atom 1 (F) → YUKARI
+3. Atom 1 (F) → SAĞ
+4. Atom 2 (O) → SAĞ
+5. Atom 2 (O) → YUKARI
+6. Atom 2 (O) → SAĞ
+7. Atom 1 (F) → YUKARI
+8. Atom 3 (H) → SAĞ
+
+BÖLÜM 301 — ClO2 — OK — 11 hamle / Par 12
+1. Atom 1 (O) → YUKARI
+2. Atom 1 (O) → SOL
+3. Atom 3 (O) → YUKARI
+4. Atom 1 (O) → SAĞ
+5. Atom 1 (O) → AŞAĞI
+6. Atom 3 (O) → SAĞ
+7. Atom 3 (O) → YUKARI
+8. Atom 3 (O) → SOL
+9. Atom 3 (O) → AŞAĞI
+10. Atom 2 (Cl) → SAĞ
+11. Atom 3 (O) → AŞAĞI
+

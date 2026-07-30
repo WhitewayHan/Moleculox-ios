@@ -1,0 +1,17 @@
+{
+  "appId": "com.whitewayhan.moleculox",
+  "appName": "Moleculox",
+  "webDir": "www",
+  "ios": {
+    "contentInset": "always",
+    "preferredContentMode": "mobile",
+    "allowsLinkPreview": false,
+    "scrollEnabled": false
+  },
+  "plugins": {
+    "FirebaseAuthentication": {
+      "skipNativeAuth": true,
+      "providers": ["apple.com"]
+    }
+  }
+}

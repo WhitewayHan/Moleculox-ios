@@ -1,0 +1,8 @@
+MOLECULOX V8.5.28 — DIRECT HINT MENU
+
+- Hint button now opens all choices on the first tap.
+- Free general clue remains available and was not removed.
+- Next Exact Move and Show the Rest remain available in the same menu.
+- If the player left the certified route, the game asks permission before restarting.
+- No MoleCoins are charged before the exact move is visibly shown.
+- Full-solution guarantee and automatic refunds remain active.

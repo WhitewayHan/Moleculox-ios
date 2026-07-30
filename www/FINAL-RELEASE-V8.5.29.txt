@@ -1,0 +1,8 @@
+MOLECULOX V8.5.29 — NEAR-WIN ENERGY
+
+- Main music tempo is never sped up or pitch-shifted.
+- When exactly one valid molecular bond remains, a very soft laboratory-energy pulse is layered under the music.
+- The Goal card enters its existing near-completion glow state.
+- Dr. E becomes excited and shows the premium lightning reaction once.
+- The layer stops immediately when the player moves away from the near-win state, wins, restarts, leaves, or changes level.
+- Music, master-mute, external-music, and reduced-motion/audio preferences remain respected.

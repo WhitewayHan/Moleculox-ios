@@ -1,0 +1,15 @@
+MOLECULOX V8.5.14 — FINAL MECHANICS AUDIT
+
+Independent engine result:
+- Campaign: 301/301 recorded solutions replayed successfully.
+- Daily experiments: 832/832 recorded solutions replayed successfully.
+- JavaScript syntax: all .js files passed node --check.
+
+Final five distribution:
+- 297: portal + one-way + fragile atom.
+- 298: portal + one-way + fragile atom + linked atoms + pressure door.
+- 299: portal + one-way + fragile atom + moving wall.
+- 300: portal + one-way + fragile atom + optional breakable walls/hammer.
+- 301: portal + one-way + frozen/fire interaction + moving wall + pressure door.
+
+No unsolved level was accepted into this package.

@@ -1,0 +1,12 @@
+MOLECULOX STEP 18 — WOW FX
+
+Added:
+- Layered stone wall-break sound
+- Dense dust cloud, heavy stone chunks, grit and impact ring
+- REACTION callout on a newly formed bond
+- CHAIN REACTION xN on rapid/multiple bond progress
+- PERFECT BOND when the final molecular bond closes
+- BRILLIANT REACTION for three-star clears
+- NOBEL MOVE for minimum-move three-star clears
+
+Preserved existing molecule completion, confetti, star, bond glow, camera shake, trails, barrier, hammer and precision effects.

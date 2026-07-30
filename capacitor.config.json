@@ -3,7 +3,7 @@
   "appName": "Moleculox",
   "webDir": "www",
   "ios": {
-    "contentInset": "always",
+    "contentInset": "never",
     "preferredContentMode": "mobile",
     "allowsLinkPreview": false,
     "scrollEnabled": false
