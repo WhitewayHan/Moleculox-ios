@@ -54,7 +54,7 @@ workflows:
           PYEOF
       - name: Set iOS versions
         script: |
-          BUILD_NUMBER="${CM_BUILD_NUMBER:-1}"
+          BUILD_NUMBER="$(date +%s)"
           /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD_NUMBER" ios/App/App/Info.plist
           /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString 8.0.0" ios/App/App/Info.plist
           cd ios/App
