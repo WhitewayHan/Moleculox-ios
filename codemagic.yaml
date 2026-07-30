@@ -16,6 +16,8 @@ workflows:
     scripts:
       - name: Install dependencies
         script: npm install
+      - name: Install Python icon library
+        script: pip3 install --user Pillow
       - name: Validate game JavaScript
         script: npm run check
       - name: Generate and prepare iOS project
