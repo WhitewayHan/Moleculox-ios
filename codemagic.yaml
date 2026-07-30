@@ -24,10 +24,13 @@ workflows:
         script: npm run check
       - name: Generate and prepare iOS project
         script: npm run ios:prepare
-      - name: Set build number
+      - name: Set iOS versions
         script: |
+          BUILD_NUMBER="${CM_BUILD_NUMBER:-1}"
+          /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD_NUMBER" ios/App/App/Info.plist
+          /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString 1.0.0" ios/App/App/Info.plist
           cd ios/App
-          agvtool new-version -all "$CM_BUILD_NUMBER"
+          agvtool new-version -all "$BUILD_NUMBER"
       - name: Apply App Store signing profiles
         script: xcode-project use-profiles
       - name: Build signed IPA
@@ -36,7 +39,7 @@ workflows:
             --workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
             --scheme "$XCODE_SCHEME"
     artifacts:
-      - ios/App/build/ios/ipa/*.ipa
+      - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
       - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
       - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
