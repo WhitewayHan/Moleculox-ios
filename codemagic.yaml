@@ -3,6 +3,10 @@ workflows:
     name: Moleculox iOS App Store
     instance_type: mac_mini_m2
     max_build_duration: 120
+
+    integrations:
+      app_store_connect: Moleculox
+
     environment:
       ios_signing:
         distribution_type: app_store
@@ -13,31 +17,40 @@ workflows:
       node: 22
       xcode: latest
       cocoapods: default
+
     scripts:
       - name: Install dependencies
         script: npm install
+
       - name: Install Python icon library
         script: pip3 install --user Pillow
+
       - name: Validate game JavaScript
         script: npm run check
+
       - name: Generate and prepare iOS project
         script: npm run ios:prepare
+
       - name: Set build number
         script: |
           cd ios/App
           agvtool new-version -all "$CM_BUILD_NUMBER"
+
       - name: Apply App Store signing profiles
         script: xcode-project use-profiles
+
       - name: Build signed IPA
         script: |
           xcode-project build-ipa \
             --workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
             --scheme "$XCODE_SCHEME"
+
     artifacts:
       - ios/App/build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
       - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
       - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
+
     publishing:
       app_store_connect:
         auth: integration
