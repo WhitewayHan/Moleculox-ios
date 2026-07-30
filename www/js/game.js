@@ -6881,6 +6881,21 @@ function confirmAppleConnection(){
 // token + nonce from iOS's own Sign in with Apple sheet, then hands them to the SAME
 // connectAppleIdToken() in firebase.js that the native wrapper comment already anticipated.
 // No extra consent screen here on purpose — the native OS sheet IS the consent screen.
+async function nativeGoogleSignIn(button){
+  const c=accountCopy();
+  try{
+    const plugin=window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.FirebaseAuthentication;
+    if(!plugin||!window.MXCloud||!window.MXCloud.connectGoogleIdToken)throw Object.assign(new Error('auth/unavailable'),{code:'auth/unavailable'});
+    setAuthBusy(button,true,c.working);
+    const result=await plugin.signInWithGoogle();
+    const idToken=result&&result.credential&&result.credential.idToken;
+    if(!idToken)throw Object.assign(new Error('auth/invalid-credential'),{code:'auth/invalid-credential'});
+    const connected=await window.MXCloud.connectGoogleIdToken(idToken);
+    if(save.autoGuest&&!profileHasMeaningfulProgress(save)&&connected&&connected.displayName)setCurrentProfileNickname(connected.displayName);
+    await reconcileAccountProfiles();
+    openAccountModal(c.connected,true);
+  }catch(err){openAccountModal(authErrorText(err),false);}
+}
 async function nativeAppleSignIn(button){
   const c=accountCopy();
   try{
@@ -6991,9 +7006,9 @@ function openAccountModal(message,good){
   openModal('<button type="button" class="accountCloseX" id="accCloseTop" aria-label="'+c.close+'">×</button><h3>👤 '+c.title+'</h3><div class="accountHero"><div class="accountAvatar">'+avatar+'</div><div><strong>'+esc(identity)+'</strong><small>'+sub+'</small></div></div>'+
     (message?'<div class="accountNotice '+(good?'good':'')+'">'+esc(message)+'</div>':'')+
     '<div class="accountNotice '+(member?'good':'')+'">'+(member?'✓ '+c.cloudGood:'⚠ '+c.guestWarn)+'</div><div class="accountActions">'+
-    (!member?(MX_SHOW_APPLE_BTN?'<button class="btn apple" id="accApple">'+appleLogoHtml()+'<span>'+c.apple+'</span></button>':'')+(MX_IOS_NATIVE?'':'<button class="btn google" id="accGoogle">'+c.google+'</button>')+'<div class="accountDivider">'+c.or+'</div><button class="btn blue" id="accEmailLogin">✉ '+c.emailLogin+'</button><button class="btn ghost" id="accEmailCreate">＋ '+c.emailCreate+'</button>':'')+
+    (!member?(MX_SHOW_APPLE_BTN?'<button class="btn apple" id="accApple">'+appleLogoHtml()+'<span>'+c.apple+'</span></button>':'')+'<button class="btn google" id="accGoogle">'+c.google+'</button>'+'<div class="accountDivider">'+c.or+'</div><button class="btn blue" id="accEmailLogin">✉ '+c.emailLogin+'</button><button class="btn ghost" id="accEmailCreate">＋ '+c.emailCreate+'</button>':'')+
     (member&&MX_SHOW_APPLE_BTN&&!accountState.providers.includes('apple.com')?'<button class="btn apple" id="accApple">'+appleLogoHtml()+'<span>'+c.linkApple+'</span></button>':'')+
-    (member&&!MX_IOS_NATIVE?(accountState.providers.includes('google.com')?'<button class="btn google googleLinked" id="accGoogleLinked" disabled>✓ '+(LANG==='tr'?'Google hesabı bağlı':'Google account linked')+'</button>':'<button class="btn google" id="accGoogle">'+(LANG==='tr'?'Google hesabını bağla':'Link Google account')+'</button>'):'')+
+    (member?(accountState.providers.includes('google.com')?'<button class="btn google googleLinked" id="accGoogleLinked" disabled>✓ '+(LANG==='tr'?'Google hesabı bağlı':'Google account linked')+'</button>':'<button class="btn google" id="accGoogle">'+(LANG==='tr'?'Google hesabını bağla':'Link Google account')+'</button>'):'')+
     (member&&!accountState.providers.includes('password')?'<button class="btn ghost" id="accEmailCreate">✉ '+c.linkEmail+'</button>':'')+
     '<div class="accountUtilityRow"><button class="btn blue accountCloudBtn" id="accCloudStatus">'+c.cloudPanel+'</button><button class="btn ghost" id="accManage">'+c.manage+'</button></div>'+
     (member&&accountState.providers.includes('password')?'<button class="btn ghost" id="accReset">🔑 '+c.reset+'</button>':'')+
@@ -7002,6 +7017,7 @@ function openAccountModal(message,good){
   $('#modalBox').classList.add('accountModal');
   const apple=$('#accApple');if(apple)apple.addEventListener('click',e=>{e.preventDefault();SFX.click();if(MX_IOS_NATIVE)nativeAppleSignIn(apple);else confirmAppleConnection();},{passive:false});
   const google=$('#accGoogle');if(google)google.addEventListener('click',async e=>{e.preventDefault();
+    if(MX_IOS_NATIVE)return nativeGoogleSignIn(google);
     const before={profiles:JSON.parse(JSON.stringify(profiles||{})),curProfile,lastProfile,save:JSON.parse(JSON.stringify(save||{}))};
     try{
       if(!window.MXCloud)throw Object.assign(new Error('auth/unavailable'),{code:'auth/unavailable'});
@@ -8439,7 +8455,7 @@ const MX_IOS_NATIVE=!!(window.Capacitor&&window.Capacitor.getPlatform&&window.Ca
 // Email-only until the native piece is wired up, then reappears on its own.
 const MX_ANDROID_NATIVE=!!(window.Capacitor&&window.Capacitor.getPlatform&&window.Capacitor.getPlatform()==='android');
 const MX_APPLE_NATIVE_READY=!!(window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.FirebaseAuthentication&&typeof window.Capacitor.Plugins.FirebaseAuthentication.signInWithApple==='function');
-const MX_SHOW_APPLE_BTN=!MX_ANDROID_NATIVE&&(!MX_IOS_NATIVE||MX_APPLE_NATIVE_READY);
+const MX_SHOW_APPLE_BTN=!MX_ANDROID_NATIVE;
 // Added 2026-07-26: on the plain web build (not the iOS app itself), only
 // show the Apple button to visitors actually on Apple hardware — checks
 // both navigator.platform and userAgent since platform is being frozen/
