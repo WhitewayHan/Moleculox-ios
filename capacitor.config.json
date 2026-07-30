@@ -6,7 +6,7 @@
     "contentInset": "never",
     "preferredContentMode": "mobile",
     "allowsLinkPreview": false,
-    "scrollEnabled": false
+    "scrollEnabled": true
   },
   "plugins": {
     "FirebaseAuthentication": {

@@ -16,16 +16,7 @@ import {
 import {getFunctions, httpsCallable} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-functions.js";
 import {getAnalytics, logEvent, isSupported as analyticsIsSupported} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-analytics.js";
 
-const IS_IOS_NATIVE_APP = !!(window.Capacitor && window.Capacitor.getPlatform && window.Capacitor.getPlatform() === "ios");
-
-const firebaseConfig = IS_IOS_NATIVE_APP ? {
-  apiKey: "AIzaSyBYZT6PJPsABWzHgZhc7em3o7yrZoFvl1o",
-  authDomain: "moleculox-2f4b4.firebaseapp.com",
-  projectId: "moleculox-2f4b4",
-  storageBucket: "moleculox-2f4b4.firebasestorage.app",
-  messagingSenderId: "638154711182",
-  appId: "1:638154711182:ios:854a506583df0945ff69df",
-} : {
+const firebaseConfig = {
   apiKey: "AIzaSyC4BEvdWGtrzZBqa8fiPx-o7p_XTgHRy5w",
   authDomain: "moleculox-2f4b4.firebaseapp.com",
   projectId: "moleculox-2f4b4",
