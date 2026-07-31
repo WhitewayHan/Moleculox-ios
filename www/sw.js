@@ -2,7 +2,7 @@
 // so the game keeps working offline. Firebase/Google requests are always
 // passed straight to the network (never cached, never intercepted) so
 // auth/Firestore/Functions behave normally when a connection exists.
-const CACHE_NAME = 'moleculox-v8.5.41-auth-timeout-viewport-fix';
+const CACHE_NAME = 'moleculox-v8.5.46-final-merged';
 const APP_SHELL = [
   './index.html',
   './css/app.css',

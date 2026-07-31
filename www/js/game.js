@@ -1,5 +1,5 @@
 /* Moleculox V6.24.3 — professional story, UX and release polish */
-const APP_VERSION="v8.5.30";
+const APP_VERSION="v8.5.46";
 (()=>{'use strict';
 function isIOSStandaloneMode(){
   try{
@@ -607,7 +607,7 @@ const I18N={
     goal:'GOAL',letsPlay:"LET'S PLAY! ▶",
     newGame:'✦ NEW GAME',continueBtn:'▶︎ CONTINUE',levels:'LEVELS',myMols:'🧪 MY MOLECULES',
     continueLevel:i=>'▶︎ CONTINUE · LEVEL '+i,
-    newGameLabel:'NEW GAME',todaysExpLabel:"TODAY'S EXPERIMENT",myMolsLabel:'MY MOLECULES',
+    newGameLabel:'NEW GAME',todaysExpLabel:"DAILY EXPERIMENT",myMolsLabel:'MY MOLECULES',
     hofLabel:'HALL OF FAME',hofCertTitle:'CERTIFICATE OF EXCELLENCE',hofNamePh:'Enter your name',
     welcomeTitle:'Welcome, Scientist!',welcomeMsg:'What should we call you in the Hall of Fame?',
     welcomeStart:'START EXPERIMENTING',welcomeDefaultName:'Anonymous Scientist',
@@ -625,7 +625,7 @@ const I18N={
     hofChampTitle:'🏆 YOUR RECORDS',hofStatScore:'RESEARCH POINTS',hofStatMaxCoins:'MOST COINS HELD',hofStatBestTime:'FASTEST SOLVE',
     diplomasHead:'🎓 DIPLOMAS',diplomaEarned:'Diploma earned!',diplomaLocked:'Reach this rank to earn',
     diplomaCertHead:'Certificate of Achievement',diplomaCertSub:'has successfully completed all requirements for the rank of',
-    todaysExp:"🔬 TODAY'S EXPERIMENT",
+    todaysExp:"🔬 DAILY EXPERIMENT",
     copyLine:'© 2026 Orhan Akyol - wHiTeWaY Studio · '+APP_VERSION,
     myMolecules:'MY MOLECULES',periodicTable:'⚛️ PERIODIC TABLE',
     achievements:'🏆 ACHIEVEMENTS',achvShort:'AWARDS',achvLocked:'Keep playing to unlock this!',
@@ -678,7 +678,7 @@ const I18N={
     levelDone:i=>'LEVEL '+i+' DONE!',
     bestClaimed:'Best already claimed',
     nextLevel:'NEXT LEVEL ▶︎',playAgain:'🔄 PLAY AGAIN',
-    dailyTitle:"🔬 TODAY'S EXPERIMENT",
+    dailyTitle:"🔬 DAILY EXPERIMENT",
     dailyAlready:'Today’s coin reward is claimed — replay to improve your RP!',
     dailySolved:'Solved! Replay to improve today’s RP, or return tomorrow.',
     dailyPractice:'Practice run — no bonus',
@@ -761,7 +761,7 @@ const I18N={
     goal:'HEDEF',letsPlay:'HAYDİ BAŞLA! ▶',
     newGame:'✦ YENİ OYUN',continueBtn:'▶︎ DEVAM ET',levels:'BÖLÜMLER',myMols:'🧪 MOLEKÜLLERİM',
     continueLevel:i=>'▶︎ DEVAM ET · BÖLÜM '+i,
-    newGameLabel:'YENİ OYUN',todaysExpLabel:'GÜNÜN DENEYİ',myMolsLabel:'MOLEKÜLLERİM',
+    newGameLabel:'YENİ OYUN',todaysExpLabel:'GÜNLÜK DENEY',myMolsLabel:'MOLEKÜLLERİM',
     hofLabel:'ŞEREF LİSTESİ',hofCertTitle:'MÜKEMMELLİK SERTİFİKASI',hofNamePh:'Adını yaz',
     welcomeTitle:'Hoş geldin, Bilim İnsanı!',welcomeMsg:'Şeref Listesi\'nde sana ne diyelim?',
     welcomeStart:'DENEYE BAŞLA',welcomeDefaultName:'Anonim Bilim İnsanı',
@@ -779,7 +779,7 @@ const I18N={
     hofChampTitle:'🏆 REKORLARIN',hofStatScore:'ARAŞTIRMA PUANI',hofStatMaxCoins:'EN ÇOK JETON',hofStatBestTime:'EN HIZLI ÇÖZÜM',
     diplomasHead:'🎓 DİPLOMALAR',diplomaEarned:'Diploma kazanıldı!',diplomaLocked:'Kazanmak için bu rütbeye ulaş',
     diplomaCertHead:'Başarı Sertifikası',diplomaCertSub:'aşağıdaki rütbenin tüm gereksinimlerini başarıyla tamamlamıştır:',
-    todaysExp:'🔬 GÜNÜN DENEYİ',
+    todaysExp:'🔬 GÜNLÜK DENEY',
     copyLine:'© 2026 Orhan Akyol - wHiTeWaY Studio · '+APP_VERSION,
     myMolecules:'MOLEKÜLLERİM',periodicTable:'⚛️ PERİYODİK TABLO',
     achievements:'🏆 BAŞARILAR',achvShort:'BAŞARI',achvLocked:'Açmak için oynamaya devam et!',
@@ -834,7 +834,7 @@ const I18N={
     levelDone:i=>'BÖLÜM '+i+' TAMAMLANDI!',
     bestClaimed:'En iyi skor zaten alındı',
     nextLevel:'SONRAKİ BÖLÜM ▶︎',playAgain:'🔄 TEKRAR OYNA',
-    dailyTitle:'🔬 GÜNÜN DENEYİ',
+    dailyTitle:'🔬 GÜNLÜK DENEY',
     dailyAlready:'Bugünün jeton ödülü alındı — RP skorunu geliştirmek için tekrar oyna!',
     dailySolved:'Çözüldü! Bugünkü RP skorunu geliştirebilir veya yarın tekrar gelebilirsin.',
     dailyPractice:'Antrenman turu — bonus yok',
@@ -5279,6 +5279,7 @@ function showFoundationBriefing(level,index){
 function startLevel(i,mode='campaign'){
   mxTrack('level_started',{level:Number(i)+1,mode:String(mode||'campaign')});
   dailyMode=mode==='daily';duelMode=mode==='duel';
+  if(scr&&scr.game)scr.game.classList.toggle('dailyMode',dailyMode);
   const activeDuelRound=duelMode?duelCurrentRound():null;
   crystalMode=mode==='crystal'||!!(duelMode&&activeDuelRound&&activeDuelRound.gameType==='crystal');
   chainMode=mode==='chain'||!!(duelMode&&activeDuelRound&&activeDuelRound.gameType==='chain');
@@ -6633,6 +6634,18 @@ function accountCopy(){
   };
 }
 function escAttr(v){return String(v||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function mxFirebaseAuthPlugin(){
+  try{
+    const cap=window.Capacitor;
+    if(!cap)return null;
+    if(cap.Plugins&&cap.Plugins.FirebaseAuthentication)return cap.Plugins.FirebaseAuthentication;
+    if(typeof cap.registerPlugin==='function'){
+      if(!window.__MXFirebaseAuthenticationPlugin)window.__MXFirebaseAuthenticationPlugin=cap.registerPlugin('FirebaseAuthentication');
+      return window.__MXFirebaseAuthenticationPlugin;
+    }
+  }catch(e){console.warn('[auth] native Firebase plugin lookup failed',e&&e.message||e);}
+  return null;
+}
 function appleLogoHtml(){return '<svg class="appleLogoSvg" viewBox="0 0 384 512" aria-hidden="true"><path fill="currentColor" d="M279.55 258.94c-.2-36.7 16.6-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.6-19.7C44.1 131.1 4 159.1 4 216.1c0 16.8 3.1 34.1 9.2 51.8 8.2 23.7 37.7 81.8 68.5 80.8 16.1-.4 27.5-11.4 48.5-11.4 20.4 0 31 11.4 48.9 11.4 31 0 57.7-52.7 65.5-76.5-41.6-19.6-39.4-56.6-39.4-57.8zM255.75 95.74c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.6-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>'; }
 function withAuthTimeout(promise,ms){
   ms=ms||20000;
@@ -6643,14 +6656,15 @@ function withAuthTimeout(promise,ms){
 function authErrorText(err){
   const code=String(err&&err.code||err&&err.message||'');
   const tr=LANG==='tr';
-  const host=(location&&(location.origin||location.hostname))||'';
+  const host=(location&&location.hostname)||'';
   if(code==='auth/unauthorized-domain')return tr?('Bu alan Firebase girişleri için yetkili değil: '+host+'. Firebase Console > Authentication > Settings > Authorized domains bölümüne eklenmeli.'):('This domain is not authorized for Firebase sign-in: '+host+'. Add it in Firebase Console > Authentication > Settings > Authorized domains.');
   if(code==='auth/not-ready')return tr?'Hesap bağlantısı henüz hazırlanıyor. Bir saniye sonra tekrar dokun.':'Account sign-in is still preparing. Tap again in a moment.';
+  if(code==='auth/unavailable')return tr?'Hesap bağlantı modülü yüklenemedi. İnternet bağlantısını kontrol edip uygulamayı tamamen kapatarak yeniden aç.':'The account connection module could not load. Check the internet connection, fully close the app, and reopen it.';
   if(code==='auth/operation-not-supported-in-this-environment'||code==='auth/web-storage-unsupported')return tr?'Bu tarayıcı penceresi hesap girişini desteklemiyor. Oyunu Safari’de tam ekran açıp tekrar dene.':'This browser window cannot complete account sign-in. Open the game full-screen in Safari and try again.';
   const map=tr?{
-    'auth/invalid-email':'E-posta adresi geçersiz.','auth/invalid-credential':'E-posta veya şifre yanlış.','auth/wrong-password':'E-posta veya şifre yanlış.','auth/user-not-found':'Bu e-posta ile kayıtlı hesap bulunamadı.','auth/email-already-in-use':'Bu e-posta zaten başka bir hesapta kullanılıyor. Giriş yapmayı dene.','auth/credential-already-in-use':'Bu giriş hesabı zaten kayıtlı. Mevcut hesaba geçildi.','auth/weak-password':'Şifre en az 6 karakter olmalı.','auth/popup-closed-by-user':'Giriş penceresi tamamlanmadan kapatıldı.','auth/popup-blocked':'Giriş penceresi engellendi. Oyunu tam ekran aç ve Safari açılır pencerelerine izin ver.','auth/cancelled-popup-request':'Önceki giriş penceresi kapanmadan yeniden denendi.','auth/network-request-failed':'İnternet bağlantısı kurulamadı.','auth/too-many-requests':'Çok fazla deneme yapıldı. Bir süre sonra tekrar dene.','auth/requires-recent-login':'Bu işlem için hesabına tekrar giriş yapmalısın.','auth/provider-already-linked':'Bu e-posta giriş yöntemi zaten hesabına bağlı.','auth/no-current-user':'Kayıt için geçici kullanıcı oturumu oluşturulamadı. İnternet bağlantını kontrol edip tekrar dene.','auth/operation-not-allowed':'Bu giriş yöntemi Firebase üzerinde etkin değil.','auth/missing-or-invalid-nonce':'Apple giriş güvenlik kodu doğrulanamadı. Girişi yeniden başlat.','auth/provider-account-conflict':'Bu Apple veya Google kimliği başka bir Moleculox hesabına bağlı. Mevcut ilerlemeni korumak için hesap değiştirilmedi.','auth/timeout':'Giriş 20 saniyede tamamlanamadı, bağlantı yanıt vermiyor. (Kaynak: '+host+') Tekrar dene.'
+    'auth/invalid-email':'E-posta adresi geçersiz.','auth/invalid-credential':'E-posta veya şifre yanlış.','auth/wrong-password':'E-posta veya şifre yanlış.','auth/user-not-found':'Bu e-posta ile kayıtlı hesap bulunamadı.','auth/email-already-in-use':'Bu e-posta zaten başka bir hesapta kullanılıyor. Giriş yapmayı dene.','auth/credential-already-in-use':'Bu giriş hesabı zaten kayıtlı. Mevcut hesaba geçildi.','auth/weak-password':'Şifre en az 6 karakter olmalı.','auth/popup-closed-by-user':'Giriş penceresi tamamlanmadan kapatıldı.','auth/popup-blocked':'Giriş penceresi engellendi. Oyunu tam ekran aç ve Safari açılır pencerelerine izin ver.','auth/cancelled-popup-request':'Önceki giriş penceresi kapanmadan yeniden denendi.','auth/network-request-failed':'İnternet bağlantısı kurulamadı.','auth/too-many-requests':'Çok fazla deneme yapıldı. Bir süre sonra tekrar dene.','auth/requires-recent-login':'Bu işlem için hesabına tekrar giriş yapmalısın.','auth/provider-already-linked':'Bu e-posta giriş yöntemi zaten hesabına bağlı.','auth/no-current-user':'Kayıt için geçici kullanıcı oturumu oluşturulamadı. İnternet bağlantını kontrol edip tekrar dene.','auth/operation-not-allowed':'Bu giriş yöntemi Firebase üzerinde etkin değil.','auth/missing-or-invalid-nonce':'Apple giriş güvenlik kodu doğrulanamadı. Girişi yeniden başlat.','auth/provider-account-conflict':'Bu Apple veya Google kimliği başka bir Moleculox hesabına bağlı. Mevcut ilerlemeni korumak için hesap değiştirilmedi.','auth/timeout':'Giriş 20 saniyede tamamlanamadı, bağlantı yanıt vermiyor. Tekrar dene.'
   }:{
-    'auth/invalid-email':'The email address is invalid.','auth/invalid-credential':'Incorrect email or password.','auth/wrong-password':'Incorrect email or password.','auth/user-not-found':'No account was found for this email.','auth/email-already-in-use':'This email is already used by another account. Try signing in.','auth/credential-already-in-use':'This sign-in account already exists. The existing account was opened.','auth/weak-password':'Password must be at least 6 characters.','auth/popup-closed-by-user':'The sign-in window was closed before completion.','auth/popup-blocked':'The sign-in window was blocked. Open the game full-screen and allow Safari pop-ups.','auth/cancelled-popup-request':'A second sign-in was started before the first one finished.','auth/network-request-failed':'Could not connect to the internet.','auth/too-many-requests':'Too many attempts. Try again later.','auth/requires-recent-login':'Sign in again before doing this.','auth/provider-already-linked':'This email sign-in method is already connected.','auth/no-current-user':'A temporary user session could not be created. Check your connection and try again.','auth/operation-not-allowed':'This sign-in method is not enabled in Firebase.','auth/missing-or-invalid-nonce':'The Apple sign-in security nonce could not be verified. Start sign-in again.','auth/provider-account-conflict':'This Apple or Google identity belongs to another Moleculox account. The current account was kept to protect your progress.','auth/timeout':'Sign-in did not finish within 20 seconds — the connection is not responding. (Origin: '+host+') Try again.'
+    'auth/invalid-email':'The email address is invalid.','auth/invalid-credential':'Incorrect email or password.','auth/wrong-password':'Incorrect email or password.','auth/user-not-found':'No account was found for this email.','auth/email-already-in-use':'This email is already used by another account. Try signing in.','auth/credential-already-in-use':'This sign-in account already exists. The existing account was opened.','auth/weak-password':'Password must be at least 6 characters.','auth/popup-closed-by-user':'The sign-in window was closed before completion.','auth/popup-blocked':'The sign-in window was blocked. Open the game full-screen and allow Safari pop-ups.','auth/cancelled-popup-request':'A second sign-in was started before the first one finished.','auth/network-request-failed':'Could not connect to the internet.','auth/too-many-requests':'Too many attempts. Try again later.','auth/requires-recent-login':'Sign in again before doing this.','auth/provider-already-linked':'This email sign-in method is already connected.','auth/no-current-user':'A temporary user session could not be created. Check your connection and try again.','auth/operation-not-allowed':'This sign-in method is not enabled in Firebase.','auth/missing-or-invalid-nonce':'The Apple sign-in security nonce could not be verified. Start sign-in again.','auth/provider-account-conflict':'This Apple or Google identity belongs to another Moleculox account. The current account was kept to protect your progress.','auth/timeout':'Sign-in did not finish within 20 seconds — the connection is not responding. Try again.'
   };
   return map[code]||(tr?'Giriş işlemi tamamlanamadı. '+code:'Sign-in could not be completed. '+code);
 }
@@ -6883,17 +6897,17 @@ function confirmAppleConnection(){
   bindTap('#accAppleCancel',()=>openAccountModal());
 }
 // Added 2026-07-26: native path for iOS (Capacitor). Uses @capacitor-firebase/authentication's
-// FirebaseAuthentication.signInWithApple({skipNativeAuth:true}) to get a real native Apple ID
+// FirebaseAuthentication.signInWithApple() with skipNativeAuth enabled in capacitor.config to get a native Apple ID
 // token + nonce from iOS's own Sign in with Apple sheet, then hands them to the SAME
 // connectAppleIdToken() in firebase.js that the native wrapper comment already anticipated.
 // No extra consent screen here on purpose — the native OS sheet IS the consent screen.
 async function nativeGoogleSignIn(button){
   const c=accountCopy();
   try{
-    const plugin=window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.FirebaseAuthentication;
+    const plugin=mxFirebaseAuthPlugin();
     if(!plugin||!window.MXCloud||!window.MXCloud.connectGoogleIdToken)throw Object.assign(new Error('auth/unavailable'),{code:'auth/unavailable'});
     setAuthBusy(button,true,c.working);
-    const result=await withAuthTimeout(plugin.signInWithGoogle());
+    const result=await withAuthTimeout(plugin.signInWithGoogle({skipNativeAuth:true}));
     const idToken=result&&((result.credential&&result.credential.idToken)||result.idToken||result.identityToken);
     if(!idToken)throw Object.assign(new Error('auth/invalid-credential'),{code:'auth/invalid-credential'});
     const connected=await withAuthTimeout(window.MXCloud.connectGoogleIdToken(idToken));
@@ -6905,10 +6919,10 @@ async function nativeGoogleSignIn(button){
 async function nativeAppleSignIn(button){
   const c=accountCopy();
   try{
-    const plugin=window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.FirebaseAuthentication;
+    const plugin=mxFirebaseAuthPlugin();
     if(!plugin||!window.MXCloud||!window.MXCloud.connectAppleIdToken)throw Object.assign(new Error('auth/unavailable'),{code:'auth/unavailable'});
     setAuthBusy(button,true,c.working);
-    const result=await withAuthTimeout(plugin.signInWithApple());
+    const result=await withAuthTimeout(plugin.signInWithApple({skipNativeAuth:true}));
     const idToken=result&&((result.credential&&result.credential.idToken)||result.idToken||result.identityToken);
     const nonce=result&&((result.credential&&result.credential.nonce)||result.nonce||result.rawNonce);
     if(!idToken||!nonce)throw Object.assign(new Error('auth/invalid-credential'),{code:'auth/invalid-credential'});
@@ -8460,8 +8474,8 @@ const MX_IOS_NATIVE=!!(window.Capacitor&&window.Capacitor.getPlatform&&window.Ca
 // button that would just error when tapped; it silently falls back to
 // Email-only until the native piece is wired up, then reappears on its own.
 const MX_ANDROID_NATIVE=!!(window.Capacitor&&window.Capacitor.getPlatform&&window.Capacitor.getPlatform()==='android');
-const MX_APPLE_NATIVE_READY=!!(window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.FirebaseAuthentication&&typeof window.Capacitor.Plugins.FirebaseAuthentication.signInWithApple==='function');
-const MX_SHOW_APPLE_BTN=!MX_ANDROID_NATIVE;
+const MX_APPLE_NATIVE_READY=!!(mxFirebaseAuthPlugin()&&typeof mxFirebaseAuthPlugin().signInWithApple==='function');
+const MX_SHOW_APPLE_BTN=MX_IOS_NATIVE&&MX_APPLE_NATIVE_READY;
 // Added 2026-07-26: on the plain web build (not the iOS app itself), only
 // show the Apple button to visitors actually on Apple hardware — checks
 // both navigator.platform and userAgent since platform is being frozen/

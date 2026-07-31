@@ -383,6 +383,19 @@ function accountSnapshotFor(user) {
   };
 }
 
+function finalizeCredentialResult(result) {
+  const user = result && result.user ? result.user : null;
+  if (user) {
+    // Native Google/Apple returns a provider credential, then the Firebase JS
+    // SDK signs in or links it. Apply the resulting user immediately so game
+    // reconciliation never runs against the previous guest while
+    // onAuthStateChanged is still queued by WKWebView.
+    applyAuthUser(user);
+    refreshPersistence().catch(() => {});
+  }
+  return accountSnapshotFor(user);
+}
+
 function appleProvider() {
   const provider = new OAuthProvider("apple.com");
   provider.addScope("email");
@@ -437,7 +450,7 @@ async function connectGoogleIdToken(idToken) {
     let result;
     if (user && (user.isAnonymous || !providerIdsOf(user).includes("google.com"))) result = await linkWithCredential(user, credential);
     else result = await signInWithCredential(auth, credential);
-    return accountSnapshotFor(result.user);
+    return finalizeCredentialResult(result);
   } catch (e) {
     const collision = [
       "auth/credential-already-in-use",
@@ -449,7 +462,7 @@ async function connectGoogleIdToken(idToken) {
         throw Object.assign(new Error("auth/provider-account-conflict"), {code: "auth/provider-account-conflict"});
       }
       const result = await signInWithCredential(auth, credential);
-      return accountSnapshotFor(result.user);
+      return finalizeCredentialResult(result);
     }
     throw e;
   }
@@ -470,7 +483,7 @@ async function connectAppleIdToken(idToken, rawNonce, displayName) {
     else result = await signInWithCredential(auth, credential);
     const name = String(displayName || "").trim().slice(0, 40);
     if (name && !result.user.displayName) await updateProfile(result.user, {displayName: name});
-    return accountSnapshotFor(result.user);
+    return finalizeCredentialResult(result);
   } catch (e) {
     const collision = [
       "auth/credential-already-in-use",
@@ -485,7 +498,7 @@ async function connectAppleIdToken(idToken, rawNonce, displayName) {
       const result = await signInWithCredential(auth, updatedCredential);
       const name = String(displayName || "").trim().slice(0, 40);
       if (name && !result.user.displayName) await updateProfile(result.user, {displayName: name});
-      return accountSnapshotFor(result.user);
+      return finalizeCredentialResult(result);
     }
     throw e;
   }
@@ -520,14 +533,14 @@ async function registerEmail(email, password, displayName) {
   } catch (e) {
     console.warn("[MXCloud] verification email failed:", e && e.code);
   }
-  return accountSnapshotFor(result.user);
+  return finalizeCredentialResult(result);
 }
 
 async function signInEmail(email, password) {
   await readyPromise;
   if (!auth) throw new Error("auth/unavailable");
   const result = await signInWithEmailAndPassword(auth, String(email || "").trim().toLowerCase(), String(password || ""));
-  return accountSnapshotFor(result.user);
+  return finalizeCredentialResult(result);
 }
 
 async function resetPassword(email, language) {

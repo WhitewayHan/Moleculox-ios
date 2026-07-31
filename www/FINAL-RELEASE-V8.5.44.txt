@@ -1,0 +1,23 @@
+MOLECULOX iOS V8.5.44 — FINAL MERGED RELEASE
+
+Source of truth
+- Game content and dimensions remain based on the working Web V8.5.35 build.
+- Claude package was audited file-by-file; only its useful Xcode plist-resource fix was merged.
+
+iOS layout
+- Native-only viewport rewrite removed.
+- HUD center is the physical screen center.
+- Right-side icons are reduced to web-equivalent visual size.
+- Dr. E is one step larger and anchored at right:0 / bottom:0.
+- Daily Experiment / Günlük Deney text is consistent and centered.
+
+Authentication
+- GoogleService-Info.plist is copied and registered in the Xcode target resources.
+- REVERSED_CLIENT_ID URL scheme is inserted automatically.
+- AppDelegate OAuth callback is inserted automatically.
+- Sign in with Apple entitlement is attached to all build configurations.
+- Native Google/Apple credentials immediately update the Firebase JS auth state before cloud reconciliation.
+- Email, Google and Apple operations retain timeout/error handling.
+
+Validation
+- JavaScript syntax, Python syntax, plist/XML, package metadata and ZIP integrity checked.

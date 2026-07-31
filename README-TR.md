@@ -1,43 +1,41 @@
-# Moleculox — GitHub + Codemagic iOS paketi
+# Moleculox iOS V8.5.45 — GitHub + Codemagic FINAL REVIEWED
 
-Bu klasörün **içindeki dosyaları** GitHub deposunun köküne yükleyin. ZIP dosyasını tek dosya olarak GitHub'a koymayın.
+Bu klasörün **içindeki dosyaları** GitHub deposunun köküne yükleyin. ZIP dosyasını tek dosya olarak GitHub’a koymayın.
 
-## Pakette hazır olanlar
-- Güncel web oyunu (V8.5.35 — 6 dil, 1133/1133 bölüm bağımsız motorla doğrulanmış, AAA tamamlama efektleri) `www/` içinde.
+## Bu final pakette hazır olanlar
+- Çalışan Web V8.5.35 oyun içeriği `www/` içinde korunmuştur.
 - Paket kimliği: `com.whitewayhan.moleculox`.
-- 1024×1024, alfa kanalsız App Store ikonu: `resources/AppIcon-1024.png`.
-- Capacitor iOS 7.4.2.
-- Native `@capacitor-firebase/authentication` Apple giriş paketi.
-- Native `@capacitor/push-notifications` paketi (bildirim hatırlatmaları için).
-- Sign in with Apple **ve** push notification entitlement/capability dosyaları — ikisi de hazır.
-- **GoogleService-Info.plist zaten `ios-config/` içinde** — bu adım tamamlandı, ekstra bir şey yapmanıza gerek yok.
-- AppDelegate içinde Firebase başlatma düzeltmesi.
-- `codemagic.yaml`: iOS projesini otomatik üretir, senkronize eder, IPA oluşturur, **App Store Connect entegrasyonu bağlıysa doğrudan TestFlight'a yükler.**
+- Capacitor iOS 7.4.2 ve `@capacitor-firebase/authentication` 7.3.1.
+- Native Firebase eklentisi hem `Capacitor.Plugins` hem `registerPlugin()` üzerinden güvenli biçimde bulunur.
+- Google ve Apple çağrılarında `skipNativeAuth` açıkça uygulanır.
+- E-posta, Google ve Apple girişleri tamamlanınca Firebase kullanıcı durumu beklemeden arayüze işlenir.
+- Google, Apple ve e-posta/Firebase giriş akışları.
+- `GoogleService-Info.plist` otomatik kopyalanır ve Xcode target resource olarak kaydedilir.
+- Google `REVERSED_CLIENT_ID` URL scheme otomatik eklenir.
+- Gerekli AppDelegate OAuth callback otomatik eklenir.
+- Sign in with Apple entitlement bütün build yapılandırmalarına bağlanır.
+- Uygulama ikonu bütün App Store boyutlarında otomatik üretilir.
+- Web ölçülerini bozan native viewport müdahalesi kaldırılmıştır.
+- Oyun HUD merkezi, sağ buton boyutları, Dr. E gerçek sağ-alt konumu ve Günlük Deney yazısı düzeltilmiştir.
+- Son Claude paketi incelenmiş; web ölçülerini bozan viewport kodu, eski günlük deney metni ve auth gerilemeleri alınmamıştır.
 
-## Apple tarafında zorunlu dış ayarlar (bunlar GitHub/Codemagic dışında, sizin yapmanız gereken adımlar)
-- **Firebase Console > Authentication > Sign-in method**'da Apple sağlayıcısı etkin olmalı (Google/e-posta açık olması yetmez, ayrı ayrı açılır).
-- **Apple Developer (developer.apple.com) > Certificates, Identifiers & Profiles > Identifiers**'da `com.whitewayhan.moleculox` App ID'sinde "Sign In with Apple" **ve** "Push Notifications" capability'lerinin ikisi de işaretli olmalı.
-- **Codemagic > Teams > Integrations > App Store Connect**'te bir API key bağlı olmalı (otomatik TestFlight yüklemesi ve imzalama profilleri için).
-
-Bu üç dış ayardan biri eksikse: proje/kod tarafı doğru olsa bile Apple girişi çalışmaz veya build imzalanamaz. Kod tarafında kontrol edilebilecek her şey bu pakette zaten doğru.
-
-## Push bildirimleri (isteğe bağlı — eksik bırakırsanız uygulama hatasız çalışmaya devam eder)
-Oyun artık 2+ gündür oynamayan oyunculara kendi dillerinde hatırlatma gönderebiliyor. Bu **tamamen isteğe bağlı bir katman**: aşağıdaki adımlar yapılmazsa uygulama sessizce bildirim istemeden çalışır, hiçbir hata vermez. Tam çalışması için:
-
-1. **Apple Developer > Certificates, Identifiers & Profiles > Keys**'den bir "Apple Push Notifications service (APNs)" key oluşturun, indirin.
-2. **Firebase Console > Project Settings > Cloud Messaging**'de bu APNs key'i yükleyin.
-3. Bu pakette `functions-pushReminders/pushReminders.js` dosyası var — bunu Firebase projenizin `functions/` klasörüne kopyalayıp `functions/index.js` içinden dışa aktarın, sonra:
-   ```
-   firebase deploy --only functions:sendInactivityReminders
-   ```
-4. Firestore güvenlik kurallarınıza ekleyin:
-   ```
-   match /pushTokens/{uid} {
-     allow read, write: if request.auth != null && request.auth.uid == uid;
-   }
-   ```
-
-Bu 4 adım **Codemagic/Xcode build'inin dışında**, doğrudan Firebase Console ve komut satırından yapılan ayrı bir kurulum — iOS uygulamasının kendisini etkilemez, sadece hatırlatma bildirimlerinin gerçekten gönderilmesini sağlar.
+## GitHub’a yükleme
+`Moleculox-iOS-GITHUB-CODEMAGIC-READY` klasörünün kendisini değil, **klasörün içindeki tüm dosya ve klasörleri** GitHub deposunun köküne koyun.
 
 ## Codemagic
-GitHub deposunu Codemagic'e bağlayın, `codemagic.yaml` taratın ve **Moleculox iOS App Store** workflow'unu başlatın.
+1. GitHub deposunu Codemagic’e bağlayın.
+2. `codemagic.yaml` dosyasını taratın.
+3. **Moleculox iOS App Store** workflow’unu başlatın.
+
+Workflow sırasıyla bağımlılıkları kurar, JavaScript’i kontrol eder, iOS projesini üretir, Firebase/Apple yapılandırmasını uygular, imzalar ve IPA oluşturur. App Store Connect entegrasyonu bağlıysa TestFlight’a yayınlar.
+
+## Apple/Firebase tarafında hâlâ zorunlu dış ayarlar
+Kod doğru olsa bile aşağıdakiler konsollarda kapalıysa giriş çalışmaz:
+
+- Firebase Console → Authentication → Sign-in method: **Google**, **Apple** ve **Email/Password** etkin olmalı.
+- Apple Developer → Identifiers → `com.whitewayhan.moleculox`: **Sign in with Apple** açık olmalı.
+- Codemagic → Teams → Integrations: App Store Connect API key bağlı olmalı.
+- Apple capability sonradan açıldıysa Codemagic’in provisioning profile’ı yeniden oluşturması gerekebilir.
+
+## Bildirim notu
+Pakette ileride kullanılabilecek hatırlatma Cloud Function taslağı bulunur; ancak push-notification native eklentisi bu final build’de etkin değildir. Bu nedenle uygulama açılışta bildirim izni istemez ve bildirim eksikliği build’i etkilemez.

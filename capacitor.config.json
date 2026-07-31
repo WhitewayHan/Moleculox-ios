@@ -10,8 +10,12 @@
   },
   "plugins": {
     "FirebaseAuthentication": {
+      "authDomain": "moleculox-2f4b4.firebaseapp.com",
       "skipNativeAuth": true,
-      "providers": ["apple.com", "google.com"]
+      "providers": [
+        "apple.com",
+        "google.com"
+      ]
     }
   }
 }

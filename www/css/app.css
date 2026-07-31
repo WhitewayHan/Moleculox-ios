@@ -4319,20 +4319,98 @@ body.tutorialMode #coinChip{
 }
 
 
-/* V8.5.42 — iOS uses the exact working web layout. Only the in-game Dr. E
-   anchor is tightened to the physical safe-area corner; no global scaling. */
-body.mxNative #einWrap{
-  right:max(0px, env(safe-area-inset-right))!important;
-  bottom:max(0px, env(safe-area-inset-bottom))!important;
-  width:clamp(118px, 32vw, 180px)!important;
+/* V8.5.44 — iOS web-parity HUD + Daily Experiment + Dr. E corner fix.
+   The working web layout remains the source of truth. These rules only correct
+   native iPhone safe-area/centering differences seen in TestFlight. */
+body.mxNative #hud{
+  position:relative;
+  justify-content:space-between;
+}
+body.mxNative #hudMid{
+  position:absolute!important;
+  left:50%!important;
+  top:calc(var(--sat) + 8px)!important;
+  width:min(42vw,165px)!important;
+  height:135px!important;
+  transform:translateX(-50%)!important;
+  z-index:4;
+  pointer-events:none;
+}
+body.mxNative #lvPill{
+  max-width:100%;
+  text-align:center;
+  white-space:nowrap;
+}
+body.mxNative #gameScr.dailyMode #lvPill{
+  font-size:clamp(9.5px,2.85vw,12px)!important;
+  letter-spacing:.65px!important;
+}
+
+/* The TestFlight action stack was visually oversized versus the web build. */
+body.mxNative #actionCol{
+  right:2px!important;
+  gap:8px!important;
+}
+body.mxNative #actionCol .btn.iconBadge{
+  padding:7px 3px 6px!important;
+  border-radius:15px!important;
+}
+body.mxNative #actionCol .btn.iconBadge .badgeIcon{
+  width:28px!important;
+  height:28px!important;
+  padding:3px!important;
+  border-radius:9px!important;
+}
+body.mxNative #actionCol .btn.iconBadge small{
+  font-size:8.2px!important;
+  letter-spacing:.55px!important;
+}
+body.mxNative #hudRight{
+  gap:6px!important;
+}
+body.mxNative #hudRight .btn.iconBadge{
+  padding:7px 4px!important;
+}
+body.mxNative #hudRight .btn.iconBadge .badgeIcon{
+  width:27px!important;
+  height:27px!important;
+  padding:3px!important;
+}
+
+/* Cancel older iOS standalone scaling, enlarge Dr. E one step, and place the
+   actual image box at x=0/y=0 distance from the physical lower-right edge. */
+body.mxNative #einWrap,
+body.mxNative.iosStandalone #einWrap{
+  right:0!important;
+  bottom:0!important;
+  width:180px!important;
+  transform:none!important;
+  transform-origin:100% 100%!important;
   display:flex!important;
   justify-content:flex-end!important;
   align-items:flex-end!important;
 }
-body.mxNative #einBoxG{
+body.mxNative #einBoxG,
+body.mxNative.iosStandalone #einBoxG{
   margin:0!important;
-  width:clamp(104px, 28vw, 150px)!important;
+  flex:0 0 auto!important;
+  width:clamp(112px,30vw,154px)!important;
   max-width:none!important;
+  max-height:none!important;
   transform-origin:100% 100%!important;
 }
-body.mxNative #einBoxG .einImg{object-position:right bottom!important;}
+body.mxNative #einBoxG .einImg{
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  object-position:right bottom!important;
+}
+
+@media(max-height:760px){
+  body.mxNative #hudMid{height:116px!important;top:calc(var(--sat) + 5px)!important}
+  body.mxNative #einBoxG,body.mxNative.iosStandalone #einBoxG{width:clamp(106px,29vw,142px)!important}
+}
+@media(max-height:620px){
+  body.mxNative #hudMid{height:104px!important}
+  body.mxNative #einBoxG,body.mxNative.iosStandalone #einBoxG{width:clamp(98px,28vw,128px)!important}
+}

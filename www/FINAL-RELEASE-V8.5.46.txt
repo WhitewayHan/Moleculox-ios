@@ -1,0 +1,25 @@
+MOLECULOX V8.5.46 — FINAL MERGED
+
+Reviewed sources
+- Working Web V8.5.35 remains the visual/gameplay source of truth.
+- Claude CODEMAGIC READY package was compared file-by-file with the reviewed iOS build.
+
+Merged and retained
+- Web-equivalent HUD, grid, Goal panel and control proportions.
+- DAILY EXPERIMENT / GÜNLÜK DENEY wording and centered daily header.
+- Dr. E enlarged one step and anchored at the true lower-right corner.
+- GoogleService-Info.plist copied and registered in Xcode resources.
+- REVERSED_CLIENT_ID URL scheme and Capacitor OAuth callback.
+- Apple Sign In entitlement for all app build configurations.
+- Hardened native Firebase plugin lookup and Google/Apple credential handoff to Firebase JS auth.
+- Email sign-in immediately applies the returned Firebase user before reconciliation.
+- Firebase authDomain in Capacitor configuration.
+
+Rejected regressions from the compared package
+- Native viewport rewrites that enlarged or shifted the Web interface.
+- Older daily label text.
+- Duplicate Codemagic Firebase/AppDelegate patching.
+- Less reliable plugin lookup/button visibility and older version/cache markers.
+
+Validation
+- JavaScript syntax, Python syntax, JSON, plist patch fixture, build preparation and ZIP integrity checked.

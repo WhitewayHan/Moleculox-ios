@@ -1,0 +1,9 @@
+MOLECULOX V8.5.45 — FINAL REVIEWED
+
+- V8.5.44 web-parity layout and true lower-right Dr. E placement retained.
+- DAILY EXPERIMENT / GÜNLÜK DENEY retained.
+- Native Firebase Authentication plugin lookup hardened with registerPlugin fallback.
+- Google and Apple native calls explicitly request skipNativeAuth credentials.
+- Email auth now applies the resulting Firebase user immediately before profile reconciliation.
+- Correct Firebase authDomain added to Capacitor configuration.
+- Claude READY(2) viewport, label, version and auth regressions rejected.

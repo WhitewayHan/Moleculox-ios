@@ -57,68 +57,126 @@ if 'FirebaseOptions(' not in s:
         s=s.replace(needle,needle+firebase_init)
     else:
         raise SystemExit('Could not patch AppDelegate didFinishLaunchingWithOptions')
+
+
+# Required by @capacitor-firebase/authentication for Google/Apple OAuth callbacks.
+# Keep this in the reusable patcher so local and Codemagic builds behave alike.
+if 'ApplicationDelegateProxy.shared.application(app, open: url' not in s:
+    open_url_fn = '''
+
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+        return ApplicationDelegateProxy.shared.application(app, open: url, options: options)
+    }'''
+    last_brace=s.rfind('}')
+    if last_brace < 0:
+        raise SystemExit('Could not patch AppDelegate URL callback')
+    s=s[:last_brace]+open_url_fn+'\n'+s[last_brace:]
+
 appdelegate.write_text(s)
 
 
-# Link entitlement file to all configurations and set version/build values.
-pbx=IOS/'App.xcodeproj'/'project.pbxproj'
-p=pbx.read_text()
-p=p.replace('PRODUCT_BUNDLE_IDENTIFIER = com.whitewayhan.moleculox;', 'PRODUCT_BUNDLE_IDENTIFIER = com.whitewayhan.moleculox;')
-# Insert settings after PRODUCT_BUNDLE_IDENTIFIER lines if missing in each build config.
-lines=p.splitlines()
-out=[]
-for line in lines:
-    out.append(line)
-    if 'PRODUCT_BUNDLE_IDENTIFIER = com.whitewayhan.moleculox;' in line:
-        indent=line[:len(line)-len(line.lstrip())]
-        block='\n'.join(out[-12:])
-        # Safe to add duplicates only once globally per config section.
-        out.append(indent+'CODE_SIGN_ENTITLEMENTS = App/App.entitlements;')
-        out.append(indent+'MARKETING_VERSION = 8.0.0;')
-        out.append(indent+'CURRENT_PROJECT_VERSION = 1;')
-p='\n'.join(out)+'\n'
-# Remove exact duplicate adjacent settings if script is run more than once.
-p=re.sub(r'(\s+CODE_SIGN_ENTITLEMENTS = App/App\.entitlements;\n)(?:\s+CODE_SIGN_ENTITLEMENTS = App/App\.entitlements;\n)+',r'\1',p)
-p=re.sub(r'(\s+MARKETING_VERSION = 8\.0\.0;\n)(?:\s+MARKETING_VERSION = 8\.0\.0;\n)+',r'\1',p)
-p=re.sub(r'(\s+CURRENT_PROJECT_VERSION = 1;\n)(?:\s+CURRENT_PROJECT_VERSION = 1;\n)+',r'\1',p)
-
 # Ensure GoogleService-Info.plist is a real Xcode resource. Native Google/Apple
 # authentication SDKs may inspect the bundled plist even though FirebaseCore is
-# also configured explicitly in AppDelegate. Copying the file to disk (in
-# prepare-ios.sh) is not enough — Xcode only bundles files it has been told
-# about, so without this it exists during the build but not inside the app.
-if (APP/'GoogleService-Info.plist').exists() and 'GoogleService-Info.plist' not in p:
-    import uuid
-    def _mx_new_uuid():
-        return uuid.uuid4().hex[:24].upper()
-    file_ref_id=_mx_new_uuid()
-    build_file_id=_mx_new_uuid()
-    p=p.replace(
-        '/* Begin PBXBuildFile section */',
-        '/* Begin PBXBuildFile section */\n\t\t'+build_file_id+' /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = '+file_ref_id+' /* GoogleService-Info.plist */; };',
-        1
-    )
-    p=p.replace(
-        '/* Begin PBXFileReference section */',
-        '/* Begin PBXFileReference section */\n\t\t'+file_ref_id+' /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = GoogleService-Info.plist; sourceTree = "<group>"; };',
-        1
-    )
-    p2=re.sub(
-        r'(\w{24} /\* AppDelegate\.swift \*/,)',
-        r'\1\n\t\t\t\t'+file_ref_id+' /* GoogleService-Info.plist */,',
-        p, count=1
-    )
-    if p2!=p:
+# also configured explicitly in AppDelegate.
+
+# Link the entitlement file and normalize the app target's version/build
+# settings. Capacitor's generated project can already contain MARKETING_VERSION
+# and CURRENT_PROJECT_VERSION values, so replace them instead of appending
+# duplicates. This also makes repeated local/Codemagic preparation idempotent.
+pbx=IOS/'App.xcodeproj'/'project.pbxproj'
+p=pbx.read_text()
+settings={
+    'CODE_SIGN_ENTITLEMENTS':'App/App.entitlements',
+    'MARKETING_VERSION':'8.0.0',
+    'CURRENT_PROJECT_VERSION':'1',
+}
+
+def _patch_app_build_settings(match: re.Match[str]) -> str:
+    block=match.group(0)
+    if 'PRODUCT_BUNDLE_IDENTIFIER = com.whitewayhan.moleculox;' not in block:
+        return block
+    # Remove any previous value for our three settings inside this one app
+    # configuration, then insert one canonical copy after the bundle ID.
+    for key in settings:
+        block=re.sub(r'^[ \t]*'+re.escape(key)+r'[ \t]*=[ \t]*[^;]*;[ \t]*\n?', '', block, flags=re.MULTILINE)
+    bundle=re.search(r'^(?P<indent>[ \t]*)PRODUCT_BUNDLE_IDENTIFIER = com\.whitewayhan\.moleculox;[ \t]*$', block, flags=re.MULTILINE)
+    if not bundle:
+        return block
+    indent=bundle.group('indent')
+    addition=''.join(f'\n{indent}{key} = {value};' for key,value in settings.items())
+    return block[:bundle.end()]+addition+block[bundle.end():]
+
+p=re.sub(
+    r'buildSettings = \{.*?^\s*\};',
+    _patch_app_build_settings,
+    p,
+    flags=re.DOTALL|re.MULTILINE,
+)
+
+# Register GoogleService-Info.plist as an actual target resource. Copying the
+# file onto disk is insufficient: Firebase/Google Sign-In expect it inside the
+# compiled app bundle and Xcode only bundles files listed in project.pbxproj.
+if (APP/'GoogleService-Info.plist').exists():
+    import hashlib
+    def _mx_pbx_id(label: str) -> str:
+        return hashlib.sha1(('moleculox:'+label).encode('utf-8')).hexdigest()[:24].upper()
+    file_ref_id=_mx_pbx_id('GoogleService-Info.plist:file')
+    build_file_id=_mx_pbx_id('GoogleService-Info.plist:resource')
+
+    # Respect an existing registration, including a project previously patched
+    # by another tool, but fill in any missing piece independently.
+    existing_file_ref=re.search(r'([A-F0-9]{24}) /\* GoogleService-Info\.plist \*/ = \{isa = PBXFileReference;',p)
+    if existing_file_ref:
+        file_ref_id=existing_file_ref.group(1)
+    else:
+        marker='/* Begin PBXFileReference section */'
+        if marker not in p:
+            raise SystemExit('Could not find PBXFileReference section')
+        p=p.replace(
+            marker,
+            marker+'\n\t\t'+file_ref_id+' /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = GoogleService-Info.plist; sourceTree = "<group>"; };',
+            1,
+        )
+
+    existing_build_file=re.search(r'([A-F0-9]{24}) /\* GoogleService-Info\.plist in Resources \*/ = \{isa = PBXBuildFile;',p)
+    if existing_build_file:
+        build_file_id=existing_build_file.group(1)
+    else:
+        marker='/* Begin PBXBuildFile section */'
+        if marker not in p:
+            raise SystemExit('Could not find PBXBuildFile section')
+        p=p.replace(
+            marker,
+            marker+'\n\t\t'+build_file_id+' /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = '+file_ref_id+' /* GoogleService-Info.plist */; };',
+            1,
+        )
+
+    # Add the plist to the App group if it is not already a child there.
+    group_child=file_ref_id+' /* GoogleService-Info.plist */,'
+    if group_child not in p:
+        p2=re.sub(
+            r'([A-F0-9]{24} /\* AppDelegate\.swift \*/,)',
+            r'\1\n\t\t\t\t'+group_child,
+            p,
+            count=1,
+        )
+        if p2==p:
+            raise SystemExit('Could not add GoogleService-Info.plist to the App group')
         p=p2
-    p2=re.sub(
-        r'(isa = PBXResourcesBuildPhase;\s*\n\s*buildActionMask = \d+;\s*\n\s*files = \(\s*\n)',
-        r'\1\t\t\t\t'+build_file_id+' /* GoogleService-Info.plist in Resources */,\n',
-        p, count=1
-    )
-    if p2==p:
-        raise SystemExit('Could not find PBXResourcesBuildPhase files list to register GoogleService-Info.plist')
-    p=p2
-    print("Registered GoogleService-Info.plist as a bundled Xcode resource.")
+
+    # Add it to Copy Bundle Resources if it is not already there.
+    resource_child=build_file_id+' /* GoogleService-Info.plist in Resources */,'
+    if resource_child not in p:
+        p2=re.sub(
+            r'(isa = PBXResourcesBuildPhase;\s*\n\s*buildActionMask = \d+;\s*\n\s*files = \(\s*\n)',
+            r'\1\t\t\t\t'+resource_child+'\n',
+            p,
+            count=1,
+        )
+        if p2==p:
+            raise SystemExit('Could not register GoogleService-Info.plist in Copy Bundle Resources')
+        p=p2
+    print('Verified GoogleService-Info.plist as a bundled Xcode resource.')
 
 pbx.write_text(p)
 
