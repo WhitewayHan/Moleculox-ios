@@ -48,6 +48,15 @@ workflows:
                   s = s.replace(needle, needle + init_code)
               else:
                   raise SystemExit("Could not find didFinishLaunchingWithOptions in AppDelegate.swift")
+          if "ApplicationDelegateProxy.shared.application(app, open: url" not in s:
+              open_url_fn = '''
+
+              func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+                  return ApplicationDelegateProxy.shared.application(app, open: url, options: options)
+              }'''
+              last_brace = s.rfind("}")
+              s = s[:last_brace] + open_url_fn + chr(10) + s[last_brace:]
+              print("Added required application(_:open:options:) override for @capacitor-firebase/authentication.")
           with open(path, "w") as f:
               f.write(s)
           print("AppDelegate.swift patched with explicit Firebase configuration.")
