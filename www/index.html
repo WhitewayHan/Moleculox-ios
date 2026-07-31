@@ -3,6 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<script>
+/* Native iOS WKWebView (used by Capacitor) has a known bug where the reported
+   viewport width can mismatch the device's actual CSS-pixel width, causing
+   every vw-based measurement in the stylesheet to render too large. This
+   forces a re-read of the real width and reapplies the viewport meta tag if
+   a mismatch is detected, before any layout/paint happens. */
+(function fixNativeViewportScale(){
+  if(!(window.Capacitor&&window.Capacitor.getPlatform&&window.Capacitor.getPlatform()==='ios'))return;
+  function correct(){
+    var meta=document.querySelector('meta[name="viewport"]');
+    if(!meta)return;
+    var realWidth=Math.min(window.screen.width,document.documentElement.clientWidth||window.screen.width);
+    meta.setAttribute('content','width='+realWidth+', initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover');
+  }
+  correct();
+  document.addEventListener('DOMContentLoaded',correct);
+  window.addEventListener('load',correct);
+  window.addEventListener('resize',correct);
+})();
+</script>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#0e0c26">
@@ -52,7 +72,7 @@ if('serviceWorker' in navigator){
   });
 }
 </script>
-<link rel="stylesheet" href="css/app.css?v=8.5.40-revert-apikey-split">
+<link rel="stylesheet" href="css/app.css?v=8.5.41-auth-timeout-viewport-fix">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
 
@@ -487,13 +507,13 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
 <div id="levelTransition"></div>
 <canvas id="fx"></canvas>
 
-<script src="js/sync-core.js?v=8.5.40-revert-apikey-split" defer></script>
-<script src="js/daily-levels.js?v=8.5.40-revert-apikey-split" defer></script>
-<script src="js/campaign-levels.js?v=8.5.40-revert-apikey-split" defer></script>
-<script src="js/game.js?v=8.5.40-revert-apikey-split" defer></script>
+<script src="js/sync-core.js?v=8.5.41-auth-timeout-viewport-fix" defer></script>
+<script src="js/daily-levels.js?v=8.5.41-auth-timeout-viewport-fix" defer></script>
+<script src="js/campaign-levels.js?v=8.5.41-auth-timeout-viewport-fix" defer></script>
+<script src="js/game.js?v=8.5.41-auth-timeout-viewport-fix" defer></script>
 
 <!-- ================= FIREBASE (cloud save + world leaderboard) ================= -->
-<script type="module" src="js/firebase.js?v=8.5.40-revert-apikey-split"></script>
+<script type="module" src="js/firebase.js?v=8.5.41-auth-timeout-viewport-fix"></script>
 
 <script>
 /* V8.5.17: convert functional UI emoji glyphs to one cross-platform SVG family.
