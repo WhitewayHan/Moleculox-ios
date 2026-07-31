@@ -1,5 +1,5 @@
 /* Moleculox V6.24.3 — professional story, UX and release polish */
-const APP_VERSION="v8.5.30";
+const APP_VERSION="v8.5.43";
 (()=>{'use strict';
 function isIOSStandaloneMode(){
   try{
@@ -607,7 +607,7 @@ const I18N={
     goal:'GOAL',letsPlay:"LET'S PLAY! ▶",
     newGame:'✦ NEW GAME',continueBtn:'▶︎ CONTINUE',levels:'LEVELS',myMols:'🧪 MY MOLECULES',
     continueLevel:i=>'▶︎ CONTINUE · LEVEL '+i,
-    newGameLabel:'NEW GAME',todaysExpLabel:"TODAY'S EXPERIMENT",myMolsLabel:'MY MOLECULES',
+    newGameLabel:'NEW GAME',todaysExpLabel:"DAILY EXPERIMENT",myMolsLabel:'MY MOLECULES',
     hofLabel:'HALL OF FAME',hofCertTitle:'CERTIFICATE OF EXCELLENCE',hofNamePh:'Enter your name',
     welcomeTitle:'Welcome, Scientist!',welcomeMsg:'What should we call you in the Hall of Fame?',
     welcomeStart:'START EXPERIMENTING',welcomeDefaultName:'Anonymous Scientist',
@@ -625,7 +625,7 @@ const I18N={
     hofChampTitle:'🏆 YOUR RECORDS',hofStatScore:'RESEARCH POINTS',hofStatMaxCoins:'MOST COINS HELD',hofStatBestTime:'FASTEST SOLVE',
     diplomasHead:'🎓 DIPLOMAS',diplomaEarned:'Diploma earned!',diplomaLocked:'Reach this rank to earn',
     diplomaCertHead:'Certificate of Achievement',diplomaCertSub:'has successfully completed all requirements for the rank of',
-    todaysExp:"🔬 TODAY'S EXPERIMENT",
+    todaysExp:"🔬 DAILY EXPERIMENT",
     copyLine:'© 2026 Orhan Akyol - wHiTeWaY Studio · '+APP_VERSION,
     myMolecules:'MY MOLECULES',periodicTable:'⚛️ PERIODIC TABLE',
     achievements:'🏆 ACHIEVEMENTS',achvShort:'AWARDS',achvLocked:'Keep playing to unlock this!',
@@ -678,7 +678,7 @@ const I18N={
     levelDone:i=>'LEVEL '+i+' DONE!',
     bestClaimed:'Best already claimed',
     nextLevel:'NEXT LEVEL ▶︎',playAgain:'🔄 PLAY AGAIN',
-    dailyTitle:"🔬 TODAY'S EXPERIMENT",
+    dailyTitle:"🔬 DAILY EXPERIMENT",
     dailyAlready:'Today’s coin reward is claimed — replay to improve your RP!',
     dailySolved:'Solved! Replay to improve today’s RP, or return tomorrow.',
     dailyPractice:'Practice run — no bonus',
@@ -761,7 +761,7 @@ const I18N={
     goal:'HEDEF',letsPlay:'HAYDİ BAŞLA! ▶',
     newGame:'✦ YENİ OYUN',continueBtn:'▶︎ DEVAM ET',levels:'BÖLÜMLER',myMols:'🧪 MOLEKÜLLERİM',
     continueLevel:i=>'▶︎ DEVAM ET · BÖLÜM '+i,
-    newGameLabel:'YENİ OYUN',todaysExpLabel:'GÜNÜN DENEYİ',myMolsLabel:'MOLEKÜLLERİM',
+    newGameLabel:'YENİ OYUN',todaysExpLabel:'GÜNLÜK DENEY',myMolsLabel:'MOLEKÜLLERİM',
     hofLabel:'ŞEREF LİSTESİ',hofCertTitle:'MÜKEMMELLİK SERTİFİKASI',hofNamePh:'Adını yaz',
     welcomeTitle:'Hoş geldin, Bilim İnsanı!',welcomeMsg:'Şeref Listesi\'nde sana ne diyelim?',
     welcomeStart:'DENEYE BAŞLA',welcomeDefaultName:'Anonim Bilim İnsanı',
@@ -779,7 +779,7 @@ const I18N={
     hofChampTitle:'🏆 REKORLARIN',hofStatScore:'ARAŞTIRMA PUANI',hofStatMaxCoins:'EN ÇOK JETON',hofStatBestTime:'EN HIZLI ÇÖZÜM',
     diplomasHead:'🎓 DİPLOMALAR',diplomaEarned:'Diploma kazanıldı!',diplomaLocked:'Kazanmak için bu rütbeye ulaş',
     diplomaCertHead:'Başarı Sertifikası',diplomaCertSub:'aşağıdaki rütbenin tüm gereksinimlerini başarıyla tamamlamıştır:',
-    todaysExp:'🔬 GÜNÜN DENEYİ',
+    todaysExp:'🔬 GÜNLÜK DENEY',
     copyLine:'© 2026 Orhan Akyol - wHiTeWaY Studio · '+APP_VERSION,
     myMolecules:'MOLEKÜLLERİM',periodicTable:'⚛️ PERİYODİK TABLO',
     achievements:'🏆 BAŞARILAR',achvShort:'BAŞARI',achvLocked:'Açmak için oynamaya devam et!',
@@ -834,7 +834,7 @@ const I18N={
     levelDone:i=>'BÖLÜM '+i+' TAMAMLANDI!',
     bestClaimed:'En iyi skor zaten alındı',
     nextLevel:'SONRAKİ BÖLÜM ▶︎',playAgain:'🔄 TEKRAR OYNA',
-    dailyTitle:'🔬 GÜNÜN DENEYİ',
+    dailyTitle:'🔬 GÜNLÜK DENEY',
     dailyAlready:'Bugünün jeton ödülü alındı — RP skorunu geliştirmek için tekrar oyna!',
     dailySolved:'Çözüldü! Bugünkü RP skorunu geliştirebilir veya yarın tekrar gelebilirsin.',
     dailyPractice:'Antrenman turu — bonus yok',
@@ -5279,6 +5279,7 @@ function showFoundationBriefing(level,index){
 function startLevel(i,mode='campaign'){
   mxTrack('level_started',{level:Number(i)+1,mode:String(mode||'campaign')});
   dailyMode=mode==='daily';duelMode=mode==='duel';
+  if(scr&&scr.game)scr.game.classList.toggle('dailyMode',dailyMode);
   const activeDuelRound=duelMode?duelCurrentRound():null;
   crystalMode=mode==='crystal'||!!(duelMode&&activeDuelRound&&activeDuelRound.gameType==='crystal');
   chainMode=mode==='chain'||!!(duelMode&&activeDuelRound&&activeDuelRound.gameType==='chain');
@@ -6883,7 +6884,7 @@ function confirmAppleConnection(){
   bindTap('#accAppleCancel',()=>openAccountModal());
 }
 // Added 2026-07-26: native path for iOS (Capacitor). Uses @capacitor-firebase/authentication's
-// FirebaseAuthentication.signInWithApple({skipNativeAuth:true}) to get a real native Apple ID
+// FirebaseAuthentication.signInWithApple() with skipNativeAuth enabled in capacitor.config to get a native Apple ID
 // token + nonce from iOS's own Sign in with Apple sheet, then hands them to the SAME
 // connectAppleIdToken() in firebase.js that the native wrapper comment already anticipated.
 // No extra consent screen here on purpose — the native OS sheet IS the consent screen.

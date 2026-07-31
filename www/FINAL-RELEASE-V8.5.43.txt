@@ -1,0 +1,14 @@
+MOLECULOX iOS V8.5.43 — WEB PARITY / DAILY / AUTH FIX
+
+- Çalışan V8.5.35 web CSS dosyası kaynak kabul edildi.
+- Native iOS HUD merkezi, ekranın gerçek yatay merkezine sabitlendi.
+- Daily Experiment / Günlük Deney yazısı düzeltildi ve tek satır ortalandı.
+- Sağ oyun butonları web görünümüne göre yaklaşık %8-10 küçültüldü.
+- Dr. E yaklaşık bir kademe büyütüldü; eski iOS .82 ölçeklemesi iptal edildi.
+- Dr. E kapsayıcısı sağ:0 / alt:0 konumuna alındı.
+- Google/Apple OAuth geri dönüşü için AppDelegate URL callback kalıcı patch scriptine eklendi.
+- Google/Apple native token köprüsü ve e-posta Firebase akışı korundu.
+
+DIŞ KONSOL KONTROLÜ GEREKENLER
+- Firebase Authentication: Google, Apple ve Email/Password sağlayıcıları açık olmalı.
+- Apple Developer App ID: Sign in with Apple capability açık olmalı.
