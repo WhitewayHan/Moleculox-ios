@@ -4414,3 +4414,92 @@ body.mxNative #einBoxG .einImg{
   body.mxNative #hudMid{height:104px!important}
   body.mxNative #einBoxG,body.mxNative.iosStandalone #einBoxG{width:clamp(98px,28vw,128px)!important}
 }
+
+
+/* V8.5.47 — native iPhone parity verified against the supplied TestFlight captures.
+   Full-screen WKWebView is taller than mobile Safari, so vh-based menu art looked
+   larger even though the base Web CSS was identical. Only native iOS is compacted. */
+body.mxNative #splash{
+  padding-top:calc(var(--sat) + 5.2vh)!important;
+}
+body.mxNative #logoWrap{
+  transform:scale(.90)!important;
+  transform-origin:50% 0!important;
+  animation:none!important;
+}
+body.mxNative #logoTitle{
+  font-size:clamp(39px,11.6vw,54px)!important;
+  letter-spacing:.4px!important;
+}
+body.mxNative #logoTop{font-size:13px!important;letter-spacing:4.2px!important}
+body.mxNative #logoSub{font-size:12.2px!important;margin-top:4px!important}
+body.mxNative #splashBtns{
+  width:min(64vw,252px)!important;
+  gap:6px!important;
+  margin-top:2.1vh!important;
+}
+body.mxNative #splashBtns .btn{
+  min-height:39px!important;
+  padding:7.5px 8px!important;
+  font-size:13.5px!important;
+  border-radius:17px!important;
+  background-size:48px auto,48px auto,100% 100%!important;
+}
+body.mxNative #splashBtns .menuCodeIcon{
+  width:21px!important;height:21px!important;padding:2px!important;margin-right:6px!important;vertical-align:-5px!important;
+}
+body.mxNative #splash #einBoxS,
+body.mxNative.iosStandalone #splash #einBoxS{
+  right:0!important;
+  bottom:0!important;
+  height:clamp(225px,34dvh,300px)!important;
+  max-height:300px!important;
+}
+body.mxNative #splashBubble{
+  left:calc(var(--sal) + 76px)!important;
+  bottom:calc(var(--sab) + 70px)!important;
+  width:min(47vw,186px)!important;
+  font-size:10.5px!important;
+  padding:8px 10px 9px!important;
+}
+body.mxNative #btnSwitchProfile,
+body.mxNative #splashGear{
+  transform:scale(.88)!important;
+  transform-origin:top center!important;
+}
+body.mxNative .learningDockBtn,
+body.mxNative #btnGuide.guideDockBtn,
+body.mxNative #btnLabMenu.labDockBtn,
+body.mxNative #btnDuel.duelBtn,
+body.mxNative #btnHof.trophyBtn{
+  transform:scale(.90)!important;
+  transform-origin:left center!important;
+}
+
+/* Compact the account sheet on native iPhone; the Web modal remains unchanged. */
+body.mxNative #modalBox.accountModal{
+  width:min(86vw,350px)!important;
+  max-height:84dvh!important;
+  padding:15px 14px 14px!important;
+  border-radius:22px!important;
+}
+body.mxNative #modalBox.accountModal h3{font-size:19px!important;margin-bottom:7px!important}
+body.mxNative #modalBox.accountModal .accountHero{padding:9px!important;gap:9px!important;margin-bottom:8px!important}
+body.mxNative #modalBox.accountModal .accountHero strong{font-size:14px!important}
+body.mxNative #modalBox.accountModal .accountHero small{font-size:10.5px!important}
+body.mxNative #modalBox.accountModal .accountNotice{padding:8px 9px!important;margin:6px 0 8px!important;font-size:10.8px!important}
+body.mxNative #modalBox.accountModal .accountActions{gap:7px!important}
+body.mxNative #modalBox.accountModal .accountActions .btn{
+  min-height:41px!important;
+  padding:9px 8px!important;
+  font-size:12.5px!important;
+  border-radius:16px!important;
+}
+body.mxNative #modalBox.accountModal .authTiny{font-size:9.5px!important;margin-top:8px!important}
+
+@media(max-height:760px){
+  body.mxNative #splash{padding-top:calc(var(--sat) + 3.8vh)!important}
+  body.mxNative #splash #einBoxS,body.mxNative.iosStandalone #splash #einBoxS{height:clamp(205px,31dvh,260px)!important}
+  body.mxNative #splashBtns{gap:4px!important;margin-top:1.4vh!important}
+  body.mxNative #splashBtns .btn{min-height:35px!important;padding:6px 7px!important;font-size:12.5px!important}
+}

@@ -1,8 +1,8 @@
 {
   "name": "moleculox-ios",
-  "version": "1.0.46",
+  "version": "1.0.47",
   "private": true,
-  "description": "Moleculox iOS final merged release (working Web 8.5.35 + reviewed iOS V8.5.46 layout/auth/build fixes)",
+  "description": "Moleculox iOS V8.5.47 final: native iPhone layout parity and non-blocking Apple/Google/email Firebase account connection",
   "scripts": {
     "ios:prepare": "bash scripts/prepare-ios.sh",
     "ios:sync": "npx cap sync ios",

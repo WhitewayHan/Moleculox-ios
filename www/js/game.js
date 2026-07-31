@@ -6647,10 +6647,10 @@ function mxFirebaseAuthPlugin(){
   return null;
 }
 function appleLogoHtml(){return '<svg class="appleLogoSvg" viewBox="0 0 384 512" aria-hidden="true"><path fill="currentColor" d="M279.55 258.94c-.2-36.7 16.6-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.6-19.7C44.1 131.1 4 159.1 4 216.1c0 16.8 3.1 34.1 9.2 51.8 8.2 23.7 37.7 81.8 68.5 80.8 16.1-.4 27.5-11.4 48.5-11.4 20.4 0 31 11.4 48.9 11.4 31 0 57.7-52.7 65.5-76.5-41.6-19.6-39.4-56.6-39.4-57.8zM255.75 95.74c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.6-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>'; }
-function withAuthTimeout(promise,ms){
-  ms=ms||20000;
+function withAuthTimeout(promise,ms,code){
+  ms=ms||20000;code=code||'auth/timeout';
   let timer;
-  const timeout=new Promise((_,reject)=>{timer=setTimeout(()=>reject(Object.assign(new Error('auth/timeout'),{code:'auth/timeout'})),ms);});
+  const timeout=new Promise((_,reject)=>{timer=setTimeout(()=>reject(Object.assign(new Error(code),{code})),ms);});
   return Promise.race([promise,timeout]).finally(()=>clearTimeout(timer));
 }
 function authErrorText(err){
@@ -6662,9 +6662,9 @@ function authErrorText(err){
   if(code==='auth/unavailable')return tr?'Hesap bağlantı modülü yüklenemedi. İnternet bağlantısını kontrol edip uygulamayı tamamen kapatarak yeniden aç.':'The account connection module could not load. Check the internet connection, fully close the app, and reopen it.';
   if(code==='auth/operation-not-supported-in-this-environment'||code==='auth/web-storage-unsupported')return tr?'Bu tarayıcı penceresi hesap girişini desteklemiyor. Oyunu Safari’de tam ekran açıp tekrar dene.':'This browser window cannot complete account sign-in. Open the game full-screen in Safari and try again.';
   const map=tr?{
-    'auth/invalid-email':'E-posta adresi geçersiz.','auth/invalid-credential':'E-posta veya şifre yanlış.','auth/wrong-password':'E-posta veya şifre yanlış.','auth/user-not-found':'Bu e-posta ile kayıtlı hesap bulunamadı.','auth/email-already-in-use':'Bu e-posta zaten başka bir hesapta kullanılıyor. Giriş yapmayı dene.','auth/credential-already-in-use':'Bu giriş hesabı zaten kayıtlı. Mevcut hesaba geçildi.','auth/weak-password':'Şifre en az 6 karakter olmalı.','auth/popup-closed-by-user':'Giriş penceresi tamamlanmadan kapatıldı.','auth/popup-blocked':'Giriş penceresi engellendi. Oyunu tam ekran aç ve Safari açılır pencerelerine izin ver.','auth/cancelled-popup-request':'Önceki giriş penceresi kapanmadan yeniden denendi.','auth/network-request-failed':'İnternet bağlantısı kurulamadı.','auth/too-many-requests':'Çok fazla deneme yapıldı. Bir süre sonra tekrar dene.','auth/requires-recent-login':'Bu işlem için hesabına tekrar giriş yapmalısın.','auth/provider-already-linked':'Bu e-posta giriş yöntemi zaten hesabına bağlı.','auth/no-current-user':'Kayıt için geçici kullanıcı oturumu oluşturulamadı. İnternet bağlantını kontrol edip tekrar dene.','auth/operation-not-allowed':'Bu giriş yöntemi Firebase üzerinde etkin değil.','auth/missing-or-invalid-nonce':'Apple giriş güvenlik kodu doğrulanamadı. Girişi yeniden başlat.','auth/provider-account-conflict':'Bu Apple veya Google kimliği başka bir Moleculox hesabına bağlı. Mevcut ilerlemeni korumak için hesap değiştirilmedi.','auth/timeout':'Giriş 20 saniyede tamamlanamadı, bağlantı yanıt vermiyor. Tekrar dene.'
+    'auth/invalid-email':'E-posta adresi geçersiz.','auth/invalid-credential':'E-posta veya şifre yanlış.','auth/wrong-password':'E-posta veya şifre yanlış.','auth/user-not-found':'Bu e-posta ile kayıtlı hesap bulunamadı.','auth/email-already-in-use':'Bu e-posta zaten başka bir hesapta kullanılıyor. Giriş yapmayı dene.','auth/credential-already-in-use':'Bu giriş hesabı zaten kayıtlı. Mevcut hesaba geçildi.','auth/weak-password':'Şifre en az 6 karakter olmalı.','auth/popup-closed-by-user':'Giriş penceresi tamamlanmadan kapatıldı.','auth/popup-blocked':'Giriş penceresi engellendi. Oyunu tam ekran aç ve Safari açılır pencerelerine izin ver.','auth/cancelled-popup-request':'Önceki giriş penceresi kapanmadan yeniden denendi.','auth/network-request-failed':'İnternet bağlantısı kurulamadı.','auth/too-many-requests':'Çok fazla deneme yapıldı. Bir süre sonra tekrar dene.','auth/requires-recent-login':'Bu işlem için hesabına tekrar giriş yapmalısın.','auth/provider-already-linked':'Bu e-posta giriş yöntemi zaten hesabına bağlı.','auth/no-current-user':'Kayıt için geçici kullanıcı oturumu oluşturulamadı. İnternet bağlantını kontrol edip tekrar dene.','auth/operation-not-allowed':'Bu giriş yöntemi Firebase üzerinde etkin değil.','auth/missing-or-invalid-nonce':'Apple giriş güvenlik kodu doğrulanamadı. Girişi yeniden başlat.','auth/provider-account-conflict':'Bu Apple veya Google kimliği başka bir Moleculox hesabına bağlı. Mevcut ilerlemeni korumak için hesap değiştirilmedi.','auth/apple-native-timeout':'Apple doğrulama ekranı zamanında dönmedi. Tekrar dene.','auth/google-native-timeout':'Google doğrulama ekranı zamanında dönmedi. Tekrar dene.','auth/firebase-credential-timeout':'Kimlik doğrulandı ancak Firebase hesap bağlantısı yanıt vermedi. Tekrar dene.','auth/email-signin-timeout':'E-posta girişi Firebase tarafından zamanında yanıtlanmadı. Tekrar dene.','auth/timeout':'Giriş 20 saniyede tamamlanamadı, bağlantı yanıt vermiyor. Tekrar dene.'
   }:{
-    'auth/invalid-email':'The email address is invalid.','auth/invalid-credential':'Incorrect email or password.','auth/wrong-password':'Incorrect email or password.','auth/user-not-found':'No account was found for this email.','auth/email-already-in-use':'This email is already used by another account. Try signing in.','auth/credential-already-in-use':'This sign-in account already exists. The existing account was opened.','auth/weak-password':'Password must be at least 6 characters.','auth/popup-closed-by-user':'The sign-in window was closed before completion.','auth/popup-blocked':'The sign-in window was blocked. Open the game full-screen and allow Safari pop-ups.','auth/cancelled-popup-request':'A second sign-in was started before the first one finished.','auth/network-request-failed':'Could not connect to the internet.','auth/too-many-requests':'Too many attempts. Try again later.','auth/requires-recent-login':'Sign in again before doing this.','auth/provider-already-linked':'This email sign-in method is already connected.','auth/no-current-user':'A temporary user session could not be created. Check your connection and try again.','auth/operation-not-allowed':'This sign-in method is not enabled in Firebase.','auth/missing-or-invalid-nonce':'The Apple sign-in security nonce could not be verified. Start sign-in again.','auth/provider-account-conflict':'This Apple or Google identity belongs to another Moleculox account. The current account was kept to protect your progress.','auth/timeout':'Sign-in did not finish within 20 seconds — the connection is not responding. Try again.'
+    'auth/invalid-email':'The email address is invalid.','auth/invalid-credential':'Incorrect email or password.','auth/wrong-password':'Incorrect email or password.','auth/user-not-found':'No account was found for this email.','auth/email-already-in-use':'This email is already used by another account. Try signing in.','auth/credential-already-in-use':'This sign-in account already exists. The existing account was opened.','auth/weak-password':'Password must be at least 6 characters.','auth/popup-closed-by-user':'The sign-in window was closed before completion.','auth/popup-blocked':'The sign-in window was blocked. Open the game full-screen and allow Safari pop-ups.','auth/cancelled-popup-request':'A second sign-in was started before the first one finished.','auth/network-request-failed':'Could not connect to the internet.','auth/too-many-requests':'Too many attempts. Try again later.','auth/requires-recent-login':'Sign in again before doing this.','auth/provider-already-linked':'This email sign-in method is already connected.','auth/no-current-user':'A temporary user session could not be created. Check your connection and try again.','auth/operation-not-allowed':'This sign-in method is not enabled in Firebase.','auth/missing-or-invalid-nonce':'The Apple sign-in security nonce could not be verified. Start sign-in again.','auth/provider-account-conflict':'This Apple or Google identity belongs to another Moleculox account. The current account was kept to protect your progress.','auth/apple-native-timeout':'The Apple verification sheet did not return in time. Try again.','auth/google-native-timeout':'The Google verification sheet did not return in time. Try again.','auth/firebase-credential-timeout':'Your identity was approved, but Firebase did not finish linking the account. Try again.','auth/email-signin-timeout':'Firebase did not answer the email sign-in request in time. Try again.','auth/timeout':'Sign-in did not finish within 20 seconds — the connection is not responding. Try again.'
   };
   return map[code]||(tr?'Giriş işlemi tamamlanamadı. '+code:'Sign-in could not be completed. '+code);
 }
@@ -6884,9 +6884,7 @@ async function finishAppleConnection(button){
     const loginPromise=window.MXCloud.connectApple();
     SFX.click();setAuthBusy(button,true,c.working);
     const connected=await loginPromise;
-    if(save.autoGuest&&!profileHasMeaningfulProgress(save)&&connected&&connected.displayName)setCurrentProfileNickname(connected.displayName);
-    await reconcileAccountProfiles();
-    openAccountModal(c.connected,true);
+    finishAccountLoginUI(connected,c);
   }catch(err){openAccountModal(authErrorText(err),false);}
 }
 function confirmAppleConnection(){
@@ -6901,19 +6899,27 @@ function confirmAppleConnection(){
 // token + nonce from iOS's own Sign in with Apple sheet, then hands them to the SAME
 // connectAppleIdToken() in firebase.js that the native wrapper comment already anticipated.
 // No extra consent screen here on purpose — the native OS sheet IS the consent screen.
+function finishAccountLoginUI(connected,c){
+  if(connected)setAccountState(connected);
+  if(save.autoGuest&&!profileHasMeaningfulProgress(save)&&connected&&connected.displayName)setCurrentProfileNickname(connected.displayName);
+  openAccountModal(c.connected,true);
+  setSyncStatus('syncing');
+  setTimeout(()=>{
+    reconcileAccountProfiles().then(ok=>{if(!ok)setSyncStatus('error');}).catch(err=>{console.warn('[account] post-login cloud sync failed',err);setSyncStatus('error');});
+  },80);
+}
+
 async function nativeGoogleSignIn(button){
   const c=accountCopy();
   try{
     const plugin=mxFirebaseAuthPlugin();
     if(!plugin||!window.MXCloud||!window.MXCloud.connectGoogleIdToken)throw Object.assign(new Error('auth/unavailable'),{code:'auth/unavailable'});
     setAuthBusy(button,true,c.working);
-    const result=await withAuthTimeout(plugin.signInWithGoogle({skipNativeAuth:true}));
+    const result=await withAuthTimeout(plugin.signInWithGoogle({skipNativeAuth:true}),30000,'auth/google-native-timeout');
     const idToken=result&&((result.credential&&result.credential.idToken)||result.idToken||result.identityToken);
     if(!idToken)throw Object.assign(new Error('auth/invalid-credential'),{code:'auth/invalid-credential'});
-    const connected=await withAuthTimeout(window.MXCloud.connectGoogleIdToken(idToken));
-    if(save.autoGuest&&!profileHasMeaningfulProgress(save)&&connected&&connected.displayName)setCurrentProfileNickname(connected.displayName);
-    await withAuthTimeout(reconcileAccountProfiles());
-    openAccountModal(c.connected,true);
+    const connected=await withAuthTimeout(window.MXCloud.connectGoogleIdToken(idToken),25000,'auth/firebase-credential-timeout');
+    finishAccountLoginUI(connected,c);
   }catch(err){openAccountModal(authErrorText(err),false);}
 }
 async function nativeAppleSignIn(button){
@@ -6922,17 +6928,16 @@ async function nativeAppleSignIn(button){
     const plugin=mxFirebaseAuthPlugin();
     if(!plugin||!window.MXCloud||!window.MXCloud.connectAppleIdToken)throw Object.assign(new Error('auth/unavailable'),{code:'auth/unavailable'});
     setAuthBusy(button,true,c.working);
-    const result=await withAuthTimeout(plugin.signInWithApple({skipNativeAuth:true}));
+    const result=await withAuthTimeout(plugin.signInWithApple({skipNativeAuth:true}),30000,'auth/apple-native-timeout');
     const idToken=result&&((result.credential&&result.credential.idToken)||result.idToken||result.identityToken);
     const nonce=result&&((result.credential&&result.credential.nonce)||result.nonce||result.rawNonce);
     if(!idToken||!nonce)throw Object.assign(new Error('auth/invalid-credential'),{code:'auth/invalid-credential'});
-    const givenName=(result.user&&(result.user.givenName||result.user.displayName))||'';
-    const connected=await withAuthTimeout(window.MXCloud.connectAppleIdToken(idToken,nonce,givenName));
-    if(save.autoGuest&&!profileHasMeaningfulProgress(save)&&connected&&connected.displayName)setCurrentProfileNickname(connected.displayName);
-    await withAuthTimeout(reconcileAccountProfiles());
-    openAccountModal(c.connected,true);
+    const givenName=(result.user&&(result.user.givenName||result.user.displayName))||(result.credential&&result.credential.displayName)||'';
+    const connected=await withAuthTimeout(window.MXCloud.connectAppleIdToken(idToken,nonce,givenName),25000,'auth/firebase-credential-timeout');
+    finishAccountLoginUI(connected,c);
   }catch(err){openAccountModal(authErrorText(err),false);}
 }
+
 function cloudStatusLabel(){
   const c=accountCopy();
   if(accountState.isAnonymous)return {key:'guest',icon:'👤',label:c.syncGuest};
@@ -7075,7 +7080,7 @@ function authFormShell(title,body){openModal('<h3>'+title+'</h3>'+body);$('#moda
 function openEmailLogin(prefill){
   const c=accountCopy();
   authFormShell('✉ '+c.emailLogin,'<label class="authField"><span>'+c.email+'</span><input class="authInput" id="authEmail" type="email" inputmode="email" autocomplete="email" value="'+escAttr(prefill||'')+'"></label><label class="authField"><span>'+c.password+'</span><input class="authInput" id="authPass" type="password" autocomplete="current-password"></label><div class="authMessage" id="authMsg"></div><div class="accountActions"><button class="btn blue" id="authLoginGo">'+c.login+'</button><button class="btn ghost" id="authForgot">'+c.reset+'</button><button class="btn" id="authBack">'+c.back+'</button></div>');
-  $('#authLoginGo').addEventListener('pointerdown',async e=>{e.preventDefault();const btn=e.currentTarget,msg=$('#authMsg');const email=$('#authEmail').value,pass=$('#authPass').value;if(!email||!pass){msg.textContent=c.required;return;}setAuthBusy(btn,true,c.working);msg.textContent='';try{if(!window.MXCloud)throw Object.assign(new Error('auth/unavailable'),{code:'auth/unavailable'});await withAuthTimeout(window.MXCloud.signInEmail(email,pass));await withAuthTimeout(reconcileAccountProfiles());openAccountModal(c.connected,true);}catch(err){msg.textContent=authErrorText(err);setAuthBusy(btn,false);}},{passive:false});
+  $('#authLoginGo').addEventListener('pointerdown',async e=>{e.preventDefault();const btn=e.currentTarget,msg=$('#authMsg');const email=$('#authEmail').value,pass=$('#authPass').value;if(!email||!pass){msg.textContent=c.required;return;}setAuthBusy(btn,true,c.working);msg.textContent='';try{if(!window.MXCloud)throw Object.assign(new Error('auth/unavailable'),{code:'auth/unavailable'});const connected=await withAuthTimeout(window.MXCloud.signInEmail(email,pass),25000,'auth/email-signin-timeout');finishAccountLoginUI(connected,c);}catch(err){msg.textContent=authErrorText(err);setAuthBusy(btn,false);}},{passive:false});
   $('#authForgot').addEventListener('pointerdown',e=>{e.preventDefault();openPasswordReset($('#authEmail').value);},{passive:false});
   bindTap('#authBack',e=>{openAccountModal();});
   setTimeout(()=>$('#authEmail').focus(),80);
@@ -7083,7 +7088,7 @@ function openEmailLogin(prefill){
 function openEmailCreate(){
   const c=accountCopy();const nm=(save.playerName||curProfile||accountState.displayName||'').slice(0,18);
   authFormShell('＋ '+c.emailCreate,'<label class="authField"><span>'+c.nickname+'</span><input class="authInput" id="authName" maxlength="18" autocomplete="nickname" value="'+escAttr(nm)+'"></label><label class="authField"><span>'+c.email+'</span><input class="authInput" id="authEmail" type="email" inputmode="email" autocomplete="email"></label><label class="authField"><span>'+c.password+'</span><input class="authInput" id="authPass" type="password" autocomplete="new-password"></label><label class="authField"><span>'+c.passwordAgain+'</span><input class="authInput" id="authPass2" type="password" autocomplete="new-password"></label><div class="authMessage" id="authMsg"></div><div class="accountActions"><button class="btn green" id="authCreateGo">'+c.create+'</button><button class="btn" id="authBack">'+c.back+'</button></div><div class="authTiny">'+(LANG==='tr'?'Nickname yalnızca oyun içinde görünür. Hesaba e-posta ve şifreyle girilir.':'Nickname is only shown in the game. Sign in with email and password.')+'</div>');
-  $('#authCreateGo').addEventListener('pointerdown',async e=>{e.preventDefault();const btn=e.currentTarget,msg=$('#authMsg');const name=$('#authName').value.trim(),email=$('#authEmail').value.trim(),p1=$('#authPass').value,p2=$('#authPass2').value;if(!name||!email||!p1||!p2){msg.textContent=c.required;return;}if(p1.length<6){msg.textContent=c.passShort;return;}if(p1!==p2){msg.textContent=c.passMismatch;return;}setAuthBusy(btn,true,c.working);msg.textContent='';try{if(!window.MXCloud)throw Object.assign(new Error('auth/unavailable'),{code:'auth/unavailable'});setCurrentProfileNickname(name);await withAuthTimeout(window.MXCloud.registerEmail(email,p1,name));await withAuthTimeout(reconcileAccountProfiles());openAccountModal(c.connected+' '+c.verify,true);}catch(err){msg.textContent=authErrorText(err);setAuthBusy(btn,false);}},{passive:false});
+  $('#authCreateGo').addEventListener('pointerdown',async e=>{e.preventDefault();const btn=e.currentTarget,msg=$('#authMsg');const name=$('#authName').value.trim(),email=$('#authEmail').value.trim(),p1=$('#authPass').value,p2=$('#authPass2').value;if(!name||!email||!p1||!p2){msg.textContent=c.required;return;}if(p1.length<6){msg.textContent=c.passShort;return;}if(p1!==p2){msg.textContent=c.passMismatch;return;}setAuthBusy(btn,true,c.working);msg.textContent='';try{if(!window.MXCloud)throw Object.assign(new Error('auth/unavailable'),{code:'auth/unavailable'});setCurrentProfileNickname(name);const connected=await withAuthTimeout(window.MXCloud.registerEmail(email,p1,name),25000,'auth/email-signin-timeout');if(connected)setAccountState(connected);openAccountModal(c.connected+' '+c.verify,true);setSyncStatus('syncing');setTimeout(()=>reconcileAccountProfiles().catch(()=>setSyncStatus('error')),80);}catch(err){msg.textContent=authErrorText(err);setAuthBusy(btn,false);}},{passive:false});
   bindTap('#authBack',e=>{openAccountModal();});
   setTimeout(()=>$('#authName').focus(),80);
 }
