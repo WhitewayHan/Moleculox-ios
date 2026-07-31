@@ -3,6 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<script>
+/* Native iOS WKWebView (used by Capacitor) has a known bug where the reported
+   viewport width can mismatch the device's actual CSS-pixel width, causing
+   every vw-based measurement in the stylesheet to render too large. This
+   forces a re-read of the real width and reapplies the viewport meta tag if
+   a mismatch is detected, before any layout/paint happens. */
+(function fixNativeViewportScale(){
+  if(!(window.Capacitor&&window.Capacitor.getPlatform&&window.Capacitor.getPlatform()==='ios'))return;
+  function correct(){
+    var meta=document.querySelector('meta[name="viewport"]');
+    if(!meta)return;
+    var realWidth=Math.min(window.screen.width,document.documentElement.clientWidth||window.screen.width);
+    meta.setAttribute('content','width='+realWidth+', initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover');
+  }
+  correct();
+  document.addEventListener('DOMContentLoaded',correct);
+  window.addEventListener('load',correct);
+  window.addEventListener('resize',correct);
+})();
+</script>
 
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -53,7 +73,7 @@ if('serviceWorker' in navigator){
   });
 }
 </script>
-<link rel="stylesheet" href="css/app.css?v=8.5.43-web-parity-daily-auth">
+<link rel="stylesheet" href="css/app.css?v=8.5.43-origin-diagnostic">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
 
@@ -163,7 +183,7 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
   <div id="splashBtns">
     <span id="btnPlayIntroWrap"><button id="btnPlay" class="btn green breathe">▶︎ CONTINUE</button></span>
     <button id="btnNew" class="btn">✦ <span data-i18n="newGameLabel">NEW GAME</span></button>
-    <button id="btnDaily" class="btn amber"><span class="menuCodeIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3"/><path d="M7.5 15h9"/></svg></span> <span data-i18n="todaysExpLabel">DAILY EXPERIMENT</span><span id="dailyDot"></span></button>
+    <button id="btnDaily" class="btn amber"><span class="menuCodeIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3"/><path d="M7.5 15h9"/></svg></span> <span data-i18n="todaysExpLabel">TODAY'S EXPERIMENT</span><span id="dailyDot"></span></button>
     <button id="btnLevels" class="btn" data-i18n="levels">LEVELS</button>
     <button id="btnCollect" class="btn ghost"><span class="menuCodeIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="12" rx="9" ry="3.6"/><ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(120 12 12)"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/></svg></span> <span data-i18n="myMolsLabel">MY MOLECULES</span></button>
   </div>
@@ -488,13 +508,13 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
 <div id="levelTransition"></div>
 <canvas id="fx"></canvas>
 
-<script src="js/sync-core.js?v=8.5.43-web-parity-daily-auth" defer></script>
-<script src="js/daily-levels.js?v=8.5.43-web-parity-daily-auth" defer></script>
-<script src="js/campaign-levels.js?v=8.5.43-web-parity-daily-auth" defer></script>
-<script src="js/game.js?v=8.5.43-web-parity-daily-auth" defer></script>
+<script src="js/sync-core.js?v=8.5.43-origin-diagnostic" defer></script>
+<script src="js/daily-levels.js?v=8.5.43-origin-diagnostic" defer></script>
+<script src="js/campaign-levels.js?v=8.5.43-origin-diagnostic" defer></script>
+<script src="js/game.js?v=8.5.43-origin-diagnostic" defer></script>
 
 <!-- ================= FIREBASE (cloud save + world leaderboard) ================= -->
-<script type="module" src="js/firebase.js?v=8.5.43-web-parity-daily-auth"></script>
+<script type="module" src="js/firebase.js?v=8.5.43-origin-diagnostic"></script>
 
 <script>
 /* V8.5.17: convert functional UI emoji glyphs to one cross-platform SVG family.

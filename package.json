@@ -1,8 +1,8 @@
 {
   "name": "moleculox-ios",
-  "version": "1.0.43",
+  "version": "1.0.0",
   "private": true,
-  "description": "Moleculox iOS App Store / Codemagic source (web 8.5.35 + iOS V8.5.43 parity/auth fixes)",
+  "description": "Moleculox iOS App Store / Codemagic source (web build 8.5.35)",
   "scripts": {
     "ios:prepare": "bash scripts/prepare-ios.sh",
     "ios:sync": "npx cap sync ios",
