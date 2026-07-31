@@ -6894,7 +6894,7 @@ async function nativeGoogleSignIn(button){
     if(!plugin||!window.MXCloud||!window.MXCloud.connectGoogleIdToken)throw Object.assign(new Error('auth/unavailable'),{code:'auth/unavailable'});
     setAuthBusy(button,true,c.working);
     const result=await withAuthTimeout(plugin.signInWithGoogle());
-    const idToken=result&&result.credential&&result.credential.idToken;
+    const idToken=result&&((result.credential&&result.credential.idToken)||result.idToken||result.identityToken);
     if(!idToken)throw Object.assign(new Error('auth/invalid-credential'),{code:'auth/invalid-credential'});
     const connected=await withAuthTimeout(window.MXCloud.connectGoogleIdToken(idToken));
     if(save.autoGuest&&!profileHasMeaningfulProgress(save)&&connected&&connected.displayName)setCurrentProfileNickname(connected.displayName);
@@ -6908,9 +6908,9 @@ async function nativeAppleSignIn(button){
     const plugin=window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.FirebaseAuthentication;
     if(!plugin||!window.MXCloud||!window.MXCloud.connectAppleIdToken)throw Object.assign(new Error('auth/unavailable'),{code:'auth/unavailable'});
     setAuthBusy(button,true,c.working);
-    const result=await withAuthTimeout(plugin.signInWithApple({skipNativeAuth:true}));
-    const idToken=result&&result.credential&&result.credential.idToken;
-    const nonce=result&&result.credential&&result.credential.nonce;
+    const result=await withAuthTimeout(plugin.signInWithApple());
+    const idToken=result&&((result.credential&&result.credential.idToken)||result.idToken||result.identityToken);
+    const nonce=result&&((result.credential&&result.credential.nonce)||result.nonce||result.rawNonce);
     if(!idToken||!nonce)throw Object.assign(new Error('auth/invalid-credential'),{code:'auth/invalid-credential'});
     const givenName=(result.user&&(result.user.givenName||result.user.displayName))||'';
     const connected=await withAuthTimeout(window.MXCloud.connectAppleIdToken(idToken,nonce,givenName));

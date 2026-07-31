@@ -4317,3 +4317,22 @@ body.tutorialMode #coinChip{
 @media(prefers-reduced-motion:reduce){
   #btnDuel.duelBtn,#btnHof.trophyBtn,#btnDuel.duelBtn::before,#btnHof.trophyBtn::before{animation:none!important}
 }
+
+
+/* V8.5.42 — iOS uses the exact working web layout. Only the in-game Dr. E
+   anchor is tightened to the physical safe-area corner; no global scaling. */
+body.mxNative #einWrap{
+  right:max(0px, env(safe-area-inset-right))!important;
+  bottom:max(0px, env(safe-area-inset-bottom))!important;
+  width:clamp(118px, 32vw, 180px)!important;
+  display:flex!important;
+  justify-content:flex-end!important;
+  align-items:flex-end!important;
+}
+body.mxNative #einBoxG{
+  margin:0!important;
+  width:clamp(104px, 28vw, 150px)!important;
+  max-width:none!important;
+  transform-origin:100% 100%!important;
+}
+body.mxNative #einBoxG .einImg{object-position:right bottom!important;}

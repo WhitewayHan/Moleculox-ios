@@ -59,6 +59,7 @@ if 'FirebaseOptions(' not in s:
         raise SystemExit('Could not patch AppDelegate didFinishLaunchingWithOptions')
 appdelegate.write_text(s)
 
+
 # Link entitlement file to all configurations and set version/build values.
 pbx=IOS/'App.xcodeproj'/'project.pbxproj'
 p=pbx.read_text()
@@ -80,6 +81,45 @@ p='\n'.join(out)+'\n'
 p=re.sub(r'(\s+CODE_SIGN_ENTITLEMENTS = App/App\.entitlements;\n)(?:\s+CODE_SIGN_ENTITLEMENTS = App/App\.entitlements;\n)+',r'\1',p)
 p=re.sub(r'(\s+MARKETING_VERSION = 8\.0\.0;\n)(?:\s+MARKETING_VERSION = 8\.0\.0;\n)+',r'\1',p)
 p=re.sub(r'(\s+CURRENT_PROJECT_VERSION = 1;\n)(?:\s+CURRENT_PROJECT_VERSION = 1;\n)+',r'\1',p)
+
+# Ensure GoogleService-Info.plist is a real Xcode resource. Native Google/Apple
+# authentication SDKs may inspect the bundled plist even though FirebaseCore is
+# also configured explicitly in AppDelegate. Copying the file to disk (in
+# prepare-ios.sh) is not enough — Xcode only bundles files it has been told
+# about, so without this it exists during the build but not inside the app.
+if (APP/'GoogleService-Info.plist').exists() and 'GoogleService-Info.plist' not in p:
+    import uuid
+    def _mx_new_uuid():
+        return uuid.uuid4().hex[:24].upper()
+    file_ref_id=_mx_new_uuid()
+    build_file_id=_mx_new_uuid()
+    p=p.replace(
+        '/* Begin PBXBuildFile section */',
+        '/* Begin PBXBuildFile section */\n\t\t'+build_file_id+' /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = '+file_ref_id+' /* GoogleService-Info.plist */; };',
+        1
+    )
+    p=p.replace(
+        '/* Begin PBXFileReference section */',
+        '/* Begin PBXFileReference section */\n\t\t'+file_ref_id+' /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = GoogleService-Info.plist; sourceTree = "<group>"; };',
+        1
+    )
+    p2=re.sub(
+        r'(\w{24} /\* AppDelegate\.swift \*/,)',
+        r'\1\n\t\t\t\t'+file_ref_id+' /* GoogleService-Info.plist */,',
+        p, count=1
+    )
+    if p2!=p:
+        p=p2
+    p2=re.sub(
+        r'(isa = PBXResourcesBuildPhase;\s*\n\s*buildActionMask = \d+;\s*\n\s*files = \(\s*\n)',
+        r'\1\t\t\t\t'+build_file_id+' /* GoogleService-Info.plist in Resources */,\n',
+        p, count=1
+    )
+    if p2==p:
+        raise SystemExit('Could not find PBXResourcesBuildPhase files list to register GoogleService-Info.plist')
+    p=p2
+    print("Registered GoogleService-Info.plist as a bundled Xcode resource.")
+
 pbx.write_text(p)
 
 # Add Google reversed client ID URL scheme when available.
