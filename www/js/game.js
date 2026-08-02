@@ -1152,22 +1152,6 @@ function isIOSWebDevice(){
   }catch(e){return false;}
 }
 let externalMusicMode=false;
-const MX_DEVICE_AUDIO_PREFS_KEY='moleculox_device_audio_prefs_r9';
-const MX_AUDIO_PREF_KEYS=['volM','volMu','volS','volV','muM','muMu','muS','muV','externalMusic'];
-function readDeviceAudioPrefs(){
-  try{const v=JSON.parse(localStorage.getItem(MX_DEVICE_AUDIO_PREFS_KEY)||'null');return v&&typeof v==='object'?v:null;}catch(e){return null;}
-}
-function storeDeviceAudioPrefs(source){
-  source=source||{};const out={};
-  MX_AUDIO_PREF_KEYS.forEach(k=>{if(Object.prototype.hasOwnProperty.call(source,k))out[k]=source[k];});
-  try{localStorage.setItem(MX_DEVICE_AUDIO_PREFS_KEY,JSON.stringify(out));}catch(e){}
-  return out;
-}
-function applyDeviceAudioPrefs(target){
-  target=target||{};const prefs=readDeviceAudioPrefs();if(!prefs)return target;
-  MX_AUDIO_PREF_KEYS.forEach(k=>{if(Object.prototype.hasOwnProperty.call(prefs,k))target[k]=prefs[k];});
-  return target;
-}
 function defaultSave(){return {cur:0,stars:{},coins:0,disc:{},volM:1,volMu:0.8,volS:1,volV:1,muM:false,muMu:false,muS:false,muV:false,externalMusic:false,dpad:false,reduceMotion:false,duelMessages:true,duelEffects:true,haptics:true,effectLevel:'normal',largeText:false,colorBlind:false,highContrast:false,performanceMode:'auto',favoriteMolecules:{},collectionFilter:'all',storySeen:{},storySchema:0,dailyDate:'',totalHints:0,streak3:0,lang:'en',achv:{},seenFrozen:false,seenFire:false,seenLightning:false,seenSticky:false,seenZombie:false,seenOneWay:false,seenBreakableWall:false,seenPortal:false,seenMovingWall:false,seenPressureDoor:false,seenFragile:false,seenPrecision:false,playerName:'',speedRuns:{},bestMoves:{},maxCoins:0,profileId:'',tutorialDone:false,autoGuest:false,rpSchema:0,researchPoints:0,researchLevels:{},researchAchievements:{},researchBonuses:{},bonusClaims:{},dailyScores:{},dailyRPStreak:0,lastDailyRPDate:'',seasonId:'',seasonRP:0,weekId:'',weekRP:0,saveSchema:5,campaignContentSchema:0,labTheme:'basic',economySchema:0,quantumHintDay:'',duelRatedMatches:{},duelRewards:{},duelRewardClaims:{},activeDuelFrame:'frame_bronze',activeDuelTitle:'',duelRating:800,duelPeakRating:800,duelWins:0,duelLosses:0,duelDraws:0,duelStreak:0,duelBestStreak:0,duelWeekPoints:0,duelWeekWins:0,duelMonthPoints:0,duelMonthWins:0,accountMilestoneInviteSeen:false,accountMilestoneInviteLastLevel:0,nobelCertificateShared:false,seenHintSupport:false,seenUndoSupport:false,seenRestartSupport:false,seenLabSupport:false,seenSupportGuide:false,seenHammerSupport:false,seenPrecisionSupport:false,seenBarrierSupport:false,seenGoalGlowGuide:false,tutorialTips:true,seenFragileAtom:false,seenLinkedAtoms:false,seenHammerWall:false,pushDeclined:false};}
 const COIN_EARN_KEY='__coinEarned',COIN_SPEND_KEY='__coinSpent';
 const LAB_THEME_STAMP_KEY='__labThemeStamp',QUANTUM_DAY_KEY='__quantumDay';
@@ -1518,16 +1502,12 @@ try{
     localStorage.setItem(migrationKey,'1');
   }
 }catch(e){}
-/* R9.1: Never force audio levels or mute flags. Existing local/profile settings
-   stay authoritative; device audio preferences are learned only after the user
-   changes or persists them. */
 let curProfile=null;
 let save=defaultSave();
 function persistAll(){try{localStorage.setItem(PKEY,JSON.stringify({profiles,last:lastProfile}));}catch(e){}}
 function persist(){
   if(!curProfile)return;
-  profiles[curProfile]=save;lastProfile=curProfile;storeDeviceAudioPrefs(save);persistAll();
-  try{if(typeof updateWhitewaySnapshotFromActive==='function')updateWhitewaySnapshotFromActive();}catch(e){}
+  profiles[curProfile]=save;lastProfile=curProfile;persistAll();
   try{
     if(window.MXCloud&&save.profileId){
       setSyncStatus(navigator.onLine===false?'offline':'syncing');
@@ -1554,7 +1534,7 @@ startupAudio.setAttribute('playsinline','');
 startupAudio.setAttribute('webkit-playsinline','');
 
 const musicAudio=new Audio();
-musicAudio.preload='auto';
+musicAudio.preload='metadata';
 musicAudio.playsInline=true;
 musicAudio.setAttribute('playsinline','');
 musicAudio.setAttribute('webkit-playsinline','');
@@ -1800,7 +1780,9 @@ const SFX={
 
 /* ---------- character voice system (pre-recorded clips only; no robotic TTS) ---------- */
 const VOICE_BASE='assets/audio/voices/';
-const VOICE_BANK={}; // No prerecorded voice clips are bundled in this release.
+const VOICE_BANK={
+  drE:{menu:["dre-01-welcome-back.mp3", "dre-02-ready-experiment.mp3", "dre-03-lab-waiting.mp3", "dre-04-make-chemistry.mp3", "dre-05-next-molecule.mp3", "dre-06-lab-coat.mp3"],ready:["dre-02-ready-experiment.mp3", "dre-03-lab-waiting.mp3", "dre-04-make-chemistry.mp3", "dre-05-next-molecule.mp3", "dre-06-lab-coat.mp3"],success:["dre-07-excellent.mp3", "dre-08-nice.mp3", "dre-09-brilliant.mp3", "dre-10-perfect.mp3", "dre-11-well-done.mp3", "dre-12-smart-move.mp3", "dre-13-almost-there.mp3", "dre-14-molecule-complete.mp3", "dre-15-you-built-it.mp3", "dre-16-thats-chemistry.mp3", "dre-17-three-stars.mp3", "dre-18-science-wins.mp3"],discovery:["dre-09-brilliant.mp3", "dre-10-perfect.mp3", "dre-11-well-done.mp3", "dre-12-smart-move.mp3", "dre-13-almost-there.mp3", "dre-14-molecule-complete.mp3", "dre-15-you-built-it.mp3", "dre-16-thats-chemistry.mp3", "dre-17-three-stars.mp3", "dre-18-science-wins.mp3"],failure:["dre-19-well-that-happened.mp3", "dre-20-atom-plans.mp3", "dre-21-almost-scientific.mp3", "dre-22-pretend-research.mp3", "dre-23-calculations-rarely.mp3", "dre-24-nothing-exploded.mp3"],hint:["dre-25-need-a-hint.mp3"],nobel:["dre-18-science-wins.mp3"]}
+}; // R12: approved Dr. E voice bank; no network TTS.
 const voiceCache=new Map();
 let activeVoice=null,voiceToken=0,lastVoiceAt=0;
 function voiceEnabled(){return !externalMusicMode&&!save.muM&&!save.muV&&clampAudio(save.volM)>0&&clampAudio(save.volV==null?1:save.volV)>0;}
@@ -2987,13 +2969,14 @@ function bootPlay(){
   unlock();
   MP.mode='menu';MP.idx=MENU_TRACK_INDEX;musicAudio.loop=true;
   playTrack(MENU_TRACK_INDEX,true);
+  playCharacterVoice('drE','menu',{force:true,duck:.26,cooldown:0});
   const continueBoot=()=>{
     try{
       const names=Object.keys(profiles||{});
       let target=(lastProfile&&profiles[lastProfile])?lastProfile:(names.length===1?names[0]:null);
       if(target){
         curProfile=target;
-        save=applyDeviceAudioPrefs(ensureResearchState(Object.assign(defaultSave(),profiles[target])));
+        save=ensureResearchState(Object.assign(defaultSave(),profiles[target]));
         if(!save.profileId){save.profileId=genProfileId();profiles[target]=save;}
         enterGame();
       }else if(names.length>1){
@@ -4647,7 +4630,7 @@ function showCrystalSuccess(elapsed,reward){
 function finishCrystalTimeout(){
   if(!crystalMode||duelMode||won)return;won=true;winT=performance.now();anim=null;bounce=null;nudge=null;updateHUD();
   const el=$('#duelTimer');if(el){el.textContent='00:00.0';el.classList.add('urgent');}
-  SFX.thunk();say(crystalCopy().timeUp,'sad',2200,'shk');
+  SFX.thunk();playCharacterVoice('drE','failure',{force:true,duck:.30,cooldown:0});say(crystalCopy().timeUp,'sad',2200,'shk');
   setTimeout(()=>{const c=crystalCopy();openModal('<h3>⏱️ '+c.timeUp+'</h3>'+crystalResultHtml(CRYSTAL_TIME_LIMIT)+'<div class="mrow"><button class="btn green" id="mCrystalRetry">'+c.retry+'</button><button class="btn" id="mCrystalNew2">'+c.newGame+'</button><button class="btn ghost" id="mCrystalMenu2">'+c.menu+'</button></div>');
     $('#mCrystalRetry').addEventListener('pointerdown',e=>{e.preventDefault();SFX.play();startCrystalChallenge(lv,false);},{passive:false});
     $('#mCrystalNew2').addEventListener('pointerdown',e=>{e.preventDefault();SFX.select();clearBonusMission();currentCrystalPool=crystalPoolFor('mixed');startCrystalChallenge(randomLevelFromPool(currentCrystalPool),true);},{passive:false});
@@ -4791,7 +4774,7 @@ function showChainSuccess(elapsed,reward){
 function finishChainTimeout(){
   if(!chainMode||duelMode||won)return;won=true;winT=performance.now();anim=null;bounce=null;nudge=null;chainAutoQueue=[];chainAutoActive=false;updateHUD();
   const el=$('#duelTimer');if(el){el.textContent='00:00.0';el.classList.add('urgent');}
-  SFX.thunk();say(chainCopy().timeUp,'sad',2200,'shk');
+  SFX.thunk();playCharacterVoice('drE','failure',{force:true,duck:.30,cooldown:0});say(chainCopy().timeUp,'sad',2200,'shk');
   setTimeout(()=>{const c=chainCopy();openModal('<h3>⏱️ '+c.timeUp+'</h3>'+chainResultHtml(CHAIN_TIME_LIMIT)+'<div class="mrow"><button class="btn green" id="mChainRetry">'+c.retry+'</button><button class="btn" id="mChainNew2">'+c.newGame+'</button><button class="btn ghost" id="mChainMenu2">'+c.menu+'</button></div>');
     $('#mChainRetry').addEventListener('pointerdown',e=>{e.preventDefault();SFX.play();startChainChallenge(lv,false);},{passive:false});
     $('#mChainNew2').addEventListener('pointerdown',e=>{e.preventDefault();SFX.select();clearBonusMission();currentChainPool=duelPoolFor('mixed');startChainChallenge(randomChainLevelFromPool(currentChainPool),true);},{passive:false});
@@ -4912,7 +4895,7 @@ function showReactorSuccess(elapsed,reward){
   },2200);
 }
 function finishReactorTimeout(){
-  if(!reactorMode||duelMode||won)return;won=true;winT=performance.now();anim=null;bounce=null;nudge=null;updateHUD();const el=$('#duelTimer');if(el){el.textContent='00:00.0';el.classList.add('urgent');}SFX.thunk();say(reactorCopy().timeUp,'sad',2200,'shk');
+  if(!reactorMode||duelMode||won)return;won=true;winT=performance.now();anim=null;bounce=null;nudge=null;updateHUD();const el=$('#duelTimer');if(el){el.textContent='00:00.0';el.classList.add('urgent');}SFX.thunk();playCharacterVoice('drE','failure',{force:true,duck:.30,cooldown:0});say(reactorCopy().timeUp,'sad',2200,'shk');
   setTimeout(()=>{const c=reactorCopy();openModal('<h3>⏱️ '+c.timeUp+'</h3>'+reactorResultHtml(REACTOR_TIME_LIMIT)+'<div class="mrow"><button class="btn green" id="mReactorRetry">'+c.retry+'</button><button class="btn" id="mReactorNew2">'+c.newGame+'</button><button class="btn ghost" id="mReactorMenu2">'+c.menu+'</button></div>');
     $('#mReactorRetry').addEventListener('pointerdown',e=>{e.preventDefault();SFX.play();startReactorChallenge(lv,false);},{passive:false});
     $('#mReactorNew2').addEventListener('pointerdown',e=>{e.preventDefault();SFX.select();clearBonusMission();currentReactorPool=duelPoolFor('mixed');startReactorChallenge(randomReactorLevelFromPool(currentReactorPool),true);},{passive:false});
@@ -6334,6 +6317,7 @@ function showGeneralHint(){
   say('💡 '+tipOf(mid),'talk',5200,'glow');prop('💡',2600);lidHalf(true);setTimeout(()=>lidHalf(false),900);
 }
 function hint(){
+  maybeVoice('drE','hint',.72,{cooldown:6500,duck:.30});
   if(won)return;
   resetIdle();clearTimeout(autoHintT);
   setDrEPose('thinking',6400,4,true);
@@ -7248,105 +7232,31 @@ function setCurrentProfileNickname(rawName){
 }
 
 const MX_WHITEWAY_CANONICAL_NAME='wHiTeWaY';
-const MX_WHITEWAY_CANONICAL_PROFILE_ID='p_whiteway_main';
-const MX_WHITEWAY_OWNER_EMAIL_KEYS=new Set(['9c1cc5cf','b9196da9','c2412adf']);
-function whitewayOwnerEmailKey(value){
-  const text='mx-r9-owner-2026|'+String(value||'').trim().toLowerCase();
-  let h=0x811c9dc5;
-  for(let i=0;i<text.length;i++){h^=text.charCodeAt(i);h=Math.imul(h,0x01000193)>>>0;}
-  return h.toString(16).padStart(8,'0');
-}
-const MX_WHITEWAY_OWNER_UIDS_KEY='moleculox_whiteway_owner_uids_v1';
-const MX_WHITEWAY_SNAPSHOT_KEY='moleculox_whiteway_owner_snapshot_v1';
-function readWhitewayOwnerUids(){
-  try{const rows=JSON.parse(localStorage.getItem(MX_WHITEWAY_OWNER_UIDS_KEY)||'[]');return new Set(Array.isArray(rows)?rows.map(String):[]);}catch(e){return new Set();}
-}
-function rememberWhitewayOwnerAccount(account,ownerIntent){
-  const email=String(account&&account.email||'').trim().toLowerCase();
-  const uid=String(account&&account.uid||'');
-  const uids=readWhitewayOwnerUids();
-  // Never promote an arbitrary public player to the studio owner's profile.
-  // ownerIntent only controls the UI flow; ownership requires one of the three
-  // verified owner emails or a UID previously learned from one of those emails.
-  const recognized=MX_WHITEWAY_OWNER_EMAIL_KEYS.has(whitewayOwnerEmailKey(email))||(uid&&uids.has(uid));
-  if(recognized&&uid){uids.add(uid);try{localStorage.setItem(MX_WHITEWAY_OWNER_UIDS_KEY,JSON.stringify(Array.from(uids)));}catch(e){}}
-  return recognized;
-}
+try{localStorage.removeItem('moleculox_whiteway_owner_uids_v1');localStorage.removeItem('moleculox_whiteway_owner_snapshot_v1');}catch(e){}
+const MX_WHITEWAY_OWNER_EMAILS=new Set(['oakyol82@gmail.com']); // R12: wHiTeWaY belongs only to the verified Google account.
 function isWhitewayOwnerAccount(account){
   const email=String(account&&account.email||'').trim().toLowerCase();
-  const id=String(account&&account.uid||'');
-  return MX_WHITEWAY_OWNER_EMAIL_KEYS.has(whitewayOwnerEmailKey(email))||(id&&readWhitewayOwnerUids().has(id));
+  return MX_WHITEWAY_OWNER_EMAILS.has(email);
 }
 function hasLocalWhitewayIdentity(){
   const expected=normalizedPlayerName(MX_WHITEWAY_CANONICAL_NAME);
   if(normalizedPlayerName(save&&save.playerName)===expected||normalizedPlayerName(curProfile)===expected)return true;
   return Object.keys(profiles||{}).some(key=>normalizedPlayerName((profiles[key]&&profiles[key].playerName)||key)===expected);
 }
-function readWhitewayOwnerSnapshot(){
-  try{const row=JSON.parse(localStorage.getItem(MX_WHITEWAY_SNAPSHOT_KEY)||'null');return row&&typeof row==='object'?ensureResearchState(Object.assign(defaultSave(),row)):null;}catch(e){return null;}
-}
-function whitewayCandidateName(value){
-  const n=normalizedPlayerName(value);
-  return n===normalizedPlayerName(MX_WHITEWAY_CANONICAL_NAME)||n==='david'||/^player\s*1$/i.test(String(value||'').trim())||/^oyuncu\s*1$/i.test(String(value||'').trim());
-}
-function whitewayProfileScore(p){
-  p=p||{};return (Math.max(0,Number(p.cur)||0)*100000000)+(Object.keys(p.stars||{}).length*1000000)+(Math.max(0,Number(p.researchPoints)||0)*100)+(Math.max(0,Number(p.coins)||0));
-}
-function buildBestLocalWhitewaySnapshot(){
-  const candidates=[];
-  Object.keys(profiles||{}).forEach(key=>{const row=profiles[key];if(row&&(whitewayCandidateName(row.playerName||key)||row.profileId===MX_WHITEWAY_CANONICAL_PROFILE_ID))candidates.push(row);});
-  if(save&&(whitewayCandidateName(save.playerName||curProfile)||isWhitewayOwnerAccount(window.MXCloud&&window.MXCloud.account)))candidates.push(save);
-  const stored=readWhitewayOwnerSnapshot();if(stored)candidates.push(stored);
-  if(!candidates.length)return null;
-  candidates.sort((a,b)=>whitewayProfileScore(b)-whitewayProfileScore(a));
-  let merged=ensureResearchState(Object.assign(defaultSave(),candidates[0]));
-  for(let i=1;i<candidates.length;i++)merged=mergeCloudData(merged,candidates[i]);
-  merged.playerName=MX_WHITEWAY_CANONICAL_NAME;merged.profileId=MX_WHITEWAY_CANONICAL_PROFILE_ID;merged.autoGuest=false;
-  applyDeviceAudioPrefs(merged);
-  return merged;
-}
-function writeWhitewayOwnerSnapshot(candidate){
-  if(!candidate)return null;
-  const stored=readWhitewayOwnerSnapshot();
-  let merged=stored?mergeCloudData(stored,candidate):ensureResearchState(Object.assign(defaultSave(),candidate));
-  merged.playerName=MX_WHITEWAY_CANONICAL_NAME;merged.profileId=MX_WHITEWAY_CANONICAL_PROFILE_ID;merged.autoGuest=false;
-  applyDeviceAudioPrefs(merged);
-  try{localStorage.setItem(MX_WHITEWAY_SNAPSHOT_KEY,JSON.stringify(merged));}catch(e){}
-  return merged;
-}
-function updateWhitewaySnapshotFromActive(){
-  const account=window.MXCloud&&window.MXCloud.account;
-  if(!save||!isWhitewayOwnerAccount(account))return false;
-  writeWhitewayOwnerSnapshot(save);return true;
-}
 async function enforceWhitewayCanonicalProfile(connected,ownerIntent){
-  const owner=rememberWhitewayOwnerAccount(connected,ownerIntent)||isWhitewayOwnerAccount(connected);
-  if(!owner)return false;
+  if(!isWhitewayOwnerAccount(connected)&&!ownerIntent)return false;
   const name=MX_WHITEWAY_CANONICAL_NAME;
-  const oldIds=Array.from(new Set(Object.keys(profiles||{}).filter(k=>whitewayCandidateName((profiles[k]&&profiles[k].playerName)||k)||(profiles[k]&&profiles[k].profileId===MX_WHITEWAY_CANONICAL_PROFILE_ID)).map(k=>profiles[k]&&profiles[k].profileId).filter(Boolean)));
-  let merged=writeWhitewayOwnerSnapshot(buildBestLocalWhitewaySnapshot()||save);
-  if(!merged)return false;
-  merged.playerName=name;merged.profileId=MX_WHITEWAY_CANONICAL_PROFILE_ID;merged.autoGuest=false;
-  applyDeviceAudioPrefs(merged);
-  Object.keys(profiles||{}).forEach(key=>{
-    const row=profiles[key]||{};
-    if(whitewayCandidateName(row.playerName||key)||row.profileId===MX_WHITEWAY_CANONICAL_PROFILE_ID)delete profiles[key];
-  });
-  save=merged;curProfile=name;lastProfile=name;profiles[name]=save;
+  if(!save||!save.profileId)return false;
+  const oldKey=curProfile;
+  save.playerName=name;save.autoGuest=false;
+  if(oldKey&&oldKey!==name&&!profiles[name]&&profiles[oldKey]&&profiles[oldKey].profileId===save.profileId){
+    delete profiles[oldKey];curProfile=name;lastProfile=name;profiles[name]=save;
+  }else if(curProfile){profiles[curProfile]=save;lastProfile=curProfile;}
   if(connected){connected.displayName=name;setAccountState(connected);}
-  storeDeviceAudioPrefs(save);persistAll();buildProfileSelect();refreshSplash();updateCoins();updateBadge();
+  persistAll();buildProfileSelect();refreshSplash();
   try{if(window.MXCloud&&window.MXCloud.setAuthDisplayName)await window.MXCloud.setAuthDisplayName(name);}catch(e){console.warn('[account] auth display-name update skipped',e&&e.code||e);}
   try{if(window.MXCloud&&window.MXCloud.updateDisplayName)await window.MXCloud.updateDisplayName(save.profileId,name);}catch(e){console.warn('[account] profile name update skipped',e&&e.code||e);}
-  try{
-    if(window.MXCloud&&window.MXCloud.saveProgressNow){
-      const cloud=await window.MXCloud.saveProgressNow(save,save.profileId);
-      if(cloud){save=writeWhitewayOwnerSnapshot(mergeCloudData(save,cloud))||save;profiles[name]=save;persistAll();}
-    }
-  }catch(e){console.warn('[account] canonical profile save skipped',e&&e.code||e);}
-  if(window.MXCloud&&window.MXCloud.deleteCloudProfile){
-    for(const id of oldIds){if(id&&id!==MX_WHITEWAY_CANONICAL_PROFILE_ID){try{await window.MXCloud.deleteCloudProfile(id);}catch(e){}}}
-  }
-  try{await repairCurrentLeaderboard('whiteway-owner-bridge',true);}catch(e){}
+  try{if(window.MXCloud&&window.MXCloud.saveProgressNow){const merged=await window.MXCloud.saveProgressNow(save,save.profileId);if(merged)applyMergedCloudProfile(merged);}}catch(e){console.warn('[account] canonical profile save skipped',e&&e.code||e);}
   return true;
 }
 function resetLocalAccountData(){
@@ -7401,10 +7311,9 @@ function cloudAuthoritativeProfile(local,cloud){
   local=local&&typeof local==='object'?local:{};
   cloud=cloud&&typeof cloud==='object'?cloud:{};
   const result=ensureResearchState(Object.assign(defaultSave(),cloud));
-  ['lang','dpad'].forEach(k=>{
+  ['lang','volM','volMu','volS','muM','muMu','muS','externalMusic','dpad'].forEach(k=>{
     if(Object.prototype.hasOwnProperty.call(local,k))result[k]=local[k];
   });
-  applyDeviceAudioPrefs(result);
   result.autoGuest=false;
   result.saveSchema=5;
   return result;
@@ -7417,10 +7326,6 @@ function normalizedPlayerName(value){
 
 async function reconcileAccountProfiles(){
   if(!window.MXCloud||accountState.isAnonymous)return false;
-  if(isWhitewayOwnerAccount(accountState)||hasLocalWhitewayIdentity()){
-    rememberWhitewayOwnerAccount(accountState,hasLocalWhitewayIdentity());
-    const preBridge=buildBestLocalWhitewaySnapshot();if(preBridge)writeWhitewayOwnerSnapshot(preBridge);
-  }
   if(accountReconcilePromise)return accountReconcilePromise;
   accountReconcilePromise=(async()=>{
     setSyncStatus('syncing');
@@ -7530,8 +7435,6 @@ function confirmAppleConnection(){
 async function finishAccountLoginUI(connected,c,successMessage,options){
   const opts=options||{};
   if(connected)setAccountState(connected);
-  const whitewayOwner=rememberWhitewayOwnerAccount(connected,!!opts.whitewayOwnerIntent);
-  if(whitewayOwner){const localCandidate=buildBestLocalWhitewaySnapshot();if(localCandidate)writeWhitewayOwnerSnapshot(localCandidate);}
   if(save.autoGuest&&!profileHasMeaningfulProgress(save)&&connected&&connected.displayName)setCurrentProfileNickname(connected.displayName);
   let ok=await reconcileAccountProfiles();
   if(!ok){
@@ -7543,8 +7446,7 @@ async function finishAccountLoginUI(connected,c,successMessage,options){
     openAccountModal(c.connectedSyncPending,true);
     return false;
   }
-  await enforceWhitewayCanonicalProfile(connected,whitewayOwner);
-  try{applyVol();if(bootDone)musKick();}catch(e){}
+  await enforceWhitewayCanonicalProfile(connected,!!opts.whitewayOwnerIntent);
   openAccountModal(successMessage||c.connected,true);
   return true;
 }
@@ -7557,11 +7459,11 @@ async function nativeGoogleSignIn(button){
     const result=await withAuthTimeout(plugin.signInWithGoogle({skipNativeAuth:true,useCredentialManager:false}),45000,'auth/google-native-timeout');
     const idToken=result&&((result.credential&&result.credential.idToken)||result.idToken||result.identityToken);
     if(!idToken)throw Object.assign(new Error('auth/invalid-credential'),{code:'auth/invalid-credential'});
-    const connected=await withAuthTimeout(window.MXCloud.connectGoogleIdToken(idToken,hasLocalWhitewayIdentity()),45000,'auth/firebase-credential-timeout');
-    await finishAccountLoginUI(connected,c,null,{whitewayOwnerIntent:hasLocalWhitewayIdentity()});
+    const connected=await withAuthTimeout(window.MXCloud.connectGoogleIdToken(idToken),45000,'auth/firebase-credential-timeout');
+    await finishAccountLoginUI(connected,c);
   }catch(err){openAccountModal(authErrorText(err),false);}
 }
-const MX_APPLE_DIAG_KEY='mxAppleAuthDiagnosticsV4';
+const MX_APPLE_DIAG_KEY='mxAppleAuthDiagnosticsV3';
 function createAppleRawNonce(size){
   const length=Math.max(16,Math.min(64,Number(size)||32));
   const alphabet='0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
@@ -7626,7 +7528,7 @@ async function nativeAppleNonceFromResult(result,idToken,requestedNonce){
 
 async function nativeAppleSignIn(button){
   const c=accountCopy();
-  const whitewayOwnerIntent=hasLocalWhitewayIdentity();
+  const whitewayOwnerIntent=false; // R12: Apple remains a separate Firebase player.
   try{
     const plugin=window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.FirebaseAuthentication;
     if(!plugin||!window.MXCloud||!window.MXCloud.connectAppleIdToken)throw Object.assign(new Error('auth/unavailable'),{code:'auth/unavailable'});
@@ -7641,13 +7543,13 @@ async function nativeAppleSignIn(button){
     const verifiedRawNonce=await nativeAppleNonceFromResult(result,idToken,requestedNonce);
     const givenName=(result.user&&(result.user.givenName||result.user.displayName))||'';
     recordAppleDiagnostic('firebase-bridge-start',{nonceVerified:true,hasAuthorizationCode:!!authorizationCode});
-    const connected=await withAuthTimeout(window.MXCloud.connectAppleIdToken(idToken,verifiedRawNonce,givenName,authorizationCode,whitewayOwnerIntent),45000,'auth/firebase-credential-timeout');
+    const connected=await withAuthTimeout(window.MXCloud.connectAppleIdToken(idToken,verifiedRawNonce,givenName,authorizationCode),45000,'auth/firebase-credential-timeout');
     recordAppleDiagnostic('firebase-connected',{uid:!!(connected&&connected.uid),email:!!(connected&&connected.email)});
-    await finishAccountLoginUI(connected,c,null,{whitewayOwnerIntent});
+    await finishAccountLoginUI(connected,c);
   }catch(err){
     const previousStage=(window.MXAppleDiagnostics&&window.MXAppleDiagnostics.length)?String(window.MXAppleDiagnostics[window.MXAppleDiagnostics.length-1].stage||'unknown'):'unknown';
     recordAppleDiagnostic('failed',{code:String(err&&err.code||'auth/unknown'),message:String(err&&err.message||'').slice(0,120),previousStage});
-    openAccountModal(authErrorText(err)+' · R9/'+previousStage,false);
+    openAccountModal(authErrorText(err)+' · R8/'+previousStage,false);
   }
 }
 
@@ -7736,16 +7638,14 @@ function resetViewportZoomIOS(){
 }
 function openAccountModal(message,good){
   if(good)setTimeout(resetViewportZoomIOS,120);
-  const c=accountCopy();const member=!accountState.isAnonymous;const cloudReady=!!(window.MXCloud&&window.MXCloud.connectGoogle);const ownerBridge=member&&isWhitewayOwnerAccount(accountState);
+  const c=accountCopy();const member=!accountState.isAnonymous;const cloudReady=!!(window.MXCloud&&window.MXCloud.connectGoogle);
   if(!cloudReady&&!message)message=LANG==='tr'?'Firebase bağlantısı hazırlanıyor…':'Preparing Firebase connection…';
   const avatar=accountState.photoURL?'<img src="'+escAttr(accountState.photoURL)+'" alt="">':'👤';
   const identity=member?(accountState.displayName||accountState.email||c.cloudGood):c.guestTitle;
   const sub=member?((accountState.email?esc(accountState.email)+'<br>':'')+c.memberSub):c.guestSub;
   openModal('<button type="button" class="accountCloseX" id="accCloseTop" aria-label="'+c.close+'">×</button><h3>👤 '+c.title+'</h3><div class="accountHero"><div class="accountAvatar">'+avatar+'</div><div><strong>'+esc(identity)+'</strong><small>'+sub+'</small></div></div>'+
     (message?'<div class="accountNotice '+(good?'good':'')+'">'+esc(message)+'</div>':'')+
-    '<div class="accountNotice '+(member?'good':'')+'">'+(member?'✓ '+c.cloudGood:'⚠ '+c.guestWarn)+'</div>'+ 
-    (ownerBridge?'<div class="accountNotice good">✓ '+(LANG==='tr'?'wHiTeWaY köprüsü aktif: Google, Apple ve e-posta girişleri aynı oyuncu profilini açar.':'wHiTeWaY bridge active: Google, Apple and email sign-ins open the same player profile.')+'</div>':'')+
-    '<div class="accountActions">'+
+    '<div class="accountNotice '+(member?'good':'')+'">'+(member?'✓ '+c.cloudGood:'⚠ '+c.guestWarn)+'</div><div class="accountActions">'+
     (!member?(MX_SHOW_APPLE_BTN?'<button class="btn apple" id="accApple">'+appleLogoHtml()+'<span>'+c.apple+'</span></button>':'')+'<button class="btn google" id="accGoogle">'+c.google+'</button>'+'<div class="accountDivider">'+c.or+'</div><button class="btn blue" id="accEmailLogin">✉ '+c.emailLogin+'</button><button class="btn ghost" id="accEmailCreate">＋ '+c.emailCreate+'</button>':'')+
     (member&&MX_SHOW_APPLE_BTN&&!accountState.providers.includes('apple.com')?'<button class="btn apple" id="accApple">'+appleLogoHtml()+'<span>'+c.linkApple+'</span></button>':'')+
     (member?(accountState.providers.includes('google.com')?'<button class="btn google googleLinked" id="accGoogleLinked" disabled>✓ '+(LANG==='tr'?'Google hesabı bağlı':'Google account linked')+'</button>':'<button class="btn google" id="accGoogle">'+(LANG==='tr'?'Google hesabını bağla':'Link Google account')+'</button>'):'')+
@@ -7794,9 +7694,9 @@ function openAccountModal(message,good){
 function authFormShell(title,body){openModal('<h3>'+title+'</h3>'+body);$('#modalBox').classList.add('accountModal');}
 function openEmailLogin(prefill){
   const c=accountCopy();
-  const accountSwitchNote=hasLocalWhitewayIdentity()?(LANG==='tr'?'wHiTeWaY köprüsü aktif. Doğrulanmış Hotmail hesabına giriş yaptığında aynı ana oyuncu profili açılır.':'The wHiTeWaY bridge is active. Signing in to the verified Hotmail account opens the same canonical player profile.'):(LANG==='tr'?'Bu ekran kayıtlı e-posta hesabına geçer. E-posta ayrı bir Firebase hesabına aitse farklı oyuncu açılır. Mevcut oyuncuya e-posta eklemek için hesabına dönüp “E-posta ve şifre ekle” seçeneğini kullan.':'This screen switches to the saved email account. If that email belongs to a separate Firebase account, a different player will open. To add email to the current player, return to the account and choose “Add email & password”.');
+  const accountSwitchNote=LANG==='tr'?'Bu ekran kayıtlı e-posta hesabına geçer. E-posta ayrı bir Firebase hesabına aitse farklı oyuncu açılır. Mevcut oyuncuya e-posta eklemek için hesabına dönüp “E-posta ve şifre ekle” seçeneğini kullan.':'This screen switches to the saved email account. If that email belongs to a separate Firebase account, a different player will open. To add email to the current player, return to the account and choose “Add email & password”.';
   authFormShell('✉ '+c.emailLogin,'<label class="authField"><span>'+c.email+'</span><input class="authInput" id="authEmail" type="email" inputmode="email" autocomplete="email" value="'+escAttr(prefill||'')+'"></label><label class="authField"><span>'+c.password+'</span><input class="authInput" id="authPass" type="password" autocomplete="current-password"></label><div class="authMessage" id="authMsg"></div><div class="authTiny accountSwitchWarning">'+accountSwitchNote+'</div><div class="accountActions"><button class="btn blue" id="authLoginGo">'+c.login+'</button><button class="btn ghost" id="authForgot">'+c.reset+'</button><button class="btn" id="authBack">'+c.back+'</button></div>');
-  $('#authLoginGo').addEventListener('pointerdown',async e=>{e.preventDefault();const btn=e.currentTarget,msg=$('#authMsg');const email=$('#authEmail').value,pass=$('#authPass').value;if(!email||!pass){msg.textContent=c.required;return;}setAuthBusy(btn,true,c.working);msg.textContent='';try{if(!window.MXCloud)throw Object.assign(new Error('auth/unavailable'),{code:'auth/unavailable'});const connected=await withAuthTimeout(window.MXCloud.signInEmail(email,pass),45000,'auth/email-timeout');await finishAccountLoginUI(connected,c,null,{whitewayOwnerIntent:hasLocalWhitewayIdentity()});}catch(err){msg.textContent=authErrorText(err);setAuthBusy(btn,false);}},{passive:false});
+  $('#authLoginGo').addEventListener('pointerdown',async e=>{e.preventDefault();const btn=e.currentTarget,msg=$('#authMsg');const email=$('#authEmail').value,pass=$('#authPass').value;if(!email||!pass){msg.textContent=c.required;return;}setAuthBusy(btn,true,c.working);msg.textContent='';try{if(!window.MXCloud)throw Object.assign(new Error('auth/unavailable'),{code:'auth/unavailable'});const connected=await withAuthTimeout(window.MXCloud.signInEmail(email,pass),45000,'auth/email-timeout');await finishAccountLoginUI(connected,c);}catch(err){msg.textContent=authErrorText(err);setAuthBusy(btn,false);}},{passive:false});
   $('#authForgot').addEventListener('pointerdown',e=>{e.preventDefault();openPasswordReset($('#authEmail').value);},{passive:false});
   bindTap('#authBack',e=>{openAccountModal();});
   setTimeout(()=>$('#authEmail').focus(),80);
@@ -7826,11 +7726,8 @@ function bindAccountAuth(){
       // Always reconcile after account restoration, not only on the first
       // guest→member transition. Embedded hosts can restore auth before this
       // listener binds, which previously skipped profile import on itch.io.
-      reconcileAccountProfiles().then(async ok=>{
-        if(ok){
-          await enforceWhitewayCanonicalProfile(state,hasLocalWhitewayIdentity());
-          scheduleLeaderboardRepair(wasGuest?'account-connected':'auth-restored',250,true);
-        }
+      reconcileAccountProfiles().then(ok=>{
+        if(ok)scheduleLeaderboardRepair(wasGuest?'account-connected':'auth-restored',250,true);
       });
     }
   });
@@ -9062,7 +8959,7 @@ $('#btnRestart').addEventListener('pointerdown',e=>{e.preventDefault();SFX.click
   if(tutorialActive){const phase=tutorialStep>=8?8:2;loadTutorialPuzzle(phase===8?TUT_LEVEL_2:TUT_LEVEL_1);tutorialGoStep(phase);return;}
   if(duelMode){say(duelCopy().noRestart,'sad',2200,'shk');return;}
   const doRestart=()=>startLevel(lv,crystalMode?'crystal':(chainMode?'chain':(reactorMode?'reactor':(dailyMode?'daily':'campaign'))));
-  const confirmRestart=()=>{openModal('<h3>🔄 '+(LANG==='tr'?'BÖLÜMÜ YENİDEN BAŞLAT?':'RESTART LEVEL?')+'</h3><div class="msub">'+(LANG==='tr'?'Bölüm başlangıç düzenine döner. Kullanılmış Çekiç ve Tek Kare Hareket geri verilmez.':'The level returns to its starting layout. Used Hammer and One-Square Move items are not restored.')+'</div><div class="mrow"><button class="btn amber" id="mRestartYes">'+(LANG==='tr'?'YENİDEN BAŞLAT':'RESTART')+'</button><button class="btn ghost" id="mRestartNo">'+t('cancel')+'</button></div>');bindTap('#mRestartYes',()=>{closeModal();doRestart();});bindTap('#mRestartNo',()=>closeModal());};
+  const confirmRestart=()=>{openModal('<h3>🔄 '+(LANG==='tr'?'BÖLÜMÜ YENİDEN BAŞLAT?':'RESTART LEVEL?')+'</h3><div class="msub">'+(LANG==='tr'?'Bölüm başlangıç düzenine döner. Kullanılmış Çekiç ve Tek Kare Hareket geri verilmez.':'The level returns to its starting layout. Used Hammer and One-Square Move items are not restored.')+'</div><div class="mrow"><button class="btn amber" id="mRestartYes">'+(LANG==='tr'?'YENİDEN BAŞLAT':'RESTART')+'</button><button class="btn ghost" id="mRestartNo">'+t('cancel')+'</button></div>');bindTap('#mRestartYes',()=>{closeModal();playCharacterVoice('drE','failure',{force:true,duck:.30,cooldown:0});doRestart();});bindTap('#mRestartNo',()=>closeModal());};
   if(!save.seenRestartSupport){save.seenRestartSupport=true;persist();showSupportTutorial('restart',confirmRestart);return;}
   confirmRestart();
 },{passive:false});
@@ -9300,7 +9197,6 @@ window.addEventListener('online',()=>{
 },{passive:true});
 window.addEventListener('offline',()=>setSyncStatus('offline'),{passive:true});
 window.addEventListener('pageshow',()=>{if(navigator.onLine!==false)setTimeout(()=>runConnectivityCloudSync('pageshow'),500);},{passive:true});
-window.addEventListener('focus',()=>{setTimeout(()=>{try{if(AC&&AC.state==='suspended')AC.resume();applyVol();if(bootDone)musKick();}catch(e){}},80);},{passive:true});
 document.addEventListener('touchmove',e=>{if(!e.target.closest('.scrollArea,.settingsScroll,.guideScroll,.modalScroll,.mxUniversalBody,.mtlist,input[type=\"range\"],textarea,select'))e.preventDefault();},{passive:false});
 const MX_NATIVE=!!(window.Capacitor&&window.Capacitor.isNativePlatform&&window.Capacitor.isNativePlatform());
 // Added 2026-07-26: iOS-specific flag (not just "any native platform"), so we
@@ -9532,6 +9428,7 @@ requestAnimationFrame(loop);
 // V8.4.3: #btnBootPlay is a real green button with its own click listener.
 // Once visible, the button and the remaining boot-screen area both enter the game.
 $('#profileBack').addEventListener('pointerdown',e=>{e.preventDefault();SFX.back();bootPlay();},{passive:false});
+const profileCloseX=$('#profileCloseX');if(profileCloseX)profileCloseX.addEventListener('pointerdown',e=>{e.preventDefault();SFX.back();bootPlay();},{passive:false});
 $('#btnSwitchProfile').addEventListener('pointerdown',e=>{e.preventDefault();SFX.click();openAccountModal();},{passive:false});
 // Fast repeated taps remain available. CSS touch-action: manipulation prevents
 // browser double-tap zoom without swallowing legitimate game input.

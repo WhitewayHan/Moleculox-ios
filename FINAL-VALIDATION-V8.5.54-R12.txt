@@ -1,0 +1,19 @@
+MOLECULOX V8.5.54 R12 FINAL VALIDATION
+
+PASS: game.js, firebase.js and sync-core.js JavaScript syntax
+PASS: all shell scripts parse
+PASS: all Python scripts compile
+PASS: all JSON files parse
+PASS: all YAML files parse
+PASS: all plist files parse
+PASS: 25 Dr. E MP3 clips present
+PASS: all voice clips decode
+PASS: wHiTeWaY owner list contains Gmail only
+PASS: R9 UID/snapshot bridge implementation absent
+PASS: Apple owner intent disabled
+PASS: profile close X exists and is bound
+PASS: iOS and Android platform classes separated
+PASS: visual native overrides are iOS scoped
+PASS: in-game Dr. E enlarged
+PASS: R12 voice bank and hooks present
+LIMITATION: Firebase writes, TestFlight safe-area rendering and audible balance require a real-device pass.

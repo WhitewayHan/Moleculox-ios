@@ -1,0 +1,21 @@
+MOLECULOX iOS V8.5.54 R12 — STABLE SYNC + VOICE TEST
+
+BASE
+- Authentication and cloud reconciliation restored to the R8 baseline that preceded the multi-account wHiTeWaY bridge.
+- Working native Apple nonce implementation remains intact.
+- R10 platform-class split retained so iOS pixel overrides do not leak to Android.
+
+ACCOUNT POLICY
+- wHiTeWaY is automatically reserved only for oakyol82@gmail.com through Google sign-in.
+- Apple private-relay and email/password accounts remain independent players.
+- Old R9 local bridge UID/snapshot metadata is retired; no player or Firestore data is automatically deleted.
+
+UI
+- Player selection has a dedicated top-right X and balanced iPhone proportions.
+- Account/cloud title lane reserves space for its X button.
+- Board moved 16 px upward on standard iPhones (12 px on narrow phones).
+- In-game Dr. E enlarged while remaining bottom-right anchored.
+
+VOICE
+- All 25 approved Dr. E clips retained from R11.
+- Menu, success, hint, restart and timed-failure hooks retained.

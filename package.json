@@ -2,7 +2,7 @@
   "name": "moleculox-ios",
   "version": "8.5.54",
   "private": true,
-  "description": "Moleculox iOS V8.5.54 R10 App Store final: working Apple/Google/email sign-in retained, owner-only wHiTeWaY profile bridge preserved, user audio preferences preserved, and iOS-only visual overrides isolated from Android/Web.",
+  "description": "Moleculox iOS V8.5.54 R12 stability test: R8 auth/sync baseline, wHiTeWaY restricted to the verified Google account, Dr. E voice bank retained, proportional player/account UI, raised board, and larger in-game Dr. E.",
   "scripts": {
     "ios:prepare": "bash scripts/prepare-ios.sh",
     "ios:sync": "npx cap sync ios",
