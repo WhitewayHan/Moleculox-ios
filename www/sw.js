@@ -1,7 +1,7 @@
-// Moleculox V8.5.54 final audited service worker.
+// Moleculox V8.5.63 R18 iOS voice-sprite service worker.
 // Core code is precached; large audio/story assets are cached only after use.
 // Firebase and Google traffic is never intercepted.
-const CACHE_NAME = 'moleculox-v8.5.54-ios-final';
+const CACHE_NAME = 'moleculox-v8.5.63-ios-r18';
 const CACHE_PREFIX = 'moleculox-';
 const CORE_SHELL = [
   './index.html','./css/app.css','./js/sync-core.js','./js/daily-levels.js',
@@ -20,7 +20,8 @@ const CORE_SHELL = [
   './assets/images/dr-e-poses/confused.png','./assets/images/dr-e-poses/victory.png',
   './assets/images/dr-e-poses/medal.png','./assets/images/dr-e-poses/experiment.png',
   './assets/images/dr-e-poses/clipboard.png','./assets/images/dr-e-poses/magnifier.png',
-  './assets/images/dr-e-poses/molecule.png'
+  './assets/images/dr-e-poses/molecule.png',
+  './assets/audio/voices/dre-voice-sprite.wav'
 ];
 
 self.addEventListener('install', event => {

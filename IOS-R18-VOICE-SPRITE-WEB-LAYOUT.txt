@@ -1,0 +1,11 @@
+Moleculox iOS V8.5.63 R18 — VOICE SPRITE + WEB LAYOUT TEST
+
+- Based only on the clean R16/R17 iOS player-isolation branch.
+- Replaces 25 independent runtime source changes with one local WAV audio sprite.
+- Uses one decoded AudioBuffer and offset playback for every professor line.
+- Spoken lines are queued briefly and never cut one another off.
+- Keeps all 25 original MP3 clips in the package for audit/reference.
+- Returns in-game Dr. E from the oversized R17 diagnostic layout to a Web-like proportion.
+- Anchors Dr. E's feet at the lower-right edge.
+- Raises the board a few additional pixels toward the GOAL area.
+- Web and Android projects are not changed.

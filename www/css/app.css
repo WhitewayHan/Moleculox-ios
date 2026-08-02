@@ -4706,3 +4706,57 @@ body.mxIOSNative #playScr .speech{
   body.mxIOSNative #gameScr #einBoxG,
   body.mxIOSNative #gameScr #einBoxG.mxEinResponsive{width:324px!important;max-width:none!important;max-height:none!important}
 }
+
+/* ================= V8.5.63 R18 — Web-proportioned iOS Dr. E + voice sprite ================= */
+/* R17 was intentionally oversized for diagnosis. Return the in-game professor
+   to the approved Web-like proportion, anchor his feet to the lower-right floor,
+   and move the board only a few pixels closer to the GOAL area. */
+body.mxIOSNative #boardWrap{
+  transform:translateY(-16px)!important;
+  transform-origin:center top!important;
+}
+body.mxIOSNative #gameScr #einWrap{
+  left:auto!important;
+  top:auto!important;
+  right:-4px!important;
+  bottom:-14px!important;
+  width:248px!important;
+  max-width:248px!important;
+  max-height:none!important;
+  z-index:9!important;
+}
+body.mxIOSNative #gameScr #einBoxG,
+body.mxIOSNative #gameScr #einBoxG.mxEinResponsive{
+  width:218px!important;
+  max-width:218px!important;
+  max-height:none!important;
+  height:auto!important;
+  margin-left:auto!important;
+  animation:none!important;
+  transform:none!important;
+  transform-origin:right bottom!important;
+}
+body.mxIOSNative #gameScr #einBoxG .einImg{
+  object-position:right bottom!important;
+}
+body.mxIOSNative #gameScr #bubble,
+body.mxIOSNative #playScr #bubble,
+body.mxIOSNative #gameScr .einSpeech,
+body.mxIOSNative #playScr .einSpeech,
+body.mxIOSNative #gameScr .speech,
+body.mxIOSNative #playScr .speech{
+  right:clamp(166px,39vw,250px)!important;
+  bottom:clamp(56px,8vh,88px)!important;
+}
+@media(max-width:390px){
+  body.mxIOSNative #boardWrap{transform:translateY(-14px)!important}
+  body.mxIOSNative #gameScr #einWrap{right:-5px!important;bottom:-14px!important;width:238px!important;max-width:238px!important}
+  body.mxIOSNative #gameScr #einBoxG,
+  body.mxIOSNative #gameScr #einBoxG.mxEinResponsive{width:208px!important;max-width:208px!important}
+}
+@media(max-height:720px){
+  body.mxIOSNative #boardWrap{transform:translateY(-12px)!important}
+  body.mxIOSNative #gameScr #einWrap{right:-4px!important;bottom:-12px!important;width:224px!important;max-width:224px!important}
+  body.mxIOSNative #gameScr #einBoxG,
+  body.mxIOSNative #gameScr #einBoxG.mxEinResponsive{width:196px!important;max-width:196px!important}
+}

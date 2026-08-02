@@ -1,8 +1,8 @@
 {
   "name": "moleculox-ios",
-  "version": "8.5.62",
+  "version": "8.5.63",
   "private": true,
-  "description": "Moleculox iOS V8.5.62 R17 test: clean R16 player isolation, Web Audio professor voice for every player, slightly raised board, and uncapped larger in-game Dr. E.",
+  "description": "Moleculox iOS V8.5.63 R18 test: clean R16 player isolation, single-file professor voice sprite with non-cutting queue, Web-proportioned in-game Dr. E, and a slightly raised board.",
   "scripts": {
     "ios:prepare": "bash scripts/prepare-ios.sh",
     "ios:sync": "npx cap sync ios",

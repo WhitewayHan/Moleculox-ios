@@ -1,15 +1,15 @@
-# Moleculox iOS V8.5.54 — TestFlight Düzeltme Paketi
+# Moleculox iOS V8.5.63 R18 — TestFlight Ses ve Yerleşim Paketi
 
 Bu paket, gerçek TestFlight testinde görülen iOS sorunları için hazırlanmış tam GitHub + Codemagic kaynağıdır. Önceki Claude paketinin yerine kullanılmalıdır.
 
 - Bundle ID: `com.whitewayhan.moleculox`
-- Oyun / App Store sürümü: `8.5.54`
+- Oyun / App Store sürümü: `8.5.63`
 - Capacitor: `7.4.2`
 - Firebase Authentication: Apple, Google ve e-posta
 - Codemagic workflow: `moleculox-ios-app-store`
 - Çıktı: imzalı `.ipa`
 
-## V8.5.54 ile düzeltilenler
+## R18 ile düzeltilenler
 
 - Google, Apple ve e-posta girişlerinin yavaş misafir oturumu açılışına takılması önlendi.
 - Native Google/Apple kimlik tokenının Firebase Web hesabına aktarım yolu güçlendirildi.
@@ -19,6 +19,12 @@ Bu paket, gerçek TestFlight testinde görülen iOS sorunları için hazırlanm�
 - Native kabukta gereksiz service-worker kayıt ve önbellek temizliği devre dışı bırakıldı.
 - Oyun içi Dr. E ve konuşma balonu alt menünün ve iPhone safe-area alanının üstüne taşındı.
 - Hesap penceresindeki başlık ile kapatma düğmesinin çakışması giderildi.
+
+
+- Profesörün 25 ayrı ses dosyası tek yerel ses sprite dosyasında birleştirildi; iOS her replikte yeni medya kaynağı açmıyor.
+- Replikler kısa bir kuyrukta sırayla çalıyor ve birbirini kesmiyor.
+- Oyun içindeki Einstein Web sürümüne yakın orana küçültüldü ve ayakları sağ alt zemine sabitlendi.
+- Oyun tahtası GOAL alanına yalnız birkaç piksel yaklaştırıldı.
 
 ## Kullanım
 

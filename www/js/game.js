@@ -1,5 +1,5 @@
 /* Moleculox V6.24.3 — professional story, UX and release polish */
-const APP_VERSION="v8.5.62";
+const APP_VERSION="v8.5.63";
 (()=>{'use strict';
 function isIOSStandaloneMode(){
   try{
@@ -1787,6 +1787,34 @@ const SFX={
 
 /* ---------- character voice system (pre-recorded clips only; no robotic TTS) ---------- */
 const VOICE_BASE='assets/audio/voices/';
+const VOICE_SPRITE_URL=VOICE_BASE+'dre-voice-sprite.wav';
+const VOICE_SPRITE={
+  "dre-01-welcome-back.mp3":{start:0.0,duration:1.9},
+  "dre-02-ready-experiment.mp3":{start:2.02,duration:1.9},
+  "dre-03-lab-waiting.mp3":{start:4.04,duration:2.31},
+  "dre-04-make-chemistry.mp3":{start:6.47,duration:2.01},
+  "dre-05-next-molecule.mp3":{start:8.6,duration:2.3},
+  "dre-06-lab-coat.mp3":{start:11.02,duration:1.86},
+  "dre-07-excellent.mp3":{start:13.0,duration:0.78},
+  "dre-08-nice.mp3":{start:13.9,duration:0.58},
+  "dre-09-brilliant.mp3":{start:14.6,duration:1.01},
+  "dre-10-perfect.mp3":{start:15.73,duration:0.84},
+  "dre-11-well-done.mp3":{start:16.69,duration:1.09},
+  "dre-12-smart-move.mp3":{start:17.9,duration:1.18},
+  "dre-13-almost-there.mp3":{start:19.2,duration:1.27},
+  "dre-14-molecule-complete.mp3":{start:20.59,duration:1.65},
+  "dre-15-you-built-it.mp3":{start:22.36,duration:0.98},
+  "dre-16-thats-chemistry.mp3":{start:23.46,duration:1.64},
+  "dre-17-three-stars.mp3":{start:25.22,duration:1.56},
+  "dre-18-science-wins.mp3":{start:26.9,duration:1.51},
+  "dre-19-well-that-happened.mp3":{start:28.53,duration:2.07},
+  "dre-20-atom-plans.mp3":{start:30.72,duration:1.97},
+  "dre-21-almost-scientific.mp3":{start:32.81,duration:1.56},
+  "dre-22-pretend-research.mp3":{start:34.49,duration:2.28},
+  "dre-23-calculations-rarely.mp3":{start:36.89,duration:3.66},
+  "dre-24-nothing-exploded.mp3":{start:40.67,duration:2.57},
+  "dre-25-need-a-hint.mp3":{start:43.36,duration:0.99}
+};
 const VOICE_BANK={
   drE:{
     menu:['dre-01-welcome-back.mp3','dre-02-ready-experiment.mp3','dre-03-lab-waiting.mp3','dre-04-make-chemistry.mp3','dre-05-next-molecule.mp3','dre-06-lab-coat.mp3'],
@@ -1800,46 +1828,55 @@ const VOICE_BANK={
     nobel:['dre-18-science-wins.mp3']
   }
 };
-// R17: decode the clips into the already unlocked Web Audio context. WKWebView
-// can allow the first HTMLMediaElement line (usually Welcome) and then block
-// later source changes. AudioBufferSourceNode playback is stable after the
-// app's first real gesture and works identically for every local player.
-const voiceFallback=new Audio();
+// R18: all 25 lines live inside one decoded audio sprite. WKWebView no longer
+// has to replace the source of an HTMLMediaElement for every sentence, which
+// was why only the first Welcome line could be heard on some iPhones.
+const voiceFallback=new Audio(VOICE_SPRITE_URL);
 voiceFallback.preload='auto';voiceFallback.playsInline=true;voiceFallback.setAttribute('playsinline','');voiceFallback.setAttribute('webkit-playsinline','');voiceFallback.disableRemotePlayback=true;
-let activeVoice=null,activeVoiceSource=null,voiceToken=0,lastVoiceAt=0,lastVoiceName='';
-let voicePreloadStarted=false;
-const voiceShuffleBags=new Map(),voiceBuffers=new Map(),voiceLoads=new Map();
-const ALL_VOICE_FILES=[...new Set(Object.values(VOICE_BANK.drE).flat())];
+let activeVoice=null,activeVoiceSource=null,voiceFallbackTimer=0,voiceFallbackPrimed=false;
+let voiceSpriteBuffer=null,voiceSpriteLoad=null,voicePlaying=false,lastVoiceAt=0,lastVoiceName='';
+const voiceQueue=[],voiceShuffleBags=new Map();
 function voiceEnabled(){return !externalMusicMode&&!save.muM&&!save.muS&&clampAudio(save.volM)>0&&clampAudio(save.volS)>0;}
-function voiceUrl(name){return VOICE_BASE+name;}
 function decodeVoiceBuffer(ctx,data){
   return new Promise((resolve,reject)=>{
     let settled=false;
     const ok=buffer=>{if(settled)return;settled=true;resolve(buffer);};
     const bad=err=>{if(settled)return;settled=true;reject(err||new Error('voice-decode-failed'));};
-    try{
-      const result=ctx.decodeAudioData(data.slice(0),ok,bad);
-      if(result&&typeof result.then==='function')result.then(ok,bad);
-    }catch(err){bad(err);}
+    try{const result=ctx.decodeAudioData(data.slice(0),ok,bad);if(result&&typeof result.then==='function')result.then(ok,bad);}catch(err){bad(err);}
   });
 }
-function loadVoiceBuffer(name){
-  if(voiceBuffers.has(name))return Promise.resolve(voiceBuffers.get(name));
-  if(voiceLoads.has(name))return voiceLoads.get(name);
-  const ctx=ac();
-  if(!ctx)return Promise.reject(new Error('audio-context-unavailable'));
-  const job=fetch(voiceUrl(name),{cache:'force-cache'})
-    .then(res=>{if(!res.ok)throw new Error('voice-http-'+res.status);return res.arrayBuffer();})
+function loadVoiceSprite(){
+  if(voiceSpriteBuffer)return Promise.resolve(voiceSpriteBuffer);
+  if(voiceSpriteLoad)return voiceSpriteLoad;
+  const ctx=ac();if(!ctx)return Promise.reject(new Error('audio-context-unavailable'));
+  const fetchBytes=()=>fetch(VOICE_SPRITE_URL,{cache:'force-cache'})
+    .then(res=>{if(!res.ok&&res.status!==0)throw new Error('voice-http-'+res.status);return res.arrayBuffer();})
+    .catch(()=>new Promise((resolve,reject)=>{
+      try{
+        const xhr=new XMLHttpRequest();xhr.open('GET',VOICE_SPRITE_URL,true);xhr.responseType='arraybuffer';
+        xhr.onload=()=>xhr.response?resolve(xhr.response):reject(new Error('voice-xhr-empty'));
+        xhr.onerror=()=>reject(new Error('voice-xhr-failed'));xhr.send();
+      }catch(err){reject(err);}
+    }));
+  voiceSpriteLoad=fetchBytes()
     .then(data=>decodeVoiceBuffer(ctx,data))
-    .then(buffer=>{voiceBuffers.set(name,buffer);voiceLoads.delete(name);return buffer;})
-    .catch(err=>{voiceLoads.delete(name);throw err;});
-  voiceLoads.set(name,job);return job;
+    .then(buffer=>{voiceSpriteBuffer=buffer;voiceSpriteLoad=null;return buffer;})
+    .catch(err=>{voiceSpriteLoad=null;throw err;});
+  return voiceSpriteLoad;
+}
+function primeVoiceFallback(){
+  if(voiceFallbackPrimed||!audioGestureSeen||externalMusicMode)return;
+  voiceFallbackPrimed=true;
+  const oldMuted=voiceFallback.muted;voiceFallback.muted=true;
+  try{
+    const p=voiceFallback.play();
+    if(p&&typeof p.then==='function')p.then(()=>{if(activeVoice!==voiceFallback){voiceFallback.pause();try{voiceFallback.currentTime=0;}catch(e){}}voiceFallback.muted=oldMuted;}).catch(()=>{voiceFallbackPrimed=false;voiceFallback.muted=oldMuted;});
+    else{voiceFallback.pause();voiceFallback.muted=oldMuted;}
+  }catch(e){voiceFallbackPrimed=false;voiceFallback.muted=oldMuted;}
 }
 function preloadVoiceBank(){
-  if(voicePreloadStarted||!audioGestureSeen||externalMusicMode)return;
-  voicePreloadStarted=true;
-  // Start in small waves so boot music and the bulb cue remain responsive.
-  ALL_VOICE_FILES.forEach((name,index)=>setTimeout(()=>loadVoiceBuffer(name).catch(()=>{}),index*24));
+  if(!audioGestureSeen||externalMusicMode)return;
+  loadVoiceSprite().catch(()=>{});primeVoiceFallback();
 }
 function shuffledVoiceName(character,event,files){
   const key=character+':'+event;let bag=voiceShuffleBags.get(key);
@@ -1850,44 +1887,68 @@ function shuffledVoiceName(character,event,files){
   }
   const name=bag.pop();voiceShuffleBags.set(key,bag);lastVoiceName=name;return name;
 }
-function haltVoicePlayback(){
+function clearActiveVoice(){
+  clearTimeout(voiceFallbackTimer);voiceFallbackTimer=0;
   try{if(activeVoiceSource){activeVoiceSource.onended=null;activeVoiceSource.stop(0);activeVoiceSource.disconnect();}}catch(e){}
   activeVoiceSource=null;
-  try{voiceFallback.onended=null;voiceFallback.onerror=null;voiceFallback.pause();voiceFallback.currentTime=0;}catch(e){}
+  try{voiceFallback.ontimeupdate=null;voiceFallback.onended=null;voiceFallback.onerror=null;voiceFallback.pause();}catch(e){}
   activeVoice=null;
 }
-function stopCharacterVoice(){
-  voiceToken++;haltVoicePlayback();fadeMusicDuck(1,220);
+function finishCharacterVoice(){
+  clearActiveVoice();voicePlaying=false;fadeMusicDuck(1,260);
+  setTimeout(drainVoiceQueue,120);
 }
-async function playCharacterVoice(character,event,opts={}){
-  if(!voiceEnabled())return false;
-  const files=VOICE_BANK[character]&&VOICE_BANK[character][event];
-  if(!files||!files.length)return false;
-  const nowMs=performance.now();
-  if(!opts.force&&nowMs-lastVoiceAt<Math.max(900,Number(opts.cooldown)||1800))return false;
-  const name=shuffledVoiceName(character,event,files),token=++voiceToken;
-  haltVoicePlayback();lastVoiceAt=nowMs;fadeMusicDuck(opts.duck==null?.32:opts.duck,160);
-  const restore=()=>{if(token!==voiceToken)return;activeVoice=null;activeVoiceSource=null;fadeMusicDuck(1,280);};
+function stopCharacterVoice(){
+  voiceQueue.length=0;clearActiveVoice();voicePlaying=false;fadeMusicDuck(1,220);
+}
+function ensureFallbackMetadata(){
+  if(voiceFallback.readyState>=1)return Promise.resolve();
+  return new Promise((resolve,reject)=>{
+    const timer=setTimeout(()=>{cleanup();reject(new Error('voice-metadata-timeout'));},2500);
+    const ok=()=>{cleanup();resolve();},bad=()=>{cleanup();reject(new Error('voice-media-error'));};
+    const cleanup=()=>{clearTimeout(timer);voiceFallback.removeEventListener('loadedmetadata',ok);voiceFallback.removeEventListener('canplay',ok);voiceFallback.removeEventListener('error',bad);};
+    voiceFallback.addEventListener('loadedmetadata',ok,{once:true});voiceFallback.addEventListener('canplay',ok,{once:true});voiceFallback.addEventListener('error',bad,{once:true});voiceFallback.load();
+  });
+}
+async function playFallbackSegment(seg){
+  await ensureFallbackMetadata();
+  voiceFallback.muted=false;voiceFallback.volume=clampAudio((save.volM==null?1:save.volM)*(save.volS==null?1:save.volS));
+  try{voiceFallback.currentTime=Math.max(0,seg.start);}catch(e){}
+  const endAt=seg.start+seg.duration+.035;
+  voiceFallback.ontimeupdate=()=>{if(voiceFallback.currentTime>=endAt)finishCharacterVoice();};
+  voiceFallback.onerror=finishCharacterVoice;activeVoice=voiceFallback;
+  const p=voiceFallback.play();if(p&&typeof p.then==='function')await p;
+  voiceFallbackTimer=setTimeout(finishCharacterVoice,Math.ceil((seg.duration+.18)*1000));
+}
+async function drainVoiceQueue(){
+  if(voicePlaying||!voiceQueue.length)return;
+  let item=null;
+  while(voiceQueue.length&&!item){const candidate=voiceQueue.shift();if(candidate.expiresAt>performance.now())item=candidate;}
+  if(!item)return;
+  if(!voiceEnabled()){setTimeout(drainVoiceQueue,80);return;}
+  const seg=VOICE_SPRITE[item.name];if(!seg){setTimeout(drainVoiceQueue,0);return;}
+  voicePlaying=true;fadeMusicDuck(item.duck,150);
   try{
-    const ctx=ac();
-    if(!ctx)throw new Error('audio-context-unavailable');
+    const ctx=ac();if(!ctx)throw new Error('audio-context-unavailable');
     if(ctx.state!=='running'){try{await ctx.resume();}catch(e){}}
-    const buffer=await loadVoiceBuffer(name);
-    if(token!==voiceToken||!voiceEnabled())return false;
-    const src=ctx.createBufferSource();src.buffer=buffer;src.connect(voiceG);src.onended=restore;
-    activeVoiceSource=src;activeVoice=src;src.start(0);return true;
+    const buffer=await loadVoiceSprite();
+    if(!voicePlaying||!voiceEnabled()){finishCharacterVoice();return;}
+    const src=ctx.createBufferSource();src.buffer=buffer;src.connect(voiceG);src.onended=finishCharacterVoice;
+    activeVoiceSource=src;activeVoice=src;src.start(0,seg.start,seg.duration);return;
   }catch(err){
-    // Direct media fallback keeps a line available on browsers where decoding
-    // is unavailable, while Web Audio remains the normal iOS path.
-    if(token!==voiceToken)return false;
-    try{
-      voiceFallback.src=voiceUrl(name);voiceFallback.load();voiceFallback.currentTime=0;voiceFallback.muted=false;voiceFallback.volume=clampAudio((save.volM||0)*(save.volS==null?1:save.volS));
-      voiceFallback.onended=restore;voiceFallback.onerror=restore;activeVoice=voiceFallback;
-      const pr=voiceFallback.play();
-      if(pr&&typeof pr.then==='function')await pr;
-      return true;
-    }catch(fallbackErr){restore();console.warn('[voice] playback unavailable',name,fallbackErr&&fallbackErr.name||fallbackErr);return false;}
+    try{await playFallbackSegment(seg);}catch(fallbackErr){console.warn('[voice] sprite playback unavailable',item.name,fallbackErr&&fallbackErr.name||fallbackErr);finishCharacterVoice();}
   }
+}
+function playCharacterVoice(character,event,opts={}){
+  if(!voiceEnabled())return false;
+  const files=VOICE_BANK[character]&&VOICE_BANK[character][event];if(!files||!files.length)return false;
+  const nowMs=performance.now(),cooldown=Math.max(900,Number(opts.cooldown)||1800);
+  if(!opts.force&&nowMs-lastVoiceAt<cooldown)return false;
+  lastVoiceAt=nowMs;
+  const item={name:shuffledVoiceName(character,event,files),duck:opts.duck==null?.32:clampAudio(opts.duck),expiresAt:nowMs+Math.max(3500,Number(opts.maxDelay)||7000)};
+  // Never cut off a spoken line. Keep only a short, fresh queue so old menu
+  // greetings cannot play much later inside a level.
+  if(voiceQueue.length>=3)voiceQueue.shift();voiceQueue.push(item);drainVoiceQueue();return true;
 }
 function maybeVoice(character,event,chance=.35,opts={}){if(Math.random()>chance)return;playCharacterVoice(character,event,opts);}
 
