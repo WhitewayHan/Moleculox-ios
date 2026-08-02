@@ -4684,21 +4684,14 @@ body.mxNative #einBoxG .einImg{
   height:auto!important;
   object-position:right bottom!important;
 }
-body.mxNative #bubble{
-  right:18px!important;
-  bottom:calc(clamp(112px,30vw,154px) * 0.62)!important;
-}
-body.mxNative #bubble::after{right:-9px!important}
 
 @media(max-height:760px){
   body.mxNative #hudMid{height:116px!important;top:calc(var(--sat) + 5px)!important}
   body.mxNative #einBoxG,body.mxNative.iosStandalone #einBoxG{width:clamp(106px,29vw,142px)!important}
-  body.mxNative #bubble{bottom:66px!important}
 }
 @media(max-height:620px){
   body.mxNative #hudMid{height:104px!important}
   body.mxNative #einBoxG,body.mxNative.iosStandalone #einBoxG{width:clamp(98px,28vw,128px)!important}
-  body.mxNative #bubble{bottom:58px!important}
 }
 
 
@@ -4788,4 +4781,111 @@ body.mxNative #modalBox.accountModal .authTiny{font-size:9.5px!important;margin-
   body.mxNative #splash #einBoxS,body.mxNative.iosStandalone #splash #einBoxS{height:clamp(205px,31dvh,260px)!important}
   body.mxNative #splashBtns{gap:4px!important;margin-top:1.4vh!important}
   body.mxNative #splashBtns .btn{min-height:35px!important;padding:6px 7px!important;font-size:12.5px!important}
+}
+
+/* V8.5.53 iOS audit — normalize in-game Dr. E scale and prevent short-phone clipping.
+   Main-menu Dr. E remains unchanged. All approved pose assets keep their 468x520 ratio. */
+body.mxNative #einWrap,
+body.mxNative.iosStandalone #einWrap{
+  right:0!important;
+  bottom:max(5px,calc(var(--sab) - 22px))!important;
+  width:194px!important;
+}
+body.mxNative #einBoxG,
+body.mxNative.iosStandalone #einBoxG{
+  width:clamp(124px,34vw,166px)!important;
+}
+@media(max-height:760px){
+  body.mxNative #einWrap,body.mxNative.iosStandalone #einWrap{bottom:max(5px,calc(var(--sab) - 22px))!important}
+  body.mxNative #einBoxG,body.mxNative.iosStandalone #einBoxG{width:clamp(116px,33vw,152px)!important}
+}
+@media(max-height:620px){
+  body.mxNative #einBoxG,body.mxNative.iosStandalone #einBoxG{width:clamp(104px,32vw,136px)!important}
+}
+
+
+/* V8.5.54 TestFlight fixes — final native layout and low-memory modal rules. */
+body.mxNative #modal,
+body.mxNative.iosStandalone #modal{
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+  background:rgba(5,4,20,.90)!important;
+}
+body.mxNative #modalBox.settingsModal,
+body.mxNative.iosStandalone #modalBox.settingsModal{
+  transform:none!important;
+  animation:none!important;
+  contain:layout paint;
+}
+body.mxNative #gameScr #einWrap,
+body.mxNative.iosStandalone #gameScr #einWrap{
+  right:max(0px,calc(var(--sar) - 2px))!important;
+  bottom:max(34px,calc(var(--sab) + 6px))!important;
+  width:164px!important;
+}
+body.mxNative #gameScr #einBoxG,
+body.mxNative.iosStandalone #gameScr #einBoxG{
+  width:clamp(112px,30vw,142px)!important;
+}
+body.mxNative #gameScr #bubble,
+body.mxNative.iosStandalone #gameScr #bubble{
+  left:auto!important;
+  right:clamp(108px,29vw,142px)!important;
+  bottom:max(104px,calc(var(--sab) + 78px))!important;
+  width:min(57vw,228px)!important;
+  max-width:min(57vw,228px)!important;
+  max-height:min(25dvh,184px)!important;
+  overflow:auto!important;
+  transform-origin:100% 100%!important;
+}
+body.mxNative #gameScr #bubble::after,
+body.mxNative.iosStandalone #gameScr #bubble::after{
+  right:-9px!important;
+  left:auto!important;
+  bottom:20px!important;
+}
+@media(max-height:700px){
+  body.mxNative #gameScr #einWrap,body.mxNative.iosStandalone #gameScr #einWrap{bottom:max(28px,calc(var(--sab) + 2px))!important;width:150px!important}
+  body.mxNative #gameScr #einBoxG,body.mxNative.iosStandalone #gameScr #einBoxG{width:clamp(104px,29vw,132px)!important}
+  body.mxNative #gameScr #bubble,body.mxNative.iosStandalone #gameScr #bubble{right:102px!important;bottom:max(94px,calc(var(--sab) + 68px))!important;width:min(58vw,205px)!important;max-width:min(58vw,205px)!important;max-height:168px!important}
+}
+@media(max-width:360px){
+  body.mxNative #gameScr #bubble,body.mxNative.iosStandalone #gameScr #bubble{right:96px!important;width:min(60vw,196px)!important;max-width:min(60vw,196px)!important;font-size:12px!important}
+}
+body.mxNative #btnGear{position:relative;z-index:4;isolation:isolate;touch-action:manipulation}
+body.mxNative #btnHome{position:relative;z-index:3;touch-action:manipulation}
+
+/* V8.5.54b — supplied TestFlight capture: keep dialogue fully above the dock. */
+body.mxNative #gameScr #bubble,
+body.mxNative.iosStandalone #gameScr #bubble{
+  bottom:max(126px,calc(var(--sab) + 98px))!important;
+  right:clamp(112px,30vw,148px)!important;
+  width:min(54vw,218px)!important;
+  max-width:min(54vw,218px)!important;
+  padding:12px 13px!important;
+  line-height:1.28!important;
+}
+body.mxNative #gameScr #einWrap,
+body.mxNative.iosStandalone #gameScr #einWrap{
+  bottom:max(38px,calc(var(--sab) + 8px))!important;
+}
+@media(max-height:700px){
+  body.mxNative #gameScr #bubble,body.mxNative.iosStandalone #gameScr #bubble{bottom:max(108px,calc(var(--sab) + 82px))!important;right:104px!important;width:min(56vw,202px)!important;max-width:min(56vw,202px)!important}
+}
+@media(max-width:360px){
+  body.mxNative #gameScr #bubble,body.mxNative.iosStandalone #gameScr #bubble{right:98px!important;width:min(57vw,190px)!important;max-width:min(57vw,190px)!important;padding:10px 11px!important}
+}
+
+/* V8.5.54c — keep the native account title clear of the close button. */
+body.mxNative #modalBox.accountModal h3,
+body.mxNative.iosStandalone #modalBox.accountModal h3{
+  margin-left:42px!important;
+  margin-right:42px!important;
+  line-height:1.15!important;
+}
+body.mxNative #modalBox.accountModal h3,
+body.mxNative.iosStandalone #modalBox.accountModal h3{
+  font-size:clamp(15.5px,4.4vw,17.5px)!important;
+  letter-spacing:.2px!important;
+  white-space:nowrap!important;
 }

@@ -1,11 +1,11 @@
 import {initializeApp} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
 import {initializeAppCheck, ReCaptchaV3Provider} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app-check.js";
 import {
-  getAuth, setPersistence, indexedDBLocalPersistence, browserLocalPersistence,
+  getAuth, initializeAuth, setPersistence, indexedDBLocalPersistence, browserLocalPersistence,
   signInAnonymously, onAuthStateChanged,
   GoogleAuthProvider, OAuthProvider, signInWithPopup, linkWithPopup,
   signInWithRedirect, linkWithRedirect, getRedirectResult, signInWithCredential,
-  EmailAuthProvider, linkWithCredential, signInWithEmailAndPassword,
+  EmailAuthProvider, linkWithCredential, signInWithEmailAndPassword, createUserWithEmailAndPassword,
   sendPasswordResetEmail, sendEmailVerification, updateProfile,
   signOut, deleteUser,
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
@@ -54,6 +54,12 @@ const authListeners = new Set();
 // iframe or flaky network stalls a Firestore request. The underlying SDK may
 // still complete later, but the caller always receives a deterministic result.
 const CLOUD_OPERATION_TIMEOUT_MS = 15000;
+const MX_NATIVE_AUTH_HOST = /^(capacitor|ionic):$/i.test(location.protocol) || (location.hostname === "localhost" && /iPhone|iPad|iPod/i.test(navigator.userAgent || ""));
+function withBootstrapTimeout(promise, timeoutMs = 6500) {
+  let timer = null;
+  const timeout = new Promise((resolve) => { timer = setTimeout(resolve, Math.max(1000, Number(timeoutMs) || 6500)); });
+  return Promise.race([Promise.resolve(promise), timeout]).finally(() => clearTimeout(timer));
+}
 function withCloudTimeout(promise, label, timeoutMs = CLOUD_OPERATION_TIMEOUT_MS) {
   let timer = null;
   const timeout = new Promise((_, reject) => {
@@ -114,7 +120,12 @@ async function ensureAnonymous() {
   if (!initialAuthCheckComplete) return null;
   if (guestSignInInFlight) return guestSignInInFlight;
   guestSignInInFlight = signInAnonymously(auth)
-      .then((cred) => cred.user)
+      .then((cred) => {
+        // WKWebView can deliver onAuthStateChanged one task late. Apply the
+        // returned guest immediately so account actions never wait forever.
+        applyAuthUser(cred.user);
+        return cred.user;
+      })
       .catch((err) => {
         authFailed = true;
         console.warn("[MXCloud] anonymous auth failed:", err && err.code);
@@ -146,10 +157,12 @@ async function restorePersistentAuth() {
   // Otherwise an embedded page can observe a temporary null state and create
   // a guest before Firebase has restored the saved Google/email account.
   try {
-    // IndexedDB is the most reliable persistent store for Firebase Auth inside
-    // Safari/itch.io after Storage Access has been granted. Fall back to localStorage.
-    try { await setPersistence(auth, indexedDBLocalPersistence); }
-    catch (idbError) { await setPersistence(auth, browserLocalPersistence); }
+    // WKWebView can stall IndexedDB initialization. Native iOS uses localStorage
+    // persistence first; browsers retain the existing IndexedDB-first strategy.
+    if (!MX_NATIVE_AUTH_HOST) {
+      try { await withBootstrapTimeout(setPersistence(auth, indexedDBLocalPersistence), 6500); }
+      catch (idbError) { await withBootstrapTimeout(setPersistence(auth, browserLocalPersistence), 5000); }
+    }
   } catch (e) {
     console.warn("[MXCloud] persistent auth unavailable:", e && e.code);
   }
@@ -181,8 +194,8 @@ async function restorePersistentAuth() {
   });
 
   try {
-    if (typeof auth.authStateReady === "function") await auth.authStateReady();
-    else await firstAuthEvent;
+    const stateReady = typeof auth.authStateReady === "function" ? auth.authStateReady() : firstAuthEvent;
+    await withBootstrapTimeout(stateReady, 7000);
   } catch (e) {
     console.warn("[MXCloud] persisted auth restore check failed:", e && e.code);
   }
@@ -197,7 +210,15 @@ async function restorePersistentAuth() {
 
 try {
   const app = initializeApp(firebaseConfig);
-  auth = getAuth(app);
+  // Native WKWebView gets a deterministic localStorage-backed Auth instance at
+  // construction time. This avoids leaving a timed-out setPersistence() request
+  // running in the background while a Google/email credential is being applied.
+  if (MX_NATIVE_AUTH_HOST) {
+    try { auth = initializeAuth(app, {persistence: browserLocalPersistence}); }
+    catch (e) { auth = getAuth(app); }
+  } else {
+    auth = getAuth(app);
+  }
   fx = getFunctions(app, FUNCTIONS_REGION);
   try {
     if (RECAPTCHA_V3_SITE_KEY && RECAPTCHA_V3_SITE_KEY.indexOf("REPLACE_WITH") !== 0) {
@@ -233,6 +254,15 @@ try {
     }
     return null;
   });
+  // Never leave UI actions waiting forever if WKWebView delays the initial
+  // anonymous/auth-state callback. A later successful sign-in still updates
+  // uid/currentUser normally; cloud methods check those live values.
+  setTimeout(() => {
+    if (!readySettled) {
+      readySettled = true;
+      readyResolve(auth && auth.currentUser ? auth.currentUser.uid : null);
+    }
+  }, 8000);
 } catch (e) {
   authFailed = true;
   console.warn("[MXCloud] firebase init failed:", e);
@@ -285,13 +315,35 @@ async function finishPendingGoogleRedirect() {
 async function refreshPersistence() {
   if (!auth) return false;
   try {
-    try { await setPersistence(auth, indexedDBLocalPersistence); }
-    catch (idbError) { await setPersistence(auth, browserLocalPersistence); }
+    if (MX_NATIVE_AUTH_HOST) return true;
+    try { await withBootstrapTimeout(setPersistence(auth, indexedDBLocalPersistence), 6500); }
+    catch (idbError) { await withBootstrapTimeout(setPersistence(auth, browserLocalPersistence), 5000); }
     return true;
   } catch (e) {
     console.warn("[MXCloud] persistence refresh failed:", e && e.code);
     return false;
   }
+}
+
+// V8.5.54 iOS: native Google/Apple and email actions must not be blocked by
+// an anonymous-session restore that is slow inside WKWebView. Wait briefly for
+// restoration, then continue with the initialized Auth instance. The actual
+// sign-in call can safely replace a null/guest user and resolves ready state.
+async function waitForAuthBootstrap(timeoutMs = 6000) {
+  if (!auth) throw Object.assign(new Error("auth/unavailable"), {code: "auth/unavailable"});
+  if (initialAuthCheckComplete || auth.currentUser) return auth.currentUser;
+  if (authRestorePromise) {
+    let timer = null;
+    try {
+      await Promise.race([
+        authRestorePromise,
+        new Promise((resolve) => { timer = setTimeout(resolve, Math.max(1000, Number(timeoutMs) || 6000)); }),
+      ]);
+    } catch (e) {} finally {
+      if (timer) clearTimeout(timer);
+    }
+  }
+  return auth.currentUser || null;
 }
 
 async function connectGoogle() {
@@ -429,13 +481,15 @@ async function connectApple() {
 }
 
 async function connectGoogleIdToken(idToken) {
-  await readyPromise;
-  if (!auth) throw Object.assign(new Error("auth/unavailable"), {code: "auth/unavailable"});
-  const token = String(idToken || "").trim();
-  if (!token) throw Object.assign(new Error("auth/invalid-credential"), {code: "auth/invalid-credential"});
-  const credential = GoogleAuthProvider.credential(token);
-  const user = auth.currentUser;
+  authOperationInFlight = true;
+  let user = null;
+  let credential = null;
   try {
+    await waitForAuthBootstrap();
+    const token = String(idToken || "").trim();
+    if (!token) throw Object.assign(new Error("auth/invalid-credential"), {code: "auth/invalid-credential"});
+    credential = GoogleAuthProvider.credential(token);
+    user = auth.currentUser;
     let result;
     if (user && (user.isAnonymous || !providerIdsOf(user).includes("google.com"))) result = await linkWithCredential(user, credential);
     else result = await signInWithCredential(auth, credential);
@@ -448,7 +502,7 @@ async function connectGoogleIdToken(idToken) {
       "auth/email-already-in-use",
       "auth/account-exists-with-different-credential",
     ].includes(e && e.code);
-    if (collision) {
+    if (collision && credential) {
       if (user && !user.isAnonymous) {
         throw Object.assign(new Error("auth/provider-account-conflict"), {code: "auth/provider-account-conflict"});
       }
@@ -458,19 +512,21 @@ async function connectGoogleIdToken(idToken) {
       return accountSnapshotFor(result.user);
     }
     throw e;
+  } finally {
+    authOperationInFlight = false;
   }
 }
-
-
 async function connectAppleIdToken(idToken, rawNonce, displayName) {
-  await readyPromise;
-  if (!auth) throw Object.assign(new Error("auth/unavailable"), {code: "auth/unavailable"});
-  const token = String(idToken || "").trim();
-  const nonce = String(rawNonce || "").trim();
-  if (!token || !nonce) throw Object.assign(new Error("auth/invalid-credential"), {code: "auth/invalid-credential"});
-  const credential = appleProvider().credential({idToken: token, rawNonce: nonce});
-  const user = auth.currentUser;
+  authOperationInFlight = true;
+  let user = null;
+  let credential = null;
   try {
+    await waitForAuthBootstrap();
+    const token = String(idToken || "").trim();
+    const nonce = String(rawNonce || "").trim();
+    if (!token || !nonce) throw Object.assign(new Error("auth/invalid-credential"), {code: "auth/invalid-credential"});
+    credential = appleProvider().credential({idToken: token, rawNonce: nonce});
+    user = auth.currentUser;
     let result;
     if (user && (user.isAnonymous || !providerIdsOf(user).includes("apple.com"))) result = await linkWithCredential(user, credential);
     else result = await signInWithCredential(auth, credential);
@@ -485,7 +541,7 @@ async function connectAppleIdToken(idToken, rawNonce, displayName) {
       "auth/email-already-in-use",
       "auth/account-exists-with-different-credential",
     ].includes(e && e.code);
-    if (collision) {
+    if (collision && credential) {
       if (user && !user.isAnonymous) {
         throw Object.assign(new Error("auth/provider-account-conflict"), {code: "auth/provider-account-conflict"});
       }
@@ -498,52 +554,47 @@ async function connectAppleIdToken(idToken, rawNonce, displayName) {
       return accountSnapshotFor(result.user);
     }
     throw e;
+  } finally {
+    authOperationInFlight = false;
   }
 }
-
 async function registerEmail(email, password, displayName) {
-  await readyPromise;
-  if (!auth) throw new Error("auth/unavailable");
-  const cleanEmail = String(email || "").trim().toLowerCase();
-  const credential = EmailAuthProvider.credential(cleanEmail, String(password || ""));
-  let result;
-  let user = auth.currentUser;
-  if (!user) {
-    try {
-      await ensureAnonymous();
-      user = auth.currentUser;
-    } catch (e) {
-      console.warn("[MXCloud] anonymous recovery before email registration failed:", e && e.code);
-    }
-  }
-  if (!user) {
-    throw Object.assign(new Error("auth/no-current-user"), {code: "auth/no-current-user"});
-  }
-  if (providerIdsOf(user).includes("password")) {
-    throw Object.assign(new Error("auth/provider-already-linked"), {code: "auth/provider-already-linked"});
-  }
-  result = await linkWithCredential(user, credential);
-  const name = String(displayName || "").trim().slice(0, 40);
-  if (name) await updateProfile(result.user, {displayName: name});
+  authOperationInFlight = true;
   try {
-    await sendEmailVerification(result.user);
-  } catch (e) {
-    console.warn("[MXCloud] verification email failed:", e && e.code);
+    await waitForAuthBootstrap();
+    const cleanEmail = String(email || "").trim().toLowerCase();
+    const cleanPassword = String(password || "");
+    const credential = EmailAuthProvider.credential(cleanEmail, cleanPassword);
+    const user = auth.currentUser;
+    let result;
+    if (user && user.isAnonymous) result = await linkWithCredential(user, credential);
+    else if (user && providerIdsOf(user).includes("password")) {
+      throw Object.assign(new Error("auth/provider-already-linked"), {code: "auth/provider-already-linked"});
+    } else if (user) result = await linkWithCredential(user, credential);
+    else result = await createUserWithEmailAndPassword(auth, cleanEmail, cleanPassword);
+    const name = String(displayName || "").trim().slice(0, 40);
+    if (name) await updateProfile(result.user, {displayName: name});
+    try { await sendEmailVerification(result.user); }
+    catch (e) { console.warn("[MXCloud] verification email failed:", e && e.code); }
+    applyAuthUser(result.user);
+    refreshPersistence().catch(() => {});
+    return accountSnapshotFor(result.user);
+  } finally {
+    authOperationInFlight = false;
   }
-  applyAuthUser(result.user);
-  refreshPersistence().catch(() => {});
-  return accountSnapshotFor(result.user);
 }
-
 async function signInEmail(email, password) {
-  await readyPromise;
-  if (!auth) throw new Error("auth/unavailable");
-  const result = await signInWithEmailAndPassword(auth, String(email || "").trim().toLowerCase(), String(password || ""));
-  applyAuthUser(result.user);
-  refreshPersistence().catch(() => {});
-  return accountSnapshotFor(result.user);
+  authOperationInFlight = true;
+  try {
+    await waitForAuthBootstrap();
+    const result = await signInWithEmailAndPassword(auth, String(email || "").trim().toLowerCase(), String(password || ""));
+    applyAuthUser(result.user);
+    refreshPersistence().catch(() => {});
+    return accountSnapshotFor(result.user);
+  } finally {
+    authOperationInFlight = false;
+  }
 }
-
 async function resetPassword(email, language) {
   if (!auth) throw new Error("auth/unavailable");
   auth.languageCode = language === "tr" ? "tr" : "en";

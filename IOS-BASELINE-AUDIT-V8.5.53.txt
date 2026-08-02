@@ -1,0 +1,32 @@
+MOLECULOX iOS V8.5.53 — STATIC AUDIT AND CORRECTIONS
+
+CORRECTED
+- App Store/Codemagic marketing version aligned from 8.0.0 to 8.5.53.
+- package.json and README stale Android/V8.5.47 metadata corrected.
+- Native Google Sign-In CocoaPods provider is added automatically to the app target.
+- CocoaPods resource-bundle code-signing workaround is added automatically.
+- In-game Dr. E is moderately enlarged and lifted on short iPhones to prevent lower-edge clipping.
+- Main-menu Dr. E is intentionally unchanged.
+
+VERIFIED
+- iOS game data and assets match the Android V8.5.53 final source except intentional iOS layout/auth/cache files.
+- 45 raster images decode successfully.
+- All 11 Dr. E pose PNGs use the same 468x520 canvas; CSS preserves aspect ratio.
+- 24 audio files pass ffprobe validation.
+- All JavaScript files pass syntax validation.
+- JSON, YAML, plist, Python and shell files pass static parsing/syntax checks.
+- Bundle ID com.whitewayhan.moleculox matches GoogleService-Info.plist.
+- Podfile patch was tested twice and is idempotent.
+- Layout was rendered at 430x932, 390x844, 375x667 and 320x568 viewports.
+
+VISUAL RESULT
+- Main menu: compatible on current large iPhones; Einstein is not stretched and does not cover primary menu buttons.
+- Gameplay: HUD/action column fits at tested widths. In-game Dr. E correction targets the small/clipped presentation seen in the original package.
+- Very short screens remain naturally dense; temporary tutorial speech can cover part of the play area until dismissed, but is not a permanent layout element.
+
+NOT PROVEN WITHOUT CODEMAGIC/TESTFLIGHT
+- Xcode compilation, signing and IPA installation.
+- Apple/Google/email authentication and account linking.
+- Cloud synchronization.
+- Real-device safe-area, keyboard, audio, haptics and touch behavior.
+- This is not a mathematical solvability audit of every level.

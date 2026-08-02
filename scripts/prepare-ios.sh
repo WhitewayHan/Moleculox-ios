@@ -3,8 +3,9 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 
-rm -rf ios
-npx cap add ios
+if [ ! -d ios/App ]; then
+  npx cap add ios
+fi
 
 # Firebase iOS configuration can be committed at ios-config/GoogleService-Info.plist
 # or provided to Codemagic as a base64 secret named GOOGLE_SERVICE_INFO_PLIST_BASE64.
@@ -17,12 +18,9 @@ elif [ ! -f ios/App/App/GoogleService-Info.plist ]; then
   exit 20
 fi
 
-npx cap sync ios
+python3 scripts/patch-podfile.py
 
-# Native package must never use stale PWA cache or trigger the web
-# service-worker's skipWaiting/clients.claim takeover, which is not needed
-# inside a bundled native app and can cause unexpected page resets.
-find ios -name 'sw.js' -delete
+npx cap sync ios
 
 python3 scripts/patch-ios.py
 

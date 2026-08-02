@@ -25,6 +25,9 @@
 </script>
 <title>Moleculox — Dr. E's Lab</title>
 <script>
+window.__MX_NATIVE_SHELL__=!!(window.Capacitor&&window.Capacitor.isNativePlatform&&window.Capacitor.isNativePlatform())||/^(capacitor|ionic):$/i.test(location.protocol)||(location.hostname==='localhost'&&/iPhone|iPad|iPod/i.test(navigator.userAgent||''));
+</script>
+<script>
 /* V6.16: itch/iOS stale-build reset. Old service workers caused the empty laboratory screen.
    V8.0.2: this purge now runs ONCE (gated by localStorage) instead of on every single load —
    running it every load was unregistering the service worker registered below on every visit,
@@ -34,8 +37,8 @@
 (function(){
   try{
     var PURGE_FLAG='mx_sw_legacy_purge_v2';
-    if(localStorage.getItem(PURGE_FLAG))return;
-    if('serviceWorker' in navigator){navigator.serviceWorker.getRegistrations().then(function(rs){rs.forEach(function(r){r.unregister();});}).catch(function(){});}
+    if(window.__MX_NATIVE_SHELL__||localStorage.getItem(PURGE_FLAG))return;
+    if(!window.__MX_NATIVE_SHELL__&&'serviceWorker' in navigator){navigator.serviceWorker.getRegistrations().then(function(rs){rs.forEach(function(r){r.unregister();});}).catch(function(){});}
     if(window.caches&&caches.keys){caches.keys().then(function(keys){return Promise.all(keys.filter(function(k){return /^moleculox-/i.test(k);}).map(function(k){return caches.delete(k);}));}).catch(function(){});}
     localStorage.setItem(PURGE_FLAG,'1');
   }catch(e){}
@@ -46,13 +49,13 @@
    already advertised in this page's own meta description — has not actually been working.
    Safe to call every load: the browser only reinstalls when sw.js's bytes actually change.
    Deferred to 'load' so it never competes with first paint. */
-if('serviceWorker' in navigator){
+if(!window.__MX_NATIVE_SHELL__&&'serviceWorker' in navigator){
   window.addEventListener('load',function(){
     navigator.serviceWorker.register('./sw.js').catch(function(){});
   });
 }
 </script>
-<link rel="stylesheet" href="css/app.css?v=8.5.53-r3-real-error-capture">
+<link rel="stylesheet" href="css/app.css?v=8.5.54-ios-final">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
 
@@ -487,14 +490,14 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
 <div id="levelTransition"></div>
 <canvas id="fx"></canvas>
 
-<script src="js/sync-core.js?v=8.5.53-r3-real-error-capture" defer></script>
-<script src="js/daily-levels.js?v=8.5.53-r3-real-error-capture" defer></script>
-<script src="js/campaign-levels.js?v=8.5.53-r3-real-error-capture" defer></script>
-<script src="js/level-fx-recipes.js?v=8.5.53-r3-real-error-capture" defer></script>
-<script src="js/game.js?v=8.5.53-r3-real-error-capture" defer></script>
+<script src="js/sync-core.js?v=8.5.54-ios-final" defer></script>
+<script src="js/daily-levels.js?v=8.5.54-ios-final" defer></script>
+<script src="js/campaign-levels.js?v=8.5.54-ios-final" defer></script>
+<script src="js/level-fx-recipes.js?v=8.5.54-ios-final" defer></script>
+<script src="js/game.js?v=8.5.54-ios-final" defer></script>
 
 <!-- ================= FIREBASE (cloud save + world leaderboard) ================= -->
-<script type="module" src="js/firebase.js?v=8.5.53-r3-real-error-capture"></script>
+<script type="module" src="js/firebase.js?v=8.5.54-ios-final"></script>
 
 <script>
 /* V8.5.17: convert functional UI emoji glyphs to one cross-platform SVG family.
