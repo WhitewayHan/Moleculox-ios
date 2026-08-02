@@ -1,5 +1,5 @@
 /* Moleculox V6.24.3 — professional story, UX and release polish */
-const APP_VERSION="v8.5.54";
+const APP_VERSION="v8.5.61";
 (()=>{'use strict';
 function isIOSStandaloneMode(){
   try{
@@ -1152,22 +1152,6 @@ function isIOSWebDevice(){
   }catch(e){return false;}
 }
 let externalMusicMode=false;
-const MX_DEVICE_AUDIO_PREFS_KEY='moleculox_device_audio_prefs_r9';
-const MX_AUDIO_PREF_KEYS=['volM','volMu','volS','volV','muM','muMu','muS','muV','externalMusic'];
-function readDeviceAudioPrefs(){
-  try{const v=JSON.parse(localStorage.getItem(MX_DEVICE_AUDIO_PREFS_KEY)||'null');return v&&typeof v==='object'?v:null;}catch(e){return null;}
-}
-function storeDeviceAudioPrefs(source){
-  source=source||{};const out={};
-  MX_AUDIO_PREF_KEYS.forEach(k=>{if(Object.prototype.hasOwnProperty.call(source,k))out[k]=source[k];});
-  try{localStorage.setItem(MX_DEVICE_AUDIO_PREFS_KEY,JSON.stringify(out));}catch(e){}
-  return out;
-}
-function applyDeviceAudioPrefs(target){
-  target=target||{};const prefs=readDeviceAudioPrefs();if(!prefs)return target;
-  MX_AUDIO_PREF_KEYS.forEach(k=>{if(Object.prototype.hasOwnProperty.call(prefs,k))target[k]=prefs[k];});
-  return target;
-}
 function defaultSave(){return {cur:0,stars:{},coins:0,disc:{},volM:1,volMu:0.8,volS:1,volV:1,muM:false,muMu:false,muS:false,muV:false,externalMusic:false,dpad:false,reduceMotion:false,duelMessages:true,duelEffects:true,haptics:true,effectLevel:'normal',largeText:false,colorBlind:false,highContrast:false,performanceMode:'auto',favoriteMolecules:{},collectionFilter:'all',storySeen:{},storySchema:0,dailyDate:'',totalHints:0,streak3:0,lang:'en',achv:{},seenFrozen:false,seenFire:false,seenLightning:false,seenSticky:false,seenZombie:false,seenOneWay:false,seenBreakableWall:false,seenPortal:false,seenMovingWall:false,seenPressureDoor:false,seenFragile:false,seenPrecision:false,playerName:'',speedRuns:{},bestMoves:{},maxCoins:0,profileId:'',tutorialDone:false,autoGuest:false,rpSchema:0,researchPoints:0,researchLevels:{},researchAchievements:{},researchBonuses:{},bonusClaims:{},dailyScores:{},dailyRPStreak:0,lastDailyRPDate:'',seasonId:'',seasonRP:0,weekId:'',weekRP:0,saveSchema:5,campaignContentSchema:0,labTheme:'basic',economySchema:0,quantumHintDay:'',duelRatedMatches:{},duelRewards:{},duelRewardClaims:{},activeDuelFrame:'frame_bronze',activeDuelTitle:'',duelRating:800,duelPeakRating:800,duelWins:0,duelLosses:0,duelDraws:0,duelStreak:0,duelBestStreak:0,duelWeekPoints:0,duelWeekWins:0,duelMonthPoints:0,duelMonthWins:0,accountMilestoneInviteSeen:false,accountMilestoneInviteLastLevel:0,nobelCertificateShared:false,seenHintSupport:false,seenUndoSupport:false,seenRestartSupport:false,seenLabSupport:false,seenSupportGuide:false,seenHammerSupport:false,seenPrecisionSupport:false,seenBarrierSupport:false,seenGoalGlowGuide:false,tutorialTips:true,seenFragileAtom:false,seenLinkedAtoms:false,seenHammerWall:false,pushDeclined:false};}
 const COIN_EARN_KEY='__coinEarned',COIN_SPEND_KEY='__coinSpent';
 const LAB_THEME_STAMP_KEY='__labThemeStamp',QUANTUM_DAY_KEY='__quantumDay';
@@ -1518,22 +1502,22 @@ try{
     localStorage.setItem(migrationKey,'1');
   }
 }catch(e){}
-/* R9.1: Never force audio levels or mute flags. Existing local/profile settings
-   stay authoritative; device audio preferences are learned only after the user
-   changes or persists them. */
 let curProfile=null;
 let save=defaultSave();
+// R16: every explicit player switch/reset advances this epoch. Async cloud work
+// captured under an older player is discarded instead of changing the active game.
+let profileContextEpoch=0;
 function persistAll(){try{localStorage.setItem(PKEY,JSON.stringify({profiles,last:lastProfile}));}catch(e){}}
 function persist(){
   if(!curProfile)return;
-  profiles[curProfile]=save;lastProfile=curProfile;storeDeviceAudioPrefs(save);persistAll();
-  try{if(typeof updateWhitewaySnapshotFromActive==='function')updateWhitewaySnapshotFromActive();}catch(e){}
+  profiles[curProfile]=save;lastProfile=curProfile;persistAll();
   try{
     if(window.MXCloud&&save.profileId){
       setSyncStatus(navigator.onLine===false?'offline':'syncing');
-      const cloudWrite=window.MXCloud.saveProgress(save,save.profileId);
+      const writeProfileId=save.profileId;
+      const cloudWrite=window.MXCloud.saveProgress(save,writeProfileId);
       if(cloudWrite&&typeof cloudWrite.then==='function')cloudWrite.then(result=>{
-        if(result)setSyncStatus('saved');
+        if(result){clearPendingProfileId(writeProfileId);setSyncStatus('saved');}
         else setSyncStatus(navigator.onLine===false?'offline':'error');
       }).catch(err=>{console.warn('[sync] autosave failed:',err&&err.code||err);setSyncStatus(navigator.onLine===false?'offline':'error');});
       const account=window.MXCloud.account;
@@ -1554,7 +1538,7 @@ startupAudio.setAttribute('playsinline','');
 startupAudio.setAttribute('webkit-playsinline','');
 
 const musicAudio=new Audio();
-musicAudio.preload='auto';
+musicAudio.preload='metadata';
 musicAudio.playsInline=true;
 musicAudio.setAttribute('playsinline','');
 musicAudio.setAttribute('webkit-playsinline','');
@@ -1801,21 +1785,39 @@ const SFX={
 /* ---------- character voice system (pre-recorded clips only; no robotic TTS) ---------- */
 const VOICE_BASE='assets/audio/voices/';
 const VOICE_BANK={
-  drE:{menu:["dre-01-welcome-back.mp3", "dre-02-ready-experiment.mp3", "dre-03-lab-waiting.mp3", "dre-04-make-chemistry.mp3", "dre-05-next-molecule.mp3", "dre-06-lab-coat.mp3"],ready:["dre-02-ready-experiment.mp3", "dre-03-lab-waiting.mp3", "dre-04-make-chemistry.mp3", "dre-05-next-molecule.mp3", "dre-06-lab-coat.mp3"],near:["dre-13-almost-there.mp3"],success:["dre-07-excellent.mp3", "dre-08-nice.mp3", "dre-09-brilliant.mp3", "dre-10-perfect.mp3", "dre-11-well-done.mp3", "dre-12-smart-move.mp3", "dre-14-molecule-complete.mp3", "dre-15-you-built-it.mp3", "dre-16-thats-chemistry.mp3", "dre-18-science-wins.mp3"],perfect:["dre-07-excellent.mp3", "dre-09-brilliant.mp3", "dre-10-perfect.mp3", "dre-11-well-done.mp3", "dre-12-smart-move.mp3", "dre-17-three-stars.mp3", "dre-18-science-wins.mp3"],discovery:["dre-09-brilliant.mp3", "dre-14-molecule-complete.mp3", "dre-15-you-built-it.mp3", "dre-16-thats-chemistry.mp3", "dre-18-science-wins.mp3"],failure:["dre-19-well-that-happened.mp3", "dre-20-atom-plans.mp3", "dre-21-almost-scientific.mp3", "dre-22-pretend-research.mp3", "dre-23-calculations-rarely.mp3", "dre-24-nothing-exploded.mp3"],hint:["dre-25-need-a-hint.mp3"],nobel:["dre-18-science-wins.mp3"]}
-}; // R11: 25 professionally cut Dr. E voice clips from the approved Google AI Studio render.
-const voiceCache=new Map();
-let activeVoice=null,voiceToken=0,lastVoiceAt=0;
+  drE:{
+    menu:['dre-01-welcome-back.mp3','dre-02-ready-experiment.mp3','dre-03-lab-waiting.mp3','dre-04-make-chemistry.mp3','dre-05-next-molecule.mp3','dre-06-lab-coat.mp3'],
+    ready:['dre-02-ready-experiment.mp3','dre-03-lab-waiting.mp3','dre-04-make-chemistry.mp3','dre-05-next-molecule.mp3','dre-06-lab-coat.mp3'],
+    near:['dre-13-almost-there.mp3'],
+    success:['dre-07-excellent.mp3','dre-08-nice.mp3','dre-09-brilliant.mp3','dre-10-perfect.mp3','dre-11-well-done.mp3','dre-12-smart-move.mp3','dre-14-molecule-complete.mp3','dre-15-you-built-it.mp3','dre-16-thats-chemistry.mp3','dre-18-science-wins.mp3'],
+    perfect:['dre-07-excellent.mp3','dre-09-brilliant.mp3','dre-10-perfect.mp3','dre-11-well-done.mp3','dre-12-smart-move.mp3','dre-17-three-stars.mp3','dre-18-science-wins.mp3'],
+    discovery:['dre-09-brilliant.mp3','dre-14-molecule-complete.mp3','dre-15-you-built-it.mp3','dre-16-thats-chemistry.mp3','dre-18-science-wins.mp3'],
+    failure:['dre-19-well-that-happened.mp3','dre-20-atom-plans.mp3','dre-21-almost-scientific.mp3','dre-22-pretend-research.mp3','dre-23-calculations-rarely.mp3','dre-24-nothing-exploded.mp3'],
+    hint:['dre-25-need-a-hint.mp3'],
+    nobel:['dre-18-science-wins.mp3']
+  }
+};
+// R16: iOS unlocks one media element from the first real user gesture. Reusing that
+// exact element for every line avoids the autoplay block that let only Welcome play.
+const voicePlayer=new Audio();
+voicePlayer.preload='auto';voicePlayer.playsInline=true;voicePlayer.setAttribute('playsinline','');voicePlayer.setAttribute('webkit-playsinline','');voicePlayer.disableRemotePlayback=true;
+let activeVoice=null,voiceToken=0,lastVoiceAt=0,lastVoiceName='';
+const voiceShuffleBags=new Map();
 function voiceEnabled(){return !externalMusicMode&&!save.muM&&!save.muV&&clampAudio(save.volM)>0&&clampAudio(save.volV==null?1:save.volV)>0;}
 function voiceUrl(name){return VOICE_BASE+name;}
-function getVoiceAudio(name){
-  if(voiceCache.has(name))return voiceCache.get(name);
-  const a=new Audio(voiceUrl(name));a.preload='metadata';a.playsInline=true;a.setAttribute('playsinline','');a.disableRemotePlayback=true;
-  voiceCache.set(name,a);return a;
+function shuffledVoiceName(character,event,files){
+  const key=character+':'+event;let bag=voiceShuffleBags.get(key);
+  if(!bag||!bag.length){
+    bag=files.slice();
+    for(let i=bag.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[bag[i],bag[j]]=[bag[j],bag[i]];}
+    if(bag.length>1&&bag[bag.length-1]===lastVoiceName)[bag[0],bag[bag.length-1]]=[bag[bag.length-1],bag[0]];
+  }
+  const name=bag.pop();voiceShuffleBags.set(key,bag);lastVoiceName=name;return name;
 }
 function stopCharacterVoice(){
   voiceToken++;
-  if(activeVoice){try{activeVoice.pause();activeVoice.currentTime=0;}catch(e){} activeVoice=null;}
-  fadeMusicDuck(1,220);
+  try{voicePlayer.onended=null;voicePlayer.onerror=null;voicePlayer.pause();voicePlayer.currentTime=0;}catch(e){}
+  activeVoice=null;fadeMusicDuck(1,220);
 }
 function playCharacterVoice(character,event,opts={}){
   if(!voiceEnabled())return Promise.resolve(false);
@@ -1823,15 +1825,13 @@ function playCharacterVoice(character,event,opts={}){
   if(!files||!files.length)return Promise.resolve(false);
   const nowMs=performance.now();
   if(!opts.force&&nowMs-lastVoiceAt<Math.max(900,Number(opts.cooldown)||1800))return Promise.resolve(false);
-  const name=files[Math.floor(Math.random()*files.length)],a=getVoiceAudio(name),token=++voiceToken;
-  if(activeVoice&&activeVoice!==a){try{activeVoice.pause();activeVoice.currentTime=0;}catch(e){}}
-  activeVoice=a;lastVoiceAt=nowMs;
-  try{a.currentTime=0;a.muted=false;a.volume=clampAudio((save.volM||0)*(save.volV==null?1:save.volV));}catch(e){}
-  fadeMusicDuck(opts.duck==null?.32:opts.duck,160);
+  const name=shuffledVoiceName(character,event,files),token=++voiceToken;
+  try{voicePlayer.pause();voicePlayer.onended=null;voicePlayer.onerror=null;voicePlayer.src=voiceUrl(name);voicePlayer.load();voicePlayer.currentTime=0;voicePlayer.muted=false;voicePlayer.volume=clampAudio((save.volM||0)*(save.volV==null?1:save.volV));}catch(e){}
+  activeVoice=voicePlayer;lastVoiceAt=nowMs;fadeMusicDuck(opts.duck==null?.32:opts.duck,160);
   const restore=()=>{if(token!==voiceToken)return;activeVoice=null;fadeMusicDuck(1,280);};
-  a.onended=restore;a.onerror=()=>{restore();};
+  voicePlayer.onended=restore;voicePlayer.onerror=restore;
   try{
-    const pr=a.play();
+    const pr=voicePlayer.play();
     if(pr&&pr.then)return pr.then(()=>true).catch(()=>{restore();return false;});
     return Promise.resolve(true);
   }catch(e){restore();return Promise.resolve(false);}
@@ -2151,7 +2151,7 @@ function updateIntensity(){
   }
   if(close&&!exc){
     setExcited(true);
-    if(!lastBondLine){lastBondLine=true;prop('⚡',1250);say(t('almostOneBond'),'happy',2600);maybeVoice('drE','near',.68,{cooldown:5200,duck:.30});}
+    if(!lastBondLine){lastBondLine=true;prop('⚡',1250);say(t('almostOneBond'),'happy',2600);maybeVoice('drE','near',.72,{cooldown:5200,duck:.30});}
   }
   if(!close&&exc)setExcited(false);
 }
@@ -2582,6 +2582,7 @@ window.addEventListener('orientationchange',()=>setTimeout(syncStandaloneEinstei
 let scrPrev='splash';
 let screenTransitionLock=false;
 function show(k){
+  if(k!=='game')clearTutorialRuntime();
   if(screenTransitionLock||!scr[k])return;
   screenTransitionLock=true;
   const current=Object.keys(scr).find(s=>scr[s].classList.contains('on'))||scrPrev;
@@ -2692,17 +2693,19 @@ function confirmDeleteProfile(name){
 }
 function selectProfile(name){
   if(!profiles[name])return;
+  clearTutorialRuntime();profileContextEpoch++;
   curProfile=name;
   save=ensureResearchState(Object.assign(defaultSave(),profiles[name]));
-  if(!save.profileId){save.profileId=genProfileId();profiles[name]=save;}
+  if(!save.profileId){save.profileId=genProfileId();profiles[name]=save;markPendingProfileId(save.profileId);}
   enterGame();
 }
 function createProfile(rawName){
-  const name=(rawName||'').trim().slice(0,18);
-  if(!name)return;
-  if(!profiles[name]&&Object.keys(profiles).length>=MAX_PROFILES){prop(t('profileLimit'),2200);return;}
-  if(!profiles[name])profiles[name]=Object.assign(defaultSave(),{playerName:name,profileId:genProfileId(),tutorialDone:false});
-  selectProfile(name);
+  const requested=(rawName||'').trim().slice(0,18);
+  if(!requested)return;
+  if(Object.keys(profiles).length>=MAX_PROFILES){prop(t('profileLimit'),2200);return;}
+  const name=uniqueProfileName(requested),profileId=genProfileId();
+  profiles[name]=Object.assign(defaultSave(),{playerName:name,profileId,tutorialDone:false});
+  markPendingProfileId(profileId);selectProfile(name);
 }
 let splashIntroPlayed=false;
 let syncStatus='idle'; // idle | syncing | saved | offline | error
@@ -2939,15 +2942,12 @@ function enterGame(){
   maybePlaySplashIntro();
   playCharacterVoice('drE','menu',{force:true,duck:.26,cooldown:0});
   setTimeout(showGuestAccountToast,900);
-  // Cross-platform boot: an authenticated account must reconcile all cloud
-  // profiles before the active profile performs its normal one-profile sync.
-  // This fixes fresh itch.io/Android installs creating a different local
-  // profileId and therefore appearing empty even though Netlify has progress.
-  if(!accountState.isAnonymous){
-    setTimeout(async()=>{await reconcileAccountProfiles();await syncFromCloud();},120);
-  }else{
-    syncFromCloud(); // guest saves are origin-local until an account is linked
-  }
+  // R16: entering a player never performs a global account reconciliation.
+  // Only this exact profileId is saved/loaded; stale async work cannot jump to
+  // another (usually highest-progress) player while New Game/tutorial is open.
+  const enterEpoch=profileContextEpoch;
+  if(!accountState.isAnonymous)setTimeout(()=>syncActiveProfileSafely(enterEpoch),160);
+  else syncFromCloud();
 }
 function maybePlaySplashIntro(){
   // The boot screen now owns the dark-start/bulb-reveal moment (per user
@@ -2996,7 +2996,7 @@ function bootPlay(){
       let target=(lastProfile&&profiles[lastProfile])?lastProfile:(names.length===1?names[0]:null);
       if(target){
         curProfile=target;
-        save=applyDeviceAudioPrefs(ensureResearchState(Object.assign(defaultSave(),profiles[target])));
+        save=ensureResearchState(Object.assign(defaultSave(),profiles[target]));
         if(!save.profileId){save.profileId=genProfileId();profiles[target]=save;}
         enterGame();
       }else if(names.length>1){
@@ -4650,7 +4650,7 @@ function showCrystalSuccess(elapsed,reward){
 function finishCrystalTimeout(){
   if(!crystalMode||duelMode||won)return;won=true;winT=performance.now();anim=null;bounce=null;nudge=null;updateHUD();
   const el=$('#duelTimer');if(el){el.textContent='00:00.0';el.classList.add('urgent');}
-  SFX.thunk();playCharacterVoice('drE','failure',{force:true,duck:.30,cooldown:0});say(crystalCopy().timeUp,'sad',2200,'shk');
+  SFX.thunk();say(crystalCopy().timeUp,'sad',2200,'shk');
   setTimeout(()=>{const c=crystalCopy();openModal('<h3>⏱️ '+c.timeUp+'</h3>'+crystalResultHtml(CRYSTAL_TIME_LIMIT)+'<div class="mrow"><button class="btn green" id="mCrystalRetry">'+c.retry+'</button><button class="btn" id="mCrystalNew2">'+c.newGame+'</button><button class="btn ghost" id="mCrystalMenu2">'+c.menu+'</button></div>');
     $('#mCrystalRetry').addEventListener('pointerdown',e=>{e.preventDefault();SFX.play();startCrystalChallenge(lv,false);},{passive:false});
     $('#mCrystalNew2').addEventListener('pointerdown',e=>{e.preventDefault();SFX.select();clearBonusMission();currentCrystalPool=crystalPoolFor('mixed');startCrystalChallenge(randomLevelFromPool(currentCrystalPool),true);},{passive:false});
@@ -4794,7 +4794,7 @@ function showChainSuccess(elapsed,reward){
 function finishChainTimeout(){
   if(!chainMode||duelMode||won)return;won=true;winT=performance.now();anim=null;bounce=null;nudge=null;chainAutoQueue=[];chainAutoActive=false;updateHUD();
   const el=$('#duelTimer');if(el){el.textContent='00:00.0';el.classList.add('urgent');}
-  SFX.thunk();playCharacterVoice('drE','failure',{force:true,duck:.30,cooldown:0});say(chainCopy().timeUp,'sad',2200,'shk');
+  SFX.thunk();say(chainCopy().timeUp,'sad',2200,'shk');
   setTimeout(()=>{const c=chainCopy();openModal('<h3>⏱️ '+c.timeUp+'</h3>'+chainResultHtml(CHAIN_TIME_LIMIT)+'<div class="mrow"><button class="btn green" id="mChainRetry">'+c.retry+'</button><button class="btn" id="mChainNew2">'+c.newGame+'</button><button class="btn ghost" id="mChainMenu2">'+c.menu+'</button></div>');
     $('#mChainRetry').addEventListener('pointerdown',e=>{e.preventDefault();SFX.play();startChainChallenge(lv,false);},{passive:false});
     $('#mChainNew2').addEventListener('pointerdown',e=>{e.preventDefault();SFX.select();clearBonusMission();currentChainPool=duelPoolFor('mixed');startChainChallenge(randomChainLevelFromPool(currentChainPool),true);},{passive:false});
@@ -4915,7 +4915,7 @@ function showReactorSuccess(elapsed,reward){
   },2200);
 }
 function finishReactorTimeout(){
-  if(!reactorMode||duelMode||won)return;won=true;winT=performance.now();anim=null;bounce=null;nudge=null;updateHUD();const el=$('#duelTimer');if(el){el.textContent='00:00.0';el.classList.add('urgent');}SFX.thunk();playCharacterVoice('drE','failure',{force:true,duck:.30,cooldown:0});say(reactorCopy().timeUp,'sad',2200,'shk');
+  if(!reactorMode||duelMode||won)return;won=true;winT=performance.now();anim=null;bounce=null;nudge=null;updateHUD();const el=$('#duelTimer');if(el){el.textContent='00:00.0';el.classList.add('urgent');}SFX.thunk();say(reactorCopy().timeUp,'sad',2200,'shk');
   setTimeout(()=>{const c=reactorCopy();openModal('<h3>⏱️ '+c.timeUp+'</h3>'+reactorResultHtml(REACTOR_TIME_LIMIT)+'<div class="mrow"><button class="btn green" id="mReactorRetry">'+c.retry+'</button><button class="btn" id="mReactorNew2">'+c.newGame+'</button><button class="btn ghost" id="mReactorMenu2">'+c.menu+'</button></div>');
     $('#mReactorRetry').addEventListener('pointerdown',e=>{e.preventDefault();SFX.play();startReactorChallenge(lv,false);},{passive:false});
     $('#mReactorNew2').addEventListener('pointerdown',e=>{e.preventDefault();SFX.select();clearBonusMission();currentReactorPool=duelPoolFor('mixed');startReactorChallenge(randomReactorLevelFromPool(currentReactorPool),true);},{passive:false});
@@ -5676,7 +5676,7 @@ function startLevel(i,mode='campaign',expectedKey=''){
   anim=null;bounce=null;nudge=null;tut=(duelMode||crystalMode||chainMode||reactorMode)?9:((i===0&&!save.stars[0]&&!save.tutorialDone)?0:9);
   t2=Math.ceil(LV.p*1.7);
   setTheme(Math.floor(i/20));lastBondLine=false;prevB=0;mxReactionStreak=0;mxReactionAt=0;setExcited(false);updateIntensity();einMood('enter',650);if(Math.random()<0.6)prop('👋',1300);
-  if(mode==='campaign'&&!duelMode&&!dailyMode)maybeVoice('drE','ready',i===0?1:.18,{cooldown:3500,duck:.38});if(mid==='N2O')setTimeout(()=>{einMood('laugh',1200);},1500);
+  if(mode==='campaign'&&!duelMode&&!dailyMode)maybeVoice('drE','ready',i===0?1:.55,{cooldown:3500,duck:.38});if(mid==='N2O')setTimeout(()=>{einMood('laugh',1200);},1500);
   if(lv===NOBEL_LEVEL_INDEX)setTimeout(()=>{einMood('excited',900);prop('🏆',3000);say(t('nobelIntro'),'talk',5500,'glow');playCharacterVoice('drE','nobel',{force:true,duck:.24});},900);
   const duelTypeTag=crystalMode?'🧪':(chainMode?'⚡':(reactorMode?'☢️':'⚛️'));
   const campaignPill=campaignFeature?(t('level',i+1)+' · '+campaignFeatureIcon(campaignFeature)+' '+campaignFeatureName(campaignFeature)):t('level',i+1);
@@ -5791,9 +5791,10 @@ function loadTutorialPuzzle(tl){
 
 function mxTrack(name,params){try{if(window.MXCloud&&typeof window.MXCloud.track==='function')window.MXCloud.track(name,params||{});}catch(e){}}
 
+let tutorialRuntimeToken=0;
 function startTutorial(){
   mxTrack('tutorial_started',{tutorial:'basic_movement'});
-  tutorialActive=true;tutorialStep=0;
+  tutorialRuntimeToken++;tutorialActive=true;tutorialStep=0;
   document.body.classList.add('tutorialMode');
   $('#tutorialOverlay').classList.add('on');
   loadTutorialPuzzle(TUT_LEVEL_1);
@@ -5855,12 +5856,22 @@ function tutorialGoStep(n){
   }else if(n===9){
     tutorialArrowOff();tutorialSpotOff();clearTimeout(tutorialHintT);
     tutorialSay(t('tut9'));
-    setTimeout(()=>endTutorial(true),2600);
+    const token=tutorialRuntimeToken;
+    setTimeout(()=>{if(tutorialActive&&token===tutorialRuntimeToken)endTutorial(true);},2600);
   }
 }
 let tutorialHintT=null;
+function clearTutorialRuntime(){
+  tutorialRuntimeToken++;tutorialActive=false;tutorialStep=-1;tutorialGuideDir=null;tutorialWaitTap=null;tutorialLaunchArmed=false;
+  clearTimeout(tutorialHintT);clearTimeout(autoHintT);
+  document.body.classList.remove('tutorialMode');
+  const overlay=$('#tutorialOverlay'),bubble=$('#tutorialBubble'),legacy=$('#tutOverlay');
+  if(overlay)overlay.classList.remove('on');if(bubble)bubble.classList.remove('on');if(legacy)legacy.classList.remove('on');
+  try{tutorialSpotOff();tutorialArrowOff();}catch(e){}
+}
 function endTutorial(completed){
-  tutorialActive=false;tutorialStep=-1;tutorialGuideDir=null;tutorialWaitTap=null;
+  if(completed&&!tutorialActive)return;
+  tutorialRuntimeToken++;tutorialActive=false;tutorialStep=-1;tutorialGuideDir=null;tutorialWaitTap=null;
   clearTimeout(tutorialHintT);
   document.body.classList.remove('tutorialMode');
   $('#tutorialOverlay').classList.remove('on');
@@ -6337,9 +6348,9 @@ function showGeneralHint(){
   say('💡 '+tipOf(mid),'talk',5200,'glow');prop('💡',2600);lidHalf(true);setTimeout(()=>lidHalf(false),900);
 }
 function hint(){
-  maybeVoice('drE','hint',.72,{cooldown:6500,duck:.30});
   if(won)return;
   resetIdle();clearTimeout(autoHintT);
+  playCharacterVoice('drE','hint',{force:true,cooldown:0,duck:.30});
   setDrEPose('thinking',6400,4,true);
   offerPaidHint();
 }
@@ -7251,108 +7262,11 @@ function setCurrentProfileNickname(rawName){
   return name;
 }
 
-const MX_WHITEWAY_CANONICAL_NAME='wHiTeWaY';
-const MX_WHITEWAY_CANONICAL_PROFILE_ID='p_whiteway_main';
-const MX_WHITEWAY_OWNER_EMAIL_KEYS=new Set(['9c1cc5cf','b9196da9','c2412adf']);
-function whitewayOwnerEmailKey(value){
-  const text='mx-r9-owner-2026|'+String(value||'').trim().toLowerCase();
-  let h=0x811c9dc5;
-  for(let i=0;i<text.length;i++){h^=text.charCodeAt(i);h=Math.imul(h,0x01000193)>>>0;}
-  return h.toString(16).padStart(8,'0');
-}
-const MX_WHITEWAY_OWNER_UIDS_KEY='moleculox_whiteway_owner_uids_v1';
-const MX_WHITEWAY_SNAPSHOT_KEY='moleculox_whiteway_owner_snapshot_v1';
-function readWhitewayOwnerUids(){
-  try{const rows=JSON.parse(localStorage.getItem(MX_WHITEWAY_OWNER_UIDS_KEY)||'[]');return new Set(Array.isArray(rows)?rows.map(String):[]);}catch(e){return new Set();}
-}
-function rememberWhitewayOwnerAccount(account,ownerIntent){
-  const email=String(account&&account.email||'').trim().toLowerCase();
-  const uid=String(account&&account.uid||'');
-  const uids=readWhitewayOwnerUids();
-  // Never promote an arbitrary public player to the studio owner's profile.
-  // ownerIntent only controls the UI flow; ownership requires one of the three
-  // verified owner emails or a UID previously learned from one of those emails.
-  const recognized=MX_WHITEWAY_OWNER_EMAIL_KEYS.has(whitewayOwnerEmailKey(email))||(uid&&uids.has(uid));
-  if(recognized&&uid){uids.add(uid);try{localStorage.setItem(MX_WHITEWAY_OWNER_UIDS_KEY,JSON.stringify(Array.from(uids)));}catch(e){}}
-  return recognized;
-}
-function isWhitewayOwnerAccount(account){
-  const email=String(account&&account.email||'').trim().toLowerCase();
-  const id=String(account&&account.uid||'');
-  return MX_WHITEWAY_OWNER_EMAIL_KEYS.has(whitewayOwnerEmailKey(email))||(id&&readWhitewayOwnerUids().has(id));
-}
-function hasLocalWhitewayIdentity(){
-  const expected=normalizedPlayerName(MX_WHITEWAY_CANONICAL_NAME);
-  if(normalizedPlayerName(save&&save.playerName)===expected||normalizedPlayerName(curProfile)===expected)return true;
-  return Object.keys(profiles||{}).some(key=>normalizedPlayerName((profiles[key]&&profiles[key].playerName)||key)===expected);
-}
-function readWhitewayOwnerSnapshot(){
-  try{const row=JSON.parse(localStorage.getItem(MX_WHITEWAY_SNAPSHOT_KEY)||'null');return row&&typeof row==='object'?ensureResearchState(Object.assign(defaultSave(),row)):null;}catch(e){return null;}
-}
-function whitewayCandidateName(value){
-  const n=normalizedPlayerName(value);
-  return n===normalizedPlayerName(MX_WHITEWAY_CANONICAL_NAME)||n==='david'||/^player\s*1$/i.test(String(value||'').trim())||/^oyuncu\s*1$/i.test(String(value||'').trim());
-}
-function whitewayProfileScore(p){
-  p=p||{};return (Math.max(0,Number(p.cur)||0)*100000000)+(Object.keys(p.stars||{}).length*1000000)+(Math.max(0,Number(p.researchPoints)||0)*100)+(Math.max(0,Number(p.coins)||0));
-}
-function buildBestLocalWhitewaySnapshot(){
-  const candidates=[];
-  Object.keys(profiles||{}).forEach(key=>{const row=profiles[key];if(row&&(whitewayCandidateName(row.playerName||key)||row.profileId===MX_WHITEWAY_CANONICAL_PROFILE_ID))candidates.push(row);});
-  if(save&&(whitewayCandidateName(save.playerName||curProfile)||isWhitewayOwnerAccount(window.MXCloud&&window.MXCloud.account)))candidates.push(save);
-  const stored=readWhitewayOwnerSnapshot();if(stored)candidates.push(stored);
-  if(!candidates.length)return null;
-  candidates.sort((a,b)=>whitewayProfileScore(b)-whitewayProfileScore(a));
-  let merged=ensureResearchState(Object.assign(defaultSave(),candidates[0]));
-  for(let i=1;i<candidates.length;i++)merged=mergeCloudData(merged,candidates[i]);
-  merged.playerName=MX_WHITEWAY_CANONICAL_NAME;merged.profileId=MX_WHITEWAY_CANONICAL_PROFILE_ID;merged.autoGuest=false;
-  applyDeviceAudioPrefs(merged);
-  return merged;
-}
-function writeWhitewayOwnerSnapshot(candidate){
-  if(!candidate)return null;
-  const stored=readWhitewayOwnerSnapshot();
-  let merged=stored?mergeCloudData(stored,candidate):ensureResearchState(Object.assign(defaultSave(),candidate));
-  merged.playerName=MX_WHITEWAY_CANONICAL_NAME;merged.profileId=MX_WHITEWAY_CANONICAL_PROFILE_ID;merged.autoGuest=false;
-  applyDeviceAudioPrefs(merged);
-  try{localStorage.setItem(MX_WHITEWAY_SNAPSHOT_KEY,JSON.stringify(merged));}catch(e){}
-  return merged;
-}
-function updateWhitewaySnapshotFromActive(){
-  const account=window.MXCloud&&window.MXCloud.account;
-  if(!save||!isWhitewayOwnerAccount(account))return false;
-  writeWhitewayOwnerSnapshot(save);return true;
-}
-async function enforceWhitewayCanonicalProfile(connected,ownerIntent){
-  const owner=rememberWhitewayOwnerAccount(connected,ownerIntent)||isWhitewayOwnerAccount(connected);
-  if(!owner)return false;
-  const name=MX_WHITEWAY_CANONICAL_NAME;
-  const oldIds=Array.from(new Set(Object.keys(profiles||{}).filter(k=>whitewayCandidateName((profiles[k]&&profiles[k].playerName)||k)||(profiles[k]&&profiles[k].profileId===MX_WHITEWAY_CANONICAL_PROFILE_ID)).map(k=>profiles[k]&&profiles[k].profileId).filter(Boolean)));
-  let merged=writeWhitewayOwnerSnapshot(buildBestLocalWhitewaySnapshot()||save);
-  if(!merged)return false;
-  merged.playerName=name;merged.profileId=MX_WHITEWAY_CANONICAL_PROFILE_ID;merged.autoGuest=false;
-  applyDeviceAudioPrefs(merged);
-  Object.keys(profiles||{}).forEach(key=>{
-    const row=profiles[key]||{};
-    if(whitewayCandidateName(row.playerName||key)||row.profileId===MX_WHITEWAY_CANONICAL_PROFILE_ID)delete profiles[key];
-  });
-  save=merged;curProfile=name;lastProfile=name;profiles[name]=save;
-  if(connected){connected.displayName=name;setAccountState(connected);}
-  storeDeviceAudioPrefs(save);persistAll();buildProfileSelect();refreshSplash();updateCoins();updateBadge();
-  try{if(window.MXCloud&&window.MXCloud.setAuthDisplayName)await window.MXCloud.setAuthDisplayName(name);}catch(e){console.warn('[account] auth display-name update skipped',e&&e.code||e);}
-  try{if(window.MXCloud&&window.MXCloud.updateDisplayName)await window.MXCloud.updateDisplayName(save.profileId,name);}catch(e){console.warn('[account] profile name update skipped',e&&e.code||e);}
-  try{
-    if(window.MXCloud&&window.MXCloud.saveProgressNow){
-      const cloud=await window.MXCloud.saveProgressNow(save,save.profileId);
-      if(cloud){save=writeWhitewayOwnerSnapshot(mergeCloudData(save,cloud))||save;profiles[name]=save;persistAll();}
-    }
-  }catch(e){console.warn('[account] canonical profile save skipped',e&&e.code||e);}
-  if(window.MXCloud&&window.MXCloud.deleteCloudProfile){
-    for(const id of oldIds){if(id&&id!==MX_WHITEWAY_CANONICAL_PROFILE_ID){try{await window.MXCloud.deleteCloudProfile(id);}catch(e){}}}
-  }
-  try{await repairCurrentLeaderboard('whiteway-owner-bridge',true);}catch(e){}
-  return true;
-}
+// R16: no email/provider is allowed to rename or merge a player automatically.
+// Existing cloud players (including wHiTeWaY) remain available by their own profileId.
+function isWhitewayOwnerAccount(){return false;}
+function hasLocalWhitewayIdentity(){return false;}
+async function enforceWhitewayCanonicalProfile(){return false;}
 function resetLocalAccountData(){
   const previous=save||defaultSave();
   profiles={};lastProfile=null;curProfile=null;
@@ -7405,10 +7319,9 @@ function cloudAuthoritativeProfile(local,cloud){
   local=local&&typeof local==='object'?local:{};
   cloud=cloud&&typeof cloud==='object'?cloud:{};
   const result=ensureResearchState(Object.assign(defaultSave(),cloud));
-  ['lang','dpad'].forEach(k=>{
+  ['lang','volM','volMu','volS','muM','muMu','muS','externalMusic','dpad'].forEach(k=>{
     if(Object.prototype.hasOwnProperty.call(local,k))result[k]=local[k];
   });
-  applyDeviceAudioPrefs(result);
   result.autoGuest=false;
   result.saveSchema=5;
   return result;
@@ -7419,75 +7332,108 @@ function normalizedPlayerName(value){
   return core&&core.normalizeName?core.normalizeName(value):String(value||'').trim().toLowerCase().replace(/\s+/g,' ');
 }
 
+function accountProfileScope(){
+  return String((accountState&&accountState.uid)||(window.MXCloud&&window.MXCloud.uid)||'guest').replace(/[^a-zA-Z0-9_-]/g,'_');
+}
+function timedProfileSet(kind){
+  const key='mx_'+kind+'_profiles_r16_'+accountProfileScope();let raw={};
+  try{raw=JSON.parse(localStorage.getItem(key)||'{}')||{};}catch(e){}
+  const now=Date.now(),maxAge=7*24*60*60*1000;let changed=false;
+  for(const id of Object.keys(raw)){if(!id||now-Number(raw[id]||0)>maxAge){delete raw[id];changed=true;}}
+  if(changed)try{localStorage.setItem(key,JSON.stringify(raw));}catch(e){}
+  return {key,raw};
+}
+function updateTimedProfileSet(kind,profileId,on){
+  if(!profileId)return;const box=timedProfileSet(kind);
+  if(on)box.raw[profileId]=Date.now();else delete box.raw[profileId];
+  try{localStorage.setItem(box.key,JSON.stringify(box.raw));}catch(e){}
+}
+function pendingProfileIds(){return new Set(Object.keys(timedProfileSet('pending').raw));}
+function suppressedProfileIds(){return new Set(Object.keys(timedProfileSet('suppressed').raw));}
+function markPendingProfileId(profileId){updateTimedProfileSet('pending',profileId,true);}
+function clearPendingProfileId(profileId){updateTimedProfileSet('pending',profileId,false);}
+function suppressCloudProfileId(profileId){updateTimedProfileSet('suppressed',profileId,true);clearPendingProfileId(profileId);}
+function activeProfileIsPending(){return !!(save&&save.profileId&&pendingProfileIds().has(save.profileId));}
+async function flushPendingActiveProfile(expectedEpoch){
+  if(expectedEpoch!==undefined&&expectedEpoch!==profileContextEpoch)return false;
+  if(!window.MXCloud||accountState.isAnonymous||!save||!save.profileId||!activeProfileIsPending())return true;
+  const pid=save.profileId,snapshot=ensureResearchState(Object.assign(defaultSave(),save));
+  const merged=await window.MXCloud.saveProgressNow(snapshot,pid);
+  if(!merged)return false;
+  clearPendingProfileId(pid);
+  if((expectedEpoch===undefined||expectedEpoch===profileContextEpoch)&&save.profileId===pid)applyMergedCloudProfile(merged);
+  return true;
+}
+async function syncActiveProfileSafely(expectedEpoch){
+  try{
+    if(expectedEpoch!==profileContextEpoch||!save||!save.profileId)return false;
+    if(activeProfileIsPending())await flushPendingActiveProfile(expectedEpoch);
+    if(expectedEpoch!==profileContextEpoch)return false;
+    await syncFromCloud();return true;
+  }catch(e){console.warn('[sync] active profile sync failed',e&&e.code||e);return false;}
+}
 async function reconcileAccountProfiles(){
   if(!window.MXCloud||accountState.isAnonymous)return false;
-  if(isWhitewayOwnerAccount(accountState)||hasLocalWhitewayIdentity()){
-    rememberWhitewayOwnerAccount(accountState,hasLocalWhitewayIdentity());
-    const preBridge=buildBestLocalWhitewaySnapshot();if(preBridge)writeWhitewayOwnerSnapshot(preBridge);
-  }
   if(accountReconcilePromise)return accountReconcilePromise;
+  const startEpoch=profileContextEpoch,startId=save&&save.profileId,startKey=curProfile;
   accountReconcilePromise=(async()=>{
     setSyncStatus('syncing');
     try{
       const listed=await window.MXCloud.listProfiles();
       if(!Array.isArray(listed))throw Object.assign(new Error('cloud/profile-list-unavailable'),{code:'cloud/profile-list-unavailable'});
-      const rows=listed.filter(r=>r&&r.profileId);
-
-      if(rows.length){
-        // Firebase already contains this account. Rebuild the local profile list
-        // from Firestore and discard unmatched phone progress. Only harmless UI
-        // preferences are carried from a same-ID local copy.
-        const oldProfiles=profiles||{};
-        const rebuilt={};
-        for(const cloud of rows){
-          let local=null;
-          for(const key of Object.keys(oldProfiles)){
-            if((oldProfiles[key]||{}).profileId===cloud.profileId){local=oldProfiles[key];break;}
-          }
-          const profile=cloudAuthoritativeProfile(local,cloud);
-          // uniqueProfileName reads the global map, so use a deterministic fallback.
-          let finalKey=String(profile.playerName||'Player').slice(0,18)||'Player',n=2;
-          while(rebuilt[finalKey])finalKey=(String(profile.playerName||'Player').slice(0,14)||'Player')+' '+(n++);
-          rebuilt[finalKey]=profile;
-        }
-        profiles=rebuilt;
-      }else{
-        // One-time migration only: a genuinely empty Firebase account may adopt
-        // existing phone profiles. After the first successful write, Firestore is
-        // authoritative on every device and origin.
-        const candidates=Object.keys(profiles).filter(name=>profileHasMeaningfulProgress(profiles[name]||{}));
-        if(!candidates.length&&curProfile&&profiles[curProfile])candidates.push(curProfile);
-        for(const name of candidates){
-          let p=ensureResearchState(profiles[name]);
-          if(!p.profileId)p.profileId=genProfileId();
-          if(!p.playerName)p.playerName=name;
-          p.saveSchema=5;
-          const written=await window.MXCloud.saveProgressNow(p,p.profileId);
-          if(written&&typeof written==='object')profiles[name]=cloudAuthoritativeProfile(p,written);
-        }
+      // The user may create/select another player while Firestore is responding.
+      // Never apply the now-stale response to that new context.
+      if(startEpoch!==profileContextEpoch){setSyncStatus('saved');return false;}
+      const oldProfiles=profiles||{},pending=pendingProfileIds(),suppressed=suppressedProfileIds();
+      const rows=listed.filter(r=>r&&r.profileId&&!suppressed.has(r.profileId));
+      const rebuilt={};
+      const addProfile=(profile,preferred)=>{
+        if(!profile||!profile.profileId)return null;
+        const existing=Object.keys(rebuilt).find(k=>(rebuilt[k]||{}).profileId===profile.profileId);if(existing)return existing;
+        let key=String(preferred||profile.playerName||'Player').trim().slice(0,18)||'Player',n=2;
+        while(rebuilt[key])key=(String(profile.playerName||preferred||'Player').slice(0,14)||'Player')+' '+(n++);
+        rebuilt[key]=ensureResearchState(Object.assign(defaultSave(),profile));return key;
+      };
+      for(const cloud of rows){
+        let local=null;
+        for(const key of Object.keys(oldProfiles))if((oldProfiles[key]||{}).profileId===cloud.profileId){local=oldProfiles[key];break;}
+        addProfile(cloudAuthoritativeProfile(local,cloud),cloud.playerName);
       }
-
-      const names=Object.keys(profiles);
-      let target=null;
-      if(save&&save.profileId)target=findProfileById(save.profileId);
+      // Explicitly created New Game players are protected until their first write
+      // is confirmed. They must not be discarded merely because listProfiles()
+      // completed a moment before their new document appeared in Firestore.
+      for(const key of Object.keys(oldProfiles)){
+        const local=oldProfiles[key]||{},pid=local.profileId;
+        if(pid&&pending.has(pid)&&!suppressed.has(pid))addProfile(local,key);
+      }
+      if(!rows.length&&startKey&&oldProfiles[startKey]){
+        const local=ensureResearchState(Object.assign(defaultSave(),oldProfiles[startKey]));
+        if(!local.profileId)local.profileId=genProfileId();
+        local.playerName=local.playerName||startKey;local.saveSchema=5;
+        const written=await window.MXCloud.saveProgressNow(local,local.profileId);
+        if(startEpoch!==profileContextEpoch)return false;
+        if(written){clearPendingProfileId(local.profileId);addProfile(cloudAuthoritativeProfile(local,written),local.playerName);}
+        else addProfile(local,startKey);
+      }
+      profiles=rebuilt;
+      const names=Object.keys(profiles);let target=startId?findProfileById(startId):null;
+      if(!target&&startKey&&profiles[startKey])target=startKey;
       if(!target&&lastProfile&&profiles[lastProfile])target=lastProfile;
-      if(!target&&names.length){
-        target=names.slice().sort((a,b)=>{
-          const score=p=>(Math.max(0,Number(p.cur)||0)*1000000)+(Object.keys(p.stars||{}).length*10000)+(Math.max(0,Number(p.researchPoints)||0)*10)+Math.max(0,Number(p.coins)||0);
-          return score(profiles[b]||{})-score(profiles[a]||{});
-        })[0];
-      }
+      if(!target&&names.length)target=names.slice().sort((a,b)=>{
+        const score=p=>(Math.max(0,Number(p.cur)||0)*1000000)+(Object.keys(p.stars||{}).length*10000)+(Math.max(0,Number(p.researchPoints)||0)*10)+Math.max(0,Number(p.coins)||0);
+        return score(profiles[b]||{})-score(profiles[a]||{});
+      })[0];
+      if(startEpoch!==profileContextEpoch)return false;
       if(target){
-        curProfile=target;lastProfile=target;
-        save=ensureResearchState(Object.assign(defaultSave(),profiles[target]));
-        document.body.classList.toggle('nodpad',!save.dpad);
-        setLang(normalizeLang(save.lang));
+        if(curProfile!==target)clearTutorialRuntime();
+        curProfile=target;lastProfile=target;save=ensureResearchState(Object.assign(defaultSave(),profiles[target]));
+        document.body.classList.toggle('nodpad',!save.dpad);setLang(normalizeLang(save.lang));
       }
       persistAll();updateCoins();updateBadge();refreshSplash();buildProfileSelect();
-      if(target)await repairCurrentLeaderboard('firebase-authoritative-reconcile',true);
+      if(target)scheduleLeaderboardRepair('safe-account-reconcile',250,true);
       if(!target&&names.length>1){closeModal();show('profile');}
       setSyncStatus('saved');return true;
-    }catch(e){console.warn('[account] Firebase-authoritative reconcile failed',e);setSyncStatus('error');return false;}
+    }catch(e){console.warn('[account] safe reconcile failed',e);setSyncStatus('error');return false;}
   })();
   try{return await accountReconcilePromise;}finally{accountReconcilePromise=null;}
 }
@@ -7515,9 +7461,7 @@ async function finishAppleConnection(button){
     const loginPromise=window.MXCloud.connectApple();
     SFX.click();setAuthBusy(button,true,c.working);
     const connected=await loginPromise;
-    if(save.autoGuest&&!profileHasMeaningfulProgress(save)&&connected&&connected.displayName)setCurrentProfileNickname(connected.displayName);
-    await reconcileAccountProfiles();
-    openAccountModal(c.connected,true);
+    await finishAccountLoginUI(connected,c);
   }catch(err){openAccountModal(authErrorText(err),false);}
 }
 function confirmAppleConnection(){
@@ -7531,41 +7475,14 @@ function confirmAppleConnection(){
 // passes it into the patched native Apple request, and then gives the same raw nonce
 // plus Apple's ID token to Firebase JS. One nonce now travels end-to-end, avoiding
 // auth/missing-or-invalid-nonce. The native OS sheet remains the consent screen.
-async function finishAccountLoginUI(connected,c,successMessage,options){
-  const opts=options||{};
+async function finishAccountLoginUI(connected,c,successMessage){
   if(connected)setAccountState(connected);
-  const whitewayOwner=rememberWhitewayOwnerAccount(connected,!!opts.whitewayOwnerIntent);
-  if(whitewayOwner){const localCandidate=buildBestLocalWhitewaySnapshot();if(localCandidate)writeWhitewayOwnerSnapshot(localCandidate);}
   if(save.autoGuest&&!profileHasMeaningfulProgress(save)&&connected&&connected.displayName)setCurrentProfileNickname(connected.displayName);
-
-  // R15 iOS: Firebase authentication is already complete at this point. Do not
-  // keep the sign-in form stuck on “Working…” while Firestore profile merging,
-  // ranking repair, or a slow network request finishes. Show the connected
-  // account immediately and continue reconciliation safely in the background.
-  try{applyVol();if(bootDone)musKick();}catch(e){}
-  openAccountModal(successMessage||c.connected,true);
-  setSyncStatus('syncing');
-
-  const loginUid=String(connected&&connected.uid||accountState&&accountState.uid||'');
-  Promise.resolve().then(async()=>{
-    try{
-      let ok=false;
-      try{ok=await withAuthTimeout(reconcileAccountProfiles(),15000,'sync/reconcile-timeout');}
-      catch(e){console.warn('[account] background reconcile timed out',e&&e.code||e);}
-      const activeUid=String(accountState&&accountState.uid||'');
-      if(loginUid&&activeUid&&loginUid!==activeUid)return;
-      if(ok){
-        try{await withAuthTimeout(enforceWhitewayCanonicalProfile(connected,whitewayOwner),12000,'sync/canonical-timeout');}
-        catch(e){console.warn('[account] background canonical sync incomplete',e&&e.code||e);}
-        setSyncStatus('saved');
-      }else setSyncStatus(navigator.onLine===false?'offline':'error');
-      try{updateCloudStatusHeader();refreshCloudRankStatus(false);}catch(e){}
-    }catch(e){
-      console.warn('[account] background post-login sync failed',e);
-      setSyncStatus(navigator.onLine===false?'offline':'error');
-      try{updateCloudStatusHeader();}catch(_e){}
-    }
-  });
+  // Authentication is already complete here. Never leave the button spinning
+  // indefinitely while Firestore/leaderboards finish their separate work.
+  const ok=await Promise.race([reconcileAccountProfiles(),new Promise(resolve=>setTimeout(()=>resolve(false),4500))]);
+  openAccountModal(ok?(successMessage||c.connected):c.connectedSyncPending,true);
+  if(!ok)reconcileAccountProfiles().then(done=>{if(done&&scr.splash.classList.contains('on'))refreshSplash();});
   return true;
 }
 async function nativeGoogleSignIn(button){
@@ -7577,11 +7494,11 @@ async function nativeGoogleSignIn(button){
     const result=await withAuthTimeout(plugin.signInWithGoogle({skipNativeAuth:true,useCredentialManager:false}),45000,'auth/google-native-timeout');
     const idToken=result&&((result.credential&&result.credential.idToken)||result.idToken||result.identityToken);
     if(!idToken)throw Object.assign(new Error('auth/invalid-credential'),{code:'auth/invalid-credential'});
-    const connected=await withAuthTimeout(window.MXCloud.connectGoogleIdToken(idToken,hasLocalWhitewayIdentity()),45000,'auth/firebase-credential-timeout');
-    await finishAccountLoginUI(connected,c,null,{whitewayOwnerIntent:hasLocalWhitewayIdentity()});
+    const connected=await withAuthTimeout(window.MXCloud.connectGoogleIdToken(idToken),45000,'auth/firebase-credential-timeout');
+    await finishAccountLoginUI(connected,c);
   }catch(err){openAccountModal(authErrorText(err),false);}
 }
-const MX_APPLE_DIAG_KEY='mxAppleAuthDiagnosticsV4';
+const MX_APPLE_DIAG_KEY='mxAppleAuthDiagnosticsV3';
 function createAppleRawNonce(size){
   const length=Math.max(16,Math.min(64,Number(size)||32));
   const alphabet='0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
@@ -7661,13 +7578,13 @@ async function nativeAppleSignIn(button){
     const verifiedRawNonce=await nativeAppleNonceFromResult(result,idToken,requestedNonce);
     const givenName=(result.user&&(result.user.givenName||result.user.displayName))||'';
     recordAppleDiagnostic('firebase-bridge-start',{nonceVerified:true,hasAuthorizationCode:!!authorizationCode});
-    const connected=await withAuthTimeout(window.MXCloud.connectAppleIdToken(idToken,verifiedRawNonce,givenName,authorizationCode,whitewayOwnerIntent),45000,'auth/firebase-credential-timeout');
+    const connected=await withAuthTimeout(window.MXCloud.connectAppleIdToken(idToken,verifiedRawNonce,givenName,authorizationCode),45000,'auth/firebase-credential-timeout');
     recordAppleDiagnostic('firebase-connected',{uid:!!(connected&&connected.uid),email:!!(connected&&connected.email)});
-    await finishAccountLoginUI(connected,c,null,{whitewayOwnerIntent});
+    await finishAccountLoginUI(connected,c);
   }catch(err){
     const previousStage=(window.MXAppleDiagnostics&&window.MXAppleDiagnostics.length)?String(window.MXAppleDiagnostics[window.MXAppleDiagnostics.length-1].stage||'unknown'):'unknown';
     recordAppleDiagnostic('failed',{code:String(err&&err.code||'auth/unknown'),message:String(err&&err.message||'').slice(0,120),previousStage});
-    openAccountModal(authErrorText(err)+' · R9/'+previousStage,false);
+    openAccountModal(authErrorText(err)+' · R8/'+previousStage,false);
   }
 }
 
@@ -7756,16 +7673,14 @@ function resetViewportZoomIOS(){
 }
 function openAccountModal(message,good){
   if(good)setTimeout(resetViewportZoomIOS,120);
-  const c=accountCopy();const member=!accountState.isAnonymous;const cloudReady=!!(window.MXCloud&&window.MXCloud.connectGoogle);const ownerBridge=member&&isWhitewayOwnerAccount(accountState);
+  const c=accountCopy();const member=!accountState.isAnonymous;const cloudReady=!!(window.MXCloud&&window.MXCloud.connectGoogle);
   if(!cloudReady&&!message)message=LANG==='tr'?'Firebase bağlantısı hazırlanıyor…':'Preparing Firebase connection…';
   const avatar=accountState.photoURL?'<img src="'+escAttr(accountState.photoURL)+'" alt="">':'👤';
   const identity=member?(accountState.displayName||accountState.email||c.cloudGood):c.guestTitle;
   const sub=member?((accountState.email?esc(accountState.email)+'<br>':'')+c.memberSub):c.guestSub;
   openModal('<button type="button" class="accountCloseX" id="accCloseTop" aria-label="'+c.close+'">×</button><h3>👤 '+c.title+'</h3><div class="accountHero"><div class="accountAvatar">'+avatar+'</div><div><strong>'+esc(identity)+'</strong><small>'+sub+'</small></div></div>'+
     (message?'<div class="accountNotice '+(good?'good':'')+'">'+esc(message)+'</div>':'')+
-    '<div class="accountNotice '+(member?'good':'')+'">'+(member?'✓ '+c.cloudGood:'⚠ '+c.guestWarn)+'</div>'+ 
-    (ownerBridge?'<div class="accountNotice good">✓ '+(LANG==='tr'?'wHiTeWaY köprüsü aktif: Google, Apple ve e-posta girişleri aynı oyuncu profilini açar.':'wHiTeWaY bridge active: Google, Apple and email sign-ins open the same player profile.')+'</div>':'')+
-    '<div class="accountActions">'+
+    '<div class="accountNotice '+(member?'good':'')+'">'+(member?'✓ '+c.cloudGood:'⚠ '+c.guestWarn)+'</div><div class="accountActions">'+
     (!member?(MX_SHOW_APPLE_BTN?'<button class="btn apple" id="accApple">'+appleLogoHtml()+'<span>'+c.apple+'</span></button>':'')+'<button class="btn google" id="accGoogle">'+c.google+'</button>'+'<div class="accountDivider">'+c.or+'</div><button class="btn blue" id="accEmailLogin">✉ '+c.emailLogin+'</button><button class="btn ghost" id="accEmailCreate">＋ '+c.emailCreate+'</button>':'')+
     (member&&MX_SHOW_APPLE_BTN&&!accountState.providers.includes('apple.com')?'<button class="btn apple" id="accApple">'+appleLogoHtml()+'<span>'+c.linkApple+'</span></button>':'')+
     (member?(accountState.providers.includes('google.com')?'<button class="btn google googleLinked" id="accGoogleLinked" disabled>✓ '+(LANG==='tr'?'Google hesabı bağlı':'Google account linked')+'</button>':'<button class="btn google" id="accGoogle">'+(LANG==='tr'?'Google hesabını bağla':'Link Google account')+'</button>'):'')+
@@ -7814,9 +7729,9 @@ function openAccountModal(message,good){
 function authFormShell(title,body){openModal('<h3>'+title+'</h3>'+body);$('#modalBox').classList.add('accountModal');}
 function openEmailLogin(prefill){
   const c=accountCopy();
-  const accountSwitchNote=hasLocalWhitewayIdentity()?(LANG==='tr'?'wHiTeWaY köprüsü aktif. Doğrulanmış Hotmail hesabına giriş yaptığında aynı ana oyuncu profili açılır.':'The wHiTeWaY bridge is active. Signing in to the verified Hotmail account opens the same canonical player profile.'):(LANG==='tr'?'Bu ekran kayıtlı e-posta hesabına geçer. E-posta ayrı bir Firebase hesabına aitse farklı oyuncu açılır. Mevcut oyuncuya e-posta eklemek için hesabına dönüp “E-posta ve şifre ekle” seçeneğini kullan.':'This screen switches to the saved email account. If that email belongs to a separate Firebase account, a different player will open. To add email to the current player, return to the account and choose “Add email & password”.');
+  const accountSwitchNote=LANG==='tr'?'Bu ekran kayıtlı e-posta hesabına geçer. E-posta ayrı bir Firebase hesabına aitse farklı oyuncu açılır. Mevcut oyuncuya e-posta eklemek için hesabına dönüp “E-posta ve şifre ekle” seçeneğini kullan.':'This screen switches to the saved email account. If that email belongs to a separate Firebase account, a different player will open. To add email to the current player, return to the account and choose “Add email & password”.';
   authFormShell('✉ '+c.emailLogin,'<label class="authField"><span>'+c.email+'</span><input class="authInput" id="authEmail" type="email" inputmode="email" autocomplete="email" value="'+escAttr(prefill||'')+'"></label><label class="authField"><span>'+c.password+'</span><input class="authInput" id="authPass" type="password" autocomplete="current-password"></label><div class="authMessage" id="authMsg"></div><div class="authTiny accountSwitchWarning">'+accountSwitchNote+'</div><div class="accountActions"><button class="btn blue" id="authLoginGo">'+c.login+'</button><button class="btn ghost" id="authForgot">'+c.reset+'</button><button class="btn" id="authBack">'+c.back+'</button></div>');
-  $('#authLoginGo').addEventListener('pointerdown',async e=>{e.preventDefault();const btn=e.currentTarget,msg=$('#authMsg');const email=$('#authEmail').value,pass=$('#authPass').value;if(!email||!pass){msg.textContent=c.required;return;}setAuthBusy(btn,true,c.working);msg.textContent='';try{if(!window.MXCloud)throw Object.assign(new Error('auth/unavailable'),{code:'auth/unavailable'});const connected=await withAuthTimeout(window.MXCloud.signInEmail(email,pass),45000,'auth/email-timeout');await finishAccountLoginUI(connected,c,null,{whitewayOwnerIntent:hasLocalWhitewayIdentity()});}catch(err){msg.textContent=authErrorText(err);setAuthBusy(btn,false);}},{passive:false});
+  $('#authLoginGo').addEventListener('pointerdown',async e=>{e.preventDefault();const btn=e.currentTarget,msg=$('#authMsg');const email=$('#authEmail').value,pass=$('#authPass').value;if(!email||!pass){msg.textContent=c.required;return;}setAuthBusy(btn,true,c.working);msg.textContent='';try{if(!window.MXCloud)throw Object.assign(new Error('auth/unavailable'),{code:'auth/unavailable'});const connected=await withAuthTimeout(window.MXCloud.signInEmail(email,pass),45000,'auth/email-timeout');await finishAccountLoginUI(connected,c);}catch(err){msg.textContent=authErrorText(err);setAuthBusy(btn,false);}},{passive:false});
   $('#authForgot').addEventListener('pointerdown',e=>{e.preventDefault();openPasswordReset($('#authEmail').value);},{passive:false});
   bindTap('#authBack',e=>{openAccountModal();});
   setTimeout(()=>$('#authEmail').focus(),80);
@@ -7846,11 +7761,8 @@ function bindAccountAuth(){
       // Always reconcile after account restoration, not only on the first
       // guest→member transition. Embedded hosts can restore auth before this
       // listener binds, which previously skipped profile import on itch.io.
-      reconcileAccountProfiles().then(async ok=>{
-        if(ok){
-          await enforceWhitewayCanonicalProfile(state,hasLocalWhitewayIdentity());
-          scheduleLeaderboardRepair(wasGuest?'account-connected':'auth-restored',250,true);
-        }
+      reconcileAccountProfiles().then(ok=>{
+        if(ok)scheduleLeaderboardRepair(wasGuest?'account-connected':'auth-restored',250,true);
       });
     }
   });
@@ -9183,38 +9095,28 @@ $('#btnNew').addEventListener('pointerdown',e=>{e.preventDefault();SFX.click();
   const go=async ()=>{
     const name=($('#newNameInput').value||'').trim().slice(0,18);
     if(!name)return;
-    const goBtn=$('#newNameGo');
-    // This wait-for-real-auth-state guard was present in the previous build
-    // (added 2026-07-27) but is missing from this one — re-adding it. Without
-    // it, reopening the app before Firebase finishes restoring the signed-in
-    // session creates a brand-new blank profileId instead of finding the
-    // account's existing cloud progress, which is exactly the "started from
-    // scratch" bug reported on itch.io. The new per-level checkpoint system
-    // (V8.1.6) reliably WRITES progress, but doesn't fix which profileId a
-    // reopened session resolves to — the two need to work together.
-    if(window.MXCloud&&goBtn){
-      goBtn.disabled=true;goBtn.dataset.old=goBtn.textContent;
-      goBtn.textContent=LANG==='tr'?'Hesap kontrol ediliyor…':'Checking account…';
-      try{await Promise.race([window.MXCloud.ready,new Promise(r=>setTimeout(r,4000))]);}catch(e){}
-      if(accountState&&!accountState.isAnonymous){try{await reconcileAccountProfiles();}catch(e){}}
-      goBtn.disabled=false;goBtn.textContent=goBtn.dataset.old||goBtn.textContent;
-    }
+    // R16: New Game is a local, explicit player action. Never run a global
+    // cloud reconciliation here; that old await could replace this new player
+    // with the account's highest-progress profile before tutorial even opened.
     closeModal();
     if(name===curProfile&&(save.cur>0||Object.keys(save.stars).length)){
       openModal('<h3>'+t('newGameTitle')+'</h3><div class="msub">'+t('newGameMsg',save.cur,save.coins)+'</div><div class="mrow"><button class="btn ghost" id="mWipe" style="color:var(--red)">'+t('wipe')+'</button><button class="btn" id="mCancel">'+t('cancel')+'</button></div>');
       $('#mWipe').addEventListener('pointerdown',ev=>{ev.preventDefault();
-        save=Object.assign(defaultSave(),{playerName:name,volM:save.volM,volMu:save.volMu,volS:save.volS,volV:save.volV,muM:save.muM,muMu:save.muMu,muS:save.muS,muV:save.muV,externalMusic:save.externalMusic,dpad:save.dpad,lang:save.lang,profileId:save.profileId||genProfileId(),tutorialDone:false});
-        persist();updateCoins();updateBadge();closeModal();tutorialLaunchArmed=true;enterGame();
+        const oldProfileId=save.profileId,newProfileId=genProfileId();
+        if(oldProfileId){suppressCloudProfileId(oldProfileId);if(window.MXCloud&&window.MXCloud.deleteCloudProfile)window.MXCloud.deleteCloudProfile(oldProfileId).catch(()=>{});}
+        clearTutorialRuntime();profileContextEpoch++;
+        save=Object.assign(defaultSave(),{playerName:name,volM:save.volM,volMu:save.volMu,volS:save.volS,volV:save.volV,muM:save.muM,muMu:save.muMu,muS:save.muS,muV:save.muV,externalMusic:save.externalMusic,dpad:save.dpad,lang:save.lang,profileId:newProfileId,tutorialDone:false});
+        profiles[curProfile]=save;markPendingProfileId(newProfileId);persist();updateCoins();updateBadge();closeModal();tutorialLaunchArmed=true;enterGame();
       },{passive:false});
       $('#mCancel').addEventListener('pointerdown',ev=>{ev.preventDefault();SFX.click();closeModal();},{passive:false});
       return;
     }
-    if(!profiles[name]&&Object.keys(profiles).length>=MAX_PROFILES){openModal('<h3>👥 '+t('profileLimit')+'</h3><div class="mrow"><button class="btn" id="mLimitClose">'+t('close')+'</button></div>');$('#mLimitClose').addEventListener('pointerdown',e=>{e.preventDefault();closeModal();},{passive:false});return;}
-    if(!profiles[name])profiles[name]=Object.assign(defaultSave(),{playerName:name,profileId:genProfileId(),tutorialDone:false});
-    curProfile=name;save=Object.assign(defaultSave(),profiles[name]);
-    if(!save.profileId){save.profileId=genProfileId();}
-    tutorialLaunchArmed=!save.tutorialDone&&!!String(save.playerName||'').trim();
-    enterGame();
+    if(Object.keys(profiles).length>=MAX_PROFILES){openModal('<h3>👥 '+t('profileLimit')+'</h3><div class="mrow"><button class="btn" id="mLimitClose">'+t('close')+'</button></div>');$('#mLimitClose').addEventListener('pointerdown',e=>{e.preventDefault();closeModal();},{passive:false});return;}
+    const profileKey=profiles[name]?uniqueProfileName(name):name,profileId=genProfileId();
+    clearTutorialRuntime();profileContextEpoch++;
+    profiles[profileKey]=Object.assign(defaultSave(),{playerName:profileKey,profileId,tutorialDone:false});
+    curProfile=profileKey;lastProfile=profileKey;save=Object.assign(defaultSave(),profiles[profileKey]);markPendingProfileId(profileId);
+    tutorialLaunchArmed=true;enterGame();
   };
   bindTap('#newNameGo',ev=>{go();});
   bindTap('#newNameCancel',ev=>{SFX.back();closeModal();});
@@ -9296,13 +9198,15 @@ async function runConnectivityCloudSync(reason){
       if(!window.MXCloud||!window.MXCloud.account||window.MXCloud.account.isAnonymous||navigator.onLine===false)return false;
       setSyncStatus('syncing');
       await window.MXCloud.ready;
-      // Merge every local/cloud player first, then force the active profile write.
-      await reconcileAccountProfiles();
+      const epoch=profileContextEpoch;
+      if(tutorialActive||activeProfileIsPending())await flushPendingActiveProfile(epoch);
+      else await reconcileAccountProfiles();
+      if(epoch!==profileContextEpoch)return false;
       if(save&&save.profileId&&window.MXCloud.saveProgressNow){
-        const merged=await window.MXCloud.saveProgressNow(save,save.profileId);
-        if(merged)applyMergedCloudProfile(merged);
+        const activeId=save.profileId,merged=await window.MXCloud.saveProgressNow(save,activeId);
+        if(merged&&epoch===profileContextEpoch&&save.profileId===activeId)applyMergedCloudProfile(merged);
       }
-      await syncFromCloud();
+      if(epoch===profileContextEpoch)await syncFromCloud();
       markCloudSyncSuccess();
       setSyncStatus('saved');
       return true;
@@ -9320,7 +9224,6 @@ window.addEventListener('online',()=>{
 },{passive:true});
 window.addEventListener('offline',()=>setSyncStatus('offline'),{passive:true});
 window.addEventListener('pageshow',()=>{if(navigator.onLine!==false)setTimeout(()=>runConnectivityCloudSync('pageshow'),500);},{passive:true});
-window.addEventListener('focus',()=>{setTimeout(()=>{try{if(AC&&AC.state==='suspended')AC.resume();applyVol();if(bootDone)musKick();}catch(e){}},80);},{passive:true});
 document.addEventListener('touchmove',e=>{if(!e.target.closest('.scrollArea,.settingsScroll,.guideScroll,.modalScroll,.mxUniversalBody,.mtlist,input[type=\"range\"],textarea,select'))e.preventDefault();},{passive:false});
 const MX_NATIVE=!!(window.Capacitor&&window.Capacitor.isNativePlatform&&window.Capacitor.isNativePlatform());
 // Added 2026-07-26: iOS-specific flag (not just "any native platform"), so we
@@ -9385,7 +9288,7 @@ async function mxInitPush(){
 // they have even seen the game), matching the account-linking prompts' timing style.
 window.addEventListener('load',()=>setTimeout(()=>{if(!MX_NATIVE)return;mxInitPush();},4000),{passive:true});
 if(!MX_NATIVE)document.addEventListener('gesturestart',e=>e.preventDefault());
-document.body.classList.toggle('mxNative',MX_NATIVE);document.body.classList.toggle('mxIOSNative',MX_IOS_NATIVE);document.body.classList.toggle('mxAndroidNative',MX_ANDROID_NATIVE);document.body.classList.toggle('mxWeb',!MX_NATIVE);
+document.body.classList.toggle('mxNative',MX_NATIVE);document.body.classList.toggle('mxWeb',!MX_NATIVE);document.body.classList.toggle('mxIOSNative',MX_IOS_NATIVE);document.body.classList.toggle('mxAndroidNative',MX_ANDROID_NATIVE);
 const viewportRoot=document.documentElement;
 let stableViewportWidth=window.innerWidth,stableViewportHeight=window.innerHeight;
 function isTextEditing(){const a=document.activeElement;return !!(a&&a.matches&&a.matches('input,textarea,[contenteditable="true"]'));}
