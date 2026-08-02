@@ -2,7 +2,7 @@
   "name": "moleculox-ios",
   "version": "8.5.54",
   "private": true,
-  "description": "Moleculox iOS V8.5.54 R7 final: native-source Apple nonce bridge, canonical wHiTeWaY owner profile, adjusted in-game Dr. E, Google/email auth, web parity, and leaderboard cleanup.",
+  "description": "Moleculox iOS V8.5.54 R8 final: deterministic Apple raw-nonce bridge with explicit native return fields and authorization code, canonical wHiTeWaY profile, refined in-game Dr. E, Google/email auth, web parity, and leaderboard cleanup.",
   "scripts": {
     "ios:prepare": "bash scripts/prepare-ios.sh",
     "ios:sync": "npx cap sync ios",

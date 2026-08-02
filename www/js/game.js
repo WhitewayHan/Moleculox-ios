@@ -7458,7 +7458,20 @@ async function nativeGoogleSignIn(button){
     await finishAccountLoginUI(connected,c);
   }catch(err){openAccountModal(authErrorText(err),false);}
 }
-const MX_APPLE_DIAG_KEY='mxAppleAuthDiagnosticsV2';
+const MX_APPLE_DIAG_KEY='mxAppleAuthDiagnosticsV3';
+function createAppleRawNonce(size){
+  const length=Math.max(16,Math.min(64,Number(size)||32));
+  const alphabet='0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
+  const cryptoApi=window.crypto;
+  if(!cryptoApi||typeof cryptoApi.getRandomValues!=='function')throw Object.assign(new Error('auth/crypto-unavailable'),{code:'auth/crypto-unavailable'});
+  const bytes=new Uint8Array(32),out=[];
+  const limit=256-(256%alphabet.length);
+  while(out.length<length){
+    cryptoApi.getRandomValues(bytes);
+    for(let i=0;i<bytes.length&&out.length<length;i++)if(bytes[i]<limit)out.push(alphabet[bytes[i]%alphabet.length]);
+  }
+  return out.join('');
+}
 function recordAppleDiagnostic(stage,details){
   const safe=Object.assign({at:new Date().toISOString(),stage:String(stage||'unknown')},details||{});
   let history=[];
@@ -7482,21 +7495,32 @@ async function sha256HexText(value){
   const digest=await subtle.digest('SHA-256',data);
   return Array.from(new Uint8Array(digest),b=>b.toString(16).padStart(2,'0')).join('');
 }
-async function nativeAppleNonceFromResult(result,idToken){
+async function nativeAppleNonceFromResult(result,idToken,requestedNonce){
   const credential=result&&result.credential||{};
-  const rawNonce=String(credential.nonce||credential.rawNonce||result&&result.nonce||'').trim();
+  const candidates=[
+    result&&result.rawNonce,
+    credential.nonce,
+    credential.rawNonce,
+    result&&result.nonce,
+    requestedNonce
+  ].map(v=>String(v||'').trim()).filter((v,i,a)=>v&&a.indexOf(v)===i);
   const payload=decodeAppleIdTokenPayload(idToken);
   const claim=String(payload&&payload.nonce||'').trim().toLowerCase();
-  if(!rawNonce||!claim){
-    recordAppleDiagnostic('native-result-missing',{hasToken:!!idToken,hasRawNonce:!!rawNonce,hasTokenNonce:!!claim});
+  if(!candidates.length||!claim){
+    recordAppleDiagnostic('native-result-missing',{hasToken:!!idToken,candidateCount:candidates.length,hasTokenNonce:!!claim,hasTopLevelRawNonce:!!(result&&result.rawNonce)});
     throw Object.assign(new Error('auth/missing-or-invalid-nonce'),{code:'auth/missing-or-invalid-nonce'});
   }
-  const hashed=(await sha256HexText(rawNonce)).toLowerCase();
-  const matched=!!hashed&&hashed===claim;
-  recordAppleDiagnostic('native-nonce-verified',{hasToken:true,hasRawNonce:true,hasTokenNonce:true,matched});
-  if(!matched)throw Object.assign(new Error('auth/missing-or-invalid-nonce'),{code:'auth/missing-or-invalid-nonce'});
-  return rawNonce;
+  for(let i=0;i<candidates.length;i++){
+    const hashed=(await sha256HexText(candidates[i])).toLowerCase();
+    if(hashed&&hashed===claim){
+      recordAppleDiagnostic('native-nonce-verified',{candidateIndex:i,candidateCount:candidates.length,hasTopLevelRawNonce:!!(result&&result.rawNonce),matched:true});
+      return candidates[i];
+    }
+  }
+  recordAppleDiagnostic('native-nonce-verified',{candidateCount:candidates.length,hasTopLevelRawNonce:!!(result&&result.rawNonce),matched:false});
+  throw Object.assign(new Error('auth/missing-or-invalid-nonce'),{code:'auth/missing-or-invalid-nonce'});
 }
+
 async function nativeAppleSignIn(button){
   const c=accountCopy();
   const whitewayOwnerIntent=hasLocalWhitewayIdentity();
@@ -7504,24 +7528,26 @@ async function nativeAppleSignIn(button){
     const plugin=window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.FirebaseAuthentication;
     if(!plugin||!window.MXCloud||!window.MXCloud.connectAppleIdToken)throw Object.assign(new Error('auth/unavailable'),{code:'auth/unavailable'});
     setAuthBusy(button,true,c.working);
-    recordAppleDiagnostic('native-start',{pluginReady:true,ownerIntent:whitewayOwnerIntent});
-    // Let the native plugin create the nonce. It sends SHA-256(rawNonce) to Apple
-    // and returns that exact rawNonce in result.credential.nonce. Keeping nonce
-    // generation in one layer removes all cross-layer mismatch possibilities.
-    const result=await withAuthTimeout(plugin.signInWithApple({skipNativeAuth:true}),45000,'auth/firebase-credential-timeout');
-    const idToken=String(result&&((result.credential&&result.credential.idToken)||result.idToken||result.identityToken)||'').trim();
-    if(!idToken){recordAppleDiagnostic('native-token-missing',{hasResult:!!result});throw Object.assign(new Error('auth/invalid-credential'),{code:'auth/invalid-credential'});}
-    const verifiedRawNonce=await nativeAppleNonceFromResult(result,idToken);
+    const requestedNonce=createAppleRawNonce(32);
+    recordAppleDiagnostic('native-start',{pluginReady:true,ownerIntent:whitewayOwnerIntent,nonceLength:requestedNonce.length});
+    const result=await withAuthTimeout(plugin.signInWithApple({skipNativeAuth:true,rawNonce:requestedNonce}),45000,'auth/apple-native-timeout');
+    const credential=result&&result.credential||{};
+    const idToken=String((result&&result.appleIdToken)||credential.idToken||(result&&result.idToken)||(result&&result.identityToken)||'').trim();
+    const authorizationCode=String((result&&result.appleAuthorizationCode)||credential.authorizationCode||(result&&result.authorizationCode)||'').trim();
+    if(!idToken){recordAppleDiagnostic('native-token-missing',{hasResult:!!result,hasCredential:!!(result&&result.credential)});throw Object.assign(new Error('auth/invalid-credential'),{code:'auth/invalid-credential'});}
+    const verifiedRawNonce=await nativeAppleNonceFromResult(result,idToken,requestedNonce);
     const givenName=(result.user&&(result.user.givenName||result.user.displayName))||'';
-    recordAppleDiagnostic('firebase-bridge-start',{nonceVerified:true});
-    const connected=await withAuthTimeout(window.MXCloud.connectAppleIdToken(idToken,verifiedRawNonce,givenName),45000,'auth/firebase-credential-timeout');
+    recordAppleDiagnostic('firebase-bridge-start',{nonceVerified:true,hasAuthorizationCode:!!authorizationCode});
+    const connected=await withAuthTimeout(window.MXCloud.connectAppleIdToken(idToken,verifiedRawNonce,givenName,authorizationCode),45000,'auth/firebase-credential-timeout');
     recordAppleDiagnostic('firebase-connected',{uid:!!(connected&&connected.uid),email:!!(connected&&connected.email)});
     await finishAccountLoginUI(connected,c,null,{whitewayOwnerIntent});
   }catch(err){
-    recordAppleDiagnostic('failed',{code:String(err&&err.code||'auth/unknown')});
-    openAccountModal(authErrorText(err),false);
+    const previousStage=(window.MXAppleDiagnostics&&window.MXAppleDiagnostics.length)?String(window.MXAppleDiagnostics[window.MXAppleDiagnostics.length-1].stage||'unknown'):'unknown';
+    recordAppleDiagnostic('failed',{code:String(err&&err.code||'auth/unknown'),message:String(err&&err.message||'').slice(0,120),previousStage});
+    openAccountModal(authErrorText(err)+' · R8/'+previousStage,false);
   }
 }
+
 function cloudStatusLabel(){
   const c=accountCopy();
   if(accountState.isAnonymous)return {key:'guest',icon:'👤',label:c.syncGuest};

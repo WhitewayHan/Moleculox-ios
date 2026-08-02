@@ -1,0 +1,53 @@
+MOLECULOX iOS V8.5.54 R8 — FINAL SOURCE VALIDATION
+
+IDENTITY / BUILD
+PASS  Package version remains 8.5.54
+PASS  Bundle ID remains com.whitewayhan.moleculox
+PASS  Codemagic workflow and plist/entitlements parse
+PASS  Native Google CocoaPods entry remains present
+PASS  Clean CocoaPods resolution removes Podfile.lock and runs pod install --repo-update
+
+APPLE AUTH R8
+PASS  Fresh cryptographic raw nonce is generated for each Apple attempt
+PASS  The exact raw nonce is passed to native iOS
+PASS  Native patch hashes that same nonce for the Apple request
+PASS  Native result exposes explicit bridge-safe rawNonce, Apple ID token and authorization code fields
+PASS  Apple token nonce claim is compared to SHA-256(raw nonce) before Firebase JS receives it
+PASS  Firebase JS uses the documented ID token + original raw nonce credential
+PASS  Anonymous guest uses direct sign-in; a real signed-in member uses account linking
+PASS  Failure UI includes the last safe R8 diagnostic stage without exposing tokens or nonce values
+
+VISUAL
+PASS  In-game Dr. E is approximately 6% larger
+PASS  In-game Dr. E is shifted about 9 px left on the target iPhone width
+PASS  Feet/pants remain bottom-anchored
+
+PRESERVED
+PASS  Google sign-in code remains present
+PASS  Email sign-in and canonical wHiTeWaY profile logic remain present
+PASS  Leaderboard placeholder filtering remains present
+PASS  All www/assets files are byte-identical to R7
+
+STATIC CHECKS
+PASS  JavaScript syntax: game, Firebase, sync core, campaign, daily and level effects
+PASS  Shell syntax: prepare-ios.sh
+PASS  Python syntax: all iOS patch scripts
+PASS  JSON, YAML, GoogleService-Info.plist and entitlements parse
+PASS  46 raster images decode
+PASS  24 audio files pass ffprobe
+PASS  Native patch is idempotent in a source-structure fixture
+
+INTENDED FILE CHANGES FROM R7
+IOS-R8-FINAL.txt
+package.json
+scripts/patch-apple-nonce.py
+scripts/prepare-ios.sh
+www/css/app.css
+www/js/firebase.js
+www/js/game.js
+
+LIMITATIONS
+- This Linux environment cannot run Xcode signing, install the IPA, or complete Apple authentication.
+- The package could not download npm dependencies from the restricted internal registry during validation; Codemagic must run npm install as usual.
+- Final proof remains a fresh Codemagic build installed through TestFlight.
+- If Apple still fails, the visible R8/<stage> suffix identifies whether failure occurred before nonce verification or during the Firebase credential request. At that point Apple/Firebase Services ID configuration and the Codemagic device log must be checked rather than making another blind code change.

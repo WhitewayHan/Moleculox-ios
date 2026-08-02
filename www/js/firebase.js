@@ -527,7 +527,7 @@ async function connectGoogleIdToken(idToken) {
     authOperationInFlight = false;
   }
 }
-async function connectAppleIdToken(idToken, rawNonce, displayName) {
+async function connectAppleIdToken(idToken, rawNonce, displayName, authorizationCode) {
   authOperationInFlight = true;
   let user = null;
   let credential = null;
@@ -536,10 +536,15 @@ async function connectAppleIdToken(idToken, rawNonce, displayName) {
     const token = String(idToken || "").trim();
     const nonce = String(rawNonce || "").trim();
     if (!token || !nonce) throw Object.assign(new Error("auth/invalid-credential"), {code: "auth/invalid-credential"});
+    // Firebase's documented Apple bridge requires the fresh ID token and the
+    // original unhashed nonce. The authorization code is retained for future
+    // revoke/delete support but is not substituted for an OAuth access token.
     credential = appleProvider().credential({idToken: token, rawNonce: nonce});
     user = auth.currentUser;
     let result;
-    if (user && (user.isAnonymous || !providerIdsOf(user).includes("apple.com"))) result = await linkWithCredential(user, credential);
+    // Guests sign in directly. Only a real member account links Apple, avoiding
+    // an unnecessary anonymous-link path during first connection.
+    if (user && !user.isAnonymous && !providerIdsOf(user).includes("apple.com")) result = await linkWithCredential(user, credential);
     else result = await signInWithCredential(auth, credential);
     const name = String(displayName || "").trim().slice(0, 40);
     if (name && !result.user.displayName) await updateProfile(result.user, {displayName: name});

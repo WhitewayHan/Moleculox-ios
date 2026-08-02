@@ -4630,3 +4630,13 @@ body.mxNative #modalBox.accountModal .accountUtilityRow{width:100%!important}
   body.mxNative #einBoxG{width:178px!important}
   body.mxNative #actionCol{transform:scale(.88)!important}
 }
+
+
+/* ================= V8.5.54 R8 — Dr. E final position ================= */
+/* Slightly larger and a few pixels left, preserving the visible feet/pants. */
+body.mxNative #gameScr #einWrap{right:4px!important;bottom:-2px!important;width:230px!important}
+body.mxNative #einBoxG{width:200px!important;animation:none!important;transform:none!important;transform-origin:right bottom!important}
+@media(max-width:380px){
+  body.mxNative #gameScr #einWrap{right:2px!important;bottom:0!important;width:218px!important}
+  body.mxNative #einBoxG{width:190px!important}
+}
