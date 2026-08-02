@@ -176,7 +176,7 @@ body{
 #profileBack{margin-top:2px;padding:13px;font-size:14px}
 #profileScr{align-items:center;justify-content:flex-start;padding-top:0;z-index:12}
 
-/* ---------- Whiteway studio intro ---------- */
+/* ---------- wHiTeWaY studio intro ---------- */
 #studioScr{z-index:30;background:#fff;align-items:center;justify-content:center;overflow:hidden;cursor:pointer;transition:opacity .6s ease,transform .6s ease}
 #studioScr.fadeOut{opacity:0;transform:scale(1.015);pointer-events:none}
 #studioLogo{width:100%;height:100%;object-fit:contain;object-position:center;display:block;background:#fff;animation:studioLogoIn 1s ease-out both}
@@ -423,6 +423,8 @@ body{
 .molCard .mfact{font-size:11.5px;color:var(--dim);line-height:1.45;min-height:3.2em}
 .molCard.un{filter:grayscale(1) brightness(.65)}
 .molCard.un .mfact{color:transparent;text-shadow:0 0 7px rgba(163,168,212,.9)}
+.molCard.mxCompletionFocus{animation:mxCompletionCardFocus 1.25s cubic-bezier(.2,.85,.25,1) 2;outline:2px solid rgba(126,231,255,.8);outline-offset:3px}
+@keyframes mxCompletionCardFocus{0%,100%{transform:scale(1);box-shadow:0 8px 24px rgba(0,0,0,.28)}50%{transform:scale(1.035);box-shadow:0 0 0 6px rgba(126,231,255,.13),0 0 28px rgba(126,231,255,.48)}}
 .sectionHead{margin:22px 2px 12px;font-size:13px;font-weight:900;letter-spacing:2px;color:var(--cyan);text-shadow:0 0 10px rgba(79,216,255,.5)}
 .btn.hof{background:linear-gradient(180deg,#f0bb42,#c98f1a);box-shadow:0 4px 0 #8a5c16,0 0 22px rgba(240,187,66,.4);color:#3a2400}
 #btnDuel.duelBtn{
@@ -639,24 +641,28 @@ body.nodpad #dpad{display:none}
 body.nodpad #navBtns{left:10px}
 #dpad{
   position:absolute;left:10px;bottom:calc(var(--sab) + 12px);
-  width:150px;height:150px;border-radius:50%;
-  background:rgba(14,11,38,.55);
-  border:1.5px solid rgba(155,132,255,.3);
+  width:150px;height:150px;border-radius:30px;
+  padding:3px;display:grid;grid-template-columns:repeat(3,48px);grid-template-rows:repeat(3,48px);gap:0;
+  align-content:center;justify-content:center;
+  background:linear-gradient(145deg,rgba(20,18,55,.82),rgba(10,15,42,.78));
+  border:1.5px solid rgba(155,132,255,.44);
   backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
-  box-shadow:0 10px 26px rgba(0,0,0,.45),inset 0 0 24px rgba(0,0,0,.5);
+  box-shadow:0 10px 26px rgba(0,0,0,.45),inset 0 0 24px rgba(0,0,0,.52),0 0 18px rgba(86,95,255,.12);
+  overflow:visible;
 }
 #dpad.pulse{animation:hintGlow 1.2s ease-in-out infinite}
 .dbtn{
-  position:absolute;width:48px;height:48px;border:none;border-radius:14px;
-  background:rgba(255,255,255,.10);color:#dcd6ff;font-size:20px;font-weight:900;
+  position:relative!important;inset:auto!important;width:44px;height:44px;margin:2px;border:none;border-radius:13px;
+  background:linear-gradient(180deg,rgba(255,255,255,.15),rgba(89,93,185,.16));color:#effcff;font-weight:1000;
   display:flex;align-items:center;justify-content:center;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 3px 8px rgba(0,0,0,.4);
-  transition:transform .06s,background .06s;
-  touch-action:manipulation;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 3px 8px rgba(0,0,0,.42),0 0 0 1px rgba(120,226,255,.10);
+  transition:transform .06s,background .06s,box-shadow .06s;
+  touch-action:manipulation;-webkit-tap-highlight-color:transparent;
 }
-.dbtn:active{transform:scale(.88);background:rgba(157,123,255,.55);color:#fff}
-#dU{top:6px;left:51px}#dD{bottom:6px;left:51px}#dL{left:6px;top:51px}#dR{right:6px;top:51px}
-#dC{position:absolute;left:63px;top:63px;width:24px;height:24px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#8f7bff,#4a34b8);box-shadow:0 0 10px rgba(157,123,255,.8)}
+.mxDpadGlyph{display:block;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI Symbol","Arial Unicode MS",sans-serif;font-size:31px;line-height:1;font-weight:900;color:#eaffff;text-shadow:0 0 7px rgba(89,224,255,.95),0 2px 3px rgba(0,0,0,.6);transform:translateY(-1px)}
+.dbtn:active{transform:scale(.86);background:rgba(89,205,255,.42);box-shadow:inset 0 1px 8px rgba(0,0,0,.28),0 0 16px rgba(89,224,255,.58)}
+#dU{grid-column:2;grid-row:1}#dL{grid-column:1;grid-row:2}#dR{grid-column:3;grid-row:2}#dD{grid-column:2;grid-row:3}
+#dC{position:relative!important;left:auto!important;top:auto!important;grid-column:2;grid-row:2;align-self:center;justify-self:center;width:28px;height:28px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#b9f8ff 0 10%,#7d6cff 38%,#4027a8 76%);box-shadow:0 0 12px rgba(121,112,255,.95),inset 0 0 6px rgba(255,255,255,.32)}
 
 #navBtns{
   z-index:7;
@@ -774,6 +780,11 @@ body.nodpad #navBtns{left:10px}
 #lightRays.on{opacity:1;transform:translate(-50%,-50%) rotate(30deg) scale(1);}
 #bannerWrap{position:fixed;inset:0;z-index:60;display:none;align-items:center;justify-content:center;flex-direction:column;pointer-events:none}
 #bannerWrap.on{display:flex}
+#bannerWrap.leaving{animation:mxBannerWrapOut .34s cubic-bezier(.4,0,.6,1) both}
+#bannerDiscover{margin-top:11px;padding:8px 13px;border-radius:999px;border:1px solid rgba(126,231,255,.52);background:rgba(10,18,39,.68);color:#c9f7ff;font:900 clamp(10px,2.8vw,12px)/1.1 system-ui,-apple-system,sans-serif;letter-spacing:.42px;box-shadow:0 8px 24px rgba(0,0,0,.28),0 0 18px rgba(79,216,255,.2);text-shadow:0 1px 7px rgba(0,0,0,.82);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);pointer-events:auto;cursor:pointer;animation:fadeUp .5s .58s both}
+#bannerDiscover:active{transform:scale(.96);filter:brightness(1.16)}
+#bannerDiscover[hidden]{display:none!important}
+@keyframes mxBannerWrapOut{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-13px) scale(.97)}}
 #banner.newDiscovery{animation:discoveryPop 1s cubic-bezier(.2,1.4,.4,1)}
 @keyframes discoveryPop{
   0%{transform:scale(.6) rotate(-10deg);filter:brightness(1.7) saturate(1.5)}
@@ -781,18 +792,46 @@ body.nodpad #navBtns{left:10px}
   100%{transform:scale(1) rotate(0);filter:brightness(1) saturate(1)}
 }
 #banner{
-  font-size:clamp(46px,15vw,76px);font-weight:900;letter-spacing:2px;
+  max-width:min(94vw,760px);font-size:clamp(30px,9.4vw,62px);line-height:.98;
+  font-weight:1000;letter-spacing:1.2px;
   background:linear-gradient(180deg,#fff,#ffd76a 60%,#ff9d3c);
   -webkit-background-clip:text;background-clip:text;color:transparent;
   filter:drop-shadow(0 5px 0 rgba(90,40,0,.8)) drop-shadow(0 0 30px rgba(255,200,80,.9));
   animation:bannerPop .7s cubic-bezier(.2,1.6,.4,1);
-  text-align:center;padding:0 10px;
+  text-align:center;padding:0 12px;text-wrap:balance;
 }
+#bannerWrap.longName #banner{font-size:clamp(25px,7.4vw,48px);line-height:1.02}
 #bannerSub{
-  margin-top:8px;font-size:17px;font-weight:900;letter-spacing:2px;color:#fff;
-  text-shadow:0 2px 12px rgba(0,0,0,.8),0 0 18px rgba(157,123,255,.9);
-  animation:fadeUp .6s .25s both;
+  margin-top:10px;font-size:clamp(25px,8vw,42px);font-weight:1000;letter-spacing:3px;color:#fff;
+  text-shadow:0 2px 12px rgba(0,0,0,.82),0 0 18px rgba(157,123,255,.9);
+  animation:fadeUp .58s .18s both;
 }
+#bannerFact{
+  margin-top:10px;max-width:min(86vw,600px);padding:8px 13px;border-radius:14px;
+  font-size:clamp(12px,3.6vw,16px);line-height:1.25;font-weight:800;letter-spacing:.2px;color:#f7fbff;
+  text-align:center;text-wrap:balance;background:rgba(8,10,26,.48);
+  border:1px solid rgba(255,255,255,.24);box-shadow:0 8px 26px rgba(0,0,0,.28),inset 0 1px rgba(255,255,255,.12);
+  text-shadow:0 2px 9px rgba(0,0,0,.9);backdrop-filter:blur(5px);
+  animation:fadeUp .58s .34s both;
+}
+
+/* V8.5.38 — molecule-specific reaction identity. The existing banner copy is kept,
+   but its light signature now matches the molecule's real effect family. */
+#bannerWrap[data-fx="splash"] #banner{background:linear-gradient(180deg,#ffffff,#7ee8ff 54%,#2498ff);-webkit-background-clip:text;background-clip:text;filter:drop-shadow(0 5px 0 rgba(0,48,112,.75)) drop-shadow(0 0 30px rgba(64,199,255,.95))}
+#bannerWrap[data-fx="smoke"] #banner{background:linear-gradient(180deg,#ffffff,#d9e2ea 54%,#8796a6);-webkit-background-clip:text;background-clip:text;filter:drop-shadow(0 5px 0 rgba(35,43,55,.8)) drop-shadow(0 0 28px rgba(214,226,238,.82))}
+#bannerWrap[data-fx="flame"] #banner{background:linear-gradient(180deg,#fff7b2,#ffbd45 48%,#ff552f);-webkit-background-clip:text;background-clip:text;filter:drop-shadow(0 5px 0 rgba(100,25,0,.82)) drop-shadow(0 0 32px rgba(255,104,41,.95))}
+#bannerWrap[data-fx="crys"] #banner{background:linear-gradient(180deg,#ffffff,#bff5ff 48%,#87a8ff);-webkit-background-clip:text;background-clip:text;filter:drop-shadow(0 5px 0 rgba(37,50,112,.76)) drop-shadow(0 0 32px rgba(157,225,255,.92))}
+#bannerWrap[data-fx="spark"] #banner{background:linear-gradient(180deg,#ffffff,#e8ff72 48%,#70e64a);-webkit-background-clip:text;background-clip:text;filter:drop-shadow(0 5px 0 rgba(38,85,18,.82)) drop-shadow(0 0 32px rgba(188,255,83,.95))}
+#bannerWrap[data-fx="bub"] #banner,#bannerWrap[data-fx="drip"] #banner{background:linear-gradient(180deg,#ffffff,#9defff 50%,#5c84ff);-webkit-background-clip:text;background-clip:text;filter:drop-shadow(0 5px 0 rgba(26,54,117,.8)) drop-shadow(0 0 30px rgba(103,212,255,.92))}
+#bannerWrap[data-fx="glit"] #banner{background:linear-gradient(180deg,#ffffff,#ffe98d 48%,#bd86ff);-webkit-background-clip:text;background-clip:text;filter:drop-shadow(0 5px 0 rgba(72,38,111,.8)) drop-shadow(0 0 31px rgba(216,164,255,.92))}
+#bannerWrap[data-fx="pop"] #banner,#bannerWrap[data-fx="squig"] #banner{background:linear-gradient(180deg,#ffffff,#ffca78 48%,#ff699e);-webkit-background-clip:text;background-clip:text;filter:drop-shadow(0 5px 0 rgba(104,37,63,.8)) drop-shadow(0 0 30px rgba(255,129,177,.9))}
+#bannerWrap[data-fx] #bannerSub{max-width:min(88vw,620px);text-align:center}
+#bannerWrap[data-fx="splash"] #bannerFact,#bannerWrap[data-fx="bub"] #bannerFact,#bannerWrap[data-fx="drip"] #bannerFact{border-color:rgba(105,222,255,.56)}
+#bannerWrap[data-fx="smoke"] #bannerFact{border-color:rgba(217,226,234,.48)}
+#bannerWrap[data-fx="flame"] #bannerFact{border-color:rgba(255,160,65,.58)}
+#bannerWrap[data-fx="crys"] #bannerFact{border-color:rgba(183,236,255,.62)}
+#bannerWrap[data-fx="spark"] #bannerFact{border-color:rgba(206,255,104,.58)}
+#bannerWrap[data-fx="glit"] #bannerFact{border-color:rgba(224,183,255,.56)}
 
 /* ---------- nobel finale ---------- */
 #nobelWrap{
@@ -2720,6 +2759,11 @@ body.mxReduceMotion #einBoxS{animation:none!important}
 .guideSection.fairPlay{border-color:rgba(255,198,67,.35);background:rgba(255,182,42,.08)}
 .performanceResult .assistedRun{display:block;margin-top:5px;color:#ffd778;font-size:10px;letter-spacing:.04em}
 @media(max-width:420px){.guideGrid{grid-template-columns:1fr}.guideModal{max-height:91vh}.guideSection{padding:9px}.guideSection li,.guideSection p{font-size:12px}}
+.currentLevelMechanics{border-color:rgba(120,231,255,.38);background:linear-gradient(145deg,rgba(31,93,125,.16),rgba(65,35,105,.13))}
+.currentMechanicGrid{display:grid;grid-template-columns:1fr;gap:8px;margin-top:9px}
+.currentMechanicCard{display:flex;flex-direction:column;gap:4px;padding:10px 11px;border-radius:12px;background:rgba(4,16,29,.52);border:1px solid rgba(120,231,255,.18)}
+.currentMechanicCard b{color:#fff;font-size:12.5px}.currentMechanicCard span{color:#d6e4ed;font-size:11.5px;line-height:1.4}.currentMechanicCard em{font-style:normal;color:#ffd978;font-size:11px;line-height:1.35}
+@media(min-width:560px){.currentMechanicGrid{grid-template-columns:1fr 1fr}}
 
 /* Step 18 — reactive laboratory spectacle */
 #mxReactionCallout,#mxFinalWow{position:fixed;left:50%;z-index:120;pointer-events:none;opacity:0;text-align:center;transform:translate(-50%,-14px) scale(.72);filter:blur(5px);will-change:transform,opacity,filter}
@@ -4241,7 +4285,7 @@ body.tutorialMode #coinChip{
   transform-origin:50% 72%;
   animation:mxMenuOrbElastic 7.2s cubic-bezier(.34,1.56,.64,1) infinite;
 }
-#btnHof.trophyBtn{animation-delay:-3.25s}
+#btnHof.trophyBtn{animation-delay:0s}
 #btnDuel.duelBtn::before,
 #btnHof.trophyBtn::before{
   content:"";
@@ -4316,6 +4360,241 @@ body.tutorialMode #coinChip{
 @media(max-height:700px){#btnHof .trophyIcon{width:35px;height:35px;padding:4px}#btnHof .trophyIcon svg{width:27px!important;height:27px!important}}
 @media(prefers-reduced-motion:reduce){
   #btnDuel.duelBtn,#btnHof.trophyBtn,#btnDuel.duelBtn::before,#btnHof.trophyBtn::before{animation:none!important}
+}
+
+/* V8.5.37 — synchronized premium elastic motion for every left-side main-menu dock.
+   The Trophy and VS buttons introduced mxMenuOrbElastic in V8.5.35. LAB,
+   HOW TO PLAY, MOLECULOPEDIA and TRAINING CENTER now use that exact same
+   stretch/squash keyframe at the same phase while preserving their own glow and shine colors. */
+#btnLabMenu.labDockBtn,
+#btnGuide.guideDockBtn,
+#btnTrainingDock.learningDockBtn,
+#btnMoleculopediaDock.learningDockBtn{
+  isolation:isolate;
+  transform-origin:50% 72%;
+  will-change:transform;
+}
+#btnLabMenu.labDockBtn{
+  animation:mxMenuOrbElastic 7.2s cubic-bezier(.34,1.56,.64,1) infinite,
+            labDockGlow 2.7s ease-in-out infinite!important;
+  animation-delay:0s,0s!important;
+}
+#btnGuide.guideDockBtn{
+  animation:mxMenuOrbElastic 7.2s cubic-bezier(.34,1.56,.64,1) infinite,
+            guideDockGlow 2.9s ease-in-out infinite!important;
+  animation-delay:0s,0s!important;
+}
+#btnMoleculopediaDock.learningDockBtn{
+  animation:mxMenuOrbElastic 7.2s cubic-bezier(.34,1.56,.64,1) infinite,
+            learningDockGlow 2.9s ease-in-out infinite!important;
+  animation-delay:0s,0s!important;
+}
+#btnTrainingDock.learningDockBtn{
+  animation:mxMenuOrbElastic 7.2s cubic-bezier(.34,1.56,.64,1) infinite,
+            learningDockGlow 2.9s ease-in-out infinite!important;
+  animation-delay:0s,0s!important;
+}
+#btnLabMenu.labDockBtn:active,
+#btnGuide.guideDockBtn:active,
+#btnTrainingDock.learningDockBtn:active,
+#btnMoleculopediaDock.learningDockBtn:active{
+  animation:none!important;
+  transform:scale(.88)!important;
+}
+@media(prefers-reduced-motion:reduce){
+  #btnLabMenu.labDockBtn,
+  #btnGuide.guideDockBtn,
+  #btnTrainingDock.learningDockBtn,
+  #btnMoleculopediaDock.learningDockBtn{animation:none!important}
+}
+
+/* V8.5.39 — Training Center uses the same three laboratory components as Catalyst Hunt. */
+.mxTrainingToken{position:relative;display:inline-block;width:29px;height:34px;filter:drop-shadow(0 3px 7px rgba(0,0,0,.42));vertical-align:middle}
+.mxTrainingToken.catalyst{border:2px solid #f3ffff;border-radius:8px 8px 9px 9px;background:linear-gradient(180deg,rgba(190,238,244,.88) 0 45%,#ff9a43 46% 88%,#db6d2b 89%);box-shadow:inset 5px 0 0 rgba(255,255,255,.24),0 0 10px rgba(255,154,67,.45)}
+.mxTrainingToken.catalyst:before{content:'';position:absolute;left:7px;right:7px;top:-6px;height:7px;border-radius:3px 3px 1px 1px;background:#77828d;border:1px solid #dce8ed}
+.mxTrainingToken.energy{width:28px;height:35px;border:2px solid #c7f2ff;border-radius:7px;background:linear-gradient(180deg,#174e81,#35b9ff 28%,#167bc8 92%);box-shadow:0 0 12px rgba(53,185,255,.55),inset 3px 0 0 rgba(255,255,255,.18)}
+.mxTrainingToken.energy:before{content:'';position:absolute;left:8px;right:8px;top:-5px;height:5px;border-radius:2px;background:#dff8ff}
+.mxTrainingToken.energy:after{content:'ϟ';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff7a5;font-size:25px;font-weight:1000;text-shadow:0 0 6px rgba(255,247,165,.9)}
+.mxTrainingToken.stabilizer{width:34px;height:34px;border-radius:9px;clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:linear-gradient(145deg,#43d18d,#167654);border:none;box-shadow:0 0 12px rgba(67,209,141,.58)}
+.mxTrainingToken.stabilizer:before,.mxTrainingToken.stabilizer:after{content:'';position:absolute;left:4px;top:13px;width:26px;height:8px;border:1.5px solid #caffdf;border-radius:50%;transform:rotate(28deg)}
+.mxTrainingToken.stabilizer:after{transform:rotate(-28deg)}
+.mxTrainingToken.stabilizer i{position:absolute;left:14px;top:14px;width:6px;height:6px;border-radius:50%;background:#effff3;box-shadow:0 0 8px #caffdf}
+.mxTrainingCell{min-width:48px!important;height:48px!important;padding:0!important}
+
+
+/* V8.5.42 — 301 unique campaign completion choreographies.
+   The chemistry effect family remains recognizable while the board and title
+   receive a deterministic level-specific motion recipe. */
+#board.mxLevelWin{transform-origin:50% 50%;will-change:transform,filter}
+#board.mxLevelWin[data-win-motion="pulse"]{animation:mxLvlPulse 1.05s cubic-bezier(.2,.85,.25,1) both}
+#board.mxLevelWin[data-win-motion="tilt-left"]{animation:mxLvlTiltLeft 1.05s cubic-bezier(.2,.85,.25,1) both}
+#board.mxLevelWin[data-win-motion="tilt-right"]{animation:mxLvlTiltRight 1.05s cubic-bezier(.2,.85,.25,1) both}
+#board.mxLevelWin[data-win-motion="breathe"]{animation:mxLvlBreathe 1.12s ease both}
+#board.mxLevelWin[data-win-motion="snap"]{animation:mxLvlSnap .96s cubic-bezier(.12,.9,.22,1.18) both}
+#board.mxLevelWin[data-win-motion="float"]{animation:mxLvlFloat 1.12s ease both}
+#board.mxLevelWin[data-win-motion="prism"]{animation:mxLvlPrism 1.14s cubic-bezier(.18,.86,.24,1) both}
+#board.mxLevelWin[data-win-motion="charge"]{animation:mxLvlCharge 1.08s cubic-bezier(.18,.86,.24,1) both}
+#board.mxLevelWin[data-win-motion="wave"]{animation:mxLvlWave 1.04s ease both}
+#board.mxLevelWin[data-win-motion="elastic"]{animation:mxLvlElastic 1.08s cubic-bezier(.18,1.25,.3,1) both}
+#board.mxLevelWin[data-win-motion="focus"]{animation:mxLvlFocus 1.08s cubic-bezier(.18,.86,.24,1) both}
+#board.mxLevelWin[data-win-motion="orbit"]{animation:mxLvlOrbit 1.08s cubic-bezier(.18,.86,.24,1) both}
+@keyframes mxLvlPulse{0%{transform:scale(1)}28%{transform:scale(1.025)}52%{transform:scale(.992)}100%{transform:none}}
+@keyframes mxLvlTiltLeft{0%{transform:none}32%{transform:rotate(-1.4deg) scale(1.018)}58%{transform:rotate(.5deg) scale(.996)}100%{transform:none}}
+@keyframes mxLvlTiltRight{0%{transform:none}32%{transform:rotate(1.4deg) scale(1.018)}58%{transform:rotate(-.5deg) scale(.996)}100%{transform:none}}
+@keyframes mxLvlBreathe{0%{transform:scale(1);filter:none}42%{transform:scale(1.018);filter:brightness(1.16) saturate(1.12)}100%{transform:none;filter:none}}
+@keyframes mxLvlSnap{0%{transform:scale(1)}23%{transform:scale(.985,.965)}48%{transform:scale(1.028,1.04)}100%{transform:none}}
+@keyframes mxLvlFloat{0%{transform:none}36%{transform:translateY(-5px) scale(1.012)}66%{transform:translateY(2px) scale(.998)}100%{transform:none}}
+@keyframes mxLvlPrism{0%{transform:none;filter:none}35%{transform:scale(1.02) rotate(var(--mx-level-spin,1deg));filter:hue-rotate(18deg) brightness(1.14)}68%{transform:scale(.998) rotate(var(--mx-level-spin-back,-.3deg));filter:hue-rotate(-8deg)}100%{transform:none;filter:none}}
+@keyframes mxLvlCharge{0%{transform:none;filter:none}18%{filter:brightness(1.32) contrast(1.12)}38%{transform:scale(1.022);filter:brightness(1.12) saturate(1.28)}65%{transform:scale(.996)}100%{transform:none;filter:none}}
+@keyframes mxLvlWave{0%{transform:none}26%{transform:skewX(-.7deg) scale(1.012)}50%{transform:skewX(.7deg) scale(1.018)}76%{transform:skewX(-.25deg) scale(.998)}100%{transform:none}}
+@keyframes mxLvlElastic{0%{transform:none}24%{transform:scale(1.035,.975)}48%{transform:scale(.99,1.025)}70%{transform:scale(1.012,.994)}100%{transform:none}}
+@keyframes mxLvlFocus{0%{transform:scale(.992);filter:blur(.35px)}34%{transform:scale(1.026);filter:brightness(1.18)}100%{transform:none;filter:none}}
+@keyframes mxLvlOrbit{0%{transform:none}30%{transform:translate(2px,-2px) rotate(.65deg) scale(1.014)}58%{transform:translate(-2px,1px) rotate(-.55deg) scale(1.008)}100%{transform:none}}
+
+#bannerWrap.on[data-motion="rise"] #banner{animation:mxLvlBannerRise .72s cubic-bezier(.16,.9,.24,1) both}
+#bannerWrap.on[data-motion="drop"] #banner{animation:mxLvlBannerDrop .72s cubic-bezier(.16,.9,.24,1) both}
+#bannerWrap.on[data-motion="tilt"] #banner{animation:mxLvlBannerTilt .74s cubic-bezier(.16,.9,.24,1) both}
+#bannerWrap.on[data-motion="stretch"] #banner{animation:mxLvlBannerStretch .76s cubic-bezier(.16,.9,.24,1) both}
+#bannerWrap.on[data-motion="flip"] #banner{animation:mxLvlBannerFlip .76s cubic-bezier(.16,.9,.24,1) both}
+#bannerWrap.on[data-motion="glow"] #banner{animation:mxLvlBannerGlow .8s ease both}
+#bannerWrap.on[data-motion="wave"] #banner{animation:mxLvlBannerWave .76s cubic-bezier(.16,.9,.24,1) both}
+#bannerWrap.on[data-motion="elastic"] #banner{animation:mxLvlBannerElastic .8s cubic-bezier(.16,1.15,.24,1) both}
+#bannerWrap.on[data-motion="focus"] #banner{animation:mxLvlBannerFocus .78s cubic-bezier(.16,.9,.24,1) both}
+#bannerWrap.on[data-motion="pop"] #banner{animation:mxBannerPop .65s cubic-bezier(.16,.9,.24,1) both}
+@keyframes mxLvlBannerRise{0%{opacity:0;transform:translateY(38px) scale(.88)}58%{opacity:1;transform:translateY(-4px) scale(1.045)}100%{transform:none}}
+@keyframes mxLvlBannerDrop{0%{opacity:0;transform:translateY(-34px) scale(.9)}58%{opacity:1;transform:translateY(4px) scale(1.045)}100%{transform:none}}
+@keyframes mxLvlBannerTilt{0%{opacity:0;transform:rotate(-7deg) scale(.82)}55%{opacity:1;transform:rotate(2deg) scale(1.06)}100%{transform:none}}
+@keyframes mxLvlBannerStretch{0%{opacity:0;transform:scaleX(.55) scaleY(1.22);letter-spacing:.22em}55%{opacity:1;transform:scaleX(1.06) scaleY(.96)}100%{transform:none}}
+@keyframes mxLvlBannerFlip{0%{opacity:0;transform:perspective(500px) rotateX(72deg) scale(.86)}60%{opacity:1;transform:perspective(500px) rotateX(-7deg) scale(1.04)}100%{transform:none}}
+@keyframes mxLvlBannerGlow{0%{opacity:0;transform:scale(.82);filter:brightness(2.1) blur(5px)}55%{opacity:1;transform:scale(1.07);filter:brightness(1.45) blur(0)}100%{transform:none}}
+@keyframes mxLvlBannerWave{0%{opacity:0;transform:translateX(-26px) skewX(-8deg) scale(.88)}56%{opacity:1;transform:translateX(4px) skewX(2deg) scale(1.04)}100%{transform:none}}
+@keyframes mxLvlBannerElastic{0%{opacity:0;transform:scale(.7,1.28)}45%{opacity:1;transform:scale(1.08,.94)}68%{transform:scale(.98,1.03)}100%{transform:none}}
+@keyframes mxLvlBannerFocus{0%{opacity:0;transform:scale(1.25);filter:blur(7px)}58%{opacity:1;transform:scale(.98);filter:blur(0)}100%{transform:none}}
+body.mxReduceMotion #board.mxLevelWin,body.mxReduceMotion #bannerWrap.on[data-motion] #banner{animation:none!important;transform:none!important;filter:none!important}
+@media(prefers-reduced-motion:reduce){#board.mxLevelWin,#bannerWrap.on[data-motion] #banner{animation:none!important;transform:none!important;filter:none!important}}
+
+/* ================= V8.5.46 — EVENT-DRIVEN IN-GAME DR. E =================
+   Main-menu Dr. E is untouched. Game poses share the approved 468x520 canvas,
+   stay at the original 150px game size and remain anchored to the safe-area
+   lower-right corner. */
+#gameScr #einWrap{left:auto!important;top:auto!important;right:calc(var(--sar) - 2px)!important;bottom:calc(var(--sab) - 12px)!important;pointer-events:none!important}
+#einBoxG{width:150px!important;margin-left:auto!important;transform-origin:right bottom!important;pointer-events:none!important}
+#einBoxG .einImg{transition:opacity .3s ease,filter .3s ease!important}
+#einBoxG .einImg.mxPoseChanging{opacity:.05!important;filter:brightness(1.06)!important}
+#einBoxG.mxPoseAsset .einImg{display:block!important;width:100%!important;height:auto!important;max-width:100%!important;max-height:none!important;object-fit:contain!important;object-position:right bottom!important;transform:none!important}
+#einBoxG.mxPoseAsset .eyeW,#einBoxG.mxPoseAsset .tongue{display:none!important}
+#einBoxG.mxPoseAsset .prop{z-index:70!important}
+@media(max-height:700px){#einBoxG{width:150px!important}}
+@media(prefers-reduced-motion:reduce){#einBoxG .einImg{transition:none!important}}
+
+
+/* V8.5.47 — Smart first-use mechanic cards.
+   Automatic help stays compact; the existing detailed lesson remains optional. */
+#modal:has(.mxFirstUseHead) #modalBox{
+  width:min(92vw,430px);
+  max-height:min(90dvh,720px);
+  overflow:hidden;
+}
+.mxFirstUseHead{
+  display:grid;
+  grid-template-columns:84px minmax(0,1fr);
+  gap:12px;
+  align-items:end;
+  margin:-6px -4px 10px;
+  padding:10px 11px;
+  border:1px solid rgba(120,231,255,.30);
+  border-radius:18px;
+  background:linear-gradient(135deg,rgba(120,231,255,.13),rgba(255,211,110,.09));
+  text-align:left;
+}
+.mxFirstUseHead img{
+  width:84px;
+  height:94px;
+  object-fit:contain;
+  object-position:center bottom;
+  filter:drop-shadow(0 8px 12px rgba(0,0,0,.35));
+}
+.mxFirstUseHead span{
+  display:block;
+  color:#ffd36e;
+  font-size:.72rem;
+  font-weight:950;
+  letter-spacing:.12em;
+}
+.mxFirstUseHead h3{
+  margin:3px 0 4px;
+  font-size:clamp(17px,4.5vw,21px);
+  line-height:1.12;
+}
+.mxFirstUseHead p{
+  margin:0;
+  color:var(--dim);
+  font-size:clamp(10.5px,2.8vw,12px);
+  line-height:1.35;
+}
+.mxFirstUseList{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  max-height:min(43dvh,330px);
+  overflow-y:auto;
+  padding:2px 2px 4px;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;
+}
+.mxFirstUseRow{
+  display:grid;
+  grid-template-columns:46px minmax(0,1fr);
+  gap:10px;
+  align-items:center;
+  padding:10px 11px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:14px;
+  background:rgba(255,255,255,.055);
+  text-align:left;
+}
+.mxFirstUseIcon{
+  width:46px;
+  height:46px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid rgba(120,231,255,.28);
+  border-radius:13px;
+  background:rgba(6,19,39,.78);
+  font-size:1.5rem;
+}
+.mxFirstUseRow b{
+  display:block;
+  color:#fff;
+  font-size:clamp(12.5px,3.6vw,14.5px);
+  line-height:1.2;
+}
+.mxFirstUseRow small{
+  display:block;
+  margin-top:3px;
+  color:#d5def0;
+  font-size:clamp(10px,2.7vw,11.5px);
+  line-height:1.35;
+}
+@media(max-width:390px){
+  #modal:has(.mxFirstUseHead) #modalBox{padding:14px 13px 13px}
+  .mxFirstUseHead{grid-template-columns:70px minmax(0,1fr)}
+  .mxFirstUseHead img{width:70px;height:82px}
+  .mxFirstUseRow{grid-template-columns:40px minmax(0,1fr);padding:9px}
+  .mxFirstUseIcon{width:40px;height:40px;font-size:1.3rem}
+}
+@media(max-height:650px){
+  #modal:has(.mxFirstUseHead) #modalBox{max-height:96dvh;padding-top:12px;padding-bottom:11px}
+  .mxFirstUseHead{margin-bottom:7px;padding-top:7px;padding-bottom:7px}
+  .mxFirstUseHead img{height:72px}
+  .mxFirstUseList{max-height:35dvh;gap:6px}
+  .mxFirstUseRow{padding-top:7px;padding-bottom:7px}
+  #modal:has(.mxFirstUseHead) #modalBox .mrow{gap:7px;margin-top:6px}
+  #modal:has(.mxFirstUseHead) #modalBox .btn{padding:10px 8px;font-size:13px}
+}
+@media(prefers-reduced-motion:reduce){
+  .mxFirstUseHead img,.mxFirstUseRow{animation:none!important;transition:none!important}
 }
 
 

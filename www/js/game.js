@@ -1,5 +1,5 @@
 /* Moleculox V6.24.3 — professional story, UX and release polish */
-const APP_VERSION="v8.5.46";
+const APP_VERSION="v8.5.53";
 (()=>{'use strict';
 function isIOSStandaloneMode(){
   try{
@@ -607,7 +607,7 @@ const I18N={
     goal:'GOAL',letsPlay:"LET'S PLAY! ▶",
     newGame:'✦ NEW GAME',continueBtn:'▶︎ CONTINUE',levels:'LEVELS',myMols:'🧪 MY MOLECULES',
     continueLevel:i=>'▶︎ CONTINUE · LEVEL '+i,
-    newGameLabel:'NEW GAME',todaysExpLabel:"DAILY EXPERIMENT",myMolsLabel:'MY MOLECULES',
+    newGameLabel:'NEW GAME',todaysExpLabel:"TODAY'S EXPERIMENT",myMolsLabel:'MY MOLECULES',
     hofLabel:'HALL OF FAME',hofCertTitle:'CERTIFICATE OF EXCELLENCE',hofNamePh:'Enter your name',
     welcomeTitle:'Welcome, Scientist!',welcomeMsg:'What should we call you in the Hall of Fame?',
     welcomeStart:'START EXPERIMENTING',welcomeDefaultName:'Anonymous Scientist',
@@ -625,8 +625,8 @@ const I18N={
     hofChampTitle:'🏆 YOUR RECORDS',hofStatScore:'RESEARCH POINTS',hofStatMaxCoins:'MOST COINS HELD',hofStatBestTime:'FASTEST SOLVE',
     diplomasHead:'🎓 DIPLOMAS',diplomaEarned:'Diploma earned!',diplomaLocked:'Reach this rank to earn',
     diplomaCertHead:'Certificate of Achievement',diplomaCertSub:'has successfully completed all requirements for the rank of',
-    todaysExp:"🔬 DAILY EXPERIMENT",
-    copyLine:'© 2026 Orhan Akyol - wHiTeWaY Studio · '+APP_VERSION,
+    todaysExp:"🔬 TODAY'S EXPERIMENT",
+    copyLine:'© 2026 Orhan Akyol - wHiTeWaY studio · '+APP_VERSION,
     myMolecules:'MY MOLECULES',periodicTable:'⚛️ PERIODIC TABLE',
     achievements:'🏆 ACHIEVEMENTS',achvShort:'AWARDS',achvLocked:'Keep playing to unlock this!',
     achvMicroName:'Microscope',achvMicroDesc:'Earn 3 stars on 10 levels',
@@ -655,7 +655,7 @@ const I18N={
     mechanicBriefingHeading:'New mechanic ahead!',mechanicBriefingSub:'Quick heads-up before you start:',mechanicBriefingGo:'Got it, let\'s go! \u25b6',
     frozenTitle:'❄️ Frozen atom',frozenDesc:'A frozen atom cannot move. Build around it, or bring a fire atom next to it to melt the ice.',
     fireTitle:'🔥 Fire atom',fireDesc:'A fire atom melts any frozen atom directly beside it. Move it into contact to open the route.',
-    lightningTitle:'⚡ Lightning atom',lightningDesc:'When it touches a connected atom group, electricity travels through the chain and thaws frozen atoms it reaches.',
+    lightningTitle:'⚡ Electrically charged atom',lightningDesc:'The ⚡ symbol means this atom carries an electric charge. When it touches a connected atom group, the pulse travels through the chain and thaws every frozen atom it reaches.',
     stickyTitle:'🧲 Sticky atom',stickyDesc:'An atom that touches it becomes stuck at that contact point. Check where the slide will end before moving.',
     zombieTitle:'🧟‍♂️ Zombie atom',zombieDesc:'It infects touching atoms up to two times. A fire atom can cure infected atoms back to normal.',
     oneWayTitle:'↪️ One-way tile',oneWayDesc:'An atom sliding onto the arrow can only keep going that direction — it can never come back the way it came.',
@@ -665,7 +665,7 @@ const I18N={
     pressureDoorTitle:'🔘 Pressure door',pressureDoorDesc:'Land an atom on the glowing button to open its linked door somewhere else on the board.',
     fragileTitle:'💎 Fragile atom',fragileDesc:'Each hard stop adds a crack. On the third impact it shatters and the experiment restarts. If that third impact completes the molecule, the level is won first.',
     linkedTitle:'🔗 Linked atoms',linkedDesc:'The marked pair moves together in the same direction. Check that BOTH atoms have a clear route before sliding.',
-    precisionTitle:'🎯 One-Square Move (optional)',precisionDesc:'This is an optional booster, not the main objective. Activate it, select an atom, then choose a direction to move exactly ONE tile.',classicCatalystTitle:'🧪 Catalyst Hunt objective',classicCatalystDesc:'First collect the Catalyst, Energy Cell, and Stabilizer shown at the top. After all three display a check mark, complete the target molecule.',classicChainTitle:'⚡ Chain Reaction objective',classicChainDesc:'Follow the glowing correct move. Each correct move triggers the next step of the automatic reaction chain.',classicReactorTitle:'☢️ Reactor objective',classicReactorDesc:'Watch the laser cycle and move during the safe phase. Laser hits add a penalty, so timing matters.',
+    precisionTitle:'🎯 One-Square Move (optional)',precisionDesc:'This is an optional booster, not the main objective. Activate it, select an atom, then choose a direction to move exactly ONE tile.',classicCatalystTitle:'🧪 Catalyst Hunt objective',classicCatalystDesc:'First collect the Catalyst, Energy Cell, and Stabilizer shown at the top. After all three display a check mark, complete the target molecule.',classicChainTitle:'⚡ Chain Reaction objective',classicChainDesc:'This is different from the ⚡ charge shown on an atom. Follow the glowing correct move: the sequence continues automatically and builds Combo x2 / x3.',classicReactorTitle:'☢️ Reactor lasers',classicReactorDesc:'Move during the safe laser phase. Contact increases the Impact counter; in Reactor Escape it also adds a 3-second penalty.',
     zombieMsg:'🧟‍♂️ Infected! That atom is now a zombie too...',
     cureMsg:'🔥✨ Cured! The zombie is back to normal!',
     meltMsg:'🔥💧 Sizzle! The ice melted — that atom is free to move now!',
@@ -678,7 +678,7 @@ const I18N={
     levelDone:i=>'LEVEL '+i+' DONE!',
     bestClaimed:'Best already claimed',
     nextLevel:'NEXT LEVEL ▶︎',playAgain:'🔄 PLAY AGAIN',
-    dailyTitle:"🔬 DAILY EXPERIMENT",
+    dailyTitle:"🔬 TODAY'S EXPERIMENT",
     dailyAlready:'Today’s coin reward is claimed — replay to improve your RP!',
     dailySolved:'Solved! Replay to improve today’s RP, or return tomorrow.',
     dailyPractice:'Practice run — no bonus',
@@ -696,7 +696,7 @@ const I18N={
     yesDeleteCloud:'Yes, delete my cloud data',deleting:'Deleting…',
     deleteCloudDone:'Cloud data deleted.',deleteCloudFailed:'Could not delete cloud data — check your connection and try again.',
     aboutTitle:'ℹ️ ABOUT',
-    aboutBody:'© 2026 Orhan Akyol - wHiTeWaY Studio<br><br>📧 Support: <a href="mailto:moleculoxsupport@gmail.com" style="color:#9d7bff">moleculoxsupport@gmail.com</a><br>✉️ Contact: <a href="mailto:oakyol82@hotmail.com" style="color:#9d7bff">oakyol82@hotmail.com</a><br>📸 Instagram: <a href="https://www.instagram.com/whitewayw/" target="_blank" rel="noopener noreferrer" style="color:#9d7bff">@wHiTeWaYw</a><br>🎮 Official Web Page: <a href="https://whitewayhan.itch.io/moleculox" target="_blank" rel="noopener noreferrer" style="color:#9d7bff">whitewayhan.itch.io/moleculox</a><br>🌐 Direct Web: <a href="https://moleculox.netlify.app" target="_blank" rel="noopener noreferrer" style="color:#9d7bff">moleculox.netlify.app</a>',
+    aboutBody:'© 2026 Orhan Akyol - wHiTeWaY studio<br><br>📧 Support: <a href="mailto:moleculoxsupport@gmail.com" style="color:#9d7bff">moleculoxsupport@gmail.com</a><br>✉️ Contact: <a href="mailto:oakyol82@hotmail.com" style="color:#9d7bff">oakyol82@hotmail.com</a><br>📸 Instagram: <a href="https://www.instagram.com/whitewayw/" target="_blank" rel="noopener noreferrer" style="color:#9d7bff">@wHiTeWaYw</a><br>🎮 Official Web Page: <a href="https://whitewayhan.itch.io/moleculox" target="_blank" rel="noopener noreferrer" style="color:#9d7bff">whitewayhan.itch.io/moleculox</a><br>🌐 Direct Web: <a href="https://moleculox.netlify.app" target="_blank" rel="noopener noreferrer" style="color:#9d7bff">moleculox.netlify.app</a>',
     rank0:'🧪 Lab Assistant',rank1:'🔬 Science Assistant',rank2:'⚗️ Scientist',rank3:'🥼 Senior Scientist',rank4:'🎓 Doctor',rank5:'📚 Professor',rank6:'🌟 Master Professor',rank7:'🚀 On the Nobel Path',rank8:'🏅 Nobel Candidate',
     rankUpTitle:'PROMOTED!',
     rankUpMsg:r=>'You have been promoted to '+r+'!',
@@ -761,7 +761,7 @@ const I18N={
     goal:'HEDEF',letsPlay:'HAYDİ BAŞLA! ▶',
     newGame:'✦ YENİ OYUN',continueBtn:'▶︎ DEVAM ET',levels:'BÖLÜMLER',myMols:'🧪 MOLEKÜLLERİM',
     continueLevel:i=>'▶︎ DEVAM ET · BÖLÜM '+i,
-    newGameLabel:'YENİ OYUN',todaysExpLabel:'GÜNLÜK DENEY',myMolsLabel:'MOLEKÜLLERİM',
+    newGameLabel:'YENİ OYUN',todaysExpLabel:'GÜNÜN DENEYİ',myMolsLabel:'MOLEKÜLLERİM',
     hofLabel:'ŞEREF LİSTESİ',hofCertTitle:'MÜKEMMELLİK SERTİFİKASI',hofNamePh:'Adını yaz',
     welcomeTitle:'Hoş geldin, Bilim İnsanı!',welcomeMsg:'Şeref Listesi\'nde sana ne diyelim?',
     welcomeStart:'DENEYE BAŞLA',welcomeDefaultName:'Anonim Bilim İnsanı',
@@ -779,8 +779,8 @@ const I18N={
     hofChampTitle:'🏆 REKORLARIN',hofStatScore:'ARAŞTIRMA PUANI',hofStatMaxCoins:'EN ÇOK JETON',hofStatBestTime:'EN HIZLI ÇÖZÜM',
     diplomasHead:'🎓 DİPLOMALAR',diplomaEarned:'Diploma kazanıldı!',diplomaLocked:'Kazanmak için bu rütbeye ulaş',
     diplomaCertHead:'Başarı Sertifikası',diplomaCertSub:'aşağıdaki rütbenin tüm gereksinimlerini başarıyla tamamlamıştır:',
-    todaysExp:'🔬 GÜNLÜK DENEY',
-    copyLine:'© 2026 Orhan Akyol - wHiTeWaY Studio · '+APP_VERSION,
+    todaysExp:'🔬 GÜNÜN DENEYİ',
+    copyLine:'© 2026 Orhan Akyol - wHiTeWaY studio · '+APP_VERSION,
     myMolecules:'MOLEKÜLLERİM',periodicTable:'⚛️ PERİYODİK TABLO',
     achievements:'🏆 BAŞARILAR',achvShort:'BAŞARI',achvLocked:'Açmak için oynamaya devam et!',
     achvMicroName:'Mikroskop',achvMicroDesc:'10 bölümde 3 yıldız kazan',
@@ -811,7 +811,7 @@ const I18N={
     mechanicBriefingHeading:'Yeni mekanik geliyor!',mechanicBriefingSub:'Başlamadan önce hızlı bir bilgi:',mechanicBriefingGo:'Anladım, başlayalım! ▶',
     frozenTitle:'❄️ Donmuş atom',frozenDesc:'Donmuş atom hareket etmez. Molekülü çevresinde kur veya yanına ateş atomu getirerek buzu erit.',
     fireTitle:'🔥 Ateş atomu',fireDesc:'Ateş atomu hemen yanındaki donmuş atomu eritir. Yolu açmak için ikisini temas ettir.',
-    lightningTitle:'⚡ Şimşek atomu',lightningDesc:'Bağlı atom grubuna değdiğinde elektrik zincir boyunca ilerler ve ulaştığı donmuş atomları çözer.',
+    lightningTitle:'⚡ Elektrik yüklü atom',lightningDesc:'⚡ işareti atomun elektrik yüklü olduğunu gösterir. Bağlı bir atom grubuna değdiğinde enerji zincir boyunca ilerler ve ulaştığı tüm donmuş atomları çözer.',
     stickyTitle:'🧲 Yapışkan atom',stickyDesc:'Ona temas eden atom temas noktasında yapışır. Hamle yapmadan önce kaymanın nerede biteceğini kontrol et.',
     zombieTitle:'🧟‍♂️ Zombi atom',zombieDesc:'Temas ettiği atomlara en fazla iki kez bulaşır. Ateş atomu enfekte atomları normale döndürür.',
     oneWayTitle:'↪️ Tek yönlü kare',oneWayDesc:'Oka doğru kayan bir atom sadece o yönde devam edebilir — geldiği yöne asla geri dönemez.',
@@ -821,7 +821,7 @@ const I18N={
     pressureDoorTitle:'🔘 Basınç kapısı',pressureDoorDesc:'Parlayan düğmenin üzerine bir atom getir, tahtanın başka bir yerindeki bağlı kapı açılsın.',
     fragileTitle:'💎 Kırılgan atom',fragileDesc:'Her sert duruşta çatlar. Üçüncü darbede parçalanır ve deney yeniden başlar. Üçüncü darbe molekülü tamamlıyorsa önce bölüm kazanılır.',
     linkedTitle:'🔗 Bağlı atomlar',linkedDesc:'İşaretli iki atom aynı yönde birlikte hareket eder. Kaydırmadan önce İKİ atomun yolunun da açık olduğunu kontrol et.',
-    precisionTitle:'🎯 1 Kare Taşı (isteğe bağlı)',precisionDesc:'Bu ana görev değil, isteğe bağlı bir güçlendiricidir. Etkinleştir, atomu seç ve yön ver; atom tam olarak BİR kare ilerler.',classicCatalystTitle:'🧪 Katalizör Avı görevi',classicCatalystDesc:'Önce üstte gösterilen Katalizör, Enerji Hücresi ve Stabilizatörü topla. Üçü de onay işareti alınca hedef molekülü tamamla.',classicChainTitle:'⚡ Zincir Reaksiyonu görevi',classicChainDesc:'Parlayan doğru hamleyi takip et. Her doğru hamle otomatik reaksiyon zincirinin sonraki adımını başlatır.',classicReactorTitle:'☢️ Reaktör görevi',classicReactorDesc:'Lazer döngüsünü izle ve güvenli fazda hareket et. Lazer darbesi ceza ekler; zamanlama önemlidir.',
+    precisionTitle:'🎯 1 Kare Taşı (isteğe bağlı)',precisionDesc:'Bu ana görev değil, isteğe bağlı bir güçlendiricidir. Etkinleştir, atomu seç ve yön ver; atom tam olarak BİR kare ilerler.',classicCatalystTitle:'🧪 Katalizör Avı görevi',classicCatalystDesc:'Önce üstte gösterilen Katalizör, Enerji Hücresi ve Stabilizatörü topla. Üçü de onay işareti alınca hedef molekülü tamamla.',classicChainTitle:'⚡ Zincir Reaksiyonu görevi',classicChainDesc:'Bu, atomun üzerindeki ⚡ elektrik yükünden farklıdır. Parlayan doğru hamleyi yap; seri otomatik ilerler ve Combo x2 / x3 oluşturur.',classicReactorTitle:'☢️ Reaktör lazerleri',classicReactorDesc:'Lazerin güvenli fazında hareket et. Temas edersen Darbe sayacı artar; Reaktör Kaçışında ayrıca +3 saniye ceza eklenir.',
     zombieMsg:'🧟‍♂️ Bulaştı! O atom artık zombi oldu...',
     cureMsg:'🔥✨ Tedavi oldu! Zombi normale döndü!',
     meltMsg:'🔥💧 Cızırt! Buz eridi — o atom artık serbest, hareket edebilir!',
@@ -834,7 +834,7 @@ const I18N={
     levelDone:i=>'BÖLÜM '+i+' TAMAMLANDI!',
     bestClaimed:'En iyi skor zaten alındı',
     nextLevel:'SONRAKİ BÖLÜM ▶︎',playAgain:'🔄 TEKRAR OYNA',
-    dailyTitle:'🔬 GÜNLÜK DENEY',
+    dailyTitle:'🔬 GÜNÜN DENEYİ',
     dailyAlready:'Bugünün jeton ödülü alındı — RP skorunu geliştirmek için tekrar oyna!',
     dailySolved:'Çözüldü! Bugünkü RP skorunu geliştirebilir veya yarın tekrar gelebilirsin.',
     dailyPractice:'Antrenman turu — bonus yok',
@@ -852,7 +852,7 @@ const I18N={
     yesDeleteCloud:'Evet, bulut verimi sil',deleting:'Siliniyor…',
     deleteCloudDone:'Bulut verisi silindi.',deleteCloudFailed:'Bulut verisi silinemedi — bağlantını kontrol edip tekrar dene.',
     aboutTitle:'ℹ️ HAKKINDA',
-    aboutBody:'© 2026 Orhan Akyol - wHiTeWaY Studio<br><br>📧 Destek: <a href="mailto:moleculoxsupport@gmail.com" style="color:#9d7bff">moleculoxsupport@gmail.com</a><br>✉️ İletişim: <a href="mailto:oakyol82@hotmail.com" style="color:#9d7bff">oakyol82@hotmail.com</a><br>📸 Instagram: <a href="https://www.instagram.com/whitewayw/" target="_blank" rel="noopener noreferrer" style="color:#9d7bff">@wHiTeWaYw</a><br>🎮 Resmî Web Sayfası: <a href="https://whitewayhan.itch.io/moleculox" target="_blank" rel="noopener noreferrer" style="color:#9d7bff">whitewayhan.itch.io/moleculox</a><br>🌐 Doğrudan Web: <a href="https://moleculox.netlify.app" target="_blank" rel="noopener noreferrer" style="color:#9d7bff">moleculox.netlify.app</a>',
+    aboutBody:'© 2026 Orhan Akyol - wHiTeWaY studio<br><br>📧 Destek: <a href="mailto:moleculoxsupport@gmail.com" style="color:#9d7bff">moleculoxsupport@gmail.com</a><br>✉️ İletişim: <a href="mailto:oakyol82@hotmail.com" style="color:#9d7bff">oakyol82@hotmail.com</a><br>📸 Instagram: <a href="https://www.instagram.com/whitewayw/" target="_blank" rel="noopener noreferrer" style="color:#9d7bff">@wHiTeWaYw</a><br>🎮 Resmî Web Sayfası: <a href="https://whitewayhan.itch.io/moleculox" target="_blank" rel="noopener noreferrer" style="color:#9d7bff">whitewayhan.itch.io/moleculox</a><br>🌐 Doğrudan Web: <a href="https://moleculox.netlify.app" target="_blank" rel="noopener noreferrer" style="color:#9d7bff">moleculox.netlify.app</a>',
     rank0:'🧪 Laboratuvar Asistanı',rank1:'🔬 Bilim Asistanı',rank2:'⚗️ Bilim İnsanı',rank3:'🥼 Kıdemli Bilim İnsanı',rank4:'🎓 Doktor',rank5:'📚 Profesör',rank6:'🌟 Usta Profesör',rank7:'🚀 Nobel Yolunda',rank8:'🏅 Nobel Adayı',
     rankUpTitle:'TERFİ ETTİN!',
     rankUpMsg:r=>'Artık '+r+' oldun!',
@@ -1020,6 +1020,117 @@ I18N.ja=Object.assign({},I18N.en,{
   nextLevel:'次のレベル ▶︎',playAgain:'🔄 もう一度',dailyTitle:'🔬 今日の実験',myMolecules:'マイ分子',periodicTable:'⚛️ 周期表',achievements:'🏆 実績',audioSettings:'サウンド設定',master:'🔉 全体',music:'🎵 音楽',sfx:'🔔 効果音',
   areYouSure:'本当によろしいですか？',yesWipe:'はい、削除する',langEN:'English',langTR:'Türkçe',langDE:'Deutsch',langES:'Español',langPT:'Português',langJA:'日本語'
 });
+
+// V8.5.47 · complete special-mechanic localization. These keys used to
+// fall back to English in some languages, which made first-use help feel
+// inconsistent and caused the Reactor counter to display the wrong word.
+Object.assign(I18N.de,{
+  frozenTitle:'❄️ Gefrorenes Atom',frozenDesc:'Ein gefrorenes Atom kann sich nicht bewegen. Baue das Molekül darum herum oder bringe ein Feueratom daneben, um das Eis zu schmelzen.',
+  fireTitle:'🔥 Feueratom',fireDesc:'Ein Feueratom schmilzt ein direkt benachbartes gefrorenes Atom und macht es wieder beweglich.',
+  stickyTitle:'🧲 Klebriges Atom',stickyDesc:'Ein Atom, das es berührt, bleibt an diesem Kontaktpunkt fest und kann sich nicht wieder lösen.',
+  lightningTitle:'⚡ Elektrisch geladenes Atom',lightningDesc:'Das ⚡-Zeichen zeigt elektrische Ladung. Berührt das Atom eine verbundene Atomgruppe, läuft der Impuls durch die Kette und taut erreichte gefrorene Atome auf.',
+  zombieTitle:'🧟 Zombie-Atom',zombieDesc:'Steckt berührende Atome an. Ein Feueratom heilt die Infektion.',
+  precisionTitle:'🎯 Ein-Feld-Zug (optional)',precisionDesc:'Ein optionaler Helfer: aktivieren, Atom wählen und eine Richtung angeben. Das Atom bewegt sich genau ein Feld.',
+  classicCatalystTitle:'🧪 Katalysator-Mission',classicCatalystDesc:'Sammle zuerst Katalysator, Energiezelle und Stabilisator. Vervollständige danach das Zielmolekül.',
+  classicChainTitle:'⚡ Kettenreaktion',classicChainDesc:'Dies ist etwas anderes als die ⚡-Ladung auf einem Atom. Führe den leuchtenden richtigen Zug aus; die Folge läuft automatisch weiter und bildet Combo x2 / x3.',
+  classicReactorTitle:'☢️ Reaktor-Laser',classicReactorDesc:'Bewege dich in der sicheren Laserphase. Kontakt erhöht den Trefferzähler; in Reactor Escape kommen zusätzlich 3 Sekunden Strafe hinzu.'
+});
+Object.assign(I18N.es,{
+  lightningTitle:'⚡ Átomo con carga eléctrica',lightningDesc:'El símbolo ⚡ indica carga eléctrica. Al tocar un grupo de átomos conectados, el pulso recorre la cadena y descongela los átomos congelados que alcanza.',
+  zombieTitle:'🧟 Átomo zombi',zombieDesc:'Infecta a los átomos que toca. Un átomo de fuego cura la infección.',
+  precisionTitle:'🎯 Movimiento de una casilla (opcional)',precisionDesc:'Ayuda opcional: actívala, selecciona un átomo y una dirección. El átomo avanza exactamente una casilla.',
+  classicCatalystTitle:'🧪 Misión de catalizador',classicCatalystDesc:'Recoge primero el Catalizador, la Celda de Energía y el Estabilizador. Después completa la molécula objetivo.',
+  classicChainTitle:'⚡ Reacción en cadena',classicChainDesc:'Esto es distinto de la carga ⚡ de un átomo. Haz el movimiento correcto que brilla; la secuencia continúa automáticamente y forma Combo x2 / x3.',
+  classicReactorTitle:'☢️ Láseres del reactor',classicReactorDesc:'Muévete durante la fase segura. El contacto aumenta el contador de impactos; en Reactor Escape también añade 3 segundos de penalización.'
+});
+Object.assign(I18N.pt,{
+  lightningTitle:'⚡ Átomo com carga elétrica',lightningDesc:'O símbolo ⚡ indica carga elétrica. Ao tocar um grupo de átomos ligados, o pulso percorre a cadeia e descongela os átomos alcançados.',
+  zombieTitle:'🧟 Átomo zumbi',zombieDesc:'Infecta os átomos que toca. Um átomo de fogo cura a infecção.',
+  precisionTitle:'🎯 Movimento de uma casa (opcional)',precisionDesc:'Ajuda opcional: ative, escolha um átomo e uma direção. O átomo avança exatamente uma casa.',
+  classicCatalystTitle:'🧪 Missão do catalisador',classicCatalystDesc:'Colete primeiro o Catalisador, a Célula de Energia e o Estabilizador. Depois complete a molécula-alvo.',
+  classicChainTitle:'⚡ Reação em cadeia',classicChainDesc:'Isto é diferente da carga ⚡ em um átomo. Faça o movimento correto brilhante; a sequência continua automaticamente e cria Combo x2 / x3.',
+  classicReactorTitle:'☢️ Lasers do reator',classicReactorDesc:'Mova-se durante a fase segura. O contato aumenta o contador de impactos; no Reactor Escape também adiciona 3 segundos de penalidade.'
+});
+Object.assign(I18N.ja,{
+  lightningTitle:'⚡ 帯電原子',lightningDesc:'⚡は電気を帯びた原子の印です。連結した原子群に触れると電気が鎖を伝わり、到達した凍結原子を解凍します。',
+  zombieTitle:'🧟 ゾンビ原子',zombieDesc:'触れた原子に感染します。炎原子で治療できます。',
+  precisionTitle:'🎯 1マス移動（任意）',precisionDesc:'任意の補助機能です。有効化して原子と方向を選ぶと、原子がちょうど1マス移動します。',
+  classicCatalystTitle:'🧪 触媒ミッション',classicCatalystDesc:'最初に触媒、エネルギーセル、安定化装置を集め、その後で目標分子を完成させます。',
+  classicChainTitle:'⚡ 連鎖反応',classicChainDesc:'これは原子上の⚡電荷とは別の仕組みです。光る正しい手を選ぶと連鎖が自動で続き、Combo x2 / x3になります。',
+  classicReactorTitle:'☢️ リアクターレーザー',classicReactorDesc:'レーザーの安全な時間に移動します。接触すると衝突カウンターが増え、Reactor Escapeではさらに3秒のペナルティが加わります。'
+});
+
+
+// V8.5.52: clarified board symbols and objectives. These final overrides
+// keep the exact same wording in first-use cards, Training Center and the
+// current-level help panel.
+Object.assign(I18N.en,{
+  hammerDesc:'The cracked wall marked with a small hammer blocks the route. Select HAMMER, then tap that wall; real use consumes 1 hammer.',
+  portalDesc:'Portals are marked A and B. Stop an atom on one portal to send it to the empty matching portal.',
+  movingWallDesc:'The wall marked ↔ moves to the next rail position after each completed move. Plan for where it will be next.',
+  pressureDoorDesc:'The round switch and its door share the same letter. The transparent striped square is an OPEN door; when the atom leaves the switch, it becomes a solid wall again.',
+  fragileDesc:'The number beside the diamond shows remaining hard impacts. Each hard stop removes one; at zero it shatters and the experiment restarts.',
+  linkedDesc:'Atoms joined by the animated dotted line move together in the same direction. BOTH routes must be clear.',
+  classicCatalystDesc:'Collect the three board symbols — Catalyst, Energy Cell, and Stabilizer. Their counters at the top turn into check marks; then complete the molecule.',
+  classicChainDesc:'This is not the ⚡ charge on an atom. Make the glowing move; the following moves run automatically and raise Combo x2 / x3.',
+  classicReactorDesc:'Move while the laser is dim/off. Touching an active beam raises the Impact counter; Reactor Escape also adds 3 seconds.'
+});
+Object.assign(I18N.tr,{
+  hammerDesc:'Üzerinde küçük çekiç işareti bulunan çatlak duvar yolu kapatır. ÇEKİÇ aracını seçip o duvara dokun; gerçek kullanımda 1 çekiç harcanır.',
+  portalDesc:'Portallar A ve B harfiyle işaretlidir. Bir atomu portalın üzerinde durdurunca boş olan eş portala ışınlanır.',
+  movingWallDesc:'Üzerinde ↔ işareti olan duvar, tamamlanan her hamleden sonra rayındaki sonraki konuma geçer. Bir sonraki yerini hesaba kat.',
+  pressureDoorDesc:'Yuvarlak düğme ile kapı aynı harfi taşır. Şeffaf çizgili kare AÇIK kapıdır; atom düğmeden ayrılınca yeniden katı duvar olur.',
+  fragileDesc:'Elmasın yanındaki sayı kalan sert darbe hakkını gösterir. Her sert duruşta bir azalır; sıfırda parçalanır ve deney yeniden başlar.',
+  linkedDesc:'Hareketli noktalı çizgiyle bağlı atomlar aynı yönde birlikte gider. İKİ yolun da açık olması gerekir.',
+  classicCatalystDesc:'Tahtadaki üç simgeyi — Katalizör, Enerji Hücresi ve Stabilizatör — topla. Üst sayaçlar onay işaretine dönünce hedef molekülü tamamla.',
+  classicChainDesc:'Bu, atom üzerindeki ⚡ yük değildir. Parlayan hamleyi yap; sonraki hamleler otomatik ilerler ve Combo x2 / x3 yükselir.',
+  classicReactorDesc:'Lazer soluk/kapalıyken hareket et. Aktif ışına temas Darbe sayacını artırır; Reaktör Kaçışında ayrıca 3 saniye ekler.'
+});
+Object.assign(I18N.de,{
+  hammerDesc:'Die rissige Wand mit dem kleinen Hammerzeichen blockiert den Weg. Wähle HAMMER und tippe auf diese Wand; der echte Einsatz verbraucht 1 Hammer.',
+  portalDesc:'Portale sind mit A und B markiert. Hält ein Atom auf einem Portal, gelangt es zum freien passenden Portal.',
+  movingWallDesc:'Die mit ↔ markierte Wand wechselt nach jedem abgeschlossenen Zug zur nächsten Position ihrer Schiene.',
+  pressureDoorDesc:'Schalter und Tür tragen denselben Buchstaben. Das transparente gestreifte Feld ist eine OFFENE Tür; verlässt das Atom den Schalter, wird es wieder zur festen Wand.',
+  fragileDesc:'Die Zahl am Diamanten zeigt die verbleibenden harten Aufpralle. Bei null zerbricht das Atom und das Experiment startet neu.',
+  linkedDesc:'Atome mit der bewegten gestrichelten Linie bewegen sich gemeinsam in dieselbe Richtung. BEIDE Wege müssen frei sein.',
+  classicCatalystDesc:'Sammle die drei Symbole Katalysator, Energiezelle und Stabilisator. Wenn oben drei Häkchen stehen, vervollständige das Molekül.',
+  classicChainDesc:'Das ist nicht die ⚡-Ladung eines Atoms. Führe den leuchtenden Zug aus; die Folge läuft automatisch und erhöht Combo x2 / x3.',
+  classicReactorDesc:'Bewege dich, wenn der Laser dunkel/aus ist. Ein aktiver Strahl erhöht Treffer; in Reactor Escape kommen 3 Sekunden hinzu.'
+});
+Object.assign(I18N.es,{
+  hammerDesc:'La pared agrietada con el pequeño martillo bloquea la ruta. Selecciona MARTILLO y tócala; el uso real consume 1 martillo.',
+  portalDesc:'Los portales están marcados A y B. Detén un átomo en uno para enviarlo al portal correspondiente que esté libre.',
+  movingWallDesc:'La pared marcada ↔ avanza a la siguiente posición del riel después de cada movimiento completado.',
+  pressureDoorDesc:'El interruptor y la puerta llevan la misma letra. La casilla transparente con rayas es una puerta ABIERTA; al quitar el átomo, vuelve a ser una pared sólida.',
+  fragileDesc:'El número junto al diamante indica los impactos fuertes restantes. Al llegar a cero se rompe y reinicia el experimento.',
+  linkedDesc:'Los átomos unidos por la línea de puntos animada se mueven juntos en la misma dirección. AMBAS rutas deben estar libres.',
+  classicCatalystDesc:'Recoge los tres símbolos: Catalizador, Celda de Energía y Estabilizador. Cuando los contadores superiores tengan ✓, completa la molécula.',
+  classicChainDesc:'No es la carga ⚡ de un átomo. Haz el movimiento brillante; la secuencia continúa sola y aumenta Combo x2 / x3.',
+  classicReactorDesc:'Muévete cuando el láser esté tenue/apagado. Tocar un rayo activo aumenta Impactos; Reactor Escape añade 3 segundos.'
+});
+Object.assign(I18N.pt,{
+  hammerDesc:'A parede rachada com o pequeno martelo bloqueia a rota. Selecione MARTELO e toque nela; o uso real consome 1 martelo.',
+  portalDesc:'Os portais são marcados A e B. Pare um átomo em um deles para enviá-lo ao portal correspondente que estiver livre.',
+  movingWallDesc:'A parede marcada ↔ avança para a próxima posição do trilho após cada jogada concluída.',
+  pressureDoorDesc:'O botão e a porta têm a mesma letra. A casa transparente listrada é uma porta ABERTA; ao tirar o átomo, ela volta a ser uma parede sólida.',
+  fragileDesc:'O número ao lado do diamante mostra os impactos fortes restantes. Ao chegar a zero, ele quebra e reinicia o experimento.',
+  linkedDesc:'Átomos unidos pela linha pontilhada animada se movem juntos na mesma direção. OS DOIS caminhos precisam estar livres.',
+  classicCatalystDesc:'Colete os três símbolos: Catalisador, Célula de Energia e Estabilizador. Quando os contadores mostrarem ✓, complete a molécula.',
+  classicChainDesc:'Não é a carga ⚡ de um átomo. Faça a jogada brilhante; a sequência continua sozinha e aumenta Combo x2 / x3.',
+  classicReactorDesc:'Mova-se quando o laser estiver fraco/desligado. Tocar o feixe ativo aumenta Impactos; Reactor Escape acrescenta 3 segundos.'
+});
+Object.assign(I18N.ja,{
+  hammerDesc:'小さなハンマー印のあるひび割れ壁が進路を塞ぎます。ハンマーを選んで壁をタップすると、実戦では1個消費します。',
+  portalDesc:'ポータルにはAとBの印があります。原子を一方で止めると、空いている対応ポータルへ移動します。',
+  movingWallDesc:'↔印の壁は、1手が終わるたびにレール上の次の位置へ移動します。',
+  pressureDoorDesc:'スイッチと扉には同じ文字があります。透明な縞のマスは開いた扉で、原子がスイッチを離れると固い壁に戻ります。',
+  fragileDesc:'ダイヤ横の数字は残りの強い衝突回数です。0になると壊れて実験が再開されます。',
+  linkedDesc:'動く点線で結ばれた原子は同じ方向へ一緒に動きます。両方の進路が空いている必要があります。',
+  classicCatalystDesc:'触媒・エネルギーセル・安定化装置の3つの記号を集めます。上部がすべて✓になったら分子を完成させます。',
+  classicChainDesc:'原子の⚡電荷とは別です。光る手を選ぶと連鎖が自動で続き、Combo x2 / x3が上がります。',
+  classicReactorDesc:'レーザーが暗い／消えている時に動きます。作動中の光線に触れると衝突回数が増え、Reactor Escapeでは3秒加算されます。'
+});
+
 function ml(tr,en,de,es,pt,ja){
   const values={tr:tr,en:en,de:de,es:es,pt:pt,ja:ja};
   return values[LANG]!==undefined&&values[LANG]!==null?values[LANG]:en;
@@ -1041,7 +1152,7 @@ function isIOSWebDevice(){
   }catch(e){return false;}
 }
 let externalMusicMode=false;
-function defaultSave(){return {cur:0,stars:{},coins:0,disc:{},volM:1,volMu:0.8,volS:1,volV:1,muM:false,muMu:false,muS:false,muV:false,externalMusic:false,dpad:false,reduceMotion:false,duelMessages:true,duelEffects:true,haptics:true,effectLevel:'normal',largeText:false,colorBlind:false,highContrast:false,performanceMode:'auto',favoriteMolecules:{},collectionFilter:'all',storySeen:{},storySchema:0,dailyDate:'',totalHints:0,streak3:0,lang:'en',achv:{},seenFrozen:false,seenFire:false,seenLightning:false,seenSticky:false,seenZombie:false,seenOneWay:false,seenBreakableWall:false,seenPortal:false,seenMovingWall:false,seenPressureDoor:false,seenFragile:false,seenPrecision:false,playerName:'',speedRuns:{},bestMoves:{},maxCoins:0,profileId:'',tutorialDone:false,autoGuest:false,rpSchema:0,researchPoints:0,researchLevels:{},researchAchievements:{},researchBonuses:{},bonusClaims:{},dailyScores:{},dailyRPStreak:0,lastDailyRPDate:'',seasonId:'',seasonRP:0,weekId:'',weekRP:0,saveSchema:5,campaignContentSchema:0,labTheme:'basic',economySchema:0,quantumHintDay:'',duelRatedMatches:{},duelRewards:{},duelRewardClaims:{},activeDuelFrame:'frame_bronze',activeDuelTitle:'',duelRating:800,duelPeakRating:800,duelWins:0,duelLosses:0,duelDraws:0,duelStreak:0,duelBestStreak:0,duelWeekPoints:0,duelWeekWins:0,duelMonthPoints:0,duelMonthWins:0,accountMilestoneInviteSeen:false,accountMilestoneInviteLastLevel:0,nobelCertificateShared:false,seenHintSupport:false,seenUndoSupport:false,seenRestartSupport:false,seenLabSupport:false,seenSupportGuide:false,seenHammerSupport:false,seenPrecisionSupport:false,seenGoalGlowGuide:false,tutorialTips:true,seenFragileAtom:false,seenLinkedAtoms:false,seenHammerWall:false,pushDeclined:false};}
+function defaultSave(){return {cur:0,stars:{},coins:0,disc:{},volM:1,volMu:0.8,volS:1,volV:1,muM:false,muMu:false,muS:false,muV:false,externalMusic:false,dpad:false,reduceMotion:false,duelMessages:true,duelEffects:true,haptics:true,effectLevel:'normal',largeText:false,colorBlind:false,highContrast:false,performanceMode:'auto',favoriteMolecules:{},collectionFilter:'all',storySeen:{},storySchema:0,dailyDate:'',totalHints:0,streak3:0,lang:'en',achv:{},seenFrozen:false,seenFire:false,seenLightning:false,seenSticky:false,seenZombie:false,seenOneWay:false,seenBreakableWall:false,seenPortal:false,seenMovingWall:false,seenPressureDoor:false,seenFragile:false,seenPrecision:false,playerName:'',speedRuns:{},bestMoves:{},maxCoins:0,profileId:'',tutorialDone:false,autoGuest:false,rpSchema:0,researchPoints:0,researchLevels:{},researchAchievements:{},researchBonuses:{},bonusClaims:{},dailyScores:{},dailyRPStreak:0,lastDailyRPDate:'',seasonId:'',seasonRP:0,weekId:'',weekRP:0,saveSchema:5,campaignContentSchema:0,labTheme:'basic',economySchema:0,quantumHintDay:'',duelRatedMatches:{},duelRewards:{},duelRewardClaims:{},activeDuelFrame:'frame_bronze',activeDuelTitle:'',duelRating:800,duelPeakRating:800,duelWins:0,duelLosses:0,duelDraws:0,duelStreak:0,duelBestStreak:0,duelWeekPoints:0,duelWeekWins:0,duelMonthPoints:0,duelMonthWins:0,accountMilestoneInviteSeen:false,accountMilestoneInviteLastLevel:0,nobelCertificateShared:false,seenHintSupport:false,seenUndoSupport:false,seenRestartSupport:false,seenLabSupport:false,seenSupportGuide:false,seenHammerSupport:false,seenPrecisionSupport:false,seenBarrierSupport:false,seenGoalGlowGuide:false,tutorialTips:true,seenFragileAtom:false,seenLinkedAtoms:false,seenHammerWall:false,pushDeclined:false};}
 const COIN_EARN_KEY='__coinEarned',COIN_SPEND_KEY='__coinSpent';
 const LAB_THEME_STAMP_KEY='__labThemeStamp',QUANTUM_DAY_KEY='__quantumDay';
 const LAB_THEME_CODES={basic:0,collider:1,arctic:2,mars:3},LAB_THEME_NAMES=['basic','collider','arctic','mars'];
@@ -1238,6 +1349,32 @@ function ensureResearchState(s){
   if(campaignContentSchema<1){
     for(let i=73;i<=89;i++)if(Number(s.cur)>i||Number(s.stars[i])>0)s.disc[LEVELS[i].m]=1;
     campaignContentSchema=1;
+  }
+  // V8.5.49: existing testers may already have the old one-line tips marked
+  // as seen. Re-open only the mechanics whose meaning was clarified in the
+  // smart tutorial update; do not reset every lesson and overwhelm players.
+  if(campaignContentSchema<2){
+    s.seenLightning=false;
+    s.seenClassicCatalystTutorialV2=false;
+    s.seenClassicChainTutorialV2=false;
+    s.seenClassicReactorTutorialV2=false;
+    s.seenBarrierSupport=false;
+    campaignContentSchema=2;
+  }
+  // V8.5.52: re-open only the compact guides whose board symbols were
+  // visually clarified. Existing progress, stars and other lessons remain.
+  if(campaignContentSchema<3){
+    s.seenOneWay=false;
+    s.seenBreakableWall=false;s.seenHammerWall=false;
+    s.seenPortal=false;
+    s.seenMovingWall=false;
+    s.seenPressureDoor=false;
+    s.seenFragile=false;s.seenFragileAtom=false;
+    s.seenLinked=false;s.seenLinkedAtoms=false;
+    s.seenClassicCatalystTutorialV2=false;
+    s.seenClassicChainTutorialV2=false;
+    s.seenClassicReactorTutorialV2=false;
+    campaignContentSchema=3;
   }
   s.campaignContentSchema=campaignContentSchema;
   s.researchLevels=s.researchLevels&&typeof s.researchLevels==='object'?s.researchLevels:{};
@@ -1864,11 +2001,19 @@ function showMoleculeCompletionFx(){
   const rx=Math.max(54*scale,(maxX-minX)/2+34*scale),ry=Math.max(38*scale,(maxY-minY)/2+25*scale);
   const wrap=document.createElement('div');wrap.id='mxMoleculeFinishFx';wrap.style.setProperty('--mxfx-scale',String(scale));
   const atomHalos=pts.map((p,i)=>'<i class="mxAtomHalo" style="left:'+p.x+'px;top:'+p.y+'px;animation-delay:'+(i*.035)+'s"></i>').join('');
-  const word=(curMol&&curMol.w)||'EUREKA!';
+  const bondLights=[];
+  for(let i=0;i<atoms.length;i++)for(let j=i+1;j<atoms.length;j++){
+    const dx=atoms[j].x-atoms[i].x,dy=atoms[j].y-atoms[i].y;if(Math.abs(dx)+Math.abs(dy)!==1)continue;
+    if(!curMol.bs.has(atoms[i].e+','+atoms[j].e+','+dx+','+dy))continue;
+    const a=pts[i],b=pts[j],len=Math.hypot(b.x-a.x,b.y-a.y),ang=Math.atan2(b.y-a.y,b.x-a.x);
+    bondLights.push('<i class="mxBondLight" style="left:'+a.x+'px;top:'+a.y+'px;width:'+len+'px;--mx-bond-angle:'+ang+'rad;animation-delay:'+(0.09+bondLights.length*.095)+'s"></i>');
+  }
+  const finalIndex=Math.max(0,Math.min(atoms.length-1,Number.isInteger(sel)?sel:atoms.length-1)),finalPt=pts[finalIndex],finalAtom=atoms[finalIndex]||atoms[atoms.length-1];
+  const finalPop=finalPt?('<div class="mxFinalAtomPop" style="left:'+finalPt.x+'px;top:'+finalPt.y+'px"><b>'+String(finalAtom&&finalAtom.e||'⚛')+'</b><i></i></div>'):'';
   wrap.innerHTML='<div class="mxEnergyRing" style="left:'+cx+'px;top:'+cy+'px"></div>'+
     '<div class="mxOrbit mxOrbitA" style="left:'+cx+'px;top:'+cy+'px;width:'+(rx*2)+'px;height:'+(ry*2)+'px"><b></b><b></b></div>'+
     '<div class="mxOrbit mxOrbitB" style="left:'+cx+'px;top:'+cy+'px;width:'+(rx*1.72)+'px;height:'+(ry*2.32)+'px"><b></b></div>'+
-    atomHalos; // Molecule-specific SPLASH / PUFF / ZAP remains in the existing synchronized banner.
+    bondLights.join('')+atomHalos+finalPop; // Molecule-specific SPLASH / PUFF / ZAP remains in the synchronized banner.
   document.body.appendChild(wrap);document.body.classList.add('mxMoleculeCompleting');
   if(!reduced){void wrap.offsetWidth;wrap.classList.add('on');}
   if(effectsAllowed()){
@@ -1893,12 +2038,19 @@ function installCompletionCinematicStyles(){
     #mxMoleculeFinishFx .mxOrbitB{transform:translate(-50%,-50%) rotate(63deg) scale(.5);animation-delay:.05s}
     #mxMoleculeFinishFx .mxOrbit b{position:absolute;width:calc(8px * var(--mxfx-scale));height:calc(8px * var(--mxfx-scale));border-radius:50%;background:#fff;box-shadow:0 0 calc(8px * var(--mxfx-scale)) #7ff0ff,0 0 calc(15px * var(--mxfx-scale)) #8f72ff;top:50%;left:-4px;animation:mxElectronPulse .42s ease-in-out infinite alternate}
     #mxMoleculeFinishFx .mxOrbit b:nth-child(2){left:auto;right:-4px;animation-delay:-.2s}
+    #mxMoleculeFinishFx .mxBondLight{position:fixed;height:calc(8px * var(--mxfx-scale));border-radius:999px;transform-origin:0 50%;transform:translateY(-50%) rotate(var(--mx-bond-angle)) scaleX(0);opacity:0;background:linear-gradient(90deg,rgba(255,255,255,.2),#ffffff 34%,#74ecff 62%,rgba(155,111,255,.15));box-shadow:0 0 calc(8px * var(--mxfx-scale)) rgba(117,235,255,.95),0 0 calc(17px * var(--mxfx-scale)) rgba(132,102,255,.64);animation:mxBondIgnite 1.14s cubic-bezier(.18,.84,.22,1) both}
+    #mxMoleculeFinishFx .mxFinalAtomPop{position:fixed;width:calc(62px * var(--mxfx-scale));height:calc(62px * var(--mxfx-scale));transform:translate(-50%,-50%) scale(.28);border-radius:50%;display:grid;place-items:center;opacity:0;background:radial-gradient(circle at 34% 28%,#fff 0 8%,#baf5ff 20%,rgba(91,216,255,.54) 48%,rgba(147,99,255,.1) 70%,transparent 74%);box-shadow:0 0 calc(18px * var(--mxfx-scale)) rgba(110,232,255,.95);animation:mxFinalAtomSnap .92s cubic-bezier(.16,1.22,.28,1) both}
+    #mxMoleculeFinishFx .mxFinalAtomPop b{font:1000 calc(18px * var(--mxfx-scale))/1 system-ui,-apple-system,sans-serif;color:#10263c;text-shadow:0 1px rgba(255,255,255,.8)}
+    #mxMoleculeFinishFx .mxFinalAtomPop i{position:absolute;inset:0;border-radius:50%;border:calc(2px * var(--mxfx-scale)) solid rgba(255,255,255,.92);animation:mxFinalAtomRing .8s ease-out both}
     #mxMoleculeFinishFx .mxChemWord{position:fixed;transform:translate(-50%,-50%) scale(.72);font:900 clamp(32px,calc(48px * var(--mxfx-scale)),58px)/1 system-ui,sans-serif;letter-spacing:.04em;color:#fff4be;text-shadow:0 3px 0 #a65b12,0 7px 16px rgba(0,0,0,.62),0 0 22px rgba(255,213,87,.65);opacity:0;white-space:nowrap;animation:mxChemWord 1.25s cubic-bezier(.18,.82,.18,1) both}
     body.mxMoleculeCompleting #gameBoard,body.mxMoleculeCompleting canvas#board{filter:brightness(1.08) saturate(1.06)}
     @keyframes mxAtomFlash{0%{opacity:0;transform:translate(-50%,-50%) scale(.35)}24%{opacity:1;transform:translate(-50%,-50%) scale(1.24)}68%{opacity:.72;transform:translate(-50%,-50%) scale(.98)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.34)}}
     @keyframes mxEnergyExpand{0%{opacity:0;transform:translate(-50%,-50%) scale(.2)}18%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(5.8)}}
     @keyframes mxOrbitIn{0%{opacity:0}18%{opacity:.9;transform:translate(-50%,-50%) rotate(-14deg) scale(.82)}55%{opacity:.8;transform:translate(-50%,-50%) rotate(155deg) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) rotate(335deg) scale(1.08)}}
     @keyframes mxElectronPulse{to{transform:scale(1.32);filter:brightness(1.4)}}
+    @keyframes mxBondIgnite{0%{opacity:0;transform:translateY(-50%) rotate(var(--mx-bond-angle)) scaleX(0)}18%{opacity:1}52%{opacity:1;transform:translateY(-50%) rotate(var(--mx-bond-angle)) scaleX(1.06)}78%{opacity:.92;transform:translateY(-50%) rotate(var(--mx-bond-angle)) scaleX(1)}100%{opacity:0;transform:translateY(-50%) rotate(var(--mx-bond-angle)) scaleX(1)}}
+    @keyframes mxFinalAtomSnap{0%{opacity:0;transform:translate(-50%,-50%) scale(.22)}38%{opacity:1;transform:translate(-50%,-50%) scale(1.22)}64%{transform:translate(-50%,-50%) scale(.94)}82%{opacity:1;transform:translate(-50%,-50%) scale(1.03)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.18)}}
+    @keyframes mxFinalAtomRing{0%{opacity:1;transform:scale(.65)}100%{opacity:0;transform:scale(2.15)}}
     @keyframes mxChemWord{0%{opacity:0;transform:translate(-50%,-50%) scale(.45) rotate(-4deg)}20%{opacity:1;transform:translate(-50%,-50%) scale(1.14) rotate(1deg)}48%{transform:translate(-50%,-50%) scale(1)}78%{opacity:1}100%{opacity:0;transform:translate(-50%,-64%) scale(.92)}}
     .screen{transition:opacity .32s cubic-bezier(.22,.7,.2,1),transform .32s cubic-bezier(.22,.7,.2,1)!important}
     .btn,.iconBtn,.dpad button{transition:transform .11s cubic-bezier(.2,.9,.25,1.35),filter .14s ease,box-shadow .14s ease!important}
@@ -1958,6 +2110,7 @@ function updateIntensity(){
   if(!won&&m>prevB){
     const delta=m-prevB,nowMs=performance.now();
     mxReactionStreak=(nowMs-mxReactionAt<1450)?mxReactionStreak+delta:delta;mxReactionAt=nowMs;
+    setDrEPose('molecule',m>=total&&total>0?5000:4300,5);
     einMood('nod',560);
     if(m>=total&&total>0)showReactionCallout('perfect',mxReactionStreak);
     else if(delta>1||mxReactionStreak>=2)showReactionCallout('chain',mxReactionStreak);
@@ -2917,6 +3070,29 @@ function popStars(sp,stars){
   }
 }
 function starStr(n){let s='';for(let i=0;i<3;i++)s+=i<n?'<span>★</span>':'<span class="off">★</span>';return s;}
+function campaignLevelStableKey(level,index){
+  const exp=(level&&typeof level.exp==='string')?level.exp.trim():'';
+  return exp||('campaign-'+(Number(index)+1)+'-'+String((level&&level.m)||'unknown'));
+}
+function resolveCampaignLevelIndex(index,expectedKey=''){
+  const raw=Math.max(0,Math.min(LEVELS.length-1,Number(index)||0));
+  // Prefer the exact identity captured by the level card. This keeps a tap
+  // attached to the same experiment even if an older cached level array was
+  // briefly mixed with a newer game.js during an update.
+  if(expectedKey){
+    const exact=LEVELS.findIndex((L,idx)=>campaignLevelStableKey(L,idx)===expectedKey);
+    if(exact>=0)return exact;
+  }
+  const levelNumber=raw+1;
+  // Grand Master cards also carry explicit gm-NNN ids. Resolve by number as
+  // a second safety net for Continue/Next flows that only pass an index.
+  if(levelNumber>=286&&levelNumber<=300){
+    const key='gm-'+levelNumber+'-';
+    const exact=LEVELS.findIndex(L=>String((L&&L.exp)||'').startsWith(key));
+    if(exact>=0)return exact;
+  }
+  return raw;
+}
 function buildLevels(){
   updateBonusStatus();applyBonusCosmetics();
   const g=$('#lvGrid');g.innerHTML='';
@@ -2931,11 +3107,14 @@ function buildLevels(){
     b.innerHTML='<div class="lvNum'+(locked?' lockedNum':'')+'">'+(i+1)+'</div>'+formula+
       (locked?'<div class="lockIcon"><i></i></div>':'<div class="st">'+starStr(save.stars[i]||0)+'</div>'+(SPEEDRUN_LEVELS.includes(i)?'<div class="speedTag">⚡</div>':'')+featureTag);
     if(!locked){
+      const stableKey=campaignLevelStableKey(L,i);
+      b.dataset.levelNumber=String(i+1);
+      b.dataset.levelKey=stableKey;
       let px=0,py=0;
       b.addEventListener('pointerdown',e=>{px=e.clientX;py=e.clientY;},{passive:true});
       b.addEventListener('pointerup',e=>{
         const dist=Math.max(Math.abs(e.clientX-px),Math.abs(e.clientY-py));
-        if(dist<10){SFX.click();goToLevel(i);}
+        if(dist<10){SFX.click();goToLevel(i,stableKey);}
       },{passive:true});
     }
     g.appendChild(b);
@@ -3178,7 +3357,7 @@ function buildCollection(){
     if(save.collectionFilter==='fav'&&!fav)continue;
     const li=firstLevel[id],stars=li===undefined?0:Math.max(0,Number(save.stars[li])||0),best=li===undefined?0:Math.max(0,Number(save.bestMoves&&save.bestMoves[li])||0),time=li===undefined?0:Math.max(0,Number(save.speedRuns&&save.speedRuns[li])||0);
     const card=document.createElement('div');
-    card.className='molCard card'+(d?'':' un')+(fav?' favorite':'');
+    card.className='molCard card'+(d?'':' un')+(fav?' favorite':'');card.dataset.molecule=id;
     const meta=d?('<div class="molMeta"><span>⭐ '+stars+'/3</span>'+(li!==undefined?'<span>🧪 '+(LANG==='tr'?'Bölüm ':'Level ')+(li+1)+'</span>':'')+(best?'<span>↔ '+best+' '+(LANG==='tr'?'hamle':'moves')+'</span>':'')+(time?'<span>⚡ '+time.toFixed(1)+'s</span>':'')+'</div>'):'<div class="molMeta lockedMeta">🔒 '+(LANG==='tr'?'Bölümü tamamlayarak keşfet':'Complete its level to discover')+'</div>';
     card.innerHTML='<button class="molFav" aria-label="favorite">'+(fav?'★':'☆')+'</button><canvas></canvas><div class="mn">'+(d?m.n:t('undiscoveredName'))+'</div><div class="mf">'+(d?m.f:t('undiscoveredName'))+'</div>'+meta+'<div class="mfact">'+(d?m.fa:t('undiscoveredFact'))+'</div>';
     g.appendChild(card);
@@ -3388,8 +3567,93 @@ window.addEventListener('pageshow',()=>scheduleEinsteinFaceSync(false),{passive:
 
 const MOODS=[];
 let exc=false,einMoodT=null;
+
+/* V8.5.46 Dr. E flow correction
+   - Main-menu Dr. E remains the approved original einstein.webp.
+   - Alternate assets are restricted to the active game screen.
+   - Every supplied PNG uses the approved 468x520 canvas and faces the board.
+   - Priority/hold locks stop rapid pose changes during overlapping messages. */
+const DR_E_POSES=Object.freeze({
+  idle:'assets/images/einstein.webp',
+  thinking:'assets/images/dr-e-poses/thinking.png',
+  celebrate:'assets/images/dr-e-poses/celebrate.png',
+  clap:'assets/images/dr-e-poses/clap.png',
+  surprised:'assets/images/dr-e-poses/surprised.png',
+  confused:'assets/images/dr-e-poses/confused.png',
+  victory:'assets/images/dr-e-poses/victory.png',
+  medal:'assets/images/dr-e-poses/medal.png',
+  experiment:'assets/images/dr-e-poses/experiment.png',
+  clipboard:'assets/images/dr-e-poses/clipboard.png',
+  magnifier:'assets/images/dr-e-poses/magnifier.png',
+  molecule:'assets/images/dr-e-poses/molecule.png'
+});
+const drEPreloads=new Map();
+Object.entries(DR_E_POSES).forEach(([name,src])=>{
+  const img=new Image();img.decoding='async';img.src=src;drEPreloads.set(name,img);
+});
+const drEGameBox=$('#einBoxG');
+const drEGameImg=drEGameBox&&drEGameBox.querySelector('.einImg');
+const DR_E_POSE_PRIORITY=Object.freeze({idle:0,clipboard:3,thinking:4,experiment:4,magnifier:4,molecule:5,surprised:5,confused:5,clap:6,celebrate:7,victory:8,medal:9});
+let drEPoseTimer=0,drECurrentPose='idle',drEPoseSeq=0,drEPoseLockedUntil=0,drECurrentPriority=0;
+function drEGameActive(){return !!(scr.game&&scr.game.classList.contains('on'));}
+function resetDrEPose(){
+  clearTimeout(drEPoseTimer);drEPoseTimer=0;drEPoseSeq++;
+  drECurrentPose='idle';drECurrentPriority=0;drEPoseLockedUntil=0;
+  if(drEGameBox&&drEGameImg){
+    drEGameBox.classList.remove('mxPoseAsset');
+    drEGameImg.classList.remove('mxPoseChanging');
+    drEGameImg.setAttribute('src',DR_E_POSES.idle);
+    drEGameImg.setAttribute('data-dr-e-pose','idle');
+  }
+}
+function setDrEPose(name,duration,priority,force=false){
+  const pose=DR_E_POSES[name]?name:'idle';
+  if(pose!=='idle'&&!drEGameActive())return false;
+  const now=Date.now();
+  const nextPriority=Number.isFinite(Number(priority))?Number(priority):(DR_E_POSE_PRIORITY[pose]||0);
+  if(!force&&pose!=='idle'&&drECurrentPose!=='idle'&&pose!==drECurrentPose&&now<drEPoseLockedUntil&&nextPriority<=drECurrentPriority)return false;
+  clearTimeout(drEPoseTimer);
+  const seq=++drEPoseSeq,src=DR_E_POSES[pose];
+  const apply=()=>{
+    if(seq!==drEPoseSeq||!drEGameImg||!drEGameBox)return;
+    drEGameImg.setAttribute('src',src);
+    drEGameImg.setAttribute('data-dr-e-pose',pose);
+    drEGameBox.classList.toggle('mxPoseAsset',pose!=='idle');
+    requestAnimationFrame(()=>drEGameImg.classList.remove('mxPoseChanging'));
+  };
+  drECurrentPose=pose;drECurrentPriority=nextPriority;
+  if(drEGameImg&&drEGameBox){
+    if(drEGameImg.getAttribute('src')!==src){
+      drEGameImg.classList.add('mxPoseChanging');
+      const preload=drEPreloads.get(pose);
+      if(preload&&preload.complete)setTimeout(apply,150);
+      else if(preload){preload.addEventListener('load',()=>setTimeout(apply,80),{once:true});setTimeout(apply,650);}
+      else setTimeout(apply,150);
+    }else{
+      drEGameBox.classList.toggle('mxPoseAsset',pose!=='idle');
+      drEGameImg.classList.remove('mxPoseChanging');
+    }
+  }
+  if(pose==='idle'){drEPoseLockedUntil=0;return true;}
+  const hold=Math.max(3600,Number(duration)||4600);
+  drEPoseLockedUntil=now+Math.max(3000,hold-350);
+  drEPoseTimer=setTimeout(()=>setDrEPose('idle',0,99,true),hold);
+  return true;
+}
 function einBase(){EIN.boxes.forEach(b=>b&&b.classList.remove('talk','happy','sad','excited','shake','celebrate','dance','tiltL','tiltR','nod','hop','spinCel','enter','laugh','wag'));}
-function einMood(){einBase();}
+function einMood(mood,dur){
+  einBase();
+  if(!drEGameActive())return;
+  const m=String(mood||'talk');
+  if(m==='happy'||m==='laugh')setDrEPose('clap',Math.max(4400,Number(dur)||0),6);
+  else if(m==='excited'||m==='celebrate')setDrEPose('celebrate',Math.max(5600,Number(dur)||0),7);
+  else if(m==='sad')setDrEPose('surprised',Math.max(4800,Number(dur)||0),5);
+  else if(m==='wag')setDrEPose('confused',Math.max(5000,Number(dur)||0),5);
+  else if(m==='enter')setDrEPose('clipboard',Math.max(4600,Number(dur)||0),3);
+  else if(m==='nod')setDrEPose('molecule',Math.max(4300,Number(dur)||0),5);
+  else if(m==='hint'||m==='think')setDrEPose('thinking',Math.max(6000,Number(dur)||0),4);
+  // Ordinary speech deliberately keeps the current artwork; no slideshow.
+}
 function blink(){
   if(sleeping)return;
   EIN.lids.forEach(l=>l.classList.add('on'));
@@ -3480,6 +3744,8 @@ function einAuraPulse(cls,dur){
   setTimeout(()=>EIN.boxes.forEach(box=>{if(box)box.classList.remove(cls);}),dur);
 }
 function einCelebrate(stars){
+  const finale=(typeof NOBEL_LEVEL_INDEX!=='undefined'&&lv===NOBEL_LEVEL_INDEX);
+  setDrEPose(finale?'medal':(Number(stars)>=3?'victory':'clap'),finale?8200:(Number(stars)>=3?7200:6000),finale?9:(Number(stars)>=3?8:6),true);
   blink();
   setTimeout(tongue,180);
   // Moleculox signature reaction: two tiny atoms bond while one electron
@@ -3831,6 +4097,7 @@ function derivePressureSystems(level,index,mode){
   return [{id:'P0',plate,door,open:false}];
 }
 function pressureOccupied(sys){return atoms.some(a=>a.x===sys.plate.x&&a.y===sys.plate.y);}
+function pressureSystemLabel(sys){const n=Math.max(0,pressureSystems.indexOf(sys));return String.fromCharCode(65+(n%26));}
 function updatePressureDoors(withFx=true){
   for(const sys of pressureSystems){
     const occupied=pressureOccupied(sys);
@@ -3851,17 +4118,20 @@ function drawPressurePlate(sys,t){
   bctx.fillStyle=on?'rgba(92,255,172,.34)':'rgba(255,205,96,.22)';bctx.shadowColor=on?'#68ffb2':'#ffd36e';bctx.shadowBlur=on?14:7+4*pulse;
   bctx.beginPath();bctx.arc(0,0,T*.3,0,Math.PI*2);bctx.fill();
   bctx.lineWidth=Math.max(2,T*.045);bctx.strokeStyle=on?'#d9ffea':'#ffe7a8';bctx.beginPath();bctx.arc(0,0,T*.22,0,Math.PI*2);bctx.stroke();
-  bctx.fillStyle=on?'#eafff2':'#fff1bf';bctx.font='900 '+Math.round(T*.25)+'px system-ui';bctx.textAlign='center';bctx.textBaseline='middle';bctx.fillText(on?'✓':'●',0,1);bctx.restore();
+  bctx.fillStyle=on?'#eafff2':'#fff1bf';bctx.font='900 '+Math.round(T*.25)+'px system-ui';bctx.textAlign='center';bctx.textBaseline='middle';bctx.fillText(on?'✓':'●',0,1);
+  bctx.font='900 '+Math.max(8,Math.round(T*.18))+'px system-ui';bctx.fillStyle=on?'#d9ffea':'#5a3b00';bctx.fillText(pressureSystemLabel(sys),T*.23,-T*.22);bctx.restore();
 }
 function drawPressureDoor(sys,t){
   const px=sys.door.x*T,py=sys.door.y*T,pulse=.65+.2*Math.sin(t/210+sys.door.y);
   bctx.save();
   if(sys.open){
-    bctx.globalAlpha=.3;bctx.strokeStyle='#72ffb5';bctx.lineWidth=Math.max(2,T*.04);bctx.setLineDash([T*.12,T*.08]);rrect(bctx,px+T*.12,py+T*.12,T*.76,T*.76,Math.max(4,T*.1));bctx.stroke();bctx.setLineDash([]);
+    bctx.globalAlpha=.42;bctx.strokeStyle='#72ffb5';bctx.lineWidth=Math.max(2,T*.04);bctx.setLineDash([T*.12,T*.08]);rrect(bctx,px+T*.12,py+T*.12,T*.76,T*.76,Math.max(4,T*.1));bctx.stroke();bctx.setLineDash([]);
+    bctx.globalAlpha=.9;bctx.fillStyle='#d9ffea';bctx.font='900 '+Math.max(10,Math.round(T*.25))+'px system-ui';bctx.textAlign='center';bctx.textBaseline='middle';bctx.fillText('↔',px+T*.5,py+T*.52);
   }else{
     bctx.shadowColor='#ffbf5c';bctx.shadowBlur=8+5*pulse;drawStone(px,py,sys.door.x,sys.door.y);
     bctx.globalAlpha=.92;bctx.strokeStyle='#ffe0a0';bctx.lineWidth=Math.max(2,T*.04);for(let k=1;k<=3;k++){bctx.beginPath();bctx.moveTo(px+T*(.22*k),py+T*.18);bctx.lineTo(px+T*(.22*k),py+T*.82);bctx.stroke();}
   }
+  bctx.globalAlpha=.96;bctx.fillStyle=sys.open?'#d9ffea':'#4b2f00';bctx.font='900 '+Math.max(8,Math.round(T*.18))+'px system-ui';bctx.textAlign='center';bctx.textBaseline='middle';bctx.fillText(pressureSystemLabel(sys),px+T*.76,py+T*.24);
   bctx.restore();
 }
 function movingWallSnapshot(){return movingWalls.map(w=>({x:w.x,y:w.y,index:w.index}));}
@@ -3893,7 +4163,8 @@ function drawMovingWall(w,t){
   if(w.anim){const q=Math.max(0,Math.min(1,(t-w.anim.t0)/w.anim.dur)),e=q<.5?2*q*q:1-Math.pow(-2*q+2,2)/2;x=w.anim.fx+(w.anim.tx-w.anim.fx)*e;y=w.anim.fy+(w.anim.ty-w.anim.fy)*e;}
   const px=x*T,py=y*T,pulse=.65+.2*Math.sin(t/190+x+y);
   bctx.save();bctx.shadowColor='#ffcf67';bctx.shadowBlur=8+6*pulse;drawStone(px,py,Math.round(x),Math.round(y));
-  bctx.globalAlpha=.85;bctx.strokeStyle='#ffd36e';bctx.lineWidth=Math.max(2,T*.045);bctx.setLineDash([T*.12,T*.08]);rrect(bctx,px+T*.12,py+T*.12,T*.76,T*.76,Math.max(4,T*.1));bctx.stroke();bctx.setLineDash([]);bctx.restore();
+  bctx.globalAlpha=.85;bctx.strokeStyle='#ffd36e';bctx.lineWidth=Math.max(2,T*.045);bctx.setLineDash([T*.12,T*.08]);rrect(bctx,px+T*.12,py+T*.12,T*.76,T*.76,Math.max(4,T*.1));bctx.stroke();bctx.setLineDash([]);
+  bctx.globalAlpha=.95;bctx.fillStyle='#fff2b5';bctx.font='900 '+Math.max(11,Math.round(T*.28))+'px system-ui';bctx.textAlign='center';bctx.textBaseline='middle';bctx.fillText('↔',px+T*.5,py+T*.52);bctx.restore();
 }
 function advanceMovingWalls(){
   if(!movingWalls.length||won||movingWallAnimating)return;
@@ -3960,6 +4231,7 @@ function drawPortalTile(p,t){
   bctx.strokeStyle=p.id==='A'?'#7cf3ff':'#d6a4ff';bctx.lineWidth=Math.max(2,T*.07);
   bctx.setLineDash([T*.16,T*.1]);bctx.beginPath();bctx.ellipse(0,0,T*.31*pulse,T*.22*pulse,0,0,Math.PI*2);bctx.stroke();
   bctx.setLineDash([]);bctx.globalAlpha=.42;bctx.fillStyle=p.id==='A'?'#43d8ff':'#ae62ff';bctx.beginPath();bctx.ellipse(0,0,T*.22,T*.14,0,0,Math.PI*2);bctx.fill();
+  bctx.rotate(-t/(p.id==='A'?950:-950));bctx.globalAlpha=.96;bctx.fillStyle='#f6fdff';bctx.font='900 '+Math.max(10,Math.round(T*.24))+'px system-ui';bctx.textAlign='center';bctx.textBaseline='middle';bctx.fillText(p.id,0,1);
   bctx.restore();
 }
 function portalBurst(x,y,id){
@@ -4074,6 +4346,12 @@ let onlineDuelMode=false,onlineDuelSession=null,quickMatchSearch=null;
 let crystalMode=false,crystals=[],currentCrystalLayout=null,currentCrystalPool=null,crystalGoalWarned=false;
 let chainMode=false,currentChainPool=null,currentChainPlan=null,chainPlan=[],chainPathKeys=[],chainCurrentStep=0,chainMaxCombo=1,chainReactions=0,chainAutoMoves=0,chainCurrentCombo=1,chainAutoActive=false,chainAutoExecuting=false,chainAutoQueue=[];
 let reactorMode=false,currentReactorPool=null,currentReactorPlan=null,reactorGates=[],reactorHits=0,reactorPenalty=0,reactorLastHitAt=0;
+function reactorImpactLabel(upper=false){
+  const label=ml('Darbe','Impact','Treffer','Impacto','Impacto','衝突');
+  return upper&&typeof label.toLocaleUpperCase==='function'?label.toLocaleUpperCase(contentLang(LANG)):label;
+}
+function reactorImpactResultLabel(){return ml('Lazer Darbesi','Laser Impacts','Lasertreffer','Impactos de láser','Impactos de laser','レーザー衝突');}
+
 let campaignFeature='';
 function crystalActive(){return crystalMode||campaignFeature==='crystal';}
 function chainActive(){return chainMode||campaignFeature==='chain';}
@@ -4096,6 +4374,7 @@ const LAB_COMPONENTS=[
   {id:'stabilizer',icon:'⚛️',tr:'Stabilizatör',en:'Stabilizer',colors:['#91f2b4','#32bd78','#e8fff0']}
 ];
 function labComponentSpec(type,index=0){return LAB_COMPONENTS.find(x=>x.id===type)||LAB_COMPONENTS[index%LAB_COMPONENTS.length];}
+function labComponentTrainingToken(type){const spec=labComponentSpec(type);return '<span class="mxTrainingToken '+spec.id+'" aria-label="'+(LANG==='tr'?spec.tr:spec.en)+'">'+(spec.id==='stabilizer'?'<i></i>':'')+'</span>'; }
 function labComponentHud(items=crystals){
   const list=(items&&items.length)?items:LAB_COMPONENTS.map(x=>({type:x.id,collected:false}));
   return list.map((c,i)=>labComponentSpec(c.type,i).icon+(c.collected?'✓':'○')).join(' ');
@@ -4510,11 +4789,11 @@ function reactorCopy(){
   return tr?{
     title:'REAKTÖR KAÇIŞI',sub:'Lazerler kapanınca geç ve molekülü tamamla',difficulty:'ZORLUK HAVUZU',mixed:'KARIŞIK · BÖLÜM 41–'+LEVELS.length,medium:'ORTA · BÖLÜM 41–100',hard:'ZOR · BÖLÜM 121–'+LEVELS.length,
     rules:'Aktif lazer geçici duvar gibi davranır. Atom lazerin bir kare önüne kadar kayar; oradan yön değiştirip etrafından dolaşabilirsin. Yalnızca lazere bitişikken ışına hamle yapmak 3 saniye ceza ekler. Süre 90 saniyedir.',start:'BAŞLAT',cancel:'VAZGEÇ',complete:'REAKTÖRDEN KAÇTIN!',timeUp:'SÜRE DOLDU',
-    hits:'Lazer Darbesi',penalty:'Ceza',time:'Süre',moves:'Hamle',retry:'TEKRAR DENE',newGame:'YENİ HARİTA',menu:'BONUS LAB',quitTitle:'REAKTÖR KAÇIŞI BİTİRİLSİN Mİ?',quit:'ÇIKIŞ',stay:'DEVAM ET',noHint:'Reaktör Kaçışında ipucu kapalı.',blocked:'Lazere temas ettin! +3 saniye.'
+    hits:reactorImpactResultLabel(),penalty:'Ceza',time:'Süre',moves:'Hamle',retry:'TEKRAR DENE',newGame:'YENİ HARİTA',menu:'BONUS LAB',quitTitle:'REAKTÖR KAÇIŞI BİTİRİLSİN Mİ?',quit:'ÇIKIŞ',stay:'DEVAM ET',noHint:'Reaktör Kaçışında ipucu kapalı.',blocked:'Lazere temas ettin! +3 saniye.'
   }:{
     title:'REACTOR ESCAPE',sub:'Move while lasers are open and complete the molecule',difficulty:'DIFFICULTY POOL',mixed:'MIXED · LEVELS 41–'+LEVELS.length,medium:'MEDIUM · LEVELS 41–100',hard:'HARD · LEVELS 101–'+LEVELS.length,
     rules:'An active laser behaves like a temporary wall. The atom slides to the square immediately before it, allowing a route around the beam. Only pushing into the beam from an adjacent square adds a 3-second penalty. The limit is 90 seconds.',start:'START',cancel:'CANCEL',complete:'REACTOR ESCAPED!',timeUp:'TIME UP',
-    hits:'Laser Hits',penalty:'Penalty',time:'Time',moves:'Moves',retry:'TRY AGAIN',newGame:'NEW BOARD',menu:'BONUS LAB',quitTitle:'END REACTOR ESCAPE?',quit:'QUIT',stay:'KEEP PLAYING',noHint:'Hints are disabled in Reactor Escape.',blocked:'Laser contact! +3 seconds.'
+    hits:reactorImpactResultLabel(),penalty:'Penalty',time:'Time',moves:'Moves',retry:'TRY AGAIN',newGame:'NEW BOARD',menu:'BONUS LAB',quitTitle:'END REACTOR ESCAPE?',quit:'QUIT',stay:'KEEP PLAYING',noHint:'Hints are disabled in Reactor Escape.',blocked:'Laser contact! +3 seconds.'
   };
 }
 function buildReactorPlan(levelIndex){
@@ -4553,7 +4832,7 @@ function reactorFirstActiveGate(cells,t=performance.now()){
   }
   return null;
 }
-function reactorCounterText(){return campaignFeature==='reactor'?('☢️ DARBE '+reactorHits):('☢️ DARBE '+reactorHits+' · +'+reactorPenalty+' sn');}
+function reactorCounterText(){const label=reactorImpactLabel(true);return campaignFeature==='reactor'?('☢️ '+label+' '+reactorHits):('☢️ '+label+' '+reactorHits+' · +'+reactorPenalty+' sn');}
 function drawReactorGate(g,t){
   const cx=(g.x+.5)*T,cy=(g.y+.5)*T,elapsed=Math.max(0,t-levelStartT),cycle=(elapsed+g.phase)%g.period;
   const active=cycle>=g.safeMs,warning=!active&&cycle>=Math.max(0,g.safeMs-260),pulse=.72+.28*Math.sin(t/90+g.phase);
@@ -4599,7 +4878,7 @@ function openReactorSetup(){
 function startReactorChallenge(levelIndex,newPlan){if(newPlan||!currentReactorPlan)currentReactorPlan=buildReactorPlan(levelIndex);startLevel(levelIndex,'reactor');}
 function resetReactorUi(){
   reactorMode=false;currentReactorPool=null;currentReactorPlan=null;reactorGates=[];reactorHits=0;reactorPenalty=0;reactorLastHitAt=0;duelTimerText='';
-  const rc=$('#reactorCounter');if(rc){rc.classList.remove('on','hit');rc.textContent='☢️ DARBE 0';}
+  const rc=$('#reactorCounter');if(rc){rc.classList.remove('on','hit');rc.textContent='☢️ '+reactorImpactLabel(true)+' 0';}
   const dt=$('#duelTimer');if(dt){dt.classList.remove('on','urgent');dt.textContent='00:00.0';}
   if(scr.game)scr.game.classList.remove('reactorMode');
   ['#btnHint','#btnRestart','#btnGear','#btnLab','#btnMols','#btnAchv'].forEach(id=>{const el=$(id);if(el)el.disabled=false;});
@@ -4698,7 +4977,7 @@ function resetDuelUi(){
   if(scr.game)scr.game.classList.remove('duelP1','duelP2','crystalMode','chainMode','reactorMode');
   crystalMode=false;crystals=[];crystalGoalWarned=false;const cc=$('#crystalCounter');if(cc){cc.classList.remove('on');cc.textContent=labComponentHud();}
   chainMode=false;chainPlan=[];chainPathKeys=[];chainCurrentStep=0;chainMaxCombo=1;chainReactions=0;chainAutoMoves=0;chainCurrentCombo=1;chainAutoActive=false;chainAutoExecuting=false;chainAutoQueue=[];const ch=$('#chainCounter');if(ch){ch.classList.remove('on','hot');ch.textContent='⚡ COMBO x1';}
-  reactorMode=false;reactorGates=[];reactorHits=0;reactorPenalty=0;reactorLastHitAt=0;const rc=$('#reactorCounter');if(rc){rc.classList.remove('on','hit');rc.textContent='☢️ DARBE 0';}
+  reactorMode=false;reactorGates=[];reactorHits=0;reactorPenalty=0;reactorLastHitAt=0;const rc=$('#reactorCounter');if(rc){rc.classList.remove('on','hit');rc.textContent='☢️ '+reactorImpactLabel(true)+' 0';}
   ['#btnHint','#btnRestart','#btnGear','#btnLab','#btnMols','#btnAchv'].forEach(id=>{const el=$(id);if(el)el.disabled=false;});
 }
 function onlineDuelCopy(){
@@ -4874,7 +5153,7 @@ function drawOnlineSpectatorFrame(now){const s=onlineDuelSession,cv=$('#onlineLi
   for(let y=0;y<H;y++)for(let x=0;x<W;x++){const wall=level.g[y]&&level.g[y][x]==='1';ctx.fillStyle=wall?'rgba(130,145,180,.72)':((x+y)%2?'rgba(255,255,255,.060)':'rgba(255,255,255,.028)');ctx.fillRect(ox+x*scale+1.5,oy+y*scale+1.5,scale-3,scale-3);if(wall){ctx.strokeStyle='rgba(255,255,255,.27)';ctx.lineWidth=1.5;ctx.strokeRect(ox+x*scale+2.5,oy+y*scale+2.5,scale-5,scale-5);}}
   const crystalRows=live&&Array.isArray(live.crystals)?live.crystals:[];crystalRows.filter(c=>!c.collected).forEach(c=>{const cx=ox+(Number(c.x)+.5)*scale,cy=oy+(Number(c.y)+.5)*scale;ctx.save();ctx.fillStyle='rgba(255,220,92,.92)';ctx.shadowColor='#ffd85c';ctx.shadowBlur=14;ctx.beginPath();ctx.moveTo(cx,cy-scale*.18);ctx.lineTo(cx+scale*.15,cy);ctx.lineTo(cx,cy+scale*.18);ctx.lineTo(cx-scale*.15,cy);ctx.closePath();ctx.fill();ctx.restore();});
   atomRows.forEach((a,i)=>{const cx=ox+(Number(a.x)+.5)*scale,cy=oy+(Number(a.y)+.5)*scale,r=scale*.34,col=onlineLiveAtomColor(a.e);if(i===selected){ctx.save();ctx.strokeStyle='#ffd23f';ctx.lineWidth=3;ctx.shadowColor='#ffd23f';ctx.shadowBlur=15;ctx.setLineDash([7,5]);ctx.beginPath();ctx.arc(cx,cy,r+scale*.11+Math.sin(now/130)*2,0,Math.PI*2);ctx.stroke();ctx.restore();if(anim&&i===moving)drawOnlineSpectatorArrow(ctx,cx,cy,scale,anim.direction,now);}ctx.save();ctx.shadowColor=col;ctx.shadowBlur=i===moving?18:10;ctx.fillStyle=col;ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fill();ctx.restore();ctx.strokeStyle=a.frozen?'#c9f5ff':(a.fire?'#ffb257':(a.lightning?'#8fefff':(a.zombie?'#8cff66':'rgba(255,255,255,.62)')));ctx.lineWidth=a.frozen||a.fire||a.lightning||a.zombie?3:1.6;ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.stroke();ctx.fillStyle='#fff';ctx.font='900 '+Math.max(14,Math.floor(scale*.36))+'px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(String(a.e||''),cx,cy+1);});
-  const mv=$('#onlineLiveMoves');if(mv){const moveCount=live?Number(live.moves||0):(room.liveMove?Number(room.liveMove.moves||0):0);mv.textContent=(LANG==='tr'?'Hamle ':'Move ')+moveCount+(live&&live.gameType==='chain'?' · x'+Number(live.maxCombo||1):'')+(live&&live.gameType==='reactor'?' · '+(LANG==='tr'?'Darbe ':'Hits ')+Number(live.hits||0):'');}
+  const mv=$('#onlineLiveMoves');if(mv){const moveCount=live?Number(live.moves||0):(room.liveMove?Number(room.liveMove.moves||0):0);mv.textContent=(LANG==='tr'?'Hamle ':'Move ')+moveCount+(live&&live.gameType==='chain'?' · x'+Number(live.maxCombo||1):'')+(live&&live.gameType==='reactor'?' · '+reactorImpactLabel(false)+' '+Number(live.hits||0):'');}
   const dir=$('#onlineMoveDirection');if(dir){if(anim){const names=LANG==='tr'?['YUKARI','SAĞ','AŞAĞI','SOL']:['UP','RIGHT','DOWN','LEFT'];dir.textContent='⚡ '+String(atomRows[moving]&&atomRows[moving].e||'')+' · '+names[anim.direction];dir.classList.add('on');}else dir.classList.remove('on');}
   if(s.spectatorAnim){s.spectatorRaf=requestAnimationFrame(drawOnlineSpectatorFrame);}else{s.spectatorRaf=0;}}
 function renderOnlineLiveBoard(room){const cv=$('#onlineLiveBoard'),s=onlineDuelSession;if(!cv||!room||!s)return;s.spectatorRoom=room;if(!s.spectatorAtoms||!s.spectatorAtoms.length)s.spectatorAtoms=onlineSpectatorBaseAtoms(room);const move=room.liveMove&&Number(room.liveMove.round)===Number(room.round)&&Number(room.liveMove.turn)===Number(room.turn)?room.liveMove:null;const seq=Math.max(0,Number(move&&move.seq)||0);if(move&&seq>(s.lastMoveSeq||0)){s.lastMoveSeq=seq;const atomIndex=Math.max(0,Math.min((s.spectatorAtoms.length||1)-1,Number(move.atomIndex)||0));if(s.spectatorAtoms[atomIndex]){s.spectatorAtoms[atomIndex].x=Number(move.fromX);s.spectatorAtoms[atomIndex].y=Number(move.fromY);}s.spectatorSelected=atomIndex;s.spectatorAnim={atomIndex,fromX:Number(move.fromX),fromY:Number(move.fromY),toX:Number(move.toX),toY:Number(move.toY),direction:Math.max(0,Math.min(3,Number(move.direction)||0)),duration:Math.max(120,Math.min(1200,Number(move.duration)||320)),startedAt:performance.now()};if(s.spectatorRaf)cancelAnimationFrame(s.spectatorRaf);s.spectatorRaf=requestAnimationFrame(drawOnlineSpectatorFrame);return;}if(!s.spectatorAnim){const incoming=onlineSpectatorBaseAtoms(room);s.spectatorAtoms=incoming.map(a=>({...a}));if(s.spectatorRaf)cancelAnimationFrame(s.spectatorRaf);s.spectatorRaf=requestAnimationFrame(drawOnlineSpectatorFrame);}}
@@ -5155,11 +5434,12 @@ function startDaily(){
   $('#lvPill').textContent=t('todaysExpLabel');
   say(t('dailyIntro'),'happy',3500);
 }
-function goToLevel(i){
+function goToLevel(i,expectedKey=''){
+  i=resolveCampaignLevelIndex(i,expectedKey);
   const tr=$('#levelTransition');
   tr.classList.add('on');
   setTimeout(()=>{
-    startLevel(i);
+    startLevel(i,'campaign',expectedKey);
     setTimeout(()=>tr.classList.remove('on'),30);
   },190);
 }
@@ -5276,15 +5556,22 @@ function showFoundationBriefing(level,index){
   requestAnimationFrame(()=>bindTap('#mFoundationGo',()=>{markOnboardingSeen(index);closeModal();}));
 }
 
-function startLevel(i,mode='campaign'){
+function startLevel(i,mode='campaign',expectedKey=''){
+  if(mode==='campaign')i=resolveCampaignLevelIndex(i,expectedKey);
   mxTrack('level_started',{level:Number(i)+1,mode:String(mode||'campaign')});
   dailyMode=mode==='daily';duelMode=mode==='duel';
-  if(scr&&scr.game)scr.game.classList.toggle('dailyMode',dailyMode);
   const activeDuelRound=duelMode?duelCurrentRound():null;
   crystalMode=mode==='crystal'||!!(duelMode&&activeDuelRound&&activeDuelRound.gameType==='crystal');
   chainMode=mode==='chain'||!!(duelMode&&activeDuelRound&&activeDuelRound.gameType==='chain');
   reactorMode=mode==='reactor'||!!(duelMode&&activeDuelRound&&activeDuelRound.gameType==='reactor');
-  lv=i;LV=(dailyMode&&currentDailyLevel)?currentDailyLevel:LEVELS[i];campaignFeature=(mode==='campaign'&&!dailyMode&&!duelMode&&LV.b)?LV.b:'';mid=LV.m;curMol=MOLS[mid];
+  lv=i;LV=(dailyMode&&currentDailyLevel)?currentDailyLevel:LEVELS[i];
+  if(!LV||!LV.m||!MOLS[LV.m]){
+    console.error('[Moleculox] Invalid campaign level selection',{index:i,expectedKey,level:LV});
+    const tr=$('#levelTransition');if(tr)tr.classList.remove('on');
+    show('levels');prop(LANG==='tr'?'Bölüm verisi yenileniyor…':'Refreshing level data…',2200);
+    return;
+  }
+  campaignFeature=(mode==='campaign'&&!dailyMode&&!duelMode&&LV.b)?LV.b:'';mid=LV.m;curMol=MOLS[mid];
   document.body.classList.toggle('mxAdvancedLab',mode==='campaign'&&!dailyMode&&i>=181);
   document.body.classList.toggle('mxMasterLab',mode==='campaign'&&!dailyMode&&i>=201);
   levelStartT=performance.now();
@@ -5326,11 +5613,17 @@ function startLevel(i,mode='campaign'){
   reactorGates=reactorOn?reactorPlan.map(g=>({...g})):[];reactorHits=0;reactorPenalty=0;reactorLastHitAt=0;if(reactorMode&&!duelMode&&!currentReactorPlan)currentReactorPlan=reactorGates.map(g=>({...g}));
   let unifiedBriefingQueued=false;
   // Unified first-use onboarding: every special atom, board mechanic and
-  // campaign objective is explained in the same blocking briefing before play.
-  if(mode==='campaign'&&!duelMode&&!crystalMode&&!chainMode&&!reactorMode&&save.tutorialTips!==false){
+  // campaign objective is explained in the same compact briefing before play.
+  // Direct Bonus Lab modes now use the same system instead of only a short
+  // speech bubble, while Duel remains uninterrupted.
+  if(!duelMode&&save.tutorialTips!==false){
     // Tutorials are unlocked progressively. Nothing is marked as seen until
-    // the player actually completes the short experiment.
+    // the player explicitly continues from the quick guide or completes the lesson.
     const newMechanics=[];
+    if(crystalMode&&!save.seenClassicCatalystTutorialV2)newMechanics.push('classicCatalyst');
+    else if(chainMode&&!save.seenClassicChainTutorialV2)newMechanics.push('classicChain');
+    else if(reactorMode&&!save.seenClassicReactorTutorialV2)newMechanics.push('classicReactor');
+    else if(mode==='campaign'){
     if(atoms.some(a=>a.frozen)&&!save.seenFrozen)newMechanics.push('frozen');
     if(atoms.some(a=>a.fire)&&!save.seenFire)newMechanics.push('fire');
     if(atoms.some(a=>a.lightning)&&!save.seenLightning)newMechanics.push('lightning');
@@ -5346,8 +5639,9 @@ function startLevel(i,mode='campaign'){
     if(i>=153&&!save.seenPrecisionTutorialV2)newMechanics.push('precision');
     if(campaignFeature==='crystal'&&!save.seenClassicCatalystTutorialV2)newMechanics.push('classicCatalyst');
     if(campaignFeature==='chain'&&!save.seenClassicChainTutorialV2)newMechanics.push('classicChain');
-    if(campaignFeature==='reactor'&&!save.seenClassicReactorTutorialV2)newMechanics.push('classicReactor');
-    if(newMechanics.length){unifiedBriefingQueued=true;setTimeout(()=>showMechanicBriefing(newMechanics,{automatic:true,level:i}),350);}
+      if(campaignFeature==='reactor'&&!save.seenClassicReactorTutorialV2)newMechanics.push('classicReactor');
+    }
+    if(newMechanics.length){unifiedBriefingQueued=true;setTimeout(()=>showMechanicFirstUse(newMechanics,{automatic:true,level:i,mode}),350);}
   }
   for(const f of atoms){
     if(!f.fire)continue;
@@ -5380,30 +5674,30 @@ function startLevel(i,mode='campaign'){
   _bf.style.borderColor=_tn+'99';
   _bf.style.boxShadow='0 0 0 1px rgba(0,0,0,.5),0 18px 40px rgba(0,0,0,.55),0 0 36px '+_tn+'66,inset 0 0 22px rgba(0,0,0,.55)';
   updateCoins();updateBadge();updateHUD();
-  closeModal();show('game');syncHammerUi();syncPrecisionUi();syncBarrierUi();
+  closeModal();show('game');resetDrEPose();{const startPose=(crystalMode||chainMode||reactorMode||campaignFeature)?'experiment':'clipboard';setDrEPose(startPose,5000,startPose==='experiment'?7:3,true);}syncHammerUi();syncPrecisionUi();syncBarrierUi();
   if(mode==='campaign'&&!duelMode&&!dailyMode&&!save.seenGoalGlowGuide&&tut!==0){
     save.seenGoalGlowGuide=true;persist();
     setTimeout(()=>say(ml('💡 GOAL kartındaki yavaş mavi ışık hedefi hatırlatır. Işık hızlanıp turuncuya dönerse molekül tamamlanmaya çok yakındır — yalnızca bir doğru bağ kalmıştır!','💡 The slow blue GOAL glow reminds you of the target. If it speeds up and turns warm orange, the molecule is nearly complete — only one correct bond remains!','💡 Das langsame blaue Leuchten der ZIEL-Karte erinnert dich an das Ziel. Wird es schneller und warmorange, fehlt nur noch eine richtige Bindung!','💡 El brillo azul lento de la tarjeta OBJETIVO recuerda la meta. Si acelera y se vuelve naranja, solo falta un enlace correcto.','💡 O brilho azul lento do cartão OBJETIVO lembra a meta. Se acelerar e ficar laranja, falta apenas uma ligação correta.','💡 GOALカードのゆっくりした青い光は目標を示します。光が速くなりオレンジ色になったら、正しい結合はあと1つです。'),'talk',6200,'glow'),4200);
   }
-  if(!unifiedBriefingQueued&&save.tutorialTips!==false&&breakableWalls.size&&!save.seenHammerWall){save.seenHammerWall=true;persist();setTimeout(()=>say(ml('🔨 Çatlak duvar! Çekiç düğmesini seçip duvara dokun.','🔨 Cracked wall! Select the Hammer button, then tap the wall.','🔨 Rissige Wand! Wähle den Hammer und tippe auf die Wand.','🔨 ¡Pared agrietada! Selecciona el martillo y toca la pared.','🔨 Parede rachada! Selecione o martelo e toque na parede.','🔨 ひび割れた壁！ハンマーを選び、壁をタップしてください。'),'talk',5200,'glow'),900);}
-  if(!unifiedBriefingQueued&&save.tutorialTips!==false&&portalPairs.size&&!save.seenPortal){save.seenPortal=true;persist();setTimeout(()=>say(ml('🌀 Portal! Atom portalın üzerinde durursa eş portalın boş karesine ışınlanır.','🌀 Portal! When an atom stops on a portal, it teleports to the empty paired portal.','🌀 Portal! Stoppt ein Atom darauf, wird es zum freien Partnerportal teleportiert.','🌀 ¡Portal! Cuando un átomo se detiene encima, se teletransporta al portal enlazado libre.','🌀 Portal! Quando um átomo para nele, é teleportado para o portal parceiro livre.','🌀 ポータル！原子が上で止まると、空いている対のポータルへ移動します。'),'talk',5600,'glow'),breakableWalls.size?6200:900);}
-  if(!unifiedBriefingQueued&&save.tutorialTips!==false&&oneWayTiles.size&&!save.seenOneWay){save.seenOneWay=true;persist();setTimeout(()=>say(ml('➡️ Tek yönlü zemin! Atom bu karodan yalnız okun gösterdiği yönde geçebilir. Ters yönde duvar gibi davranır.','➡️ One-way floor! An atom can cross this tile only in the arrow direction. From the opposite direction it acts like a wall.','➡️ Einbahnfeld! Ein Atom kann es nur in Pfeilrichtung überqueren; von der Gegenseite wirkt es wie eine Wand.','➡️ ¡Casilla de un solo sentido! El átomo solo puede cruzarla en la dirección de la flecha.','➡️ Piso de mão única! O átomo só atravessa na direção da seta; pelo lado oposto funciona como parede.','➡️ 一方通行マス！原子は矢印方向にだけ通れ、逆方向では壁として働きます。'),'talk',6200,'glow'),portalPairs.size?6900:1100);}
-  if(!unifiedBriefingQueued&&save.tutorialTips!==false&&movingWalls.length&&!save.seenMovingWall){save.seenMovingWall=true;persist();setTimeout(()=>say(ml('⚙️ Hareketli duvar! Her hamleden sonra rayındaki diğer konuma geçer. Zamanlamanı buna göre planla.','⚙️ Moving wall! After each move it shifts to the other point on its rail. Plan your timing.','⚙️ Bewegliche Wand! Nach jedem Zug wechselt sie zur anderen Position auf ihrer Schiene.','⚙️ ¡Pared móvil! Después de cada movimiento cambia a la otra posición de su riel.','⚙️ Parede móvel! Após cada jogada ela muda para a outra posição do trilho.','⚙️ 移動壁！1手ごとにレール上の反対位置へ移動します。'),'talk',6200,'glow'),oneWayTiles.size?7600:1200);}
-  if(!unifiedBriefingQueued&&save.tutorialTips!==false&&pressureSystems.length&&!save.seenPressureDoor){save.seenPressureDoor=true;persist();setTimeout(()=>say(ml('🔘 Basınç düğmesi! Bir atom düğmenin üzerinde durduğunda bağlı kapı açılır. Atom ayrılırsa kapı yeniden kapanır.','🔘 Pressure switch! The linked door opens while an atom stands on the switch, then closes when it leaves.','🔘 Druckschalter! Die verbundene Tür bleibt offen, solange ein Atom auf dem Schalter steht.','🔘 ¡Interruptor de presión! La puerta enlazada permanece abierta mientras haya un átomo encima.','🔘 Botão de pressão! A porta ligada fica aberta enquanto um átomo estiver sobre o botão.','🔘 圧力スイッチ！原子がスイッチ上にいる間だけ、連動する扉が開きます。'),'talk',6500,'glow'),movingWalls.length?8300:1300);}
-  if(!unifiedBriefingQueued&&save.tutorialTips!==false&&atoms.some(a=>a.fragile)&&!save.seenFragileAtom){save.seenFragileAtom=true;persist();setTimeout(()=>say(ml('💎 Kırılgan atom! Her sert duruşta çatlar. Üçüncü darbede parçalanır ve deney yeniden başlar. Hamlelerini dikkatli planla.','💎 Fragile atom! Every hard stop adds a crack. On the third impact it shatters and the experiment restarts. Plan carefully.','💎 Zerbrechliches Atom! Jeder harte Stopp verursacht einen Riss. Beim dritten Aufprall zerbricht es.','💎 ¡Átomo frágil! Cada frenada fuerte añade una grieta. Al tercer impacto se rompe.','💎 Átomo frágil! Cada parada forte causa uma rachadura. No terceiro impacto ele se quebra.','💎 壊れやすい原子！強く止まるたびにひびが入り、3回目の衝突で壊れます。'),'talk',6800,'glow'),pressureSystems.length?9200:1500);}
-  if(!unifiedBriefingQueued&&save.tutorialTips!==false&&linkedPairs.length&&!save.seenLinkedAtoms){save.seenLinkedAtoms=true;persist();setTimeout(()=>say(ml('🔗 Zincirli atomlar! Bağlı atomlardan birini hareket ettirdiğinde eşi de aynı yönde hareket eder. İkisinin yolunu birlikte planla.','🔗 Linked atoms! Moving either atom also moves its partner in the same direction. Plan both paths together.','🔗 Gekoppelte Atome! Bewegst du eines, bewegt sich sein Partner in dieselbe Richtung. Plane beide Wege.','🔗 ¡Átomos enlazados! Al mover uno, su compañero también se mueve en la misma dirección.','🔗 Átomos ligados! Ao mover um deles, o parceiro também se move na mesma direção.','🔗 連結原子！片方を動かすと、相方も同じ方向へ動きます。両方の経路を考えましょう。'),'talk',6800,'glow'),atoms.some(a=>a.fragile)?10000:1600);}
+  if(!unifiedBriefingQueued&&save.tutorialTips!==false&&breakableWalls.size&&!save.seenHammerWall){save.seenHammerWall=true;persist();setTimeout(()=>say('🔨 '+t('hammerDesc'),'talk',6200,'glow'),900);}
+  if(!unifiedBriefingQueued&&save.tutorialTips!==false&&portalPairs.size&&!save.seenPortal){save.seenPortal=true;persist();setTimeout(()=>say('🌀 '+t('portalDesc'),'talk',6200,'glow'),breakableWalls.size?6200:900);}
+  if(!unifiedBriefingQueued&&save.tutorialTips!==false&&oneWayTiles.size&&!save.seenOneWay){save.seenOneWay=true;persist();setTimeout(()=>say('➡️ '+t('oneWayDesc'),'talk',6200,'glow'),portalPairs.size?6900:1100);}
+  if(!unifiedBriefingQueued&&save.tutorialTips!==false&&movingWalls.length&&!save.seenMovingWall){save.seenMovingWall=true;persist();setTimeout(()=>say('⚙️ '+t('movingWallDesc'),'talk',6200,'glow'),oneWayTiles.size?7600:1200);}
+  if(!unifiedBriefingQueued&&save.tutorialTips!==false&&pressureSystems.length&&!save.seenPressureDoor){save.seenPressureDoor=true;persist();setTimeout(()=>say('🔘 '+t('pressureDoorDesc'),'talk',7000,'glow'),movingWalls.length?8300:1300);}
+  if(!unifiedBriefingQueued&&save.tutorialTips!==false&&atoms.some(a=>a.fragile)&&!save.seenFragileAtom){save.seenFragileAtom=true;persist();setTimeout(()=>say('💎 '+t('fragileDesc'),'talk',6800,'glow'),pressureSystems.length?9200:1500);}
+  if(!unifiedBriefingQueued&&save.tutorialTips!==false&&linkedPairs.length&&!save.seenLinkedAtoms){save.seenLinkedAtoms=true;persist();setTimeout(()=>say('🔗 '+t('linkedDesc'),'talk',6800,'glow'),atoms.some(a=>a.fragile)?10000:1600);}
   requestAnimationFrame(()=>drawMol($('#goalCv'),curMol,false));
   const dp=$('#dpad');dp.classList.remove('pulse');
   if(duelMode){
     $('#tutOverlay').classList.remove('on');
     const dc=duelCopy();say((duelState.turn===0?'🔴 ':'🔵 ')+duelState.players[duelState.turn]+' · '+(crystalMode?'🧪 '+dc.crystal:(chainMode?'⚡ '+dc.chain:(reactorMode?'☢️ '+dc.reactor:'⚛️ '+dc.classic)))+' · '+dc.round+' '+(duelState.round+1)+'/'+DUEL_MAX_ROUNDS,'happy',3900,'glow');
   }
-  else if(crystalMode){$('#tutOverlay').classList.remove('on');say('🧪 '+crystalCopy().sub,'happy',4200,'glow');}
-  else if(chainMode){$('#tutOverlay').classList.remove('on');say('⚡ '+chainCopy().sub,'happy',4200,'glow');}
-  else if(reactorMode){$('#tutOverlay').classList.remove('on');say('☢️ '+reactorCopy().sub,'happy',4200,'glow');}
-  else if(campaignFeature==='crystal'){say('🧪 '+(ml('Özel Classic: üç laboratuvar bileşenini topla, sonra molekülü kur.','Special Classic: collect all three lab components, then build the molecule.','Spezial-Classic: Sammle alle drei Laborkomponenten und baue dann das Molekül.','Classic especial: recoge los tres componentes y después construye la molécula.','Classic especial: colete os três componentes e depois monte a molécula.','スペシャルClassic：3つのラボ部品を集めてから分子を完成させよう。')),'happy',5000,'glow');}
-  else if(campaignFeature==='chain'){say('⚡ '+(ml('Özel Classic: parlayan doğru hamle zincir reaksiyonu başlatır.','Special Classic: the glowing correct move starts a chain reaction.','Spezial-Classic: Der leuchtende richtige Zug startet eine Kettenreaktion.','Classic especial: el movimiento correcto que brilla inicia una reacción en cadena.','Classic especial: o movimento correto brilhante inicia uma reação em cadeia.','スペシャルClassic：光る正しい手が連鎖反応を開始します。')),'happy',5000,'glow');}
-  else if(campaignFeature==='reactor'){say('☢️ '+(ml('Özel Classic: lazerlerin güvenli fazını kullanarak molekülü kur.','Special Classic: use the safe laser phases to build the molecule.','Spezial-Classic: Nutze die sicheren Laserphasen, um das Molekül zu bauen.','Classic especial: usa las fases seguras de los láseres para construir la molécula.','Classic especial: use as fases seguras dos lasers para montar a molécula.','スペシャルClassic：レーザーの安全なタイミングを使って分子を作ろう。')),'happy',5000,'glow');}
+  else if(crystalMode){$('#tutOverlay').classList.remove('on');if(!unifiedBriefingQueued)say('🧪 '+crystalCopy().sub,'happy',4200,'glow');}
+  else if(chainMode){$('#tutOverlay').classList.remove('on');if(!unifiedBriefingQueued)say('⚡ '+chainCopy().sub,'happy',4200,'glow');}
+  else if(reactorMode){$('#tutOverlay').classList.remove('on');if(!unifiedBriefingQueued)say('☢️ '+reactorCopy().sub,'happy',4200,'glow');}
+  else if(campaignFeature==='crystal'){say('🧪 '+t('classicCatalystDesc'),'happy',6500,'glow');}
+  else if(campaignFeature==='chain'){say('⚡ '+t('classicChainDesc'),'happy',6500,'glow');}
+  else if(campaignFeature==='reactor'){say('☢️ '+t('classicReactorDesc'),'happy',6500,'glow');}
   else if(tut===0){$('#tutOverlay').classList.add('on');}
   else if(!save.disc[mid]){
     say('<b>'+curMol.n+'</b> ('+curMol.f+')<br>'+curMol.fa,'talk',7000,'glow');
@@ -5467,7 +5761,7 @@ function loadTutorialPuzzle(tl){
   $('#goalFor').textContent=curMol.f;
   const _gc=$('#goalCard');_gc.classList.remove('goalPop');void _gc.offsetWidth;_gc.classList.add('goalPop');
   updateCoins();updateBadge();updateHUD();
-  closeModal();show('game');
+  closeModal();show('game');resetDrEPose();
   requestAnimationFrame(()=>drawMol($('#goalCv'),curMol,false));
   $('#dpad').classList.remove('pulse');
 }
@@ -5574,7 +5868,7 @@ function updateHUD(){
   const crystalOn=crystalActive(),chainOn=chainActive(),reactorOn=reactorActive();
   const cc=$('#crystalCounter');if(cc){cc.classList.toggle('on',crystalOn);cc.textContent=labComponentHud();}
   const ch=$('#chainCounter');if(ch){ch.classList.toggle('on',chainOn);ch.classList.toggle('hot',chainOn&&chainAutoActive);ch.textContent=chainOn?chainCounterText():'⚡ COMBO x1';}
-  const rc=$('#reactorCounter');if(rc){rc.classList.toggle('on',reactorOn);rc.textContent=reactorOn?reactorCounterText():'☢️ DARBE 0';}
+  const rc=$('#reactorCounter');if(rc){rc.classList.toggle('on',reactorOn);rc.textContent=reactorOn?reactorCounterText():('☢️ '+reactorImpactLabel(true)+' 0');}
   $('#btnUndo').disabled=!hist.length||won||chainAutoActive;
   const special=duelMode||chainMode||reactorMode;
   $('#btnHint').disabled=special;$('#btnRestart').disabled=duelMode;$('#btnGear').disabled=special;
@@ -5596,14 +5890,21 @@ function installGameFeelPolish(){
     #mxToolFx.barrier{font-size:38px;animation:mxBarrierBuild .62s ease-out both}
     .mxCoinCountFlow{display:inline-block;min-width:1.2em}
     .mxCoinRewardLine{position:relative;overflow:visible}
-    .mxFlyingCoin{position:fixed;z-index:10030;pointer-events:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;
+    .mxFlyingCoin{position:fixed;z-index:2147483002;pointer-events:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;
       color:#6b3d00;font:1000 10px/1 system-ui,-apple-system,sans-serif;
       background:radial-gradient(circle at 31% 24%,#fff 0 6%,transparent 7%),radial-gradient(circle at 35% 30%,#fff8c9 0 12%,#ffe36b 30%,#f6b72d 62%,#b96a08 100%);
-      border:1px solid #fff0a6;box-shadow:0 0 0 1px rgba(111,55,0,.8),inset 0 -2px 3px rgba(91,42,0,.62),0 0 13px rgba(255,202,55,.65);will-change:transform,opacity}
+      border:1px solid #fff0a6;box-shadow:0 0 0 1px rgba(111,55,0,.8),inset 0 -2px 3px rgba(91,42,0,.62),0 0 16px rgba(255,202,55,.95),0 0 28px rgba(90,224,255,.34);filter:drop-shadow(0 4px 4px rgba(0,0,0,.46));will-change:transform,opacity}
     .mxFlyingCoin::before{content:'M';position:relative;z-index:2;transform:scaleX(.88)}
-    .mxFlyingCoin::after{content:'';position:absolute;width:16px;height:7px;border:1px solid #55e5ff;border-radius:50%;transform:rotate(-24deg);box-shadow:0 0 5px rgba(79,216,255,.95)}
-    .mxCoinArrive{animation:mxCoinArrive .42s cubic-bezier(.2,.9,.25,1)}
-    @keyframes mxCoinArrive{0%{transform:scale(1)}40%{transform:scale(1.22);filter:brightness(1.35)}100%{transform:scale(1);filter:brightness(1)}}
+    .mxFlyingCoin::after{content:'';position:absolute;width:17px;height:8px;border:1px solid #55e5ff;border-radius:50%;transform:rotate(-24deg);box-shadow:0 0 6px rgba(79,216,255,.98)}
+    .mxCoinCounterPortal{position:fixed!important;z-index:2147483004!important;pointer-events:none!important;margin:0!important;opacity:1!important;visibility:visible!important;display:flex!important;transform:none;isolation:isolate;box-shadow:0 0 0 2px rgba(255,230,120,.38),0 0 22px rgba(255,201,65,.72),0 10px 28px rgba(0,0,0,.42)!important}
+    .mxCoinCounterPortal::after{content:'';position:absolute;inset:-14px;border-radius:22px;background:radial-gradient(circle,rgba(255,232,111,.42),transparent 68%);opacity:0;pointer-events:none}
+    .mxCoinCounterPortal.mxCoinArrive::after{animation:mxCoinVaultFlash .46s ease-out}
+    .mxCoinGainFloat{position:absolute;right:0;top:calc(100% + 4px);padding:4px 8px;border-radius:999px;background:rgba(28,18,3,.88);border:1px solid rgba(255,221,99,.62);color:#fff1a8;font:1000 11px/1 system-ui,-apple-system,sans-serif;white-space:nowrap;opacity:0;transform:translateY(4px);text-shadow:0 1px 4px #000}
+    .mxCoinCounterPortal.mxCoinDone .mxCoinGainFloat{animation:mxCoinGainFloat .8s cubic-bezier(.2,.82,.2,1) both}
+    .mxCoinArrive{animation:mxCoinArrive .46s cubic-bezier(.2,1.12,.25,1)}
+    @keyframes mxCoinArrive{0%{transform:scale(1)}36%{transform:scale(1.27) translateY(-2px);filter:brightness(1.48)}72%{transform:scale(.96) translateY(1px)}100%{transform:scale(1);filter:brightness(1)}}
+    @keyframes mxCoinVaultFlash{0%{opacity:0;transform:scale(.45)}28%{opacity:1}100%{opacity:0;transform:scale(1.45)}}
+    @keyframes mxCoinGainFloat{0%{opacity:0;transform:translateY(5px) scale(.9)}24%{opacity:1;transform:translateY(0) scale(1.05)}72%{opacity:1}100%{opacity:0;transform:translateY(-12px) scale(.98)}}
     body.mxImpact #gameBoard,body.mxImpact canvas#board{animation:mxBoardImpact .18s ease-out}
     @keyframes mxGoalBreath{0%,100%{filter:drop-shadow(0 0 0 rgba(105,235,255,0));transform:scale(1)}50%{filter:drop-shadow(0 0 11px rgba(105,235,255,.42));transform:scale(1.012)}}
     @keyframes mxGoalSuccess{0%{transform:scale(1);filter:brightness(1)}45%{transform:scale(1.07);filter:brightness(1.45) drop-shadow(0 0 18px rgba(255,224,100,.75))}100%{transform:scale(1);filter:brightness(1)}}
@@ -5676,32 +5977,36 @@ function animateResultCoins(amount){
   setTimeout(()=>flyMoleCoinsToCounter(amount,rewardLine||el),260);
 }
 function flyMoleCoinsToCounter(amount,source){
-  if(amount<=0||motionReduced())return;
-  const target=$('#coinChip')||$('#labCoinChip');if(!target||!source)return;
-  const sr=source.getBoundingClientRect(),tr=target.getBoundingClientRect();
-  if(!sr.width||!tr.width)return;
-  const count=Math.max(5,Math.min(14,Math.round(amount/18)+5));
+  if(amount<=0)return;
+  const realTarget=$('#coinChip')||$('#labCoinChip');if(!realTarget||!source)return;
+  const sr=source.getBoundingClientRect(),baseRect=realTarget.getBoundingClientRect();
+  if(!sr.width||!baseRect.width)return;
   const startBalance=Math.max(0,coinBalance()-amount);
   const mainNum=$('#coinChip span:last-child'),labNum=$('#labCoinChip span:last-child');
   if(mainNum)mainNum.textContent=startBalance.toLocaleString();if(labNum)labNum.textContent=startBalance.toLocaleString();
+  const portal=realTarget.cloneNode(true);portal.removeAttribute('id');portal.setAttribute('aria-hidden','true');portal.classList.add('mxCoinCounterPortal');
+  portal.style.left=baseRect.left+'px';portal.style.top=baseRect.top+'px';portal.style.width=baseRect.width+'px';portal.style.height=baseRect.height+'px';
+  const portalNum=portal.querySelector('span:last-child');if(portalNum)portalNum.textContent=startBalance.toLocaleString();
+  const gain=document.createElement('span');gain.className='mxCoinGainFloat';gain.textContent='+'+amount.toLocaleString();portal.appendChild(gain);document.body.appendChild(portal);
+  const tr=portal.getBoundingClientRect(),count=motionReduced()?1:Math.max(6,Math.min(16,Math.round(amount/16)+6));
+  const finish=()=>{if(mainNum)mainNum.textContent=coinBalance().toLocaleString();if(labNum)labNum.textContent=coinBalance().toLocaleString();if(portalNum)portalNum.textContent=coinBalance().toLocaleString();portal.classList.add('mxCoinDone');setTimeout(()=>portal.remove(),880);};
+  if(motionReduced()){portal.classList.add('mxCoinArrive');SFX.coin();finish();return;}
   for(let i=0;i<count;i++){
     const c=document.createElement('i');c.className='mxFlyingCoin';document.body.appendChild(c);
     const sx=sr.left+sr.width*.72+(Math.random()-.5)*34,sy=sr.top+sr.height*.55+(Math.random()-.5)*18;
-    const tx=tr.left+tr.width*.28,ty=tr.top+tr.height*.5;
-    c.style.left=(sx-11)+'px';c.style.top=(sy-11)+'px';c.style.opacity='0';
-    const delay=i*62,dur=620+Math.random()*170,arc=55+Math.random()*48;
+    const tx=tr.left+tr.width*.32,ty=tr.top+tr.height*.5;
+    c.style.left=(sx-12)+'px';c.style.top=(sy-12)+'px';c.style.opacity='0';
+    const delay=i*68,dur=720+Math.random()*170,arc=72+Math.random()*58;
     c.animate([
-      {transform:'translate3d(0,12px,0) scale(.55) rotate(0deg)',opacity:0},
-      {transform:'translate3d(0,0,0) scale(1.08) rotate(90deg)',opacity:1,offset:.16},
-      {transform:`translate3d(${(tx-sx)*.52}px,${(ty-sy)-arc}px,0) scale(.92) rotate(380deg)`,opacity:1,offset:.58},
-      {transform:`translate3d(${tx-sx}px,${ty-sy}px,0) scale(.38) rotate(760deg)`,opacity:.15}
-    ],{duration:dur,delay,easing:'cubic-bezier(.2,.72,.18,1)',fill:'forwards'}).onfinish=()=>{
-      c.remove();
-      const arrived=i+1,next=Math.round(startBalance+amount*(arrived/count));
-      if(mainNum)mainNum.textContent=next.toLocaleString();if(labNum)labNum.textContent=next.toLocaleString();
-      target.classList.remove('mxCoinArrive');void target.offsetWidth;target.classList.add('mxCoinArrive');
-      if(i===0||i===count-1||i%3===0)SFX.coin();
-      if(i===count-1){if(mainNum)mainNum.textContent=coinBalance().toLocaleString();if(labNum)labNum.textContent=coinBalance().toLocaleString();setTimeout(()=>target.classList.remove('mxCoinArrive'),480);}
+      {transform:'translate3d(0,14px,0) scale(.5) rotate(0deg)',opacity:0},
+      {transform:'translate3d(0,0,0) scale(1.16) rotate(90deg)',opacity:1,offset:.14},
+      {transform:`translate3d(${(tx-sx)*.50}px,${(ty-sy)-arc}px,0) scale(1.02) rotate(410deg)`,opacity:1,offset:.57},
+      {transform:`translate3d(${tx-sx}px,${ty-sy}px,0) scale(.34) rotate(820deg)`,opacity:.08}
+    ],{duration:dur,delay,easing:'cubic-bezier(.18,.72,.15,1)',fill:'forwards'}).onfinish=()=>{
+      c.remove();const arrived=i+1,next=Math.round(startBalance+amount*(arrived/count));
+      if(mainNum)mainNum.textContent=next.toLocaleString();if(labNum)labNum.textContent=next.toLocaleString();if(portalNum)portalNum.textContent=next.toLocaleString();
+      portal.classList.remove('mxCoinArrive');void portal.offsetWidth;portal.classList.add('mxCoinArrive');
+      if(i===0||i===count-1||i%3===0)SFX.coin();if(i===count-1)finish();
     };
   }
 }
@@ -5977,21 +6282,30 @@ function undo(){
   if(h.fullAtoms){atoms=h.fullAtoms.map(a=>({...a}));fragileFailure=false;if(h.chainState){chainCurrentStep=h.chainState.currentStep;chainMaxCombo=h.chainState.maxCombo;chainReactions=h.chainState.reactions;chainAutoMoves=h.chainState.autoMoves;}chainAutoActive=false;chainAutoQueue=[];chainCurrentCombo=1;}else{atoms[h.i].x=h.x;atoms[h.i].y=h.y;}
   if(crystalActive()&&h.crystalState)crystals.forEach((c,i)=>{c.collected=!!h.crystalState[i];});
   if(h.movingWallState)restoreMovingWalls(h.movingWallState);
+  setDrEPose('clipboard',3900,3);
   updatePressureDoors(false);
   if(h.movesBefore!==undefined){moves=h.movesBefore;moveLog.length=Math.max(0,h.moveLogLen||0);}else{moveLog.pop();moves=Math.max(0,moves-1);}
   sel=h.i!==undefined?h.i:0;crystalGoalWarned=false;if(chainActive())chainRefreshStep();SFX.undo();updateHUD();updateIntensity();if(onlineDuelMode)queueOnlineLiveState(true);resetIdle();
 }
 function showSpecificHint(){
   if(moves!==0)return false;
-  const i=atoms.findIndex(a=>a.x===LV.h[0]&&a.y===LV.h[1]);
-  if(i<0)return false;
-  sel=i;hintMark={i,d:LV.h[2]};wink();prop('💡',2600);
-  say(t('hintDir',atoms[i].e,DIRN_()[LV.h[2]],DIRAR[LV.h[2]]),'talk',5200,'glow');
+  const raw=Array.isArray(LV.h)?LV.h:null;
+  let i=raw?atoms.findIndex(a=>a.x===raw[0]&&a.y===raw[1]):-1;
+  let d=raw&&Number.isInteger(raw[2])?raw[2]:-1;
+  if((i<0||d<0||d>3)&&Array.isArray(LV.fs)&&LV.fs.length){
+    const first=LV.fs[0];
+    if(Array.isArray(first)&&atoms[first[0]]&&Number.isInteger(first[1])&&first[1]>=0&&first[1]<=3){i=first[0];d=first[1];}
+  }
+  if(i<0||!atoms[i]||d<0||d>3)return false;
+  sel=i;hintMark={i,d};wink();prop('💡',2600);
+  setDrEPose('magnifier',6200,4,true);
+  say(t('hintDir',atoms[i].e,DIRN_()[d],DIRAR[d]),'talk',5200,'glow');
   return true;
 }
 function scheduleAutoHint2(){clearTimeout(autoHintT);}
 function showGeneralHint(){
   closeModal();
+  setDrEPose('thinking',6400,4,true);
   hintStep=1;attemptHintCount++;SFX.hint();
   einAuraPulse('einAuraBlue',1100);
   save.totalHints=(save.totalHints||0)+1;persist();
@@ -6002,6 +6316,7 @@ function showGeneralHint(){
 function hint(){
   if(won)return;
   resetIdle();clearTimeout(autoHintT);
+  setDrEPose('thinking',6400,4,true);
   offerPaidHint();
 }
 function offerPaidHint(){
@@ -6205,6 +6520,152 @@ function performanceResultHtml(perf){
   return '<div class="performanceResult grade-'+perf.key+'"><b>'+perf.label+'</b><span>'+(LANG==='tr'?'PAR '+perf.par+' · SEN '+perf.moves:'PAR '+perf.par+' · YOU '+perf.moves)+'</span>'+(perf.isNewBest?'<em>'+(LANG==='tr'?'YENİ REKOR':'NEW BEST')+'</em>':'')+(perf.assisted?'<em class="assistedRun">'+(LANG==='tr'?'DESTEKLİ GEÇİŞ · REKOR DIŞI':'ASSISTED CLEAR · UNRANKED')+'</em>':'')+'</div>';
 }
 
+
+/* V8.5.42 — distinct completion choreography for every campaign level.
+   Each of the 301 campaign levels owns an explicit deterministic recipe.
+   The molecule's chemistry family remains the base layer; the level recipe
+   controls bond order, particle trajectory, camera motion, banner entrance,
+   and a quiet three-note laboratory signature. */
+function mxLevelFxRecipe(levelIndex){
+  const list=window.MX_LEVEL_FX_RECIPES;
+  if(Array.isArray(list)&&list[levelIndex])return list[levelIndex];
+  const seed=((Math.max(0,Number(levelIndex)||0)+1)*2654435761)>>>0;
+  return {level:Math.max(0,Number(levelIndex)||0)+1,molecule:curMol&&curMol.f||'',seed,motif:'radial',shape:'spark',boardMotion:'pulse',bannerMotion:'pop',tone:'rise',direction:'radial',count:22,spread:120,speed:1,twist:1.2,gravity:.28,waves:3,rings:2,bondStep:65,pulse:1,delay:0};
+}
+function mxFxRng(seed){
+  let a=(Number(seed)||1)>>>0;
+  return function(){
+    a|=0;a=(a+0x6D2B79F5)|0;
+    let t=Math.imul(a^(a>>>15),1|a);
+    t=(t+Math.imul(t^(t>>>7),61|t))^t;
+    return ((t^(t>>>14))>>>0)/4294967296;
+  };
+}
+function mxFxDirectionAngle(direction){
+  return direction==='up'?-Math.PI/2:direction==='down'?Math.PI/2:direction==='left'?Math.PI:
+    direction==='right'?0:direction==='diag-ne'?-Math.PI/4:direction==='diag-nw'?-Math.PI*3/4:0;
+}
+function mxShuffleSeeded(arr,rng){
+  for(let i=arr.length-1;i>0;i--){const j=Math.floor(rng()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}
+  return arr;
+}
+function mxLevelBondFx(recipe,boardRect,cols){
+  if(!effectsAllowed()||!boardRect||!atoms||atoms.length<2)return;
+  const rng=mxFxRng((recipe.seed^0xB0AD5EED)>>>0),bonds=[];
+  for(let i=0;i<atoms.length;i++)for(let j=i+1;j<atoms.length;j++){
+    if(Math.abs(atoms[i].x-atoms[j].x)+Math.abs(atoms[i].y-atoms[j].y)!==1)continue;
+    bonds.push([i,j]);
+  }
+  mxShuffleSeeded(bonds,rng);
+  bonds.forEach((pair,order)=>{
+    const a=atoms[pair[0]],b=atoms[pair[1]];
+    const x1=boardRect.left+(a.x+.5)*T,y1=boardRect.top+(a.y+.5)*T;
+    const x2=boardRect.left+(b.x+.5)*T,y2=boardRect.top+(b.y+.5)*T;
+    const delay=(order*(recipe.bondStep||60))/1000;
+    P({k:'bond',x1,y1,x2,y2,c:cols[order%cols.length]||'#ffffff',c2:cols[(order+1)%cols.length]||'#7ee8ff',
+      life:.62+delay,d:delay,w:3+rng()*2.4,pulse:recipe.pulse||1});
+  });
+}
+function mxLevelSignatureTone(recipe){
+  if(!ac()||save.muS||save.effects===false)return;
+  const seed=recipe.seed>>>0,root=196+(seed%9)*18.35;
+  const patterns={
+    rise:[0,4,7],fall:[7,4,0],arc:[0,7,3],pulse:[0,0,7],triple:[0,5,10],
+    open:[0,7,12],minor:[0,3,7],major:[0,4,7]
+  };
+  const ints=patterns[recipe.tone]||patterns.rise,t=now()+.035;
+  ints.forEach((semi,i)=>{
+    const f=root*Math.pow(2,semi/12);
+    osc(sfxG,f,t+i*.075,.18,'sine',.017,{atk:.008,f2:f*(1.006+(i*.002)),f2t:.15,lp:2600});
+  });
+}
+function mxApplyLevelWinMotion(recipe){
+  if(!board||motionReduced())return;
+  board.dataset.winMotion=recipe.boardMotion||'pulse';
+  board.style.setProperty('--mx-level-spin',((recipe.twist||0)*7).toFixed(1)+'deg');
+  board.style.setProperty('--mx-level-spin-back',((recipe.twist||0)*-1.9).toFixed(1)+'deg');
+  board.style.setProperty('--mx-level-pulse',String(Math.max(.7,Math.min(2.4,recipe.pulse||1))));
+  board.classList.remove('mxLevelWin');void board.offsetWidth;board.classList.add('mxLevelWin');
+  setTimeout(()=>{board.classList.remove('mxLevelWin');delete board.dataset.winMotion;board.style.removeProperty('--mx-level-spin');board.style.removeProperty('--mx-level-spin-back');board.style.removeProperty('--mx-level-pulse');},1280);
+}
+function mxSpawnRecipeParticles(recipe,x,y,cols){
+  if(!effectsAllowed())return;
+  const rng=mxFxRng(recipe.seed),reduced=motionReduced()||performanceLow();
+  const count=Math.max(8,Math.round((recipe.count||22)*(reduced ? .48 : 1)));
+  const baseAngle=mxFxDirectionAngle(recipe.direction);
+  const palette=(Array.isArray(cols)&&cols.length?cols:['#ffffff','#7ee8ff','#ffd76a']).slice();
+  for(let i=0;i<count;i++){
+    const u1=rng(),u2=rng(),u3=rng(),u4=rng();
+    const a=(recipe.direction==='radial'?Math.PI*2*u1:baseAngle+(u1-.5)*(Math.PI*.95))+i*.013*(recipe.twist||1);
+    const life=(.88+u2*.65)/Math.max(.72,recipe.speed||1);
+    P({k:'sig',cx:x,cy:y,x,y,mode:recipe.motif,shape:recipe.shape,a,
+      spread:(recipe.spread||120)*(.58+u3*.58),twist:recipe.twist||0,gravity:recipe.gravity||.28,
+      waves:recipe.waves||3,phase:u4*Math.PI*2,index:i,total:count,u1,u2,u3,u4,
+      c:palette[Math.floor(rng()*palette.length)]||'#fff',c2:palette[Math.floor(rng()*palette.length)]||'#7ee8ff',
+      r:2.2+rng()*3.8,life:life+(recipe.delay||0),d:recipe.delay||0});
+  }
+  const ringCount=reduced?1:Math.max(1,recipe.rings||1);
+  for(let i=0;i<ringCount;i++)P({k:'ring',x,y,r:8+i*4,vr2:86+i*31+(recipe.seed%23),life:.62+i*.08,c:palette[i%palette.length]||'#fff',d:i*.035});
+}
+function spawnLevelSignatureFx(levelIndex,mol,x,y,cols,boardRect){
+  const recipe=mxLevelFxRecipe(levelIndex);
+  const palette=(Array.isArray(cols)&&cols.length?cols:['#ffffff','#7ee8ff','#ffd76a']);
+  // Chemistry remains recognizable.
+  spawnWinFx(mol&&mol.fx||'glit',x,y,palette);
+  // The level identity makes repeated molecules and all 301 campaign clears distinct.
+  mxLevelBondFx(recipe,boardRect,palette);
+  mxSpawnRecipeParticles(recipe,x,y,palette);
+  mxApplyLevelWinMotion(recipe);
+  mxLevelSignatureTone(recipe);
+  recipe.victoryDelay=540+(recipe.seed%241);
+  return recipe;
+}
+function mxSigPoint(p,q){
+  const e=1-Math.pow(1-Math.max(0,Math.min(1,q)),3),two=Math.PI*2;
+  const sp=p.spread||120,tw=p.twist||0,a=p.a||0,ph=p.phase||0,w=p.waves||3;
+  let x=p.cx,y=p.cy;
+  switch(p.mode){
+    case 'spiral':{const rr=sp*e,ang=a+tw*two*e;x+=Math.cos(ang)*rr;y+=Math.sin(ang)*rr;break;}
+    case 'orbit':{const rr=sp*(.35+.2*Math.sin(e*Math.PI));const ang=a+(1.6+Math.abs(tw))*two*e;x+=Math.cos(ang)*rr;y+=Math.sin(ang)*rr*(.55+p.u2*.35);break;}
+    case 'fountain':{const vx=Math.cos(a)*sp*.72,vy=-sp*(.72+p.u1*.45);x+=vx*e;y+=vy*e+(p.gravity||.28)*sp*2.8*e*e;break;}
+    case 'fan':{const rr=sp*e;x+=Math.cos(a)*rr;y+=Math.sin(a)*rr*.7;break;}
+    case 'helix':{x+=Math.sin(ph+e*two*w)*sp*.32;y-=sp*e;x+=Math.cos(a)*sp*.18;break;}
+    case 'wave':{x+=Math.cos(a)*sp*e;y+=Math.sin(a)*sp*e+Math.sin(ph+e*two*w)*sp*.24;break;}
+    case 'lattice':{const cols=Math.max(3,Math.round(Math.sqrt(p.total||20))),ix=(p.index%cols)-(cols-1)/2,iy=Math.floor(p.index/cols)-(Math.ceil((p.total||20)/cols)-1)/2;x+=ix*(sp/cols)*e;y+=iy*(sp/cols)*e;break;}
+    case 'vortex':{const rr=sp*(1-e)*(.55+p.u2*.45),ang=a+(2.2+Math.abs(tw))*two*e;x+=Math.cos(ang)*rr;y+=Math.sin(ang)*rr;break;}
+    case 'cascade':{x+=(p.u1-.5)*sp*.9+Math.sin(ph+e*two*w)*14;y+=-sp*.58+sp*1.25*e;break;}
+    case 'crown':{const sx=(p.u1-.5)*sp*1.1;x+=sx*e;y-=Math.sin(e*Math.PI)*sp*(.42+p.u2*.35)+Math.abs(sx)*.15*e;break;}
+    case 'ribbon':{const rr=sp*e;x+=Math.cos(a+tw*e*3)*rr;y+=Math.sin(a+tw*e*3)*rr*.42+Math.sin(ph+e*two*w)*18;break;}
+    case 'prism':{const side=p.index%3,ang=a+side*two/3+tw*e;x+=Math.cos(ang)*sp*e;y+=Math.sin(ang)*sp*e;break;}
+    case 'cross':{const arm=p.index%4,ang=arm*Math.PI/2+a;x+=Math.cos(ang)*sp*e;y+=Math.sin(ang)*sp*e;break;}
+    case 'comet':{const rr=sp*e,curve=Math.sin(e*Math.PI)*sp*.2;x+=Math.cos(a)*rr+Math.cos(a+Math.PI/2)*curve;y+=Math.sin(a)*rr+Math.sin(a+Math.PI/2)*curve;break;}
+    case 'bloom':{const ang=a+two*e,rr=sp*e*(.5+.48*Math.abs(Math.sin((w+1)*ang)));x+=Math.cos(ang)*rr;y+=Math.sin(ang)*rr;break;}
+    case 'zigzag':{const rr=sp*e,off=((Math.floor(e*w*4)%2)?1:-1)*sp*.12*(1-e);x+=Math.cos(a)*rr+Math.cos(a+Math.PI/2)*off;y+=Math.sin(a)*rr+Math.sin(a+Math.PI/2)*off;break;}
+    case 'arc-reactor':{const rr=sp*(.28+.72*e),ang=a+two*e*(1.6+Math.abs(tw));x+=Math.cos(ang)*rr;y+=Math.sin(ang)*rr*.62+Math.sin(e*Math.PI)*-28;break;}
+    case 'nobel-crown':{const sector=(p.index%8)/8*two,rr=sp*(.3+.7*e);x+=Math.cos(sector+tw*e)*rr;y+=Math.sin(sector+tw*e)*rr*.52-Math.sin(e*Math.PI)*sp*.28;break;}
+    default:{const rr=sp*e,ang=a+tw*e;x+=Math.cos(ang)*rr;y+=Math.sin(ang)*rr;}
+  }
+  return [x,y];
+}
+function mxDrawSigShape(ctx,p,x,y,q){
+  const r=Math.max(1.2,(p.r||3)*(1-q*.45)),rot=(p.a||0)+q*5+(p.twist||0);
+  ctx.save();ctx.translate(x,y);ctx.rotate(rot);ctx.fillStyle=p.c;ctx.strokeStyle=p.c;ctx.lineWidth=Math.max(1,2*(1-q));
+  switch(p.shape){
+    case 'diamond':ctx.fillRect(-r,-r,r*2,r*2);break;
+    case 'shard':ctx.beginPath();ctx.moveTo(0,-r*1.7);ctx.lineTo(r, r);ctx.lineTo(-r*.75,r*.55);ctx.closePath();ctx.fill();break;
+    case 'bubble':ctx.globalAlpha*=.76;ctx.beginPath();ctx.arc(0,0,r*1.25,0,7);ctx.stroke();break;
+    case 'spark':ctx.fillRect(-r*1.8,-.8,r*3.6,1.6);ctx.fillRect(-.8,-r*1.8,1.6,r*3.6);break;
+    case 'hex':ctx.beginPath();for(let i=0;i<6;i++){const a=i*Math.PI/3,x=Math.cos(a)*r*1.3,y=Math.sin(a)*r*1.3;i?ctx.lineTo(x,y):ctx.moveTo(x,y);}ctx.closePath();ctx.stroke();break;
+    case 'star':ctx.beginPath();for(let i=0;i<8;i++){const a=-Math.PI/2+i*Math.PI/4,rr=i%2?r*.55:r*1.7;i?ctx.lineTo(Math.cos(a)*rr,Math.sin(a)*rr):ctx.moveTo(Math.cos(a)*rr,Math.sin(a)*rr);}ctx.closePath();ctx.fill();break;
+    case 'ring':ctx.beginPath();ctx.arc(0,0,r*1.45,0,7);ctx.stroke();break;
+    case 'capsule':ctx.beginPath();ctx.roundRect(-r*1.6,-r*.55,r*3.2,r*1.1,r*.55);ctx.fill();break;
+    default:ctx.beginPath();ctx.arc(0,0,r,0,7);ctx.fill();
+  }
+  ctx.restore();
+}
+
+const MOLECULE_INFO_HOLD_MS=3000,MOLECULE_INFO_FADE_MS=340,RESULT_MODAL_DELAY_MS=3650;
+let completionResultTimer=null;
 function winSeq(){
   mxTrack('level_completed',{level:Number(lv)+1,mode:duelMode?'duel':dailyMode?'daily':'campaign',moves:Number(moves)||0});
   if(onlineDuelConnectionPaused())return;
@@ -6230,26 +6691,46 @@ function winSeq(){
   const r=board.getBoundingClientRect();
   const cx=r.left+atoms.reduce((s,a)=>s+a.x+0.5,0)/atoms.length*T;
   const cy=r.top+atoms.reduce((s,a)=>s+a.y+0.5,0)/atoms.length*T;
-  spawnWinFx(curMol.fx,cx,cy,curMol.c);
-  spawnConf(cx,cy);
+  // Molecule signature first: let the chemistry-specific SPLASH / PUFF / FLAME / CRYSTAL
+  // read clearly before the generic celebration layers arrive.
+  const levelFxRecipe=spawnLevelSignatureFx(lv,curMol,cx,cy,curMol.c,r);
+  const firstDiscoveryNow=!dailyMode&&!duelMode&&!crystalMode&&!chainMode&&!reactorMode&&!save.disc[mid];
+  const premiumClear=stars===3||firstDiscoveryNow||lv===NOBEL_LEVEL_INDEX;
+  if(premiumClear)setTimeout(()=>spawnConf(cx,cy),420);
   atoms.forEach(a=>{
     const ax=r.left+(a.x+0.5)*T,ay=r.top+(a.y+0.5)*T;
     const ec=EL[a.e];
     setTimeout(()=>sparkleBurst(ax,ay,ec?[ec.c,ec.hi,'#ffffff']:undefined),80+Math.random()*140);
   });
-  const lr=$('#lightRays');lr.classList.remove('on');void lr.offsetWidth;lr.classList.add('on');
-  setTimeout(()=>lr.classList.remove('on'),1300);
-  SFX.whoosh();SFX.moleculeComplete();
+  const lr=$('#lightRays');lr.classList.remove('on');
+  setTimeout(()=>{void lr.offsetWidth;lr.classList.add('on');},170);
+  setTimeout(()=>lr.classList.remove('on'),1470);
+  // Keep the molecule's own sound readable, then bring in the broad victory sweep.
+  setTimeout(()=>{SFX.whoosh();SFX.moleculeComplete();},390);
   if(!duelMode&&!dailyMode){
     const evt=(lv===NOBEL_LEVEL_INDEX)?'nobel':((save.stars&&save.stars[lv])?'success':'discovery');
     setTimeout(()=>playCharacterVoice('drE',evt,{force:lv===NOBEL_LEVEL_INDEX,duck:.28,cooldown:2200}),520);
   }
-  $('#banner').textContent=curMol.w;
-  $('#bannerSub').textContent=curMol.n+(LANG==='tr'?' OLUŞTU':' CREATED');
-  const bw=$('#bannerWrap');bw.classList.add('on');
+  const completionVerb=(curMol.fx==='crys')
+    ?(LANG==='tr'?'KRİSTALLEŞTİ':'CRYSTALLIZED')
+    :(LANG==='tr'?'SENTEZLENDİ':'SYNTHESIZED');
+  $('#banner').textContent=curMol.n+' '+completionVerb+'!';
+  $('#bannerSub').textContent=curMol.f||curMol.n;
+  const bannerFact=$('#bannerFact');
+  if(bannerFact)bannerFact.textContent=curMol.fa||'';
+  const bw=$('#bannerWrap');
+  bw.dataset.fx=curMol.fx||'glit';
+  bw.dataset.motion=levelFxRecipe.bannerMotion||'pop';
+  bw.dataset.levelFx=String(levelFxRecipe.level||Number(lv)+1);
+  bw.classList.remove('leaving');bw.classList.toggle('longName',String(curMol.n||'').length>18);
+  const bannerDiscover=$('#bannerDiscover');if(bannerDiscover){bannerDiscover.hidden=true;bannerDiscover.textContent=LANG==='tr'?'📘 DAHA FAZLASI → MOLECULOPEDIA':'📘 DISCOVER MORE → MOLECULOPEDIA';bannerDiscover.onpointerdown=null;}
+  bw.classList.add('on');
   showMoleculeCompletionFx();
-  showVictoryLabFx('full');
-  setTimeout(()=>bw.classList.remove('on'),1900);
+  // The existing laboratory victory animation is preserved, but sequenced after
+  // the molecule-specific reaction so the screen no longer fires everything at once.
+  setTimeout(()=>showVictoryLabFx('full'),levelFxRecipe.victoryDelay||760);
+  setTimeout(()=>bw.classList.add('leaving'),MOLECULE_INFO_HOLD_MS);
+  setTimeout(()=>{bw.classList.remove('on','longName','leaving');delete bw.dataset.fx;delete bw.dataset.motion;delete bw.dataset.levelFx;},MOLECULE_INFO_HOLD_MS+MOLECULE_INFO_FADE_MS);
   let previousBestMove=0,isNewMoveBest=false;
   if(!tutorialActive&&!duelMode&&!crystalMode&&!chainMode&&!reactorMode){
     previousBestMove=(!dailyMode&&save.bestMoves)?Math.max(0,Math.floor(Number(save.bestMoves[lv])||0)):0;
@@ -6257,7 +6738,7 @@ function winSeq(){
     if(isNewMoveBest)save.bestMoves[lv]=moves;
     lastPerformance=getPerformance(moves,LV.p,LV.mn||LV.p,isNewMoveBest);
     if(assistanceUsed)lastPerformance.assisted=true;
-    setTimeout(()=>{showPerformanceGrade(lastPerformance);showFinalWow(lastPerformance,stars);},1900);
+    setTimeout(()=>{showPerformanceGrade(lastPerformance);showFinalWow(lastPerformance,stars);},MOLECULE_INFO_HOLD_MS+180);
   }else lastPerformance=null;
   if(!assistanceUsed&&!dailyMode&&currentAttemptId&&window.MXCloud&&window.MXCloud.submitLevelResult){
     const verifiedAttemptId=currentAttemptId;
@@ -6276,8 +6757,8 @@ function winSeq(){
     }).catch(()=>setTimeout(()=>say(t('secureUnranked'),'sad',4200,'shk'),250));
   }
   setExcited(false);setIntensity(0);
-  if(MSND[curMol.fx])MSND[curMol.fx]();
-  setTimeout(()=>jingle(stars),430);
+  setTimeout(()=>{if(MSND[curMol.fx])MSND[curMol.fx]();},70);
+  setTimeout(()=>jingle(stars),920);
   einCelebrate(stars);
   if(tutorialActive){
     setTimeout(()=>{
@@ -6333,7 +6814,7 @@ function winSeq(){
     if(isNewDiscovery){
       const bEl=$('#banner');bEl.classList.remove('newDiscovery');void bEl.offsetWidth;bEl.classList.add('newDiscovery');
       setTimeout(()=>SFX.sparkle(),150);
-      setTimeout(()=>bEl.classList.remove('newDiscovery'),1900);
+      setTimeout(()=>bEl.classList.remove('newDiscovery'),2200);
     }
   }
   if(dailyMode){
@@ -6354,7 +6835,7 @@ function winSeq(){
       addCoins(dailyGained);
       checkAchievementsSilent();persist();updateBadge();
       try{if(window.MXCloud&&save.profileId&&window.MXCloud.syncLeaderboard)window.MXCloud.syncLeaderboard(save,save.profileId,true);}catch(e){}
-      setTimeout(()=>{updateCoins(dailyGained>0);dailyModal(stars,dailyGained,already,practiceOnly,dailyRP.delta,dailyRP.streak);},3350);
+      setTimeout(()=>{updateCoins(dailyGained>0);dailyModal(stars,dailyGained,already,practiceOnly,dailyRP.delta,dailyRP.streak);},RESULT_MODAL_DELAY_MS);
     });
     return;
   }
@@ -6375,8 +6856,15 @@ function winSeq(){
   updateBadge();
   const oldTier=tierOf(oldCur), newTier=tierOf(save.cur);
   checkAchievements();
-  setTimeout(()=>{
-    updateCoins(gained>0);
+  const normalCompletion=lv!==NOBEL_LEVEL_INDEX&&newTier<=oldTier;
+  const resultDiscover=$('#bannerDiscover');
+  if(resultDiscover&&normalCompletion){
+    resultDiscover.hidden=false;
+    resultDiscover.onpointerdown=e=>{e.preventDefault();SFX.select();if(completionResultTimer){clearTimeout(completionResultTimer);completionResultTimer=null;}updateCoins(gained>0);openMoleculeInCollection(mid);};
+  }
+  if(completionResultTimer)clearTimeout(completionResultTimer);
+  completionResultTimer=setTimeout(()=>{
+    completionResultTimer=null;updateCoins(gained>0);
     if(lv===NOBEL_LEVEL_INDEX){
       nobelCelebration();
       setTimeout(()=>showNobelEpilogue(()=>winModal(stars,gained,rpGained)),4200);
@@ -6385,7 +6873,7 @@ function winSeq(){
       rankUpCelebration(newTier);
       setTimeout(()=>winModal(stars,gained,rpGained),3700);
     }else winModal(stars,gained,rpGained);
-  },3350);
+  },RESULT_MODAL_DELAY_MS);
 }
 function dailyModal(stars,gained,already,practiceOnly,rpGained,streak){
   openModal(
@@ -6484,7 +6972,7 @@ function nobelCertificateName(){
 }
 function nobelCertificateHtml(){
   const tr=LANG==='tr',name=esc(nobelCertificateName());
-  return '<section class="nobelCertificatePreview" aria-label="'+(tr?'Nobel başarı sertifikası':'Nobel achievement certificate')+'"><div class="nobelCertSeal">🏆</div><small>MOLECULOX · WHITEWAY STUDIO</small><h4>'+(tr?'NOBEL LABORATUVAR ÖDÜLÜ':'NOBEL LABORATORY AWARD')+'</h4><strong>'+name+'</strong><p>'+(tr?'301 bilimsel deneyi tamamlayarak Moleculox Nobel Finali’ni kazandı.':'completed 301 scientific experiments and conquered the Moleculox Nobel Final.')+'</p><div class="nobelCertFormula">⚛️ 300 + 1 · E = MC²</div></section><div class="nobelShareActions"><button class="btn amber" id="mShareCertificate">'+(tr?'📤 SERTİFİKAYI PAYLAŞ':'📤 SHARE CERTIFICATE')+'</button><button class="btn ghost" id="mSaveCertificate">'+(tr?'🖼️ GÖRSELİ KAYDET':'🖼️ SAVE IMAGE')+'</button></div><div class="authTiny" id="certificateShareStatus"></div>';
+  return '<section class="nobelCertificatePreview" aria-label="'+(tr?'Nobel başarı sertifikası':'Nobel achievement certificate')+'"><div class="nobelCertSeal">🏆</div><small>MOLECULOX · wHiTeWaY studio</small><h4>'+(tr?'NOBEL LABORATUVAR ÖDÜLÜ':'NOBEL LABORATORY AWARD')+'</h4><strong>'+name+'</strong><p>'+(tr?'301 bilimsel deneyi tamamlayarak Moleculox Nobel Finali’ni kazandı.':'completed 301 scientific experiments and conquered the Moleculox Nobel Final.')+'</p><div class="nobelCertFormula">⚛️ 300 + 1 · E = MC²</div></section><div class="nobelShareActions"><button class="btn amber" id="mShareCertificate">'+(tr?'📤 SERTİFİKAYI PAYLAŞ':'📤 SHARE CERTIFICATE')+'</button><button class="btn ghost" id="mSaveCertificate">'+(tr?'🖼️ GÖRSELİ KAYDET':'🖼️ SAVE IMAGE')+'</button></div><div class="authTiny" id="certificateShareStatus"></div>';
 }
 function roundedRectPath(ctx,x,y,w,h,r){
   r=Math.min(r,w/2,h/2);ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();
@@ -6497,7 +6985,7 @@ function buildNobelCertificateCanvas(){
   roundedRectPath(x,70,70,940,1210,42);x.fillStyle='rgba(3,12,28,.78)';x.fill();x.strokeStyle='#f5ce6a';x.lineWidth=8;x.stroke();
   roundedRectPath(x,98,98,884,1154,30);x.strokeStyle='rgba(126,229,255,.55)';x.lineWidth=2;x.stroke();
   x.textAlign='center';x.fillStyle='#f7d777';x.font='700 42px system-ui,-apple-system,sans-serif';x.fillText('MOLECULOX',540,180);
-  x.fillStyle='#9feaff';x.font='600 24px system-ui,-apple-system,sans-serif';x.fillText('WHITEWAY STUDIO · 300 + 1',540,225);
+  x.fillStyle='#9feaff';x.font='600 24px system-ui,-apple-system,sans-serif';x.fillText('wHiTeWaY studio · 300 + 1',540,225);
   x.font='116px serif';x.fillText('🏆',540,365);
   x.fillStyle='#fff4c9';x.font='800 56px system-ui,-apple-system,sans-serif';x.fillText(tr?'NOBEL LABORATUVAR ÖDÜLÜ':'NOBEL LABORATORY AWARD',540,470);
   x.fillStyle='#d5e9ff';x.font='500 29px system-ui,-apple-system,sans-serif';x.fillText(tr?'Bu sertifika gururla sunulur:':'This certificate is proudly presented to:',540,545);
@@ -6522,6 +7010,11 @@ async function shareNobelCertificate(){
     await saveNobelCertificateImage();if(status)status.textContent=tr?'Paylaşım desteklenmedi; sertifika görseli kaydedildi.':'Sharing is unavailable; the certificate image was saved.';
   }catch(e){if(e&&e.name==='AbortError')return;try{await saveNobelCertificateImage();if(status)status.textContent=tr?'Sertifika görseli kaydedildi.':'Certificate image saved.';}catch(_){if(status)status.textContent=tr?'Sertifika oluşturulamadı.':'Could not create certificate.';}}
 }
+function openMoleculeInCollection(moleculeId){
+  const bw=$('#bannerWrap');if(bw){bw.classList.add('leaving');setTimeout(()=>bw.classList.remove('on','longName','leaving'),340);}
+  closeModal();show('collect');setCollectionTab('molecules');save.collectionFilter='all';persist();buildCollection();
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{const safe=window.CSS&&CSS.escape?CSS.escape(String(moleculeId)):String(moleculeId).replace(/["\\]/g,'\\$&');const card=document.querySelector('.molCard[data-molecule="'+safe+'"]');if(!card)return;card.classList.add('mxCompletionFocus');card.scrollIntoView({behavior:motionReduced()?'auto':'smooth',block:'center'});setTimeout(()=>card.classList.remove('mxCompletionFocus'),2800);}));
+}
 function winModal(stars,gained,rpGained){
   const last=FULL_CAMPAIGN_READY&&lv===NOBEL_LEVEL_INDEX;
   const speedLine=newSpeedRecord?'<div class="mcoins" style="color:#4fd8ff">⚡ '+t('newRecord')+': '+newSpeedRecord.toFixed(1)+'s</div>':'';
@@ -6537,6 +7030,7 @@ function winModal(stars,gained,rpGained){
     (rpGained>0?'<div class="mcoins" style="color:#78e7ff">+'+rpGained+' RP</div>':'')+
     '<div class="mstars"><span>⭐</span><span>⭐</span><span>⭐</span></div>'+
     (gained>0?'<div class="mcoins">+<span class="mxCoinCountFlow">0</span> <span class="coinIcon"></span></div>':'<div class="mcoins" style="opacity:.4">'+t('bestClaimed')+'</div>')+
+    '<button class="btn blue" id="mDiscoverMolecule">📘 '+(LANG==='tr'?'MOLECULOPEDIA’DA İNCELE':'DISCOVER IN MOLECULOPEDIA')+'</button>'+
     '<div class="mrow">'+
     (BONUS_MILESTONES.includes(lv+1)&&!isBonusClaimed(lv+1)?'<button class="btn amber" id="mBonusNow">🎁 '+(LANG==='tr'?'BONUSU OYNA':'PLAY BONUS')+'</button>':'')+
     (last?'':'<button class="btn green" id="mNext">'+t('nextLevel')+'</button>')+
@@ -6550,6 +7044,7 @@ function winModal(stars,gained,rpGained){
   const shareCert=$('#mShareCertificate');if(shareCert)bindTap(shareCert,e=>{SFX.click();shareNobelCertificate();});
   const saveCert=$('#mSaveCertificate');if(saveCert)bindTap(saveCert,e=>{SFX.click();saveNobelCertificateImage().then(()=>{const st=$('#certificateShareStatus');if(st)st.textContent=LANG==='tr'?'Sertifika görseli kaydedildi.':'Certificate image saved.';});});
   const bn=$('#mBonusNow');if(bn)bindTap(bn,e=>{SFX.play();startBonusMission(bonusMissionForMilestone(lv+1));});
+  const discover=$('#mDiscoverMolecule');if(discover)bindTap(discover,e=>{SFX.select();openMoleculeInCollection(mid);});
   const nx=$('#mNext');
   if(nx)nx.addEventListener('pointerdown',e=>{e.preventDefault();SFX.play();goToLevelWithStory(lv+1);},{passive:false});
   $('#mRetry').addEventListener('pointerdown',e=>{e.preventDefault();SFX.undo();startLevel(lv);},{passive:false});
@@ -6628,9 +7123,9 @@ let accountReconcilePromise=null;
 function accountCopy(){
   const tr=LANG==='tr';
   return tr?{
-    title:'HESAP VE OYUNCULAR',guestTitle:'Misafir olarak oynuyorsun',guestSub:'Oyun otomatik olarak misafir hesabıyla başladı.',guestWarn:'Hesabını bağlamadan oyunu silersen bu cihazdaki ilerleme kaybolabilir.',memberSub:'Firebase hesabına bağlı · itch.io, Netlify, Android ve iOS ilerlemesi aynı oyuncuda birleşir.',apple:'Apple ile devam et',linkApple:'Apple hesabını bağla',appleConsentTitle:'Apple hesabını bağla',appleConsent:'Apple hesabını mevcut Moleculox ilerlemenle ilişkilendirmeyi onaylıyorsun. Böylece Google veya e-posta ile aynı oyuncu kaydına ulaşabilirsin.',appleConsentGo:'ONAYLA VE BAĞLA',google:'Google ile devam et',emailLogin:'E-posta ile giriş yap',emailCreate:'Yeni hesap oluştur',manage:'👥 OYUNCULARI YÖNET',close:'KAPAT',logout:'ÇIKIŞ YAP',reset:'ŞİFREMİ UNUTTUM',linkEmail:'E-posta ve şifre ekle',email:'E-posta',password:'Şifre',passwordAgain:'Şifre tekrar',nickname:'Oyuncu adı / Nickname',login:'GİRİŞ YAP',create:'HESAP OLUŞTUR',back:'GERİ',sendReset:'SIFIRLAMA E-POSTASI GÖNDER',resetSent:'Şifre sıfırlama e-postası gönderildi.',connected:'Hesap bağlandı. Platformlardaki oyuncu ilerlemeleri güvenle birleştirildi.',signedOut:'Çıkış yapıldı. Misafir moduna geçildi.',verify:'Doğrulama e-postası gönderildi.',guestToast:'Misafir modundasın. İlerlemeni korumak için bu profil ikonundan Google veya e-posta hesabını bağlayabilirsin.',cloudGood:'Bulut hesabı bağlı',cloudPanel:'☁ BULUT VE SIRALAMA DURUMU',cloudTitle:'BULUT VE HESAP DURUMU',syncNow:'ŞİMDİ SENKRONİZE ET',syncSuccess:'Bütün ilerleme ve sıralamalar senkronize edildi.',syncGuest:'Kalıcı sıralama ve cihazlar arası güvenli yedekleme için Google veya e-posta hesabını bağla.',syncSaved:'Senkronize',syncWorking:'Kaydediliyor',syncOffline:'Çevrimdışı',syncError:'Senkronizasyon hatası',lastSync:'Son başarılı senkronizasyon',neverSynced:'Henüz başarılı senkronizasyon yok',providersLabel:'Bağlı giriş yöntemleri',playerLabel:'Oyuncu',classicRankLabel:'Classic Dünya Sıralaması',duelRankLabel:'Online Düello Sıralaması',rankLoading:'Sıralama kontrol ediliyor…',rankUnpublished:'Henüz sıralamaya yayımlanmadı',rankGuest:'Hesap bağlanınca yayımlanır',backAccount:'HESABA DÖN',localProfiles:'Bu cihazdaki oyuncu profilleri burada kalır.',deleteAccount:'HESABI VE TÜM VERİLERİ SİL',deleteAccountTitle:'Hesap tamamen silinsin mi?',deleteAccountWarn:'Firebase giriş hesabın, tüm bulut profillerin ve bu cihazdaki bütün Moleculox ilerlemen kalıcı olarak silinir. Bu işlem geri alınamaz.',deleteAccountConfirm:'EVET, HESABIMI SİL',deleteAccountDone:'Hesap ve veriler silindi. Yeni misafir hesabı açıldı.',or:'VEYA',required:'Tüm alanları doldur.',passMismatch:'Şifreler aynı değil.',passShort:'Şifre en az 6 karakter olmalı.',working:'İşleniyor…'
+    title:'HESAP VE OYUNCULAR',guestTitle:'Misafir olarak oynuyorsun',guestSub:'Oyun otomatik olarak misafir hesabıyla başladı.',guestWarn:'Hesabını bağlamadan oyunu silersen bu cihazdaki ilerleme kaybolabilir.',memberSub:'Firebase hesabına bağlı · itch.io, Netlify, Android ve iOS ilerlemesi aynı oyuncuda birleşir.',apple:'Apple ile devam et',linkApple:'Apple hesabını bağla',appleConsentTitle:'Apple hesabını bağla',appleConsent:'Apple hesabını mevcut Moleculox ilerlemenle ilişkilendirmeyi onaylıyorsun. Böylece Google veya e-posta ile aynı oyuncu kaydına ulaşabilirsin.',appleConsentGo:'ONAYLA VE BAĞLA',google:'Google ile devam et',emailLogin:'E-posta ile giriş yap',emailCreate:'Yeni hesap oluştur',manage:'👥 OYUNCULARI YÖNET',close:'KAPAT',logout:'ÇIKIŞ YAP',reset:'ŞİFREMİ UNUTTUM',linkEmail:'E-posta ve şifre ekle',email:'E-posta',password:'Şifre',passwordAgain:'Şifre tekrar',nickname:'Oyuncu adı / Nickname',login:'GİRİŞ YAP',create:'HESAP OLUŞTUR',back:'GERİ',sendReset:'SIFIRLAMA E-POSTASI GÖNDER',resetSent:'Şifre sıfırlama e-postası gönderildi.',connected:'Hesap bağlandı. Platformlardaki oyuncu ilerlemeleri güvenle birleştirildi.',signedOut:'Çıkış yapıldı. Misafir moduna geçildi.',verify:'Doğrulama e-postası gönderildi.',guestToast:'Misafir modundasın. İlerlemeni korumak için bu profil ikonundan Google veya e-posta hesabını bağlayabilirsin.',cloudGood:'Bulut hesabı bağlı',cloudPanel:'☁ BULUT VE SIRALAMA DURUMU',cloudTitle:'BULUT VE HESAP DURUMU',syncNow:'ŞİMDİ SENKRONİZE ET',syncSuccess:'Bütün ilerleme ve sıralamalar senkronize edildi.',syncSavedRankPending:'Bulut ilerlemesi kaydedildi. Sıralama yayını bekliyor ve daha sonra yeniden denenecek.',connectedSyncPending:'Hesap bağlandı. Bulut ilerlemesi şu anda yüklenemedi; Şimdi Senkronize Et ile yeniden dene.',syncGuest:'Kalıcı sıralama ve cihazlar arası güvenli yedekleme için Google veya e-posta hesabını bağla.',syncSaved:'Senkronize',syncWorking:'Kaydediliyor',syncOffline:'Çevrimdışı',syncError:'Senkronizasyon hatası',lastSync:'Son başarılı senkronizasyon',neverSynced:'Henüz başarılı senkronizasyon yok',providersLabel:'Bağlı giriş yöntemleri',playerLabel:'Oyuncu',classicRankLabel:'Classic Dünya Sıralaması',duelRankLabel:'Online Düello Sıralaması',rankLoading:'Sıralama kontrol ediliyor…',rankUnpublished:'Henüz sıralamaya yayımlanmadı',rankGuest:'Hesap bağlanınca yayımlanır',backAccount:'HESABA DÖN',localProfiles:'Bu cihazdaki oyuncu profilleri burada kalır.',deleteAccount:'HESABI VE TÜM VERİLERİ SİL',deleteAccountTitle:'Hesap tamamen silinsin mi?',deleteAccountWarn:'Firebase giriş hesabın, tüm bulut profillerin ve bu cihazdaki bütün Moleculox ilerlemen kalıcı olarak silinir. Bu işlem geri alınamaz.',deleteAccountConfirm:'EVET, HESABIMI SİL',deleteAccountDone:'Hesap ve veriler silindi. Yeni misafir hesabı açıldı.',or:'VEYA',required:'Tüm alanları doldur.',passMismatch:'Şifreler aynı değil.',passShort:'Şifre en az 6 karakter olmalı.',working:'İşleniyor…'
   }:{
-    title:'ACCOUNT & PLAYERS',guestTitle:'You are playing as a guest',guestSub:'The game started automatically with a guest account.',guestWarn:'If you delete the game before linking an account, progress stored on this device may be lost.',memberSub:'Connected to Firebase · itch.io, Netlify, Android and iOS progress merges into the same player.',apple:'Continue with Apple',linkApple:'Link Apple account',appleConsentTitle:'Link Apple account',appleConsent:'You consent to associate your Apple account with your existing Moleculox progress. Google or email can then open the same player record.',appleConsentGo:'CONFIRM AND LINK',google:'Continue with Google',emailLogin:'Sign in with email',emailCreate:'Create new account',manage:'👥 MANAGE PLAYERS',close:'CLOSE',logout:'SIGN OUT',reset:'FORGOT PASSWORD',linkEmail:'Add email & password',email:'Email',password:'Password',passwordAgain:'Repeat password',nickname:'Player name / Nickname',login:'SIGN IN',create:'CREATE ACCOUNT',back:'BACK',sendReset:'SEND RESET EMAIL',resetSent:'Password reset email sent.',connected:'Account connected. Player progress from all platforms was merged safely.',signedOut:'Signed out. Guest mode is active.',verify:'Verification email sent.',guestToast:'You are in guest mode. Link Google or email from this profile icon to protect your progress.',cloudGood:'Cloud account connected',cloudPanel:'☁ CLOUD & RANKING STATUS',cloudTitle:'CLOUD & ACCOUNT STATUS',syncNow:'SYNC NOW',syncSuccess:'All progress and rankings were synchronized.',syncGuest:'Link Google or email for permanent rankings and safe cross-device backup.',syncSaved:'Synchronized',syncWorking:'Saving',syncOffline:'Offline',syncError:'Sync error',lastSync:'Last successful sync',neverSynced:'No successful sync yet',providersLabel:'Linked sign-in methods',playerLabel:'Player',classicRankLabel:'Classic World Ranking',duelRankLabel:'Online Duel Ranking',rankLoading:'Checking rankings…',rankUnpublished:'Not published to ranking yet',rankGuest:'Published after account linking',backAccount:'BACK TO ACCOUNT',localProfiles:'Player profiles on this device remain available.',deleteAccount:'DELETE ACCOUNT & ALL DATA',deleteAccountTitle:'Delete the account permanently?',deleteAccountWarn:'Your Firebase sign-in account, every cloud profile, and all Moleculox progress stored on this device will be permanently deleted. This cannot be undone.',deleteAccountConfirm:'YES, DELETE MY ACCOUNT',deleteAccountDone:'Account and data deleted. A new guest account is active.',or:'OR',required:'Fill in all fields.',passMismatch:'Passwords do not match.',passShort:'Password must be at least 6 characters.',working:'Working…'
+    title:'ACCOUNT & PLAYERS',guestTitle:'You are playing as a guest',guestSub:'The game started automatically with a guest account.',guestWarn:'If you delete the game before linking an account, progress stored on this device may be lost.',memberSub:'Connected to Firebase · itch.io, Netlify, Android and iOS progress merges into the same player.',apple:'Continue with Apple',linkApple:'Link Apple account',appleConsentTitle:'Link Apple account',appleConsent:'You consent to associate your Apple account with your existing Moleculox progress. Google or email can then open the same player record.',appleConsentGo:'CONFIRM AND LINK',google:'Continue with Google',emailLogin:'Sign in with email',emailCreate:'Create new account',manage:'👥 MANAGE PLAYERS',close:'CLOSE',logout:'SIGN OUT',reset:'FORGOT PASSWORD',linkEmail:'Add email & password',email:'Email',password:'Password',passwordAgain:'Repeat password',nickname:'Player name / Nickname',login:'SIGN IN',create:'CREATE ACCOUNT',back:'BACK',sendReset:'SEND RESET EMAIL',resetSent:'Password reset email sent.',connected:'Account connected. Player progress from all platforms was merged safely.',signedOut:'Signed out. Guest mode is active.',verify:'Verification email sent.',guestToast:'You are in guest mode. Link Google or email from this profile icon to protect your progress.',cloudGood:'Cloud account connected',cloudPanel:'☁ CLOUD & RANKING STATUS',cloudTitle:'CLOUD & ACCOUNT STATUS',syncNow:'SYNC NOW',syncSuccess:'All progress and rankings were synchronized.',syncSavedRankPending:'Cloud progress was saved. Ranking publication is pending and will be retried.',connectedSyncPending:'Account connected. Cloud progress could not be loaded yet; use Sync Now to retry.',syncGuest:'Link Google or email for permanent rankings and safe cross-device backup.',syncSaved:'Synchronized',syncWorking:'Saving',syncOffline:'Offline',syncError:'Sync error',lastSync:'Last successful sync',neverSynced:'No successful sync yet',providersLabel:'Linked sign-in methods',playerLabel:'Player',classicRankLabel:'Classic World Ranking',duelRankLabel:'Online Duel Ranking',rankLoading:'Checking rankings…',rankUnpublished:'Not published to ranking yet',rankGuest:'Published after account linking',backAccount:'BACK TO ACCOUNT',localProfiles:'Player profiles on this device remain available.',deleteAccount:'DELETE ACCOUNT & ALL DATA',deleteAccountTitle:'Delete the account permanently?',deleteAccountWarn:'Your Firebase sign-in account, every cloud profile, and all Moleculox progress stored on this device will be permanently deleted. This cannot be undone.',deleteAccountConfirm:'YES, DELETE MY ACCOUNT',deleteAccountDone:'Account and data deleted. A new guest account is active.',or:'OR',required:'Fill in all fields.',passMismatch:'Passwords do not match.',passShort:'Password must be at least 6 characters.',working:'Working…'
   };
 }
 function escAttr(v){return String(v||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
@@ -6646,25 +7141,27 @@ function mxFirebaseAuthPlugin(){
   }catch(e){console.warn('[auth] native Firebase plugin lookup failed',e&&e.message||e);}
   return null;
 }
-function appleLogoHtml(){return '<svg class="appleLogoSvg" viewBox="0 0 384 512" aria-hidden="true"><path fill="currentColor" d="M279.55 258.94c-.2-36.7 16.6-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.6-19.7C44.1 131.1 4 159.1 4 216.1c0 16.8 3.1 34.1 9.2 51.8 8.2 23.7 37.7 81.8 68.5 80.8 16.1-.4 27.5-11.4 48.5-11.4 20.4 0 31 11.4 48.9 11.4 31 0 57.7-52.7 65.5-76.5-41.6-19.6-39.4-56.6-39.4-57.8zM255.75 95.74c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.6-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>'; }
 function withAuthTimeout(promise,ms,code){
   ms=ms||20000;code=code||'auth/timeout';
   let timer;
   const timeout=new Promise((_,reject)=>{timer=setTimeout(()=>reject(Object.assign(new Error(code),{code})),ms);});
-  return Promise.race([promise,timeout]).finally(()=>clearTimeout(timer));
+  return Promise.race([Promise.resolve(promise),timeout]).finally(()=>clearTimeout(timer));
 }
+function appleLogoHtml(){return '<svg class="appleLogoSvg" viewBox="0 0 384 512" aria-hidden="true"><path fill="currentColor" d="M279.55 258.94c-.2-36.7 16.6-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.6-19.7C44.1 131.1 4 159.1 4 216.1c0 16.8 3.1 34.1 9.2 51.8 8.2 23.7 37.7 81.8 68.5 80.8 16.1-.4 27.5-11.4 48.5-11.4 20.4 0 31 11.4 48.9 11.4 31 0 57.7-52.7 65.5-76.5-41.6-19.6-39.4-56.6-39.4-57.8zM255.75 95.74c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.6-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>'; }
 function authErrorText(err){
   const code=String(err&&err.code||err&&err.message||'');
   const tr=LANG==='tr';
   const host=(location&&(location.origin||location.hostname))||'';
   if(code==='auth/unauthorized-domain')return tr?('Bu alan Firebase girişleri için yetkili değil: '+host+'. Firebase Console > Authentication > Settings > Authorized domains bölümüne eklenmeli.'):('This domain is not authorized for Firebase sign-in: '+host+'. Add it in Firebase Console > Authentication > Settings > Authorized domains.');
   if(code==='auth/not-ready')return tr?'Hesap bağlantısı henüz hazırlanıyor. Bir saniye sonra tekrar dokun.':'Account sign-in is still preparing. Tap again in a moment.';
-  if(code==='auth/unavailable')return tr?'Hesap bağlantı modülü yüklenemedi. İnternet bağlantısını kontrol edip uygulamayı tamamen kapatarak yeniden aç.':'The account connection module could not load. Check the internet connection, fully close the app, and reopen it.';
   if(code==='auth/operation-not-supported-in-this-environment'||code==='auth/web-storage-unsupported')return tr?'Bu tarayıcı penceresi hesap girişini desteklemiyor. Oyunu Safari’de tam ekran açıp tekrar dene.':'This browser window cannot complete account sign-in. Open the game full-screen in Safari and try again.';
+  const lowerCode=code.toLowerCase();
+  if(lowerCode.includes('no credentials available'))return tr?'Google hesabı bilgisi alınamadı. Cihazda bir Google hesabının açık olduğunu kontrol edip yeniden dene.':'Google account credentials were not available. Make sure a Google account is signed in on the device and try again.';
+  if(code==='sync/incomplete')return tr?'Bulut ilerlemesi kaydedildi ancak sıralama yayını henüz tamamlanmadı. Daha sonra Şimdi Senkronize Et ile tekrar dene.':'Cloud progress was saved, but ranking publication is still pending. Try Sync Now again later.';
   const map=tr?{
-    'auth/invalid-email':'E-posta adresi geçersiz.','auth/invalid-credential':'E-posta veya şifre yanlış.','auth/wrong-password':'E-posta veya şifre yanlış.','auth/user-not-found':'Bu e-posta ile kayıtlı hesap bulunamadı.','auth/email-already-in-use':'Bu e-posta zaten başka bir hesapta kullanılıyor. Giriş yapmayı dene.','auth/credential-already-in-use':'Bu giriş hesabı zaten kayıtlı. Mevcut hesaba geçildi.','auth/weak-password':'Şifre en az 6 karakter olmalı.','auth/popup-closed-by-user':'Giriş penceresi tamamlanmadan kapatıldı.','auth/popup-blocked':'Giriş penceresi engellendi. Oyunu tam ekran aç ve Safari açılır pencerelerine izin ver.','auth/cancelled-popup-request':'Önceki giriş penceresi kapanmadan yeniden denendi.','auth/network-request-failed':'İnternet bağlantısı kurulamadı.','auth/too-many-requests':'Çok fazla deneme yapıldı. Bir süre sonra tekrar dene.','auth/requires-recent-login':'Bu işlem için hesabına tekrar giriş yapmalısın.','auth/provider-already-linked':'Bu e-posta giriş yöntemi zaten hesabına bağlı.','auth/no-current-user':'Kayıt için geçici kullanıcı oturumu oluşturulamadı. İnternet bağlantını kontrol edip tekrar dene.','auth/operation-not-allowed':'Bu giriş yöntemi Firebase üzerinde etkin değil.','auth/missing-or-invalid-nonce':'Apple giriş güvenlik kodu doğrulanamadı. Girişi yeniden başlat.','auth/provider-account-conflict':'Bu Apple veya Google kimliği başka bir Moleculox hesabına bağlı. Mevcut ilerlemeni korumak için hesap değiştirilmedi.','auth/apple-native-timeout':'Apple doğrulama ekranı zamanında dönmedi. Tekrar dene.','auth/google-native-timeout':'Google doğrulama ekranı zamanında dönmedi. Tekrar dene.','auth/firebase-credential-timeout':'Kimlik doğrulandı ancak Firebase hesap bağlantısı yanıt vermedi. Tekrar dene.','auth/email-signin-timeout':'E-posta girişi Firebase tarafından zamanında yanıtlanmadı. (Kaynak: '+host+') Tekrar dene.','auth/timeout':'Giriş 20 saniyede tamamlanamadı, bağlantı yanıt vermiyor. Tekrar dene.'
+    'auth/invalid-email':'E-posta adresi geçersiz.','auth/invalid-credential':'E-posta veya şifre yanlış.','auth/wrong-password':'E-posta veya şifre yanlış.','auth/user-not-found':'Bu e-posta ile kayıtlı hesap bulunamadı.','auth/email-already-in-use':'Bu e-posta zaten başka bir hesapta kullanılıyor. Giriş yapmayı dene.','auth/credential-already-in-use':'Bu giriş hesabı zaten kayıtlı. Mevcut hesaba geçildi.','auth/weak-password':'Şifre en az 6 karakter olmalı.','auth/popup-closed-by-user':'Giriş penceresi tamamlanmadan kapatıldı.','auth/popup-blocked':'Giriş penceresi engellendi. Oyunu tam ekran aç ve Safari açılır pencerelerine izin ver.','auth/cancelled-popup-request':'Önceki giriş penceresi kapanmadan yeniden denendi.','auth/network-request-failed':'İnternet bağlantısı kurulamadı.','auth/too-many-requests':'Çok fazla deneme yapıldı. Bir süre sonra tekrar dene.','auth/requires-recent-login':'Bu işlem için hesabına tekrar giriş yapmalısın.','auth/provider-already-linked':'Bu e-posta giriş yöntemi zaten hesabına bağlı.','auth/no-current-user':'Kayıt için geçici kullanıcı oturumu oluşturulamadı. İnternet bağlantını kontrol edip tekrar dene.','auth/operation-not-allowed':'Bu giriş yöntemi Firebase üzerinde etkin değil.','auth/missing-or-invalid-nonce':'Apple giriş güvenlik kodu doğrulanamadı. Girişi yeniden başlat.','auth/provider-account-conflict':'Bu Apple veya Google kimliği başka bir Moleculox hesabına bağlı. Mevcut ilerlemeni korumak için hesap değiştirilmedi.','auth/google-native-timeout':'Google giriş ekranı zaman aşımına uğradı. İnternet bağlantını kontrol edip yeniden dene.','auth/firebase-credential-timeout':'Google hesabı açıldı ancak Firebase bağlantısı zamanında tamamlanamadı. Yeniden dene.','auth/email-timeout':'E-posta giriş işlemi zaman aşımına uğradı. (Kaynak: '+host+') İnternet bağlantını kontrol edip yeniden dene.','cloud/reconcile-failed':'Giriş yapıldı ancak bulut ilerlemesi doğrulanamadı. Bağlantını kontrol edip yeniden dene.','cloud/save-failed':'Bulut ilerlemesi kaydedilemedi. İnternet bağlantını kontrol edip yeniden dene.','auth/unavailable':'Hesap sistemi şu anda hazırlanamadı. Uygulamayı kapatıp yeniden aç ve tekrar dene.'
   }:{
-    'auth/invalid-email':'The email address is invalid.','auth/invalid-credential':'Incorrect email or password.','auth/wrong-password':'Incorrect email or password.','auth/user-not-found':'No account was found for this email.','auth/email-already-in-use':'This email is already used by another account. Try signing in.','auth/credential-already-in-use':'This sign-in account already exists. The existing account was opened.','auth/weak-password':'Password must be at least 6 characters.','auth/popup-closed-by-user':'The sign-in window was closed before completion.','auth/popup-blocked':'The sign-in window was blocked. Open the game full-screen and allow Safari pop-ups.','auth/cancelled-popup-request':'A second sign-in was started before the first one finished.','auth/network-request-failed':'Could not connect to the internet.','auth/too-many-requests':'Too many attempts. Try again later.','auth/requires-recent-login':'Sign in again before doing this.','auth/provider-already-linked':'This email sign-in method is already connected.','auth/no-current-user':'A temporary user session could not be created. Check your connection and try again.','auth/operation-not-allowed':'This sign-in method is not enabled in Firebase.','auth/missing-or-invalid-nonce':'The Apple sign-in security nonce could not be verified. Start sign-in again.','auth/provider-account-conflict':'This Apple or Google identity belongs to another Moleculox account. The current account was kept to protect your progress.','auth/apple-native-timeout':'The Apple verification sheet did not return in time. Try again.','auth/google-native-timeout':'The Google verification sheet did not return in time. Try again.','auth/firebase-credential-timeout':'Your identity was approved, but Firebase did not finish linking the account. Try again.','auth/email-signin-timeout':'Firebase did not answer the email sign-in request in time. (Origin: '+host+') Try again.','auth/timeout':'Sign-in did not finish within 20 seconds — the connection is not responding. Try again.'
+    'auth/invalid-email':'The email address is invalid.','auth/invalid-credential':'Incorrect email or password.','auth/wrong-password':'Incorrect email or password.','auth/user-not-found':'No account was found for this email.','auth/email-already-in-use':'This email is already used by another account. Try signing in.','auth/credential-already-in-use':'This sign-in account already exists. The existing account was opened.','auth/weak-password':'Password must be at least 6 characters.','auth/popup-closed-by-user':'The sign-in window was closed before completion.','auth/popup-blocked':'The sign-in window was blocked. Open the game full-screen and allow Safari pop-ups.','auth/cancelled-popup-request':'A second sign-in was started before the first one finished.','auth/network-request-failed':'Could not connect to the internet.','auth/too-many-requests':'Too many attempts. Try again later.','auth/requires-recent-login':'Sign in again before doing this.','auth/provider-already-linked':'This email sign-in method is already connected.','auth/no-current-user':'A temporary user session could not be created. Check your connection and try again.','auth/operation-not-allowed':'This sign-in method is not enabled in Firebase.','auth/missing-or-invalid-nonce':'The Apple sign-in security nonce could not be verified. Start sign-in again.','auth/provider-account-conflict':'This Apple or Google identity belongs to another Moleculox account. The current account was kept to protect your progress.','auth/google-native-timeout':'Google sign-in timed out. Check your connection and try again.','auth/firebase-credential-timeout':'Google opened, but Firebase did not finish connecting in time. Try again.','auth/email-timeout':'Email sign-in timed out. (Origin: '+host+') Check your connection and try again.','cloud/reconcile-failed':'Sign-in completed, but cloud progress could not be verified. Check your connection and try again.','cloud/save-failed':'Cloud progress could not be saved. Check your connection and try again.','auth/unavailable':'The account system is not ready. Close and reopen the app, then try again.'
   };
   return map[code]||(tr?'Giriş işlemi tamamlanamadı. '+code:'Sign-in could not be completed. '+code);
 }
@@ -6884,7 +7381,9 @@ async function finishAppleConnection(button){
     const loginPromise=window.MXCloud.connectApple();
     SFX.click();setAuthBusy(button,true,c.working);
     const connected=await loginPromise;
-    finishAccountLoginUI(connected,c);
+    if(save.autoGuest&&!profileHasMeaningfulProgress(save)&&connected&&connected.displayName)setCurrentProfileNickname(connected.displayName);
+    await reconcileAccountProfiles();
+    openAccountModal(c.connected,true);
   }catch(err){openAccountModal(authErrorText(err),false);}
 }
 function confirmAppleConnection(){
@@ -6895,49 +7394,54 @@ function confirmAppleConnection(){
   bindTap('#accAppleCancel',()=>openAccountModal());
 }
 // Added 2026-07-26: native path for iOS (Capacitor). Uses @capacitor-firebase/authentication's
-// FirebaseAuthentication.signInWithApple() with skipNativeAuth enabled in capacitor.config to get a native Apple ID
+// FirebaseAuthentication.signInWithApple({skipNativeAuth:true}) to get a real native Apple ID
 // token + nonce from iOS's own Sign in with Apple sheet, then hands them to the SAME
 // connectAppleIdToken() in firebase.js that the native wrapper comment already anticipated.
 // No extra consent screen here on purpose — the native OS sheet IS the consent screen.
-function finishAccountLoginUI(connected,c){
+async function finishAccountLoginUI(connected,c,successMessage){
   if(connected)setAccountState(connected);
   if(save.autoGuest&&!profileHasMeaningfulProgress(save)&&connected&&connected.displayName)setCurrentProfileNickname(connected.displayName);
-  openAccountModal(c.connected,true);
-  setSyncStatus('syncing');
-  setTimeout(()=>{
-    reconcileAccountProfiles().then(ok=>{if(!ok)setSyncStatus('error');}).catch(err=>{console.warn('[account] post-login cloud sync failed',err);setSyncStatus('error');});
-  },80);
+  let ok=await reconcileAccountProfiles();
+  if(!ok){
+    await new Promise(resolve=>setTimeout(resolve,900));
+    ok=await reconcileAccountProfiles();
+  }
+  if(!ok){
+    setSyncStatus('error');
+    openAccountModal(c.connectedSyncPending,true);
+    return false;
+  }
+  openAccountModal(successMessage||c.connected,true);
+  return true;
 }
-
 async function nativeGoogleSignIn(button){
   const c=accountCopy();
   try{
     const plugin=mxFirebaseAuthPlugin();
-    if(!plugin||!window.MXCloud||!window.MXCloud.connectGoogleIdToken)throw Object.assign(new Error('auth/unavailable'),{code:'auth/unavailable'});
+    if(!plugin||typeof plugin.signInWithGoogle!=='function'||!window.MXCloud||!window.MXCloud.connectGoogleIdToken)throw Object.assign(new Error('auth/unavailable'),{code:'auth/unavailable'});
     setAuthBusy(button,true,c.working);
-    const result=await withAuthTimeout(plugin.signInWithGoogle({skipNativeAuth:true}),30000,'auth/google-native-timeout');
+    const result=await withAuthTimeout(plugin.signInWithGoogle({skipNativeAuth:true,useCredentialManager:false}),30000,'auth/google-native-timeout');
     const idToken=result&&((result.credential&&result.credential.idToken)||result.idToken||result.identityToken);
     if(!idToken)throw Object.assign(new Error('auth/invalid-credential'),{code:'auth/invalid-credential'});
     const connected=await withAuthTimeout(window.MXCloud.connectGoogleIdToken(idToken),25000,'auth/firebase-credential-timeout');
-    finishAccountLoginUI(connected,c);
+    await finishAccountLoginUI(connected,c);
   }catch(err){openAccountModal(authErrorText(err),false);}
 }
 async function nativeAppleSignIn(button){
   const c=accountCopy();
   try{
-    const plugin=mxFirebaseAuthPlugin();
+    const plugin=window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.FirebaseAuthentication;
     if(!plugin||!window.MXCloud||!window.MXCloud.connectAppleIdToken)throw Object.assign(new Error('auth/unavailable'),{code:'auth/unavailable'});
     setAuthBusy(button,true,c.working);
-    const result=await withAuthTimeout(plugin.signInWithApple({skipNativeAuth:true}),30000,'auth/apple-native-timeout');
-    const idToken=result&&((result.credential&&result.credential.idToken)||result.idToken||result.identityToken);
-    const nonce=result&&((result.credential&&result.credential.nonce)||result.nonce||result.rawNonce);
+    const result=await plugin.signInWithApple({skipNativeAuth:true});
+    const idToken=result&&result.credential&&result.credential.idToken;
+    const nonce=result&&result.credential&&result.credential.nonce;
     if(!idToken||!nonce)throw Object.assign(new Error('auth/invalid-credential'),{code:'auth/invalid-credential'});
-    const givenName=(result.user&&(result.user.givenName||result.user.displayName))||(result.credential&&result.credential.displayName)||'';
+    const givenName=(result.user&&(result.user.givenName||result.user.displayName))||'';
     const connected=await withAuthTimeout(window.MXCloud.connectAppleIdToken(idToken,nonce,givenName),25000,'auth/firebase-credential-timeout');
-    finishAccountLoginUI(connected,c);
+    await finishAccountLoginUI(connected,c);
   }catch(err){openAccountModal(authErrorText(err),false);}
 }
-
 function cloudStatusLabel(){
   const c=accountCopy();
   if(accountState.isAnonymous)return {key:'guest',icon:'👤',label:c.syncGuest};
@@ -6981,14 +7485,14 @@ async function runManualCloudSync(btn){
     await window.MXCloud.ready;
     await reconcileAccountProfiles();
     const merged=await window.MXCloud.saveProgressNow(save,save.profileId);
-    if(merged&&typeof merged==='object')applyMergedCloudProfile(merged);
-    if(window.MXCloud.cleanupOrphanRankingRows)await window.MXCloud.cleanupOrphanRankingRows();
-    const classic=await repairCurrentLeaderboard('manual-cloud-panel',true);
-    const duel=window.MXCloud.syncDuelLeaderboard?await window.MXCloud.syncDuelLeaderboard(save,save.profileId,true):{ok:false,reason:'unavailable'};
-    if(!classic||!classic.ok)throw Object.assign(new Error('sync/incomplete'),{code:'sync/incomplete'});
-    if(!duel||!duel.ok)console.warn('[Moleculox] duel ranking remains unpublished:',duel&&duel.reason);
+    if(!merged||typeof merged!=='object')throw Object.assign(new Error('cloud/save-failed'),{code:'cloud/save-failed'});
+    applyMergedCloudProfile(merged);
+    let rankingPending=false;
+    try{if(window.MXCloud.cleanupOrphanRankingRows)await window.MXCloud.cleanupOrphanRankingRows();}catch(cleanErr){rankingPending=true;console.warn('[Moleculox] ranking cleanup pending:',cleanErr&&cleanErr.code||cleanErr);}
+    try{const classic=await repairCurrentLeaderboard('manual-cloud-panel',true);if(!classic||!classic.ok)rankingPending=true;}catch(classicErr){rankingPending=true;console.warn('[Moleculox] classic ranking remains unpublished:',classicErr&&classicErr.code||classicErr);}
+    try{const duel=window.MXCloud.syncDuelLeaderboard?await window.MXCloud.syncDuelLeaderboard(save,save.profileId,true):{ok:false,reason:'unavailable'};if(!duel||!duel.ok){rankingPending=true;console.warn('[Moleculox] duel ranking remains unpublished:',duel&&duel.reason);}}catch(duelErr){rankingPending=true;console.warn('[Moleculox] duel ranking remains unpublished:',duelErr&&duelErr.code||duelErr);}
     setSyncStatus('saved');
-    openCloudStatusModal(c.syncSuccess,true);
+    openCloudStatusModal(rankingPending?c.syncSavedRankPending:c.syncSuccess,true);
   }catch(e){setSyncStatus(navigator.onLine===false?'offline':'error');openCloudStatusModal(authErrorText(e),false);}
 }
 function openCloudStatusModal(message,good){
@@ -7042,7 +7546,7 @@ function openAccountModal(message,good){
   $('#modalBox').classList.add('accountModal');
   const apple=$('#accApple');if(apple)apple.addEventListener('click',e=>{e.preventDefault();SFX.click();if(MX_IOS_NATIVE)nativeAppleSignIn(apple);else confirmAppleConnection();},{passive:false});
   const google=$('#accGoogle');if(google)google.addEventListener('click',async e=>{e.preventDefault();
-    if(MX_IOS_NATIVE)return nativeGoogleSignIn(google);
+    if(MX_IOS_NATIVE||MX_ANDROID_NATIVE)return nativeGoogleSignIn(google);
     const before={profiles:JSON.parse(JSON.stringify(profiles||{})),curProfile,lastProfile,save:JSON.parse(JSON.stringify(save||{}))};
     try{
       if(!window.MXCloud)throw Object.assign(new Error('auth/unavailable'),{code:'auth/unavailable'});
@@ -7080,7 +7584,7 @@ function authFormShell(title,body){openModal('<h3>'+title+'</h3>'+body);$('#moda
 function openEmailLogin(prefill){
   const c=accountCopy();
   authFormShell('✉ '+c.emailLogin,'<label class="authField"><span>'+c.email+'</span><input class="authInput" id="authEmail" type="email" inputmode="email" autocomplete="email" value="'+escAttr(prefill||'')+'"></label><label class="authField"><span>'+c.password+'</span><input class="authInput" id="authPass" type="password" autocomplete="current-password"></label><div class="authMessage" id="authMsg"></div><div class="accountActions"><button class="btn blue" id="authLoginGo">'+c.login+'</button><button class="btn ghost" id="authForgot">'+c.reset+'</button><button class="btn" id="authBack">'+c.back+'</button></div>');
-  $('#authLoginGo').addEventListener('pointerdown',async e=>{e.preventDefault();const btn=e.currentTarget,msg=$('#authMsg');const email=$('#authEmail').value,pass=$('#authPass').value;if(!email||!pass){msg.textContent=c.required;return;}setAuthBusy(btn,true,c.working);msg.textContent='';try{if(!window.MXCloud)throw Object.assign(new Error('auth/unavailable'),{code:'auth/unavailable'});const connected=await withAuthTimeout(window.MXCloud.signInEmail(email,pass),25000,'auth/email-signin-timeout');finishAccountLoginUI(connected,c);}catch(err){msg.textContent=authErrorText(err);setAuthBusy(btn,false);}},{passive:false});
+  $('#authLoginGo').addEventListener('pointerdown',async e=>{e.preventDefault();const btn=e.currentTarget,msg=$('#authMsg');const email=$('#authEmail').value,pass=$('#authPass').value;if(!email||!pass){msg.textContent=c.required;return;}setAuthBusy(btn,true,c.working);msg.textContent='';try{if(!window.MXCloud)throw Object.assign(new Error('auth/unavailable'),{code:'auth/unavailable'});const connected=await withAuthTimeout(window.MXCloud.signInEmail(email,pass),25000,'auth/email-timeout');await finishAccountLoginUI(connected,c);}catch(err){msg.textContent=authErrorText(err);setAuthBusy(btn,false);}},{passive:false});
   $('#authForgot').addEventListener('pointerdown',e=>{e.preventDefault();openPasswordReset($('#authEmail').value);},{passive:false});
   bindTap('#authBack',e=>{openAccountModal();});
   setTimeout(()=>$('#authEmail').focus(),80);
@@ -7088,7 +7592,7 @@ function openEmailLogin(prefill){
 function openEmailCreate(){
   const c=accountCopy();const nm=(save.playerName||curProfile||accountState.displayName||'').slice(0,18);
   authFormShell('＋ '+c.emailCreate,'<label class="authField"><span>'+c.nickname+'</span><input class="authInput" id="authName" maxlength="18" autocomplete="nickname" value="'+escAttr(nm)+'"></label><label class="authField"><span>'+c.email+'</span><input class="authInput" id="authEmail" type="email" inputmode="email" autocomplete="email"></label><label class="authField"><span>'+c.password+'</span><input class="authInput" id="authPass" type="password" autocomplete="new-password"></label><label class="authField"><span>'+c.passwordAgain+'</span><input class="authInput" id="authPass2" type="password" autocomplete="new-password"></label><div class="authMessage" id="authMsg"></div><div class="accountActions"><button class="btn green" id="authCreateGo">'+c.create+'</button><button class="btn" id="authBack">'+c.back+'</button></div><div class="authTiny">'+(LANG==='tr'?'Nickname yalnızca oyun içinde görünür. Hesaba e-posta ve şifreyle girilir.':'Nickname is only shown in the game. Sign in with email and password.')+'</div>');
-  $('#authCreateGo').addEventListener('pointerdown',async e=>{e.preventDefault();const btn=e.currentTarget,msg=$('#authMsg');const name=$('#authName').value.trim(),email=$('#authEmail').value.trim(),p1=$('#authPass').value,p2=$('#authPass2').value;if(!name||!email||!p1||!p2){msg.textContent=c.required;return;}if(p1.length<6){msg.textContent=c.passShort;return;}if(p1!==p2){msg.textContent=c.passMismatch;return;}setAuthBusy(btn,true,c.working);msg.textContent='';try{if(!window.MXCloud)throw Object.assign(new Error('auth/unavailable'),{code:'auth/unavailable'});setCurrentProfileNickname(name);const connected=await withAuthTimeout(window.MXCloud.registerEmail(email,p1,name),25000,'auth/email-signin-timeout');if(connected)setAccountState(connected);openAccountModal(c.connected+' '+c.verify,true);setSyncStatus('syncing');setTimeout(()=>reconcileAccountProfiles().catch(()=>setSyncStatus('error')),80);}catch(err){msg.textContent=authErrorText(err);setAuthBusy(btn,false);}},{passive:false});
+  $('#authCreateGo').addEventListener('pointerdown',async e=>{e.preventDefault();const btn=e.currentTarget,msg=$('#authMsg');const name=$('#authName').value.trim(),email=$('#authEmail').value.trim(),p1=$('#authPass').value,p2=$('#authPass2').value;if(!name||!email||!p1||!p2){msg.textContent=c.required;return;}if(p1.length<6){msg.textContent=c.passShort;return;}if(p1!==p2){msg.textContent=c.passMismatch;return;}setAuthBusy(btn,true,c.working);msg.textContent='';try{if(!window.MXCloud)throw Object.assign(new Error('auth/unavailable'),{code:'auth/unavailable'});setCurrentProfileNickname(name);const connected=await withAuthTimeout(window.MXCloud.registerEmail(email,p1,name),25000,'auth/email-timeout');await finishAccountLoginUI(connected,c,c.connected+' '+c.verify);}catch(err){msg.textContent=authErrorText(err);setAuthBusy(btn,false);}},{passive:false});
   bindTap('#authBack',e=>{openAccountModal();});
   setTimeout(()=>$('#authName').focus(),80);
 }
@@ -7159,7 +7663,7 @@ function performanceLow(){return save.performanceMode==='low'||document.body.cla
 function effectiveDpr(){const raw=window.devicePixelRatio||1;if(save.performanceMode==='low')return Math.min(raw,1.5);if(save.performanceMode==='high')return Math.min(raw,2.5);const mobile=Math.min(innerWidth||9999,innerHeight||9999)<760;return Math.min(raw,mobile?2:2.25);}
 function mxHaptic(kind='light'){
   if(save.haptics===false||motionReduced()||!navigator.vibrate)return;
-  const pattern=kind==='success'?[18,28,24]:(kind==='error'?[22,20,12]:(kind==='medium'?[14]:[7]));
+  const pattern=kind==='success'?[18,28,24]:(kind==='error'?[22,20,12]:(kind==='heavy'?[26,18,34]:(kind==='medium'?[14]:[7])));
   try{navigator.vibrate(pattern);}catch(e){}
 }
 function applyMotionPrefs(){
@@ -7204,8 +7708,8 @@ function trainingMechanicCatalog(){
   ];
 }
 function trainingProgress(){
-  const supports=['hint','undo','restart','hammer','precision','lab'];
-  const supportSeen={hint:'seenHintSupport',undo:'seenUndoSupport',restart:'seenRestartSupport',hammer:'seenHammerSupport',precision:'seenPrecisionSupport',lab:'seenLabSupport'};
+  const supports=['hint','undo','restart','hammer','precision','barrier','lab'];
+  const supportSeen={hint:'seenHintSupport',undo:'seenUndoSupport',restart:'seenRestartSupport',hammer:'seenHammerSupport',precision:'seenPrecisionSupport',barrier:'seenBarrierSupport',lab:'seenLabSupport'};
   const mechanics=trainingMechanicCatalog().filter(x=>!!save[x[1]]);
   const labs=LAB_ITEMS.filter(it=>save.cur>=it.unlock);
   let total=1+supports.length+mechanics.length+labs.length,done=0;
@@ -7216,14 +7720,15 @@ function trainingProgress(){
   return {total,done,pct:total?Math.round(done*100/total):0};
 }
 const SUPPORT_INFO={
-  hint:{icon:'💡',trTitle:'İpucu',enTitle:'Hint',trDesc:'Tek dokunuşla ipucu menüsü açılır. Ücretsiz genel tavsiye, sonraki kesin hamle veya kalan çözüm arasından seçim yaparsın.',enDesc:'One tap opens the hint menu. Choose a free general clue, the next exact move, or the remaining solution.'},
-  undo:{icon:'↩️',trTitle:'Geri Al',enTitle:'Undo',trDesc:'Son normal hamleyi geri çevirir. Kullanılmış Çekiç ve Tek Kare Hareket envantere geri dönmez.',enDesc:'Reverses the last normal move. Used Hammer and One-Square Move items are not restored.'},
-  restart:{icon:'🔄',trTitle:'Yeniden Başlat',enTitle:'Restart',trDesc:'Bölümü başlangıç düzenine döndürür. Harcanan destekler geri verilmez.',enDesc:'Returns the level to its starting layout. Consumed support items are not restored.'},
-  hammer:{icon:'🔨',trTitle:'Çekiç',enTitle:'Hammer',trDesc:'Çekici seç, ardından çatlak duvara dokun. Eğitim örneği ücretsizdir; gerçek kullanımda 1 çekiç harcanır.',enDesc:'Select the hammer, then tap a cracked wall. The training example is free; real use consumes 1 hammer.'},
-  precision:{icon:'↔️',trTitle:'Tek Kare Hareket',enTitle:'One-Square Move',trDesc:'Aracı seç, atomu seç ve yön ver. Atom yalnızca 1 kare ilerler. Eğitim örneği ücretsizdir.',enDesc:'Select the tool, choose an atom and a direction. The atom moves exactly one square. The training example is free.'},
-  lab:{icon:'🧪',trTitle:'Laboratuvar ve Destekler',enTitle:'Laboratory and Supports',trDesc:'Çekiç ve Tek Kare Hareket burada alınır. Kalıcı cihazlar ipucu fiyatını düşürür veya ödülleri artırır. Satın almadan önce her kartın etkisini kontrol et.',enDesc:'Hammer and One-Square Move are bought here. Permanent equipment reduces hint costs or increases rewards. Check each card before buying.'}
+  hint:{icon:'💡',title:['İpucu','Hint','Hinweis','Pista','Dica','ヒント'],desc:['Tek dokunuşla ipucu menüsü açılır. Ücretsiz genel tavsiye, sonraki kesin hamle veya kalan çözüm arasından seçim yaparsın.','One tap opens the hint menu. Choose a free general clue, the next exact move, or the remaining solution.','Ein Tippen öffnet das Hinweismenü. Wähle einen kostenlosen allgemeinen Tipp, den nächsten exakten Zug oder die restliche Lösung.','Un toque abre el menú de pistas. Elige una orientación general gratis, el siguiente movimiento exacto o la solución restante.','Um toque abre o menu de dicas. Escolha uma orientação geral grátis, o próximo movimento exato ou a solução restante.','1回タップするとヒントメニューが開きます。無料の一般ヒント、次の正確な手、残りの解答から選べます。']},
+  undo:{icon:'↩️',title:['Geri Al','Undo','Rückgängig','Deshacer','Desfazer','元に戻す'],desc:['Son normal hamleyi geri çevirir. Kullanılmış Çekiç, Tek Kare Hareket ve Nano Bariyer envantere geri dönmez.','Reverses the last normal move. Used Hammer, One-Square Move, and Nano Barrier items are not restored.','Macht den letzten normalen Zug rückgängig. Benutzter Hammer, Ein-Feld-Zug und Nano-Barriere werden nicht zurückgegeben.','Revierte el último movimiento normal. Martillo, Movimiento de una casilla y Barrera nano usados no se devuelven.','Desfaz o último movimento normal. Martelo, Movimento de uma casa e Barreira nano usados não são devolvidos.','直前の通常手を戻します。使用済みのハンマー、1マス移動、ナノバリアは戻りません。']},
+  restart:{icon:'🔄',title:['Yeniden Başlat','Restart','Neu starten','Reiniciar','Reiniciar','やり直す'],desc:['Bölümü başlangıç düzenine döndürür. Harcanan destekler geri verilmez.','Returns the level to its starting layout. Consumed support items are not restored.','Setzt das Level auf die Startanordnung zurück. Verbrauchte Hilfen werden nicht erstattet.','Devuelve el nivel a su disposición inicial. Las ayudas gastadas no se recuperan.','Retorna a fase à configuração inicial. Os suportes gastos não são devolvidos.','レベルを開始時の配置に戻します。消費したサポートは戻りません。']},
+  hammer:{icon:'🔨',title:['Çekiç','Hammer','Hammer','Martillo','Martelo','ハンマー'],desc:['Çekici seç, ardından çatlak duvara dokun. Eğitim örneği ücretsizdir; gerçek kullanımda 1 çekiç harcanır.','Select the hammer, then tap a cracked wall. The training example is free; real use consumes 1 hammer.','Wähle den Hammer und tippe dann auf eine rissige Wand. Das Trainingsbeispiel ist kostenlos; im echten Level wird 1 Hammer verbraucht.','Selecciona el martillo y toca una pared agrietada. El ejemplo de práctica es gratis; el uso real consume 1 martillo.','Selecione o martelo e toque em uma parede rachada. O exemplo de treino é grátis; o uso real consome 1 martelo.','ハンマーを選び、ひび割れた壁をタップします。練習は無料ですが、実際の使用ではハンマーを1個消費します。']},
+  precision:{icon:'↔️',title:['Tek Kare Hareket','One-Square Move','Ein-Feld-Zug','Movimiento de una casilla','Movimento de uma casa','1マス移動'],desc:['Aracı seç, atomu seç ve yön ver. Atom yalnızca 1 kare ilerler. Eğitim örneği ücretsizdir.','Select the tool, choose an atom and a direction. The atom moves exactly one square. The training example is free.','Wähle das Werkzeug, ein Atom und eine Richtung. Das Atom bewegt sich genau ein Feld. Das Trainingsbeispiel ist kostenlos.','Selecciona la herramienta, un átomo y una dirección. El átomo avanza exactamente una casilla. El ejemplo es gratis.','Selecione a ferramenta, um átomo e uma direção. O átomo avança exatamente uma casa. O exemplo é grátis.','ツール、原子、方向を選ぶと、原子がちょうど1マス移動します。練習は無料です。']},
+  barrier:{icon:'🧱',title:['Nano Bariyer','Nano Barrier','Nano-Barriere','Barrera nano','Barreira nano','ナノバリア'],desc:['Aracı seçip boş ve normal bir kareye dokun. Geçici blok ilk atom çarpışmasında kırılır ve bölüm başına yalnızca bir kez kullanılabilir.','Select the tool and tap an empty normal tile. The temporary block breaks on the first atom collision and can be used only once per level.','Wähle das Werkzeug und tippe auf ein leeres normales Feld. Der temporäre Block zerbricht beim ersten Atomaufprall und kann nur einmal pro Level benutzt werden.','Selecciona la herramienta y toca una casilla normal vacía. El bloque temporal se rompe con el primer choque de un átomo y solo puede usarse una vez por nivel.','Selecione a ferramenta e toque em uma casa normal vazia. O bloco temporário quebra na primeira colisão de um átomo e só pode ser usado uma vez por fase.','ツールを選び、空いている通常マスをタップします。一時ブロックは最初の原子衝突で壊れ、1レベルにつき1回だけ使えます。']},
+  lab:{icon:'🧪',title:['Laboratuvar ve Destekler','Laboratory and Supports','Labor und Hilfen','Laboratorio y ayudas','Laboratório e suportes','ラボとサポート'],desc:['Çekiç, Tek Kare Hareket ve Nano Bariyer burada alınır. Kalıcı cihazlar ipucu fiyatını düşürür veya ödülleri artırır. Satın almadan önce kartın etkisini kontrol et.','Hammer, One-Square Move, and Nano Barrier are bought here. Permanent equipment reduces hint costs or increases rewards. Check each card before buying.','Hammer, Ein-Feld-Zug und Nano-Barriere werden hier gekauft. Dauerhafte Geräte senken Hinweiskosten oder erhöhen Belohnungen. Prüfe vor dem Kauf jede Karte.','Aquí se compran Martillo, Movimiento de una casilla y Barrera nano. Los equipos permanentes reducen el coste de pistas o aumentan recompensas. Revisa cada tarjeta antes de comprar.','Martelo, Movimento de uma casa e Barreira nano são comprados aqui. Equipamentos permanentes reduzem o custo de dicas ou aumentam recompensas. Confira cada cartão antes de comprar.','ハンマー、1マス移動、ナノバリアを購入できます。常設装置はヒント費用を下げたり報酬を増やしたりします。購入前に効果を確認してください。']}
 };
-function supportInfoText(id){const x=SUPPORT_INFO[id],tr=LANG==='tr';return x?{icon:x.icon,title:tr?x.trTitle:x.enTitle,desc:tr?x.trDesc:x.enDesc}:null;}
+function supportInfoText(id){const x=SUPPORT_INFO[id];return x?{icon:x.icon,title:ml(...x.title),desc:ml(...x.desc)}:null;}
 function drETrainingCard(text,step){
   return '<div id="drETrainingCard" style="display:flex;gap:10px;align-items:center;margin:10px 0 14px;padding:11px 12px;border-radius:16px;background:linear-gradient(135deg,rgba(120,231,255,.13),rgba(255,211,110,.09));border:1px solid rgba(120,231,255,.34);box-shadow:0 0 0 0 rgba(120,231,255,.28);animation:mxDrEGuidePulse 1.8s ease-in-out infinite"><div style="width:42px;height:42px;flex:0 0 42px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(5,18,35,.8);border:2px solid rgba(255,211,110,.65);font-size:1.35rem">🧑‍🔬</div><div style="min-width:0;flex:1"><b style="display:block;color:#ffd36e;font-size:.78rem;letter-spacing:.08em">DR. E · '+(step||'1/2')+'</b><span id="drETrainingText" style="display:block;margin-top:3px;line-height:1.35">'+text+'</span></div><div id="drETrainingArrow" style="font-size:1.25rem;animation:mxDrEArrow .8s ease-in-out infinite alternate">👇</div></div>';
 }
@@ -7238,20 +7743,51 @@ function setDrETraining(text,step,arrow){
 })();
 function showSupportTutorial(id,onDone){
   const x=supportInfoText(id);if(!x){if(onDone)onDone();return;}
-  const demos=LANG==='tr'?{
-    hint:['💡','→','Parlayan atom + yön'],undo:['Yanlış hamle','→','↩️','→','Önceki durum'],restart:['Karışan bölüm','→','🔄','→','Başlangıç'],hammer:['🔨','→','🧱','→','Açık yol'],precision:['↔️','→','⚛️','→','1 □'],lab:['🪙','→','🧪','→','Destek / Kalıcı cihaz']
-  }:{
-    hint:['💡','→','Glowing atom + direction'],undo:['Wrong move','→','↩️','→','Previous state'],restart:['Mixed-up level','→','🔄','→','Starting state'],hammer:['🔨','→','🧱','→','Open path'],precision:['↔️','→','⚛️','→','1 square'],lab:['🪙','→','🧪','→','Support / Permanent device']
-  };  const cells=(demos[id]||['⚛️','→','✅']).map(v=>'<span style="min-width:44px;height:42px;padding:0 8px;border-radius:11px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.075);border:1px solid rgba(255,255,255,.14);font-weight:900">'+v+'</span>').join('');
-  const guide1=LANG==='tr'?'Önce aşağıdaki parlayan düğmeye dokun. Bu deneme envanterinden hiçbir şey harcamaz.':'First tap the glowing button below. This example consumes nothing from your inventory.';
-  openModal('<div class="modalScroll supportTutorialScroll"><div style="font-size:.72rem;font-weight:900;letter-spacing:.12em;color:#78e7ff;margin-bottom:5px">'+(LANG==='tr'?'OYUNCU DESTEĞİ':'PLAYER SUPPORT')+'</div><h3>'+x.icon+' '+x.title+'</h3><div class="msub">'+x.desc+'</div>'+drETrainingCard(guide1,'1/2')+'<div style="margin:15px 0;padding:14px 8px;border-radius:18px;background:linear-gradient(145deg,rgba(20,49,76,.9),rgba(34,20,63,.92));border:1px solid rgba(120,231,255,.28);display:flex;gap:7px;align-items:center;justify-content:center;flex-wrap:wrap">'+cells+'</div><div class="mrow"><button class="btn green mxGuidedTarget" id="mSupportTry">▶ '+(LANG==='tr'?'ÜCRETSİZ ÖRNEĞİ ÇALIŞTIR':'RUN FREE EXAMPLE')+'</button></div></div><div class="mrow modalFixedClose"><button class="btn" id="mSupportClose">'+t('close')+'</button></div>');
+  const demos={
+    hint:['💡','→','✨⚛️','↔️'],undo:['❌','→','↩️','→','✅'],restart:['🌀','→','🔄','→','1️⃣'],hammer:['🔨','→','🧱','→','✅'],precision:['↔️','→','⚛️','→','1 □'],barrier:['🧱','→','□','→','💥'],lab:['🪙','→','🧪','→','🧰']
+  };
+  const cells=(demos[id]||['⚛️','→','✅']).map(v=>'<span style="min-width:44px;height:42px;padding:0 8px;border-radius:11px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.075);border:1px solid rgba(255,255,255,.14);font-weight:900">'+v+'</span>').join('');
+  const guide1=ml('Aşağıdaki parlayan düğmeye dokun. Bu kısa örnek envanterinden hiçbir şey harcamaz.','Tap the glowing button below. This short example consumes nothing from your inventory.','Tippe auf die leuchtende Schaltfläche. Dieses kurze Beispiel verbraucht nichts aus deinem Inventar.','Toca el botón brillante. Este ejemplo breve no consume nada de tu inventario.','Toque no botão brilhante. Este exemplo curto não consome nada do seu inventário.','下の光るボタンをタップしてください。この短い例では所持品を消費しません。');
+  const heading=ml('OYUNCU DESTEĞİ','PLAYER SUPPORT','SPIELERHILFE','AYUDA DEL JUGADOR','SUPORTE DO JOGADOR','プレイヤーサポート');
+  const run=ml('ÜCRETSİZ ÖRNEĞİ ÇALIŞTIR','RUN FREE EXAMPLE','KOSTENLOSES BEISPIEL STARTEN','EJECUTAR EJEMPLO GRATIS','EXECUTAR EXEMPLO GRÁTIS','無料の例を実行');
+  openModal('<div class="modalScroll supportTutorialScroll"><div style="font-size:.72rem;font-weight:900;letter-spacing:.12em;color:#78e7ff;margin-bottom:5px">'+heading+'</div><h3>'+x.icon+' '+x.title+'</h3><div class="msub">'+x.desc+'</div>'+drETrainingCard(guide1,'1/2')+'<div style="margin:15px 0;padding:14px 8px;border-radius:18px;background:linear-gradient(145deg,rgba(20,49,76,.9),rgba(34,20,63,.92));border:1px solid rgba(120,231,255,.28);display:flex;gap:7px;align-items:center;justify-content:center;flex-wrap:wrap">'+cells+'</div><div class="mrow"><button class="btn green mxGuidedTarget" id="mSupportTry">▶ '+run+'</button></div></div><div class="mrow modalFixedClose"><button class="btn" id="mSupportClose">'+t('close')+'</button></div>');
   bindTap('#mSupportClose',()=>{SFX.click();closeModal();});
-  bindTap('#mSupportTry',()=>{SFX.select();mxHaptic('success');setDrETraining(LANG==='tr'?'Harika! Desteğin etkisini gördün. Gerçek bölümde kullanıldığında envanter kuralı uygulanır.':'Great! You saw the support effect. In a real level, normal inventory rules apply.','2/2','✅');markTrainingLearned('support',id,x.title,true);const b=$('#mSupportTry');if(b){b.classList.remove('mxGuidedTarget');b.disabled=true;b.textContent='✓ '+(LANG==='tr'?'ÖĞRENDİN':'LEARNED');}setTimeout(()=>{closeModal();prop('🎓 '+(LANG==='tr'?'Öğrenildi: ':'Learned: ')+x.title,2200);if(onDone)onDone();},950);});
+  bindTap('#mSupportTry',()=>{
+    SFX.select();mxHaptic('success');
+    setDrETraining(ml('Harika! Etkiyi gördün. Gerçek bölümde normal envanter kuralı uygulanır.','Great! You saw the effect. Normal inventory rules apply in a real level.','Sehr gut! Du hast den Effekt gesehen. Im echten Level gelten die normalen Inventarregeln.','¡Muy bien! Ya viste el efecto. En un nivel real se aplican las reglas normales del inventario.','Muito bem! Você viu o efeito. Em uma fase real valem as regras normais do inventário.','効果を確認できました。実際のレベルでは通常の所持品ルールが適用されます。'),'2/2','✅');
+    markTrainingLearned('support',id,x.title,true);
+    const b=$('#mSupportTry');if(b){b.classList.remove('mxGuidedTarget');b.disabled=true;b.textContent='✓ '+ml('ÖĞRENİLDİ','LEARNED','GELERNT','APRENDIDO','APRENDIDO','習得済み');}
+    setTimeout(()=>{closeModal();prop('🎓 '+ml('Öğrenildi: ','Learned: ','Gelernt: ','Aprendido: ','Aprendido: ','習得：')+x.title,1800);if(onDone)onDone();},800);
+  });
 }
 function showAllSupportGuide(){
-  const ids=['hint','undo','restart','hammer','precision','lab'];let page=0;
+  const ids=['hint','undo','restart','hammer','precision','barrier','lab'];let page=0;
   const next=()=>{if(page>=ids.length){save.seenSupportGuide=true;persist();closeModal();return;}showSupportTutorial(ids[page++],next);};next();
 }
+
+const MECHANIC_FIRST_USE_POSE=Object.freeze({
+  frozen:'magnifier',fire:'experiment',lightning:'surprised',sticky:'magnifier',zombie:'surprised',oneWay:'clipboard',hammer:'experiment',portal:'surprised',movingWall:'thinking',pressureDoor:'clipboard',fragile:'magnifier',linked:'molecule',precision:'clipboard',classicCatalyst:'experiment',classicChain:'experiment',classicReactor:'surprised'
+});
+function showMechanicFirstUse(ids,opts){
+  ids=[...new Set((ids||[]).filter(id=>MECHANIC_INFO[id]))];
+  if(!ids.length)return;
+  const pose=MECHANIC_FIRST_USE_POSE[ids[0]]||'clipboard',src=DR_E_POSES[pose]||DR_E_POSES.clipboard;
+  setDrEPose(pose,9000,6,true);
+  const rows=ids.map(id=>{const info=MECHANIC_INFO[id];return '<div class="mxFirstUseRow"><span class="mxFirstUseIcon">'+info.icon+'</span><div><b>'+t(info.titleKey)+'</b><small>'+t(info.descKey)+'</small></div></div>';}).join('');
+  const title=ml('Yeni kural · kısa bilgi','New rule · quick guide','Neue Regel · Kurzhilfe','Nueva regla · guía rápida','Nova regra · guia rápido','新ルール・クイックガイド');
+  const sub=ml('Sadece ilk karşılaşmada gösterilir. Uzun eğitim zorunlu değildir.','Shown only on first encounter. The long lesson is optional.','Wird nur beim ersten Auftreten gezeigt. Die lange Lektion ist optional.','Solo aparece la primera vez. La lección larga es opcional.','Aparece apenas no primeiro encontro. A lição longa é opcional.','最初の遭遇時にだけ表示されます。詳しい練習は任意です。');
+  const detail=ml('DETAYLI EĞİTİM','DETAILED TRAINING','DETAILTRAINING','ENTRENAMIENTO DETALLADO','TREINO DETALHADO','詳しい練習');
+  const go=ml('ANLADIM · DEVAM ▶','GOT IT · CONTINUE ▶','VERSTANDEN · WEITER ▶','ENTENDIDO · CONTINUAR ▶','ENTENDI · CONTINUAR ▶','理解した・続ける ▶');
+  openModal('<div class="mxFirstUseHead"><img src="'+src+'" alt="Dr. E"><div><span>DR. E</span><h3>'+title+'</h3><p>'+sub+'</p></div></div><div class="mxFirstUseList">'+rows+'</div><div class="mrow"><button class="btn ghost" id="mMechanicDetails">🔬 '+detail+'</button><button class="btn green mxGuidedTarget" id="mMechanicQuickGo">'+go+'</button></div>');
+  bindTap('#mMechanicDetails',()=>{SFX.select();showMechanicBriefing(ids,opts);});
+  bindTap('#mMechanicQuickGo',()=>{
+    ids.forEach(id=>{const info=MECHANIC_INFO[id];markMechanicTutorialSeen(id);markTrainingLearned('mechanic',id,t(info.titleKey),true);});
+    SFX.play();mxHaptic('light');closeModal();
+    const frame=$('#boardFrame');if(frame){frame.classList.add('mxTutorialBoardPulse');setTimeout(()=>frame.classList.remove('mxTutorialBoardPulse'),3600);}
+    prop('✓ '+ml('Kural hazır','Rule ready','Regel bereit','Regla lista','Regra pronta','ルール確認完了'),1200);
+  });
+}
+
 const MECHANIC_INFO={
   frozen:{icon:'❄️',titleKey:'frozenTitle',descKey:'frozenDesc'},
   fire:{icon:'🔥',titleKey:'fireTitle',descKey:'fireDesc'},
@@ -7270,27 +7806,81 @@ const MECHANIC_INFO={
   classicChain:{icon:'⚡',titleKey:'classicChainTitle',descKey:'classicChainDesc'},
   classicReactor:{icon:'☢️',titleKey:'classicReactorTitle',descKey:'classicReactorDesc'}
 };
+
+function currentLevelMechanicIds(){
+  if(!LV||lv<0||!scr.game||!scr.game.classList.contains('on'))return [];
+  const ids=[];
+  if(atoms.some(a=>a.frozen))ids.push('frozen');
+  if(atoms.some(a=>a.fire))ids.push('fire');
+  if(atoms.some(a=>a.lightning))ids.push('lightning');
+  if(atoms.some(a=>a.sticky))ids.push('sticky');
+  if(atoms.some(a=>a.zombie))ids.push('zombie');
+  if(oneWayTiles&&oneWayTiles.size)ids.push('oneWay');
+  if(breakableWalls&&[...breakableWalls.values()].some(w=>!w.broken))ids.push('hammer');
+  if(portalPairs&&portalPairs.size)ids.push('portal');
+  if(movingWalls&&movingWalls.length)ids.push('movingWall');
+  if(pressureSystems&&pressureSystems.length)ids.push('pressureDoor');
+  if(atoms.some(a=>a.fragile))ids.push('fragile');
+  if(linkedPairs&&linkedPairs.length)ids.push('linked');
+  if(typeof crystalActive==='function'&&crystalActive())ids.push('classicCatalyst');
+  if(typeof chainActive==='function'&&chainActive())ids.push('classicChain');
+  if(typeof reactorActive==='function'&&reactorActive())ids.push('classicReactor');
+  return [...new Set(ids)];
+}
+function mechanicVisualCue(id){
+  const cues={
+    frozen:()=>ml('Görünüş: atomun üzerinde ❄️ buz işareti.','Look: ❄️ ice symbol on the atom.','Aussehen: ❄️-Symbol auf dem Atom.','Aspecto: símbolo ❄️ sobre el átomo.','Visual: símbolo ❄️ no átomo.','見た目：原子上の❄️印。'),
+    fire:()=>ml('Görünüş: atomun üzerinde 🔥 alev.','Look: 🔥 flame on the atom.','Aussehen: 🔥 auf dem Atom.','Aspecto: 🔥 sobre el átomo.','Visual: 🔥 no átomo.','見た目：原子上の🔥。'),
+    lightning:()=>ml('Görünüş: atomun üzerinde ⚡ yük simgesi.','Look: ⚡ charge symbol on the atom.','Aussehen: ⚡-Ladungssymbol.','Aspecto: símbolo ⚡ de carga.','Visual: símbolo ⚡ de carga.','見た目：原子上の⚡印。'),
+    sticky:()=>ml('Görünüş: atomun çevresinde yapışkan/mıknatıs işareti.','Look: sticky/magnet mark around the atom.','Aussehen: Klebe-/Magnetzeichen am Atom.','Aspecto: marca adhesiva/imán.','Visual: marca adesiva/ímã.','見た目：粘着／磁石の印。'),
+    zombie:()=>ml('Görünüş: atomun üzerinde zombi işareti.','Look: zombie mark on the atom.','Aussehen: Zombiezeichen am Atom.','Aspecto: marca de zombi.','Visual: marca de zumbi.','見た目：ゾンビ印。'),
+    oneWay:()=>ml('Görünüş: zemindeki büyük ok; yalnız ok yönünde geçilir.','Look: large floor arrow; pass only with it.','Aussehen: großer Bodenpfeil; nur in Pfeilrichtung.','Aspecto: flecha grande en el suelo.','Visual: seta grande no chão.','見た目：床の大きな矢印。'),
+    hammer:()=>ml('Görünüş: çatlak duvarın köşesinde küçük 🔨 işareti.','Look: cracked wall with a small 🔨 mark.','Aussehen: rissige Wand mit kleinem 🔨.','Aspecto: pared agrietada con 🔨.','Visual: parede rachada com 🔨.','見た目：ひび割れ壁と小さな🔨。'),
+    portal:()=>ml('Görünüş: dönen A ve B portalları birbirinin eşidir.','Look: spinning A and B portals are paired.','Aussehen: drehende Portale A und B gehören zusammen.','Aspecto: los portales A y B están emparejados.','Visual: portais A e B são um par.','見た目：回転するA/Bポータル。'),
+    movingWall:()=>ml('Görünüş: üzerinde ↔ bulunan çizgili duvar.','Look: striped wall marked ↔.','Aussehen: gestreifte Wand mit ↔.','Aspecto: pared rayada con ↔.','Visual: parede listrada com ↔.','見た目：↔印の縞壁。'),
+    pressureDoor:()=>ml('Görünüş: aynı harfli yuvarlak düğme + çizgili kapı. Çizgili/şeffafsa açıktır.','Look: round switch + striped door with the same letter. Striped/transparent means open.','Aussehen: runder Schalter und gestreifte Tür mit gleichem Buchstaben. Transparent = offen.','Aspecto: interruptor redondo y puerta rayada con la misma letra. Transparente = abierta.','Visual: botão redondo e porta listrada com a mesma letra. Transparente = aberta.','見た目：同じ文字の丸スイッチと縞扉。透明なら開いています。'),
+    fragile:()=>ml('Görünüş: elmas çerçeve ve kalan darbe sayısı.','Look: diamond outline plus remaining-impact number.','Aussehen: Diamantrahmen plus Resttrefferzahl.','Aspecto: marco de diamante y número restante.','Visual: moldura de diamante e número restante.','見た目：ダイヤ枠と残り回数。'),
+    linked:()=>ml('Görünüş: iki atom arasında hareketli noktalı bağ.','Look: animated dotted link between two atoms.','Aussehen: bewegte gestrichelte Verbindung.','Aspecto: línea de puntos animada.','Visual: linha pontilhada animada.','見た目：2原子間の動く点線。'),
+    classicCatalyst:()=>ml('Görünüş: üç farklı laboratuvar simgesi ve üstte üç sayaç.','Look: three lab symbols and three counters at the top.','Aussehen: drei Laborsymbole und drei Zähler oben.','Aspecto: tres símbolos y tres contadores arriba.','Visual: três símbolos e três contadores no topo.','見た目：3つのラボ記号と上部カウンター。'),
+    classicChain:()=>ml('Görünüş: parlayan doğru hamle ve COMBO sayacı.','Look: glowing correct move and COMBO counter.','Aussehen: leuchtender richtiger Zug und COMBO-Zähler.','Aspecto: movimiento brillante y contador COMBO.','Visual: jogada brilhante e contador COMBO.','見た目：光る正解手とCOMBO表示。'),
+    classicReactor:()=>ml('Görünüş: yanıp sönen lazer ve Darbe/Impact sayacı.','Look: pulsing laser and Impact counter.','Aussehen: pulsierender Laser und Trefferzähler.','Aspecto: láser pulsante y contador de impactos.','Visual: laser pulsante e contador de impactos.','見た目：点滅レーザーと衝突カウンター。')
+  };
+  return cues[id]?cues[id]():'';
+}
+function currentLevelMechanicsGuideHtml(){
+  const ids=currentLevelMechanicIds();if(!ids.length)return '';
+  const cards=ids.map(id=>{const info=MECHANIC_INFO[id];if(!info)return '';const cue=mechanicVisualCue(id);return '<article class="currentMechanicCard"><b>'+info.icon+' '+t(info.titleKey)+'</b><span>'+t(info.descKey)+'</span>'+(cue?'<em>'+cue+'</em>':'')+'</article>';}).join('');
+  return '<section class="guideSection currentLevelMechanics"><h4>🧭 '+ml('BU BÖLÜMDEKİ ÖZEL İŞARETLER','SPECIAL SYMBOLS IN THIS LEVEL','SONDERZEICHEN IN DIESEM LEVEL','SÍMBOLOS ESPECIALES DE ESTE NIVEL','SÍMBOLOS ESPECIAIS DESTA FASE','このレベルの特別な記号')+'</h4><p>'+ml('Tahtada anlamı belirsiz bir şekil görürsen burada yalnızca bu bölümde kullanılan kuralları bulursun.','If a board symbol is unclear, this section lists only the rules used in the current level.','Wenn ein Symbol unklar ist, stehen hier nur die Regeln des aktuellen Levels.','Si un símbolo no está claro, aquí aparecen solo las reglas del nivel actual.','Se um símbolo não estiver claro, aqui aparecem só as regras da fase atual.','記号が分からない時、このレベルで使うルールだけを確認できます。')+'</p><div class="currentMechanicGrid">'+cards+'</div></section>';
+}
+
 function mechanicTutorialDemo(id){
   const tr=LANG==='tr';
   const demos={
     frozen:{cells:['H','→','❄️ H'],action:tr?'DİĞER ATOMU KAYDIR':'SLIDE THE OTHER ATOM',result:tr?'Donmuş atom yerinde kalır; molekül onun çevresinde kurulur.':'The frozen atom stays put; build the molecule around it.'},
     fire:{cells:['🔥 H','→','❄️ H'],action:tr?'ATEŞİ BUZA YAKLAŞTIR':'MOVE FIRE TO THE ICE',result:tr?'Ateş temas edince buz erir ve atom serbest kalır.':'Contact with fire melts the ice and frees the atom.'},
-    lightning:{cells:['⚡','→','H—❄️ H'],action:tr?'ZİNCİRE TEMAS ET':'TOUCH THE CHAIN',result:tr?'Elektrik bağlı grup boyunca ilerleyip buzu çözer.':'Electricity travels through the connected group and thaws the ice.'},
+    lightning:{cells:['⚡ atom','→','H—❄️ H'],action:tr?'ZİNCİRE TEMAS ET':'TOUCH THE CHAIN',result:tr?'⚡ işareti elektrik yükünü gösterir. Enerji bağlı grup boyunca ilerleyip buzu çözer.':'The ⚡ symbol marks electric charge. Energy travels through the connected group and thaws the ice.'},
     sticky:{cells:['H','→','🧲 H'],action:tr?'TEMASI DENE':'TRY THE CONTACT',result:tr?'Temas eden atom o noktada yapışır; geri ayrılamaz.':'The touching atom sticks at that point and cannot separate.'},
     zombie:{cells:['H','→','🧟 H'],action:tr?'TEMASI DENE':'TRY THE CONTACT',result:tr?'Temas bulaştırır. Ateş atomu enfeksiyonu temizler.':'Contact spreads infection. A fire atom cures it.'},
     oneWay:{cells:['H','→','↪️','→'],action:tr?'OK YÖNÜNDE GEÇ':'FOLLOW THE ARROW',result:tr?'Ok yönünde geçebilirsin; ters yönden geri dönemezsin.':'You may pass with the arrow, but cannot return against it.'},
     hammer:{cells:['H','🧱','H'],action:tr?'ÇEKİCİ KULLAN':'USE THE HAMMER',result:tr?'Alt araç çubuğundaki çekici seç, sonra çatlak duvara dokun.':'Select the hammer in the bottom toolbar, then tap the cracked wall.'},
     portal:{cells:['H','→','🌀 A','…','🌀 B'],action:tr?'PORTALA GİR':'ENTER THE PORTAL',result:tr?'Atom A portalından girip eşleşen B portalından çıkar.':'The atom enters portal A and exits its linked portal B.'},
     movingWall:{cells:['H','→','🚧','⇄'],action:tr?'BİR HAMLE YAP':'MAKE A MOVE',result:tr?'Duvar her hamlede desenindeki sonraki konuma geçer.':'The wall advances to its next patterned position after a move.'},
-    pressureDoor:{cells:['H','→','🔘','🚪'],action:tr?'DÜĞMEYE BAS':'PRESS THE BUTTON',result:tr?'Atom düğmede kaldığı sürece bağlı kapı açık kalır.':'The linked door stays open while an atom remains on the button.'},
+    pressureDoor:{cells:['H','→','🔘 A','⇢','▥ A'],action:tr?'DÜĞMEYE BAS':'PRESS THE BUTTON',result:tr?'Aynı harfli çizgili kutu açık kapıdır. Atom A düğmesinden ayrılınca yeniden katı duvar olur.':'The striped square with the same letter is the open door. It becomes a solid wall when the atom leaves switch A.'},
     fragile:{cells:['💎 H','→','H'],action:tr?'DİKKATLİ KAYDIR':'SLIDE CAREFULLY',result:tr?'Kırılgan atom fazla darbe alırsa parçalanır; kısa ve temiz rota kur.':'Too many impacts shatter it; use a short, clean route.'},
     linked:{cells:['🔗 H','+','🔗 H','→'],action:tr?'İKİSİNİ BİRLİKTE KAYDIR':'SLIDE BOTH TOGETHER',result:tr?'Birini hareket ettirince eşi de aynı yönde gider. İkisinin yolu açık olmalı.':'Moving either one sends its mate in the same direction. Both paths must be clear.'},
     precision:{cells:['H','🎯','→','1 □'],action:tr?'1 KARE TAŞI':'MOVE 1 SQUARE',result:tr?'Bu isteğe bağlı araç atomu yalnızca bir kare ilerletir ve envanter harcar.':'This optional tool moves an atom exactly one tile and consumes inventory.'},
-    classicCatalyst:{cells:['🧪','🔋','⚙️','→','⚛️'],action:tr?'ÜÇÜNÜ TOPLA':'COLLECT ALL THREE',result:tr?'Önce üç laboratuvar bileşenini topla, sonra molekülü tamamla.':'Collect all three lab components first, then complete the molecule.'},
+    classicCatalyst:{cells:[labComponentTrainingToken('catalyst'),labComponentTrainingToken('energy'),labComponentTrainingToken('stabilizer'),'→','⚛️'],action:tr?'ÜÇÜNÜ TOPLA':'COLLECT ALL THREE',result:tr?'Önce üç laboratuvar bileşenini topla, sonra molekülü tamamla.':'Collect all three lab components first, then complete the molecule.'},
     classicChain:{cells:['✨','→','⚡','→','⚡'],action:tr?'PARLAYAN HAMLEYİ YAP':'MAKE THE GLOWING MOVE',result:tr?'Doğru hamle otomatik zincir reaksiyonunu başlatır.':'The correct move starts the automatic chain reaction.'},
-    classicReactor:{cells:['H','☢️','▥','→'],action:tr?'GÜVENLİ ANI BEKLE':'WAIT FOR THE SAFE PHASE',result:tr?'Lazer kapalıyken geç. Temas süre cezası verir.':'Cross while the laser is off. Contact adds a time penalty.'}
+    classicReactor:{cells:['H','☢️','▥','→'],action:tr?'GÜVENLİ ANI BEKLE':'WAIT FOR THE SAFE PHASE',result:tr?'Lazer aktifken temas Darbe sayacını artırır. Reaktör Kaçışında ayrıca +3 saniye ceza verir.':'Contact while the laser is active increases the Impact counter. Reactor Escape also adds a 3-second penalty.'}
   };
-  return demos[id]||{cells:['⚛️','→','✅'],action:tr?'DENE':'TRY IT',result:tr?'Mekaniği gözlemle ve ardından gerçek bölüme geç.':'Observe the mechanic, then continue to the real level.'};
+  const demo=demos[id]||{cells:['⚛️','→','✅'],action:tr?'DENE':'TRY IT',result:tr?'Mekaniği gözlemle ve ardından gerçek bölüme geç.':'Observe the mechanic, then continue to the real level.'};
+  // The bespoke mini-animation remains the same, but non-TR/EN players now
+  // receive localized action/result text instead of an English fallback.
+  if(LANG!=='tr'&&LANG!=='en'){
+    demo.action=ml('ÖRNEĞİ DENE','TRY THE EXAMPLE','BEISPIEL TESTEN','PROBAR EJEMPLO','TESTAR EXEMPLO','例を試す');
+    demo.result=MECHANIC_INFO[id]?t(MECHANIC_INFO[id].descKey):ml('Mekaniği gözlemle ve gerçek bölüme geç.','Observe the mechanic, then continue to the real level.','Beobachte die Mechanik und fahre mit dem echten Level fort.','Observa la mecánica y continúa al nivel real.','Observe a mecânica e continue para a fase real.','仕組みを確認して実際のレベルへ進みます。');
+  }
+  return demo;
 }
 function markMechanicTutorialSeen(id){
   const flags={frozen:'seenFrozen',fire:'seenFire',lightning:'seenLightning',sticky:'seenSticky',zombie:'seenZombie',oneWay:'seenOneWay',hammer:'seenBreakableWall',portal:'seenPortal',movingWall:'seenMovingWall',pressureDoor:'seenPressureDoor',fragile:'seenFragile',linked:'seenLinked',precision:'seenPrecisionTutorialV2',classicCatalyst:'seenClassicCatalystTutorialV2',classicChain:'seenClassicChainTutorialV2',classicReactor:'seenClassicReactorTutorialV2'};
@@ -7308,18 +7898,18 @@ function showMechanicBriefing(ids,opts){
   let page=0,demonstrated=false;
   function render(){
     const id=ids[page],info=MECHANIC_INFO[id],demo=mechanicTutorialDemo(id),last=page===ids.length-1;
-    const cells=demo.cells.map((v,n)=>'<span style="min-width:42px;height:42px;padding:0 8px;border-radius:11px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.075);border:1px solid rgba(255,255,255,.14);font-weight:900;transition:.28s;" data-tutorial-cell="'+n+'">'+v+'</span>').join('');
-    const drGuide=LANG==='tr'?'Parlayan deney düğmesine dokun. Hareketi ben adım adım göstereceğim.':'Tap the glowing experiment button. I will show the action step by step.';
-    openModal('<div style="font-size:.72rem;font-weight:900;letter-spacing:.12em;color:#78e7ff;margin-bottom:5px">'+(LANG==='tr'?'EĞİTİM DENEYİ':'TRAINING EXPERIMENT')+' · '+(page+1)+'/'+ids.length+'</div><h3>'+info.icon+' '+t(info.titleKey)+'</h3><div class="msub">'+t(info.descKey)+'</div>'+drETrainingCard(drGuide,'1/2')+'<div id="mechanicMiniLab" style="margin:15px 0 10px;padding:15px 10px;border-radius:18px;background:linear-gradient(145deg,rgba(20,49,76,.9),rgba(34,20,63,.92));border:1px solid rgba(120,231,255,.28);"><div style="display:flex;gap:7px;align-items:center;justify-content:center;flex-wrap:wrap">'+cells+'</div><div id="mechanicDemoResult" style="min-height:42px;margin-top:12px;font-size:.82rem;line-height:1.35;color:#dcecff">'+(LANG==='tr'?'Aşağıdaki düğmeye bas ve örneği çalıştır.':'Press the button below to run the example.')+'</div></div><div class="mrow"><button class="btn amber mxGuidedTarget" id="mMechanicTry">▶ '+demo.action+'</button><button class="btn green" id="mMechanicNext" disabled>'+(last?(LANG==='tr'?'GERÇEK BÖLÜME GEÇ ▶':'START REAL LEVEL ▶'):(LANG==='tr'?'SONRAKİ EĞİTİM ▶':'NEXT TRAINING ▶'))+'</button></div>');
+    const cells=demo.cells.map((v,n)=>'<span class="'+(String(v).includes('mxTrainingToken')?'mxTrainingCell':'')+'" style="min-width:42px;height:42px;padding:0 8px;border-radius:11px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.075);border:1px solid rgba(255,255,255,.14);font-weight:900;transition:.28s;" data-tutorial-cell="'+n+'">'+v+'</span>').join('');
+    const drGuide=ml('Parlayan deney düğmesine dokun. Hareketi adım adım göstereceğim.','Tap the glowing experiment button. I will show the action step by step.','Tippe auf die leuchtende Experiment-Schaltfläche. Ich zeige den Ablauf Schritt für Schritt.','Toca el botón brillante del experimento. Te mostraré la acción paso a paso.','Toque no botão brilhante do experimento. Vou mostrar a ação passo a passo.','光る実験ボタンをタップしてください。手順を順番に示します。');
+    openModal('<div style="font-size:.72rem;font-weight:900;letter-spacing:.12em;color:#78e7ff;margin-bottom:5px">'+ml('EĞİTİM DENEYİ','TRAINING EXPERIMENT','TRAININGSEXPERIMENT','EXPERIMENTO DE PRÁCTICA','EXPERIMENTO DE TREINO','練習実験')+' · '+(page+1)+'/'+ids.length+'</div><h3>'+info.icon+' '+t(info.titleKey)+'</h3><div class="msub">'+t(info.descKey)+'</div>'+drETrainingCard(drGuide,'1/2')+'<div id="mechanicMiniLab" style="margin:15px 0 10px;padding:15px 10px;border-radius:18px;background:linear-gradient(145deg,rgba(20,49,76,.9),rgba(34,20,63,.92));border:1px solid rgba(120,231,255,.28);"><div style="display:flex;gap:7px;align-items:center;justify-content:center;flex-wrap:wrap">'+cells+'</div><div id="mechanicDemoResult" style="min-height:42px;margin-top:12px;font-size:.82rem;line-height:1.35;color:#dcecff">'+ml('Aşağıdaki düğmeye bas ve örneği çalıştır.','Press the button below to run the example.','Drücke die Schaltfläche unten, um das Beispiel auszuführen.','Pulsa el botón de abajo para ejecutar el ejemplo.','Pressione o botão abaixo para executar o exemplo.','下のボタンを押して例を実行してください。')+'</div></div><div class="mrow"><button class="btn amber mxGuidedTarget" id="mMechanicTry">▶ '+demo.action+'</button><button class="btn green" id="mMechanicNext" disabled>'+(last?ml('GERÇEK BÖLÜME GEÇ ▶','START REAL LEVEL ▶','ECHTES LEVEL STARTEN ▶','INICIAR NIVEL REAL ▶','INICIAR FASE REAL ▶','実際のレベルへ ▶'):ml('SONRAKİ EĞİTİM ▶','NEXT TRAINING ▶','NÄCHSTES TRAINING ▶','SIGUIENTE PRÁCTICA ▶','PRÓXIMO TREINO ▶','次の練習 ▶'))+'</button></div>');
     bindTap('#mMechanicTry',()=>{
       if(demonstrated)return;demonstrated=true;SFX.select();mxHaptic('light');
       const lab=$('#mechanicMiniLab'),result=$('#mechanicDemoResult'),tryBtn=$('#mMechanicTry'),next=$('#mMechanicNext');
       if(lab){lab.style.boxShadow='0 0 26px rgba(120,231,255,.24)';const cs=lab.querySelectorAll('[data-tutorial-cell]');cs.forEach((c,n)=>setTimeout(()=>{c.style.transform='translateY(-5px) scale(1.06)';c.style.borderColor='rgba(255,211,110,.8)';setTimeout(()=>{c.style.transform='';},320);},n*180));}
-      setTimeout(()=>{if(result)result.innerHTML='✅ '+demo.result;if(tryBtn){tryBtn.classList.remove('mxGuidedTarget');tryBtn.disabled=true;tryBtn.textContent='✓ '+(LANG==='tr'?'DENEY TAMAM':'EXPERIMENT COMPLETE');}if(next){next.disabled=false;next.classList.add('mxGuidedTarget');}setDrETraining(LANG==='tr'?'Mükemmel. Şimdi sonucu gördün; devam etmek için parlayan düğmeye dokun.':'Excellent. You saw the result; tap the glowing button to continue.','2/2','👉');SFX.thunk();mxHaptic('success');},Math.max(650,demo.cells.length*180+220));
+      setTimeout(()=>{if(result)result.innerHTML='✅ '+demo.result;if(tryBtn){tryBtn.classList.remove('mxGuidedTarget');tryBtn.disabled=true;tryBtn.textContent='✓ '+ml('DENEY TAMAM','EXPERIMENT COMPLETE','EXPERIMENT ABGESCHLOSSEN','EXPERIMENTO COMPLETADO','EXPERIMENTO CONCLUÍDO','実験完了');}if(next){next.disabled=false;next.classList.add('mxGuidedTarget');}setDrETraining(ml('Mükemmel. Sonucu gördün; devam etmek için parlayan düğmeye dokun.','Excellent. You saw the result; tap the glowing button to continue.','Ausgezeichnet. Du hast das Ergebnis gesehen; tippe zum Fortfahren auf die leuchtende Schaltfläche.','Excelente. Ya viste el resultado; toca el botón brillante para continuar.','Excelente. Você viu o resultado; toque no botão brilhante para continuar.','結果を確認できました。光るボタンをタップして続けてください。'),'2/2','👉');SFX.thunk();mxHaptic('success');},Math.max(650,demo.cells.length*180+220));
     });
     bindTap('#mMechanicNext',()=>{if(!demonstrated)return;const learnedId=ids[page],learnedInfo=MECHANIC_INFO[learnedId];markMechanicTutorialSeen(learnedId);markTrainingLearned('mechanic',learnedId,t(learnedInfo.titleKey),true);SFX.play();if(page<ids.length-1){page++;demonstrated=false;render();return;}
-      const finish=()=>{closeModal();prop('🎓 '+(LANG==='tr'?'Mekanik öğrenildi':'Mechanic learned'),2200);const frame=$('#boardFrame');if(frame){frame.classList.add('mxTutorialBoardPulse');setTimeout(()=>frame.classList.remove('mxTutorialBoardPulse'),5000);}if(ids.includes('hammer')){save.seenHammerSupport=true;const b=$('#btnHammer');if(b){b.classList.add('mxTutorialPulse');setTimeout(()=>b.classList.remove('mxTutorialPulse'),7000);}}if(ids.includes('precision')){save.seenPrecisionSupport=true;const b=$('#btnPrecision');if(b){b.classList.add('mxTutorialPulse');setTimeout(()=>b.classList.remove('mxTutorialPulse'),7000);}}persist();setTimeout(()=>say(LANG==='tr'?'Eğitim tamamlandı. Şimdi aynı kuralı gerçek bölümde kullan!':'Training complete. Now use the same rule in the real level!','happy',4200,'glow'),220);};
-      openModal('<h3>✅ '+(LANG==='tr'?'Mekanik öğrenildi!':'Mechanic learned!')+'</h3><div class="msub">'+(LANG==='tr'?'Bu eğitim artık otomatik olarak tekrar gösterilmeyecek. İstersen Eğitim Merkezi veya Moleculopedia’dan yeniden açabilirsin.':'This lesson will not appear automatically again. You can replay it from the Training Center or Moleculopedia.')+'</div><div class="mrow"><button class="btn ghost" id="mMechanicRepeat">↻ '+(LANG==='tr'?'TEKRAR DENE':'TRY AGAIN')+'</button><button class="btn green mxGuidedTarget" id="mMechanicContinue">'+(LANG==='tr'?'GERÇEK BÖLÜME GEÇ ▶':'START REAL LEVEL ▶')+'</button></div>');
+      const finish=()=>{closeModal();prop('🎓 '+ml('Mekanik öğrenildi','Mechanic learned','Mechanik gelernt','Mecánica aprendida','Mecânica aprendida','仕組みを習得'),2200);const frame=$('#boardFrame');if(frame){frame.classList.add('mxTutorialBoardPulse');setTimeout(()=>frame.classList.remove('mxTutorialBoardPulse'),5000);}if(ids.includes('hammer')){save.seenHammerSupport=true;const b=$('#btnHammer');if(b){b.classList.add('mxTutorialPulse');setTimeout(()=>b.classList.remove('mxTutorialPulse'),7000);}}if(ids.includes('precision')){save.seenPrecisionSupport=true;const b=$('#btnPrecision');if(b){b.classList.add('mxTutorialPulse');setTimeout(()=>b.classList.remove('mxTutorialPulse'),7000);}}persist();setTimeout(()=>say(ml('Eğitim tamamlandı. Şimdi aynı kuralı gerçek bölümde kullan!','Training complete. Now use the same rule in the real level!','Training abgeschlossen. Nutze dieselbe Regel jetzt im echten Level!','Práctica completada. ¡Usa ahora la misma regla en el nivel real!','Treino concluído. Agora use a mesma regra na fase real!','練習完了。同じルールを実際のレベルで使ってみましょう！'),'happy',4200,'glow'),220);};
+      openModal('<h3>✅ '+ml('Mekanik öğrenildi!','Mechanic learned!','Mechanik gelernt!','¡Mecánica aprendida!','Mecânica aprendida!','仕組みを習得しました！')+'</h3><div class="msub">'+ml('Bu eğitim artık otomatik olarak tekrar gösterilmeyecek. Eğitim Merkezi veya Moleculopedia’dan yeniden açabilirsin.','This lesson will not appear automatically again. You can replay it from the Training Center or Moleculopedia.','Diese Lektion wird nicht erneut automatisch angezeigt. Du kannst sie im Trainingszentrum oder in der Moleculopedia wiederholen.','Esta lección no volverá a aparecer automáticamente. Puedes repetirla desde el Centro de práctica o Moleculopedia.','Esta lição não aparecerá novamente de forma automática. Você pode repeti-la no Centro de Treino ou na Moleculopedia.','このレッスンは自動では再表示されません。トレーニングセンターまたはMoleculopediaから再実行できます。')+'</div><div class="mrow"><button class="btn ghost" id="mMechanicRepeat">↻ '+ml('TEKRAR DENE','TRY AGAIN','NOCH EINMAL','REPETIR','TENTAR NOVAMENTE','もう一度')+'</button><button class="btn green mxGuidedTarget" id="mMechanicContinue">'+ml('GERÇEK BÖLÜME GEÇ ▶','START REAL LEVEL ▶','ECHTES LEVEL STARTEN ▶','INICIAR NIVEL REAL ▶','INICIAR FASE REAL ▶','実際のレベルへ ▶')+'</button></div>');
       bindTap('#mMechanicRepeat',()=>showMechanicBriefing(ids,opts));
       bindTap('#mMechanicContinue',finish);
     });
@@ -7328,30 +7918,18 @@ function showMechanicBriefing(ids,opts){
 }
 function mechanicsGuideModal(){
   const tr=LANG==='tr';
-  const rows=[
-    ['frozen','❄️',tr?'Donmuş atom':'Frozen atom',tr?'Hareket etmez. Yanındaki ateş atomu buzu eritir.':'Cannot move. An adjacent fire atom melts the ice.','seenFrozen'],
-    ['fire','🔥',tr?'Ateş atomu':'Fire atom',tr?'Donmuş atomları çözer; doğru konuma getirildiğinde yolu açar.':'Thaws frozen atoms and opens the route when positioned correctly.','seenFire'],
-    ['lightning','⚡',tr?'Şimşek atomu':'Lightning atom',tr?'Bağlı atom grubuna değdiğinde elektrik zincir boyunca ilerler ve ulaştığı donmuş atomları çözer.':'Sends a pulse through a connected atom group and thaws every frozen atom it reaches.','seenLightning'],
-    ['classicChain','⚡',tr?'Şimşek / zincir reaksiyonu':'Lightning / chain reaction',tr?'Parlayan doğru hamleyi yapınca reaksiyon zinciri otomatik devam eder.':'Make the glowing correct move to continue the automatic reaction chain.','seenClassicChainTutorialV2'],
-    ['sticky','🧲',tr?'Yapışkan atom':'Sticky atom',tr?'Temas ettiği konumda özel tutunma davranışı gösterir.':'Uses a special sticking behavior on contact.','seenSticky'],
-    ['zombie','🧟‍♂️',tr?'Zombi atom':'Zombie atom',tr?'Temas ettiği atomlara bulaşır. Ateş tedavi eder.':'Infects touching atoms. Fire cures it.','seenZombie'],
-    ['oneWay','↪️',t('oneWayTitle').replace(/^\S+\s/,''),t('oneWayDesc'),'seenOneWay'],
-    ['hammer','🧱',t('hammerTitle').replace(/^\S+\s/,''),t('hammerDesc'),'seenBreakableWall'],
-    ['portal','🌀',t('portalTitle').replace(/^\S+\s/,''),t('portalDesc'),'seenPortal'],
-    ['movingWall','🚧',t('movingWallTitle').replace(/^\S+\s/,''),t('movingWallDesc'),'seenMovingWall'],
-    ['pressureDoor','🔘',t('pressureDoorTitle').replace(/^\S+\s/,''),t('pressureDoorDesc'),'seenPressureDoor'],
-    ['fragile','💎',t('fragileTitle').replace(/^\S+\s/,''),t('fragileDesc'),'seenFragile'],
-    ['linked','🔗',t('linkedTitle').replace(/^\S+\s/,''),t('linkedDesc'),'seenLinked'],
-    ['precision','🎯',t('precisionTitle').replace(/^\S+\s/,''),t('precisionDesc'),'seenPrecision'],
-    ['classicCatalyst','🧪',tr?'Laboratuvar bileşenleri':'Lab components',tr?'Önce gerekli üç bileşeni topla, sonra hedef molekülü tamamla.':'Collect all three required components before completing the target molecule.','seenClassicCatalystTutorialV2'],
-    ['classicReactor','☢️',tr?'Reaktör lazerleri':'Reactor lasers',tr?'Güvenli fazı bekle; lazer darbesi ceza verir.':'Use the safe phase; laser hits add a penalty.','seenClassicReactorTutorialV2']
-  ].filter(r=>!r[4]||save[r[4]]);
-  const html=rows.length?rows.map(r=>'<button class="mechanicGuideRow" data-mechanic-replay="'+r[0]+'" style="width:100%;text-align:left;cursor:pointer"><div class="mechanicGuideIcon">'+r[1]+'</div><div style="flex:1"><b>'+r[2]+'</b><small>'+r[3]+'</small><small style="color:#78e7ff;margin-top:4px">▶ '+(tr?'Eğitimi yeniden çalıştır':'Replay training')+'</small></div></button>').join(''):'<div class="mechanicGuideRow"><small>'+(tr?'Henüz açılan bir mekanik yok — ilerledikçe burada birikecek.':'Nothing unlocked yet — this fills in as you progress.')+'</small></div>';
-  openModal('<h3>🎓 '+(tr?'Eğitim Merkezi · Mekanikler':'Training Center · Mechanics')+'</h3><div class="msub">'+(tr?'Bir karta dokunarak kısa deneyi yeniden çalıştırabilirsin.':'Tap a card to replay its short experiment.')+'</div><div class="settingsScroll mechanicGuideList">'+html+'</div><div class="mrow"><button class="btn green" id="mReplayAllMechanics"'+(rows.length?'':' disabled')+'>▶ '+(tr?'Tüm açılmış eğitimleri sırayla çalıştır':'Replay all unlocked trainings')+'</button></div><div class="mrow"><button class="btn ghost" id="mResetMechanicTips">'+(tr?'İlk kullanım açıklamalarını yeniden aç':'Show first-use tips again')+'</button><button class="btn" id="mGuideClose">'+t('close')+'</button></div>');
+  const rows=trainingMechanicCatalog().map(row=>{
+    const id=row[0],flag=row[1],info=MECHANIC_INFO[id];
+    if(!info||!save[flag])return null;
+    const fullTitle=t(info.titleKey),title=String(fullTitle).replace(/^\S+\s/,'').trim()||fullTitle;
+    return [id,info.icon,title,t(info.descKey),flag];
+  }).filter(Boolean);
+  const html=rows.length?rows.map(r=>'<button class="mechanicGuideRow" data-mechanic-replay="'+r[0]+'" style="width:100%;text-align:left;cursor:pointer"><div class="mechanicGuideIcon">'+r[1]+'</div><div style="flex:1"><b>'+r[2]+'</b><small>'+r[3]+'</small><small style="color:#78e7ff;margin-top:4px">▶ '+ml('Eğitimi yeniden çalıştır','Replay training','Training wiederholen','Repetir práctica','Repetir treino','練習を再実行')+'</small></div></button>').join(''):'<div class="mechanicGuideRow"><small>'+ml('Henüz açılan bir mekanik yok — ilerledikçe burada birikecek.','Nothing unlocked yet — this fills in as you progress.','Noch keine Mechanik freigeschaltet – die Liste wächst mit deinem Fortschritt.','Aún no hay mecánicas desbloqueadas; aparecerán al avanzar.','Ainda não há mecânicas desbloqueadas; elas aparecerão com o progresso.','まだ仕組みは解放されていません。進行すると追加されます。')+'</small></div>';
+  openModal('<h3>🎓 '+ml('Eğitim Merkezi · Mekanikler','Training Center · Mechanics','Trainingszentrum · Mechaniken','Centro de práctica · Mecánicas','Centro de treino · Mecânicas','トレーニングセンター・仕組み')+'</h3><div class="msub">'+ml('Yalnızca keşfettiğin kurallar burada görünür. Bir karta dokunarak kısa deneyi yeniden açabilirsin.','Only discovered rules appear here. Tap a card to replay its short experiment.','Hier erscheinen nur entdeckte Regeln. Tippe auf eine Karte, um das kurze Experiment zu wiederholen.','Aquí solo aparecen reglas descubiertas. Toca una tarjeta para repetir su experimento breve.','Aqui aparecem apenas regras descobertas. Toque em um cartão para repetir o experimento curto.','発見済みのルールだけが表示されます。カードをタップすると短い実験を再生できます。')+'</div><div class="settingsScroll mechanicGuideList">'+html+'</div><div class="mrow"><button class="btn green" id="mReplayAllMechanics"'+(rows.length?'':' disabled')+'>▶ '+ml('Tüm açılmış eğitimleri sırayla çalıştır','Replay all unlocked trainings','Alle freigeschalteten Trainings abspielen','Repetir todas las prácticas desbloqueadas','Repetir todos os treinos desbloqueados','解放済みの練習を順番に再生')+'</button></div><div class="mrow"><button class="btn ghost" id="mResetMechanicTips">'+ml('İlk kullanım açıklamalarını yeniden aç','Show first-use tips again','Ersthinweise erneut anzeigen','Mostrar de nuevo las explicaciones iniciales','Mostrar novamente as explicações iniciais','初回説明を再表示')+'</button><button class="btn" id="mGuideClose">'+t('close')+'</button></div>');
   document.querySelectorAll('[data-mechanic-replay]').forEach(b=>bindTap(b,()=>showMechanicBriefing([b.dataset.mechanicReplay])));
   bindTap('#mReplayAllMechanics',()=>showMechanicBriefing(rows.map(r=>r[0])));
   bindTap('#mGuideClose',()=>settingsModal());
-  bindTap('#mResetMechanicTips',()=>{save.seenFrozen=false;save.seenFire=false;save.seenLightning=false;save.seenSticky=false;save.seenZombie=false;save.seenOneWay=false;save.seenBreakableWall=false;save.seenPortal=false;save.seenMovingWall=false;save.seenPressureDoor=false;save.seenFragile=false;save.seenFragileAtom=false;save.seenLinked=false;save.seenLinkedAtoms=false;save.seenHammerWall=false;save.tutorialTips=true;save.seenPrecision=false;save.seenPrecisionTutorialV2=false;save.seenClassicCatalystTutorialV2=false;save.seenClassicChainTutorialV2=false;save.seenClassicReactorTutorialV2=false;persist();SFX.click();prop(tr?'Özel mekanik açıklamaları yeniden etkinleştirildi.':'Special mechanic tips enabled again.',2200);});
+  bindTap('#mResetMechanicTips',()=>{save.seenFrozen=false;save.seenFire=false;save.seenLightning=false;save.seenSticky=false;save.seenZombie=false;save.seenOneWay=false;save.seenBreakableWall=false;save.seenPortal=false;save.seenMovingWall=false;save.seenPressureDoor=false;save.seenFragile=false;save.seenFragileAtom=false;save.seenLinked=false;save.seenLinkedAtoms=false;save.seenHammerWall=false;save.tutorialTips=true;save.seenPrecision=false;save.seenPrecisionTutorialV2=false;save.seenClassicCatalystTutorialV2=false;save.seenClassicChainTutorialV2=false;save.seenClassicReactorTutorialV2=false;save.seenBarrierSupport=false;persist();SFX.click();prop(ml('İlk kullanım açıklamaları yeniden etkinleştirildi.','First-use explanations enabled again.','Ersthinweise wurden erneut aktiviert.','Las explicaciones iniciales se activaron de nuevo.','As explicações iniciais foram ativadas novamente.','初回説明を再び有効にしました。'),1800);});
 }
 
 function moleculopediaCatalog(){
@@ -7360,7 +7938,7 @@ function moleculopediaCatalog(){
     const id=row[0],flag=row[1],info=MECHANIC_INFO[id],unlocked=!!save[flag];
     return {group:'mechanic',id,icon:info?info.icon:'⚛️',title:info?t(info.titleKey):row[2],desc:info?t(info.descKey):'',unlocked};
   });
-  const supports=['hint','undo','restart','hammer','precision','lab'].map(id=>{
+  const supports=['hint','undo','restart','hammer','precision','barrier','lab'].map(id=>{
     const x=supportInfoText(id);return {group:'support',id,icon:x.icon,title:x.title,desc:x.desc,unlocked:id==='hint'||id==='undo'||id==='restart'||id==='lab'||!!save['seen'+id.charAt(0).toUpperCase()+id.slice(1)+'Support']};
   });
   const labs=LAB_ITEMS.map(it=>({group:'lab',id:it.id,icon:it.icon,title:lx(it.name),desc:lx(it.desc),unlocked:save.cur>=it.unlock,unlock:it.unlock,owned:labOwned(it.id)}));
@@ -7368,17 +7946,22 @@ function moleculopediaCatalog(){
 }
 function moleculopediaModal(tab){
   tab=tab||'mechanics';
-  const tr=LANG==='tr',cat=moleculopediaCatalog();
-  const tabs=[['mechanics','⚛️',tr?'Atomlar ve Mekanikler':'Atoms & Mechanics'],['supports','🧰',tr?'Destekler':'Supports'],['labs','🧪',tr?'Laboratuvar':'Laboratory']];
+  const cat=moleculopediaCatalog();
+  const tabs=[
+    ['mechanics','⚛️',ml('Atomlar ve Mekanikler','Atoms & Mechanics','Atome & Mechaniken','Átomos y mecánicas','Átomos e mecânicas','原子と仕組み')],
+    ['supports','🧰',ml('Destekler','Supports','Hilfen','Ayudas','Suportes','サポート')],
+    ['labs','🧪',ml('Laboratuvar','Laboratory','Labor','Laboratorio','Laboratório','ラボ')]
+  ];
   const list=cat[tab]||cat.mechanics;
   const cards=list.map(it=>{
     const locked=!it.unlocked;
-    const status=locked?(tr?(it.unlock?'Bölüm '+it.unlock+'\'de açılır':'Henüz keşfedilmedi'):(it.unlock?'Unlocks at level '+it.unlock:'Not discovered yet')):(it.group==='lab'?(it.owned?(tr?'Sahipsin':'Owned'):(tr?'Açıldı':'Unlocked')):(trainingLearned(it.group,it.id)?(tr?'Öğrenildi':'Learned'):(tr?'Açıldı':'Unlocked')));
-    const action=locked?'':('<small style="display:block;color:#78e7ff;margin-top:5px">▶ '+(tr?'Aç ve tekrar dene':'Open and replay')+'</small>');
+    const lockedAt=it.unlock?ml('Bölüm '+it.unlock+'’de açılır','Unlocks at level '+it.unlock,'Freischaltung bei Level '+it.unlock,'Se desbloquea en el nivel '+it.unlock,'Desbloqueia no nível '+it.unlock,'レベル'+it.unlock+'で解放'):ml('Henüz keşfedilmedi','Not discovered yet','Noch nicht entdeckt','Aún no descubierto','Ainda não descoberto','未発見');
+    const status=locked?lockedAt:(it.group==='lab'?(it.owned?ml('Sahipsin','Owned','Im Besitz','Obtenido','Adquirido','所有済み'):ml('Açıldı','Unlocked','Freigeschaltet','Desbloqueado','Desbloqueado','解放済み')):(trainingLearned(it.group,it.id)?ml('Öğrenildi','Learned','Gelernt','Aprendido','Aprendido','習得済み'):ml('Açıldı','Unlocked','Freigeschaltet','Desbloqueado','Desbloqueado','解放済み')));
+    const action=locked?'':('<small style="display:block;color:#78e7ff;margin-top:5px">▶ '+ml('Aç ve tekrar dene','Open and replay','Öffnen und wiederholen','Abrir y repetir','Abrir e repetir','開いて再実行')+'</small>');
     return '<button class="mechanicGuideRow moleculoCard '+(locked?'locked':'')+'" data-moleculo-group="'+it.group+'" data-moleculo-id="'+it.id+'" '+(locked?'disabled':'')+' style="width:100%;text-align:left;'+(locked?'opacity:.48;filter:grayscale(.35);':'cursor:pointer;')+'"><div class="mechanicGuideIcon">'+(locked?'🔒':it.icon)+'</div><div style="flex:1"><b>'+it.title+'</b><small>'+it.desc+'</small><small style="display:block;margin-top:4px;color:'+(locked?'#aab2c0':'#ffd36e')+'">'+status+'</small>'+action+'</div></button>';
-  }).join('')||'<div class="mechanicGuideRow"><small>'+(tr?'Henüz içerik yok.':'No entries yet.')+'</small></div>';
+  }).join('')||'<div class="mechanicGuideRow"><small>'+ml('Henüz içerik yok.','No entries yet.','Noch keine Einträge.','Aún no hay contenido.','Ainda não há conteúdo.','まだ項目はありません。')+'</small></div>';
   const tabHtml=tabs.map(x=>'<button class="btn '+(tab===x[0]?'green':'ghost')+' moleculoTab" data-moleculo-tab="'+x[0]+'">'+x[1]+' '+x[2]+'</button>').join('');
-  openModal('<div class="moleculopediaHead"><h3>📘 Moleculopedia</h3><div class="msub">'+(tr?'Keşfettiğin atomları, mekanikleri, oyuncu desteklerini ve laboratuvar cihazlarını burada incele. Açılan içerikleri yeniden deneyebilirsin.':'Review discovered atoms, mechanics, player supports and laboratory equipment here. Replay any unlocked lesson.')+'</div><div class="mrow" style="flex-wrap:wrap">'+tabHtml+'</div></div><div class="settingsScroll mechanicGuideList" style="margin-top:10px">'+cards+'</div><div class="mrow modalFixedClose"><button class="btn" id="mMoleculoClose">'+t('close')+'</button></div>');
+  openModal('<div class="moleculopediaHead"><h3>📘 Moleculopedia</h3><div class="msub">'+ml('Keşfettiğin mekanikleri, oyuncu desteklerini ve laboratuvar cihazlarını burada incele. Yalnızca gerekli kısa bilgiler gösterilir.','Review discovered mechanics, player supports, and laboratory equipment here. Only essential short explanations are shown.','Sieh dir entdeckte Mechaniken, Spielerhilfen und Laborgeräte an. Es werden nur kurze, notwendige Erklärungen gezeigt.','Consulta aquí las mecánicas, ayudas y equipos de laboratorio descubiertos. Solo se muestran explicaciones breves y necesarias.','Consulte aqui mecânicas, suportes e equipamentos descobertos. Apenas explicações curtas e necessárias são mostradas.','発見した仕組み、サポート、ラボ装置を確認できます。必要な短い説明だけを表示します。')+'</div><div class="mrow" style="flex-wrap:wrap">'+tabHtml+'</div></div><div class="settingsScroll mechanicGuideList" style="margin-top:10px">'+cards+'</div><div class="mrow modalFixedClose"><button class="btn" id="mMoleculoClose">'+t('close')+'</button></div>');
   $('#modalBox').classList.add('mxTouchScrollModal','moleculopediaModal');
   document.querySelectorAll('[data-moleculo-tab]').forEach(b=>bindTap(b,()=>moleculopediaModal(b.dataset.moleculoTab)));
   document.querySelectorAll('[data-moleculo-group]').forEach(b=>bindTap(b,()=>{
@@ -7391,8 +7974,8 @@ function moleculopediaModal(tab){
 }
 
 function trainingCenterModal(){
-  const tr=LANG==='tr',pr=trainingProgress();
-  openModal('<h3>🎓 '+(tr?'Eğitim Merkezi':'Training Center')+'</h3><div class="msub">'+(tr?'İstediğin eğitimi yeniden aç. Eğitim denemelerinde MoleCoin veya envanter harcanmaz.':'Replay any lesson. Training examples never consume MoleCoins or inventory.')+'</div><div style="margin:12px 0;padding:12px;border-radius:16px;background:rgba(120,231,255,.08);border:1px solid rgba(120,231,255,.25)"><div style="display:flex;justify-content:space-between;gap:10px;font-weight:900"><span>🏅 '+(tr?'Eğitim İlerlemesi':'Training Progress')+'</span><span>'+pr.done+'/'+pr.total+' · %'+pr.pct+'</span></div><div style="height:8px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden;margin-top:9px"><i style="display:block;height:100%;width:'+pr.pct+'%;background:linear-gradient(90deg,#78e7ff,#ffd36e);border-radius:99px"></i></div></div><div class="settingsScroll" style="display:grid;gap:9px;margin-top:12px"><button class="btn ghost" id="tcBasic">🧭 '+(tr?'Temel hareket eğitimi':'Basic movement tutorial')+'</button><button class="btn ghost" id="tcMechanics">⚡ '+(tr?'Özel atomlar ve mekanikler':'Special atoms and mechanics')+'</button><button class="btn ghost" id="tcSupports">🧰 '+(tr?'Oyuncu destekleri':'Player supports')+'</button><button class="btn ghost" id="tcLab">🧪 '+(tr?'Laboratuvar cihazları':'Laboratory equipment')+'</button></div><div class="mrow"><button class="btn" id="tcClose">'+t('close')+'</button></div>');
+  const pr=trainingProgress();
+  openModal('<h3>🎓 '+ml('Eğitim Merkezi','Training Center','Trainingszentrum','Centro de práctica','Centro de treino','トレーニングセンター')+'</h3><div class="msub">'+ml('İstediğin eğitimi yeniden aç. Eğitim denemelerinde MoleCoin veya envanter harcanmaz.','Replay any lesson. Training examples never consume MoleCoins or inventory.','Wiederhole jede Lektion. Trainingsbeispiele verbrauchen weder MoleCoins noch Inventar.','Repite cualquier lección. Los ejemplos no consumen MoleCoins ni inventario.','Repita qualquer lição. Os exemplos não consomem MoleCoins nem inventário.','好きなレッスンを再実行できます。練習ではMoleCoinや所持品を消費しません。')+'</div><div style="margin:12px 0;padding:12px;border-radius:16px;background:rgba(120,231,255,.08);border:1px solid rgba(120,231,255,.25)"><div style="display:flex;justify-content:space-between;gap:10px;font-weight:900"><span>🏅 '+ml('Eğitim İlerlemesi','Training Progress','Trainingsfortschritt','Progreso de práctica','Progresso do treino','練習の進行')+'</span><span>'+pr.done+'/'+pr.total+' · %'+pr.pct+'</span></div><div style="height:8px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden;margin-top:9px"><i style="display:block;height:100%;width:'+pr.pct+'%;background:linear-gradient(90deg,#78e7ff,#ffd36e);border-radius:99px"></i></div></div><div class="settingsScroll" style="display:grid;gap:9px;margin-top:12px"><button class="btn ghost" id="tcBasic">🧭 '+ml('Temel hareket eğitimi','Basic movement tutorial','Grundbewegungen','Movimientos básicos','Movimentos básicos','基本操作')+'</button><button class="btn ghost" id="tcMechanics">⚡ '+ml('Özel atomlar ve mekanikler','Special atoms and mechanics','Spezialatome und Mechaniken','Átomos y mecánicas especiales','Átomos e mecânicas especiais','特殊原子と仕組み')+'</button><button class="btn ghost" id="tcSupports">🧰 '+ml('Oyuncu destekleri','Player supports','Spielerhilfen','Ayudas del jugador','Suportes do jogador','プレイヤーサポート')+'</button><button class="btn ghost" id="tcLab">🧪 '+ml('Laboratuvar cihazları','Laboratory equipment','Laborgeräte','Equipos de laboratorio','Equipamentos de laboratório','ラボ装置')+'</button></div><div class="mrow"><button class="btn" id="tcClose">'+t('close')+'</button></div>');
   bindTap('#tcBasic',()=>{closeModal();startTutorial();});
   bindTap('#tcMechanics',mechanicsGuideModal);
   bindTap('#tcSupports',showAllSupportGuide);
@@ -7699,7 +8282,8 @@ function drawBreakableStone(x,y,gx,gy,t){
   const pulse=.55+.25*Math.sin(t/420+gx+gy);
   bctx.save();bctx.strokeStyle='rgba(255,214,153,'+pulse+')';bctx.lineWidth=Math.max(2,T*.045);bctx.shadowColor='#ffb45e';bctx.shadowBlur=7;
   bctx.beginPath();bctx.moveTo(x+T*.28,y+T*.16);bctx.lineTo(x+T*.45,y+T*.38);bctx.lineTo(x+T*.34,y+T*.55);bctx.lineTo(x+T*.53,y+T*.72);bctx.lineTo(x+T*.46,y+T*.88);bctx.stroke();
-  bctx.beginPath();bctx.moveTo(x+T*.45,y+T*.38);bctx.lineTo(x+T*.68,y+T*.27);bctx.moveTo(x+T*.34,y+T*.55);bctx.lineTo(x+T*.18,y+T*.66);bctx.moveTo(x+T*.53,y+T*.72);bctx.lineTo(x+T*.76,y+T*.62);bctx.stroke();bctx.restore();
+  bctx.beginPath();bctx.moveTo(x+T*.45,y+T*.38);bctx.lineTo(x+T*.68,y+T*.27);bctx.moveTo(x+T*.34,y+T*.55);bctx.lineTo(x+T*.18,y+T*.66);bctx.moveTo(x+T*.53,y+T*.72);bctx.lineTo(x+T*.76,y+T*.62);bctx.stroke();
+  bctx.shadowBlur=3;bctx.fillStyle='#fff1bd';bctx.font='900 '+Math.max(9,Math.round(T*.2))+'px system-ui';bctx.textAlign='center';bctx.textBaseline='middle';bctx.fillText('🔨',x+T*.74,y+T*.24);bctx.restore();
 }
 function drawAtom(x,y,e,r,selRing,t,ctx){
   ctx=ctx||bctx;
@@ -8033,6 +8617,21 @@ function renderFx(t,dt){
       case 'spark':{const ox=p.x,oy=p.y;p.vy+=0.3*dts;p.x+=p.vx*dts;p.y+=p.vy*dts;
         fctx.strokeStyle=p.c;fctx.lineWidth=2;
         fctx.beginPath();fctx.moveTo(ox,oy);fctx.lineTo(p.x,p.y);fctx.stroke();break;}
+      case 'bond':{
+        const local=Math.max(0,Math.min(1,(p.t-(p.d||0))/Math.max(.05,(p.life||1)-(p.d||0))));
+        const e=1-Math.pow(1-local,3),xe=p.x1+(p.x2-p.x1)*e,ye=p.y1+(p.y2-p.y1)*e;
+        fctx.save();fctx.globalAlpha=Math.sin(local*Math.PI)*.92;
+        fctx.strokeStyle=p.c2||'#fff';fctx.lineWidth=(p.w||4)+5;fctx.shadowColor=p.c||'#7ee8ff';fctx.shadowBlur=16*(p.pulse||1);
+        fctx.beginPath();fctx.moveTo(p.x1,p.y1);fctx.lineTo(xe,ye);fctx.stroke();
+        fctx.shadowBlur=0;fctx.strokeStyle='#fff';fctx.lineWidth=Math.max(1,(p.w||4)*.42);
+        fctx.beginPath();fctx.moveTo(p.x1,p.y1);fctx.lineTo(xe,ye);fctx.stroke();fctx.restore();break;}
+      case 'sig':{
+        const local=Math.max(0,Math.min(1,(p.t-(p.d||0))/Math.max(.05,(p.life||1)-(p.d||0))));
+        const pt=mxSigPoint(p,local),prev=mxSigPoint(p,Math.max(0,local-.045));
+        fctx.save();fctx.globalAlpha*=Math.sin(Math.min(1,local)*Math.PI);
+        fctx.strokeStyle=p.c2||p.c;fctx.lineWidth=Math.max(.7,(p.r||3)*.45*(1-local));
+        fctx.beginPath();fctx.moveTo(prev[0],prev[1]);fctx.lineTo(pt[0],pt[1]);fctx.stroke();
+        mxDrawSigShape(fctx,p,pt[0],pt[1],local);fctx.restore();break;}
       case 'conf':p.vy+=0.16*dts;p.x+=(p.vx+Math.sin(p.t*5)*0.7)*dts;p.y+=p.vy*dts;p.rot+=p.vr*dts;
         fctx.save();fctx.translate(p.x,p.y);fctx.rotate(p.rot);fctx.fillStyle=p.c;
         fctx.fillRect(-p.w/2,-p.w/4,p.w,p.w/2);fctx.restore();break;
@@ -8234,7 +8833,7 @@ $('#btnRestart').addEventListener('pointerdown',e=>{e.preventDefault();SFX.click
 $('#btnHint').addEventListener('pointerdown',e=>{e.preventDefault();if(tutorialActive)return;if(duelMode){say(duelCopy().noHint,'sad',2200,'shk');return;}if(chainMode){say(chainCopy().noHint,'sad',2200,'shk');return;}if(reactorMode){say(reactorCopy().noHint,'sad',2200,'shk');return;}if(!save.seenHintSupport){save.seenHintSupport=true;persist();showSupportTutorial('hint',hint);return;}hint();},{passive:false});
 $('#btnHammer').addEventListener('pointerdown',e=>{e.preventDefault();if(e.currentTarget.hidden||won||tutorialActive)return;if(!save.seenHammerSupport){save.seenHammerSupport=true;persist();showSupportTutorial('hammer',()=>$('#btnHammer').dispatchEvent(new PointerEvent('pointerdown',{bubbles:true})));return;}if(boosterCount('hammer')<1){buyBooster('hammer',()=>{syncHammerUi();say(LANG==='tr'?'Çekiç satın alındı. Şimdi çatlak duvara dokun.':'Hammer purchased. Now tap a cracked wall.','happy',3000,'glow');});return;}if(precisionMode)cancelPrecision();if(barrierMode)cancelBarrier();hammerMode=!hammerMode;SFX.select();mxHaptic('light');syncHammerUi();if(hammerMode)say(LANG==='tr'?'Kırmak için çatlak duvara dokun.':'Tap the cracked wall to break it.','talk',2600,'glow');},{passive:false});
 $('#btnPrecision').addEventListener('pointerdown',e=>{e.preventDefault();if(e.currentTarget.hidden||won||tutorialActive)return;if(!save.seenPrecisionSupport){save.seenPrecisionSupport=true;persist();showSupportTutorial('precision',()=>$('#btnPrecision').dispatchEvent(new PointerEvent('pointerdown',{bubbles:true})));return;}if(boosterCount('precision')<1){buyBooster('precision',()=>{syncPrecisionUi();say(LANG==='tr'?'Tek Kare Hareket satın alındı. Atomu seçip yön ver.':'One-Square Move purchased. Select an atom and choose a direction.','happy',3200,'glow');});return;}if(hammerMode)cancelHammer();if(barrierMode)cancelBarrier();precisionMode=!precisionMode;SFX.select();mxHaptic('light');syncPrecisionUi();if(precisionMode)say(LANG==='tr'?'Atomu seç, sonra yön ver. Atom yalnızca 1 kare ilerler.':'Select an atom, then choose a direction. It will move exactly 1 square.','talk',3000,'glow');},{passive:false});
-$('#btnBarrier').addEventListener('pointerdown',e=>{e.preventDefault();if(e.currentTarget.hidden||won||tutorialActive||barrierUsed)return;if(boosterCount('barrier')<1){buyBooster('barrier',()=>{syncBarrierUi();say(LANG==='tr'?'Nano Bariyer satın alındı. Boş bir kareye dokun.':'Nano Barrier purchased. Tap an empty tile.','happy',3000,'glow');});return;}if(hammerMode)cancelHammer();if(precisionMode)cancelPrecision();barrierMode=!barrierMode;SFX.select();mxHaptic('light');syncBarrierUi();if(barrierMode)say(LANG==='tr'?'Geçici blok koymak için boş bir kareye dokun.':'Tap an empty tile to place the temporary block.','talk',2800,'glow');},{passive:false});
+$('#btnBarrier').addEventListener('pointerdown',e=>{e.preventDefault();if(e.currentTarget.hidden||won||tutorialActive||barrierUsed)return;if(!save.seenBarrierSupport){save.seenBarrierSupport=true;persist();showSupportTutorial('barrier',()=>$('#btnBarrier').dispatchEvent(new PointerEvent('pointerdown',{bubbles:true})));return;}if(boosterCount('barrier')<1){buyBooster('barrier',()=>{syncBarrierUi();say(LANG==='tr'?'Nano Bariyer satın alındı. Boş bir kareye dokun.':'Nano Barrier purchased. Tap an empty tile.','happy',3000,'glow');});return;}if(hammerMode)cancelHammer();if(precisionMode)cancelPrecision();barrierMode=!barrierMode;SFX.select();mxHaptic('light');syncBarrierUi();if(barrierMode)say(LANG==='tr'?'Geçici blok koymak için boş bir kareye dokun.':'Tap an empty tile to place the temporary block.','talk',2800,'glow');},{passive:false});
 $('#btnGear').addEventListener('pointerdown',e=>{e.preventDefault();SFX.click();if(tutorialActive)return;settingsModal();},{passive:false});
 bindTap('#btnHome',e=>{SFX.click();if(tutorialActive){endTutorial(false);return;}if(duelMode){confirmQuitDuel();return;}if(crystalMode){confirmQuitCrystal();return;}if(chainMode){confirmQuitChain();return;}if(reactorMode){confirmQuitReactor();return;}show('splash');});
 $('#lvHome').addEventListener('pointerdown',e=>{e.preventDefault();SFX.click();show('splash');},{passive:false});
@@ -8253,12 +8852,12 @@ function whatsNewContent(){
     title:'YENİLİKLER',back:'HAKKINDA GERİ DÖN',button:'YENİLİKLER NELER?',about:'HAKKINDA',version:'Sürüm',
     webButton:'OYUNUN WEB SAYFASI',accountButton:accountState.isAnonymous?'KAYIT OL / GİRİŞ YAP':'HESABIM',
     rankNote:'Dünya sıralamasındaki Kariyer RP puanın korunur. Bu Hafta ve Bu Ay sıralamalarında bütün oyuncular aynı UTC Günün Deneyi ile yarışır. Puanını yayımlamak için Google veya e-posta hesabıyla giriş yap.',
-    html:'<section class="release latest"><h4>V5.0</h4><ul><li>Bulut ve Hesap Durumu paneli eklendi; bağlı giriş yöntemleri, son başarılı senkronizasyon, Classic Dünya Sırası ve Online Düello Sırası tek ekranda gösterilir.</li><li>Şimdi Senkronize Et düğmesi profil, Classic sıralaması ve Düello sıralamasını birlikte yeniler; misafir oyuncuya hesap bağlama durumu açıkça gösterilir.</li><li>Final sürümde Classic ilerleme, MoleCoin ekonomisi, laboratuvar teması, günlük kuantum ipucu, Dünya Sıralaması ve Düello Rank bulut alanları tek şemada eşitlendi.</li><li>Firestore kurallarındaki laboratuvar teması, ekonomi şeması ve kuantum ipucu alan eksikliği giderildi; tam profil senkronizasyonunun reddedilmesi önlendi.</li><li>Netlify, itch.io, Android ve iOS aynı Firebase projesinde ortak odaları, Hızlı Eşleşme kuyruğunu ve sıralamaları kullanacak şekilde son kontrolden geçirildi.</li><li>Apple, Google, e-posta ve misafir hesap ekranı küçük iPhone boyutları için korunurken bütün dosya, önbellek ve sürüm kayıtları V5.0 olarak eşitlendi.</li></ul></section><section class="release"><h4>V4.8.8</h4><ul><li>Apple, Google, e-posta ve oyuncu yönetimi bulunan hesap ekranı kısa ve dar iPhone ekranları için yeniden düzenlendi.</li><li>375×667 ekranda bütün giriş düğmeleri aynı anda görünür hale getirildi; 320×568 ekranda güvenli dikey kaydırma ve her zaman erişilebilir üst kapatma düğmesi eklendi.</li><li>Hesap kartı, uyarı metni, düğme aralıkları ve yazı boyutları ekran yüksekliğine göre otomatik küçülür.</li></ul></section><section class="release"><h4>V4.8.7</h4><ul><li>Apple ile Giriş; misafir, Google ve e-posta hesaplarıyla aynı Firebase oyuncu kaydını koruyacak şekilde eklendi.</li><li>Mevcut hesaba Apple bağlanmadan önce açık kullanıcı onayı gösterilir; bağlanan sağlayıcılar aynı Firebase UID ve aynı ilerlemeyi kullanır.</li><li>Web için Firebase Apple OAuth akışı ve native iOS için ID token + raw nonce giriş köprüsü eklendi.</li><li>Giriş ekranı Apple, Google, e-posta ve misafir akışlarını birlikte destekleyecek şekilde yenilendi.</li></ul></section><section class="release"><h4>V4.8.6</h4><ul><li>Netlify, itch.io, Android ve iOS sürümlerinin aynı Firebase projesi üzerinden ortak oda, Hızlı Eşleşme ve sıralama kullanması için platformlar arası yapı güçlendirildi.</li><li>Aynı kalıcı hesap iki cihazda açıkken dereceli Hızlı Eşleşmede kendi kendisiyle eşleşmesi engellendi; kodlu dostluk odaları bundan etkilenmez.</li><li>Android/iOS native Google girişinden alınan kimlik tokenını aynı Firebase hesabına bağlamak için güvenli giriş köprüsü eklendi.</li><li>Classic ilerleme, MoleCoin defteri, Düello Rank, ödüller, çerçeve ve unvanların aynı hesapta birleşme denetimleri yenilendi.</li></ul></section><section class="release"><h4>V4.8.5</h4><ul><li>Ödüller ekranı premium Düello Kariyer Merkezi olarak yenilendi; lig rozeti, aktif çerçeve, unvan ve bir sonraki lige ilerleme tek alanda gösterilir.</li><li>Dereceli maç, galibiyet, en iyi seri, kazanma oranı, haftalık ve aylık puan istatistikleri eklendi.</li><li>Sıradaki çerçeve ve unvan için ilerleme yol haritası, kilit şartları ve nadirlik seviyeleri eklendi.</li><li>Kupa Dolabı, lig rozetleri ve seçili ödül vitrini yeni parıltı, shimmer ve hareket efektleriyle geliştirildi.</li><li>Oyun içi sürüm, JavaScript/CSS sorguları ve servis worker önbelleği V4.8.5 olarak eşitlendi.</li></ul></section><section class="release"><h4>V4.8.0</h4><ul><li>Hızlı Eşleşme; Düello Puanı, yedi lig, galibiyet/mağlubiyet/beraberlik ve seri istatistikleriyle dereceli online moda dönüştürüldü.</li><li>Hall of Fame’e genel, haftalık ve aylık ayrı Düello Rank sıralaması eklendi.</li><li>Laboratuvara lig rozetleri, seçilebilir profil çerçeveleri, unvanlar ve kalıcı Kupa Dolabı içeren Ödüller sekmesi eklendi.</li><li>Kapanan hafta ve ayın ilk 10, ilk 3 ve şampiyon oyuncuları MoleCoin harcamadan ve ücretli Cloud Functions kullanmadan kozmetik kupa kazanır.</li><li>Kodlu arkadaş odaları ve aynı telefon düelloları dostluk maçı olarak kalır ve rank puanı vermez.</li></ul></section><section class="release"><h4>V4.7.0</h4><ul><li>Tüm menüler, düğmeler, animasyonlar, sesler, kampanya bölümleri, günlük deneyler ve düello sonuç akışları son sürüm denetiminden geçirildi.</li><li>Çevrim dışı açılışta sürüm sorgulu CSS ve JavaScript dosyalarının önbellekten bulunamamasına yol açabilen servis worker eşleşme hatası düzeltildi.</li><li>Hesap ve bulut verisi silme işlemi, herhangi bir bulut silme adımı başarısızsa hesabı yarım silinmiş durumda bırakmayacak şekilde güçlendirildi.</li><li>Gizlilik, kullanım şartları ve veri silme açıklamaları iki telefonlu online düello, hazır mesajlar, bağlantı durumu ve geçici oda verileriyle güncellendi.</li><li>İlk açılış dil verileri ile sayfa dil/başlık metadatası seçilen İngilizce veya Türkçe dile göre eşitlendi.</li><li>320 px genişlikte Laboratuvar başlığı ve geniş telefonlarda oyun içi sağ eylem düğmeleri taşmayacak şekilde hizalandı.</li><li>Kaydırma ve yıldız sesleri eksik parametreyle çağrılsa bile güvenli varsayılan kullanacak şekilde sağlamlaştırıldı.</li></ul></section><section class="release"><h4>V4.6.0</h4><ul><li>Atom Düellosu final ekranları tamamen yenilendi; kazanan ve kaybeden için ayrı görsel atmosferler eklendi.</li><li>Kazanan ekranda konfeti, parlayan kupa, Dr. E kutlaması ve kısa zafer müziği görür; kaybeden ekranda destekleyici Dr. E mesajı, gümüş atom rozeti ve kısa yeniden deneme müziği gösterilir.</li><li>Gerçek oyuncu adları, skor, raund geçmişi, rövanş ve ana menü işlemleri yeni tasarım içinde dinamik olarak korunur.</li></ul></section><details class="release"><summary>V4.5.0 — Bağlantı Koruması</summary><ul><li>Online düelloda iki telefonun bağlantısı yaklaşık 4,5 saniyede bir canlı olarak kontrol edilir.</li><li>Rakibin bağlantısı kesilirse oyun ve 90 saniyelik raund süresi durur; ekranda 30 saniyelik geri dönüş sayacı görünür.</li><li>Rakip zamanında dönerse aynı raund kaldığı yerden devam eder; dönmezse bağlı kalan oyuncu hükmen kazanır. İki oyuncu da koparsa maç sonuçsuz iptal edilir.</li></ul></details><details class="release"><summary>V4.4.0 — Tam Ekran Canlı Seyir</summary><ul><li>Rakibin oyunu telefon ekranını dolduran seyir modunda gösterilir.</li><li>Seçilen atom, hareket yönü ve kayma süresi karşı telefona aktarılır; atom aynı yönde animasyonla kayar.</li><li>Dr. E hap bilgileri ve hazır mesajlar canlı oyun ekranının altında korunur.</li></ul></details><details class="release"><summary>V4.3.0 — Canlı Düello ve Hazır Mesajlar</summary><ul><li>Online Atom Düellosunda rakibin atom hamlelerini küçük canlı tahta üzerinden izleme eklendi.</li><li>Bekleme sırasında Dr. E; moleküller, uzay, hayvanlar, bilim ve oyun taktikleri hakkında kısa hap bilgiler anlatır.</li><li>Oyuncular serbest yazı yerine güvenli hazır mesajlar gönderebilir: Merhaba, Bol şans, Güzel hamle, İyi oyundu, Rövanş ve Teşekkürler.</li></ul></details><details class="release"><summary>V4.2.0 — Hızlı Eşleşme</summary><ul><li>Atom Düellosuna üçüncü seçenek olarak Hızlı Eşleşme eklendi.</li><li>İki çevrim içi oyuncu bekleme kuyruğunda otomatik eşleşir ve oyun arka planda özel oda oluşturur.</li><li>Hızlı maçlar karışık oyun türü ve karışık zorlukla 3 raund oynanır; kampanya ve dünya sıralamasını etkilemez.</li></ul></details><details class="release"><summary>V4.1.0 — İki Telefonlu Online Düello</summary><ul><li>Atom Düellosuna iki farklı telefondan oynanan online oda sistemi eklendi.</li><li>Oda sahibi 6 haneli kod üretir; ikinci oyuncu kodla katılır ve sıra otomatik cihazlar arasında geçer.</li><li>Raund ve final skorları iki telefonda aynı anda görünür.</li></ul></details><details class="release"><summary>V4.0.3 — LAB ve Sıralama Ayrıntıları</summary><ul><li>LAB düğmesi ana menü butonlarından çıkarılıp sol tarafta VS düğmesinin tam üstündeki bağımsız kolona taşındı.</li><li>Dünya sıralaması satırlarında RP, tamamlanan bölüm, toplam yıldız, kusursuz bölüm ve doğrulanmış süre görünür hale getirildi.</li><li>Hall of Fame’e elle sıralama yenileme düğmesi eklendi ve Firebase liste önbellekleri zorunlu yenilemede temizleniyor.</li></ul></details><details class="release"><summary>V4.0.2 — Lab Butonu ve Premium Lab</summary><ul><li>Ana menüye animasyonlu tek bir LAB butonu eklendi.</li><li>Oyuncu laboratuvarındaki yerleştirilmiş ekipmanlar premium vitrin tabanları, glow efektleri ve yumuşak animasyonlarla güçlendirildi.</li></ul></details><details class="release"><summary>V4.0.1 — Shop Görsel Yükseltme</summary><ul><li>MoleCoin mağazasındaki ürün kartları yeni premium obje görselleriyle yenilendi.</li><li>Her mağaza ekipmanına kendine özel renk kimliği, glow efekti ve daha detaylı laboratuvar çizimi verildi.</li><li>Satın alma, laboratuvar yerleşimi ve oyun ekonomisi değiştirilmeden yalnızca görsel kalite yükseltildi.</li></ul></details><details class="release"><summary>V4.0.0 — Laboratuvar, Mağaza ve Nobel Yarışı</summary><ul><li>Oyuncunun laboratuvarı, MoleCoin mağazası ve Nobel Yarışı tek bir ilerleme merkezinde birleştirildi.</li><li>7 satın alınabilir laboratuvar ekipmanı, 3 araştırma seferi ve farklı laboratuvar temaları eklendi.</li><li>RP Dünya Sıralaması için korunurken MoleCoin harcama defteri bulut senkronizasyonuna karşı güvenli hale getirildi.</li><li>151. bölümü tamamlayan oyuncu Nobel Adayı olur; aylık sıralamanın 1 numarası Ayın Nobel Ödüllüsü olarak gösterilir.</li><li>Einstein haftalık ve aylık liderleri oyuncu adıyla duyurur; Hall of Fame canlı liderleri ve şampiyon arşivini gösterir.</li><li>İpucu ekonomisi, laboratuvar faydaları ve bölüm kartlarının görünümü yenilendi.</li></ul></details><details class="release"><summary>V3.14.3 — Bonus, Çıkış ve Tam Kontrol</summary><ul><li>Bonus Lab, bonus oyun başlangıçları ve Çıkış/Devam düğmeleri iPhone dokunmalarında güvenilir çalışacak şekilde yenilendi.</li><li>Kampanya, Günün Deneyi, Düello ve üç bonus türünün çıkış akışları yeniden doğrulandı.</li><li>135. bölümde kayıtlı çözümü durduran zombi-donma çakışması düzeltildi.</li><li>Yeni Oyun ad ekranına güvenli Vazgeç düğmesi eklendi.</li></ul></details><details class="release"><summary>V3.14.2 — Atom Düellosu Kompakt Arayüz</summary><ul><li>Atom Düellosu kurulum ekranı kompakt eski haline geri alındı.</li><li>Üstteki ikonlar ve açılır menü ikonları tekrar ilk boyutlarına döndürüldü.</li><li>V3.14.1’de fazla büyüyen ikon düzeni kaldırıldı; oyun mantığı değiştirilmedi.</li></ul></details><details class="release"><summary>V3.14.0 — Gelişen Classic Kampanya</summary><ul><li>151 bölüm, hedef geometrisi art arda tekrarlanmayacak şekilde yeniden sıralandı.</li><li>105 farklı molekül kullanıldı; tekrar eden moleküller arasında en az 36 bölüm bırakıldı.</li><li>İlk Katalizör, Zincir Reaksiyon ve Reaktör bonusları açıldıktan sonra bu mekanikler seçili Classic bölümlerde görünür.</li><li>Haritalar, başlangıç konumları ve kayıtlı çözümler korunurken atom renkleri ve molekül kimlikleri çeşitlendirildi.</li></ul></details><details class="release"><summary>V3.13.12 — Farklı Molekül Kombinasyonları</summary><ul><li>74–90 arasındaki tekrarlanan hedef geometrileri değiştirilmişti.</li></ul></details><details class="release"><summary>V3.13.11 — Zor ve Benzersiz Bölümler</summary><ul><li>Tekrar eden 50 kampanya bölümü, tamamen yeni ve daha zor haritalarla değiştirildi.</li><li>Yeni bölümlerin minimum çözüm ortalaması 6,5 hamleden 8,9 hamleye yükseltildi.</li><li>İki atomlu bölümler 7, üç atomlu bölümler 9, dört atomlu bölümler 9–10 ve beş atomlu bölümler 10–12 hamlelik çözümlerle yeniden tasarlandı.</li></ul></details><details class="release"><summary>V3.13.10 — Son Arayüz Kontrolü</summary><ul><li>Günün Deneyi, başarı kartları ve oyuncu profillerindeki alakasız bonus nesneleri kaldırıldı.</li><li>Düello üst önizlemesi artık yalnızca seçilen oyun türünü gösterir ve seçim değişince anında eşleşir.</li><li>Tüm dosya, önbellek ve oyun içi sürüm numaraları 3.13.10 olarak eşitlendi.</li></ul></details><details class="release"><summary>V3.13.7 — Bonus Lab Görsel Paketi</summary><ul><li>Bonus Lab kartları, ödül ekranları, Düello tipi ikonları, Günün Deneyi kartı, başarı rozetleri ve oyuncu çerçeveleri yeni laboratuvar nesne stiline uyarlandı.</li></ul></details><details class="release"><summary>V3.13.6 — Reaktör Lazer Düzeltmesi</summary><ul><li>Reaktör Kaçışında aktif lazer artık uzaktaki atomu başlangıç noktasında kilitlemez.</li><li>Atom lazerin bir kare önüne kadar kayar; oyuncu oradan yön değiştirip ışının etrafından dolaşabilir.</li><li>3 saniyelik ceza yalnızca atom lazere bitişikken doğrudan ışına hamle yapılırsa uygulanır.</li><li>Lazer yayıcıları, zemin yansıması ve açılmadan önce sarı uyarı efekti eklendi.</li></ul></details><details class="release"><summary>V3.13.5 — Dr. E Oyuncu Adı</summary><ul><li>Dr. E misafir hesaplara “Misafir”, bağlı hesaplara gerçek kullanıcı adıyla hitap eder.</li></ul></details><details class="release"><summary>V3.13.3 — Dünya Sıralaması Onarımı</summary><ul><li>Eski Android sürümlerinde geride kalabilen Dünya Sıralaması kaydı için otomatik onarım eklendi.</li><li>Yerel ve bulut ilerleme birleştirilip sıralama zorunlu olarak yenilenir.</li></ul></details><details class="release"><summary>V3.13.2 — Katalizör Avı</summary><ul><li>Kristal Avı, laboratuvar temasına uygun Katalizör Avı olarak yenilendi.</li><li>Katalizör, Enerji Hücresi ve Stabilizatör adlı üç farklı reaksiyon bileşeni eklendi.</li></ul></details><details class="release"><summary>V3.13.1 — Bölüm Numaraları</summary><ul><li>Bölüm seçim ekranındaki açık ve kilitli 151 bölümün tamamına görünür bölüm numarası eklendi.</li><li>Kilit simgesi korunurken bölüm numarası kartın üst kısmında okunabilir şekilde gösterilir.</li></ul></details><details class="release"><summary>V3.13.0 — Bonus Bölümleri ve Madalyalar</summary><ul><li>Her 10 kampanya bölümünde Katalizör Avı, Zincir Reaksiyon veya Reaktör Kaçışı bonus görevi açılır.</li><li>İlk tamamlamada 1 Bonus Madalyası, 50 MoleCoin ve 100 Kariyer RP verilir; tekrarlar ödül vermez.</li><li>3/6/9/12/15 madalyada kalıcı görsel ödüller açılır.</li></ul></details><details class="release"><summary>V3.12.0 — Reaktör Kaçışı</summary><ul><li>Üç zamanlı lazer kapılı Reaktör Kaçışı tek oyuncu ve düelloya eklendi.</li></ul></details><details class="release"><summary>V3.11.0 — Zincir Reaksiyon</summary><ul><li>Parlayan doğru hamleyle Combo x2 / x3 oluşturan Zincir Reaksiyon Bonus Lab ve Düello modu eklendi.</li></ul></details><details class="release"><summary>V3.10.0 — Katalizör Avı altyapısı</summary><ul><li>Üç reaksiyon bileşenini toplayıp hedef molekülü oluşturduğun Bonus Lab altyapısı eklendi.</li><li>Bu toplama modu tek oyuncuya ve Atom Düellosuna bağlandı.</li></ul></details><details class="release"><summary>V3.9.2 — VS düğmesi</summary><ul><li>VS düğmesi yukarı alındı ve kupa simgesiyle aynı yumuşak animasyona kavuştu.</li></ul></details><details class="release"><summary>V3.9.0 — Atom Düellosu</summary><ul><li>Tek telefonda sırayla oynanan iki oyunculu Atom Düellosu eklendi.</li><li>Düello sonuçları kampanya, coin ve dünya sıralamasını etkilemez.</li></ul></details><details class="release"><summary>V3.8.4 — Kalıcı Firebase oturumu</summary><ul><li>Firebase oturumu itch.io dahil desteklenen tarayıcılarda kalıcı olarak geri yüklenir.</li><li>Kaydedilmiş Google veya e-posta oturumu kontrol edilmeden yeni misafir hesap oluşturulmaz.</li></ul></details><details class="release"><summary>V3.8.3 — Çapraz platform güvenli senkronizasyon</summary><ul><li>Aynı Google veya e-posta hesabı kullanıldığında itch.io, Netlify ve Android ilerlemeleri tek oyuncu profilinde birleşir.</li><li>Bölüm yıldızları, moleküller, başarımlar, en iyi süreler ve en iyi hamleler artık alan alan güvenle senkronize edilir.</li><li>Araştırma Puanı, birleşen bölüm/başarım/günlük kayıtlarından yeniden hesaplanır; aynı puan farklı platformlardan iki kez eklenmez.</li><li>Eski veya çevrimdışı kalan bir cihaz, daha yeni bulut ilerlemesini geriye düşüremez.</li></ul></details><details class="release"><summary>V3.8.2 — Benzersiz bölümler ve Günün Deneyi</summary><ul><li>151 kampanya bölümü benzersiz hale getirildi.</li><li>832 gün tekrar etmeyen, çözücü onaylı otomatik Günün Deneyi eklendi.</li></ul></details><details class="release"><summary>V3.8.1 — Kariyer ve laboratuvar ilerlemesi</summary><ul><li>Her 20 bölümde terfi ve laboratuvar gelişimi geri getirildi.</li><li>Nobel Adayı ve Nobel Ödüllü kariyer aşamaları eklendi.</li></ul></details><details class="release"><summary>Önceki sürümler</summary><ul><li>150 + 1 Nobel kampanyası, adil sıralama, hamle dereceleri, otomatik çözücü ve Araştırma Puanı eklendi.</li></ul></details>'
+    html:'<section class="release latest"><h4>V8.5.53</h4><ul><li>Geçersiz kalan kampanya başlangıç ipucu koordinatları sertifikalı çözümün ilk hamlesiyle yeniden eşleştirildi.</li><li>İpucu verisi bulunamazsa oyun artık güvenli biçimde sertifikalı ilk hamleye döner; boş veya hatalı atom seçmez.</li><li>Web önbelleği hafifletildi: oyun kodu ve temel görseller güvenli biçimde kurulur, büyük ses ve hikâye dosyaları kullanıldıkça önbelleğe alınır.</li><li>itch.io, Netlify ve Android paketleri aynı 8.5.53 kaynak setinden üretildi.</li></ul></section><section class="release"><h4>V8.5.52</h4><ul><li>Basınç kapısındaki şeffaf çizgili karenin açık kapı olduğu, düğmeden ayrılınca yeniden duvara dönüştüğü açıkça gösterilir.</li><li>Basınç düğmesi ve kapısı aynı harfle eşleştirildi; hareketli duvara ↔, portallara A/B ve kırılabilir duvara küçük çekiç işareti eklendi.</li><li>Oyun içindeki ? yardım ekranı artık yalnızca açık bölümde kullanılan özel mekanikleri ve görsel işaretlerini en üstte gösterir.</li><li>Eski oyunculara yalnızca görseli belirsiz mekaniklerin kısa ilk kullanım kartları bir kez yeniden gösterilir; ilerleme ve diğer eğitimler korunur.</li></ul></section><section class="release"><h4>V8.5.51</h4><ul><li>E-posta ile giriş başarısı bulut sıralama yayınından ayrıldı; hesap bağlandıktan sonra sıralama gecikmesi artık giriş hatası olarak gösterilmez.</li><li>Şimdi Senkronize Et, profil kaydı başarılıysa Classic veya Düello sıralaması beklemede olsa bile bulut kaydını başarılı kabul eder.</li><li>Android Google girişinde Credential Manager yerine daha uyumlu Google giriş yolu kullanılır; cihazda hesap yoksa anlaşılır uyarı gösterilir.</li><li>İlk bulut uzlaştırması gecikirse bir kez otomatik yeniden denenir ve hesap oturumu korunur.</li></ul></section><section class="release"><h4>V8.5.50</h4><ul><li>Google ve e-posta giriş akışları V8.5.49 ile aynı bırakıldı; Android paket kimliği com.whitewaystudio.moleculox olarak korundu.</li><li>Yıldırım yükü ile Zincir Reaksiyonu arasındaki fark ve Combo x2/x3 kuralı açıkça ayrıldı.</li><li>Keşfedilen bütün özel mekanikler Eğitim Merkezi’nde aynı altı dilde, tek kaynaktan ve kısa açıklamalarla gösterilir.</li><li>Nano Bariyer ve diğer destek eğitimleri altı dilde tamamlandı; otomatik karttan sonra tekrarlanan Einstein balonu kaldırıldı.</li><li>Çekiç için çağrılan güçlü titreşimin yanlışlıkla hafif çalışması düzeltildi.</li><li>Görünen stüdyo adı Google Play Console ile aynı biçimde wHiTeWaY studio olarak sabitlendi.</li></ul></section><section class="release"><h4>V5.0</h4><ul><li>Bulut ve Hesap Durumu paneli eklendi; bağlı giriş yöntemleri, son başarılı senkronizasyon, Classic Dünya Sırası ve Online Düello Sırası tek ekranda gösterilir.</li><li>Şimdi Senkronize Et düğmesi profil, Classic sıralaması ve Düello sıralamasını birlikte yeniler; misafir oyuncuya hesap bağlama durumu açıkça gösterilir.</li><li>Final sürümde Classic ilerleme, MoleCoin ekonomisi, laboratuvar teması, günlük kuantum ipucu, Dünya Sıralaması ve Düello Rank bulut alanları tek şemada eşitlendi.</li><li>Firestore kurallarındaki laboratuvar teması, ekonomi şeması ve kuantum ipucu alan eksikliği giderildi; tam profil senkronizasyonunun reddedilmesi önlendi.</li><li>Netlify, itch.io, Android ve iOS aynı Firebase projesinde ortak odaları, Hızlı Eşleşme kuyruğunu ve sıralamaları kullanacak şekilde son kontrolden geçirildi.</li><li>Apple, Google, e-posta ve misafir hesap ekranı küçük iPhone boyutları için korunurken bütün dosya, önbellek ve sürüm kayıtları V5.0 olarak eşitlendi.</li></ul></section><section class="release"><h4>V4.8.8</h4><ul><li>Apple, Google, e-posta ve oyuncu yönetimi bulunan hesap ekranı kısa ve dar iPhone ekranları için yeniden düzenlendi.</li><li>375×667 ekranda bütün giriş düğmeleri aynı anda görünür hale getirildi; 320×568 ekranda güvenli dikey kaydırma ve her zaman erişilebilir üst kapatma düğmesi eklendi.</li><li>Hesap kartı, uyarı metni, düğme aralıkları ve yazı boyutları ekran yüksekliğine göre otomatik küçülür.</li></ul></section><section class="release"><h4>V4.8.7</h4><ul><li>Apple ile Giriş; misafir, Google ve e-posta hesaplarıyla aynı Firebase oyuncu kaydını koruyacak şekilde eklendi.</li><li>Mevcut hesaba Apple bağlanmadan önce açık kullanıcı onayı gösterilir; bağlanan sağlayıcılar aynı Firebase UID ve aynı ilerlemeyi kullanır.</li><li>Web için Firebase Apple OAuth akışı ve native iOS için ID token + raw nonce giriş köprüsü eklendi.</li><li>Giriş ekranı Apple, Google, e-posta ve misafir akışlarını birlikte destekleyecek şekilde yenilendi.</li></ul></section><section class="release"><h4>V4.8.6</h4><ul><li>Netlify, itch.io, Android ve iOS sürümlerinin aynı Firebase projesi üzerinden ortak oda, Hızlı Eşleşme ve sıralama kullanması için platformlar arası yapı güçlendirildi.</li><li>Aynı kalıcı hesap iki cihazda açıkken dereceli Hızlı Eşleşmede kendi kendisiyle eşleşmesi engellendi; kodlu dostluk odaları bundan etkilenmez.</li><li>Android/iOS native Google girişinden alınan kimlik tokenını aynı Firebase hesabına bağlamak için güvenli giriş köprüsü eklendi.</li><li>Classic ilerleme, MoleCoin defteri, Düello Rank, ödüller, çerçeve ve unvanların aynı hesapta birleşme denetimleri yenilendi.</li></ul></section><section class="release"><h4>V4.8.5</h4><ul><li>Ödüller ekranı premium Düello Kariyer Merkezi olarak yenilendi; lig rozeti, aktif çerçeve, unvan ve bir sonraki lige ilerleme tek alanda gösterilir.</li><li>Dereceli maç, galibiyet, en iyi seri, kazanma oranı, haftalık ve aylık puan istatistikleri eklendi.</li><li>Sıradaki çerçeve ve unvan için ilerleme yol haritası, kilit şartları ve nadirlik seviyeleri eklendi.</li><li>Kupa Dolabı, lig rozetleri ve seçili ödül vitrini yeni parıltı, shimmer ve hareket efektleriyle geliştirildi.</li><li>Oyun içi sürüm, JavaScript/CSS sorguları ve servis worker önbelleği V4.8.5 olarak eşitlendi.</li></ul></section><section class="release"><h4>V4.8.0</h4><ul><li>Hızlı Eşleşme; Düello Puanı, yedi lig, galibiyet/mağlubiyet/beraberlik ve seri istatistikleriyle dereceli online moda dönüştürüldü.</li><li>Hall of Fame’e genel, haftalık ve aylık ayrı Düello Rank sıralaması eklendi.</li><li>Laboratuvara lig rozetleri, seçilebilir profil çerçeveleri, unvanlar ve kalıcı Kupa Dolabı içeren Ödüller sekmesi eklendi.</li><li>Kapanan hafta ve ayın ilk 10, ilk 3 ve şampiyon oyuncuları MoleCoin harcamadan ve ücretli Cloud Functions kullanmadan kozmetik kupa kazanır.</li><li>Kodlu arkadaş odaları ve aynı telefon düelloları dostluk maçı olarak kalır ve rank puanı vermez.</li></ul></section><section class="release"><h4>V4.7.0</h4><ul><li>Tüm menüler, düğmeler, animasyonlar, sesler, kampanya bölümleri, günlük deneyler ve düello sonuç akışları son sürüm denetiminden geçirildi.</li><li>Çevrim dışı açılışta sürüm sorgulu CSS ve JavaScript dosyalarının önbellekten bulunamamasına yol açabilen servis worker eşleşme hatası düzeltildi.</li><li>Hesap ve bulut verisi silme işlemi, herhangi bir bulut silme adımı başarısızsa hesabı yarım silinmiş durumda bırakmayacak şekilde güçlendirildi.</li><li>Gizlilik, kullanım şartları ve veri silme açıklamaları iki telefonlu online düello, hazır mesajlar, bağlantı durumu ve geçici oda verileriyle güncellendi.</li><li>İlk açılış dil verileri ile sayfa dil/başlık metadatası seçilen İngilizce veya Türkçe dile göre eşitlendi.</li><li>320 px genişlikte Laboratuvar başlığı ve geniş telefonlarda oyun içi sağ eylem düğmeleri taşmayacak şekilde hizalandı.</li><li>Kaydırma ve yıldız sesleri eksik parametreyle çağrılsa bile güvenli varsayılan kullanacak şekilde sağlamlaştırıldı.</li></ul></section><section class="release"><h4>V4.6.0</h4><ul><li>Atom Düellosu final ekranları tamamen yenilendi; kazanan ve kaybeden için ayrı görsel atmosferler eklendi.</li><li>Kazanan ekranda konfeti, parlayan kupa, Dr. E kutlaması ve kısa zafer müziği görür; kaybeden ekranda destekleyici Dr. E mesajı, gümüş atom rozeti ve kısa yeniden deneme müziği gösterilir.</li><li>Gerçek oyuncu adları, skor, raund geçmişi, rövanş ve ana menü işlemleri yeni tasarım içinde dinamik olarak korunur.</li></ul></section><details class="release"><summary>V4.5.0 — Bağlantı Koruması</summary><ul><li>Online düelloda iki telefonun bağlantısı yaklaşık 4,5 saniyede bir canlı olarak kontrol edilir.</li><li>Rakibin bağlantısı kesilirse oyun ve 90 saniyelik raund süresi durur; ekranda 30 saniyelik geri dönüş sayacı görünür.</li><li>Rakip zamanında dönerse aynı raund kaldığı yerden devam eder; dönmezse bağlı kalan oyuncu hükmen kazanır. İki oyuncu da koparsa maç sonuçsuz iptal edilir.</li></ul></details><details class="release"><summary>V4.4.0 — Tam Ekran Canlı Seyir</summary><ul><li>Rakibin oyunu telefon ekranını dolduran seyir modunda gösterilir.</li><li>Seçilen atom, hareket yönü ve kayma süresi karşı telefona aktarılır; atom aynı yönde animasyonla kayar.</li><li>Dr. E hap bilgileri ve hazır mesajlar canlı oyun ekranının altında korunur.</li></ul></details><details class="release"><summary>V4.3.0 — Canlı Düello ve Hazır Mesajlar</summary><ul><li>Online Atom Düellosunda rakibin atom hamlelerini küçük canlı tahta üzerinden izleme eklendi.</li><li>Bekleme sırasında Dr. E; moleküller, uzay, hayvanlar, bilim ve oyun taktikleri hakkında kısa hap bilgiler anlatır.</li><li>Oyuncular serbest yazı yerine güvenli hazır mesajlar gönderebilir: Merhaba, Bol şans, Güzel hamle, İyi oyundu, Rövanş ve Teşekkürler.</li></ul></details><details class="release"><summary>V4.2.0 — Hızlı Eşleşme</summary><ul><li>Atom Düellosuna üçüncü seçenek olarak Hızlı Eşleşme eklendi.</li><li>İki çevrim içi oyuncu bekleme kuyruğunda otomatik eşleşir ve oyun arka planda özel oda oluşturur.</li><li>Hızlı maçlar karışık oyun türü ve karışık zorlukla 3 raund oynanır; kampanya ve dünya sıralamasını etkilemez.</li></ul></details><details class="release"><summary>V4.1.0 — İki Telefonlu Online Düello</summary><ul><li>Atom Düellosuna iki farklı telefondan oynanan online oda sistemi eklendi.</li><li>Oda sahibi 6 haneli kod üretir; ikinci oyuncu kodla katılır ve sıra otomatik cihazlar arasında geçer.</li><li>Raund ve final skorları iki telefonda aynı anda görünür.</li></ul></details><details class="release"><summary>V4.0.3 — LAB ve Sıralama Ayrıntıları</summary><ul><li>LAB düğmesi ana menü butonlarından çıkarılıp sol tarafta VS düğmesinin tam üstündeki bağımsız kolona taşındı.</li><li>Dünya sıralaması satırlarında RP, tamamlanan bölüm, toplam yıldız, kusursuz bölüm ve doğrulanmış süre görünür hale getirildi.</li><li>Hall of Fame’e elle sıralama yenileme düğmesi eklendi ve Firebase liste önbellekleri zorunlu yenilemede temizleniyor.</li></ul></details><details class="release"><summary>V4.0.2 — Lab Butonu ve Premium Lab</summary><ul><li>Ana menüye animasyonlu tek bir LAB butonu eklendi.</li><li>Oyuncu laboratuvarındaki yerleştirilmiş ekipmanlar premium vitrin tabanları, glow efektleri ve yumuşak animasyonlarla güçlendirildi.</li></ul></details><details class="release"><summary>V4.0.1 — Shop Görsel Yükseltme</summary><ul><li>MoleCoin mağazasındaki ürün kartları yeni premium obje görselleriyle yenilendi.</li><li>Her mağaza ekipmanına kendine özel renk kimliği, glow efekti ve daha detaylı laboratuvar çizimi verildi.</li><li>Satın alma, laboratuvar yerleşimi ve oyun ekonomisi değiştirilmeden yalnızca görsel kalite yükseltildi.</li></ul></details><details class="release"><summary>V4.0.0 — Laboratuvar, Mağaza ve Nobel Yarışı</summary><ul><li>Oyuncunun laboratuvarı, MoleCoin mağazası ve Nobel Yarışı tek bir ilerleme merkezinde birleştirildi.</li><li>7 satın alınabilir laboratuvar ekipmanı, 3 araştırma seferi ve farklı laboratuvar temaları eklendi.</li><li>RP Dünya Sıralaması için korunurken MoleCoin harcama defteri bulut senkronizasyonuna karşı güvenli hale getirildi.</li><li>151. bölümü tamamlayan oyuncu Nobel Adayı olur; aylık sıralamanın 1 numarası Ayın Nobel Ödüllüsü olarak gösterilir.</li><li>Einstein haftalık ve aylık liderleri oyuncu adıyla duyurur; Hall of Fame canlı liderleri ve şampiyon arşivini gösterir.</li><li>İpucu ekonomisi, laboratuvar faydaları ve bölüm kartlarının görünümü yenilendi.</li></ul></details><details class="release"><summary>V3.14.3 — Bonus, Çıkış ve Tam Kontrol</summary><ul><li>Bonus Lab, bonus oyun başlangıçları ve Çıkış/Devam düğmeleri iPhone dokunmalarında güvenilir çalışacak şekilde yenilendi.</li><li>Kampanya, Günün Deneyi, Düello ve üç bonus türünün çıkış akışları yeniden doğrulandı.</li><li>135. bölümde kayıtlı çözümü durduran zombi-donma çakışması düzeltildi.</li><li>Yeni Oyun ad ekranına güvenli Vazgeç düğmesi eklendi.</li></ul></details><details class="release"><summary>V3.14.2 — Atom Düellosu Kompakt Arayüz</summary><ul><li>Atom Düellosu kurulum ekranı kompakt eski haline geri alındı.</li><li>Üstteki ikonlar ve açılır menü ikonları tekrar ilk boyutlarına döndürüldü.</li><li>V3.14.1’de fazla büyüyen ikon düzeni kaldırıldı; oyun mantığı değiştirilmedi.</li></ul></details><details class="release"><summary>V3.14.0 — Gelişen Classic Kampanya</summary><ul><li>151 bölüm, hedef geometrisi art arda tekrarlanmayacak şekilde yeniden sıralandı.</li><li>105 farklı molekül kullanıldı; tekrar eden moleküller arasında en az 36 bölüm bırakıldı.</li><li>İlk Katalizör, Zincir Reaksiyon ve Reaktör bonusları açıldıktan sonra bu mekanikler seçili Classic bölümlerde görünür.</li><li>Haritalar, başlangıç konumları ve kayıtlı çözümler korunurken atom renkleri ve molekül kimlikleri çeşitlendirildi.</li></ul></details><details class="release"><summary>V3.13.12 — Farklı Molekül Kombinasyonları</summary><ul><li>74–90 arasındaki tekrarlanan hedef geometrileri değiştirilmişti.</li></ul></details><details class="release"><summary>V3.13.11 — Zor ve Benzersiz Bölümler</summary><ul><li>Tekrar eden 50 kampanya bölümü, tamamen yeni ve daha zor haritalarla değiştirildi.</li><li>Yeni bölümlerin minimum çözüm ortalaması 6,5 hamleden 8,9 hamleye yükseltildi.</li><li>İki atomlu bölümler 7, üç atomlu bölümler 9, dört atomlu bölümler 9–10 ve beş atomlu bölümler 10–12 hamlelik çözümlerle yeniden tasarlandı.</li></ul></details><details class="release"><summary>V3.13.10 — Son Arayüz Kontrolü</summary><ul><li>Günün Deneyi, başarı kartları ve oyuncu profillerindeki alakasız bonus nesneleri kaldırıldı.</li><li>Düello üst önizlemesi artık yalnızca seçilen oyun türünü gösterir ve seçim değişince anında eşleşir.</li><li>Tüm dosya, önbellek ve oyun içi sürüm numaraları 3.13.10 olarak eşitlendi.</li></ul></details><details class="release"><summary>V3.13.7 — Bonus Lab Görsel Paketi</summary><ul><li>Bonus Lab kartları, ödül ekranları, Düello tipi ikonları, Günün Deneyi kartı, başarı rozetleri ve oyuncu çerçeveleri yeni laboratuvar nesne stiline uyarlandı.</li></ul></details><details class="release"><summary>V3.13.6 — Reaktör Lazer Düzeltmesi</summary><ul><li>Reaktör Kaçışında aktif lazer artık uzaktaki atomu başlangıç noktasında kilitlemez.</li><li>Atom lazerin bir kare önüne kadar kayar; oyuncu oradan yön değiştirip ışının etrafından dolaşabilir.</li><li>3 saniyelik ceza yalnızca atom lazere bitişikken doğrudan ışına hamle yapılırsa uygulanır.</li><li>Lazer yayıcıları, zemin yansıması ve açılmadan önce sarı uyarı efekti eklendi.</li></ul></details><details class="release"><summary>V3.13.5 — Dr. E Oyuncu Adı</summary><ul><li>Dr. E misafir hesaplara “Misafir”, bağlı hesaplara gerçek kullanıcı adıyla hitap eder.</li></ul></details><details class="release"><summary>V3.13.3 — Dünya Sıralaması Onarımı</summary><ul><li>Eski Android sürümlerinde geride kalabilen Dünya Sıralaması kaydı için otomatik onarım eklendi.</li><li>Yerel ve bulut ilerleme birleştirilip sıralama zorunlu olarak yenilenir.</li></ul></details><details class="release"><summary>V3.13.2 — Katalizör Avı</summary><ul><li>Kristal Avı, laboratuvar temasına uygun Katalizör Avı olarak yenilendi.</li><li>Katalizör, Enerji Hücresi ve Stabilizatör adlı üç farklı reaksiyon bileşeni eklendi.</li></ul></details><details class="release"><summary>V3.13.1 — Bölüm Numaraları</summary><ul><li>Bölüm seçim ekranındaki açık ve kilitli 151 bölümün tamamına görünür bölüm numarası eklendi.</li><li>Kilit simgesi korunurken bölüm numarası kartın üst kısmında okunabilir şekilde gösterilir.</li></ul></details><details class="release"><summary>V3.13.0 — Bonus Bölümleri ve Madalyalar</summary><ul><li>Her 10 kampanya bölümünde Katalizör Avı, Zincir Reaksiyon veya Reaktör Kaçışı bonus görevi açılır.</li><li>İlk tamamlamada 1 Bonus Madalyası, 50 MoleCoin ve 100 Kariyer RP verilir; tekrarlar ödül vermez.</li><li>3/6/9/12/15 madalyada kalıcı görsel ödüller açılır.</li></ul></details><details class="release"><summary>V3.12.0 — Reaktör Kaçışı</summary><ul><li>Üç zamanlı lazer kapılı Reaktör Kaçışı tek oyuncu ve düelloya eklendi.</li></ul></details><details class="release"><summary>V3.11.0 — Zincir Reaksiyon</summary><ul><li>Parlayan doğru hamleyle Combo x2 / x3 oluşturan Zincir Reaksiyon Bonus Lab ve Düello modu eklendi.</li></ul></details><details class="release"><summary>V3.10.0 — Katalizör Avı altyapısı</summary><ul><li>Üç reaksiyon bileşenini toplayıp hedef molekülü oluşturduğun Bonus Lab altyapısı eklendi.</li><li>Bu toplama modu tek oyuncuya ve Atom Düellosuna bağlandı.</li></ul></details><details class="release"><summary>V3.9.2 — VS düğmesi</summary><ul><li>VS düğmesi yukarı alındı ve kupa simgesiyle aynı yumuşak animasyona kavuştu.</li></ul></details><details class="release"><summary>V3.9.0 — Atom Düellosu</summary><ul><li>Tek telefonda sırayla oynanan iki oyunculu Atom Düellosu eklendi.</li><li>Düello sonuçları kampanya, coin ve dünya sıralamasını etkilemez.</li></ul></details><details class="release"><summary>V3.8.4 — Kalıcı Firebase oturumu</summary><ul><li>Firebase oturumu itch.io dahil desteklenen tarayıcılarda kalıcı olarak geri yüklenir.</li><li>Kaydedilmiş Google veya e-posta oturumu kontrol edilmeden yeni misafir hesap oluşturulmaz.</li></ul></details><details class="release"><summary>V3.8.3 — Çapraz platform güvenli senkronizasyon</summary><ul><li>Aynı Google veya e-posta hesabı kullanıldığında itch.io, Netlify ve Android ilerlemeleri tek oyuncu profilinde birleşir.</li><li>Bölüm yıldızları, moleküller, başarımlar, en iyi süreler ve en iyi hamleler artık alan alan güvenle senkronize edilir.</li><li>Araştırma Puanı, birleşen bölüm/başarım/günlük kayıtlarından yeniden hesaplanır; aynı puan farklı platformlardan iki kez eklenmez.</li><li>Eski veya çevrimdışı kalan bir cihaz, daha yeni bulut ilerlemesini geriye düşüremez.</li></ul></details><details class="release"><summary>V3.8.2 — Benzersiz bölümler ve Günün Deneyi</summary><ul><li>151 kampanya bölümü benzersiz hale getirildi.</li><li>832 gün tekrar etmeyen, çözücü onaylı otomatik Günün Deneyi eklendi.</li></ul></details><details class="release"><summary>V3.8.1 — Kariyer ve laboratuvar ilerlemesi</summary><ul><li>Her 20 bölümde terfi ve laboratuvar gelişimi geri getirildi.</li><li>Nobel Adayı ve Nobel Ödüllü kariyer aşamaları eklendi.</li></ul></details><details class="release"><summary>Önceki sürümler</summary><ul><li>150 + 1 Nobel kampanyası, adil sıralama, hamle dereceleri, otomatik çözücü ve Araştırma Puanı eklendi.</li></ul></details>'
   }:{
     title:"WHAT'S NEW",back:'BACK TO ABOUT',button:"WHAT'S NEW?",about:'ABOUT',version:'Version',
     webButton:'GAME WEB PAGE',accountButton:accountState.isAnonymous?'SIGN UP / SIGN IN':'MY ACCOUNT',
     rankNote:'Your Career RP in the World Ranking is preserved. This Week and This Month use the same UTC Daily Experiment for every player. Sign in with Google or email to publish your score.',
-    html:'<section class="release latest"><h4>V5.0</h4><ul><li>The final build synchronizes Classic progress, MoleCoin economy, laboratory theme, daily quantum hint state, World Ranking and Duel Rank through one cross-platform cloud schema.</li><li>Firestore rules now explicitly allow and validate the laboratory theme, economy schema and quantum hint fields, preventing complete profile merges from being rejected.</li><li>Netlify, itch.io, Android and iOS were re-audited to share the same Firebase project, online rooms, Quick Match queue and ranking collections.</li><li>Apple, Google, email and guest account flows retain the compact iPhone layout, while active files, cache names and version labels are synchronized to V5.0.</li></ul></section><section class="release"><h4>V4.8.6</h4><ul><li>Cross-platform support was hardened so Netlify, itch.io, Android and iOS builds share the same Firebase rooms, Quick Match queue and rankings.</li><li>Two devices using the same permanent account can no longer match each other in ranked Quick Match; friendly code rooms are unchanged.</li><li>A secure Firebase credential bridge was added for native Android/iOS Google ID tokens.</li><li>Classic progress, MoleCoin ledger, Duel Rank, rewards, frames and titles were rechecked for same-account merging.</li></ul></section><section class="release"><h4>V4.8.5</h4><ul><li>The Rewards screen was rebuilt as a premium Duel Career Center with league badge, active frame, title and next-league progress in one place.</li><li>Ranked matches, wins, best streak, win rate, weekly points and monthly points statistics were added.</li><li>A next-frame and next-title roadmap, unlock requirements and rarity tiers were added.</li><li>The Trophy Cabinet, league badges and featured reward display gained new glow, shimmer and motion effects.</li><li>The in-game version, JavaScript/CSS queries and service-worker cache were synchronized to V4.8.5.</li></ul></section><section class="release"><h4>V4.8.0</h4><ul><li>Quick Match is now a ranked online mode with Duel Points, seven leagues, win/loss/draw records, and streak statistics.</li><li>Hall of Fame gained a separate Duel Rank table for all-time, weekly, and monthly competition.</li><li>The Laboratory gained a Rewards tab with league badges, selectable profile frames, titles, and a permanent Trophy Cabinet.</li><li>Closed weekly and monthly placements award cosmetic Top 10, podium, and champion trophies without spending MoleCoins or requiring paid Cloud Functions.</li><li>Code rooms and same-phone duels remain friendly and unranked.</li></ul></section><section class="release"><h4>V4.7.0</h4><ul><li>All menus, buttons, animations, audio cues, campaign levels, daily experiments and Duel result flows received a final release audit.</li><li>Fixed a service-worker cache matching issue that could prevent versioned CSS and JavaScript files from loading while offline.</li><li>Strengthened complete account deletion so the sign-in account is not removed when any required cloud-data deletion fails.</li><li>Updated privacy, terms and deletion disclosures for two-phone online Duels, preset messages, connection status and temporary room data.</li><li>Aligned initial language data and page language/title metadata with the selected English or Turkish language.</li><li>Adjusted the Laboratory header at 320 px and the in-game right action column on wider phones so controls remain inside the viewport.</li><li>Hardened slide and star audio cues with safe defaults if called without a parameter.</li></ul></section><section class="release"><h4>V4.6.0</h4><ul><li>Atom Duel final screens were completely redesigned with separate visual moods for winners and losers.</li><li>Winners see confetti, a glowing trophy, Dr. E celebrating, and a short victory jingle; losing players see a supportive Dr. E message, a silver atom badge, and a short retry cue.</li><li>Real player names, score, round history, rematch, and main-menu actions remain dynamic inside the new design.</li></ul></section><details class="release"><summary>V4.5.0 — Connection Protection</summary><ul><li>Online duel checks both devices with a live heartbeat approximately every 4.5 seconds.</li><li>If an opponent disconnects, the match and the 90-second round clock pause while a 30-second reconnect countdown is shown.</li><li>The same round resumes if the opponent returns in time; otherwise the connected player wins by forfeit. If both players disconnect, the match is cancelled without a result.</li></ul></details><details class="release"><summary>V4.4.0 — Full-Screen Live Spectator</summary><ul><li>The opponent’s game is shown in a phone-filling spectator view.</li><li>The selected atom, direction, and slide duration are sent to the other phone and replayed as an animation.</li><li>Dr. E facts and preset messages remain available below the live board.</li></ul></details><details class="release"><summary>V4.3.0 — Live Duel and Preset Messages</summary><ul><li>Online Atom Duel now shows the opponent’s atom positions on a compact live spectator board.</li><li>While waiting, Dr. E rotates short facts about molecules, space, animals, science, and game tactics.</li><li>Players can send safe preset messages instead of free text: Hello, Good luck, Nice move, Good game, Rematch, and Thanks.</li></ul></details><details class="release"><summary>V4.2.0 — Quick Match</summary><ul><li>Quick Match was added as the third Atom Duel option.</li><li>Two online players are matched automatically and the game creates a private room in the background.</li><li>Quick matches use mixed games and mixed difficulty across three rounds without affecting campaign progress or rankings.</li></ul></details><details class="release"><summary>V4.1.0 — Two-Phone Online Duel</summary><ul><li>Atom Duel gained online rooms played from two different phones.</li><li>The host creates a 6-digit code and the second player joins with it.</li><li>Turns and results synchronize automatically between both devices.</li></ul></details><details class="release"><summary>V4.0.3 — LAB and Ranking Details</summary><ul><li>The LAB button was removed from the main button stack and docked in the left-side column directly above VS.</li><li>World Ranking rows now show RP, completed levels, total stars, perfect levels, and validated solve time.</li><li>A manual ranking refresh button was added to Hall of Fame, and Firebase ranking caches are cleared during forced refresh.</li></ul></details><details class="release"><summary>V4.0.2 — Lab Button and Premium Lab</summary><ul><li>A single animated LAB button was added to the main menu.</li><li>Placed equipment inside the player laboratory received premium display bases, glow effects, and gentle ambient animation.</li></ul></details><details class="release"><summary>V4.0.1 — Shop Visual Upgrade</summary><ul><li>The MoleCoin shop product cards were refreshed with more premium-looking object art.</li><li>Each shop item now has its own color identity, glow treatment, and more detailed laboratory illustration.</li><li>Only the visual quality changed; purchasing flow, lab placement, and the game economy remain intact.</li></ul></details><details class="release"><summary>V4.0.0 — Laboratory, Shop and Nobel Race</summary><ul><li>The Player Laboratory, MoleCoin shop, and Nobel Race now form one clear progression hub.</li><li>Seven purchasable lab upgrades, three research expeditions, and multiple laboratory themes were added.</li><li>RP remains the World Ranking score while the MoleCoin spending ledger is protected across cloud merges.</li><li>Completing level 151 makes the player a Nobel Candidate; the monthly #1 is displayed as the Monthly Nobel Laureate.</li><li>Einstein announces weekly and monthly leaders by player name, while Hall of Fame shows live leaders and champion records.</li><li>The hint economy, lab benefits, and campaign level cards were refreshed.</li></ul></details><details class="release"><summary>V3.14.3 — Bonus, Exit and Full Audit</summary><ul><li>Bonus Lab, bonus starts, and Quit/Continue controls were made reliable for iPhone taps.</li><li>Exit flows for Campaign, Daily Experiment, Duel, and all three bonus modes were revalidated.</li><li>A zombie-freeze conflict that blocked the certified solution of level 135 was fixed.</li><li>A safe Cancel button was added to the New Game name screen.</li></ul></details><details class="release"><summary>V3.14.2 — Compact Atom Duel UI</summary><ul><li>The Atom Duel setup screen was rolled back to the original compact layout.</li><li>The top-row icons and dropdown icons were restored to their first, smaller size.</li><li>The oversized V3.14.1 icon treatment was removed; game logic was not changed.</li></ul></details><details class="release"><summary>V3.14.0 — Evolving Classic Campaign</summary><ul><li>All 151 chapters were reordered so the same target geometry never appears consecutively.</li><li>The campaign now uses 105 molecule identities, with at least 36 chapters between repeats.</li><li>After the first Catalyst, Chain Reaction, and Reactor bonuses unlock, those mechanics appear in selected Classic chapters.</li><li>Unique boards, starting positions, and certified solutions remain intact while atom colors and molecule identities gain much more variety.</li></ul></details><details class="release"><summary>V3.13.12 — Varied Molecular Topologies</summary><ul><li>Repeated target geometries across chapters 74–90 were replaced.</li></ul></details><details class="release"><summary>V3.13.11 — Harder Unique Chapters</summary><ul><li>50 repeated campaign chapters were replaced with completely new, harder boards.</li><li>The average minimum solution length of the replaced chapters increased from 6.5 to 8.9 moves.</li><li>New certified puzzles use 7 moves for two atoms, 9 for three atoms, 9–10 for four atoms, and 10–12 for five atoms.</li></ul></details><details class="release"><summary>V3.13.10 — Final Interface Check</summary><ul><li>Unrelated bonus objects were removed from the Daily Experiment, achievement cards, and player profiles.</li><li>The Duel preview now shows only the selected game type and updates immediately when the selection changes.</li><li>All file, cache, and in-game version numbers were synchronized to 3.13.10.</li></ul></details><details class="release"><summary>V3.13.7 — Bonus Lab Visual Pack</summary><ul><li>Bonus Lab cards, reward screens, duel-type icons, the Daily Experiment card, achievement badges, and player frames received the laboratory object style.</li></ul></details><details class="release"><summary>V3.13.6 — Reactor Laser Fix</summary><ul><li>Active lasers in Reactor Escape no longer freeze a distant atom at its starting square.</li><li>The atom slides to the square immediately before the beam, allowing the player to turn and route around it.</li><li>The 3-second penalty applies only when pushing directly into a beam from an adjacent square.</li><li>Laser emitters, floor reflection, and a short amber pre-activation warning were added.</li></ul></details><details class="release"><summary>V3.13.5 — Dr. E Player Name</summary><ul><li>Dr. E addresses guests as Guest and connected players by their actual username.</li></ul></details><details class="release"><summary>V3.13.3 — World Ranking Repair</summary><ul><li>Automatic repair was added for stale World Ranking rows from older Android releases.</li><li>Local and cloud progress is merged before the ranking is forcibly refreshed.</li></ul></details><details class="release"><summary>V3.13.2 — Catalyst Hunt</summary><ul><li>Crystal Hunt was redesigned as Catalyst Hunt with Catalyst, Energy Cell, and Stabilizer components.</li></ul></details><details class="release"><summary>V3.13.1 — Level Numbers</summary><ul><li>Visible chapter numbers were added to all 151 unlocked and locked cards on the Levels screen.</li><li>Locked cards keep their lock icon while showing the chapter number clearly above it.</li></ul></details><details class="release"><summary>V3.13.0 — Bonus Chapters and Medals</summary><ul><li>A Catalyst Hunt, Chain Reaction, or Reactor Escape bonus mission unlocks after every 10 campaign levels.</li><li>First completion awards 1 Bonus Medal, 50 MoleCoins, and 100 permanent Career RP; replays do not farm rewards.</li><li>Permanent visual rewards unlock at 3/6/9/12/15 medals.</li></ul></details><details class="release"><summary>V3.12.0 — Reactor Escape</summary><ul><li>Reactor Escape with three timed laser gates was added to solo and duel play.</li></ul></details><details class="release"><summary>V3.11.0 — Chain Reaction</summary><ul><li>Chain Reaction added charged moves that trigger Combo x2 / x3 in Bonus Lab and Atom Duel.</li></ul></details><details class="release"><summary>V3.10.0 — Catalyst Hunt foundation</summary><ul><li>Bonus Lab gained the collection-mode foundation used by Catalyst Hunt.</li><li>The collection mode was connected to solo play and Atom Duel.</li></ul></details><details class="release"><summary>V3.9.2 — VS button</summary><ul><li>The VS button was moved higher and matched to the trophy button animation.</li></ul></details><details class="release"><summary>V3.9.0 — Atom Duel</summary><ul><li>Two-player pass-the-phone Atom Duel was added.</li><li>Duel results never affect campaign progress, coins, or world rankings.</li></ul></details><details class="release"><summary>V3.8.4 — Persistent Firebase session</summary><ul><li>Firebase sessions are restored persistently in supported browsers, including itch.io embeds.</li><li>No new guest account is created before the saved Google or email session check has completed.</li></ul></details><details class="release"><summary>V3.8.3 — Safe cross-platform synchronization</summary><ul><li>When the same Google or email account is used, itch.io, Netlify and Android progress converges into one player profile.</li><li>Level stars, molecules, achievements, best times and best moves now merge safely field by field.</li><li>Research Points are rebuilt from merged level, achievement and daily records, preventing the same score from being counted twice across platforms.</li><li>An older or previously offline device can no longer overwrite newer cloud progress.</li></ul></details><details class="release"><summary>V3.8.2 — Unique levels and Daily Experiments</summary><ul><li>All 151 campaign levels became unique.</li><li>832 non-repeating, solver-certified automatic Daily Experiments were added.</li></ul></details><details class="release"><summary>V3.8.1 — Career and laboratory progression</summary><ul><li>Promotions and evolving laboratories return every 20 levels.</li><li>Nobel Candidate and Nobel Laureate career stages were added.</li></ul></details><details class="release"><summary>Earlier releases</summary><ul><li>The 150 + 1 Nobel campaign, fair rankings, move grades, the exact solver and Research Points were added.</li></ul></details>'
+    html:'<section class="release latest"><h4>V8.5.53</h4><ul><li>Twenty stale campaign starting-hint coordinates were re-linked to the first move of their existing certified solutions.</li><li>If a stored hint is unavailable, the game now safely falls back to the certified first move instead of selecting an empty or invalid tile.</li><li>Web caching is lighter and more reliable: core code and essential visuals install first, while large audio and story assets are cached as they are used.</li><li>itch.io, Netlify, and Android packages are generated from the same 8.5.53 source set.</li></ul></section><section class="release"><h4>V8.5.52</h4><ul><li>The striped transparent pressure-door tile is now clearly explained as an open door that becomes a wall again when its switch is released.</li><li>Pressure switches and doors share matching letters; moving walls show ↔, portals show A/B, and breakable walls carry a small hammer marker.</li><li>The in-level help screen now puts only the mechanics used by the current puzzle at the top.</li><li>Existing players see one short refresher only for visually ambiguous mechanics; progression and other tutorials remain untouched.</li></ul></section><section class="release"><h4>V8.5.51</h4><ul><li>Email sign-in success is separated from delayed ranking publication, so a connected account is no longer shown as a failed login.</li><li>Sync Now accepts a successful profile save even when Classic or Duel ranking publication is still pending.</li><li>Android Google sign-in uses the more compatible Google flow and shows a clear message when no device credential is available.</li><li>The first cloud reconciliation is retried once when delayed, while the signed-in account is preserved.</li></ul></section><section class="release"><h4>V8.5.49</h4><ul><li>Smart first-use cards now also appear when Catalyst Hunt, Chain Reaction, or Reactor Escape is opened directly.</li><li>Existing test saves reopen only the clarified Lightning, Impact/Reactor, Chain, and Nano Barrier lessons once; other tutorials are not reset.</li><li>Detailed mechanic training now displays text in all six game languages.</li><li>The studio name now matches Google Play Console exactly: wHiTeWaY studio.</li></ul></section><section class="release"><h4>V5.0</h4><ul><li>The final build synchronizes Classic progress, MoleCoin economy, laboratory theme, daily quantum hint state, World Ranking and Duel Rank through one cross-platform cloud schema.</li><li>Firestore rules now explicitly allow and validate the laboratory theme, economy schema and quantum hint fields, preventing complete profile merges from being rejected.</li><li>Netlify, itch.io, Android and iOS were re-audited to share the same Firebase project, online rooms, Quick Match queue and ranking collections.</li><li>Apple, Google, email and guest account flows retain the compact iPhone layout, while active files, cache names and version labels are synchronized to V5.0.</li></ul></section><section class="release"><h4>V4.8.6</h4><ul><li>Cross-platform support was hardened so Netlify, itch.io, Android and iOS builds share the same Firebase rooms, Quick Match queue and rankings.</li><li>Two devices using the same permanent account can no longer match each other in ranked Quick Match; friendly code rooms are unchanged.</li><li>A secure Firebase credential bridge was added for native Android/iOS Google ID tokens.</li><li>Classic progress, MoleCoin ledger, Duel Rank, rewards, frames and titles were rechecked for same-account merging.</li></ul></section><section class="release"><h4>V4.8.5</h4><ul><li>The Rewards screen was rebuilt as a premium Duel Career Center with league badge, active frame, title and next-league progress in one place.</li><li>Ranked matches, wins, best streak, win rate, weekly points and monthly points statistics were added.</li><li>A next-frame and next-title roadmap, unlock requirements and rarity tiers were added.</li><li>The Trophy Cabinet, league badges and featured reward display gained new glow, shimmer and motion effects.</li><li>The in-game version, JavaScript/CSS queries and service-worker cache were synchronized to V4.8.5.</li></ul></section><section class="release"><h4>V4.8.0</h4><ul><li>Quick Match is now a ranked online mode with Duel Points, seven leagues, win/loss/draw records, and streak statistics.</li><li>Hall of Fame gained a separate Duel Rank table for all-time, weekly, and monthly competition.</li><li>The Laboratory gained a Rewards tab with league badges, selectable profile frames, titles, and a permanent Trophy Cabinet.</li><li>Closed weekly and monthly placements award cosmetic Top 10, podium, and champion trophies without spending MoleCoins or requiring paid Cloud Functions.</li><li>Code rooms and same-phone duels remain friendly and unranked.</li></ul></section><section class="release"><h4>V4.7.0</h4><ul><li>All menus, buttons, animations, audio cues, campaign levels, daily experiments and Duel result flows received a final release audit.</li><li>Fixed a service-worker cache matching issue that could prevent versioned CSS and JavaScript files from loading while offline.</li><li>Strengthened complete account deletion so the sign-in account is not removed when any required cloud-data deletion fails.</li><li>Updated privacy, terms and deletion disclosures for two-phone online Duels, preset messages, connection status and temporary room data.</li><li>Aligned initial language data and page language/title metadata with the selected English or Turkish language.</li><li>Adjusted the Laboratory header at 320 px and the in-game right action column on wider phones so controls remain inside the viewport.</li><li>Hardened slide and star audio cues with safe defaults if called without a parameter.</li></ul></section><section class="release"><h4>V4.6.0</h4><ul><li>Atom Duel final screens were completely redesigned with separate visual moods for winners and losers.</li><li>Winners see confetti, a glowing trophy, Dr. E celebrating, and a short victory jingle; losing players see a supportive Dr. E message, a silver atom badge, and a short retry cue.</li><li>Real player names, score, round history, rematch, and main-menu actions remain dynamic inside the new design.</li></ul></section><details class="release"><summary>V4.5.0 — Connection Protection</summary><ul><li>Online duel checks both devices with a live heartbeat approximately every 4.5 seconds.</li><li>If an opponent disconnects, the match and the 90-second round clock pause while a 30-second reconnect countdown is shown.</li><li>The same round resumes if the opponent returns in time; otherwise the connected player wins by forfeit. If both players disconnect, the match is cancelled without a result.</li></ul></details><details class="release"><summary>V4.4.0 — Full-Screen Live Spectator</summary><ul><li>The opponent’s game is shown in a phone-filling spectator view.</li><li>The selected atom, direction, and slide duration are sent to the other phone and replayed as an animation.</li><li>Dr. E facts and preset messages remain available below the live board.</li></ul></details><details class="release"><summary>V4.3.0 — Live Duel and Preset Messages</summary><ul><li>Online Atom Duel now shows the opponent’s atom positions on a compact live spectator board.</li><li>While waiting, Dr. E rotates short facts about molecules, space, animals, science, and game tactics.</li><li>Players can send safe preset messages instead of free text: Hello, Good luck, Nice move, Good game, Rematch, and Thanks.</li></ul></details><details class="release"><summary>V4.2.0 — Quick Match</summary><ul><li>Quick Match was added as the third Atom Duel option.</li><li>Two online players are matched automatically and the game creates a private room in the background.</li><li>Quick matches use mixed games and mixed difficulty across three rounds without affecting campaign progress or rankings.</li></ul></details><details class="release"><summary>V4.1.0 — Two-Phone Online Duel</summary><ul><li>Atom Duel gained online rooms played from two different phones.</li><li>The host creates a 6-digit code and the second player joins with it.</li><li>Turns and results synchronize automatically between both devices.</li></ul></details><details class="release"><summary>V4.0.3 — LAB and Ranking Details</summary><ul><li>The LAB button was removed from the main button stack and docked in the left-side column directly above VS.</li><li>World Ranking rows now show RP, completed levels, total stars, perfect levels, and validated solve time.</li><li>A manual ranking refresh button was added to Hall of Fame, and Firebase ranking caches are cleared during forced refresh.</li></ul></details><details class="release"><summary>V4.0.2 — Lab Button and Premium Lab</summary><ul><li>A single animated LAB button was added to the main menu.</li><li>Placed equipment inside the player laboratory received premium display bases, glow effects, and gentle ambient animation.</li></ul></details><details class="release"><summary>V4.0.1 — Shop Visual Upgrade</summary><ul><li>The MoleCoin shop product cards were refreshed with more premium-looking object art.</li><li>Each shop item now has its own color identity, glow treatment, and more detailed laboratory illustration.</li><li>Only the visual quality changed; purchasing flow, lab placement, and the game economy remain intact.</li></ul></details><details class="release"><summary>V4.0.0 — Laboratory, Shop and Nobel Race</summary><ul><li>The Player Laboratory, MoleCoin shop, and Nobel Race now form one clear progression hub.</li><li>Seven purchasable lab upgrades, three research expeditions, and multiple laboratory themes were added.</li><li>RP remains the World Ranking score while the MoleCoin spending ledger is protected across cloud merges.</li><li>Completing level 151 makes the player a Nobel Candidate; the monthly #1 is displayed as the Monthly Nobel Laureate.</li><li>Einstein announces weekly and monthly leaders by player name, while Hall of Fame shows live leaders and champion records.</li><li>The hint economy, lab benefits, and campaign level cards were refreshed.</li></ul></details><details class="release"><summary>V3.14.3 — Bonus, Exit and Full Audit</summary><ul><li>Bonus Lab, bonus starts, and Quit/Continue controls were made reliable for iPhone taps.</li><li>Exit flows for Campaign, Daily Experiment, Duel, and all three bonus modes were revalidated.</li><li>A zombie-freeze conflict that blocked the certified solution of level 135 was fixed.</li><li>A safe Cancel button was added to the New Game name screen.</li></ul></details><details class="release"><summary>V3.14.2 — Compact Atom Duel UI</summary><ul><li>The Atom Duel setup screen was rolled back to the original compact layout.</li><li>The top-row icons and dropdown icons were restored to their first, smaller size.</li><li>The oversized V3.14.1 icon treatment was removed; game logic was not changed.</li></ul></details><details class="release"><summary>V3.14.0 — Evolving Classic Campaign</summary><ul><li>All 151 chapters were reordered so the same target geometry never appears consecutively.</li><li>The campaign now uses 105 molecule identities, with at least 36 chapters between repeats.</li><li>After the first Catalyst, Chain Reaction, and Reactor bonuses unlock, those mechanics appear in selected Classic chapters.</li><li>Unique boards, starting positions, and certified solutions remain intact while atom colors and molecule identities gain much more variety.</li></ul></details><details class="release"><summary>V3.13.12 — Varied Molecular Topologies</summary><ul><li>Repeated target geometries across chapters 74–90 were replaced.</li></ul></details><details class="release"><summary>V3.13.11 — Harder Unique Chapters</summary><ul><li>50 repeated campaign chapters were replaced with completely new, harder boards.</li><li>The average minimum solution length of the replaced chapters increased from 6.5 to 8.9 moves.</li><li>New certified puzzles use 7 moves for two atoms, 9 for three atoms, 9–10 for four atoms, and 10–12 for five atoms.</li></ul></details><details class="release"><summary>V3.13.10 — Final Interface Check</summary><ul><li>Unrelated bonus objects were removed from the Daily Experiment, achievement cards, and player profiles.</li><li>The Duel preview now shows only the selected game type and updates immediately when the selection changes.</li><li>All file, cache, and in-game version numbers were synchronized to 3.13.10.</li></ul></details><details class="release"><summary>V3.13.7 — Bonus Lab Visual Pack</summary><ul><li>Bonus Lab cards, reward screens, duel-type icons, the Daily Experiment card, achievement badges, and player frames received the laboratory object style.</li></ul></details><details class="release"><summary>V3.13.6 — Reactor Laser Fix</summary><ul><li>Active lasers in Reactor Escape no longer freeze a distant atom at its starting square.</li><li>The atom slides to the square immediately before the beam, allowing the player to turn and route around it.</li><li>The 3-second penalty applies only when pushing directly into a beam from an adjacent square.</li><li>Laser emitters, floor reflection, and a short amber pre-activation warning were added.</li></ul></details><details class="release"><summary>V3.13.5 — Dr. E Player Name</summary><ul><li>Dr. E addresses guests as Guest and connected players by their actual username.</li></ul></details><details class="release"><summary>V3.13.3 — World Ranking Repair</summary><ul><li>Automatic repair was added for stale World Ranking rows from older Android releases.</li><li>Local and cloud progress is merged before the ranking is forcibly refreshed.</li></ul></details><details class="release"><summary>V3.13.2 — Catalyst Hunt</summary><ul><li>Crystal Hunt was redesigned as Catalyst Hunt with Catalyst, Energy Cell, and Stabilizer components.</li></ul></details><details class="release"><summary>V3.13.1 — Level Numbers</summary><ul><li>Visible chapter numbers were added to all 151 unlocked and locked cards on the Levels screen.</li><li>Locked cards keep their lock icon while showing the chapter number clearly above it.</li></ul></details><details class="release"><summary>V3.13.0 — Bonus Chapters and Medals</summary><ul><li>A Catalyst Hunt, Chain Reaction, or Reactor Escape bonus mission unlocks after every 10 campaign levels.</li><li>First completion awards 1 Bonus Medal, 50 MoleCoins, and 100 permanent Career RP; replays do not farm rewards.</li><li>Permanent visual rewards unlock at 3/6/9/12/15 medals.</li></ul></details><details class="release"><summary>V3.12.0 — Reactor Escape</summary><ul><li>Reactor Escape with three timed laser gates was added to solo and duel play.</li></ul></details><details class="release"><summary>V3.11.0 — Chain Reaction</summary><ul><li>Chain Reaction added charged moves that trigger Combo x2 / x3 in Bonus Lab and Atom Duel.</li></ul></details><details class="release"><summary>V3.10.0 — Catalyst Hunt foundation</summary><ul><li>Bonus Lab gained the collection-mode foundation used by Catalyst Hunt.</li><li>The collection mode was connected to solo play and Atom Duel.</li></ul></details><details class="release"><summary>V3.9.2 — VS button</summary><ul><li>The VS button was moved higher and matched to the trophy button animation.</li></ul></details><details class="release"><summary>V3.9.0 — Atom Duel</summary><ul><li>Two-player pass-the-phone Atom Duel was added.</li><li>Duel results never affect campaign progress, coins, or world rankings.</li></ul></details><details class="release"><summary>V3.8.4 — Persistent Firebase session</summary><ul><li>Firebase sessions are restored persistently in supported browsers, including itch.io embeds.</li><li>No new guest account is created before the saved Google or email session check has completed.</li></ul></details><details class="release"><summary>V3.8.3 — Safe cross-platform synchronization</summary><ul><li>When the same Google or email account is used, itch.io, Netlify and Android progress converges into one player profile.</li><li>Level stars, molecules, achievements, best times and best moves now merge safely field by field.</li><li>Research Points are rebuilt from merged level, achievement and daily records, preventing the same score from being counted twice across platforms.</li><li>An older or previously offline device can no longer overwrite newer cloud progress.</li></ul></details><details class="release"><summary>V3.8.2 — Unique levels and Daily Experiments</summary><ul><li>All 151 campaign levels became unique.</li><li>832 non-repeating, solver-certified automatic Daily Experiments were added.</li></ul></details><details class="release"><summary>V3.8.1 — Career and laboratory progression</summary><ul><li>Promotions and evolving laboratories return every 20 levels.</li><li>Nobel Candidate and Nobel Laureate career stages were added.</li></ul></details><details class="release"><summary>Earlier releases</summary><ul><li>The 150 + 1 Nobel campaign, fair rankings, move grades, the exact solver and Research Points were added.</li></ul></details>'
   };
 }
 function guideContent(){
@@ -8283,7 +8882,7 @@ function guideContent(){
 }
 function openGuideModal(){
   const c=guideContent();
-  openModal('<h3>📘 '+c.title+'</h3><div class="guideScroll">'+c.html+'</div><div class="mrow"><button class="btn green" id="mGuideClose">'+c.close+'</button></div>');
+  openModal('<h3>📘 '+c.title+'</h3><div class="guideScroll">'+currentLevelMechanicsGuideHtml()+c.html+'</div><div class="mrow"><button class="btn green" id="mGuideClose">'+c.close+'</button></div>');
   $('#modalBox').classList.add('guideModal');
   $('#modalBox').classList.add('guideModal');
   bindTap('#mGuideClose',()=>closeModal());
@@ -8479,8 +9078,8 @@ const MX_IOS_NATIVE=!!(window.Capacitor&&window.Capacitor.getPlatform&&window.Ca
 // button that would just error when tapped; it silently falls back to
 // Email-only until the native piece is wired up, then reappears on its own.
 const MX_ANDROID_NATIVE=!!(window.Capacitor&&window.Capacitor.getPlatform&&window.Capacitor.getPlatform()==='android');
-const MX_APPLE_NATIVE_READY=!!(mxFirebaseAuthPlugin()&&typeof mxFirebaseAuthPlugin().signInWithApple==='function');
-const MX_SHOW_APPLE_BTN=MX_IOS_NATIVE&&MX_APPLE_NATIVE_READY;
+const MX_APPLE_NATIVE_READY=!!(window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.FirebaseAuthentication&&typeof window.Capacitor.Plugins.FirebaseAuthentication.signInWithApple==='function');
+const MX_SHOW_APPLE_BTN=!MX_ANDROID_NATIVE&&(!MX_IOS_NATIVE||MX_APPLE_NATIVE_READY);
 // Added 2026-07-26: on the plain web build (not the iOS app itself), only
 // show the Apple button to visitors actually on Apple hardware — checks
 // both navigator.platform and userAgent since platform is being frozen/

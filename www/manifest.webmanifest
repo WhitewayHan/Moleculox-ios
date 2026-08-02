@@ -1,7 +1,7 @@
 {
   "name": "Moleculox — Dr. E's Lab",
   "short_name": "Moleculox",
-  "description": "Moleculox v8.5.30 — Push atoms, build molecules, save science! A chemistry puzzle game by wHiTeWaY Studio.",
+  "description": "Moleculox v8.5.53 — Push atoms, build molecules, save science! Final audited release by wHiTeWaY studio.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
@@ -34,5 +34,5 @@
     "games",
     "education"
   ],
-  "version": "8.5.30"
+  "version": "8.5.53"
 }

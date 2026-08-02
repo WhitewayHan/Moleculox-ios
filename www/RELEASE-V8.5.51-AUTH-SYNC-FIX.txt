@@ -1,0 +1,8 @@
+MOLECULOX V8.5.51 — ANDROID AUTH & CLOUD SYNC FIX
+
+1. Email/Google authentication success is no longer reported as failed merely because leaderboard publication is delayed.
+2. Manual cloud sync treats profile save as the authoritative success condition; Classic/Duel ranking failures remain pending warnings.
+3. Android native Google sign-in uses useCredentialManager:false for broader device compatibility with @capacitor-firebase/authentication 7.3.1.
+4. "No credentials available" now has a clear device-account message.
+5. Initial account reconciliation retries once and preserves the signed-in account if cloud data is temporarily unavailable.
+6. Firebase configuration, package identity, SHA registrations, levels, mechanics and Einstein assets were not changed.

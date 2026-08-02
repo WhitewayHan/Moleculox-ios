@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#0e0c26">
@@ -34,7 +33,7 @@
    pass for anyone still on an old build is enough. */
 (function(){
   try{
-    var PURGE_FLAG='mx_sw_legacy_purge_v1';
+    var PURGE_FLAG='mx_sw_legacy_purge_v2';
     if(localStorage.getItem(PURGE_FLAG))return;
     if('serviceWorker' in navigator){navigator.serviceWorker.getRegistrations().then(function(rs){rs.forEach(function(r){r.unregister();});}).catch(function(){});}
     if(window.caches&&caches.keys){caches.keys().then(function(keys){return Promise.all(keys.filter(function(k){return /^moleculox-/i.test(k);}).map(function(k){return caches.delete(k);}));}).catch(function(){});}
@@ -53,7 +52,7 @@ if('serviceWorker' in navigator){
   });
 }
 </script>
-<link rel="stylesheet" href="css/app.css?v=8.5.48-final-merged">
+<link rel="stylesheet" href="css/app.css?v=8.5.53-ios-final">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
 
@@ -110,8 +109,8 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
 </div>
 
 <!-- WHITEWAY STUDIO INTRO -->
-<div id="studioScr" class="screen on" aria-label="Whiteway Game Studio">
-  <img id="studioLogo" src="assets/images/whiteway-studio-intro.png" alt="Whiteway Game Studio">
+<div id="studioScr" class="screen on" aria-label="wHiTeWaY studio">
+  <img id="studioLogo" src="assets/images/whiteway-studio-intro.png" alt="wHiTeWaY studio">
   <div id="studioTap" role="button" tabindex="0" aria-label="Tap for sound"><span>🔊</span> TAP FOR SOUND<small>SES İÇİN DOKUN</small></div>
 </div>
 
@@ -137,7 +136,7 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
     <div class="bootBub bootBubShort bootBubTube bootBubTube4" id="bootBubTube4"><span></span><span></span><span></span></div>
   </div>
   <div id="bootPlayWrap"><div id="btnBootPlay" role="presentation">TAP THE SCREEN</div></div>
-  <div id="bootCopy" data-i18n="copyLine">© 2026 Orhan Akyol / WhiteWay — All Rights Reserved</div>
+  <div id="bootCopy" data-i18n="copyLine">© 2026 Orhan Akyol - wHiTeWaY studio · All Rights Reserved</div>
 </div>
 
 <!-- PROFILE SELECT -->
@@ -163,12 +162,12 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
   <div id="splashBtns">
     <span id="btnPlayIntroWrap"><button id="btnPlay" class="btn green breathe">▶︎ CONTINUE</button></span>
     <button id="btnNew" class="btn">✦ <span data-i18n="newGameLabel">NEW GAME</span></button>
-    <button id="btnDaily" class="btn amber"><span class="menuCodeIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3"/><path d="M7.5 15h9"/></svg></span> <span data-i18n="todaysExpLabel">DAILY EXPERIMENT</span><span id="dailyDot"></span></button>
+    <button id="btnDaily" class="btn amber"><span class="menuCodeIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3"/><path d="M7.5 15h9"/></svg></span> <span data-i18n="todaysExpLabel">TODAY'S EXPERIMENT</span><span id="dailyDot"></span></button>
     <button id="btnLevels" class="btn" data-i18n="levels">LEVELS</button>
     <button id="btnCollect" class="btn ghost"><span class="menuCodeIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="12" rx="9" ry="3.6"/><ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(120 12 12)"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/></svg></span> <span data-i18n="myMolsLabel">MY MOLECULES</span></button>
   </div>
   <div id="onlinePlayerCount" class="onlinePlayerCount" role="status" aria-live="polite"><span class="onlinePulse"></span><span id="onlinePlayerCountText">ONLINE: —</span></div>
-  <div id="copyLine" data-i18n="copyLine">© 2026 Orhan Akyol / WhiteWay — All Rights Reserved</div>
+  <div id="copyLine" data-i18n="copyLine">© 2026 Orhan Akyol - wHiTeWaY studio · All Rights Reserved</div>
   <button id="btnAbout">ⓘ</button>
   <button id="btnTrainingDock" type="button" class="learningDockBtn trainingDockBtn" title="Training Center" aria-label="Training Center"><span class="learningDockIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-5 9 5-9 5-9-5z"/><path d="M7 12v4c3 2 7 2 10 0v-4M21 9v6"/></svg></span><span class="learningDockMain">TRAINING</span><span class="learningDockMini">CENTER</span></button>
   <button id="btnMoleculopediaDock" type="button" class="learningDockBtn moleculopediaDockBtn" title="Moleculopedia" aria-label="Moleculopedia"><span class="learningDockIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5.5A3.5 3.5 0 0 1 7.5 2H11v17H7.5A3.5 3.5 0 0 0 4 22V5.5zM20 5.5A3.5 3.5 0 0 0 16.5 2H13v17h3.5A3.5 3.5 0 0 1 20 22V5.5z"/></svg></span><span class="learningDockMain">MOLECULO</span><span class="learningDockMini">PEDIA</span></button>
@@ -383,11 +382,11 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
   </div>
   <div id="bottomBar">
     <div id="dpad" aria-label="Premium movement controls">
-      <button class="dbtn" id="dU" aria-label="Move up"><svg class="mxDpadArrow" viewBox="0 0 64 64" aria-hidden="true" style="--dir:0deg"><defs><linearGradient id="dpadMetal0" x1="13" y1="10" x2="50" y2="54"><stop stop-color="#F5FFFF"/><stop offset=".38" stop-color="#76E9FF"/><stop offset="1" stop-color="#7358F4"/></linearGradient></defs><g transform="rotate(0 32 32)"><path d="M32 11 52 34H41v19H23V34H12L32 11Z" fill="url(#dpadMetal0)" stroke="#E9FFFF" stroke-width="2.4" stroke-linejoin="round"/><path d="M32 17 45 32h-8v15H27V32h-8L32 17Z" fill="#0B2744" opacity=".72"/><path d="M24 30h16" stroke="#FFF5A8" stroke-width="2.2" stroke-linecap="round" opacity=".85"/></g></svg></button>
-      <button class="dbtn" id="dL" aria-label="Move left"><svg class="mxDpadArrow" viewBox="0 0 64 64" aria-hidden="true" style="--dir:270deg"><defs><linearGradient id="dpadMetal270" x1="13" y1="10" x2="50" y2="54"><stop stop-color="#F5FFFF"/><stop offset=".38" stop-color="#76E9FF"/><stop offset="1" stop-color="#7358F4"/></linearGradient></defs><g transform="rotate(270 32 32)"><path d="M32 11 52 34H41v19H23V34H12L32 11Z" fill="url(#dpadMetal270)" stroke="#E9FFFF" stroke-width="2.4" stroke-linejoin="round"/><path d="M32 17 45 32h-8v15H27V32h-8L32 17Z" fill="#0B2744" opacity=".72"/><path d="M24 30h16" stroke="#FFF5A8" stroke-width="2.2" stroke-linecap="round" opacity=".85"/></g></svg></button>
-      <div id="dC"><span class="dpadCore" aria-hidden="true"></span></div>
-      <button class="dbtn" id="dR" aria-label="Move right"><svg class="mxDpadArrow" viewBox="0 0 64 64" aria-hidden="true" style="--dir:90deg"><defs><linearGradient id="dpadMetal90" x1="13" y1="10" x2="50" y2="54"><stop stop-color="#F5FFFF"/><stop offset=".38" stop-color="#76E9FF"/><stop offset="1" stop-color="#7358F4"/></linearGradient></defs><g transform="rotate(90 32 32)"><path d="M32 11 52 34H41v19H23V34H12L32 11Z" fill="url(#dpadMetal90)" stroke="#E9FFFF" stroke-width="2.4" stroke-linejoin="round"/><path d="M32 17 45 32h-8v15H27V32h-8L32 17Z" fill="#0B2744" opacity=".72"/><path d="M24 30h16" stroke="#FFF5A8" stroke-width="2.2" stroke-linecap="round" opacity=".85"/></g></svg></button>
-      <button class="dbtn" id="dD" aria-label="Move down"><svg class="mxDpadArrow" viewBox="0 0 64 64" aria-hidden="true" style="--dir:180deg"><defs><linearGradient id="dpadMetal180" x1="13" y1="10" x2="50" y2="54"><stop stop-color="#F5FFFF"/><stop offset=".38" stop-color="#76E9FF"/><stop offset="1" stop-color="#7358F4"/></linearGradient></defs><g transform="rotate(180 32 32)"><path d="M32 11 52 34H41v19H23V34H12L32 11Z" fill="url(#dpadMetal180)" stroke="#E9FFFF" stroke-width="2.4" stroke-linejoin="round"/><path d="M32 17 45 32h-8v15H27V32h-8L32 17Z" fill="#0B2744" opacity=".72"/><path d="M24 30h16" stroke="#FFF5A8" stroke-width="2.2" stroke-linecap="round" opacity=".85"/></g></svg></button>
+      <button class="dbtn" id="dU" aria-label="Move up"><span class="mxDpadGlyph" aria-hidden="true">↑</span></button>
+      <button class="dbtn" id="dL" aria-label="Move left"><span class="mxDpadGlyph" aria-hidden="true">←</span></button>
+      <div id="dC" aria-hidden="true"><span class="dpadCore"></span></div>
+      <button class="dbtn" id="dR" aria-label="Move right"><span class="mxDpadGlyph" aria-hidden="true">→</span></button>
+      <button class="dbtn" id="dD" aria-label="Move down"><span class="mxDpadGlyph" aria-hidden="true">↓</span></button>
     </div>
     <div id="navBtns">
       <button id="btnLab" class="btn iconBadge navB tint-silver"><span class="badgeIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2h6"/><path d="M10 2v6.5L4.5 18a2 2 0 0 0 1.7 3h11.6a2 2 0 0 0 1.7-3L14 8.5V2"/><path d="M7.5 14h9"/></svg></span><small data-i18n="lab">LAB</small></button>
@@ -410,7 +409,7 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
 
 <!-- BANNER -->
 <div id="lightRays"></div>
-<div id="bannerWrap"><div id="banner">SPLASH!</div><div id="bannerSub">WATER CREATED</div></div>
+<div id="bannerWrap"><div id="banner">WATER SYNTHESIZED!</div><div id="bannerSub">H₂O</div><div id="bannerFact">Essential for all known life.</div><button id="bannerDiscover" type="button">📘 DISCOVER MORE → MOLECULOPEDIA</button></div>
 
 
 <!-- LABORATORY VICTORY / PROMOTION ELECTRON EFFECT -->
@@ -488,13 +487,14 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
 <div id="levelTransition"></div>
 <canvas id="fx"></canvas>
 
-<script src="js/sync-core.js?v=8.5.48-final-merged" defer></script>
-<script src="js/daily-levels.js?v=8.5.48-final-merged" defer></script>
-<script src="js/campaign-levels.js?v=8.5.48-final-merged" defer></script>
-<script src="js/game.js?v=8.5.48-final-merged" defer></script>
+<script src="js/sync-core.js?v=8.5.53-ios-final" defer></script>
+<script src="js/daily-levels.js?v=8.5.53-ios-final" defer></script>
+<script src="js/campaign-levels.js?v=8.5.53-ios-final" defer></script>
+<script src="js/level-fx-recipes.js?v=8.5.53-ios-final" defer></script>
+<script src="js/game.js?v=8.5.53-ios-final" defer></script>
 
 <!-- ================= FIREBASE (cloud save + world leaderboard) ================= -->
-<script type="module" src="js/firebase.js?v=8.5.48-final-merged"></script>
+<script type="module" src="js/firebase.js?v=8.5.53-ios-final"></script>
 
 <script>
 /* V8.5.17: convert functional UI emoji glyphs to one cross-platform SVG family.
