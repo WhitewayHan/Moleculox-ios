@@ -1,0 +1,21 @@
+MOLECULOX iOS V8.5.54 R6 — APPLE + VISUAL FINAL
+
+APPLE AUTH
+- Keeps the deterministic rawNonce bridge.
+- Also reads the raw nonce returned by the native Capacitor Firebase plugin.
+- Decodes the signed Apple ID-token nonce claim locally.
+- SHA-256 checks every available raw-nonce candidate and sends only the matching value to Firebase JS.
+- This covers both native-source outcomes: supplied nonce accepted, or plugin-generated nonce returned.
+
+VISUAL ALIGNMENT (iOS native only)
+- Studio intro artwork reduced proportionally.
+- Moleculox logo reduced modestly.
+- Main menu stack shifted slightly right.
+- Main-menu Dr. E anchored lower and native floating animation disabled.
+- In-game action rail reduced modestly.
+- In-game Dr. E enlarged and anchored to the lower-right floor.
+- Account/settings/modal action groups shifted slightly right.
+
+BACKGROUND LOGIC
+- Backgrounds remain deterministic by campaign tier, not random.
+- 1–20 tier 0, 21–40 tier 1, 41–60 tier 2, then every 20 levels through tier 8.

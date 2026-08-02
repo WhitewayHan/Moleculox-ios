@@ -1,0 +1,7 @@
+MOLECULOX iOS V8.5.54 R5 — LEADERBOARD PLACEHOLDER CLEANUP
+
+- Filters legacy/default names Player, Player1..Player999 and Oyuncu, Oyuncu1..Oyuncu999 from World, Weekly, Monthly, Duel and Champions displays.
+- Prevents those placeholder profiles from publishing new leaderboard rows.
+- Attempts to delete placeholder leaderboard rows owned by the currently signed-in Firebase user.
+- Does not weaken Firestore access rules and cannot delete another user UID's protected document from the client.
+- Apple nonce, Google sign-in, email sign-in, CocoaPods and iOS/Web layout parity fixes remain unchanged.

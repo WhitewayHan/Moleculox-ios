@@ -3299,7 +3299,7 @@ async function refreshHofWorldTabs(tab){
   if(!window.MXCloud){grid.innerHTML=notice+'<div id="hofWorldMsg">'+t('worldOffline')+'</div>';bindRankingRefresh();return;}
   const myUid=window.MXCloud.uid,myProfileId=save.profileId;
   try{
-    if(!guest&&save.profileId){try{if(window.MXCloud.cleanupOrphanRankingRows)await window.MXCloud.cleanupOrphanRankingRows();await repairCurrentLeaderboard('hall-of-fame',true);}catch(syncErr){console.warn('[Moleculox] leaderboard repair skipped:',syncErr&&syncErr.code);}}
+    if(!guest&&save.profileId){try{if(window.MXCloud.cleanupOrphanRankingRows)await window.MXCloud.cleanupOrphanRankingRows();if(window.MXCloud.cleanupPlaceholderRankingRows)await window.MXCloud.cleanupPlaceholderRankingRows();await repairCurrentLeaderboard('hall-of-fame',true);}catch(syncErr){console.warn('[Moleculox] leaderboard repair skipped:',syncErr&&syncErr.code);}}
     let result=null,rows=null;
     if(tab==='week'){result=await window.MXCloud.getWeeklyLeaderboard(100,true);rows=result&&result.rows;}
     else if(tab==='month'){result=await window.MXCloud.getMonthlyLeaderboard(100,true);rows=result&&result.rows;}
@@ -7443,22 +7443,54 @@ function createAppleRawNonce(length){
   }
   return out.join('');
 }
+function decodeAppleIdTokenPayload(idToken){
+  try{
+    const part=String(idToken||'').split('.')[1]||'';
+    const normalized=part.replace(/-/g,'+').replace(/_/g,'/').padEnd(Math.ceil(part.length/4)*4,'=');
+    return JSON.parse(decodeURIComponent(Array.from(atob(normalized),ch=>'%'+ch.charCodeAt(0).toString(16).padStart(2,'0')).join('')));
+  }catch(e){return null;}
+}
+async function sha256HexText(value){
+  const subtle=window.crypto&&window.crypto.subtle;
+  if(!subtle||typeof subtle.digest!=='function')return '';
+  const data=new TextEncoder().encode(String(value||''));
+  const digest=await subtle.digest('SHA-256',data);
+  return Array.from(new Uint8Array(digest),b=>b.toString(16).padStart(2,'0')).join('');
+}
+async function resolveAppleRawNonce(result,idToken,requestedNonce){
+  const credential=result&&result.credential||{};
+  const candidates=[credential.nonce,credential.rawNonce,result&&result.nonce,requestedNonce]
+    .map(v=>String(v||'').trim()).filter((v,i,a)=>v&&a.indexOf(v)===i);
+  if(!candidates.length)throw Object.assign(new Error('auth/missing-or-invalid-nonce'),{code:'auth/missing-or-invalid-nonce'});
+  const payload=decodeAppleIdTokenPayload(idToken);
+  const claim=String(payload&&payload.nonce||'').trim().toLowerCase();
+  // The plugin's returned credential nonce is the source of truth when native
+  // iOS generated its own value. When a patched build accepted our supplied
+  // nonce, both candidates are identical. Verify against Apple's signed token
+  // before sending anything to Firebase JS.
+  if(claim){
+    for(const candidate of candidates){
+      const hashed=(await sha256HexText(candidate)).toLowerCase();
+      if(hashed&&hashed===claim)return candidate;
+      if(candidate.toLowerCase()===claim)return candidate;
+    }
+    throw Object.assign(new Error('auth/missing-or-invalid-nonce'),{code:'auth/missing-or-invalid-nonce'});
+  }
+  return candidates[0];
+}
 async function nativeAppleSignIn(button){
   const c=accountCopy();
   try{
     const plugin=window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.FirebaseAuthentication;
     if(!plugin||!window.MXCloud||!window.MXCloud.connectAppleIdToken)throw Object.assign(new Error('auth/unavailable'),{code:'auth/unavailable'});
     setAuthBusy(button,true,c.working);
-    // Generate the raw nonce in the web layer, pass that exact value to the
-    // patched native Apple request, and reuse the same value for Firebase JS.
-    // This guarantees SHA256(rawNonce) in Apple's ID token matches the value
-    // Firebase hashes during credential verification.
-    const rawNonce=createAppleRawNonce(32);
-    const result=await plugin.signInWithApple({skipNativeAuth:true,rawNonce});
-    const idToken=result&&result.credential&&result.credential.idToken;
+    const requestedNonce=createAppleRawNonce(32);
+    const result=await withAuthTimeout(plugin.signInWithApple({skipNativeAuth:true,rawNonce:requestedNonce}),45000,'auth/firebase-credential-timeout');
+    const idToken=String(result&&((result.credential&&result.credential.idToken)||result.idToken||result.identityToken)||'').trim();
     if(!idToken)throw Object.assign(new Error('auth/invalid-credential'),{code:'auth/invalid-credential'});
+    const verifiedRawNonce=await resolveAppleRawNonce(result,idToken,requestedNonce);
     const givenName=(result.user&&(result.user.givenName||result.user.displayName))||'';
-    const connected=await withAuthTimeout(window.MXCloud.connectAppleIdToken(idToken,rawNonce,givenName),45000,'auth/firebase-credential-timeout');
+    const connected=await withAuthTimeout(window.MXCloud.connectAppleIdToken(idToken,verifiedRawNonce,givenName),45000,'auth/firebase-credential-timeout');
     await finishAccountLoginUI(connected,c);
   }catch(err){openAccountModal(authErrorText(err),false);}
 }

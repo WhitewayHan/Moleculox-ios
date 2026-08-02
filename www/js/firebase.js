@@ -650,6 +650,15 @@ async function deleteAccountAndData() {
 function cleanName(v) {
   return String(v || "Player").replace(/[<>]/g, "").trim().slice(0, 18) || "Player";
 }
+
+// R5 — keep legacy/default placeholder profiles out of every public ranking.
+// Old builds created names such as Oyuncu1 / Player1 when no real name was set.
+function isPlaceholderPlayerName(value) {
+  const normalized = cleanName(value)
+    .toLocaleLowerCase("en-US")
+    .replace(/[\s._-]+/g, "");
+  return /^(?:player|oyuncu)\d{0,3}$/.test(normalized);
+}
 function genRunId() {
   return "r_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2, 12);
 }
@@ -681,6 +690,30 @@ async function cleanupOrphanRankingRows() {
     return {ok:true, removed:removals.length};
   } catch (e) {
     console.warn("[MXCloud] orphan ranking cleanup failed:", e && e.code, e && e.message);
+    return {ok:false, reason:(e && (e.code || e.message)) || "error"};
+  }
+}
+
+// R5 — remove legacy placeholder rows owned by the currently signed-in account.
+// Other users' documents remain protected by Firestore rules, but are filtered
+// from every public leaderboard by isPlaceholderPlayerName().
+async function cleanupPlaceholderRankingRows() {
+  try {
+    await readyPromise;
+    if (!db || !uid || !currentUser || currentUser.isAnonymous) return {ok:false, reason:"account-required"};
+    const [classicSnap, duelSnap] = await Promise.all([
+      getDocs(collection(db, "leaderboard")),
+      getDocs(collection(db, DUEL_BOARD_COLLECTION)),
+    ]);
+    const removals = [];
+    classicSnap.forEach((d) => { const row=d.data()||{}; if(row.uid===uid && isPlaceholderPlayerName(row.playerName)) removals.push(deleteDoc(d.ref)); });
+    duelSnap.forEach((d) => { const row=d.data()||{}; if(row.uid===uid && isPlaceholderPlayerName(row.playerName)) removals.push(deleteDoc(d.ref)); });
+    const settled = await Promise.allSettled(removals);
+    const removed = settled.filter((r) => r.status === "fulfilled").length;
+    if (removed) { clearLeaderboardCaches(); duelBoardCache.clear(); }
+    return {ok:true, removed};
+  } catch (e) {
+    console.warn("[MXCloud] placeholder ranking cleanup failed:", e && e.code, e && e.message);
     return {ok:false, reason:(e && (e.code || e.message)) || "error"};
   }
 }
@@ -733,11 +766,13 @@ function leaderboardMetrics(save) {
 function leaderboardPayload(save, profileId) {
   const id = safeProfileId(profileId);
   if (!id) return null;
+  const playerName = cleanName(save && (save.playerName || "Player"));
+  if (isPlaceholderPlayerName(playerName)) return null;
   const now = new Date();
   const seasonId = monthIdOf(now);
   const weekId = isoWeekId(now);
   return Object.assign({
-    uid, profileId: id, playerName: cleanName(save && (save.playerName || "Player")),
+    uid, profileId: id, playerName,
     researchPoints: Math.max(0, Math.floor(Number(save && save.researchPoints) || 0)),
     seasonId,
     seasonRP: save && save.seasonId === seasonId ? Math.max(0, Math.floor(Number(save.seasonRP) || 0)) : 0,
@@ -755,11 +790,16 @@ function leaderboardSignature(payload) {
 async function writeLeaderboard(save, profileId, force) {
   if (!canPublishLeaderboard()) return {ok: false, reason: "account-required"};
   const boardId = leaderboardDocId(profileId);
+  if (!boardId) return {ok: false, reason: "invalid-profile"};
+  const ref = doc(db, "leaderboard", boardId);
   const localPayload = leaderboardPayload(save, profileId);
-  if (!boardId || !localPayload) return {ok: false, reason: "invalid-profile"};
+  if (!localPayload) {
+    leaderboardLocalSignatures.delete(boardId);
+    try { await deleteDoc(ref); clearLeaderboardCaches(); } catch (e) {}
+    return {ok: false, reason: "placeholder-name"};
+  }
   const localSig = leaderboardSignature(localPayload);
   if (!force && leaderboardLocalSignatures.get(boardId) === localSig) return {ok: true, unchanged: true};
-  const ref = doc(db, "leaderboard", boardId);
   try {
     const existingSnap = await getDoc(ref);
     const payload = Object.assign({}, localPayload);
@@ -850,11 +890,11 @@ function duelBoardMetrics(save){
   for(const v of vals){const outcome=duelOutcome(v),d=duelReceiptDate(v),w=duelWeekId(d),m=duelMonthId(d);let points=0;if(outcome===1){wins++;streak++;bestStreak=Math.max(bestStreak,streak);rating+=25;points=3;}else if(outcome===2){losses++;streak=0;rating=Math.max(0,rating-10);}else{draws++;streak=0;rating+=3;points=1;}peak=Math.max(peak,rating);if(w===weekId){weekPoints+=points;if(outcome===1)weekWins++;}if(w===previousWeekId){previousWeekPoints+=points;if(outcome===1)previousWeekWins++;}if(m===monthId){monthPoints+=points;if(outcome===1)monthWins++;}if(m===previousMonthId){previousMonthPoints+=points;if(outcome===1)previousMonthWins++;}}
   return {rating,peak,wins,losses,draws,bestStreak,weekId,weekPoints,weekWins,previousWeekId,previousWeekPoints,previousWeekWins,monthId,monthPoints,monthWins,previousMonthId,previousMonthPoints,previousMonthWins};
 }
-function duelBoardPayload(save,profileId){const m=duelBoardMetrics(save);return {uid,profileId,playerName:cleanName(save.playerName),rating:m.rating,peakRating:m.peak,wins:m.wins,losses:m.losses,draws:m.draws,bestStreak:m.bestStreak,activeFrame:String(save.activeDuelFrame||"frame_bronze").slice(0,40),activeTitle:String(save.activeDuelTitle||"").slice(0,40),weekId:m.weekId,weekPoints:m.weekPoints,weekWins:m.weekWins,previousWeekId:m.previousWeekId,previousWeekPoints:m.previousWeekPoints,previousWeekWins:m.previousWeekWins,monthId:m.monthId,monthPoints:m.monthPoints,monthWins:m.monthWins,previousMonthId:m.previousMonthId,previousMonthPoints:m.previousMonthPoints,previousMonthWins:m.previousMonthWins,updatedAt:serverTimestamp()};}
+function duelBoardPayload(save,profileId){const playerName=cleanName(save&&save.playerName);if(isPlaceholderPlayerName(playerName))return null;const m=duelBoardMetrics(save);return {uid,profileId,playerName,rating:m.rating,peakRating:m.peak,wins:m.wins,losses:m.losses,draws:m.draws,bestStreak:m.bestStreak,activeFrame:String(save.activeDuelFrame||"frame_bronze").slice(0,40),activeTitle:String(save.activeDuelTitle||"").slice(0,40),weekId:m.weekId,weekPoints:m.weekPoints,weekWins:m.weekWins,previousWeekId:m.previousWeekId,previousWeekPoints:m.previousWeekPoints,previousWeekWins:m.previousWeekWins,monthId:m.monthId,monthPoints:m.monthPoints,monthWins:m.monthWins,previousMonthId:m.previousMonthId,previousMonthPoints:m.previousMonthPoints,previousMonthWins:m.previousMonthWins,updatedAt:serverTimestamp()};}
 function duelBoardSignature(value){return JSON.stringify(value,(k,v)=>k==="updatedAt"?undefined:v);}
-async function writeDuelLeaderboard(save,profileId){await readyPromise;if(!db||!uid||!profileId||!currentUser||currentUser.isAnonymous)return {ok:false,reason:"account-required"};const id=duelBoardDocId(profileId);if(!id)return {ok:false,reason:"invalid-profile"};const payload=duelBoardPayload(save,profileId),sig=duelBoardSignature(payload);if(duelBoardSignatures.get(id)===sig)return {ok:true,unchanged:true};try{await setDoc(doc(db,DUEL_BOARD_COLLECTION,id),payload,{merge:false});duelBoardSignatures.set(id,sig);duelBoardCache.clear();return {ok:true};}catch(e){console.warn("[MXCloud] writeDuelLeaderboard failed:",e&&e.code,e&&e.message);return {ok:false,reason:(e&&(e.code||e.message))||"error"};}}
+async function writeDuelLeaderboard(save,profileId){await readyPromise;if(!db||!uid||!profileId||!currentUser||currentUser.isAnonymous)return {ok:false,reason:"account-required"};const id=duelBoardDocId(profileId);if(!id)return {ok:false,reason:"invalid-profile"};const ref=doc(db,DUEL_BOARD_COLLECTION,id),payload=duelBoardPayload(save,profileId);if(!payload){duelBoardSignatures.delete(id);try{await deleteDoc(ref);duelBoardCache.clear();}catch(e){}return {ok:false,reason:"placeholder-name"};}const sig=duelBoardSignature(payload);if(duelBoardSignatures.get(id)===sig)return {ok:true,unchanged:true};try{await setDoc(ref,payload,{merge:false});duelBoardSignatures.set(id,sig);duelBoardCache.clear();return {ok:true};}catch(e){console.warn("[MXCloud] writeDuelLeaderboard failed:",e&&e.code,e&&e.message);return {ok:false,reason:(e&&(e.code||e.message))||"error"};}}
 function syncDuelLeaderboard(save,profileId,immediate){if(!currentUser||currentUser.isAnonymous)return Promise.resolve({ok:false,reason:"account-required"});const id=duelBoardDocId(profileId);if(!id)return Promise.resolve({ok:false,reason:"invalid-profile"});if(duelBoardTimers.has(id)){clearTimeout(duelBoardTimers.get(id));duelBoardTimers.delete(id);}if(immediate)return writeDuelLeaderboard(save,profileId);return new Promise(resolve=>{const timer=setTimeout(async()=>{duelBoardTimers.delete(id);resolve(await writeDuelLeaderboard(save,profileId));},700);duelBoardTimers.set(id,timer);});}
-function duelRankRows(rows,period,targetId){const out=[];for(const r of rows){const row=Object.assign({},r);if(period==="week"){if(row.weekId!==duelWeekId())continue;row.periodPoints=Math.max(0,Number(row.weekPoints)||0);row.periodWins=Math.max(0,Number(row.weekWins)||0);}else if(period==="month"){if(row.monthId!==duelMonthId())continue;row.periodPoints=Math.max(0,Number(row.monthPoints)||0);row.periodWins=Math.max(0,Number(row.monthWins)||0);}else if(period==="closedWeek"){let ok=false;if(row.weekId===targetId){row.periodPoints=Math.max(0,Number(row.weekPoints)||0);row.periodWins=Math.max(0,Number(row.weekWins)||0);ok=true;}else if(row.previousWeekId===targetId){row.periodPoints=Math.max(0,Number(row.previousWeekPoints)||0);row.periodWins=Math.max(0,Number(row.previousWeekWins)||0);ok=true;}if(!ok)continue;}else if(period==="closedMonth"){let ok=false;if(row.monthId===targetId){row.periodPoints=Math.max(0,Number(row.monthPoints)||0);row.periodWins=Math.max(0,Number(row.monthWins)||0);ok=true;}else if(row.previousMonthId===targetId){row.periodPoints=Math.max(0,Number(row.previousMonthPoints)||0);row.periodWins=Math.max(0,Number(row.previousMonthWins)||0);ok=true;}if(!ok)continue;}if(period!=="world"&&row.periodPoints<=0)continue;out.push(row);}out.sort((a,b)=>period==="world"?((Number(b.rating)||0)-(Number(a.rating)||0)||(Number(b.wins)||0)-(Number(a.wins)||0)||(Number(a.losses)||0)-(Number(b.losses)||0)):((Number(b.periodPoints)||0)-(Number(a.periodPoints)||0)||(Number(b.periodWins)||0)-(Number(a.periodWins)||0)||(Number(b.rating)||0)-(Number(a.rating)||0)));return out;}
+function duelRankRows(rows,period,targetId){const out=[];for(const r of rows){const row=Object.assign({},r);if(isPlaceholderPlayerName(row.playerName))continue;if(period==="week"){if(row.weekId!==duelWeekId())continue;row.periodPoints=Math.max(0,Number(row.weekPoints)||0);row.periodWins=Math.max(0,Number(row.weekWins)||0);}else if(period==="month"){if(row.monthId!==duelMonthId())continue;row.periodPoints=Math.max(0,Number(row.monthPoints)||0);row.periodWins=Math.max(0,Number(row.monthWins)||0);}else if(period==="closedWeek"){let ok=false;if(row.weekId===targetId){row.periodPoints=Math.max(0,Number(row.weekPoints)||0);row.periodWins=Math.max(0,Number(row.weekWins)||0);ok=true;}else if(row.previousWeekId===targetId){row.periodPoints=Math.max(0,Number(row.previousWeekPoints)||0);row.periodWins=Math.max(0,Number(row.previousWeekWins)||0);ok=true;}if(!ok)continue;}else if(period==="closedMonth"){let ok=false;if(row.monthId===targetId){row.periodPoints=Math.max(0,Number(row.monthPoints)||0);row.periodWins=Math.max(0,Number(row.monthWins)||0);ok=true;}else if(row.previousMonthId===targetId){row.periodPoints=Math.max(0,Number(row.previousMonthPoints)||0);row.periodWins=Math.max(0,Number(row.previousMonthWins)||0);ok=true;}if(!ok)continue;}if(period!=="world"&&row.periodPoints<=0)continue;out.push(row);}out.sort((a,b)=>period==="world"?((Number(b.rating)||0)-(Number(a.rating)||0)||(Number(b.wins)||0)-(Number(a.wins)||0)||(Number(a.losses)||0)-(Number(b.losses)||0)):((Number(b.periodPoints)||0)-(Number(a.periodPoints)||0)||(Number(b.periodWins)||0)-(Number(a.periodWins)||0)||(Number(b.rating)||0)-(Number(a.rating)||0)));return out;}
 async function getDuelLeaderboard(period,n,forceRefresh,targetId){period=["world","week","month","closedWeek","closedMonth"].includes(period)?period:"world";n=Math.max(1,Math.min(100,Math.floor(Number(n)||100)));const key=period+":"+(targetId||"")+":"+n,cached=duelBoardCache.get(key);if(!forceRefresh&&cached&&Date.now()-cached.at<20000)return cached.value;try{await readyPromise;const snap=await getDocs(collection(db,DUEL_BOARD_COLLECTION)),rows=[];snap.forEach(d=>rows.push(Object.assign({id:d.id},d.data())));const value={rows:duelRankRows(rows,period,targetId).slice(0,n),period,targetId:targetId||""};duelBoardCache.set(key,{at:Date.now(),value});return value;}catch(e){console.warn("[MXCloud] getDuelLeaderboard failed:",e&&e.code);return null;}}
 
 // ---- Cloud save: profile-scoped, owner-writable directly (no leaderboard fields live here) ----
@@ -1266,7 +1306,8 @@ function leaderboardSort(a, b) {
 function leaderboardRowsFromSnapshot(snap, n, mapper) {
   const rows = [];
   snap.forEach((d) => {
-    let row = d.data() || {};
+    let row = Object.assign({id: d.id}, d.data() || {});
+    if (isPlaceholderPlayerName(row.playerName)) return;
     if (typeof mapper === "function") row = mapper(row);
     if (row) rows.push(row);
   });
@@ -1374,7 +1415,7 @@ async function getChampions(n) {
     if (!db) return null;
     const snap = await getDocs(query(collection(db, "champions"), orderBy("archivedAt", "desc"), limit(n || 50)));
     const rows = [];
-    snap.forEach((d) => rows.push(d.data()));
+    snap.forEach((d) => { const row=d.data()||{}; if(!isPlaceholderPlayerName(row.playerName||row.name)) rows.push(row); });
     cachedChamps = rows; cachedChampsT = Date.now();
     return rows;
   } catch (e) {
@@ -2413,7 +2454,7 @@ window.MXCloud = {
   refreshPersistence, connectGoogle, connectGoogleIdToken, connectApple, connectAppleIdToken, registerEmail, signInEmail, resetPassword, signOutToGuest, deleteCurrentAuthAccount, deleteAccountAndData,
   saveProgress, saveProgressNow, loadProfile, listProfiles, syncLeaderboard, repairLeaderboard, savePushToken, updatePushLang,
   startLevelAttempt, submitLevelResult, updateDisplayName, claimDailyExperiment,
-  deleteCloudProfile, cleanupOrphanRankingRows, reportPlayerName,
+  deleteCloudProfile, cleanupOrphanRankingRows, cleanupPlaceholderRankingRows, reportPlayerName,
   getLeaderboard, getWeeklyLeaderboard, getMonthlyLeaderboard, getMyRankingStatus, clearLeaderboardCache: clearLeaderboardCaches, getChampions,
   syncDuelLeaderboard, getDuelLeaderboard,
   createDuelRoom, joinDuelRoom, subscribeDuelRoom, heartbeatDuelRoom, startDuelDisconnectCountdown, resolveDuelDisconnect, publishDuelLiveState, publishDuelMoveEvent, sendDuelQuickMessage, submitDuelTurn, advanceDuelRound, rematchDuelRoom, leaveDuelRoom,

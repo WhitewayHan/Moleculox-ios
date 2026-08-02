@@ -2,7 +2,7 @@
   "name": "moleculox-ios",
   "version": "8.5.54",
   "private": true,
-  "description": "Moleculox iOS V8.5.54 R4: Android/Netlify visual parity, deterministic Apple nonce bridge, Google/email account safety, and stable Firebase synchronization.",
+  "description": "Moleculox iOS V8.5.54 R6: verified Apple nonce selection, final native visual alignment, Google/email account safety, and leaderboard cleanup.",
   "scripts": {
     "ios:prepare": "bash scripts/prepare-ios.sh",
     "ios:sync": "npx cap sync ios",

@@ -1,0 +1,20 @@
+MOLECULOX iOS V8.5.54 R5 — FINAL VALIDATION
+
+PASS  JavaScript syntax: www/js/firebase.js
+PASS  JavaScript syntax: www/js/game.js
+PASS  Python syntax: iOS patch scripts
+PASS  Shell syntax: prepare-ios.sh
+PASS  JSON, YAML and plist parsing
+PASS  Apple nonce patch retained
+PASS  Google native sign-in bridge retained
+PASS  Email authentication and R4 account-safety behavior retained
+PASS  CocoaPods / GTMSessionFetcher resolution fix retained
+PASS  Netlify/Android visual parity retained
+PASS  Placeholder matcher blocks Player, Player1..Player999 and Oyuncu, Oyuncu1..Oyuncu999
+PASS  Real names such as wHiTeWaY, David, PlayerOne and Oyuncak remain allowed
+PASS  Placeholder rows are filtered from World, Weekly, Monthly, Duel and Champions results
+PASS  Placeholder profiles cannot publish new public ranking rows
+PASS  Signed-in user's own old placeholder rows are deleted on Hall of Fame refresh when Firestore rules permit
+
+LIMITATION
+A mobile client cannot delete a leaderboard document owned by a different Firebase UID. Such rows are nevertheless removed from every displayed ranking by the R5 filter. Permanent database deletion of other-UID test records requires Firebase Console/Admin privileges.
