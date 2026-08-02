@@ -1,7 +1,0 @@
-MOLECULOX V8.5.25 — PREMIUM ICON & MOLECOIN PASS
-
-- MoleCoin upgraded with brighter metallic gold, embossed M, stronger rim light and a short periodic 360-degree idle rotation.
-- Rotation is intentionally occasional rather than continuous and respects Reduced Motion.
-- Main-menu and Settings icons unified into one premium glass-metal laboratory icon family.
-- Dr. E coin/silver-medal style thought props replaced with a custom atom-discovery sparkle symbol.
-- Gameplay, levels, economy and tutorial logic unchanged from V8.5.24.

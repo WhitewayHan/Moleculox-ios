@@ -1,9 +1,0 @@
-MOLECULOX V8.5.24 — ICON + TUTORIAL RESPONSIVE FIX
-
-- Replaced fragile emoji UI symbols with inline SVG code icons in Settings and main menu docks.
-- Restored visible master/music/SFX speaker and mute icons on iPhone.
-- Reduced oversized green modal action buttons with responsive proportions.
-- Tutorial movement is locked during explanation/highlight phases.
-- Early swipes can no longer move the molecule or skip the required second move.
-- Tutorial restart now restores the correct tutorial phase.
-- Updated app, cache and asset query versions to v8.5.24.

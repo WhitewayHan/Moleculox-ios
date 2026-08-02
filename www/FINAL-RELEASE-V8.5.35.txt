@@ -1,8 +1,0 @@
-MOLECULOX V8.5.35 — PREMIUM MAIN MENU ORBS
-
-- VS and Hall of Fame buttons now share the premium elastic idle motion used by action icons.
-- A restrained glass-light sweep periodically travels across both buttons.
-- Animations are staggered so the menu does not pulse in sync.
-- Trophy symbol enlarged, brightened and placed on a high-contrast glass-gold plate.
-- Reduced-motion accessibility remains supported.
-- Version and service-worker cache synchronized to V8.5.35.

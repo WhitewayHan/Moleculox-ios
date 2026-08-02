@@ -1,9 +1,0 @@
-MOLECULOX iOS V8.5.47 FINAL
-
-- Native iPhone main menu and account sheet compacted to match the approved Web appearance.
-- Main-menu Dr. E separated from the in-game Dr. E sizing and reduced for full-height WKWebView.
-- Native Apple/Google approval is no longer reported as a failed sign-in when Firestore profile reconciliation is slow.
-- Apple, Google, and email authentication no longer wait forever on Firebase redirect/persistence bootstrap.
-- Native iOS skips the unused Firebase Web redirect-result check.
-- Email registration can create a Firebase user even when the anonymous guest session is unavailable.
-- Cloud profile reconciliation continues in the background after account authentication succeeds.

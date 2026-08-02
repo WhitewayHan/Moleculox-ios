@@ -1,9 +1,0 @@
-MOLECULOX V8.5.32 FINAL RELEASE
-
-- Central inline SVG symbol sprite guarantees every mlx-* icon renders, including the first tutorial swipe hand.
-- All local CSS/JS cache-busting query versions synchronized to V8.5.32.
-- Service Worker cache synchronized and old Moleculox caches continue to be cleaned by activate logic.
-- Focused Firebase Analytics events: tutorial_started, tutorial_completed, level_started, level_completed, app_error.
-- Global JavaScript error and unhandled rejection capture added.
-- Native Crashlytics bridge used automatically when a compatible Capacitor plugin exists; web builds remain non-fatal without it.
-- No large game.js refactor performed before release.

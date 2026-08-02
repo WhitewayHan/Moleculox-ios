@@ -1,7 +1,0 @@
-MOLECULOX V8.5.30 — PREMIUM 1 SQUARE ICON
-
-- Replaced the OS-dependent ↔️ emoji with a custom premium SVG.
-- Icon shows an atom inside a single grid cell and one controlled step arrow.
-- Unified cyan/purple glass-metal styling with Hammer and Barrier power-ups.
-- Added a subtle ready animation and reduced-motion support.
-- Updated app version, manifest and service-worker cache.
