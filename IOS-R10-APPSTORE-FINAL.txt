@@ -1,0 +1,10 @@
+MOLECULOX iOS V8.5.54 R10 — APP STORE FINAL
+
+Base: R9.1 (working Apple/Google/email authentication, wHiTeWaY profile bridge, preserved user audio preferences).
+
+R10 correction:
+- Adds separate body classes: mxNative, mxIOSNative, mxAndroidNative, mxWeb.
+- Moves all R7-R9 native visual overrides from mxNative to mxIOSNative.
+- Android native therefore uses the same approved base dimensions as Web/Netlify.
+- Legacy iosStandalone rules are unchanged.
+- No authentication, profile bridge, leaderboard, music, SFX, asset, level, or iOS build configuration code was modified.

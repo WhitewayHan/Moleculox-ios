@@ -4598,45 +4598,111 @@ body.mxReduceMotion #board.mxLevelWin,body.mxReduceMotion #bannerWrap.on[data-mo
 }
 
 
-/* ================= V8.5.54 R7 — final iOS visual alignment ================= */
+/* ================= V8.5.54 R10 — iOS-only visual alignment ================= */
+/* IMPORTANT: These pixel/viewport overrides are intentionally scoped to
+   body.mxIOSNative. Android native must retain the approved Web/Android base
+   proportions. The legacy .iosStandalone rules above remain untouched. */
 /* Native WKWebView uses the full device viewport, unlike Safari's shorter visual
    viewport. These final overrides preserve the web proportions while accounting
    for that extra native height. */
-body.mxNative #studioLogo{width:88%!important;height:88%!important;object-fit:contain!important;object-position:center!important}
-body.mxNative #logoWrap{transform:scale(.92);transform-origin:center top}
-body.mxNative #logoTitle{font-size:clamp(40px,11.7vw,56px)!important;letter-spacing:.5px!important}
-body.mxNative #logoTop{font-size:14px!important;letter-spacing:4.4px!important}
-body.mxNative #logoSub{font-size:13px!important;margin-top:5px!important}
-body.mxNative #splashBtns{width:min(69vw,278px)!important;transform:translateX(8px)!important}
+body.mxIOSNative #studioLogo{width:88%!important;height:88%!important;object-fit:contain!important;object-position:center!important}
+body.mxIOSNative #logoWrap{transform:scale(.92);transform-origin:center top}
+body.mxIOSNative #logoTitle{font-size:clamp(40px,11.7vw,56px)!important;letter-spacing:.5px!important}
+body.mxIOSNative #logoTop{font-size:14px!important;letter-spacing:4.4px!important}
+body.mxIOSNative #logoSub{font-size:13px!important;margin-top:5px!important}
+body.mxIOSNative #splashBtns{width:min(69vw,278px)!important;transform:translateX(8px)!important}
 /* Keep Dr. E seated instead of visually floating above the floor. */
-body.mxNative #splash #einBoxS{right:-4px!important;bottom:-20px!important;height:clamp(245px,41svh,392px)!important;animation:none!important}
-body.mxNative #splash #einBoxS .einImg{object-position:right bottom!important}
+body.mxIOSNative #splash #einBoxS{right:-4px!important;bottom:-20px!important;height:clamp(245px,41svh,392px)!important;animation:none!important}
+body.mxIOSNative #splash #einBoxS .einImg{object-position:right bottom!important}
 /* Compact the in-level tool rail and return a little board space. */
-body.mxNative #actionCol{right:2px!important;gap:8px!important;transform:scale(.91)!important;transform-origin:right top!important}
-body.mxNative #actionCol .act{width:54px!important;height:54px!important;border-radius:16px!important}
+body.mxIOSNative #actionCol{right:2px!important;gap:8px!important;transform:scale(.91)!important;transform-origin:right top!important}
+body.mxIOSNative #actionCol .act{width:54px!important;height:54px!important;border-radius:16px!important}
 /* Pose PNGs have transparent space on the left; enlarge the canvas modestly,
    anchor the visible feet below the safe area, and remove the floating motion. */
-body.mxNative #gameScr #einWrap{right:-5px!important;bottom:-2px!important;width:216px!important}
-body.mxNative #einBoxG{width:188px!important;animation:none!important;transform:none!important;transform-origin:right bottom!important}
-body.mxNative #gameScr #bubble,body.mxNative #playScr #bubble,body.mxNative #gameScr .einSpeech,body.mxNative #playScr .einSpeech,body.mxNative #gameScr .speech,body.mxNative #playScr .speech{right:clamp(146px,34vw,232px)!important;bottom:clamp(48px,7vh,76px)!important}
+body.mxIOSNative #gameScr #einWrap{right:-5px!important;bottom:-2px!important;width:216px!important}
+body.mxIOSNative #einBoxG{width:188px!important;animation:none!important;transform:none!important;transform-origin:right bottom!important}
+body.mxIOSNative #gameScr #bubble,body.mxIOSNative #playScr #bubble,body.mxIOSNative #gameScr .einSpeech,body.mxIOSNative #playScr .einSpeech,body.mxIOSNative #gameScr .speech,body.mxIOSNative #playScr .speech{right:clamp(146px,34vw,232px)!important;bottom:clamp(48px,7vh,76px)!important}
 /* Native menus get the same slight visual right bias as the web composition. */
-body.mxNative #modalBox.accountModal .accountActions,
-body.mxNative #modalBox .mrow,
-body.mxNative #modalBox.settingsModal .settingsActions{margin-left:7px!important;width:calc(100% - 7px)!important}
-body.mxNative #modalBox.accountModal .accountUtilityRow{width:100%!important}
+body.mxIOSNative #modalBox.accountModal .accountActions,
+body.mxIOSNative #modalBox .mrow,
+body.mxIOSNative #modalBox.settingsModal .settingsActions{margin-left:7px!important;width:calc(100% - 7px)!important}
+body.mxIOSNative #modalBox.accountModal .accountUtilityRow{width:100%!important}
 @media(max-width:380px){
-  body.mxNative #splashBtns{transform:translateX(6px)!important}
-  body.mxNative #gameScr #einWrap{right:-6px!important;bottom:0!important;width:204px!important}
-  body.mxNative #einBoxG{width:178px!important}
-  body.mxNative #actionCol{transform:scale(.88)!important}
+  body.mxIOSNative #splashBtns{transform:translateX(6px)!important}
+  body.mxIOSNative #gameScr #einWrap{right:-6px!important;bottom:0!important;width:204px!important}
+  body.mxIOSNative #einBoxG{width:178px!important}
+  body.mxIOSNative #actionCol{transform:scale(.88)!important}
 }
 
 
 /* ================= V8.5.54 R8 — Dr. E final position ================= */
 /* Slightly larger and a few pixels left, preserving the visible feet/pants. */
-body.mxNative #gameScr #einWrap{right:4px!important;bottom:-2px!important;width:230px!important}
-body.mxNative #einBoxG{width:200px!important;animation:none!important;transform:none!important;transform-origin:right bottom!important}
+body.mxIOSNative #gameScr #einWrap{right:4px!important;bottom:-2px!important;width:230px!important}
+body.mxIOSNative #einBoxG{width:200px!important;animation:none!important;transform:none!important;transform-origin:right bottom!important}
 @media(max-width:380px){
-  body.mxNative #gameScr #einWrap{right:2px!important;bottom:0!important;width:218px!important}
-  body.mxNative #einBoxG{width:190px!important}
+  body.mxIOSNative #gameScr #einWrap{right:2px!important;bottom:0!important;width:218px!important}
+  body.mxIOSNative #einBoxG{width:190px!important}
+}
+
+/* ================= V8.5.54 R9 — App Store visual parity final =================
+   Keep iOS safe-area handling, but restore the approved Web/Android proportions.
+   Dr. E is enlarged from the bottom-right anchor so his feet never float upward. */
+body.mxIOSNative #studioLogo{
+  width:80%!important;
+  height:80%!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  margin:auto!important;
+}
+body.mxIOSNative #logoWrap{transform:none!important;transform-origin:center top!important}
+body.mxIOSNative #logoTitle{font-size:clamp(44px,13vw,62px)!important;letter-spacing:1px!important}
+body.mxIOSNative #logoTop{font-size:15px!important;letter-spacing:5px!important}
+body.mxIOSNative #logoSub{font-size:14px!important;margin-top:6px!important}
+body.mxIOSNative #splashBtns{
+  width:min(70vw,278px)!important;
+  transform:none!important;
+}
+/* Exact Web/Android game tool dimensions. */
+body.mxIOSNative #actionCol{
+  right:4px!important;
+  gap:10px!important;
+  transform:none!important;
+  transform-origin:right top!important;
+}
+body.mxIOSNative #actionCol .act{
+  width:56px!important;
+  height:56px!important;
+  border-radius:17px!important;
+}
+/* Remove the old artificial right shift from all modal action rows. */
+body.mxIOSNative #modalBox.accountModal .accountActions,
+body.mxIOSNative #modalBox .mrow,
+body.mxIOSNative #modalBox.settingsModal .settingsActions{
+  margin-left:0!important;
+  width:100%!important;
+}
+body.mxIOSNative #modalBox.accountModal .accountUtilityRow{width:100%!important}
+/* Larger in-level Dr. E, anchored below the viewport edge: growth happens
+   upward/left toward the board while the feet remain at the same floor line. */
+body.mxIOSNative #gameScr #einWrap{
+  right:-4px!important;
+  bottom:-10px!important;
+  width:250px!important;
+  transform:none!important;
+  transform-origin:right bottom!important;
+  overflow:visible!important;
+}
+body.mxIOSNative #einBoxG{
+  width:220px!important;
+  margin-left:auto!important;
+  animation:none!important;
+  transform:none!important;
+  transform-origin:right bottom!important;
+}
+@media(max-width:380px){
+  body.mxIOSNative #logoTitle{font-size:clamp(40px,12vw,54px)!important}
+  body.mxIOSNative #logoTop{font-size:13px!important;letter-spacing:4px!important}
+  body.mxIOSNative #logoSub{font-size:12px!important}
+  body.mxIOSNative #gameScr #einWrap{right:-5px!important;bottom:-8px!important;width:236px!important}
+  body.mxIOSNative #einBoxG{width:208px!important}
 }
