@@ -1,0 +1,45 @@
+MOLECULOX iOS V8.5.54 R7 — FINAL SOURCE VALIDATION
+
+IDENTITY / BUILD
+PASS  Package version remains 8.5.54
+PASS  Bundle ID remains com.whitewayhan.moleculox
+PASS  Codemagic workflow parses
+PASS  GoogleService-Info.plist bundle ID matches
+PASS  Sign in with Apple entitlement remains present
+PASS  Google CocoaPods and GTMSessionFetcher resolution fix remains present
+
+APPLE SIGN-IN R7
+PASS  Legacy cross-layer rawNonce injection removed
+PASS  Official native plugin is the single nonce generator
+PASS  Native flow is validated for random raw nonce, SHA-256 Apple request, and returned raw nonce
+PASS  JavaScript reads the returned native credential nonce
+PASS  JavaScript verifies SHA-256(raw nonce) against the signed Apple token nonce claim
+PASS  Only the verified raw nonce is passed to Firebase JS
+PASS  Safe stage diagnostics do not store ID tokens or nonce values
+
+OWNER PROFILE
+PASS  Confirmed owner Google and Hotmail addresses normalize to wHiTeWaY
+PASS  Firebase Auth display name and active cloud profile name are updated
+PASS  Existing local wHiTeWaY identity is retained for the owner's Apple flow
+PASS  David is no longer retained as the visible name after the confirmed Hotmail sign-in
+
+VISUAL
+PASS  In-level Dr. E is lifted 16 px relative to R6
+PASS  In-level Dr. E is enlarged modestly relative to R6
+PASS  R6 web-parity menu, logo, tool-rail and safe-area corrections remain present
+
+SOURCE / ASSET CHECKS
+PASS  JavaScript syntax: game.js, firebase.js, sync-core.js, campaign, daily and effects
+PASS  Python syntax: iOS, Podfile and Apple nonce validator scripts
+PASS  Shell syntax: prepare-ios.sh
+PASS  JSON, YAML, plist and entitlement parsing
+PASS  45 game images decode
+PASS  24 audio files parse with ffprobe
+PASS  51 concrete asset references resolve; 0 missing
+PASS  Campaign, daily and level-effect data are byte-identical to R6
+PASS  No node_modules, __pycache__, pyc or temporary build metadata remains
+
+IMPORTANT LIMITATION
+- This Linux environment cannot run CocoaPods, Xcode signing, install the IPA, or complete a real Apple authorization sheet.
+- The final runtime proof remains one fresh Codemagic build installed through TestFlight.
+- If Apple still fails, R7 records safe stage diagnostics in the device console under [MXAppleDiag] without exposing tokens or nonce values.

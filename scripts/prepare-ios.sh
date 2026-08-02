@@ -3,7 +3,8 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 
-# Apple Sign-In must use one raw nonce end-to-end: JS -> native Apple request -> Firebase JS.
+# Apple Sign-In nonce is generated only by the native plugin. The validator ensures
+# the official rawNonce -> SHA-256 Apple request -> returned rawNonce flow is intact.
 python3 scripts/patch-apple-nonce.py
 
 if [ ! -d ios/App ]; then

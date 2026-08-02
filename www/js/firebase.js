@@ -435,6 +435,17 @@ function accountSnapshotFor(user) {
   };
 }
 
+async function setAuthDisplayName(displayName) {
+  await waitForAuthBootstrap();
+  const user = auth && auth.currentUser;
+  const name = String(displayName || "").trim().slice(0, 40);
+  if (!user || user.isAnonymous || !name) return accountSnapshotFor(user);
+  if (user.displayName !== name) await updateProfile(user, {displayName: name});
+  applyAuthUser(user);
+  notifyAuthListeners();
+  return accountSnapshotFor(user);
+}
+
 function appleProvider() {
   const provider = new OAuthProvider("apple.com");
   provider.addScope("email");
@@ -2451,7 +2462,7 @@ window.MXCloud = {
   },
   ready: readyPromise, track, reportJsError,
   subscribeAuth, ensureAnonymous,
-  refreshPersistence, connectGoogle, connectGoogleIdToken, connectApple, connectAppleIdToken, registerEmail, signInEmail, resetPassword, signOutToGuest, deleteCurrentAuthAccount, deleteAccountAndData,
+  refreshPersistence, connectGoogle, connectGoogleIdToken, connectApple, connectAppleIdToken, registerEmail, signInEmail, resetPassword, signOutToGuest, deleteCurrentAuthAccount, deleteAccountAndData, setAuthDisplayName,
   saveProgress, saveProgressNow, loadProfile, listProfiles, syncLeaderboard, repairLeaderboard, savePushToken, updatePushLang,
   startLevelAttempt, submitLevelResult, updateDisplayName, claimDailyExperiment,
   deleteCloudProfile, cleanupOrphanRankingRows, cleanupPlaceholderRankingRows, reportPlayerName,
