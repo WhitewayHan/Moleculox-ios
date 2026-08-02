@@ -1800,7 +1800,9 @@ const SFX={
 
 /* ---------- character voice system (pre-recorded clips only; no robotic TTS) ---------- */
 const VOICE_BASE='assets/audio/voices/';
-const VOICE_BANK={}; // No prerecorded voice clips are bundled in this release.
+const VOICE_BANK={
+  drE:{menu:["dre-01-welcome-back.mp3", "dre-02-ready-experiment.mp3", "dre-03-lab-waiting.mp3", "dre-04-make-chemistry.mp3", "dre-05-next-molecule.mp3", "dre-06-lab-coat.mp3"],ready:["dre-02-ready-experiment.mp3", "dre-03-lab-waiting.mp3", "dre-04-make-chemistry.mp3", "dre-05-next-molecule.mp3", "dre-06-lab-coat.mp3"],near:["dre-13-almost-there.mp3"],success:["dre-07-excellent.mp3", "dre-08-nice.mp3", "dre-09-brilliant.mp3", "dre-10-perfect.mp3", "dre-11-well-done.mp3", "dre-12-smart-move.mp3", "dre-14-molecule-complete.mp3", "dre-15-you-built-it.mp3", "dre-16-thats-chemistry.mp3", "dre-18-science-wins.mp3"],perfect:["dre-07-excellent.mp3", "dre-09-brilliant.mp3", "dre-10-perfect.mp3", "dre-11-well-done.mp3", "dre-12-smart-move.mp3", "dre-17-three-stars.mp3", "dre-18-science-wins.mp3"],discovery:["dre-09-brilliant.mp3", "dre-14-molecule-complete.mp3", "dre-15-you-built-it.mp3", "dre-16-thats-chemistry.mp3", "dre-18-science-wins.mp3"],failure:["dre-19-well-that-happened.mp3", "dre-20-atom-plans.mp3", "dre-21-almost-scientific.mp3", "dre-22-pretend-research.mp3", "dre-23-calculations-rarely.mp3", "dre-24-nothing-exploded.mp3"],hint:["dre-25-need-a-hint.mp3"],nobel:["dre-18-science-wins.mp3"]}
+}; // R11: 25 professionally cut Dr. E voice clips from the approved Google AI Studio render.
 const voiceCache=new Map();
 let activeVoice=null,voiceToken=0,lastVoiceAt=0;
 function voiceEnabled(){return !externalMusicMode&&!save.muM&&!save.muV&&clampAudio(save.volM)>0&&clampAudio(save.volV==null?1:save.volV)>0;}
@@ -2149,7 +2151,7 @@ function updateIntensity(){
   }
   if(close&&!exc){
     setExcited(true);
-    if(!lastBondLine){lastBondLine=true;prop('⚡',1250);say(t('almostOneBond'),'happy',2600);}
+    if(!lastBondLine){lastBondLine=true;prop('⚡',1250);say(t('almostOneBond'),'happy',2600);maybeVoice('drE','near',.68,{cooldown:5200,duck:.30});}
   }
   if(!close&&exc)setExcited(false);
 }
@@ -2935,6 +2937,7 @@ function enterGame(){
   show('splash');
   startOnlineCountLoop();
   maybePlaySplashIntro();
+  playCharacterVoice('drE','menu',{force:true,duck:.26,cooldown:0});
   setTimeout(showGuestAccountToast,900);
   // Cross-platform boot: an authenticated account must reconcile all cloud
   // profiles before the active profile performs its normal one-profile sync.
@@ -4647,7 +4650,7 @@ function showCrystalSuccess(elapsed,reward){
 function finishCrystalTimeout(){
   if(!crystalMode||duelMode||won)return;won=true;winT=performance.now();anim=null;bounce=null;nudge=null;updateHUD();
   const el=$('#duelTimer');if(el){el.textContent='00:00.0';el.classList.add('urgent');}
-  SFX.thunk();say(crystalCopy().timeUp,'sad',2200,'shk');
+  SFX.thunk();playCharacterVoice('drE','failure',{force:true,duck:.30,cooldown:0});say(crystalCopy().timeUp,'sad',2200,'shk');
   setTimeout(()=>{const c=crystalCopy();openModal('<h3>⏱️ '+c.timeUp+'</h3>'+crystalResultHtml(CRYSTAL_TIME_LIMIT)+'<div class="mrow"><button class="btn green" id="mCrystalRetry">'+c.retry+'</button><button class="btn" id="mCrystalNew2">'+c.newGame+'</button><button class="btn ghost" id="mCrystalMenu2">'+c.menu+'</button></div>');
     $('#mCrystalRetry').addEventListener('pointerdown',e=>{e.preventDefault();SFX.play();startCrystalChallenge(lv,false);},{passive:false});
     $('#mCrystalNew2').addEventListener('pointerdown',e=>{e.preventDefault();SFX.select();clearBonusMission();currentCrystalPool=crystalPoolFor('mixed');startCrystalChallenge(randomLevelFromPool(currentCrystalPool),true);},{passive:false});
@@ -4791,7 +4794,7 @@ function showChainSuccess(elapsed,reward){
 function finishChainTimeout(){
   if(!chainMode||duelMode||won)return;won=true;winT=performance.now();anim=null;bounce=null;nudge=null;chainAutoQueue=[];chainAutoActive=false;updateHUD();
   const el=$('#duelTimer');if(el){el.textContent='00:00.0';el.classList.add('urgent');}
-  SFX.thunk();say(chainCopy().timeUp,'sad',2200,'shk');
+  SFX.thunk();playCharacterVoice('drE','failure',{force:true,duck:.30,cooldown:0});say(chainCopy().timeUp,'sad',2200,'shk');
   setTimeout(()=>{const c=chainCopy();openModal('<h3>⏱️ '+c.timeUp+'</h3>'+chainResultHtml(CHAIN_TIME_LIMIT)+'<div class="mrow"><button class="btn green" id="mChainRetry">'+c.retry+'</button><button class="btn" id="mChainNew2">'+c.newGame+'</button><button class="btn ghost" id="mChainMenu2">'+c.menu+'</button></div>');
     $('#mChainRetry').addEventListener('pointerdown',e=>{e.preventDefault();SFX.play();startChainChallenge(lv,false);},{passive:false});
     $('#mChainNew2').addEventListener('pointerdown',e=>{e.preventDefault();SFX.select();clearBonusMission();currentChainPool=duelPoolFor('mixed');startChainChallenge(randomChainLevelFromPool(currentChainPool),true);},{passive:false});
@@ -4912,7 +4915,7 @@ function showReactorSuccess(elapsed,reward){
   },2200);
 }
 function finishReactorTimeout(){
-  if(!reactorMode||duelMode||won)return;won=true;winT=performance.now();anim=null;bounce=null;nudge=null;updateHUD();const el=$('#duelTimer');if(el){el.textContent='00:00.0';el.classList.add('urgent');}SFX.thunk();say(reactorCopy().timeUp,'sad',2200,'shk');
+  if(!reactorMode||duelMode||won)return;won=true;winT=performance.now();anim=null;bounce=null;nudge=null;updateHUD();const el=$('#duelTimer');if(el){el.textContent='00:00.0';el.classList.add('urgent');}SFX.thunk();playCharacterVoice('drE','failure',{force:true,duck:.30,cooldown:0});say(reactorCopy().timeUp,'sad',2200,'shk');
   setTimeout(()=>{const c=reactorCopy();openModal('<h3>⏱️ '+c.timeUp+'</h3>'+reactorResultHtml(REACTOR_TIME_LIMIT)+'<div class="mrow"><button class="btn green" id="mReactorRetry">'+c.retry+'</button><button class="btn" id="mReactorNew2">'+c.newGame+'</button><button class="btn ghost" id="mReactorMenu2">'+c.menu+'</button></div>');
     $('#mReactorRetry').addEventListener('pointerdown',e=>{e.preventDefault();SFX.play();startReactorChallenge(lv,false);},{passive:false});
     $('#mReactorNew2').addEventListener('pointerdown',e=>{e.preventDefault();SFX.select();clearBonusMission();currentReactorPool=duelPoolFor('mixed');startReactorChallenge(randomReactorLevelFromPool(currentReactorPool),true);},{passive:false});
@@ -6334,6 +6337,7 @@ function showGeneralHint(){
   say('💡 '+tipOf(mid),'talk',5200,'glow');prop('💡',2600);lidHalf(true);setTimeout(()=>lidHalf(false),900);
 }
 function hint(){
+  maybeVoice('drE','hint',.72,{cooldown:6500,duck:.30});
   if(won)return;
   resetIdle();clearTimeout(autoHintT);
   setDrEPose('thinking',6400,4,true);
@@ -6728,7 +6732,7 @@ function winSeq(){
   // Keep the molecule's own sound readable, then bring in the broad victory sweep.
   setTimeout(()=>{SFX.whoosh();SFX.moleculeComplete();},390);
   if(!duelMode&&!dailyMode){
-    const evt=(lv===NOBEL_LEVEL_INDEX)?'nobel':((save.stars&&save.stars[lv])?'success':'discovery');
+    const evt=(lv===NOBEL_LEVEL_INDEX)?'nobel':(stars===3?'perfect':((save.stars&&save.stars[lv])?'success':'discovery'));
     setTimeout(()=>playCharacterVoice('drE',evt,{force:lv===NOBEL_LEVEL_INDEX,duck:.28,cooldown:2200}),520);
   }
   const completionVerb=(curMol.fx==='crys')
@@ -7533,19 +7537,35 @@ async function finishAccountLoginUI(connected,c,successMessage,options){
   const whitewayOwner=rememberWhitewayOwnerAccount(connected,!!opts.whitewayOwnerIntent);
   if(whitewayOwner){const localCandidate=buildBestLocalWhitewaySnapshot();if(localCandidate)writeWhitewayOwnerSnapshot(localCandidate);}
   if(save.autoGuest&&!profileHasMeaningfulProgress(save)&&connected&&connected.displayName)setCurrentProfileNickname(connected.displayName);
-  let ok=await reconcileAccountProfiles();
-  if(!ok){
-    await new Promise(resolve=>setTimeout(resolve,900));
-    ok=await reconcileAccountProfiles();
-  }
-  if(!ok){
-    setSyncStatus('error');
-    openAccountModal(c.connectedSyncPending,true);
-    return false;
-  }
-  await enforceWhitewayCanonicalProfile(connected,whitewayOwner);
+
+  // R15 iOS: Firebase authentication is already complete at this point. Do not
+  // keep the sign-in form stuck on “Working…” while Firestore profile merging,
+  // ranking repair, or a slow network request finishes. Show the connected
+  // account immediately and continue reconciliation safely in the background.
   try{applyVol();if(bootDone)musKick();}catch(e){}
   openAccountModal(successMessage||c.connected,true);
+  setSyncStatus('syncing');
+
+  const loginUid=String(connected&&connected.uid||accountState&&accountState.uid||'');
+  Promise.resolve().then(async()=>{
+    try{
+      let ok=false;
+      try{ok=await withAuthTimeout(reconcileAccountProfiles(),15000,'sync/reconcile-timeout');}
+      catch(e){console.warn('[account] background reconcile timed out',e&&e.code||e);}
+      const activeUid=String(accountState&&accountState.uid||'');
+      if(loginUid&&activeUid&&loginUid!==activeUid)return;
+      if(ok){
+        try{await withAuthTimeout(enforceWhitewayCanonicalProfile(connected,whitewayOwner),12000,'sync/canonical-timeout');}
+        catch(e){console.warn('[account] background canonical sync incomplete',e&&e.code||e);}
+        setSyncStatus('saved');
+      }else setSyncStatus(navigator.onLine===false?'offline':'error');
+      try{updateCloudStatusHeader();refreshCloudRankStatus(false);}catch(e){}
+    }catch(e){
+      console.warn('[account] background post-login sync failed',e);
+      setSyncStatus(navigator.onLine===false?'offline':'error');
+      try{updateCloudStatusHeader();}catch(_e){}
+    }
+  });
   return true;
 }
 async function nativeGoogleSignIn(button){
@@ -9062,7 +9082,7 @@ $('#btnRestart').addEventListener('pointerdown',e=>{e.preventDefault();SFX.click
   if(tutorialActive){const phase=tutorialStep>=8?8:2;loadTutorialPuzzle(phase===8?TUT_LEVEL_2:TUT_LEVEL_1);tutorialGoStep(phase);return;}
   if(duelMode){say(duelCopy().noRestart,'sad',2200,'shk');return;}
   const doRestart=()=>startLevel(lv,crystalMode?'crystal':(chainMode?'chain':(reactorMode?'reactor':(dailyMode?'daily':'campaign'))));
-  const confirmRestart=()=>{openModal('<h3>🔄 '+(LANG==='tr'?'BÖLÜMÜ YENİDEN BAŞLAT?':'RESTART LEVEL?')+'</h3><div class="msub">'+(LANG==='tr'?'Bölüm başlangıç düzenine döner. Kullanılmış Çekiç ve Tek Kare Hareket geri verilmez.':'The level returns to its starting layout. Used Hammer and One-Square Move items are not restored.')+'</div><div class="mrow"><button class="btn amber" id="mRestartYes">'+(LANG==='tr'?'YENİDEN BAŞLAT':'RESTART')+'</button><button class="btn ghost" id="mRestartNo">'+t('cancel')+'</button></div>');bindTap('#mRestartYes',()=>{closeModal();doRestart();});bindTap('#mRestartNo',()=>closeModal());};
+  const confirmRestart=()=>{openModal('<h3>🔄 '+(LANG==='tr'?'BÖLÜMÜ YENİDEN BAŞLAT?':'RESTART LEVEL?')+'</h3><div class="msub">'+(LANG==='tr'?'Bölüm başlangıç düzenine döner. Kullanılmış Çekiç ve Tek Kare Hareket geri verilmez.':'The level returns to its starting layout. Used Hammer and One-Square Move items are not restored.')+'</div><div class="mrow"><button class="btn amber" id="mRestartYes">'+(LANG==='tr'?'YENİDEN BAŞLAT':'RESTART')+'</button><button class="btn ghost" id="mRestartNo">'+t('cancel')+'</button></div>');bindTap('#mRestartYes',()=>{closeModal();playCharacterVoice('drE','failure',{force:true,duck:.30,cooldown:0});doRestart();});bindTap('#mRestartNo',()=>closeModal());};
   if(!save.seenRestartSupport){save.seenRestartSupport=true;persist();showSupportTutorial('restart',confirmRestart);return;}
   confirmRestart();
 },{passive:false});

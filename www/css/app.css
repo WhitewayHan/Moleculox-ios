@@ -4706,3 +4706,40 @@ body.mxIOSNative #einBoxG{
   body.mxIOSNative #gameScr #einWrap{right:-5px!important;bottom:-8px!important;width:236px!important}
   body.mxIOSNative #einBoxG{width:208px!important}
 }
+
+
+/* ================= V8.5.54 R15 — iOS fast-auth + larger in-game Dr. E =================
+   Final override only. Grow from the bottom-right anchor so Dr. E reaches the
+   board without floating above the floor or shifting the approved game board. */
+body.mxIOSNative #gameScr #einWrap{
+  right:-7px!important;
+  bottom:-5px!important;
+  width:304px!important;
+  transform:none!important;
+  transform-origin:right bottom!important;
+  overflow:visible!important;
+}
+body.mxIOSNative #einBoxG{
+  width:272px!important;
+  margin-left:auto!important;
+  animation:none!important;
+  transform:none!important;
+  transform-origin:right bottom!important;
+}
+body.mxIOSNative #gameScr #bubble,
+body.mxIOSNative #playScr #bubble,
+body.mxIOSNative #gameScr .einSpeech,
+body.mxIOSNative #playScr .einSpeech,
+body.mxIOSNative #gameScr .speech,
+body.mxIOSNative #playScr .speech{
+  right:clamp(190px,43vw,286px)!important;
+  bottom:clamp(82px,10vh,112px)!important;
+}
+@media(max-width:380px){
+  body.mxIOSNative #gameScr #einWrap{right:-8px!important;bottom:-5px!important;width:284px!important}
+  body.mxIOSNative #einBoxG{width:254px!important}
+}
+@media(max-height:700px){
+  body.mxIOSNative #gameScr #einWrap{width:270px!important}
+  body.mxIOSNative #einBoxG{width:240px!important}
+}

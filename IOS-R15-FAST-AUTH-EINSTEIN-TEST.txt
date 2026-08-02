@@ -1,0 +1,9 @@
+MOLECULOX iOS V8.5.54 R15 — FAST AUTH + EINSTEIN TEST
+
+- Based on the working R11 iOS package.
+- Firebase sign-in completes immediately in the UI.
+- Firestore profile reconciliation and ranking repair continue in the background.
+- Email login no longer remains stuck on Working after authentication succeeds.
+- Apple nonce and native Google sign-in code are unchanged.
+- In-game Dr. E is enlarged and reaches closer to the board from the grounded bottom-right anchor.
+- Existing Dr. E voice assets are preserved.
