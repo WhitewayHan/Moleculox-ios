@@ -7141,11 +7141,24 @@ function mxFirebaseAuthPlugin(){
   }catch(e){console.warn('[auth] native Firebase plugin lookup failed',e&&e.message||e);}
   return null;
 }
+window.__mxLateAuthErrors=window.__mxLateAuthErrors||[];
+function mxAppendLateError(text){
+  if(!window.__mxLateAuthErrors||!window.__mxLateAuthErrors.length)return text;
+  const last=window.__mxLateAuthErrors[window.__mxLateAuthErrors.length-1];
+  const raw=(last.code?last.code+': ':'')+(last.message||last.raw||'');
+  return (text?text+' ':'')+'[DEBUG: '+raw+']';
+}
 function withAuthTimeout(promise,ms,code){
-  ms=ms||20000;code=code||'auth/timeout';
+  ms=ms||45000;code=code||'auth/timeout';
+  const wrapped=Promise.resolve(promise);
+  wrapped.catch(function(realErr){
+    var entry={when:new Date().toISOString(),code:realErr&&realErr.code,message:realErr&&realErr.message,raw:String(realErr)};
+    window.__mxLateAuthErrors.push(entry);
+    console.warn('[auth] real underlying error (may have arrived after our own timeout):',entry);
+  });
   let timer;
   const timeout=new Promise((_,reject)=>{timer=setTimeout(()=>reject(Object.assign(new Error(code),{code})),ms);});
-  return Promise.race([Promise.resolve(promise),timeout]).finally(()=>clearTimeout(timer));
+  return Promise.race([wrapped,timeout]).finally(()=>clearTimeout(timer));
 }
 function appleLogoHtml(){return '<svg class="appleLogoSvg" viewBox="0 0 384 512" aria-hidden="true"><path fill="currentColor" d="M279.55 258.94c-.2-36.7 16.6-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.6-19.7C44.1 131.1 4 159.1 4 216.1c0 16.8 3.1 34.1 9.2 51.8 8.2 23.7 37.7 81.8 68.5 80.8 16.1-.4 27.5-11.4 48.5-11.4 20.4 0 31 11.4 48.9 11.4 31 0 57.7-52.7 65.5-76.5-41.6-19.6-39.4-56.6-39.4-57.8zM255.75 95.74c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.6-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>'; }
 function authErrorText(err){
@@ -7529,6 +7542,7 @@ function openAccountModal(message,good){
   if(good)setTimeout(resetViewportZoomIOS,120);
   const c=accountCopy();const member=!accountState.isAnonymous;const cloudReady=!!(window.MXCloud&&window.MXCloud.connectGoogle);
   if(!cloudReady&&!message)message=LANG==='tr'?'Firebase bağlantısı hazırlanıyor…':'Preparing Firebase connection…';
+  message=mxAppendLateError(message);
   const avatar=accountState.photoURL?'<img src="'+escAttr(accountState.photoURL)+'" alt="">':'👤';
   const identity=member?(accountState.displayName||accountState.email||c.cloudGood):c.guestTitle;
   const sub=member?((accountState.email?esc(accountState.email)+'<br>':'')+c.memberSub):c.guestSub;
@@ -7584,7 +7598,7 @@ function authFormShell(title,body){openModal('<h3>'+title+'</h3>'+body);$('#moda
 function openEmailLogin(prefill){
   const c=accountCopy();
   authFormShell('✉ '+c.emailLogin,'<label class="authField"><span>'+c.email+'</span><input class="authInput" id="authEmail" type="email" inputmode="email" autocomplete="email" value="'+escAttr(prefill||'')+'"></label><label class="authField"><span>'+c.password+'</span><input class="authInput" id="authPass" type="password" autocomplete="current-password"></label><div class="authMessage" id="authMsg"></div><div class="accountActions"><button class="btn blue" id="authLoginGo">'+c.login+'</button><button class="btn ghost" id="authForgot">'+c.reset+'</button><button class="btn" id="authBack">'+c.back+'</button></div>');
-  $('#authLoginGo').addEventListener('pointerdown',async e=>{e.preventDefault();const btn=e.currentTarget,msg=$('#authMsg');const email=$('#authEmail').value,pass=$('#authPass').value;if(!email||!pass){msg.textContent=c.required;return;}setAuthBusy(btn,true,c.working);msg.textContent='';try{if(!window.MXCloud)throw Object.assign(new Error('auth/unavailable'),{code:'auth/unavailable'});const connected=await withAuthTimeout(window.MXCloud.signInEmail(email,pass),25000,'auth/email-timeout');await finishAccountLoginUI(connected,c);}catch(err){msg.textContent=authErrorText(err);setAuthBusy(btn,false);}},{passive:false});
+  $('#authLoginGo').addEventListener('pointerdown',async e=>{e.preventDefault();const btn=e.currentTarget,msg=$('#authMsg');const email=$('#authEmail').value,pass=$('#authPass').value;if(!email||!pass){msg.textContent=c.required;return;}setAuthBusy(btn,true,c.working);msg.textContent='';try{if(!window.MXCloud)throw Object.assign(new Error('auth/unavailable'),{code:'auth/unavailable'});const connected=await withAuthTimeout(window.MXCloud.signInEmail(email,pass),25000,'auth/email-timeout');await finishAccountLoginUI(connected,c);}catch(err){msg.textContent=mxAppendLateError(authErrorText(err));setAuthBusy(btn,false);}},{passive:false});
   $('#authForgot').addEventListener('pointerdown',e=>{e.preventDefault();openPasswordReset($('#authEmail').value);},{passive:false});
   bindTap('#authBack',e=>{openAccountModal();});
   setTimeout(()=>$('#authEmail').focus(),80);
@@ -7592,7 +7606,7 @@ function openEmailLogin(prefill){
 function openEmailCreate(){
   const c=accountCopy();const nm=(save.playerName||curProfile||accountState.displayName||'').slice(0,18);
   authFormShell('＋ '+c.emailCreate,'<label class="authField"><span>'+c.nickname+'</span><input class="authInput" id="authName" maxlength="18" autocomplete="nickname" value="'+escAttr(nm)+'"></label><label class="authField"><span>'+c.email+'</span><input class="authInput" id="authEmail" type="email" inputmode="email" autocomplete="email"></label><label class="authField"><span>'+c.password+'</span><input class="authInput" id="authPass" type="password" autocomplete="new-password"></label><label class="authField"><span>'+c.passwordAgain+'</span><input class="authInput" id="authPass2" type="password" autocomplete="new-password"></label><div class="authMessage" id="authMsg"></div><div class="accountActions"><button class="btn green" id="authCreateGo">'+c.create+'</button><button class="btn" id="authBack">'+c.back+'</button></div><div class="authTiny">'+(LANG==='tr'?'Nickname yalnızca oyun içinde görünür. Hesaba e-posta ve şifreyle girilir.':'Nickname is only shown in the game. Sign in with email and password.')+'</div>');
-  $('#authCreateGo').addEventListener('pointerdown',async e=>{e.preventDefault();const btn=e.currentTarget,msg=$('#authMsg');const name=$('#authName').value.trim(),email=$('#authEmail').value.trim(),p1=$('#authPass').value,p2=$('#authPass2').value;if(!name||!email||!p1||!p2){msg.textContent=c.required;return;}if(p1.length<6){msg.textContent=c.passShort;return;}if(p1!==p2){msg.textContent=c.passMismatch;return;}setAuthBusy(btn,true,c.working);msg.textContent='';try{if(!window.MXCloud)throw Object.assign(new Error('auth/unavailable'),{code:'auth/unavailable'});setCurrentProfileNickname(name);const connected=await withAuthTimeout(window.MXCloud.registerEmail(email,p1,name),25000,'auth/email-timeout');await finishAccountLoginUI(connected,c,c.connected+' '+c.verify);}catch(err){msg.textContent=authErrorText(err);setAuthBusy(btn,false);}},{passive:false});
+  $('#authCreateGo').addEventListener('pointerdown',async e=>{e.preventDefault();const btn=e.currentTarget,msg=$('#authMsg');const name=$('#authName').value.trim(),email=$('#authEmail').value.trim(),p1=$('#authPass').value,p2=$('#authPass2').value;if(!name||!email||!p1||!p2){msg.textContent=c.required;return;}if(p1.length<6){msg.textContent=c.passShort;return;}if(p1!==p2){msg.textContent=c.passMismatch;return;}setAuthBusy(btn,true,c.working);msg.textContent='';try{if(!window.MXCloud)throw Object.assign(new Error('auth/unavailable'),{code:'auth/unavailable'});setCurrentProfileNickname(name);const connected=await withAuthTimeout(window.MXCloud.registerEmail(email,p1,name),25000,'auth/email-timeout');await finishAccountLoginUI(connected,c,c.connected+' '+c.verify);}catch(err){msg.textContent=mxAppendLateError(authErrorText(err));setAuthBusy(btn,false);}},{passive:false});
   bindTap('#authBack',e=>{openAccountModal();});
   setTimeout(()=>$('#authName').focus(),80);
 }

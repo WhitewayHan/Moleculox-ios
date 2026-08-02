@@ -2,10 +2,6 @@
   "appId": "com.whitewayhan.moleculox",
   "appName": "Moleculox",
   "webDir": "www",
-  "server": {
-    "iosScheme": "https",
-    "hostname": "localhost"
-  },
   "ios": {
     "contentInset": "never",
     "preferredContentMode": "mobile",
