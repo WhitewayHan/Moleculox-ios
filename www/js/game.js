@@ -1,5 +1,5 @@
 /* Moleculox V6.24.3 — professional story, UX and release polish */
-const APP_VERSION="v8.5.61";
+const APP_VERSION="v8.5.62";
 (()=>{'use strict';
 function isIOSStandaloneMode(){
   try{
@@ -1590,7 +1590,10 @@ function applyVol(){
   const master=save.muM?0:clampAudio(save.volM);
   const music=save.muMu?0:clampAudio(save.volMu*musicDuck);
   const effects=save.muS?0:clampAudio(save.volS);
-  const voices=save.muV?0:clampAudio(save.volV==null?1:save.volV);
+  // R17: professor speech follows the visible Master + Effects controls.
+  // Old hidden per-profile muV/volV values caused voice to work for one player
+  // but remain silent for others, with no settings control to correct it.
+  const voices=save.muS?0:clampAudio(save.volS);
   if(AC){
     setGainNow(masterG,master);
     setGainNow(musicG,music);
@@ -1797,14 +1800,47 @@ const VOICE_BANK={
     nobel:['dre-18-science-wins.mp3']
   }
 };
-// R16: iOS unlocks one media element from the first real user gesture. Reusing that
-// exact element for every line avoids the autoplay block that let only Welcome play.
-const voicePlayer=new Audio();
-voicePlayer.preload='auto';voicePlayer.playsInline=true;voicePlayer.setAttribute('playsinline','');voicePlayer.setAttribute('webkit-playsinline','');voicePlayer.disableRemotePlayback=true;
-let activeVoice=null,voiceToken=0,lastVoiceAt=0,lastVoiceName='';
-const voiceShuffleBags=new Map();
-function voiceEnabled(){return !externalMusicMode&&!save.muM&&!save.muV&&clampAudio(save.volM)>0&&clampAudio(save.volV==null?1:save.volV)>0;}
+// R17: decode the clips into the already unlocked Web Audio context. WKWebView
+// can allow the first HTMLMediaElement line (usually Welcome) and then block
+// later source changes. AudioBufferSourceNode playback is stable after the
+// app's first real gesture and works identically for every local player.
+const voiceFallback=new Audio();
+voiceFallback.preload='auto';voiceFallback.playsInline=true;voiceFallback.setAttribute('playsinline','');voiceFallback.setAttribute('webkit-playsinline','');voiceFallback.disableRemotePlayback=true;
+let activeVoice=null,activeVoiceSource=null,voiceToken=0,lastVoiceAt=0,lastVoiceName='';
+let voicePreloadStarted=false;
+const voiceShuffleBags=new Map(),voiceBuffers=new Map(),voiceLoads=new Map();
+const ALL_VOICE_FILES=[...new Set(Object.values(VOICE_BANK.drE).flat())];
+function voiceEnabled(){return !externalMusicMode&&!save.muM&&!save.muS&&clampAudio(save.volM)>0&&clampAudio(save.volS)>0;}
 function voiceUrl(name){return VOICE_BASE+name;}
+function decodeVoiceBuffer(ctx,data){
+  return new Promise((resolve,reject)=>{
+    let settled=false;
+    const ok=buffer=>{if(settled)return;settled=true;resolve(buffer);};
+    const bad=err=>{if(settled)return;settled=true;reject(err||new Error('voice-decode-failed'));};
+    try{
+      const result=ctx.decodeAudioData(data.slice(0),ok,bad);
+      if(result&&typeof result.then==='function')result.then(ok,bad);
+    }catch(err){bad(err);}
+  });
+}
+function loadVoiceBuffer(name){
+  if(voiceBuffers.has(name))return Promise.resolve(voiceBuffers.get(name));
+  if(voiceLoads.has(name))return voiceLoads.get(name);
+  const ctx=ac();
+  if(!ctx)return Promise.reject(new Error('audio-context-unavailable'));
+  const job=fetch(voiceUrl(name),{cache:'force-cache'})
+    .then(res=>{if(!res.ok)throw new Error('voice-http-'+res.status);return res.arrayBuffer();})
+    .then(data=>decodeVoiceBuffer(ctx,data))
+    .then(buffer=>{voiceBuffers.set(name,buffer);voiceLoads.delete(name);return buffer;})
+    .catch(err=>{voiceLoads.delete(name);throw err;});
+  voiceLoads.set(name,job);return job;
+}
+function preloadVoiceBank(){
+  if(voicePreloadStarted||!audioGestureSeen||externalMusicMode)return;
+  voicePreloadStarted=true;
+  // Start in small waves so boot music and the bulb cue remain responsive.
+  ALL_VOICE_FILES.forEach((name,index)=>setTimeout(()=>loadVoiceBuffer(name).catch(()=>{}),index*24));
+}
 function shuffledVoiceName(character,event,files){
   const key=character+':'+event;let bag=voiceShuffleBags.get(key);
   if(!bag||!bag.length){
@@ -1814,27 +1850,44 @@ function shuffledVoiceName(character,event,files){
   }
   const name=bag.pop();voiceShuffleBags.set(key,bag);lastVoiceName=name;return name;
 }
-function stopCharacterVoice(){
-  voiceToken++;
-  try{voicePlayer.onended=null;voicePlayer.onerror=null;voicePlayer.pause();voicePlayer.currentTime=0;}catch(e){}
-  activeVoice=null;fadeMusicDuck(1,220);
+function haltVoicePlayback(){
+  try{if(activeVoiceSource){activeVoiceSource.onended=null;activeVoiceSource.stop(0);activeVoiceSource.disconnect();}}catch(e){}
+  activeVoiceSource=null;
+  try{voiceFallback.onended=null;voiceFallback.onerror=null;voiceFallback.pause();voiceFallback.currentTime=0;}catch(e){}
+  activeVoice=null;
 }
-function playCharacterVoice(character,event,opts={}){
-  if(!voiceEnabled())return Promise.resolve(false);
+function stopCharacterVoice(){
+  voiceToken++;haltVoicePlayback();fadeMusicDuck(1,220);
+}
+async function playCharacterVoice(character,event,opts={}){
+  if(!voiceEnabled())return false;
   const files=VOICE_BANK[character]&&VOICE_BANK[character][event];
-  if(!files||!files.length)return Promise.resolve(false);
+  if(!files||!files.length)return false;
   const nowMs=performance.now();
-  if(!opts.force&&nowMs-lastVoiceAt<Math.max(900,Number(opts.cooldown)||1800))return Promise.resolve(false);
+  if(!opts.force&&nowMs-lastVoiceAt<Math.max(900,Number(opts.cooldown)||1800))return false;
   const name=shuffledVoiceName(character,event,files),token=++voiceToken;
-  try{voicePlayer.pause();voicePlayer.onended=null;voicePlayer.onerror=null;voicePlayer.src=voiceUrl(name);voicePlayer.load();voicePlayer.currentTime=0;voicePlayer.muted=false;voicePlayer.volume=clampAudio((save.volM||0)*(save.volV==null?1:save.volV));}catch(e){}
-  activeVoice=voicePlayer;lastVoiceAt=nowMs;fadeMusicDuck(opts.duck==null?.32:opts.duck,160);
-  const restore=()=>{if(token!==voiceToken)return;activeVoice=null;fadeMusicDuck(1,280);};
-  voicePlayer.onended=restore;voicePlayer.onerror=restore;
+  haltVoicePlayback();lastVoiceAt=nowMs;fadeMusicDuck(opts.duck==null?.32:opts.duck,160);
+  const restore=()=>{if(token!==voiceToken)return;activeVoice=null;activeVoiceSource=null;fadeMusicDuck(1,280);};
   try{
-    const pr=voicePlayer.play();
-    if(pr&&pr.then)return pr.then(()=>true).catch(()=>{restore();return false;});
-    return Promise.resolve(true);
-  }catch(e){restore();return Promise.resolve(false);}
+    const ctx=ac();
+    if(!ctx)throw new Error('audio-context-unavailable');
+    if(ctx.state!=='running'){try{await ctx.resume();}catch(e){}}
+    const buffer=await loadVoiceBuffer(name);
+    if(token!==voiceToken||!voiceEnabled())return false;
+    const src=ctx.createBufferSource();src.buffer=buffer;src.connect(voiceG);src.onended=restore;
+    activeVoiceSource=src;activeVoice=src;src.start(0);return true;
+  }catch(err){
+    // Direct media fallback keeps a line available on browsers where decoding
+    // is unavailable, while Web Audio remains the normal iOS path.
+    if(token!==voiceToken)return false;
+    try{
+      voiceFallback.src=voiceUrl(name);voiceFallback.load();voiceFallback.currentTime=0;voiceFallback.muted=false;voiceFallback.volume=clampAudio((save.volM||0)*(save.volS==null?1:save.volS));
+      voiceFallback.onended=restore;voiceFallback.onerror=restore;activeVoice=voiceFallback;
+      const pr=voiceFallback.play();
+      if(pr&&typeof pr.then==='function')await pr;
+      return true;
+    }catch(fallbackErr){restore();console.warn('[voice] playback unavailable',name,fallbackErr&&fallbackErr.name||fallbackErr);return false;}
+  }
 }
 function maybeVoice(character,event,chance=.35,opts={}){if(Math.random()>chance)return;playCharacterVoice(character,event,opts);}
 
@@ -2151,7 +2204,7 @@ function updateIntensity(){
   }
   if(close&&!exc){
     setExcited(true);
-    if(!lastBondLine){lastBondLine=true;prop('⚡',1250);say(t('almostOneBond'),'happy',2600);maybeVoice('drE','near',.72,{cooldown:5200,duck:.30});}
+    if(!lastBondLine){lastBondLine=true;prop('⚡',1250);say(t('almostOneBond'),'happy',2600);playCharacterVoice('drE','near',{force:true,cooldown:0,duck:.30});}
   }
   if(!close&&exc)setExcited(false);
 }
@@ -5676,7 +5729,7 @@ function startLevel(i,mode='campaign',expectedKey=''){
   anim=null;bounce=null;nudge=null;tut=(duelMode||crystalMode||chainMode||reactorMode)?9:((i===0&&!save.stars[0]&&!save.tutorialDone)?0:9);
   t2=Math.ceil(LV.p*1.7);
   setTheme(Math.floor(i/20));lastBondLine=false;prevB=0;mxReactionStreak=0;mxReactionAt=0;setExcited(false);updateIntensity();einMood('enter',650);if(Math.random()<0.6)prop('👋',1300);
-  if(mode==='campaign'&&!duelMode&&!dailyMode)maybeVoice('drE','ready',i===0?1:.55,{cooldown:3500,duck:.38});if(mid==='N2O')setTimeout(()=>{einMood('laugh',1200);},1500);
+  if(mode==='campaign'&&!duelMode&&!dailyMode)playCharacterVoice('drE','ready',{force:true,cooldown:0,duck:.38});if(mid==='N2O')setTimeout(()=>{einMood('laugh',1200);},1500);
   if(lv===NOBEL_LEVEL_INDEX)setTimeout(()=>{einMood('excited',900);prop('🏆',3000);say(t('nobelIntro'),'talk',5500,'glow');playCharacterVoice('drE','nobel',{force:true,duck:.24});},900);
   const duelTypeTag=crystalMode?'🧪':(chainMode?'⚡':(reactorMode?'☢️':'⚛️'));
   const campaignPill=campaignFeature?(t('level',i+1)+' · '+campaignFeatureIcon(campaignFeature)+' '+campaignFeatureName(campaignFeature)):t('level',i+1);
@@ -6744,7 +6797,7 @@ function winSeq(){
   setTimeout(()=>{SFX.whoosh();SFX.moleculeComplete();},390);
   if(!duelMode&&!dailyMode){
     const evt=(lv===NOBEL_LEVEL_INDEX)?'nobel':(stars===3?'perfect':((save.stars&&save.stars[lv])?'success':'discovery'));
-    setTimeout(()=>playCharacterVoice('drE',evt,{force:lv===NOBEL_LEVEL_INDEX,duck:.28,cooldown:2200}),520);
+    setTimeout(()=>playCharacterVoice('drE',evt,{force:true,duck:.28,cooldown:0}),520);
   }
   const completionVerb=(curMol.fx==='crys')
     ?(LANG==='tr'?'KRİSTALLEŞTİ':'CRYSTALLIZED')
@@ -9169,6 +9222,7 @@ function unlock(){
       o.start();o.stop(ctx.currentTime+0.025);
     }catch(e){}
   }
+  preloadVoiceBank();
   if(bootDone)musKick();
   return ctx;
 }

@@ -4657,3 +4657,52 @@ body.mxIOSNative #gameScr #bubble,body.mxIOSNative #playScr #bubble,body.mxIOSNa
   body.mxIOSNative #gameScr #einWrap{right:-12px!important;bottom:-9px!important;width:312px!important}
   body.mxIOSNative #gameScr #einBoxG{width:282px!important}
 }
+
+
+/* ================= V8.5.62 R17 — all-player voice + iOS board/Dr. E ================= */
+/* The injected responsive-safety rule capped #einBoxG at 108–126px on tall,
+   narrow iPhones. These more specific iOS rules remove that cap. */
+body.mxIOSNative #boardWrap{
+  transform:translateY(-10px)!important;
+  transform-origin:center top!important;
+}
+body.mxIOSNative #gameScr #einWrap{
+  right:-18px!important;
+  bottom:-12px!important;
+  width:408px!important;
+  max-width:none!important;
+  max-height:none!important;
+  z-index:9!important;
+}
+body.mxIOSNative #gameScr #einBoxG,
+body.mxIOSNative #gameScr #einBoxG.mxEinResponsive{
+  width:376px!important;
+  max-width:none!important;
+  max-height:none!important;
+  height:auto!important;
+  margin-left:auto!important;
+  animation:none!important;
+  transform:none!important;
+  transform-origin:right bottom!important;
+}
+body.mxIOSNative #gameScr #bubble,
+body.mxIOSNative #playScr #bubble,
+body.mxIOSNative #gameScr .einSpeech,
+body.mxIOSNative #playScr .einSpeech,
+body.mxIOSNative #gameScr .speech,
+body.mxIOSNative #playScr .speech{
+  right:clamp(235px,54vw,360px)!important;
+  bottom:clamp(86px,11vh,126px)!important;
+}
+@media(max-width:390px){
+  body.mxIOSNative #boardWrap{transform:translateY(-8px)!important}
+  body.mxIOSNative #gameScr #einWrap{right:-18px!important;bottom:-11px!important;width:386px!important;max-width:none!important;max-height:none!important}
+  body.mxIOSNative #gameScr #einBoxG,
+  body.mxIOSNative #gameScr #einBoxG.mxEinResponsive{width:354px!important;max-width:none!important;max-height:none!important}
+}
+@media(max-height:720px){
+  body.mxIOSNative #boardWrap{transform:translateY(-6px)!important}
+  body.mxIOSNative #gameScr #einWrap{right:-15px!important;bottom:-10px!important;width:354px!important;max-width:none!important;max-height:none!important}
+  body.mxIOSNative #gameScr #einBoxG,
+  body.mxIOSNative #gameScr #einBoxG.mxEinResponsive{width:324px!important;max-width:none!important;max-height:none!important}
+}

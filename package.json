@@ -1,8 +1,8 @@
 {
   "name": "moleculox-ios",
-  "version": "8.5.61",
+  "version": "8.5.62",
   "private": true,
-  "description": "Moleculox iOS V8.5.61 R16 clean test: stable R8 Apple nonce base, isolated players/New Game, bounded auth UI, shared iOS voice player with 25 Dr. E clips, and larger in-game Dr. E.",
+  "description": "Moleculox iOS V8.5.62 R17 test: clean R16 player isolation, Web Audio professor voice for every player, slightly raised board, and uncapped larger in-game Dr. E.",
   "scripts": {
     "ios:prepare": "bash scripts/prepare-ios.sh",
     "ios:sync": "npx cap sync ios",

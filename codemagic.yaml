@@ -28,7 +28,7 @@ workflows:
         script: |
           BUILD_NUMBER="$(date +%s)"
           /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD_NUMBER" ios/App/App/Info.plist
-          /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString 8.5.61" ios/App/App/Info.plist
+          /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString 8.5.62" ios/App/App/Info.plist
           cd ios/App
           agvtool new-version -all "$BUILD_NUMBER"
       - name: Apply App Store signing profiles
