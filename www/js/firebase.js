@@ -491,7 +491,7 @@ async function connectApple() {
   }
 }
 
-async function connectGoogleIdToken(idToken) {
+async function connectGoogleIdToken(idToken, allowAccountSwitch) {
   authOperationInFlight = true;
   let user = null;
   let credential = null;
@@ -514,9 +514,12 @@ async function connectGoogleIdToken(idToken) {
       "auth/account-exists-with-different-credential",
     ].includes(e && e.code);
     if (collision && credential) {
-      if (user && !user.isAnonymous) {
+      if (user && !user.isAnonymous && !allowAccountSwitch) {
         throw Object.assign(new Error("auth/provider-account-conflict"), {code: "auth/provider-account-conflict"});
       }
+      // R9 owner bridge: after explicit owner intent, switch to the already
+      // verified provider UID. game.js then applies the same wHiTeWaY canonical
+      // profile to that UID without deleting either authentication identity.
       const result = await signInWithCredential(auth, credential);
       applyAuthUser(result.user);
       refreshPersistence().catch(() => {});
@@ -527,7 +530,7 @@ async function connectGoogleIdToken(idToken) {
     authOperationInFlight = false;
   }
 }
-async function connectAppleIdToken(idToken, rawNonce, displayName, authorizationCode) {
+async function connectAppleIdToken(idToken, rawNonce, displayName, authorizationCode, allowAccountSwitch) {
   authOperationInFlight = true;
   let user = null;
   let credential = null;
@@ -558,9 +561,11 @@ async function connectAppleIdToken(idToken, rawNonce, displayName, authorization
       "auth/account-exists-with-different-credential",
     ].includes(e && e.code);
     if (collision && credential) {
-      if (user && !user.isAnonymous) {
+      if (user && !user.isAnonymous && !allowAccountSwitch) {
         throw Object.assign(new Error("auth/provider-account-conflict"), {code: "auth/provider-account-conflict"});
       }
+      // R9 owner bridge: explicit owner intent may switch to the verified Apple
+      // UID; the canonical game profile is synchronized immediately afterwards.
       const updatedCredential = OAuthProvider.credentialFromError(e) || credential;
       const result = await signInWithCredential(auth, updatedCredential);
       const name = String(displayName || "").trim().slice(0, 40);
