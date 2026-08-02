@@ -4684,14 +4684,21 @@ body.mxNative #einBoxG .einImg{
   height:auto!important;
   object-position:right bottom!important;
 }
+body.mxNative #bubble{
+  right:18px!important;
+  bottom:calc(clamp(112px,30vw,154px) * 0.62)!important;
+}
+body.mxNative #bubble::after{right:-9px!important}
 
 @media(max-height:760px){
   body.mxNative #hudMid{height:116px!important;top:calc(var(--sat) + 5px)!important}
   body.mxNative #einBoxG,body.mxNative.iosStandalone #einBoxG{width:clamp(106px,29vw,142px)!important}
+  body.mxNative #bubble{bottom:66px!important}
 }
 @media(max-height:620px){
   body.mxNative #hudMid{height:104px!important}
   body.mxNative #einBoxG,body.mxNative.iosStandalone #einBoxG{width:clamp(98px,28vw,128px)!important}
+  body.mxNative #bubble{bottom:58px!important}
 }
 
 
