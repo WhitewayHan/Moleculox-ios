@@ -1,0 +1,61 @@
+MOLECULOX iOS V8.5.54 R3 — FINAL SOURCE VALIDATION
+
+TARGETED APPLE FIX
+PASS  WKWebView generates a cryptographically secure 32-character raw nonce.
+PASS  The same rawNonce variable is passed into native signInWithApple.
+PASS  The same rawNonce variable is passed with the returned Apple ID token to Firebase JS.
+PASS  Codemagic preparation patches @capacitor-firebase/authentication 7.3.1 AppleAuthProviderHandler.swift.
+PASS  Native Apple request receives SHA256(rawNonce).
+PASS  Native bridge retains and returns the same raw nonce.
+PASS  Plugin's own secure nonce generator remains as fallback for callers without rawNonce.
+PASS  Patcher is idempotent and fails the build if the pinned plugin source no longer matches.
+
+WORKING FEATURES PRESERVED
+PASS  Google sign-in code unchanged outside the surrounding Apple bridge file.
+PASS  firebase.js unchanged from the successful V8.5.54 R2 TestFlight source.
+PASS  Email/password code unchanged.
+PASS  Cloud merge, profile ownership, ranking and synchronization code unchanged.
+PASS  Campaign/daily level data unchanged.
+PASS  UI styles, images, audio and all gameplay assets unchanged byte-for-byte.
+
+BUILD / IDENTITY
+PASS  Package marketing version remains 8.5.54.
+PASS  Codemagic creates a fresh timestamp build number for every build.
+PASS  Bundle identifier remains com.whitewayhan.moleculox.
+PASS  GoogleService-Info.plist bundle identifier matches.
+PASS  FirebaseAuthentication remains configured with skipNativeAuth=true and Apple/Google providers.
+PASS  R2 CocoaPods/GTMSessionFetcher resolution fix remains present.
+
+STATIC CHECKS
+PASS  game.js, firebase.js and sync-core.js JavaScript syntax.
+PASS  prepare-ios.sh shell syntax.
+PASS  patch-apple-nonce.py, patch-podfile.py and patch-ios.py Python syntax.
+PASS  package.json, capacitor.config.json and manifest.webmanifest parsing.
+PASS  GoogleService-Info.plist and App.entitlements parsing.
+PASS  Apple native patch fixture using the exact 7.3.1 source structure.
+PASS  Apple native patch idempotency.
+PASS  500 generated nonce samples had valid length/charset and no collisions.
+PASS  45 game images decoded.
+PASS  24 MP3 files parsed.
+PASS  No __pycache__, .pyc, .DS_Store or temporary build metadata remains.
+
+SOURCE TREE DIFFERENCES FROM R2
+CHANGED  package.json — release description only.
+CHANGED  scripts/prepare-ios.sh — invokes deterministic Apple nonce patch before iOS generation.
+CHANGED  www/js/game.js — Apple raw nonce generation and end-to-end reuse.
+ADDED    scripts/patch-apple-nonce.py — patches pinned native plugin source during Codemagic build.
+ADDED    IOS-APPLE-NONCE-FIX-V8.5.54-R3.txt — release explanation.
+ADDED    FINAL-VALIDATION-V8.5.54-R3.txt — this report.
+REMOVED  stale Python bytecode accidentally present in the R2 archive.
+
+IMPORTANT LIMITATION
+- This Linux environment cannot execute CocoaPods/Xcode, sign an IPA, or display Apple's authorization sheet.
+- The final proof is one fresh Codemagic build installed from TestFlight.
+
+TESTFLIGHT ACCEPTANCE TEST
+1. Start with the guest profile and make one visible change if desired.
+2. Tap Continue with Apple and complete the Apple sheet.
+3. Confirm Account & Players shows a cloud account and Apple as a linked method.
+4. Open Cloud & Ranking Status and tap Sync Now.
+5. Close/reopen the app and confirm the same player returns with progress intact.
+6. Confirm the already-working Google and email accounts still open wHiTeWaY and David respectively.

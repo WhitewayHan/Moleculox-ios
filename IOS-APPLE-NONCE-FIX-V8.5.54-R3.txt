@@ -1,0 +1,28 @@
+MOLECULOX iOS V8.5.54 R3 — APPLE NONCE FIX
+
+REAL TESTFLIGHT EVIDENCE
+- Native Apple authorization sheet completed, but Firebase JS rejected the credential with auth/missing-or-invalid-nonce.
+- Google sign-in, email sign-in, cloud save, player profiles, and rankings were already working and are intentionally unchanged.
+
+ROOT CAUSE
+- Apple/Firebase verification requires the exact same unhashed raw nonce to be used at both ends:
+  1. Native iOS sends SHA256(rawNonce) in the Apple authorization request.
+  2. Firebase JS receives the original rawNonce with the Apple ID token.
+- R3 no longer depends on recovering/reusing a nonce solely from the plugin result object.
+
+R3 FIX
+- Generate a cryptographically secure 32-character raw nonce in the WKWebView layer.
+- Pass that exact raw nonce to the native Capacitor Firebase Authentication call.
+- Patch AppleAuthProviderHandler.swift during every clean Codemagic build so the native Apple request hashes the supplied raw nonce.
+- Pass the same original raw nonce with the returned Apple ID token into Firebase JS OAuthProvider.credential().
+- Keep the plugin's own secure nonce generator as a fallback for any unrelated caller that does not provide a raw nonce.
+
+UNCHANGED
+- Google sign-in
+- Email/password sign-in
+- Guest-account upgrade and account-collision protection
+- Cloud merge, rankings, profiles, levels, assets, audio, UI, bundle identifier, and CocoaPods R2 resolution fix
+
+FINAL PROOF REQUIRED
+- A fresh Codemagic iOS build installed from TestFlight.
+- Test Apple from a guest profile, then confirm the linked provider and cloud/ranking status.

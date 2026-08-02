@@ -7395,11 +7395,10 @@ function confirmAppleConnection(){
   const go=$('#accAppleConfirm');if(go)go.addEventListener('click',e=>{e.preventDefault();finishAppleConnection(go);},{passive:false});
   bindTap('#accAppleCancel',()=>openAccountModal());
 }
-// Added 2026-07-26: native path for iOS (Capacitor). Uses @capacitor-firebase/authentication's
-// FirebaseAuthentication.signInWithApple({skipNativeAuth:true}) to get a real native Apple ID
-// token + nonce from iOS's own Sign in with Apple sheet, then hands them to the SAME
-// connectAppleIdToken() in firebase.js that the native wrapper comment already anticipated.
-// No extra consent screen here on purpose — the native OS sheet IS the consent screen.
+// Native iOS path (Capacitor). R3 generates the raw nonce in this web layer,
+// passes it into the patched native Apple request, and then gives the same raw nonce
+// plus Apple's ID token to Firebase JS. One nonce now travels end-to-end, avoiding
+// auth/missing-or-invalid-nonce. The native OS sheet remains the consent screen.
 async function finishAccountLoginUI(connected,c,successMessage){
   if(connected)setAccountState(connected);
   if(save.autoGuest&&!profileHasMeaningfulProgress(save)&&connected&&connected.displayName)setCurrentProfileNickname(connected.displayName);
@@ -7429,18 +7428,37 @@ async function nativeGoogleSignIn(button){
     await finishAccountLoginUI(connected,c);
   }catch(err){openAccountModal(authErrorText(err),false);}
 }
+function createAppleRawNonce(length){
+  const size=Math.max(16,Math.min(64,Number(length)||32));
+  const alphabet='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  const cryptoApi=window.crypto||window.msCrypto;
+  if(!cryptoApi||typeof cryptoApi.getRandomValues!=='function')throw Object.assign(new Error('auth/unavailable'),{code:'auth/unavailable'});
+  const out=[];
+  // Rejection sampling avoids modulo bias while keeping the nonce URL-safe.
+  const limit=Math.floor(256/alphabet.length)*alphabet.length;
+  const bytes=new Uint8Array(size*2);
+  while(out.length<size){
+    cryptoApi.getRandomValues(bytes);
+    for(let i=0;i<bytes.length&&out.length<size;i++)if(bytes[i]<limit)out.push(alphabet[bytes[i]%alphabet.length]);
+  }
+  return out.join('');
+}
 async function nativeAppleSignIn(button){
   const c=accountCopy();
   try{
     const plugin=window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.FirebaseAuthentication;
     if(!plugin||!window.MXCloud||!window.MXCloud.connectAppleIdToken)throw Object.assign(new Error('auth/unavailable'),{code:'auth/unavailable'});
     setAuthBusy(button,true,c.working);
-    const result=await plugin.signInWithApple({skipNativeAuth:true});
+    // Generate the raw nonce in the web layer, pass that exact value to the
+    // patched native Apple request, and reuse the same value for Firebase JS.
+    // This guarantees SHA256(rawNonce) in Apple's ID token matches the value
+    // Firebase hashes during credential verification.
+    const rawNonce=createAppleRawNonce(32);
+    const result=await plugin.signInWithApple({skipNativeAuth:true,rawNonce});
     const idToken=result&&result.credential&&result.credential.idToken;
-    const nonce=result&&result.credential&&result.credential.nonce;
-    if(!idToken||!nonce)throw Object.assign(new Error('auth/invalid-credential'),{code:'auth/invalid-credential'});
+    if(!idToken)throw Object.assign(new Error('auth/invalid-credential'),{code:'auth/invalid-credential'});
     const givenName=(result.user&&(result.user.givenName||result.user.displayName))||'';
-    const connected=await withAuthTimeout(window.MXCloud.connectAppleIdToken(idToken,nonce,givenName),45000,'auth/firebase-credential-timeout');
+    const connected=await withAuthTimeout(window.MXCloud.connectAppleIdToken(idToken,rawNonce,givenName),45000,'auth/firebase-credential-timeout');
     await finishAccountLoginUI(connected,c);
   }catch(err){openAccountModal(authErrorText(err),false);}
 }
@@ -7585,16 +7603,20 @@ function openAccountModal(message,good){
 function authFormShell(title,body){openModal('<h3>'+title+'</h3>'+body);$('#modalBox').classList.add('accountModal');}
 function openEmailLogin(prefill){
   const c=accountCopy();
-  authFormShell('✉ '+c.emailLogin,'<label class="authField"><span>'+c.email+'</span><input class="authInput" id="authEmail" type="email" inputmode="email" autocomplete="email" value="'+escAttr(prefill||'')+'"></label><label class="authField"><span>'+c.password+'</span><input class="authInput" id="authPass" type="password" autocomplete="current-password"></label><div class="authMessage" id="authMsg"></div><div class="accountActions"><button class="btn blue" id="authLoginGo">'+c.login+'</button><button class="btn ghost" id="authForgot">'+c.reset+'</button><button class="btn" id="authBack">'+c.back+'</button></div>');
+  const accountSwitchNote=LANG==='tr'?'Bu ekran kayıtlı e-posta hesabına geçer. E-posta ayrı bir Firebase hesabına aitse farklı oyuncu açılır. Mevcut oyuncuya e-posta eklemek için hesabına dönüp “E-posta ve şifre ekle” seçeneğini kullan.':'This screen switches to the saved email account. If that email belongs to a separate Firebase account, a different player will open. To add email to the current player, return to the account and choose “Add email & password”.';
+  authFormShell('✉ '+c.emailLogin,'<label class="authField"><span>'+c.email+'</span><input class="authInput" id="authEmail" type="email" inputmode="email" autocomplete="email" value="'+escAttr(prefill||'')+'"></label><label class="authField"><span>'+c.password+'</span><input class="authInput" id="authPass" type="password" autocomplete="current-password"></label><div class="authMessage" id="authMsg"></div><div class="authTiny accountSwitchWarning">'+accountSwitchNote+'</div><div class="accountActions"><button class="btn blue" id="authLoginGo">'+c.login+'</button><button class="btn ghost" id="authForgot">'+c.reset+'</button><button class="btn" id="authBack">'+c.back+'</button></div>');
   $('#authLoginGo').addEventListener('pointerdown',async e=>{e.preventDefault();const btn=e.currentTarget,msg=$('#authMsg');const email=$('#authEmail').value,pass=$('#authPass').value;if(!email||!pass){msg.textContent=c.required;return;}setAuthBusy(btn,true,c.working);msg.textContent='';try{if(!window.MXCloud)throw Object.assign(new Error('auth/unavailable'),{code:'auth/unavailable'});const connected=await withAuthTimeout(window.MXCloud.signInEmail(email,pass),45000,'auth/email-timeout');await finishAccountLoginUI(connected,c);}catch(err){msg.textContent=authErrorText(err);setAuthBusy(btn,false);}},{passive:false});
   $('#authForgot').addEventListener('pointerdown',e=>{e.preventDefault();openPasswordReset($('#authEmail').value);},{passive:false});
   bindTap('#authBack',e=>{openAccountModal();});
   setTimeout(()=>$('#authEmail').focus(),80);
 }
 function openEmailCreate(){
-  const c=accountCopy();const nm=(save.playerName||curProfile||accountState.displayName||'').slice(0,18);
-  authFormShell('＋ '+c.emailCreate,'<label class="authField"><span>'+c.nickname+'</span><input class="authInput" id="authName" maxlength="18" autocomplete="nickname" value="'+escAttr(nm)+'"></label><label class="authField"><span>'+c.email+'</span><input class="authInput" id="authEmail" type="email" inputmode="email" autocomplete="email"></label><label class="authField"><span>'+c.password+'</span><input class="authInput" id="authPass" type="password" autocomplete="new-password"></label><label class="authField"><span>'+c.passwordAgain+'</span><input class="authInput" id="authPass2" type="password" autocomplete="new-password"></label><div class="authMessage" id="authMsg"></div><div class="accountActions"><button class="btn green" id="authCreateGo">'+c.create+'</button><button class="btn" id="authBack">'+c.back+'</button></div><div class="authTiny">'+(LANG==='tr'?'Nickname yalnızca oyun içinde görünür. Hesaba e-posta ve şifreyle girilir.':'Nickname is only shown in the game. Sign in with email and password.')+'</div>');
-  $('#authCreateGo').addEventListener('pointerdown',async e=>{e.preventDefault();const btn=e.currentTarget,msg=$('#authMsg');const name=$('#authName').value.trim(),email=$('#authEmail').value.trim(),p1=$('#authPass').value,p2=$('#authPass2').value;if(!name||!email||!p1||!p2){msg.textContent=c.required;return;}if(p1.length<6){msg.textContent=c.passShort;return;}if(p1!==p2){msg.textContent=c.passMismatch;return;}setAuthBusy(btn,true,c.working);msg.textContent='';try{if(!window.MXCloud)throw Object.assign(new Error('auth/unavailable'),{code:'auth/unavailable'});setCurrentProfileNickname(name);const connected=await withAuthTimeout(window.MXCloud.registerEmail(email,p1,name),45000,'auth/email-timeout');await finishAccountLoginUI(connected,c,c.connected+' '+c.verify);}catch(err){msg.textContent=authErrorText(err);setAuthBusy(btn,false);}},{passive:false});
+  const c=accountCopy();const nm=(save.playerName||curProfile||accountState.displayName||'').slice(0,18);const linkingEmail=!accountState.isAnonymous;
+  const formTitle=linkingEmail?c.linkEmail:c.emailCreate;
+  const formAction=linkingEmail?(LANG==='tr'?'E-POSTAYI BAĞLA':'LINK EMAIL'):c.create;
+  const keepPlayerNote=linkingEmail?(LANG==='tr'?'Bu işlem mevcut oyuncuyu ve bütün ilerlemeyi korur; yalnızca yeni bir giriş yöntemi ekler.':'This keeps the current player and all progress; it only adds another sign-in method.'):(LANG==='tr'?'Nickname yalnızca oyun içinde görünür. Hesaba e-posta ve şifreyle girilir.':'Nickname is only shown in the game. Sign in with email and password.');
+  authFormShell('＋ '+formTitle,'<label class="authField"><span>'+c.nickname+'</span><input class="authInput" id="authName" maxlength="18" autocomplete="nickname" value="'+escAttr(nm)+'"></label><label class="authField"><span>'+c.email+'</span><input class="authInput" id="authEmail" type="email" inputmode="email" autocomplete="email"></label><label class="authField"><span>'+c.password+'</span><input class="authInput" id="authPass" type="password" autocomplete="new-password"></label><label class="authField"><span>'+c.passwordAgain+'</span><input class="authInput" id="authPass2" type="password" autocomplete="new-password"></label><div class="authMessage" id="authMsg"></div><div class="authTiny">'+keepPlayerNote+'</div><div class="accountActions"><button class="btn green" id="authCreateGo">'+formAction+'</button><button class="btn" id="authBack">'+c.back+'</button></div>');
+  $('#authCreateGo').addEventListener('pointerdown',async e=>{e.preventDefault();const btn=e.currentTarget,msg=$('#authMsg');const name=$('#authName').value.trim(),email=$('#authEmail').value.trim(),p1=$('#authPass').value,p2=$('#authPass2').value;if(!name||!email||!p1||!p2){msg.textContent=c.required;return;}if(p1.length<6){msg.textContent=c.passShort;return;}if(p1!==p2){msg.textContent=c.passMismatch;return;}setAuthBusy(btn,true,c.working);msg.textContent='';try{if(!window.MXCloud)throw Object.assign(new Error('auth/unavailable'),{code:'auth/unavailable'});setCurrentProfileNickname(name);const connected=await withAuthTimeout(window.MXCloud.registerEmail(email,p1,name),45000,'auth/email-timeout');await finishAccountLoginUI(connected,c,c.connected+' '+c.verify);}catch(err){const code=String(err&&err.code||err&&err.message||'');const collision=linkingEmail&&['auth/email-already-in-use','auth/credential-already-in-use','auth/account-exists-with-different-credential'].includes(code);msg.textContent=collision?(LANG==='tr'?'Bu e-posta başka bir Moleculox hesabına bağlı. wHiTeWaY hesabın ve ilerlemen korunarak hiçbir hesap değiştirilmedi. Önce eski e-posta hesabını ayrı olarak doğrulayıp kontrollü taşıma yapmak gerekir.':'This email belongs to another Moleculox account. Your current player and progress were kept; no account was switched. The old email account must be verified separately before a controlled transfer.'):authErrorText(err);setAuthBusy(btn,false);}},{passive:false});
   bindTap('#authBack',e=>{openAccountModal();});
   setTimeout(()=>$('#authName').focus(),80);
 }

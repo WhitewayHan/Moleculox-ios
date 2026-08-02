@@ -2,7 +2,7 @@
   "name": "moleculox-ios",
   "version": "8.5.54",
   "private": true,
-  "description": "Moleculox iOS V8.5.54 TestFlight fixes: reliable Firebase account bootstrap, stable settings modal, and corrected Dr. E speech layout.",
+  "description": "Moleculox iOS V8.5.54 R4: Android/Netlify visual parity, deterministic Apple nonce bridge, Google/email account safety, and stable Firebase synchronization.",
   "scripts": {
     "ios:prepare": "bash scripts/prepare-ios.sh",
     "ios:sync": "npx cap sync ios",

@@ -1,0 +1,26 @@
+MOLECULOX iOS V8.5.54 R4 — WEB PARITY & ACCOUNT SAFETY
+
+VISUAL PARITY
+- www/css/app.css is byte-identical to the approved Android and Netlify V8.5.53 visual baseline.
+- Removed the iOS-only native scaling/position overrides that shifted Dr. E, HUD buttons, menu art and account sheets.
+- Assets and level effect recipes remain byte-identical across iOS, Android and Netlify.
+- iOS native service-worker suppression remains enabled; this does not change appearance.
+
+AUTH PRESERVED
+- R3 deterministic Apple raw-nonce bridge remains unchanged.
+- Native Google ID-token bridge remains unchanged.
+- Firebase WKWebView bootstrap/persistence fixes remain unchanged.
+- CocoaPods GTMSessionFetcher resolution fix remains unchanged.
+
+ACCOUNT SAFETY
+- Email sign-in now clearly warns that a separate Firebase email account can open a different player.
+- “Add email & password” explicitly preserves the current player and adds only a sign-in method.
+- If that email is already attached to another Firebase UID, the current player is kept and no silent account switch occurs.
+- Existing separate Firebase UIDs are not destructively merged automatically. A verified two-account transfer requires both credentials and a dedicated migration step.
+
+TESTFLIGHT CHECK
+1. Install the new build.
+2. Confirm Google still opens wHiTeWaY and Cloud Status is synchronized.
+3. Test Apple Sign-In.
+4. Open a campaign level and compare Dr. E, HUD/action buttons, D-pad and level effects with Android/Netlify.
+5. While signed into wHiTeWaY, use Add email & password only with an unused email.
