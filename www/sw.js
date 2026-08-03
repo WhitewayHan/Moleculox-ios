@@ -1,7 +1,7 @@
-// Moleculox V8.5.69 R24 Final Timer Candidate service worker.
+// Moleculox V8.5.70 R25 Final Reference service worker.
 // Core code is precached; large audio/story assets are cached only after use.
 // Firebase and Google traffic is never intercepted.
-const CACHE_NAME = 'moleculox-v8.5.69-ios-r24-final';
+const CACHE_NAME = 'moleculox-v8.5.70-r25-ios-final';
 const CACHE_PREFIX = 'moleculox-';
 const CORE_SHELL = [
   './index.html','./css/app.css','./js/sync-core.js','./js/daily-levels.js',

@@ -14,6 +14,9 @@ if not sets:
     raise SystemExit('AppIcon.appiconset not found')
 appset=sets[0]
 contents=appset/'Contents.json'
+# Remove every stale/default Capacitor PNG before writing the approved icon set.
+for stale in appset.glob('*.png'):
+    stale.unlink()
 data=json.loads(contents.read_text())
 for item in data.get('images',[]):
     size=item.get('size'); scale=item.get('scale'); fn=item.get('filename')
@@ -89,6 +92,7 @@ settings={
     'CODE_SIGN_ENTITLEMENTS':'App/App.entitlements',
     'MARKETING_VERSION':'8.5.70',
     'CURRENT_PROJECT_VERSION':'1',
+    'ASSETCATALOG_COMPILER_APPICON_NAME':'AppIcon',
 }
 
 def _patch_app_build_settings(match: re.Match[str]) -> str:

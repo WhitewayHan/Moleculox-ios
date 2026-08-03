@@ -2,7 +2,7 @@
   "name": "moleculox-ios",
   "version": "8.5.70",
   "private": true,
-  "description": "Moleculox iOS V8.5.70 R25 Apple/SVG Final Candidate: custom laboratory SVG timer icons, Apple account-deletion token revocation flow, and inherited R24 timing/R23 content protections.",
+  "description": "Moleculox iOS V8.5.70 R26 App Icon Final: R25 final gameplay plus the approved 1024x1024 opaque Moleculox App Store icon, enforced AppIcon asset generation and Codemagic icon validation.",
   "scripts": {
     "ios:prepare": "bash scripts/prepare-ios.sh",
     "ios:sync": "npx cap sync ios",

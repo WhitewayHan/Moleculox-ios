@@ -1,6 +1,6 @@
 workflows:
   moleculox-ios-app-store:
-    name: Moleculox iOS App Store
+    name: Moleculox iOS V8.5.70 R26 App Icon Final App Store
     instance_type: mac_mini_m2
     max_build_duration: 120
     integrations:
@@ -24,6 +24,8 @@ workflows:
         script: npm run check
       - name: Generate and prepare iOS project
         script: npm run ios:prepare
+      - name: Verify generated App Store icon
+        script: python3 scripts/verify-app-icon.py
       - name: Set iOS versions
         script: |
           BUILD_NUMBER="$(date +%s)"

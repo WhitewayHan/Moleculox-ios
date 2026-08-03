@@ -1,0 +1,8 @@
+MOLECULOX iOS V8.5.70 — R26 APP ICON FINAL
+
+- Uses the approved Moleculox square badge artwork.
+- App Store master: 1024x1024 RGB PNG, no alpha.
+- patch-ios.py deletes stale/default Capacitor icon PNGs and generates every AppIcon slot from the approved master.
+- ASSETCATALOG_COMPILER_APPICON_NAME is forced to AppIcon.
+- Codemagic fails before archiving if any icon slot is missing, wrong-sized, contains alpha, or does not match the approved master.
+- R25 gameplay, timer, SVG UI, Apple account deletion and all other release behavior are unchanged.
