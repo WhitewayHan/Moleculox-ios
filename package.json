@@ -1,8 +1,8 @@
 {
   "name": "moleculox-ios",
-  "version": "8.5.63",
+  "version": "8.5.64",
   "private": true,
-  "description": "Moleculox iOS V8.5.63 R18 test: clean R16 player isolation, single-file professor voice sprite with non-cutting queue, Web-proportioned in-game Dr. E, and a slightly raised board.",
+  "description": "Moleculox iOS V8.5.64 R19 test: R18 visual/audio baseline, menu voice starts only after the main menu is fully visible, first/return/home greeting routing, and tutorial GOAL spotlight alignment.",
   "scripts": {
     "ios:prepare": "bash scripts/prepare-ios.sh",
     "ios:sync": "npx cap sync ios",

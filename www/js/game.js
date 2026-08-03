@@ -1,5 +1,5 @@
 /* Moleculox V6.24.3 — professional story, UX and release polish */
-const APP_VERSION="v8.5.63";
+const APP_VERSION="v8.5.64";
 (()=>{'use strict';
 function isIOSStandaloneMode(){
   try{
@@ -1152,7 +1152,7 @@ function isIOSWebDevice(){
   }catch(e){return false;}
 }
 let externalMusicMode=false;
-function defaultSave(){return {cur:0,stars:{},coins:0,disc:{},volM:1,volMu:0.8,volS:1,volV:1,muM:false,muMu:false,muS:false,muV:false,externalMusic:false,dpad:false,reduceMotion:false,duelMessages:true,duelEffects:true,haptics:true,effectLevel:'normal',largeText:false,colorBlind:false,highContrast:false,performanceMode:'auto',favoriteMolecules:{},collectionFilter:'all',storySeen:{},storySchema:0,dailyDate:'',totalHints:0,streak3:0,lang:'en',achv:{},seenFrozen:false,seenFire:false,seenLightning:false,seenSticky:false,seenZombie:false,seenOneWay:false,seenBreakableWall:false,seenPortal:false,seenMovingWall:false,seenPressureDoor:false,seenFragile:false,seenPrecision:false,playerName:'',speedRuns:{},bestMoves:{},maxCoins:0,profileId:'',tutorialDone:false,autoGuest:false,rpSchema:0,researchPoints:0,researchLevels:{},researchAchievements:{},researchBonuses:{},bonusClaims:{},dailyScores:{},dailyRPStreak:0,lastDailyRPDate:'',seasonId:'',seasonRP:0,weekId:'',weekRP:0,saveSchema:5,campaignContentSchema:0,labTheme:'basic',economySchema:0,quantumHintDay:'',duelRatedMatches:{},duelRewards:{},duelRewardClaims:{},activeDuelFrame:'frame_bronze',activeDuelTitle:'',duelRating:800,duelPeakRating:800,duelWins:0,duelLosses:0,duelDraws:0,duelStreak:0,duelBestStreak:0,duelWeekPoints:0,duelWeekWins:0,duelMonthPoints:0,duelMonthWins:0,accountMilestoneInviteSeen:false,accountMilestoneInviteLastLevel:0,nobelCertificateShared:false,seenHintSupport:false,seenUndoSupport:false,seenRestartSupport:false,seenLabSupport:false,seenSupportGuide:false,seenHammerSupport:false,seenPrecisionSupport:false,seenBarrierSupport:false,seenGoalGlowGuide:false,tutorialTips:true,seenFragileAtom:false,seenLinkedAtoms:false,seenHammerWall:false,pushDeclined:false};}
+function defaultSave(){return {cur:0,stars:{},coins:0,disc:{},volM:1,volMu:0.8,volS:1,volV:1,muM:false,muMu:false,muS:false,muV:false,externalMusic:false,dpad:false,reduceMotion:false,duelMessages:true,duelEffects:true,haptics:true,effectLevel:'normal',largeText:false,colorBlind:false,highContrast:false,performanceMode:'auto',favoriteMolecules:{},collectionFilter:'all',storySeen:{},storySchema:0,dailyDate:'',totalHints:0,streak3:0,lang:'en',achv:{},seenFrozen:false,seenFire:false,seenLightning:false,seenSticky:false,seenZombie:false,seenOneWay:false,seenBreakableWall:false,seenPortal:false,seenMovingWall:false,seenPressureDoor:false,seenFragile:false,seenPrecision:false,playerName:'',speedRuns:{},bestMoves:{},maxCoins:0,profileId:'',tutorialDone:false,menuVoiceSeen:false,autoGuest:false,rpSchema:0,researchPoints:0,researchLevels:{},researchAchievements:{},researchBonuses:{},bonusClaims:{},dailyScores:{},dailyRPStreak:0,lastDailyRPDate:'',seasonId:'',seasonRP:0,weekId:'',weekRP:0,saveSchema:5,campaignContentSchema:0,labTheme:'basic',economySchema:0,quantumHintDay:'',duelRatedMatches:{},duelRewards:{},duelRewardClaims:{},activeDuelFrame:'frame_bronze',activeDuelTitle:'',duelRating:800,duelPeakRating:800,duelWins:0,duelLosses:0,duelDraws:0,duelStreak:0,duelBestStreak:0,duelWeekPoints:0,duelWeekWins:0,duelMonthPoints:0,duelMonthWins:0,accountMilestoneInviteSeen:false,accountMilestoneInviteLastLevel:0,nobelCertificateShared:false,seenHintSupport:false,seenUndoSupport:false,seenRestartSupport:false,seenLabSupport:false,seenSupportGuide:false,seenHammerSupport:false,seenPrecisionSupport:false,seenBarrierSupport:false,seenGoalGlowGuide:false,tutorialTips:true,seenFragileAtom:false,seenLinkedAtoms:false,seenHammerWall:false,pushDeclined:false};}
 const COIN_EARN_KEY='__coinEarned',COIN_SPEND_KEY='__coinSpent';
 const LAB_THEME_STAMP_KEY='__labThemeStamp',QUANTUM_DAY_KEY='__quantumDay';
 const LAB_THEME_CODES={basic:0,collider:1,arctic:2,mars:3},LAB_THEME_NAMES=['basic','collider','arctic','mars'];
@@ -1817,6 +1817,11 @@ const VOICE_SPRITE={
 };
 const VOICE_BANK={
   drE:{
+    // R19 uses the existing approved recordings with context-safe routing.
+    // A brand-new scientist never hears "Welcome back"; established players do.
+    menuFirst:['dre-03-lab-waiting.mp3','dre-04-make-chemistry.mp3','dre-06-lab-coat.mp3'],
+    menuReturn:['dre-01-welcome-back.mp3'],
+    menuHome:['dre-03-lab-waiting.mp3','dre-04-make-chemistry.mp3','dre-05-next-molecule.mp3'],
     menu:['dre-01-welcome-back.mp3','dre-02-ready-experiment.mp3','dre-03-lab-waiting.mp3','dre-04-make-chemistry.mp3','dre-05-next-molecule.mp3','dre-06-lab-coat.mp3'],
     ready:['dre-02-ready-experiment.mp3','dre-03-lab-waiting.mp3','dre-04-make-chemistry.mp3','dre-05-next-molecule.mp3','dre-06-lab-coat.mp3'],
     near:['dre-13-almost-there.mp3'],
@@ -1828,7 +1833,7 @@ const VOICE_BANK={
     nobel:['dre-18-science-wins.mp3']
   }
 };
-// R18: all 25 lines live inside one decoded audio sprite. WKWebView no longer
+// R18/R19: all 25 lines live inside one decoded audio sprite. WKWebView no longer
 // has to replace the source of an HTMLMediaElement for every sentence, which
 // was why only the first Welcome line could be heard on some iPhones.
 const voiceFallback=new Audio(VOICE_SPRITE_URL);
@@ -1945,12 +1950,50 @@ function playCharacterVoice(character,event,opts={}){
   const nowMs=performance.now(),cooldown=Math.max(900,Number(opts.cooldown)||1800);
   if(!opts.force&&nowMs-lastVoiceAt<cooldown)return false;
   lastVoiceAt=nowMs;
-  const item={name:shuffledVoiceName(character,event,files),duck:opts.duck==null?.32:clampAudio(opts.duck),expiresAt:nowMs+Math.max(3500,Number(opts.maxDelay)||7000)};
+  const item={character,event,name:shuffledVoiceName(character,event,files),duck:opts.duck==null?.32:clampAudio(opts.duck),expiresAt:nowMs+Math.max(3500,Number(opts.maxDelay)||7000)};
   // Never cut off a spoken line. Keep only a short, fresh queue so old menu
   // greetings cannot play much later inside a level.
   if(voiceQueue.length>=3)voiceQueue.shift();voiceQueue.push(item);drainVoiceQueue();return true;
 }
 function maybeVoice(character,event,chance=.35,opts={}){if(Math.random()>chance)return;playCharacterVoice(character,event,opts);}
+
+// R19 — menu voice belongs to the visible main menu, never to the studio/boot logo.
+// The first gesture still unlocks and preloads audio, but it cannot enqueue speech.
+let menuVoiceTimer=0,menuVoiceToken=0,menuVoiceLastAt=-1e9;
+function isMenuVoiceEvent(event){return event==='menuFirst'||event==='menuReturn'||event==='menuHome'||event==='menu';}
+function cancelPendingMenuVoice(){
+  clearTimeout(menuVoiceTimer);menuVoiceTimer=0;menuVoiceToken++;
+  for(let i=voiceQueue.length-1;i>=0;i--)if(isMenuVoiceEvent(voiceQueue[i]&&voiceQueue[i].event))voiceQueue.splice(i,1);
+}
+function menuProfileEstablished(){
+  if(!save)return false;
+  const progressed=Number(save.cur)>0||
+    (save.disc&&Object.keys(save.disc).length)||(save.stars&&Object.keys(save.stars).length);
+  // Fresh automatic guests carry tutorialDone=true only to prevent an unwanted
+  // boot tutorial. That flag alone must not make their first greeting say
+  // "Welcome back".
+  return !!(save.menuVoiceSeen||progressed||(!save.autoGuest&&save.tutorialDone));
+}
+function scheduleMainMenuVoice(kind='entry',delay=620){
+  cancelPendingMenuVoice();
+  const token=menuVoiceToken;
+  menuVoiceTimer=setTimeout(function attemptMenuVoice(){
+    if(token!==menuVoiceToken)return;
+    const menu=scr&&scr.splash;
+    if(!menu||!menu.classList.contains('on')||document.hidden){return;}
+    // Wait until the screen transition and responsive layout have fully settled.
+    if(screenTransitionLock||document.body.classList.contains('mxUiTransitioning')){
+      menuVoiceTimer=setTimeout(attemptMenuVoice,180);return;
+    }
+    const nowMs=performance.now();
+    if(nowMs-menuVoiceLastAt<2600)return;
+    const event=kind==='home'?'menuHome':(menuProfileEstablished()?'menuReturn':'menuFirst');
+    if(playCharacterVoice('drE',event,{force:true,duck:.26,cooldown:0,maxDelay:2600})){
+      menuVoiceLastAt=nowMs;
+      if(save&&!save.menuVoiceSeen){save.menuVoiceSeen=true;persist();}
+    }
+  },Math.max(420,Number(delay)||620));
+}
 
 /* ---------- reliable HTML5 background music (iOS/Android/Web) ---------- */
 const MUS={int:0};
@@ -2693,9 +2736,12 @@ const scr={studio:$('#studioScr'),splash:$('#splash'),levels:$('#levelsScr'),col
 syncStandaloneEinsteinMode();
 window.addEventListener('resize',syncStandaloneEinsteinMode,{passive:true});
 window.addEventListener('orientationchange',()=>setTimeout(syncStandaloneEinsteinMode,120),{passive:true});
+window.addEventListener('resize',()=>{if(tutorialActive&&tutorialStep===1)scheduleTutorialGoalAlignment();},{passive:true});
+if(window.visualViewport)window.visualViewport.addEventListener('resize',()=>{if(tutorialActive&&tutorialStep===1)scheduleTutorialGoalAlignment();},{passive:true});
 let scrPrev='splash';
 let screenTransitionLock=false;
 function show(k){
+  if(k!=='splash')cancelPendingMenuVoice();
   if(k!=='game')clearTutorialRuntime();
   if(screenTransitionLock||!scr[k])return;
   screenTransitionLock=true;
@@ -2719,7 +2765,7 @@ function show(k){
   if(k==='collect')buildCollection();
   if(k==='lab')buildLab();
   if(k==='hof'){buildHof();refreshSpotlights();}
-  if(k==='splash'){refreshSplash();startSplashConversation(true,260);}
+  if(k==='splash'){refreshSplash();startSplashConversation(true,260);scheduleMainMenuVoice('home',680);}
   else stopSplashConversation();
 }
 function refreshSplash(){
@@ -3054,7 +3100,7 @@ function enterGame(){
   show('splash');
   startOnlineCountLoop();
   maybePlaySplashIntro();
-  playCharacterVoice('drE','menu',{force:true,duck:.26,cooldown:0});
+  scheduleMainMenuVoice('entry',760);
   setTimeout(showGuestAccountToast,900);
   // R16: entering a player never performs a global account reconciliation.
   // Only this exact profileId is saved/loaded; stale async work cannot jump to
@@ -5863,9 +5909,25 @@ function tutorialSpotRect(px,py,pw,ph){
   s.classList.add('on');
 }
 function tutorialSpotEl(el){
-  if(!el)return;
+  if(!el)return false;
   const r=el.getBoundingClientRect();
-  tutorialSpotRect(r.left-6,r.top-6,r.width+12,r.height+12);
+  if(!r.width||!r.height)return false;
+  tutorialSpotRect(Math.round(r.left-6),Math.round(r.top-6),Math.round(r.width+12),Math.round(r.height+12));
+  return true;
+}
+let tutorialGoalAlignToken=0;
+function alignTutorialGoalSpot(){
+  if(!tutorialActive||tutorialStep!==1)return;
+  const goal=$('#goalCard');if(!goal)return;
+  if(tutorialSpotEl(goal))requestAnimationFrame(()=>tutorialArrowToEl(goal,'right'));
+}
+function scheduleTutorialGoalAlignment(){
+  const token=++tutorialGoalAlignToken;
+  const run=()=>{if(token===tutorialGoalAlignToken)alignTutorialGoalSpot();};
+  requestAnimationFrame(()=>requestAnimationFrame(run));
+  setTimeout(run,180);
+  setTimeout(run,380);
+  setTimeout(run,720);
 }
 function tutorialSpotOff(){$('#tutorialSpot').classList.remove('on');}
 function tutorialArrowAt(x,y,dir){
@@ -5912,16 +5974,23 @@ function startTutorial(){
   document.body.classList.add('tutorialMode');
   $('#tutorialOverlay').classList.add('on');
   loadTutorialPuzzle(TUT_LEVEL_1);
-  tutorialGoStep(1);
+  tutorialSpotOff();tutorialArrowOff();
+  const token=tutorialRuntimeToken;
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    if(!tutorialActive||token!==tutorialRuntimeToken)return;
+    resize();
+    setTimeout(()=>{if(tutorialActive&&token===tutorialRuntimeToken)tutorialGoStep(1);},320);
+  }));
 }
 function tutorialGoStep(n){
+  tutorialGoalAlignToken++;
   tutorialStep=n;tutorialGuideDir=null;tutorialWaitTap=null;
   tutorialArrowOff();
   if(n===1){
-    tutorialSpotEl($('#goalCard'));
-    requestAnimationFrame(()=>tutorialArrowToEl($('#goalCard'),'right'));
+    tutorialSpotOff();tutorialArrowOff();
     tutorialSay(t('tut1'));
-    setTimeout(()=>{if(tutorialActive&&tutorialStep===1)tutorialGoStep(2);},3600);
+    scheduleTutorialGoalAlignment();
+    setTimeout(()=>{if(tutorialActive&&tutorialStep===1)tutorialGoStep(2);},4000);
   }else if(n===2){
     const p=tutorialCellRect(atoms[0].x,atoms[0].y);
     tutorialSpotRect(p.cx-T*0.55,p.cy-T*0.55,T*1.1,T*1.1);
@@ -5976,7 +6045,7 @@ function tutorialGoStep(n){
 }
 let tutorialHintT=null;
 function clearTutorialRuntime(){
-  tutorialRuntimeToken++;tutorialActive=false;tutorialStep=-1;tutorialGuideDir=null;tutorialWaitTap=null;tutorialLaunchArmed=false;
+  tutorialGoalAlignToken++;tutorialRuntimeToken++;tutorialActive=false;tutorialStep=-1;tutorialGuideDir=null;tutorialWaitTap=null;tutorialLaunchArmed=false;
   clearTimeout(tutorialHintT);clearTimeout(autoHintT);
   document.body.classList.remove('tutorialMode');
   const overlay=$('#tutorialOverlay'),bubble=$('#tutorialBubble'),legacy=$('#tutOverlay');
@@ -5985,7 +6054,7 @@ function clearTutorialRuntime(){
 }
 function endTutorial(completed){
   if(completed&&!tutorialActive)return;
-  tutorialRuntimeToken++;tutorialActive=false;tutorialStep=-1;tutorialGuideDir=null;tutorialWaitTap=null;
+  tutorialGoalAlignToken++;tutorialRuntimeToken++;tutorialActive=false;tutorialStep=-1;tutorialGuideDir=null;tutorialWaitTap=null;
   clearTimeout(tutorialHintT);
   document.body.classList.remove('tutorialMode');
   $('#tutorialOverlay').classList.remove('on');

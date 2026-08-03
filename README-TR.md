@@ -1,43 +1,24 @@
-# Moleculox iOS V8.5.63 R18 — TestFlight Ses ve Yerleşim Paketi
+# Moleculox iOS V8.5.64 R19 — Ana Menü Sesi ve Tutorial GOAL Testi
 
-Bu paket, gerçek TestFlight testinde görülen iOS sorunları için hazırlanmış tam GitHub + Codemagic kaynağıdır. Önceki Claude paketinin yerine kullanılmalıdır.
+Bu paket R18'in onaylanan Einstein boyutunu, sağ-alt konumunu, hesap izolasyonunu,
+Apple/Google/e-posta girişlerini ve tek dosyalı 25 repliklik ses sprite sistemini korur.
 
-- Bundle ID: `com.whitewayhan.moleculox`
-- Oyun / App Store sürümü: `8.5.63`
-- Capacitor: `7.4.2`
-- Firebase Authentication: Apple, Google ve e-posta
-- Codemagic workflow: `moleculox-ios-app-store`
-- Çıktı: imzalı `.ipa`
+## R19 düzeltmeleri
 
-## R18 ile düzeltilenler
+- Studio/boot logosuna ilk dokunuş yalnızca sesi açar; Dr. E konuşması başlatmaz.
+- Dr. E, ana menü tamamen görünür ve geçiş bitmiş olduktan sonra konuşur.
+- Yeni oyuncu, geri dönen oyuncu ve oyundan ana menüye dönüş için bağlama uygun mevcut kayıtlar kullanılır.
+- Aktif replik kesilmez; eski ve gecikmiş menü replikleri kuyruktan temizlenir.
+- İlk tutorial GOAL vurgusu, oyun ekranı ve responsive yerleşim oturduktan sonra gerçek GOAL kartından ölçülür.
+- GOAL spotu iOS viewport/safe-area değişimlerinde tekrar hizalanır.
+- R18'in Web oranındaki Dr. E yerleşimi değiştirilmemiştir.
 
-- Google, Apple ve e-posta girişlerinin yavaş misafir oturumu açılışına takılması önlendi.
-- Native Google/Apple kimlik tokenının Firebase Web hesabına aktarım yolu güçlendirildi.
-- E-posta girişindeki teknik `capacitor://localhost` hata ayrıntısı kullanıcıdan gizlendi.
-- Ayarlar açılırken aktif oyun ekranı korunur; yanlışlıkla logo/intro ekranına dönüş engellenir.
-- Native ayarlar penceresindeki ağır arka plan bulanıklığı kaldırıldı.
-- Native kabukta gereksiz service-worker kayıt ve önbellek temizliği devre dışı bırakıldı.
-- Oyun içi Dr. E ve konuşma balonu alt menünün ve iPhone safe-area alanının üstüne taşındı.
-- Hesap penceresindeki başlık ile kapatma düğmesinin çakışması giderildi.
+## Ses notu
 
+Paket içinde onaylanmış 25 İngilizce Dr. E kaydı vardır. Yeni bir “Welcome to Moleculox”
+kaydı mevcut değildir; R19 yeni oyuncuya “Welcome back” çalmaz ve bunun yerine mevcut nötr
+menü repliklerinden birini kullanır.
 
-- Profesörün 25 ayrı ses dosyası tek yerel ses sprite dosyasında birleştirildi; iOS her replikte yeni medya kaynağı açmıyor.
-- Replikler kısa bir kuyrukta sırayla çalıyor ve birbirini kesmiyor.
-- Oyun içindeki Einstein Web sürümüne yakın orana küçültüldü ve ayakları sağ alt zemine sabitlendi.
-- Oyun tahtası GOAL alanına yalnız birkaç piksel yaklaştırıldı.
-
-## Kullanım
-
-ZIP içindeki ana klasörün içeriğini iOS GitHub deposunun köküne aktarın. Codemagic'te `Moleculox iOS App Store` workflow'unu çalıştırın. Workflow iOS projesini üretir; Google Sign-In CocoaPods bağımlılığını, Firebase plist dosyasını ve Apple Sign-In entitlement dosyasını bağlar; ardından imzalı IPA oluşturur.
-
-## Yeni TestFlight build'inde zorunlu testler
-
-1. Google hesabı seçimi, Firebase bağlantısı ve uygulama yeniden açıldığında oturumun korunması.
-2. Apple ile giriş ve aynı hesabın bulut kaydına erişmesi.
-3. E-posta ile giriş, çıkış, yeniden giriş ve şifre sıfırlama.
-4. Cloud Save, profil birleştirme ve sıralama durumunun giriş başarısından ayrı gösterilmesi.
-5. Oyun içindeyken Ayarlar'ı açıp kapatınca aynı bölümde kalınması.
-6. Dr. E ve konuşma balonunun 320×568, 375×667, 390×844 ve 393×852 ekranlarda alt menüye taşmaması.
-7. Klavye açılıp kapandıktan sonra hesap penceresinin ve ekran ölçeğinin normale dönmesi.
-
-Kaynak, yapılandırma ve render kontrolleri yapılmıştır. Gerçek Apple/Google/e-posta girişinin ve iOS çalışma davranışının kesin onayı yalnız yeni Codemagic build'i TestFlight üzerinden kurulunca verilebilir.
+Sürüm: 8.5.64
+Workflow: moleculox-ios-app-store
+Bundle ID: com.whitewayhan.moleculox
