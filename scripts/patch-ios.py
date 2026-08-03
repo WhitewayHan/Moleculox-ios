@@ -18,13 +18,27 @@ contents=appset/'Contents.json'
 for stale in appset.glob('*.png'):
     stale.unlink()
 data=json.loads(contents.read_text())
-for item in data.get('images',[]):
-    size=item.get('size'); scale=item.get('scale'); fn=item.get('filename')
-    if not size or not scale: continue
-    px=round(float(size.split('x')[0])*float(scale.rstrip('x')))
+generated=0
+for index,item in enumerate(data.get('images',[])):
+    size=item.get('size')
+    if not size:
+        continue
+    # Xcode 15+/modern Capacitor can use one universal iOS 1024x1024 slot
+    # without a `scale` field. Older catalogs use size + scale entries.
+    scale_raw=item.get('scale')
+    scale=float(str(scale_raw).rstrip('x')) if scale_raw else 1.0
+    px=round(float(size.split('x')[0])*scale)
+    if px <= 0:
+        continue
+    fn=item.get('filename')
     if not fn:
-        fn=f'AppIcon-{px}.png'; item['filename']=fn
+        idiom=item.get('idiom','icon')
+        fn=f'AppIcon-{idiom}-{px}-{index}.png'
+        item['filename']=fn
     master.resize((px,px),Image.Resampling.LANCZOS).save(appset/fn,'PNG',optimize=True)
+    generated += 1
+if generated == 0:
+    raise SystemExit(f'No usable AppIcon entries found in {contents}')
 contents.write_text(json.dumps(data,indent=2)+"\n")
 # Keep an explicit App Store marketing icon as well.
 master.save(appset/'AppIcon-1024.png','PNG',optimize=True)

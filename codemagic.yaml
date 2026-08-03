@@ -1,6 +1,6 @@
 workflows:
   moleculox-ios-app-store:
-    name: Moleculox iOS V8.5.70 R26 App Icon Final App Store
+    name: Moleculox iOS V8.5.70 R27 App Icon Validator Fix App Store
     instance_type: mac_mini_m2
     max_build_duration: 120
     integrations:

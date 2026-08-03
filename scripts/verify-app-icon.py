@@ -23,13 +23,16 @@ checked = 0
 marketing = 0
 for item in data.get('images', []):
     size = item.get('size')
-    scale = item.get('scale')
+    scale_raw = item.get('scale')
     fn = item.get('filename')
-    if not size or not scale:
+    if not size:
         continue
     if not fn:
         raise SystemExit(f'AppIcon entry has no filename: {item}')
-    px = round(float(size.split('x')[0]) * float(scale.rstrip('x')))
+    # Modern Xcode/Capacitor catalogs may define one universal 1024x1024
+    # iOS icon without a `scale` key. Treat the omitted scale as 1x.
+    scale = float(str(scale_raw).rstrip('x')) if scale_raw else 1.0
+    px = round(float(size.split('x')[0]) * scale)
     path = appset / fn
     if not path.exists():
         raise SystemExit(f'Missing generated AppIcon file: {path}')
@@ -42,7 +45,7 @@ for item in data.get('images', []):
     if ImageChops.difference(icon, expected).getbbox() is not None:
         raise SystemExit(f'Icon does not match approved master: {fn}')
     checked += 1
-    if item.get('idiom') == 'ios-marketing' or px == 1024:
+    if item.get('idiom') == 'ios-marketing' or item.get('platform') == 'ios' and px == 1024 or px == 1024:
         marketing += 1
 
 if checked == 0:

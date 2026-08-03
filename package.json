@@ -2,7 +2,7 @@
   "name": "moleculox-ios",
   "version": "8.5.70",
   "private": true,
-  "description": "Moleculox iOS V8.5.70 R26 App Icon Final: R25 final gameplay plus the approved 1024x1024 opaque Moleculox App Store icon, enforced AppIcon asset generation and Codemagic icon validation.",
+  "description": "Moleculox iOS V8.5.70 R27: R26 approved opaque App Store icon plus validator compatibility for modern universal iOS AppIcon catalogs and legacy multi-slot catalogs.",
   "scripts": {
     "ios:prepare": "bash scripts/prepare-ios.sh",
     "ios:sync": "npx cap sync ios",
