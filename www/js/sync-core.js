@@ -1,4 +1,4 @@
-/* Moleculox V5.26 FINAL — deterministic cross-platform profile and Duel-rank merge core. */
+/* Moleculox V8.5.69 R24 — deterministic cross-platform profile and Duel-rank merge core. */
 (function(root){
   'use strict';
 
@@ -105,7 +105,7 @@
     out.stars=mergeMaxMap(left.stars,right.stars,MAX_LEVELS,3);
     out.disc=mergeTruthMap(left.disc,right.disc,130);
     out.achv=mergeTruthMap(left.achv,right.achv,80);
-    out.speedRuns=mergeMinPositiveMap(left.speedRuns,right.speedRuns,20);
+    out.speedRuns=mergeMinPositiveMap(left.speedRuns,right.speedRuns,MAX_LEVELS);
     out.bestMoves=mergeMinPositiveMap(left.bestMoves,right.bestMoves,MAX_LEVELS);
     out.researchLevels=mergeMaxMap(left.researchLevels,right.researchLevels,MAX_LEVELS,100000);
     out.researchAchievements=mergeMaxMap(left.researchAchievements,right.researchAchievements,80,10000000);

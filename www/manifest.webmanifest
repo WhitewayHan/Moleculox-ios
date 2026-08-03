@@ -1,7 +1,7 @@
 {
   "name": "Moleculox — Dr. E's Lab",
   "short_name": "Moleculox",
-  "description": "Moleculox v8.5.68 — iOS R23 Final TestFlight Candidate with certified hints, safe MoleCoin purchases, and adaptive rendering by wHiTeWaY studio.",
+  "description": "Moleculox v8.5.69 — iOS R24 Final Timer Candidate with fair solve timing, certified hints, safe MoleCoin purchases, and adaptive rendering by wHiTeWaY studio.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
@@ -34,5 +34,5 @@
     "games",
     "education"
   ],
-  "version": "8.5.68"
+  "version": "8.5.69"
 }

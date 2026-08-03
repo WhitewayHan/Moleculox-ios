@@ -1,8 +1,8 @@
 {
   "name": "moleculox-ios",
-  "version": "8.5.68",
+  "version": "8.5.70",
   "private": true,
-  "description": "Moleculox iOS V8.5.68 R23 Final TestFlight Candidate: Level 42 combined mechanics, molecule knowledge flow, account-safe daily rewards, and R22 hint/performance protections.",
+  "description": "Moleculox iOS V8.5.70 R25 Apple/SVG Final Candidate: custom laboratory SVG timer icons, Apple account-deletion token revocation flow, and inherited R24 timing/R23 content protections.",
   "scripts": {
     "ios:prepare": "bash scripts/prepare-ios.sh",
     "ios:sync": "npx cap sync ios",
