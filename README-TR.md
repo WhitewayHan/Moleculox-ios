@@ -1,14 +1,11 @@
-# Moleculox iOS V8.5.69 R24 — Final Timer Candidate
+# Moleculox iOS V8.5.70 R28 — iPhone-Only App Store Final
 
-R23 ana referans sürümü korunarak adil çözüm süresi sistemi eklendi.
+Bu paket App Store gönderimi için yalnız iPhone hedefler. R25 oyun içeriği ve R27 gerçek Moleculox ikon sistemi aynen korunmuştur.
 
-## R24 kapsamı
-- Kampanya ve Günün Deneyi ekranında 00:00.0’dan yukarı sayan süre.
-- Süre dolunca kaybetme yok.
-- Ayarlar, modal açıklamalar, mekanik eğitimleri, hikâye ve uygulama arka planında otomatik duraklatma.
-- Temiz kampanya çözümlerinde 301 bölüm için ayrı en iyi süre kaydı.
-- Süre, RP içinde sınırlı bonus; tam/kesin çözüm ve güçlendirici kullanılan destekli turlarda süre bonusu ve rekor yok.
-- Sonuç ekranında süre, ipucu sayısı ve rekor durumu.
-- R23 günlük ödül/Bölüm 42 ve R22 ipucu/performans düzeltmeleri korunur.
+Codemagic sırası:
+1. iOS projesini üretir.
+2. Gerçek 1024×1024 Moleculox ikonunu üretip doğrular.
+3. Tüm App target yapılandırmalarında `TARGETED_DEVICE_FAMILY = 1` olduğunu doğrular.
+4. İmzalı IPA üretip App Store Connect'e yollar.
 
-Codemagic marketing version: **8.5.69**. Build number her çalıştırmada otomatik üretilir.
+Yeni build App Store Connect'te seçildiğinde 13 inç iPad ekran görüntüsü zorunluluğu kalkmalıdır. Eski iPad destekli build seçili kalırsa uyarı devam eder; yeni R28 build seçilmelidir.

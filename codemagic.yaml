@@ -1,6 +1,6 @@
 workflows:
   moleculox-ios-app-store:
-    name: Moleculox iOS V8.5.70 R27 App Icon Validator Fix App Store
+    name: Moleculox iOS V8.5.70 R28 iPhone Only App Store Final
     instance_type: mac_mini_m2
     max_build_duration: 120
     integrations:
@@ -26,6 +26,8 @@ workflows:
         script: npm run ios:prepare
       - name: Verify generated App Store icon
         script: python3 scripts/verify-app-icon.py
+      - name: Verify iPhone-only target
+        script: python3 scripts/verify-iphone-only.py
       - name: Set iOS versions
         script: |
           BUILD_NUMBER="$(date +%s)"
@@ -40,6 +42,8 @@ workflows:
           xcode-project build-ipa \
             --workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
             --scheme "$XCODE_SCHEME"
+      - name: Verify built IPA is iPhone-only
+        script: python3 scripts/verify-built-ipa.py
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log

@@ -107,6 +107,9 @@ settings={
     'MARKETING_VERSION':'8.5.70',
     'CURRENT_PROJECT_VERSION':'1',
     'ASSETCATALOG_COMPILER_APPICON_NAME':'AppIcon',
+    # iPhone only. Xcode writes UIDeviceFamily=[1] into the built app.
+    # This intentionally removes iPad support and the App Store iPad screenshot requirement.
+    'TARGETED_DEVICE_FAMILY':'1',
 }
 
 def _patch_app_build_settings(match: re.Match[str]) -> str:
@@ -198,19 +201,29 @@ if (APP/'GoogleService-Info.plist').exists():
 
 pbx.write_text(p)
 
-# Add Google reversed client ID URL scheme when available.
-plist=APP/'GoogleService-Info.plist'
+# Add the Google reversed client ID URL scheme when available, while always
+# applying the iPhone-only and export-compliance Info.plist metadata.
+google_plist=APP/'GoogleService-Info.plist'
 info=APP/'Info.plist'
-if plist.exists() and info.exists():
+if info.exists():
     import plistlib
-    with plist.open('rb') as f: gp=plistlib.load(f)
-    reversed_id=gp.get('REVERSED_CLIENT_ID')
-    with info.open('rb') as f: ip=plistlib.load(f)
-    if reversed_id:
-        types=ip.setdefault('CFBundleURLTypes',[])
-        if not any(reversed_id in x.get('CFBundleURLSchemes',[]) for x in types):
-            types.append({'CFBundleURLSchemes':[reversed_id]})
+    with info.open('rb') as f:
+        ip=plistlib.load(f)
+    if google_plist.exists():
+        with google_plist.open('rb') as f:
+            gp=plistlib.load(f)
+        reversed_id=gp.get('REVERSED_CLIENT_ID')
+        if reversed_id:
+            types=ip.setdefault('CFBundleURLTypes',[])
+            if not any(reversed_id in x.get('CFBundleURLSchemes',[]) for x in types):
+                types.append({'CFBundleURLSchemes':[reversed_id]})
     ip['ITSAppUsesNonExemptEncryption']=False
-    with info.open('wb') as f: plistlib.dump(ip,f,sort_keys=False)
+    # The product is intentionally iPhone-only. The definitive device family is
+    # TARGETED_DEVICE_FAMILY=1; remove stale iPad-only orientation metadata too.
+    ip.pop('UISupportedInterfaceOrientations~ipad', None)
+    with info.open('wb') as f:
+        plistlib.dump(ip,f,sort_keys=False)
+else:
+    raise SystemExit(f'Info.plist missing: {info}')
 
-print('Patched icon, Firebase initialization, Apple entitlement and iOS metadata.')
+print('Patched icon, Firebase initialization, Apple entitlement, iPhone-only target and iOS metadata.')

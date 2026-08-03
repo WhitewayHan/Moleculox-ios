@@ -2,7 +2,7 @@
   "name": "moleculox-ios",
   "version": "8.5.70",
   "private": true,
-  "description": "Moleculox iOS V8.5.70 R27: R26 approved opaque App Store icon plus validator compatibility for modern universal iOS AppIcon catalogs and legacy multi-slot catalogs.",
+  "description": "Moleculox iOS V8.5.70 R28: final iPhone-only App Store package, preserving R25 gameplay, R27 approved icon generation/validation, and removing iPad device-family support so App Store Connect does not require iPad screenshots.",
   "scripts": {
     "ios:prepare": "bash scripts/prepare-ios.sh",
     "ios:sync": "npx cap sync ios",
