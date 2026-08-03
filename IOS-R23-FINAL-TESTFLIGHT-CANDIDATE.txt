@@ -1,0 +1,16 @@
+MOLECULOX iOS V8.5.68 — R23 FINAL TESTFLIGHT CANDIDATE
+
+Yalnız iOS içindir.
+
+R23 değişiklikleri:
+- Level 42 / NF3 birleşik donmuş + zombi + ateş eğitimi.
+- Mekanik görsel işaretleri ve yeniden oynatılabilir Eğitim Merkezi kartı.
+- Mekanik modalından sonra molekül adı, formülü ve bilimsel bilgi akışı.
+- 105 kampanya molekülü için EN/TR bilgi bütünlüğü kontrolü.
+- Günün Deneyi yazısının geometrik merkez hizası.
+- Firestore transaction ile profil başına günlük tek MoleCoin talebi.
+- Çevrimdışı antrenmanda 0 MoleCoin ve 0 sıralama RP.
+- Aynı gün tekrarında yalnız daha iyi RP farkı.
+- R22 ipucu, tam çözüm, iade, performans ve iOS UI düzeltmeleri korunmuştur.
+
+Gerçek cihaz doğrulaması: TestFlight build gereklidir.

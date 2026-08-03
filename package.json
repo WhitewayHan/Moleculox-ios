@@ -1,13 +1,13 @@
 {
   "name": "moleculox-ios",
-  "version": "8.5.66",
+  "version": "8.5.68",
   "private": true,
-  "description": "Moleculox iOS V8.5.66 R21 test: completely silent wHiTeWaY logo audio unlock, Dr. E speech armed only on the visible main menu, and iOS-only spacing below Gear/Home for the in-level tool rail.",
+  "description": "Moleculox iOS V8.5.68 R23 Final TestFlight Candidate: Level 42 combined mechanics, molecule knowledge flow, account-safe daily rewards, and R22 hint/performance protections.",
   "scripts": {
     "ios:prepare": "bash scripts/prepare-ios.sh",
     "ios:sync": "npx cap sync ios",
     "ios:open": "npx cap open ios",
-    "check": "node --check www/js/game.js && node --check www/js/firebase.js && node --check www/js/sync-core.js"
+    "check": "node --check www/js/game.js && node --check www/js/firebase.js && node --check www/js/sync-core.js && node --check www/js/campaign-levels.js && node --check www/js/daily-levels.js && node --check www/js/level-fx-recipes.js"
   },
   "dependencies": {
     "@capacitor/core": "7.4.2",

@@ -1,0 +1,65 @@
+MOLECULOX iOS V8.5.68 — R23 FINAL TESTFLIGHT CANDIDATE
+FINAL VALIDATION REPORT — 2026-08-03
+
+SCOPE
+- iOS package only.
+- Android, Web, Netlify, itch.io and wHiTeWaY Hub sources were not modified.
+
+R23 RESULT
+- Static/semantic package checks: 43/43 PASS
+- JavaScript syntax: 6/6 PASS
+- JSON, plist, Codemagic YAML and SVG parsing: PASS
+- Duplicate HTML IDs: 0
+- Missing direct HTML/CSS asset references: 0
+- Zero-byte files: 0
+- Raster images decoded: 45/45 PASS
+- Audio/media probed: 50/50 PASS
+- Shell scripts: 1/1 PASS
+- Python iOS patch script compile: PASS
+
+LEVEL 42 / NF₃
+- Campaign level 42 resolves to NF₃ (Azot Triflorür).
+- Board data contains one frozen+zombie fluorine and one fire fluorine.
+- Combined first-use explanation covers ❄️ frozen, 🔥 fire and 🧟 zombie symbols in six languages.
+- It explains that fire melts the ice and cures the zombie effect, while an uncured zombie can spread at most twice.
+- The combined lesson can be replayed from Training Center.
+- After the mechanics modal closes, the molecule name, formula and science fact are shown instead of being hidden behind the modal.
+
+MOLECULE AND MECHANIC CONTENT
+- Campaign levels loaded: 301
+- Daily experiments loaded: 832
+- Unique campaign molecule identities: 105
+- Unique daily molecule identities: 71
+- Missing English/Turkish molecule name, formula or science fact: 0
+- Special-mechanic title/description localization keys checked: 32; all have at least six language entries.
+- Current-level help lists only the special symbols used on that board.
+
+DAILY EXPERIMENT
+- “GÜNÜN DENEYİ” label is centered independently of the left icon and right notification dot.
+- The verified first completion claims 25 MoleCoins through a Firestore transaction on the active cloud profile.
+- Robot equipment adds +5 MoleCoins only to that first verified reward.
+- A brand-new profile can create the transaction shell before its first full autosave finishes.
+- A same-day replay receives no second MoleCoin reward.
+- A replay records only the improvement over the player’s previous best daily RP.
+- Offline or unverified play is practice: 0 MoleCoins and 0 ranking RP.
+- The result modal displays RP and MoleCoin outcomes separately.
+
+R22 CERTIFIED SYSTEMS PRESERVED
+- Campaign, daily, sync and level-FX data files are byte-identical to R22.
+- Hint price code is byte-identical to R22: 50/200 base and 40/160 with Holographic Periodic Table.
+- Exact-hint and full-solution transaction/playback code is byte-identical to R22.
+- Therefore the R22 movement-engine audit remains applicable:
+  • 301/301 certified campaign routes passed.
+  • 2,272 legal wrong first actions produced 0 false exact hints and 0 accidental charges.
+  • 1,806 localized general-hint cases passed.
+  • 25/25 MoleCoin transaction/refund assertions passed.
+  • Interrupted or invalid full-solution playback refunds the active charge.
+  • Adaptive canvas, idle-render throttling, GOAL allocation guard and iOS tool-rail spacing remain present.
+
+VERSION / BUILD
+- package.json, Codemagic, patch-ios.py, index.html, manifest, service worker and game runtime all use 8.5.68.
+- ZIP is intended for wHiTeWaY Hub → GitHub → Codemagic → TestFlight.
+
+LIMITATION
+- This validation does not claim a physical iPhone or App Store review has passed.
+- Final native confirmation must be performed with the new R23 TestFlight build, especially Level 42 briefing order, daily reward transaction, first logo silence, audio, performance and safe-area layout.

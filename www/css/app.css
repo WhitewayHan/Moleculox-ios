@@ -4761,9 +4761,23 @@ body.mxIOSNative #playScr .speech{
   body.mxIOSNative #gameScr #einBoxG.mxEinResponsive{width:196px!important;max-width:196px!important}
 }
 
-/* ================= V8.5.66 R21 — iOS tool-rail spacing ================= */
-/* Keep Gear/Home as the fixed top controls and give the in-level action rail
-   a clear visual gap below them. The clamp protects shorter iPhones while
-   moving the rail roughly 22 px lower on modern full-height devices. */
-body.mxIOSNative #actionCol{top:clamp(16px,2.6svh,24px)!important}
+/* ================= V8.5.67 R22 — final iOS tool-rail spacing ================= */
+/* Keep Gear/Home as the fixed top controls and preserve a visible gap before
+   Undo on compact and full-height iPhones. There is enough vertical room below
+   Restart, so compact screens no longer collapse the rail back toward Home. */
+body.mxIOSNative #actionCol{top:clamp(24px,3.2svh,30px)!important}
 
+
+
+/* R23: Daily Experiment true-center label + combined mechanic clarity. */
+#btnDaily{position:relative;display:flex;align-items:center;justify-content:center;text-align:center}
+#btnDaily>.menuCodeIcon{position:absolute;left:14px;top:50%;transform:translateY(-50%);margin:0;vertical-align:0}
+#btnDaily>[data-i18n="todaysExpLabel"]{display:block;width:100%;padding:0 38px;text-align:center;line-height:1.12}
+#btnDaily>#dailyDot{position:absolute;right:13px;top:50%;transform:translateY(-50%)}
+.mxMechanicContextNote{margin:10px 0 13px;padding:12px 13px;border-radius:15px;background:linear-gradient(145deg,rgba(255,172,45,.14),rgba(120,231,255,.08));border:1px solid rgba(255,211,110,.34);box-shadow:inset 0 0 20px rgba(120,231,255,.04)}
+.mxMechanicContextNote b{display:block;color:#ffd36e;font-size:.86rem;letter-spacing:.02em;margin-bottom:6px}
+.mxMechanicContextNote span{display:block;color:#eaf7ff;font-size:.79rem;line-height:1.42}
+.mxFirstUseCue{display:block;margin-top:5px;color:#78e7ff;font-style:normal;font-size:.7rem;line-height:1.35}
+.mxMechanicVisualCue{margin:8px 0 10px;padding:8px 10px;border-radius:11px;background:rgba(120,231,255,.08);border:1px solid rgba(120,231,255,.22);color:#bfefff;font-size:.75rem;line-height:1.35}
+.mxDailyPracticeNotice{color:#ffcf7a!important;font-size:.78rem!important;line-height:1.35}
+@media (max-width:380px){#btnDaily>.menuCodeIcon{left:10px}#btnDaily>[data-i18n="todaysExpLabel"]{padding:0 34px;font-size:.9em}}

@@ -87,7 +87,7 @@ pbx=IOS/'App.xcodeproj'/'project.pbxproj'
 p=pbx.read_text()
 settings={
     'CODE_SIGN_ENTITLEMENTS':'App/App.entitlements',
-    'MARKETING_VERSION':'8.5.66',
+    'MARKETING_VERSION':'8.5.68',
     'CURRENT_PROJECT_VERSION':'1',
 }
 

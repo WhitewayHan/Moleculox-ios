@@ -1,5 +1,5 @@
 /* Moleculox V6.24.3 — professional story, UX and release polish */
-const APP_VERSION="v8.5.66";
+const APP_VERSION="v8.5.68";
 (()=>{'use strict';
 function isIOSStandaloneMode(){
   try{
@@ -2750,6 +2750,7 @@ if(window.visualViewport)window.visualViewport.addEventListener('resize',()=>{if
 let scrPrev='splash';
 let screenTransitionLock=false;
 function show(k){
+  if(autoSolveInProgress&&k!=='game'){say(LANG==='tr'?'Çözüm oynatımı bitene kadar oyun ekranında kal.':'Stay on the game screen until the solution playback finishes.','talk',2400,'glow');return;}
   if(k!=='splash')cancelPendingMenuVoice();
   if(k!=='game')clearTutorialRuntime();
   if(screenTransitionLock||!scr[k])return;
@@ -3208,10 +3209,15 @@ function updateBadge(){
 
 /* ================= MOLECULE MINI-DRAW ================= */
 function drawMol(cv,mol,gray,animT){
-  const dpr=Math.min(window.devicePixelRatio||1,2.5);
-  const cw=cv.clientWidth||parseInt(cv.style.width)||88,ch=cv.clientHeight||64;
-  cv.width=cw*dpr;cv.height=ch*dpr;
-  const c=cv.getContext('2d');c.setTransform(dpr,0,0,dpr,0,0);c.clearRect(0,0,cw,ch);
+  if(!cv||!mol||!Array.isArray(mol.s)||!mol.s.length)return;
+  const dpr=effectiveDpr();
+  const cw=Math.max(1,Math.round(cv.clientWidth||parseInt(cv.style.width)||88)),ch=Math.max(1,Math.round(cv.clientHeight||64));
+  const rw=Math.max(1,Math.round(cw*dpr)),rh=Math.max(1,Math.round(ch*dpr));
+  const c=cv.getContext('2d');
+  // Resizing a canvas reallocates its backing store. The GOAL molecule is
+  // animated often, so only resize when CSS size or performance DPR changed.
+  if(cv.width!==rw||cv.height!==rh){cv.width=rw;cv.height=rh;}
+  c.setTransform(dpr,0,0,dpr,0,0);c.clearRect(0,0,cw,ch);
   const xs=mol.s.map(a=>a[1]),ys=mol.s.map(a=>a[2]);
   const sw=Math.max(...xs)+1,sh=Math.max(...ys)+1;
   const t=Math.min(cw/(sw+0.4),ch/(sh+0.4),30);
@@ -4167,7 +4173,7 @@ function resetIdle(){wake();schedIdle();}
 /* ================= GAME STATE ================= */
 const board=$('#board'),bctx=board.getContext('2d');
 let lv=-1,LV=null,mid='',curMol=null,grid=[],atoms=[],sel=0,selT0=0,moves=0,t2=0,hist=[],levelStartT=0;
-let breakableWalls=new Map(),hammerMode=false,hammerPending=null,precisionMode=false,precisionPending=null,precisionExecuting=false,barrierMode=false,barrierUsed=false,assistanceUsed=false,temporaryBarriers=new Map(),portalPairs=new Map(),oneWayTiles=new Map(),movingWalls=[],pressureSystems=[];
+let breakableWalls=new Map(),hammerMode=false,hammerPending=null,precisionMode=false,precisionPending=null,precisionExecuting=false,barrierMode=false,barrierUsed=false,assistanceUsed=false,routeAssistUsed=false,temporaryBarriers=new Map(),portalPairs=new Map(),oneWayTiles=new Map(),movingWalls=[],pressureSystems=[];
 let movingWallAnimating=false,fragileFailure=false,linkedPairs=[],linkedMate=new Map();
 const HAMMER_LEVELS=new Set([14,29,74]);
 // Fixed 2026-07-27 (second pass): index 44 (level 45) also removed here and
@@ -4485,7 +4491,7 @@ function attemptBarrierAt(x,y){
   openModal('<h3>🧱 '+(LANG==='tr'?'NANO BARİYER':'NANO BARRIER')+'</h3><div class="msub">'+(LANG==='tr'?'Bu kareye geçici blok yerleştirilsin mi? Bölümde yalnızca bir kez kullanılabilir ve ilk atom çarpışmasında kırılır.<br><b>Destek kullanımı:</b> Bölüm, yıldız ve ödüller korunur; bu deneme en iyi hamle ve süre rekoruna yazılmaz.':'Place a temporary block on this tile? It can be used once per level and breaks on the first atom collision.<br><b>Assisted run:</b> Level progress, stars, and rewards are kept; this attempt does not set a best-move or speed record.')+'</div><div class="mrow"><button class="btn amber" id="mBarrierYes">'+(LANG==='tr'?'YERLEŞTİR':'PLACE')+'</button><button class="btn ghost" id="mBarrierNo">'+t('cancel')+'</button></div>');
   bindTap('#mBarrierYes',()=>{
     if(!barrierCellAvailable(x,y)||!spendBooster('barrier',1)){closeModal();cancelBarrier();return;}
-    temporaryBarriers.set(barrierKey(x,y),{x,y});barrierUsed=true;assistanceUsed=true;barrierMode=false;closeModal();syncBarrierUi();SFX.thunk();mxHaptic('medium');gameFeelBarrierConstruct(x,y);
+    temporaryBarriers.set(barrierKey(x,y),{x,y});barrierUsed=true;assistanceUsed=true;routeAssistUsed=true;barrierMode=false;closeModal();syncBarrierUi();SFX.thunk();mxHaptic('medium');gameFeelBarrierConstruct(x,y);
     say(LANG==='tr'?'Nano Bariyer yerleştirildi. İlk çarpışmada kırılacak.':'Nano Barrier placed. It will break on the first collision.','happy',2800,'glow');
   });
   bindTap('#mBarrierNo',()=>{closeModal();cancelBarrier();});
@@ -4507,7 +4513,7 @@ function attemptPrecisionMove(i,d){
   bindTap('#mPrecisionYes',()=>{
     const q=precisionPending;if(!q||!precisionDest(q.i,q.d)){closeModal();cancelPrecision();return;}
     if(!spendBooster('precision',1)){closeModal();cancelPrecision();return;}
-    assistanceUsed=true;
+    assistanceUsed=true;routeAssistUsed=true;
     closeModal();precisionMode=false;precisionPending=null;syncPrecisionUi();gameFeelPrecisionPulse(q.i);precisionExecuting=true;move(q.i,q.d);precisionExecuting=false;
     say(LANG==='tr'?'Atom yalnızca 1 kare taşındı.':'Atom moved exactly 1 square.','happy',2200,'glow');
   });
@@ -4523,7 +4529,7 @@ function attemptHammerAt(x,y){
   bindTap('#mHammerYes',()=>{
     const target=hammerPending;if(!target||target.broken){closeModal();cancelHammer();return;}
     if(!spendBooster('hammer',1)){closeModal();cancelHammer();return;}
-    assistanceUsed=true;
+    assistanceUsed=true;routeAssistUsed=true;
     target.broken=true;grid[target.y][target.x]=false;closeModal();cancelHammer();mxHaptic('heavy');shake=motionReduced()?0:Math.max(shake,.30);
     gameFeelToolFx('hammer',target.x,target.y);wallBreakDustFx(target.x,target.y);
     say(LANG==='tr'?'Duvar kırıldı. Seçimin artık bölümün bir parçası!':'Wall broken. Your choice is now part of the level!','happy',2600,'glow');
@@ -4887,10 +4893,18 @@ function buildChainPlan(levelIndex){
   if(!plan.length&&n>=2)plan.push({trigger:0,autoCount:1});
   return plan;
 }
-function chainRefreshStep(){
-  if(!chainActive()||!chainPathKeys.length){chainCurrentStep=-1;return chainCurrentStep;}
-  const k=stateKey(atoms.map(a=>({x:a.x,y:a.y,e:a.e})));
-  chainCurrentStep=chainPathKeys.indexOf(k);return chainCurrentStep;
+function chainRefreshStep(i,d){
+  if(!chainActive()){chainCurrentStep=-1;return chainCurrentStep;}
+  // Track the certified action sequence instead of comparing unlabeled atom
+  // position sets. Identical atoms can exchange places, portals can teleport,
+  // and moving walls can change the board while the correct sequence remains
+  // unambiguous. Undo restores chainCurrentStep from its snapshot.
+  if(Number.isInteger(i)&&Number.isInteger(d)&&chainCurrentStep>=0){
+    const expected=LV.fs&&LV.fs[chainCurrentStep];
+    if(expected&&expected[0]===i&&expected[1]===d)chainCurrentStep++;
+    else chainCurrentStep=-1;
+  }
+  return chainCurrentStep;
 }
 function chainTriggerForMove(i,d){
   if(!chainActive()||chainAutoExecuting||chainAutoActive||chainCurrentStep<0)return null;
@@ -5619,12 +5633,36 @@ function confirmQuitDuel(){
   bindTap('#mDuelStay',e=>{SFX.click();closeModal();});
 }
 function todaysLevelIndex(){return certifiedDailyChallenge().themeIndex;}
+const LEVEL42_COMBO_KEY='__level42FireZombieBriefing';
+function level42ComboSeen(){ensureResearchState(save);return !!save.researchAchievements[LEVEL42_COMBO_KEY];}
+function markLevel42ComboSeen(){ensureResearchState(save);save.researchAchievements[LEVEL42_COMBO_KEY]=1;persist();}
+function levelMoleculeInfoHtml(){
+  if(!curMol)return '';
+  return '<b>'+curMol.n+'</b> ('+curMol.f+')<br>'+curMol.fa;
+}
+function announceLevelStartAfterBriefing(){
+  if(dailyMode)return;
+  if(duelMode){
+    $('#tutOverlay').classList.remove('on');
+    const dc=duelCopy();say((duelState.turn===0?'🔴 ':'🔵 ')+duelState.players[duelState.turn]+' · '+(crystalMode?'🧪 '+dc.crystal:(chainMode?'⚡ '+dc.chain:(reactorMode?'☢️ '+dc.reactor:'⚛️ '+dc.classic)))+' · '+dc.round+' '+(duelState.round+1)+'/'+DUEL_MAX_ROUNDS,'happy',3900,'glow');
+  }
+  else if(crystalMode){$('#tutOverlay').classList.remove('on');say('🧪 '+crystalCopy().sub,'happy',4200,'glow');}
+  else if(chainMode){$('#tutOverlay').classList.remove('on');say('⚡ '+chainCopy().sub,'happy',4200,'glow');}
+  else if(reactorMode){$('#tutOverlay').classList.remove('on');say('☢️ '+reactorCopy().sub,'happy',4200,'glow');}
+  else if(campaignFeature==='crystal'){say('🧪 '+t('classicCatalystDesc'),'happy',6500,'glow');}
+  else if(campaignFeature==='chain'){say('⚡ '+t('classicChainDesc'),'happy',6500,'glow');}
+  else if(campaignFeature==='reactor'){say('☢️ '+t('classicReactorDesc'),'happy',6500,'glow');}
+  else if(tut===0){$('#tutOverlay').classList.add('on');}
+  else if(!save.disc[mid]){say(levelMoleculeInfoHtml(),'talk',7000,'glow');}
+  else if(Math.random()<0.3){say('<b>'+curMol.n+'</b><br>'+curMol.fa,'talk',6000,'glow');}
+  else{say((lv<2?rnd(LN.greet)+'<br>':'')+t('targetLine','',curMol.n,curMol.f),'talk',4200);}
+}
 function startDaily(){
   const challenge=certifiedDailyChallenge();
   currentDailyLevel=challenge.level;currentDailyId=challenge.dayId;
   startLevel(challenge.themeIndex,'daily');
   $('#lvPill').textContent=t('todaysExpLabel');
-  say(t('dailyIntro'),'happy',3500);
+  setTimeout(()=>say(t('dailyIntro')+'<br>'+levelMoleculeInfoHtml(),'happy',6200,'glow'),220);
 }
 function goToLevel(i,expectedKey=''){
   i=resolveCampaignLevelIndex(i,expectedKey);
@@ -5749,6 +5787,15 @@ function showFoundationBriefing(level,index){
 }
 
 function startLevel(i,mode='campaign',expectedKey=''){
+  // Any explicit level load invalidates an older automated hint playback.
+  // If a paid solution is interrupted before completion, return its escrowed
+  // MoleCoins before resetting the level. The full-solution flow starts its own
+  // clean transaction only after this reset has completed.
+  if(typeof autoSolveInProgress!=='undefined'&&autoSolveInProgress&&typeof refundCurrentHintCharge==='function')refundCurrentHintCharge();
+  if(typeof autoSolveRunId!=='undefined')autoSolveRunId++;
+  if(typeof autoSolveInProgress!=='undefined')autoSolveInProgress=false;
+  if(typeof autoSolveExecutingStep!=='undefined')autoSolveExecutingStep=false;
+  if(typeof hintPurchaseBusy!=='undefined')hintPurchaseBusy=false;
   if(mode==='campaign')i=resolveCampaignLevelIndex(i,expectedKey);
   mxTrack('level_started',{level:Number(i)+1,mode:String(mode||'campaign')});
   dailyMode=mode==='daily';duelMode=mode==='duel';
@@ -5788,7 +5835,7 @@ function startLevel(i,mode='campaign',expectedKey=''){
   }
   setBgForTier(tierOf((duelMode||crystalMode||chainMode||reactorMode)?i:save.cur),false);
   grid=LV.g.map(r=>[...r].map(c=>c==='1'));
-  breakableWalls=new Map(deriveBreakableWalls(LV,i,mode).map(w=>[breakableKey(w.x,w.y),{x:w.x,y:w.y,broken:false}]));portalPairs=new Map(derivePortals(LV,i,mode).map(p=>[portalKey(p.x,p.y),p]));oneWayTiles=new Map(deriveOneWayTiles(LV,i,mode).map(o=>[oneWayKey(o.x,o.y),o]));movingWalls=deriveMovingWalls(LV,i,mode).map(w=>{const c=w.path[w.index||0];return {...w,x:c.x,y:c.y,anim:null};});movingWallAnimating=false;hammerMode=false;hammerPending=null;precisionMode=false;barrierMode=false;barrierUsed=false;assistanceUsed=false;temporaryBarriers=new Map();precisionPending=null;precisionExecuting=false;
+  breakableWalls=new Map(deriveBreakableWalls(LV,i,mode).map(w=>[breakableKey(w.x,w.y),{x:w.x,y:w.y,broken:false}]));portalPairs=new Map(derivePortals(LV,i,mode).map(p=>[portalKey(p.x,p.y),p]));oneWayTiles=new Map(deriveOneWayTiles(LV,i,mode).map(o=>[oneWayKey(o.x,o.y),o]));movingWalls=deriveMovingWalls(LV,i,mode).map(w=>{const c=w.path[w.index||0];return {...w,x:c.x,y:c.y,anim:null};});movingWallAnimating=false;hammerMode=false;hammerPending=null;precisionMode=false;barrierMode=false;barrierUsed=false;assistanceUsed=false;routeAssistUsed=false;temporaryBarriers=new Map();precisionPending=null;precisionExecuting=false;
   pressureSystems=derivePressureSystems(LV,i,mode);
   atoms=LV.a.map(a=>({x:a[0],y:a[1],e:a[2],ph:Math.random()*6.28,frozen:!!a[3],fire:!!a[4],sticky:!!a[5],zombie:!!a[6],lightning:!!a[7],zombieGen:0}));
   applyLightningAtoms(LV,i,mode);
@@ -5800,7 +5847,7 @@ function startLevel(i,mode='campaign',expectedKey=''){
   if(crystalMode&&!duelMode&&!currentCrystalLayout)currentCrystalLayout=crystals.map(c=>({x:c.x,y:c.y,type:c.type,collected:false}));
   chainPlan=chainOn?(chainMode?(duelMode&&activeDuelRound?(activeDuelRound.chainPlan||buildChainPlan(i)):(currentChainPlan||buildChainPlan(i))):buildChainPlan(i)):[];
   if(chainMode&&!duelMode&&!currentChainPlan)currentChainPlan=chainPlan.map(x=>({...x}));
-  chainPathKeys=chainOn?pathStates(LV.fs||[]).map(stateKey):[];chainCurrentStep=chainOn?0:-1;chainMaxCombo=1;chainReactions=0;chainAutoMoves=0;chainCurrentCombo=1;chainAutoActive=false;chainAutoExecuting=false;chainAutoQueue=[];
+  chainPathKeys=[];chainCurrentStep=chainOn?0:-1;chainMaxCombo=1;chainReactions=0;chainAutoMoves=0;chainCurrentCombo=1;chainAutoActive=false;chainAutoExecuting=false;chainAutoQueue=[];
   const reactorPlan=reactorOn?(reactorMode?(duelMode&&activeDuelRound?(activeDuelRound.reactorPlan||buildReactorPlan(i)):(currentReactorPlan||buildReactorPlan(i))):buildReactorPlan(i)):[];
   reactorGates=reactorOn?reactorPlan.map(g=>({...g})):[];reactorHits=0;reactorPenalty=0;reactorLastHitAt=0;if(reactorMode&&!duelMode&&!currentReactorPlan)currentReactorPlan=reactorGates.map(g=>({...g}));
   let unifiedBriefingQueued=false;
@@ -5812,28 +5859,38 @@ function startLevel(i,mode='campaign',expectedKey=''){
     // Tutorials are unlocked progressively. Nothing is marked as seen until
     // the player explicitly continues from the quick guide or completes the lesson.
     const newMechanics=[];
+    let mechanicContext='';
     if(crystalMode&&!save.seenClassicCatalystTutorialV2)newMechanics.push('classicCatalyst');
     else if(chainMode&&!save.seenClassicChainTutorialV2)newMechanics.push('classicChain');
     else if(reactorMode&&!save.seenClassicReactorTutorialV2)newMechanics.push('classicReactor');
     else if(mode==='campaign'){
-    if(atoms.some(a=>a.frozen)&&!save.seenFrozen)newMechanics.push('frozen');
-    if(atoms.some(a=>a.fire)&&!save.seenFire)newMechanics.push('fire');
-    if(atoms.some(a=>a.lightning)&&!save.seenLightning)newMechanics.push('lightning');
-    if(atoms.some(a=>a.sticky)&&!save.seenSticky)newMechanics.push('sticky');
-    if(atoms.some(a=>a.zombie)&&!save.seenZombie)newMechanics.push('zombie');
-    if(oneWayTiles.size>0&&!save.seenOneWay)newMechanics.push('oneWay');
-    if(breakableWalls.size>0&&!save.seenBreakableWall)newMechanics.push('hammer');
-    if(portalPairs.size>0&&!save.seenPortal)newMechanics.push('portal');
-    if(movingWalls.length>0&&!save.seenMovingWall)newMechanics.push('movingWall');
-    if(pressureSystems.length>0&&!save.seenPressureDoor)newMechanics.push('pressureDoor');
-    if(atoms.some(a=>a.fragile)&&!save.seenFragile)newMechanics.push('fragile');
-    if(linkedPairs.length>0&&!save.seenLinked)newMechanics.push('linked');
-    if(i>=153&&!save.seenPrecisionTutorialV2)newMechanics.push('precision');
-    if(campaignFeature==='crystal'&&!save.seenClassicCatalystTutorialV2)newMechanics.push('classicCatalyst');
-    if(campaignFeature==='chain'&&!save.seenClassicChainTutorialV2)newMechanics.push('classicChain');
+      const level42Combo=i===41&&atoms.some(a=>a.frozen&&a.zombie)&&atoms.some(a=>a.fire);
+      if(level42Combo&&!level42ComboSeen()){
+        mechanicContext='level42FireZombie';
+        newMechanics.push('frozen','fire','zombie');
+      }else{
+        if(atoms.some(a=>a.frozen)&&!save.seenFrozen)newMechanics.push('frozen');
+        if(atoms.some(a=>a.fire)&&!save.seenFire)newMechanics.push('fire');
+        if(atoms.some(a=>a.zombie)&&!save.seenZombie)newMechanics.push('zombie');
+      }
+      if(atoms.some(a=>a.lightning)&&!save.seenLightning)newMechanics.push('lightning');
+      if(atoms.some(a=>a.sticky)&&!save.seenSticky)newMechanics.push('sticky');
+      if(oneWayTiles.size>0&&!save.seenOneWay)newMechanics.push('oneWay');
+      if(breakableWalls.size>0&&!save.seenBreakableWall)newMechanics.push('hammer');
+      if(portalPairs.size>0&&!save.seenPortal)newMechanics.push('portal');
+      if(movingWalls.length>0&&!save.seenMovingWall)newMechanics.push('movingWall');
+      if(pressureSystems.length>0&&!save.seenPressureDoor)newMechanics.push('pressureDoor');
+      if(atoms.some(a=>a.fragile)&&!save.seenFragile)newMechanics.push('fragile');
+      if(linkedPairs.length>0&&!save.seenLinked)newMechanics.push('linked');
+      if(i>=153&&!save.seenPrecisionTutorialV2)newMechanics.push('precision');
+      if(campaignFeature==='crystal'&&!save.seenClassicCatalystTutorialV2)newMechanics.push('classicCatalyst');
+      if(campaignFeature==='chain'&&!save.seenClassicChainTutorialV2)newMechanics.push('classicChain');
       if(campaignFeature==='reactor'&&!save.seenClassicReactorTutorialV2)newMechanics.push('classicReactor');
     }
-    if(newMechanics.length){unifiedBriefingQueued=true;setTimeout(()=>showMechanicFirstUse(newMechanics,{automatic:true,level:i,mode}),350);}
+    if(newMechanics.length){
+      unifiedBriefingQueued=true;
+      setTimeout(()=>showMechanicFirstUse(newMechanics,{automatic:true,level:i,mode,context:mechanicContext,afterClose:announceLevelStartAfterBriefing}),350);
+    }
   }
   for(const f of atoms){
     if(!f.fire)continue;
@@ -5880,26 +5937,7 @@ function startLevel(i,mode='campaign',expectedKey=''){
   if(!unifiedBriefingQueued&&save.tutorialTips!==false&&linkedPairs.length&&!save.seenLinkedAtoms){save.seenLinkedAtoms=true;persist();setTimeout(()=>say('🔗 '+t('linkedDesc'),'talk',6800,'glow'),atoms.some(a=>a.fragile)?10000:1600);}
   requestAnimationFrame(()=>drawMol($('#goalCv'),curMol,false));
   const dp=$('#dpad');dp.classList.remove('pulse');
-  if(duelMode){
-    $('#tutOverlay').classList.remove('on');
-    const dc=duelCopy();say((duelState.turn===0?'🔴 ':'🔵 ')+duelState.players[duelState.turn]+' · '+(crystalMode?'🧪 '+dc.crystal:(chainMode?'⚡ '+dc.chain:(reactorMode?'☢️ '+dc.reactor:'⚛️ '+dc.classic)))+' · '+dc.round+' '+(duelState.round+1)+'/'+DUEL_MAX_ROUNDS,'happy',3900,'glow');
-  }
-  else if(crystalMode){$('#tutOverlay').classList.remove('on');if(!unifiedBriefingQueued)say('🧪 '+crystalCopy().sub,'happy',4200,'glow');}
-  else if(chainMode){$('#tutOverlay').classList.remove('on');if(!unifiedBriefingQueued)say('⚡ '+chainCopy().sub,'happy',4200,'glow');}
-  else if(reactorMode){$('#tutOverlay').classList.remove('on');if(!unifiedBriefingQueued)say('☢️ '+reactorCopy().sub,'happy',4200,'glow');}
-  else if(campaignFeature==='crystal'){say('🧪 '+t('classicCatalystDesc'),'happy',6500,'glow');}
-  else if(campaignFeature==='chain'){say('⚡ '+t('classicChainDesc'),'happy',6500,'glow');}
-  else if(campaignFeature==='reactor'){say('☢️ '+t('classicReactorDesc'),'happy',6500,'glow');}
-  else if(tut===0){$('#tutOverlay').classList.add('on');}
-  else if(!save.disc[mid]){
-    say('<b>'+curMol.n+'</b> ('+curMol.f+')<br>'+curMol.fa,'talk',7000,'glow');
-  }
-  else if(Math.random()<0.3){
-    say('<b>'+curMol.n+'</b><br>'+curMol.fa,'talk',6000,'glow');
-  }
-  else{
-    say((lv<2?rnd(LN.greet)+'<br>':'')+t('targetLine','',curMol.n,curMol.f),'talk',4200);
-  }
+  if(!unifiedBriefingQueued)announceLevelStartAfterBriefing();
   resetIdle();
 }
 /* ================= INTERACTIVE TUTORIAL ================= */
@@ -5961,7 +5999,7 @@ function loadTutorialPuzzle(tl){
   levelStartT=performance.now();
   grid=tl.g.map(r=>[...r].map(c=>c==='1'));
   atoms=tl.a.map(a=>({x:a[0],y:a[1],e:a[2],ph:Math.random()*6.28,frozen:false,fire:false,sticky:false,zombie:false,zombieGen:0}));
-  sel=0;moves=0;hist=[];won=false;winT=0;hintStep=0;attemptHintCount=0;hintMark=null;bumpN=0;stuckAtomIdx=-1;stuckAtomCount=0;strugglingSaid=false;slowSaid=false;clearTimeout(autoHintT);
+  sel=0;moves=0;hist=[];won=false;winT=0;hintStep=0;attemptHintCount=0;hintMark=null;bumpN=0;stuckAtomIdx=-1;stuckAtomCount=0;strugglingSaid=false;slowSaid=false;assistanceUsed=false;routeAssistUsed=false;clearTimeout(autoHintT);
   anim=null;bounce=null;nudge=null;tut=9;
   t2=Math.ceil(tl.p*1.7);
   $('#lvPill').textContent=t('howToPlay');
@@ -6095,10 +6133,12 @@ function updateHUD(){
   const cc=$('#crystalCounter');if(cc){cc.classList.toggle('on',crystalOn);cc.textContent=labComponentHud();}
   const ch=$('#chainCounter');if(ch){ch.classList.toggle('on',chainOn);ch.classList.toggle('hot',chainOn&&chainAutoActive);ch.textContent=chainOn?chainCounterText():'⚡ COMBO x1';}
   const rc=$('#reactorCounter');if(rc){rc.classList.toggle('on',reactorOn);rc.textContent=reactorOn?reactorCounterText():('☢️ '+reactorImpactLabel(true)+' 0');}
-  $('#btnUndo').disabled=!hist.length||won||chainAutoActive;
-  const special=duelMode||chainMode||reactorMode;
-  $('#btnHint').disabled=special;$('#btnRestart').disabled=duelMode;$('#btnGear').disabled=special;
-  $('#btnLab').disabled=special;$('#btnMols').disabled=special;$('#btnAchv').disabled=special;
+  $('#btnUndo').disabled=!hist.length||won||chainAutoActive||autoSolveInProgress;
+  const special=duelMode||chainMode||reactorMode,locked=autoSolveInProgress;
+  $('#btnHint').disabled=special||locked;$('#btnRestart').disabled=duelMode||locked;$('#btnGear').disabled=special||locked;
+  const home=$('#btnHome');if(home)home.disabled=locked;
+  ['#btnHammer','#btnPrecision','#btnBarrier'].forEach(id=>{const b=$(id);if(b)b.disabled=locked;});
+  $('#btnLab').disabled=special||locked;$('#btnMols').disabled=special||locked;$('#btnAchv').disabled=special||locked;
 }
 
 /* ================= V8 STEP 11 · VISUAL GAME FEEL POLISH ================= */
@@ -6294,7 +6334,7 @@ function breakTemporaryBarrier(key){
 function move(i,d){
   if(precisionMode&&!precisionExecuting){attemptPrecisionMove(i,d);return;}
   if(onlineDuelConnectionPaused())return;
-  if(anim||movingWallAnimating||fragileFailure||won||i<0||(chainAutoActive&&!chainAutoExecuting))return;
+  if(anim||movingWallAnimating||fragileFailure||won||i<0||(chainAutoActive&&!chainAutoExecuting)||(autoSolveInProgress&&!autoSolveExecutingStep&&!chainAutoExecuting))return;
   if(secureAttemptPending){
     const now=Date.now();
     if(now-secureAttemptNoticeAt>1800){secureAttemptNoticeAt=now;prop('🔒',1200);say(t('securePreparing'),'talk',1800,'glow');}
@@ -6306,6 +6346,8 @@ function move(i,d){
   const linkedPlan=!precisionExecuting?linkedMovePlan(i,d):null;
   const normalPlan=(!linkedPlan&&!precisionExecuting)?slidePlan(i,d):null;
   let dest=linkedPlan?linkedPlan.main:(precisionExecuting?precisionDest(i,d):normalPlan.dest);
+  const intendedDest=dest?{x:dest.x,y:dest.y}:null;
+  let reactorPartial=false;
   const barrierHit=normalPlan&&normalPlan.barrierHit;
   if(!dest&&barrierHit){
     hist.push({fullAtoms:atoms.map(a=>({...a})),movesBefore:moves,moveLogLen:moveLog.length,barrierState:[...temporaryBarriers.values()].map(b=>({...b})),movingWallState:movingWallSnapshot()});
@@ -6330,20 +6372,21 @@ function move(i,d){
     if(laserBlock.index===0){sel=i;reactorHit(laserBlock.gate,d);return;}
     const stop=reactorPath[laserBlock.index-1];
     dest={x:stop.x,y:stop.y};
+    reactorPartial=!!intendedDest&&(dest.x!==intendedDest.x||dest.y!==intendedDest.y);
   }
   if(!chainAutoExecuting){
     const needsFullSnapshot=chainOn||atoms.some(a=>a.fragile)||linkedPairs.length>0;
     hist.push(needsFullSnapshot?{fullAtoms:atoms.map(a=>({...a})),movesBefore:moves,moveLogLen:moveLog.length,chainState:chainOn?{currentStep:chainCurrentStep,maxCombo:chainMaxCombo,reactions:chainReactions,autoMoves:chainAutoMoves}:null,crystalState:crystalOn?crystals.map(c=>!!c.collected):null,movingWallState:movingWallSnapshot()}:{i,x:atoms[i].x,y:atoms[i].y,crystalState:crystalOn?crystals.map(c=>!!c.collected):null,movingWallState:movingWallSnapshot()});
-    moves++;moveLog.push({i,d,precision:!!precisionExecuting});
+    moves++;moveLog.push({i,d,precision:!!precisionExecuting,reactorPartial});
   }else if(campaignFeature==='chain'){
-    moves++;moveLog.push({i,d});
+    moves++;moveLog.push({i,d,reactorPartial});
   }
   hintMark=null;sel=i;clearTimeout(autoHintT);
   if(barrierHit)breakTemporaryBarrier(barrierHit);
   const dist=Math.abs(dest.x-atoms[i].x)+Math.abs(dest.y-atoms[i].y);
   const crystalPath=crystalOn?crystalPathBetween(atoms[i].x,atoms[i].y,dest.x,dest.y):null;
   const moveFrom={x:atoms[i].x,y:atoms[i].y};
-  anim={i,fx:atoms[i].x,fy:atoms[i].y,tx:dest.x,ty:dest.y,t0:performance.now(),dur:80+dist*55,crystalPath,chainTrigger,chainAutoStep:!!chainAutoExecuting,prevBonds:bondsMatched(),partner:linkedPlan?{i:linkedPlan.j,fx:atoms[linkedPlan.j].x,fy:atoms[linkedPlan.j].y,tx:linkedPlan.mate.x,ty:linkedPlan.mate.y}:null};
+  anim={i,d,fx:atoms[i].x,fy:atoms[i].y,tx:dest.x,ty:dest.y,t0:performance.now(),dur:80+dist*55,crystalPath,chainTrigger,chainAutoStep:!!chainAutoExecuting,prevBonds:bondsMatched(),partner:linkedPlan?{i:linkedPlan.j,fx:atoms[linkedPlan.j].x,fy:atoms[linkedPlan.j].y,tx:linkedPlan.mate.x,ty:linkedPlan.mate.y}:null};
   if(onlineDuelMode)publishOnlineMoveEvent(i,d,moveFrom,dest,anim.dur);
   SFX.slide(dist);mxHaptic('light');gameFeelAtomTrail(atoms[i],dist);updateHUD();gameFeelToolState();resetIdle();
   look(-0.7,-0.6,620,dist>=5?0.55:null);
@@ -6518,11 +6561,15 @@ function showSpecificHint(){
   const raw=Array.isArray(LV.h)?LV.h:null;
   let i=raw?atoms.findIndex(a=>a.x===raw[0]&&a.y===raw[1]):-1;
   let d=raw&&Number.isInteger(raw[2])?raw[2]:-1;
-  if((i<0||d<0||d>3)&&Array.isArray(LV.fs)&&LV.fs.length){
+  const legal=(ai,dir)=>ai>=0&&atoms[ai]&&dir>=0&&dir<=3&&!atoms[ai].frozen&&!!(linkedMovePlan(ai,dir)||slideDest(ai,dir));
+  // Five late campaign records contain an old editorial hint direction that is
+  // no longer legal after board rebalancing. Always fall back to the certified
+  // first solution move when the stored coordinate hint cannot actually move.
+  if(!legal(i,d)&&Array.isArray(LV.fs)&&LV.fs.length){
     const first=LV.fs[0];
-    if(Array.isArray(first)&&atoms[first[0]]&&Number.isInteger(first[1])&&first[1]>=0&&first[1]<=3){i=first[0];d=first[1];}
+    if(Array.isArray(first)&&legal(first[0],first[1])){i=first[0];d=first[1];}
   }
-  if(i<0||!atoms[i]||d<0||d>3)return false;
+  if(!legal(i,d))return false;
   sel=i;hintMark={i,d};wink();prop('💡',2600);
   setDrEPose('magnifier',6200,4,true);
   say(t('hintDir',atoms[i].e,DIRN_()[d],DIRAR[d]),'talk',5200,'glow');
@@ -6541,6 +6588,7 @@ function showGeneralHint(){
 }
 function hint(){
   if(won)return;
+  if(hintPurchaseBusy||autoSolveInProgress){say(LANG==='tr'?'Çözüm ipucu şu anda oynatılıyor.':'The solution hint is already playing.','talk',2200,'glow');return;}
   resetIdle();clearTimeout(autoHintT);
   playCharacterVoice('drE','hint',{force:true,cooldown:0,duck:.30});
   setDrEPose('thinking',6400,4,true);
@@ -6562,36 +6610,27 @@ function offerPaidHint(){
   bindTap('#mHintCancel',()=>closeModal());
 }
 function pathStates(sol){
-  // Fixed 2026-07-30: this replay previously only ever moved the single
-  // triggering atom (via slideDest), never its linked mate. On levels with
-  // a linked pair (167, 170, 176, 180) the REAL move() function always moves
-  // both atoms together via linkedMovePlan(), so after the player's first
-  // linked move, this function's simulated states permanently diverged from
-  // the actual achievable board — matchCurrentToPath() could then never find
-  // a match again. Symptom: tapping the paid hint after that point always
-  // fell through to hintTryUndo (and for the free daily hint, consumeQuantumHint()
-  // still burned the freebie first since that call did not depend on the
-  // match succeeding), so the hint felt "bought" but did nothing and the
-  // player had no way to keep getting guided help. Levels 167/170/176/180
-  // were never actually unsolvable — UNDO, manual play, and "SHOW THE REST"
-  // (which restarts and replays via the real move()) always worked — but the
-  // single-move hint silently stopped working. Mirroring linkedMovePlan()
-  // here (the same function the real move() uses) keeps this replay in sync.
+  // Legacy visual-state helper retained for diagnostics. Paid hints no longer
+  // depend on this approximate replay because portals, pressure doors, moving
+  // walls and identical atoms can make a geometry-only replay ambiguous.
   const states=[LV.a.map(a=>({x:a[0],y:a[1],e:a[2]}))];
   const savedAtoms=atoms;
   let cur=states[0].map(a=>({...a}));
-  for(const[i,d]of sol){
-    atoms=cur;
-    const linkedPlan=linkedMovePlan(i,d);
-    if(linkedPlan){
-      cur=cur.map((a,idx)=>idx===i?{...a,x:linkedPlan.main.x,y:linkedPlan.main.y}:(idx===linkedPlan.j?{...a,x:linkedPlan.mate.x,y:linkedPlan.mate.y}:a));
-    }else{
-      const dest=slideDest(i,d);
-      cur=cur.map((a,idx)=>idx===i?{...a,x:dest.x,y:dest.y}:a);
+  try{
+    for(const step of (Array.isArray(sol)?sol:[])){
+      const i=Number(step&&step[0]),d=Number(step&&step[1]);
+      if(!cur[i]||d<0||d>3)break;
+      atoms=cur;
+      const linkedPlan=linkedMovePlan(i,d);
+      if(linkedPlan){
+        cur=cur.map((a,idx)=>idx===i?{...a,x:linkedPlan.main.x,y:linkedPlan.main.y}:(idx===linkedPlan.j?{...a,x:linkedPlan.mate.x,y:linkedPlan.mate.y}:a));
+      }else{
+        const dest=slideDest(i,d);if(!dest)break;
+        cur=cur.map((a,idx)=>idx===i?{...a,x:dest.x,y:dest.y}:a);
+      }
+      states.push(cur.map(a=>({...a})));
     }
-    states.push(cur.map(a=>({...a})));
-  }
-  atoms=savedAtoms;
+  }finally{atoms=savedAtoms;}
   return states;
 }
 function stateKey(s){
@@ -6599,13 +6638,40 @@ function stateKey(s){
   for(const a of s)(byE[a.e]=byE[a.e]||[]).push(a.x*32+a.y);
   return Object.keys(byE).sort().map(e=>e+':'+byE[e].sort((x,y)=>x-y).join(',')).join('|');
 }
-function matchCurrentToPath(sol){
-  const states=pathStates(sol);
-  const curKey=stateKey(atoms.map(a=>({x:a.x,y:a.y,e:a.e})));
-  for(let k=0;k<states.length-1;k++){
-    if(stateKey(states[k])===curKey)return sol[k];
+function certifiedRouteProgress(sol,allowAssistance=false){
+  if(!Array.isArray(sol)||!sol.length||(!allowAssistance&&routeAssistUsed)||!Array.isArray(moveLog)||moveLog.length>sol.length)return -1;
+  for(let k=0;k<moveLog.length;k++){
+    const log=moveLog[k],step=sol[k];
+    if(!log||!step||log.i!==step[0]||log.d!==step[1]||log.precision||log.barrier||log.reactorPartial)return -1;
   }
-  return null;
+  return moveLog.length;
+}
+function matchCurrentToPath(sol){
+  // The exact hint follows the certified ACTION route. This is more reliable
+  // than comparing atom sets: identical atoms may exchange positions, portals
+  // teleport after landing, doors and walls mutate, and a reactor laser may
+  // stop an otherwise-correct direction early. Undo truncates moveLog, so a
+  // player who returns to the certified prefix receives the correct next move.
+  const k=certifiedRouteProgress(sol);
+  return k>=0&&k<sol.length?[sol[k][0],sol[k][1]]:null;
+}
+let hintPurchaseBusy=false,autoSolveInProgress=false,autoSolveExecutingStep=false,autoSolveRunId=0,activeHintCharge=0;
+function finishHintTransaction(settleCharge=false){
+  if(settleCharge)activeHintCharge=0;
+  hintPurchaseBusy=false;autoSolveInProgress=false;autoSolveExecutingStep=false;
+  try{updateHUD();}catch(_){}
+}
+function refundCurrentHintCharge(){
+  const amount=Math.max(0,Math.floor(Number(activeHintCharge)||0));activeHintCharge=0;
+  if(amount)refundHintCoins(amount);
+  return amount;
+}
+function autoSolveGateBlocked(i,d){
+  if(!reactorActive()||!atoms[i])return false;
+  const linked=linkedMovePlan(i,d),dest=linked?linked.main:slideDest(i,d);
+  if(!dest)return false;
+  const path=crystalPathBetween(atoms[i].x,atoms[i].y,dest.x,dest.y);
+  return !!reactorFirstActiveGate(path);
 }
 function hintPlayMode(){
   return crystalMode?'crystal':(dailyMode?'daily':'campaign');
@@ -6618,90 +6684,127 @@ function refundHintCoins(amount){
 }
 function displayExactMove(nextMove,cost,useQuantum,resetToRoute){
   if(!nextMove)return false;
+  const[i,d]=nextMove;
+  // Verify the selected atom before touching the player's economy. A stale UI
+  // callback can therefore never create a temporary charge/refund cycle.
+  if(!atoms[i]||d<0||d>3)return false;
   if(useQuantum){if(!consumeQuantumHint())return false;}
   else if(cost>0&&!spendCoins(cost))return false;
+  assistanceUsed=true;attemptHintCount++;
   persist();updateCoins(false);
-  const[i,d]=nextMove;
-  if(!atoms[i]){
-    if(cost>0)refundHintCoins(cost);
-    return false;
-  }
   sel=i;hintMark={i,d};wink();prop('💡 '+DIRAR[d],3200);
   const prefix=resetToRoute?(LANG==='tr'?'Çözüm rotasına dönüldü. ':'Solution route restored. '):'';
   say(prefix+t('hintDir',atoms[i].e,DIRN_()[d],DIRAR[d]),'talk',6200,'glow');
-  SFX.hint();
+  SFX.hint();updateHUD();
+  return true;
+}
+function startFullSolution(sol,startIdx,cost,resetToRoute){
+  startIdx=Math.max(0,Math.floor(Number(startIdx)||0));
+  if(!Array.isArray(sol)||!sol.length||startIdx>=sol.length){finishHintTransaction();say(LANG==='tr'?'Gösterilecek başka hamle yok. MoleCoin alınmadı.':'There are no remaining moves to show. No MoleCoins were charged.','talk',3200,'glow');return false;}
+  const first=sol[startIdx];
+  const firstPlayable=first&&atoms[first[0]]&&!atoms[first[0]].frozen&&(linkedMovePlan(first[0],first[1])||slideDest(first[0],first[1]));
+  if(!firstPlayable){finishHintTransaction();say(LANG==='tr'?'Çözüm başlatılamadı; MoleCoin alınmadı.':'The solution could not start; no MoleCoins were charged.','sad',4200,'shk');return false;}
+  if(cost>0&&!spendCoins(cost)){finishHintTransaction();return false;}
+  activeHintCharge=Math.max(0,Math.floor(Number(cost)||0));
+  assistanceUsed=true;attemptHintCount++;autoSolveInProgress=true;hintPurchaseBusy=true;
+  persist();updateCoins(false);updateHUD();
+  const runId=autoSolveRunId;
+  say(resetToRoute?(LANG==='tr'?'Çözüm rotası baştan kuruluyor.':'Restoring the verified solution route.'):t('paidHintPlaying'),'excited',3400,'glow');
+  setTimeout(()=>playAutoSolve(sol,startIdx,{cost:activeHintCharge,retries:0,gateWaits:0,lastMoves:moves,runId}),700);
   return true;
 }
 function buyHint(cost,full,useQuantum){
-  attemptHintCount++;
+  if(hintPurchaseBusy||autoSolveInProgress)return;
+  hintPurchaseBusy=true;
   const sol=LV.fs;
-  if(!sol||!sol.length){closeModal();say(t('hintNoSolve'),'sad',3200,'shk');return;}
+  if(!sol||!sol.length){finishHintTransaction();closeModal();say(t('hintNoSolve'),'sad',3200,'shk');return;}
   if(!full){
     let nextMove=matchCurrentToPath(sol);
     closeModal();
     if(nextMove){
-      displayExactMove(nextMove,cost,useQuantum,false);
+      const shown=displayExactMove(nextMove,cost,useQuantum,false);finishHintTransaction();
+      if(!shown)say(LANG==='tr'?'İpucu gösterilemedi; MoleCoin alınmadı.':'The hint could not be shown; no MoleCoins were charged.','sad',4200,'shk');
       return;
     }
-    // The player has left the certified route. Ask before resetting so the
-    // player's current board is never erased unexpectedly. Currency is charged
-    // only after the restarted level visibly highlights the certified move.
-    openModal('<h3>'+(LANG==='tr'?'ÇÖZÜM ROTASINA DÖN':'RETURN TO SOLUTION ROUTE')+'</h3><div class="msub">'+(LANG==='tr'?'Kesin hamleyi göstermek için bölüm başlangıç düzenine dönecek. Mevcut hamlelerin silinecek; henüz MoleCoin alınmadı. Devam edilsin mi?':'To show the exact move, the level must return to its starting layout. Your current moves will be cleared; no MoleCoins have been charged yet. Continue?')+'</div><div class="mrow"><button class="btn amber" id="mHintRestartYes">'+(LANG==='tr'?'EVET, BAŞTAN BAŞLAT':'YES, RESTART')+'</button><button class="btn ghost" id="mHintRestartNo">'+t('cancel')+'</button></div>');
-    bindTap('#mHintRestartNo',()=>closeModal());
+    // Any wrong action, a partial reactor stop, or a board-changing booster
+    // leaves the certified route. Never guess from an unsafe board: explain the
+    // reset first, charge nothing, then show the first exact move after consent.
+    openModal('<h3>'+(LANG==='tr'?'ÇÖZÜM ROTASINA DÖN':'RETURN TO SOLUTION ROUTE')+'</h3><div class="msub">'+(LANG==='tr'?'Bu düzen artık doğrulanmış çözüm rotasında değil. Kesin hamleyi güvenle göstermek için bölüm başlangıç düzenine dönecek. Mevcut hamlelerin silinecek; henüz MoleCoin alınmadı. Devam edilsin mi?':'This board is no longer on the verified solution route. To show a safe exact move, the level must return to its starting layout. Your current moves will be cleared; no MoleCoins have been charged yet. Continue?')+'</div><div class="mrow"><button class="btn amber" id="mHintRestartYes">'+(LANG==='tr'?'EVET, BAŞTAN BAŞLAT':'YES, RESTART')+'</button><button class="btn ghost" id="mHintRestartNo">'+t('cancel')+'</button></div>');
+    bindTap('#mHintRestartNo',()=>{finishHintTransaction();closeModal();});
     bindTap('#mHintRestartYes',()=>{
-      const mode=hintPlayMode(),seenFrozen=save.seenFrozen;
-      closeModal();startLevel(lv,mode);save.seenFrozen=seenFrozen;
+      const mode=hintPlayMode(),seenFrozen=save.seenFrozen,targetLv=lv;
+      closeModal();startLevel(targetLv,mode);save.seenFrozen=seenFrozen;hintPurchaseBusy=true;
+      const runId=autoSolveRunId;
       setTimeout(()=>{
+        if(runId!==autoSolveRunId||lv!==targetLv||!scr.game.classList.contains('on')){finishHintTransaction();return;}
         nextMove=matchCurrentToPath(sol)||sol[0];
-        if(!displayExactMove(nextMove,cost,useQuantum,true)){
-          say(LANG==='tr'?'İpucu gösterilemedi; MoleCoin alınmadı.':'The hint could not be shown; no MoleCoins were charged.','sad',4200,'shk');
-        }
+        const shown=displayExactMove(nextMove,cost,useQuantum,true);finishHintTransaction();
+        if(!shown)say(LANG==='tr'?'İpucu gösterilemedi; MoleCoin alınmadı.':'The hint could not be shown; no MoleCoins were charged.','sad',4200,'shk');
       },220);
     });
     return;
   }
-  // Validate that the certified solution has a playable first move before any
-  // currency is deducted. Full solution uses the real move engine and refunds
-  // automatically if playback cannot begin or stalls unexpectedly.
-  const mode=hintPlayMode(),seenFrozen=save.seenFrozen;
-  closeModal();
-  startLevel(lv,mode);
-  save.seenFrozen=seenFrozen;
-  const first=sol[0];
-  const firstPlayable=first&&atoms[first[0]]&&(linkedMovePlan(first[0],first[1])||slideDest(first[0],first[1]));
-  if(!firstPlayable){
-    say(LANG==='tr'?'Çözüm başlatılamadı; MoleCoin alınmadı.':'The solution could not start; no MoleCoins were charged.','sad',4200,'shk');
-    return;
-  }
-  if(cost>0&&!spendCoins(cost))return;
-  persist();updateCoins(false);
-  assistanceUsed=true;
-  attemptHintCount=1;
-  say(t('paidHintPlaying'),'excited',3400,'glow');
-  setTimeout(()=>playAutoSolve(sol,0,{cost,retries:0,lastMoves:moves}),700);
+
+  // “Show the rest” continues from a verified action prefix. A wrong board is
+  // never guessed from and is never charged silently: the player first accepts
+  // a clean restart, then the purchase is made and the certified route is run.
+  const progress=certifiedRouteProgress(sol);
+  if(progress>=0){closeModal();startFullSolution(sol,progress,cost,false);return;}
+  openModal('<h3>'+(LANG==='tr'?'TÜM ÇÖZÜM İÇİN BAŞTAN BAŞLAT':'RESTART FOR FULL SOLUTION')+'</h3><div class="msub">'+(LANG==='tr'?'Mevcut düzen doğrulanmış çözüm rotasında değil. Kalan çözümü güvenle oynatmak için bölüm baştan başlayacak. Henüz MoleCoin alınmadı. Devam edilsin mi?':'The current board is not on the verified solution route. The level must restart before the remaining solution can play safely. No MoleCoins have been charged yet. Continue?')+'</div><div class="mrow"><button class="btn amber" id="mFullRestartYes">'+(LANG==='tr'?'EVET, ÇÖZÜMÜ OYNAT':'YES, PLAY SOLUTION')+'</button><button class="btn ghost" id="mFullRestartNo">'+t('cancel')+'</button></div>');
+  bindTap('#mFullRestartNo',()=>{finishHintTransaction();closeModal();});
+  bindTap('#mFullRestartYes',()=>{
+    const mode=hintPlayMode(),seenFrozen=save.seenFrozen,targetLv=lv;
+    closeModal();startLevel(targetLv,mode);save.seenFrozen=seenFrozen;hintPurchaseBusy=true;
+    const runId=autoSolveRunId;
+    setTimeout(()=>{
+      if(runId!==autoSolveRunId||lv!==targetLv||!scr.game.classList.contains('on')){finishHintTransaction();return;}
+      startFullSolution(sol,0,cost,true);
+    },220);
+  });
 }
 function playAutoSolve(sol,idx,ctx){
-  ctx=ctx||{cost:0,retries:0,lastMoves:moves};
-  if(won)return;
+  ctx=ctx||{cost:activeHintCharge,retries:0,gateWaits:0,lastMoves:moves,runId:autoSolveRunId};
+  if(ctx.runId!==autoSolveRunId)return;
+  if(won){finishHintTransaction(true);return;}
+  // Campaign Chain Reaction may automatically perform one or two certified
+  // actions. Resume from the actual verified action-log prefix instead of
+  // replaying an already-completed step.
+  const loggedProgress=certifiedRouteProgress(sol,true);
+  if(loggedProgress>idx)idx=loggedProgress;
+  // The final atom may still be travelling when idx reaches sol.length. Wait
+  // for all movement/chain animation to settle before deciding whether the
+  // certified route completed; otherwise a valid last move can be refunded.
+  if(anim||movingWallAnimating||chainAutoActive){setTimeout(()=>playAutoSolve(sol,idx,ctx),120);return;}
   if(idx>=sol.length){
-    if(!won){
-      if(ctx.cost)refundHintCoins(ctx.cost);
-      say(LANG==='tr'?'Çözüm tamamlanamadı; MoleCoin iade edildi.':'The solution could not finish; your MoleCoins were refunded.','sad',4600,'shk');
-    }
-    return;
+    if(!won){refundCurrentHintCharge();say(LANG==='tr'?'Çözüm tamamlanamadı; MoleCoin iade edildi.':'The solution could not finish; your MoleCoins were refunded.','sad',4600,'shk');}
+    finishHintTransaction(!!won);return;
   }
-  if(anim||chainAutoActive){setTimeout(()=>playAutoSolve(sol,idx,ctx),120);return;}
   const[i,d]=sol[idx];
+  if(!atoms[i]||atoms[i].frozen){
+    ctx.retries=(ctx.retries||0)+1;
+    if(ctx.retries<=4){setTimeout(()=>playAutoSolve(sol,idx,ctx),180);return;}
+    refundCurrentHintCharge();finishHintTransaction();say(LANG==='tr'?'Çözüm oynatılamadı; MoleCoin iade edildi.':'The solution could not be played; your MoleCoins were refunded.','sad',4600,'shk');return;
+  }
+  if(autoSolveGateBlocked(i,d)){
+    ctx.gateWaits=(ctx.gateWaits||0)+1;
+    if(ctx.gateWaits<=40){setTimeout(()=>playAutoSolve(sol,idx,ctx),120);return;}
+    refundCurrentHintCharge();finishHintTransaction();say(LANG==='tr'?'Lazer rotası açılamadı; MoleCoin iade edildi.':'The laser route did not open; your MoleCoins were refunded.','sad',4600,'shk');return;
+  }
+  ctx.gateWaits=0;
   const before=moves;
-  move(i,d);
+  autoSolveExecutingStep=true;
+  try{move(i,d);}finally{autoSolveExecutingStep=false;}
   setTimeout(()=>{
-    if(won)return;
+    if(ctx.runId!==autoSolveRunId)return;
+    if(won){finishHintTransaction(true);return;}
     if(moves<=before){
       ctx.retries=(ctx.retries||0)+1;
       if(ctx.retries<=4){setTimeout(()=>playAutoSolve(sol,idx,ctx),180);return;}
-      if(ctx.cost)refundHintCoins(ctx.cost);
-      say(LANG==='tr'?'Çözüm oynatılamadı; MoleCoin iade edildi.':'The solution could not be played; your MoleCoins were refunded.','sad',4600,'shk');
-      return;
+      refundCurrentHintCharge();finishHintTransaction();say(LANG==='tr'?'Çözüm oynatılamadı; MoleCoin iade edildi.':'The solution could not be played; your MoleCoins were refunded.','sad',4600,'shk');return;
+    }
+    const last=moveLog[moveLog.length-1];
+    if(last&&last.reactorPartial){
+      refundCurrentHintCharge();finishHintTransaction();say(LANG==='tr'?'Lazer hamleyi yarıda kesti; MoleCoin iade edildi.':'A laser interrupted the move; your MoleCoins were refunded.','sad',4600,'shk');return;
     }
     ctx.retries=0;ctx.lastMoves=moves;
     setTimeout(()=>playAutoSolve(sol,idx+1,ctx),120);
@@ -7046,24 +7149,38 @@ function winSeq(){
   }
   if(dailyMode){
     const localDay=currentDailyId||utcDayId();
-    const dailyRP=awardDailyResearch(localDay,moves,LV.p,LV.mn||LV.p,elapsedSeconds,attemptHintCount);
-    const claimPromise=(window.MXCloud&&save.profileId)?window.MXCloud.claimDailyExperiment(save.profileId):Promise.resolve({offline:true});
-    const timeoutFallback=new Promise(res=>setTimeout(()=>res({offline:true}),4000));
-    Promise.race([claimPromise,timeoutFallback]).then(res=>{
-      let already=false,practiceOnly=false,dailyGained=0;
+    const claimPromise=(window.MXCloud&&save.profileId&&window.MXCloud.claimDailyExperiment)?window.MXCloud.claimDailyExperiment(save.profileId):Promise.resolve({offline:true});
+    let practiceShown=false,verifiedSettled=false,practiceModalTimer=null;
+    const rewardStartedAt=performance.now();
+    const showPractice=()=>{
+      if(verifiedSettled||practiceShown)return;
+      practiceShown=true;
+      const delay=Math.max(0,RESULT_MODAL_DELAY_MS-(performance.now()-rewardStartedAt));
+      practiceModalTimer=setTimeout(()=>{if(!verifiedSettled)dailyModal(stars,0,false,true,0,Math.max(0,save.dailyRPStreak||0));},delay);
+    };
+    const waitTimer=setTimeout(showPractice,6000);
+    prop(ml('Günlük ödül hesapta doğrulanıyor…','Verifying today’s account reward…','Die heutige Kontobelohnung wird geprüft…','Verificando la recompensa diaria de la cuenta…','Verificando a recompensa diária da conta…','本日のアカウント報酬を確認中…'),2200);
+    Promise.resolve(claimPromise).then(res=>{
+      let verified=false,already=false,dailyGained=0,claimDay=localDay;
       if(res&&res.offline&&res.disabled){
-        if(save.dailyDate===localDay)already=true;
-        else{dailyGained=25;save.dailyDate=localDay;}
-      }else if(res&&res.offline){practiceOnly=true;
-      }else if(res&&res.alreadyClaimed){already=true;if(res.day)save.dailyDate=res.day;
-      }else if(res&&res.reward){dailyGained=res.reward;if(res.day)save.dailyDate=res.day;
-      }else practiceOnly=true;
+        clearTimeout(waitTimer);showPractice();return;
+      }else if(res&&res.offline){
+        clearTimeout(waitTimer);showPractice();return;
+      }else if(res&&res.alreadyClaimed){
+        verified=true;already=true;claimDay=res.day||localDay;
+      }else if(res&&Number(res.reward)>0){
+        verified=true;dailyGained=Math.max(0,Math.floor(Number(res.reward)||0));claimDay=res.day||localDay;
+      }
+      if(!verified){clearTimeout(waitTimer);showPractice();return;}
+      clearTimeout(waitTimer);if(practiceModalTimer)clearTimeout(practiceModalTimer);verifiedSettled=true;
+      save.dailyDate=claimDay;
+      const dailyRP=awardDailyResearch(localDay,moves,LV.p,LV.mn||LV.p,elapsedSeconds,attemptHintCount);
       if(dailyGained>0&&labOwned('robot'))dailyGained+=5;
       addCoins(dailyGained);
       checkAchievementsSilent();persist();updateBadge();
       try{if(window.MXCloud&&save.profileId&&window.MXCloud.syncLeaderboard)window.MXCloud.syncLeaderboard(save,save.profileId,true);}catch(e){}
-      setTimeout(()=>{updateCoins(dailyGained>0);dailyModal(stars,dailyGained,already,practiceOnly,dailyRP.delta,dailyRP.streak);},RESULT_MODAL_DELAY_MS);
-    });
+      setTimeout(()=>{updateCoins(dailyGained>0);dailyModal(stars,dailyGained,already,false,dailyRP.delta,dailyRP.streak);},practiceShown?180:RESULT_MODAL_DELAY_MS);
+    }).catch(()=>{clearTimeout(waitTimer);showPractice();});
     return;
   }
   save.stars[lv]=Math.max(prev,stars);
@@ -7108,7 +7225,7 @@ function dailyModal(stars,gained,already,practiceOnly,rpGained,streak){
     '<div class="msub">'+(practiceOnly?t('dailyOffline'):already?t('dailyAlready'):t('dailySolved'))+'</div>'+
     performanceResultHtml(lastPerformance)+
     '<div class="mstars"><span>⭐</span><span>⭐</span><span>⭐</span></div>'+
-    (rpGained>0?'<div class="mcoins" style="color:#78e7ff">+'+rpGained+' RP · 🔥 '+streak+'</div>':'<div class="mcoins" style="opacity:.55">'+(LANG==='tr'?'Bugünün en iyi RP skoru alındı':'Today’s best RP score claimed')+'</div>')+
+    (practiceOnly?'<div class="mcoins mxDailyPracticeNotice">🚫 '+ml('RP kaydedilmedi · MoleCoin verilmedi','RP not recorded · no MoleCoin awarded','RP nicht gespeichert · keine MoleCoins','RP no registrado · sin MoleCoins','RP não registrado · sem MoleCoins','RP未記録・MoleCoinなし')+'</div>':(rpGained>0?'<div class="mcoins" style="color:#78e7ff">+'+rpGained+' RP · 🔥 '+streak+'</div>':'<div class="mcoins" style="opacity:.55">'+ml('Bugünün en iyi RP skoru zaten kayıtlı','Today’s best RP score is already recorded','Die heutige beste RP-Punktzahl ist bereits gespeichert','La mejor puntuación RP de hoy ya está registrada','A melhor pontuação RP de hoje já está registrada','本日の最高RPは記録済みです')+'</div>'))+
     (gained>0?'<div class="mcoins">+<span class="mxCoinCountFlow">0</span> <span class="coinIcon"></span></div>':'')+
     '<div class="mrow"><button class="btn" id="mRetry">'+t('dailyPracticeAgain')+'</button>'+
     '<button class="btn ghost" id="mLab">'+t('mainMenu')+'</button></div>'
@@ -8110,23 +8227,32 @@ function showAllSupportGuide(){
 const MECHANIC_FIRST_USE_POSE=Object.freeze({
   frozen:'magnifier',fire:'experiment',lightning:'surprised',sticky:'magnifier',zombie:'surprised',oneWay:'clipboard',hammer:'experiment',portal:'surprised',movingWall:'thinking',pressureDoor:'clipboard',fragile:'magnifier',linked:'molecule',precision:'clipboard',classicCatalyst:'experiment',classicChain:'experiment',classicReactor:'surprised'
 });
+function mechanicContextNote(opts){
+  if(!opts||opts.context!=='level42FireZombie')return '';
+  return '<div class="mxMechanicContextNote"><b>🧪 '+ml('Bölüm 42 · NF₃ birleşik deney','Level 42 · NF₃ combined experiment','Level 42 · kombiniertes NF₃-Experiment','Nivel 42 · experimento combinado NF₃','Fase 42 · experimento combinado NF₃','レベル42・NF₃複合実験')+'</b><span>'+ml('❄️🧟 işaretli flor hem donmuş hem zombidir. 🔥 işaretli flor yanına ulaştığında önce buzu eritir ve zombi etkisini temizler. Zombi atom, iyileştirilmeden temas ettiği atomlara en fazla iki kez bulaşabilir.','The fluorine marked ❄️🧟 is both frozen and infected. When the 🔥 fluorine reaches it, fire melts the ice and cures the zombie effect. Before it is cured, a zombie atom can infect touching atoms at most twice.','Das mit ❄️🧟 markierte Fluor ist gefroren und infiziert. Das 🔥-Fluor schmilzt das Eis und heilt den Zombie-Effekt. Vor der Heilung kann ein Zombie höchstens zweimal an berührte Atome übertragen werden.','El flúor marcado ❄️🧟 está congelado e infectado. El flúor 🔥 derrite el hielo y cura el efecto zombi. Antes de curarse, un átomo zombi puede contagiar como máximo dos veces.','O flúor marcado ❄️🧟 está congelado e infectado. O flúor 🔥 derrete o gelo e cura o efeito zumbi. Antes da cura, um átomo zumbi pode infectar no máximo duas vezes.','❄️🧟印のフッ素は凍結と感染の両方です。🔥印のフッ素が隣に来ると氷を溶かし、ゾンビ効果を治します。治療前のゾンビ原子は接触した原子へ最大2回感染させます。')+'</span></div>';
+}
+function finishMechanicContext(opts){
+  if(opts&&opts.context==='level42FireZombie')markLevel42ComboSeen();
+  if(opts&&typeof opts.afterClose==='function')setTimeout(()=>opts.afterClose(),260);
+}
 function showMechanicFirstUse(ids,opts){
   ids=[...new Set((ids||[]).filter(id=>MECHANIC_INFO[id]))];
   if(!ids.length)return;
   const pose=MECHANIC_FIRST_USE_POSE[ids[0]]||'clipboard',src=DR_E_POSES[pose]||DR_E_POSES.clipboard;
   setDrEPose(pose,9000,6,true);
-  const rows=ids.map(id=>{const info=MECHANIC_INFO[id];return '<div class="mxFirstUseRow"><span class="mxFirstUseIcon">'+info.icon+'</span><div><b>'+t(info.titleKey)+'</b><small>'+t(info.descKey)+'</small></div></div>';}).join('');
+  const rows=ids.map(id=>{const info=MECHANIC_INFO[id],cue=mechanicVisualCue(id);return '<div class="mxFirstUseRow"><span class="mxFirstUseIcon">'+info.icon+'</span><div><b>'+t(info.titleKey)+'</b><small>'+t(info.descKey)+'</small>'+(cue?'<em class="mxFirstUseCue">'+cue+'</em>':'')+'</div></div>';}).join('');
   const title=ml('Yeni kural · kısa bilgi','New rule · quick guide','Neue Regel · Kurzhilfe','Nueva regla · guía rápida','Nova regra · guia rápido','新ルール・クイックガイド');
   const sub=ml('Sadece ilk karşılaşmada gösterilir. Uzun eğitim zorunlu değildir.','Shown only on first encounter. The long lesson is optional.','Wird nur beim ersten Auftreten gezeigt. Die lange Lektion ist optional.','Solo aparece la primera vez. La lección larga es opcional.','Aparece apenas no primeiro encontro. A lição longa é opcional.','最初の遭遇時にだけ表示されます。詳しい練習は任意です。');
   const detail=ml('DETAYLI EĞİTİM','DETAILED TRAINING','DETAILTRAINING','ENTRENAMIENTO DETALLADO','TREINO DETALHADO','詳しい練習');
   const go=ml('ANLADIM · DEVAM ▶','GOT IT · CONTINUE ▶','VERSTANDEN · WEITER ▶','ENTENDIDO · CONTINUAR ▶','ENTENDI · CONTINUAR ▶','理解した・続ける ▶');
-  openModal('<div class="mxFirstUseHead"><img src="'+src+'" alt="Dr. E"><div><span>DR. E</span><h3>'+title+'</h3><p>'+sub+'</p></div></div><div class="mxFirstUseList">'+rows+'</div><div class="mrow"><button class="btn ghost" id="mMechanicDetails">🔬 '+detail+'</button><button class="btn green mxGuidedTarget" id="mMechanicQuickGo">'+go+'</button></div>');
+  openModal('<div class="mxFirstUseHead"><img src="'+src+'" alt="Dr. E"><div><span>DR. E</span><h3>'+title+'</h3><p>'+sub+'</p></div></div>'+mechanicContextNote(opts)+'<div class="mxFirstUseList">'+rows+'</div><div class="mrow"><button class="btn ghost" id="mMechanicDetails">🔬 '+detail+'</button><button class="btn green mxGuidedTarget" id="mMechanicQuickGo">'+go+'</button></div>');
   bindTap('#mMechanicDetails',()=>{SFX.select();showMechanicBriefing(ids,opts);});
   bindTap('#mMechanicQuickGo',()=>{
     ids.forEach(id=>{const info=MECHANIC_INFO[id];markMechanicTutorialSeen(id);markTrainingLearned('mechanic',id,t(info.titleKey),true);});
     SFX.play();mxHaptic('light');closeModal();
     const frame=$('#boardFrame');if(frame){frame.classList.add('mxTutorialBoardPulse');setTimeout(()=>frame.classList.remove('mxTutorialBoardPulse'),3600);}
     prop('✓ '+ml('Kural hazır','Rule ready','Regel bereit','Regla lista','Regra pronta','ルール確認完了'),1200);
+    finishMechanicContext(opts);
   });
 }
 
@@ -8183,6 +8309,7 @@ function mechanicVisualCue(id){
     pressureDoor:()=>ml('Görünüş: aynı harfli yuvarlak düğme + çizgili kapı. Çizgili/şeffafsa açıktır.','Look: round switch + striped door with the same letter. Striped/transparent means open.','Aussehen: runder Schalter und gestreifte Tür mit gleichem Buchstaben. Transparent = offen.','Aspecto: interruptor redondo y puerta rayada con la misma letra. Transparente = abierta.','Visual: botão redondo e porta listrada com a mesma letra. Transparente = aberta.','見た目：同じ文字の丸スイッチと縞扉。透明なら開いています。'),
     fragile:()=>ml('Görünüş: elmas çerçeve ve kalan darbe sayısı.','Look: diamond outline plus remaining-impact number.','Aussehen: Diamantrahmen plus Resttrefferzahl.','Aspecto: marco de diamante y número restante.','Visual: moldura de diamante e número restante.','見た目：ダイヤ枠と残り回数。'),
     linked:()=>ml('Görünüş: iki atom arasında hareketli noktalı bağ.','Look: animated dotted link between two atoms.','Aussehen: bewegte gestrichelte Verbindung.','Aspecto: línea de puntos animada.','Visual: linha pontilhada animada.','見た目：2原子間の動く点線。'),
+    precision:()=>ml('Görünüş: seçili atomun çevresinde 🎯 hedef halkası ve 1 □ göstergesi.','Look: a 🎯 target ring around the selected atom plus the 1 □ indicator.','Aussehen: 🎯-Zielring um das gewählte Atom und Anzeige 1 □.','Aspecto: aro 🎯 alrededor del átomo seleccionado e indicador 1 □.','Visual: anel 🎯 no átomo selecionado e indicador 1 □.','見た目：選択原子の🎯リングと1 □表示。'),
     classicCatalyst:()=>ml('Görünüş: üç farklı laboratuvar simgesi ve üstte üç sayaç.','Look: three lab symbols and three counters at the top.','Aussehen: drei Laborsymbole und drei Zähler oben.','Aspecto: tres símbolos y tres contadores arriba.','Visual: três símbolos e três contadores no topo.','見た目：3つのラボ記号と上部カウンター。'),
     classicChain:()=>ml('Görünüş: parlayan doğru hamle ve COMBO sayacı.','Look: glowing correct move and COMBO counter.','Aussehen: leuchtender richtiger Zug und COMBO-Zähler.','Aspecto: movimiento brillante y contador COMBO.','Visual: jogada brilhante e contador COMBO.','見た目：光る正解手とCOMBO表示。'),
     classicReactor:()=>ml('Görünüş: yanıp sönen lazer ve Darbe/Impact sayacı.','Look: pulsing laser and Impact counter.','Aussehen: pulsierender Laser und Trefferzähler.','Aspecto: láser pulsante y contador de impactos.','Visual: laser pulsante e contador de impactos.','見た目：点滅レーザーと衝突カウンター。')
@@ -8242,7 +8369,7 @@ function showMechanicBriefing(ids,opts){
     const id=ids[page],info=MECHANIC_INFO[id],demo=mechanicTutorialDemo(id),last=page===ids.length-1;
     const cells=demo.cells.map((v,n)=>'<span class="'+(String(v).includes('mxTrainingToken')?'mxTrainingCell':'')+'" style="min-width:42px;height:42px;padding:0 8px;border-radius:11px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.075);border:1px solid rgba(255,255,255,.14);font-weight:900;transition:.28s;" data-tutorial-cell="'+n+'">'+v+'</span>').join('');
     const drGuide=ml('Parlayan deney düğmesine dokun. Hareketi adım adım göstereceğim.','Tap the glowing experiment button. I will show the action step by step.','Tippe auf die leuchtende Experiment-Schaltfläche. Ich zeige den Ablauf Schritt für Schritt.','Toca el botón brillante del experimento. Te mostraré la acción paso a paso.','Toque no botão brilhante do experimento. Vou mostrar a ação passo a passo.','光る実験ボタンをタップしてください。手順を順番に示します。');
-    openModal('<div style="font-size:.72rem;font-weight:900;letter-spacing:.12em;color:#78e7ff;margin-bottom:5px">'+ml('EĞİTİM DENEYİ','TRAINING EXPERIMENT','TRAININGSEXPERIMENT','EXPERIMENTO DE PRÁCTICA','EXPERIMENTO DE TREINO','練習実験')+' · '+(page+1)+'/'+ids.length+'</div><h3>'+info.icon+' '+t(info.titleKey)+'</h3><div class="msub">'+t(info.descKey)+'</div>'+drETrainingCard(drGuide,'1/2')+'<div id="mechanicMiniLab" style="margin:15px 0 10px;padding:15px 10px;border-radius:18px;background:linear-gradient(145deg,rgba(20,49,76,.9),rgba(34,20,63,.92));border:1px solid rgba(120,231,255,.28);"><div style="display:flex;gap:7px;align-items:center;justify-content:center;flex-wrap:wrap">'+cells+'</div><div id="mechanicDemoResult" style="min-height:42px;margin-top:12px;font-size:.82rem;line-height:1.35;color:#dcecff">'+ml('Aşağıdaki düğmeye bas ve örneği çalıştır.','Press the button below to run the example.','Drücke die Schaltfläche unten, um das Beispiel auszuführen.','Pulsa el botón de abajo para ejecutar el ejemplo.','Pressione o botão abaixo para executar o exemplo.','下のボタンを押して例を実行してください。')+'</div></div><div class="mrow"><button class="btn amber mxGuidedTarget" id="mMechanicTry">▶ '+demo.action+'</button><button class="btn green" id="mMechanicNext" disabled>'+(last?ml('GERÇEK BÖLÜME GEÇ ▶','START REAL LEVEL ▶','ECHTES LEVEL STARTEN ▶','INICIAR NIVEL REAL ▶','INICIAR FASE REAL ▶','実際のレベルへ ▶'):ml('SONRAKİ EĞİTİM ▶','NEXT TRAINING ▶','NÄCHSTES TRAINING ▶','SIGUIENTE PRÁCTICA ▶','PRÓXIMO TREINO ▶','次の練習 ▶'))+'</button></div>');
+    openModal('<div style="font-size:.72rem;font-weight:900;letter-spacing:.12em;color:#78e7ff;margin-bottom:5px">'+ml('EĞİTİM DENEYİ','TRAINING EXPERIMENT','TRAININGSEXPERIMENT','EXPERIMENTO DE PRÁCTICA','EXPERIMENTO DE TREINO','練習実験')+' · '+(page+1)+'/'+ids.length+'</div><h3>'+info.icon+' '+t(info.titleKey)+'</h3><div class="msub">'+t(info.descKey)+'</div><div class="mxMechanicVisualCue">'+mechanicVisualCue(id)+'</div>'+(page===0?mechanicContextNote(opts):'')+drETrainingCard(drGuide,'1/2')+'<div id="mechanicMiniLab" style="margin:15px 0 10px;padding:15px 10px;border-radius:18px;background:linear-gradient(145deg,rgba(20,49,76,.9),rgba(34,20,63,.92));border:1px solid rgba(120,231,255,.28);"><div style="display:flex;gap:7px;align-items:center;justify-content:center;flex-wrap:wrap">'+cells+'</div><div id="mechanicDemoResult" style="min-height:42px;margin-top:12px;font-size:.82rem;line-height:1.35;color:#dcecff">'+ml('Aşağıdaki düğmeye bas ve örneği çalıştır.','Press the button below to run the example.','Drücke die Schaltfläche unten, um das Beispiel auszuführen.','Pulsa el botón de abajo para ejecutar el ejemplo.','Pressione o botão abaixo para executar o exemplo.','下のボタンを押して例を実行してください。')+'</div></div><div class="mrow"><button class="btn amber mxGuidedTarget" id="mMechanicTry">▶ '+demo.action+'</button><button class="btn green" id="mMechanicNext" disabled>'+(last?ml('GERÇEK BÖLÜME GEÇ ▶','START REAL LEVEL ▶','ECHTES LEVEL STARTEN ▶','INICIAR NIVEL REAL ▶','INICIAR FASE REAL ▶','実際のレベルへ ▶'):ml('SONRAKİ EĞİTİM ▶','NEXT TRAINING ▶','NÄCHSTES TRAINING ▶','SIGUIENTE PRÁCTICA ▶','PRÓXIMO TREINO ▶','次の練習 ▶'))+'</button></div>');
     bindTap('#mMechanicTry',()=>{
       if(demonstrated)return;demonstrated=true;SFX.select();mxHaptic('light');
       const lab=$('#mechanicMiniLab'),result=$('#mechanicDemoResult'),tryBtn=$('#mMechanicTry'),next=$('#mMechanicNext');
@@ -8250,7 +8377,7 @@ function showMechanicBriefing(ids,opts){
       setTimeout(()=>{if(result)result.innerHTML='✅ '+demo.result;if(tryBtn){tryBtn.classList.remove('mxGuidedTarget');tryBtn.disabled=true;tryBtn.textContent='✓ '+ml('DENEY TAMAM','EXPERIMENT COMPLETE','EXPERIMENT ABGESCHLOSSEN','EXPERIMENTO COMPLETADO','EXPERIMENTO CONCLUÍDO','実験完了');}if(next){next.disabled=false;next.classList.add('mxGuidedTarget');}setDrETraining(ml('Mükemmel. Sonucu gördün; devam etmek için parlayan düğmeye dokun.','Excellent. You saw the result; tap the glowing button to continue.','Ausgezeichnet. Du hast das Ergebnis gesehen; tippe zum Fortfahren auf die leuchtende Schaltfläche.','Excelente. Ya viste el resultado; toca el botón brillante para continuar.','Excelente. Você viu o resultado; toque no botão brilhante para continuar.','結果を確認できました。光るボタンをタップして続けてください。'),'2/2','👉');SFX.thunk();mxHaptic('success');},Math.max(650,demo.cells.length*180+220));
     });
     bindTap('#mMechanicNext',()=>{if(!demonstrated)return;const learnedId=ids[page],learnedInfo=MECHANIC_INFO[learnedId];markMechanicTutorialSeen(learnedId);markTrainingLearned('mechanic',learnedId,t(learnedInfo.titleKey),true);SFX.play();if(page<ids.length-1){page++;demonstrated=false;render();return;}
-      const finish=()=>{closeModal();prop('🎓 '+ml('Mekanik öğrenildi','Mechanic learned','Mechanik gelernt','Mecánica aprendida','Mecânica aprendida','仕組みを習得'),2200);const frame=$('#boardFrame');if(frame){frame.classList.add('mxTutorialBoardPulse');setTimeout(()=>frame.classList.remove('mxTutorialBoardPulse'),5000);}if(ids.includes('hammer')){save.seenHammerSupport=true;const b=$('#btnHammer');if(b){b.classList.add('mxTutorialPulse');setTimeout(()=>b.classList.remove('mxTutorialPulse'),7000);}}if(ids.includes('precision')){save.seenPrecisionSupport=true;const b=$('#btnPrecision');if(b){b.classList.add('mxTutorialPulse');setTimeout(()=>b.classList.remove('mxTutorialPulse'),7000);}}persist();setTimeout(()=>say(ml('Eğitim tamamlandı. Şimdi aynı kuralı gerçek bölümde kullan!','Training complete. Now use the same rule in the real level!','Training abgeschlossen. Nutze dieselbe Regel jetzt im echten Level!','Práctica completada. ¡Usa ahora la misma regla en el nivel real!','Treino concluído. Agora use a mesma regra na fase real!','練習完了。同じルールを実際のレベルで使ってみましょう！'),'happy',4200,'glow'),220);};
+      const finish=()=>{closeModal();prop('🎓 '+ml('Mekanik öğrenildi','Mechanic learned','Mechanik gelernt','Mecánica aprendida','Mecânica aprendida','仕組みを習得'),2200);const frame=$('#boardFrame');if(frame){frame.classList.add('mxTutorialBoardPulse');setTimeout(()=>frame.classList.remove('mxTutorialBoardPulse'),5000);}if(ids.includes('hammer')){save.seenHammerSupport=true;const b=$('#btnHammer');if(b){b.classList.add('mxTutorialPulse');setTimeout(()=>b.classList.remove('mxTutorialPulse'),7000);}}if(ids.includes('precision')){save.seenPrecisionSupport=true;const b=$('#btnPrecision');if(b){b.classList.add('mxTutorialPulse');setTimeout(()=>b.classList.remove('mxTutorialPulse'),7000);}}persist();finishMechanicContext(opts);if(!(opts&&typeof opts.afterClose==='function'))setTimeout(()=>say(ml('Eğitim tamamlandı. Şimdi aynı kuralı gerçek bölümde kullan!','Training complete. Now use the same rule in the real level!','Training abgeschlossen. Nutze dieselbe Regel jetzt im echten Level!','Práctica completada. ¡Usa ahora la misma regla en el nivel real!','Treino concluído. Agora use a mesma regra na fase real!','練習完了。同じルールを実際のレベルで使ってみましょう！'),'happy',4200,'glow'),220);};
       openModal('<h3>✅ '+ml('Mekanik öğrenildi!','Mechanic learned!','Mechanik gelernt!','¡Mecánica aprendida!','Mecânica aprendida!','仕組みを習得しました！')+'</h3><div class="msub">'+ml('Bu eğitim artık otomatik olarak tekrar gösterilmeyecek. Eğitim Merkezi veya Moleculopedia’dan yeniden açabilirsin.','This lesson will not appear automatically again. You can replay it from the Training Center or Moleculopedia.','Diese Lektion wird nicht erneut automatisch angezeigt. Du kannst sie im Trainingszentrum oder in der Moleculopedia wiederholen.','Esta lección no volverá a aparecer automáticamente. Puedes repetirla desde el Centro de práctica o Moleculopedia.','Esta lição não aparecerá novamente de forma automática. Você pode repeti-la no Centro de Treino ou na Moleculopedia.','このレッスンは自動では再表示されません。トレーニングセンターまたはMoleculopediaから再実行できます。')+'</div><div class="mrow"><button class="btn ghost" id="mMechanicRepeat">↻ '+ml('TEKRAR DENE','TRY AGAIN','NOCH EINMAL','REPETIR','TENTAR NOVAMENTE','もう一度')+'</button><button class="btn green mxGuidedTarget" id="mMechanicContinue">'+ml('GERÇEK BÖLÜME GEÇ ▶','START REAL LEVEL ▶','ECHTES LEVEL STARTEN ▶','INICIAR NIVEL REAL ▶','INICIAR FASE REAL ▶','実際のレベルへ ▶')+'</button></div>');
       bindTap('#mMechanicRepeat',()=>showMechanicBriefing(ids,opts));
       bindTap('#mMechanicContinue',finish);
@@ -8266,12 +8393,15 @@ function mechanicsGuideModal(){
     const fullTitle=t(info.titleKey),title=String(fullTitle).replace(/^\S+\s/,'').trim()||fullTitle;
     return [id,info.icon,title,t(info.descKey),flag];
   }).filter(Boolean);
-  const html=rows.length?rows.map(r=>'<button class="mechanicGuideRow" data-mechanic-replay="'+r[0]+'" style="width:100%;text-align:left;cursor:pointer"><div class="mechanicGuideIcon">'+r[1]+'</div><div style="flex:1"><b>'+r[2]+'</b><small>'+r[3]+'</small><small style="color:#78e7ff;margin-top:4px">▶ '+ml('Eğitimi yeniden çalıştır','Replay training','Training wiederholen','Repetir práctica','Repetir treino','練習を再実行')+'</small></div></button>').join(''):'<div class="mechanicGuideRow"><small>'+ml('Henüz açılan bir mekanik yok — ilerledikçe burada birikecek.','Nothing unlocked yet — this fills in as you progress.','Noch keine Mechanik freigeschaltet – die Liste wächst mit deinem Fortschritt.','Aún no hay mecánicas desbloqueadas; aparecerán al avanzar.','Ainda não há mecânicas desbloqueadas; elas aparecerão com o progresso.','まだ仕組みは解放されていません。進行すると追加されます。')+'</small></div>';
+  const comboRow=level42ComboSeen()?'<button class="mechanicGuideRow" id="mReplayLevel42Combo" style="width:100%;text-align:left;cursor:pointer"><div class="mechanicGuideIcon">🧪</div><div style="flex:1"><b>'+ml('Bölüm 42 · Donmuş Zombi + Ateş','Level 42 · Frozen Zombie + Fire','Level 42 · Gefrorener Zombie + Feuer','Nivel 42 · Zombi congelado + Fuego','Fase 42 · Zumbi congelado + Fogo','レベル42・凍結ゾンビ＋炎')+'</b><small>'+ml('NF₃ deneyindeki üç işaretin birlikte nasıl çalıştığını yeniden izle.','Replay how the three symbols work together in the NF₃ experiment.','Sieh erneut, wie die drei Symbole im NF₃-Experiment zusammenwirken.','Repite cómo funcionan juntos los tres símbolos en el experimento NF₃.','Reveja como os três símbolos funcionam juntos no experimento NF₃.','NF₃実験で3つの印が連動する仕組みを再確認します。')+'</small><small style="color:#78e7ff;margin-top:4px">▶ '+ml('Birleşik eğitimi yeniden çalıştır','Replay combined training','Kombiniertes Training wiederholen','Repetir entrenamiento combinado','Repetir treino combinado','複合練習を再実行')+'</small></div></button>':'';
+  const standardRows=rows.length?rows.map(r=>'<button class="mechanicGuideRow" data-mechanic-replay="'+r[0]+'" style="width:100%;text-align:left;cursor:pointer"><div class="mechanicGuideIcon">'+r[1]+'</div><div style="flex:1"><b>'+r[2]+'</b><small>'+r[3]+'</small><small style="color:#78e7ff;margin-top:4px">▶ '+ml('Eğitimi yeniden çalıştır','Replay training','Training wiederholen','Repetir práctica','Repetir treino','練習を再実行')+'</small></div></button>').join(''):'';
+  const html=(comboRow||standardRows)?comboRow+standardRows:'<div class="mechanicGuideRow"><small>'+ml('Henüz açılan bir mekanik yok — ilerledikçe burada birikecek.','Nothing unlocked yet — this fills in as you progress.','Noch keine Mechanik freigeschaltet – die Liste wächst mit deinem Fortschritt.','Aún no hay mecánicas desbloqueadas; aparecerán al avanzar.','Ainda não há mecânicas desbloqueadas; elas aparecerão com o progresso.','まだ仕組みは解放されていません。進行すると追加されます。')+'</small></div>';
   openModal('<h3>🎓 '+ml('Eğitim Merkezi · Mekanikler','Training Center · Mechanics','Trainingszentrum · Mechaniken','Centro de práctica · Mecánicas','Centro de treino · Mecânicas','トレーニングセンター・仕組み')+'</h3><div class="msub">'+ml('Yalnızca keşfettiğin kurallar burada görünür. Bir karta dokunarak kısa deneyi yeniden açabilirsin.','Only discovered rules appear here. Tap a card to replay its short experiment.','Hier erscheinen nur entdeckte Regeln. Tippe auf eine Karte, um das kurze Experiment zu wiederholen.','Aquí solo aparecen reglas descubiertas. Toca una tarjeta para repetir su experimento breve.','Aqui aparecem apenas regras descobertas. Toque em um cartão para repetir o experimento curto.','発見済みのルールだけが表示されます。カードをタップすると短い実験を再生できます。')+'</div><div class="settingsScroll mechanicGuideList">'+html+'</div><div class="mrow"><button class="btn green" id="mReplayAllMechanics"'+(rows.length?'':' disabled')+'>▶ '+ml('Tüm açılmış eğitimleri sırayla çalıştır','Replay all unlocked trainings','Alle freigeschalteten Trainings abspielen','Repetir todas las prácticas desbloqueadas','Repetir todos os treinos desbloqueados','解放済みの練習を順番に再生')+'</button></div><div class="mrow"><button class="btn ghost" id="mResetMechanicTips">'+ml('İlk kullanım açıklamalarını yeniden aç','Show first-use tips again','Ersthinweise erneut anzeigen','Mostrar de nuevo las explicaciones iniciales','Mostrar novamente as explicações iniciais','初回説明を再表示')+'</button><button class="btn" id="mGuideClose">'+t('close')+'</button></div>');
+  const level42Replay=$('#mReplayLevel42Combo');if(level42Replay)bindTap(level42Replay,()=>showMechanicBriefing(['frozen','fire','zombie'],{context:'level42FireZombie'}));
   document.querySelectorAll('[data-mechanic-replay]').forEach(b=>bindTap(b,()=>showMechanicBriefing([b.dataset.mechanicReplay])));
   bindTap('#mReplayAllMechanics',()=>showMechanicBriefing(rows.map(r=>r[0])));
   bindTap('#mGuideClose',()=>settingsModal());
-  bindTap('#mResetMechanicTips',()=>{save.seenFrozen=false;save.seenFire=false;save.seenLightning=false;save.seenSticky=false;save.seenZombie=false;save.seenOneWay=false;save.seenBreakableWall=false;save.seenPortal=false;save.seenMovingWall=false;save.seenPressureDoor=false;save.seenFragile=false;save.seenFragileAtom=false;save.seenLinked=false;save.seenLinkedAtoms=false;save.seenHammerWall=false;save.tutorialTips=true;save.seenPrecision=false;save.seenPrecisionTutorialV2=false;save.seenClassicCatalystTutorialV2=false;save.seenClassicChainTutorialV2=false;save.seenClassicReactorTutorialV2=false;save.seenBarrierSupport=false;persist();SFX.click();prop(ml('İlk kullanım açıklamaları yeniden etkinleştirildi.','First-use explanations enabled again.','Ersthinweise wurden erneut aktiviert.','Las explicaciones iniciales se activaron de nuevo.','As explicações iniciais foram ativadas novamente.','初回説明を再び有効にしました。'),1800);});
+  bindTap('#mResetMechanicTips',()=>{save.seenFrozen=false;save.seenFire=false;save.seenLightning=false;save.seenSticky=false;save.seenZombie=false;save.seenOneWay=false;save.seenBreakableWall=false;save.seenPortal=false;save.seenMovingWall=false;save.seenPressureDoor=false;save.seenFragile=false;save.seenFragileAtom=false;save.seenLinked=false;save.seenLinkedAtoms=false;save.seenHammerWall=false;save.tutorialTips=true;save.seenPrecision=false;save.seenPrecisionTutorialV2=false;save.seenClassicCatalystTutorialV2=false;save.seenClassicChainTutorialV2=false;save.seenClassicReactorTutorialV2=false;save.seenBarrierSupport=false;ensureResearchState(save);delete save.researchAchievements[LEVEL42_COMBO_KEY];persist();SFX.click();prop(ml('İlk kullanım açıklamaları yeniden etkinleştirildi.','First-use explanations enabled again.','Ersthinweise wurden erneut aktiviert.','Las explicaciones iniciales se activaron de nuevo.','As explicações iniciais foram ativadas novamente.','初回説明を再び有効にしました。'),1800);});
 }
 
 function moleculopediaCatalog(){
@@ -8570,13 +8700,15 @@ function setLang(lang){
 
 /* ================= BOARD RENDER ================= */
 function resize(){
-  dpr=Math.min(window.devicePixelRatio||1,2.5);
-  const wrap=$('#boardWrap');
+  dpr=effectiveDpr();
+  const wrap=$('#boardWrap');if(!wrap)return;
   const nodpad=document.body.classList.contains('nodpad');
-  const bw=wrap.clientWidth-(nodpad?22:34),bh=wrap.clientHeight-30;
-  T=Math.max(22,Math.min(58,Math.floor(Math.min(bw/W,bh/H))));
-  board.style.width=T*W+'px';board.style.height=T*H+'px';
-  board.width=T*W*dpr;board.height=T*H*dpr;
+  const bw=Math.max(1,wrap.clientWidth-(nodpad?22:34)),bh=Math.max(1,wrap.clientHeight-30);
+  T=Math.max(22,Math.min(58,Math.floor(Math.min(bw/Math.max(1,W),bh/Math.max(1,H)))));
+  const cssW=T*W,cssH=T*H,pixelW=Math.max(1,Math.round(cssW*dpr)),pixelH=Math.max(1,Math.round(cssH*dpr));
+  board.style.width=cssW+'px';board.style.height=cssH+'px';
+  // Avoid clearing and reallocating the large board buffer on every resize tick.
+  if(board.width!==pixelW||board.height!==pixelH){board.width=pixelW;board.height=pixelH;}
   bctx.setTransform(dpr,0,0,dpr,0,0);
 }
 function rrect(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath();}
@@ -8722,11 +8854,11 @@ function renderBoard(t){
         const finishedAnim=anim,landDist=Math.abs(finishedAnim.tx-finishedAnim.fx)+Math.abs(finishedAnim.ty-finishedAnim.fy);
         a.x=finishedAnim.tx;a.y=finishedAnim.ty;if(finishedAnim.partner){const pa=atoms[finishedAnim.partner.i];pa.x=finishedAnim.partner.tx;pa.y=finishedAnim.partner.ty;}bounce={i,t0:t,dx:Math.sign(finishedAnim.tx-finishedAnim.fx),dy:Math.sign(finishedAnim.ty-finishedAnim.fy)};anim=null;rx=a.x;ry=a.y;
         if(crystalActive())collectCrystalsAlong(finishedAnim.crystalPath);
-        if(chainActive())chainRefreshStep();
+        if(chainActive()&&!finishedAnim.portalTransit)chainRefreshStep(finishedAnim.i,finishedAnim.d);
         const portal=(!finishedAnim.portalTransit)?portalDestination(a.x,a.y,i):null;
         if(portal){
           portalBurst(a.x,a.y,portal.id);SFX.sparkle&&SFX.sparkle();mxHaptic('medium');
-          anim={i,fx:a.x,fy:a.y,tx:portal.x,ty:portal.y,t0:performance.now(),dur:motionReduced()?120:300,crystalPath:null,chainTrigger:null,chainAutoStep:finishedAnim.chainAutoStep,prevBonds:finishedAnim.prevBonds,portalTransit:true};
+          anim={i,d:finishedAnim.d,fx:a.x,fy:a.y,tx:portal.x,ty:portal.y,t0:performance.now(),dur:motionReduced()?120:300,crystalPath:null,chainTrigger:null,chainAutoStep:finishedAnim.chainAutoStep,prevBonds:finishedAnim.prevBonds,portalTransit:true};
           say(LANG==='tr'?'Portal aktif!':'Portal activated!','happy',1500,'glow');
           return[(a.x+.5)*T,(a.y+.5)*T];
         }
@@ -8934,14 +9066,14 @@ function spawnWinFx(fx,x,y,cols){
 function renderFx(t,dt){
   fctx.clearRect(0,0,innerWidth,innerHeight);
   // ambient dust
-  if(!document.hidden&&!motionReduced()&&save.effects!==false)for(const d of DUST){
+  if(!document.hidden&&!performanceLow()&&!motionReduced()&&save.effects!==false)for(const d of DUST){
     d.y-=d.v*dt*0.06;if(d.y<-0.02)d.y=1.02;
     const a=0.08+0.07*Math.sin(t/900+d.ph);
     fctx.fillStyle='rgba(190,180,255,'+a+')';
     fctx.beginPath();fctx.arc(d.x*innerWidth+Math.sin(t/1400+d.ph)*8,d.y*innerHeight,d.s,0,7);fctx.fill();
   }
   // lab flask bubble emitters
-  if(!document.hidden&&!motionReduced()&&save.effects!==false&&t-lastEmit>640){lastEmit=t;
+  if(!document.hidden&&!performanceLow()&&!motionReduced()&&save.effects!==false&&t-lastEmit>900){lastEmit=t;
     P({k:'bub',x:innerWidth*0.085,y:innerHeight*0.8,vx:(Math.random()-0.5)*0.4,vy:-0.9,r:1.5+Math.random()*2.5,c:'#a5f06a',life:2.4,amb:1});
     P({k:'bub',x:innerWidth*0.92,y:innerHeight*0.3,vx:(Math.random()-0.5)*0.4,vy:-0.8,r:1.5+Math.random()*2,c:'#7ef0c0',life:2.4,amb:1});
   }
@@ -9091,6 +9223,10 @@ function runTutorialDemo(){
 
 /* ================= MAIN LOOP ================= */
 let lastT=performance.now(),perfWindowStart=lastT,perfFrames=0,perfSlowWindows=0;
+let lastBoardFrame=0,lastGoalFrame=0,lastFxFrame=0;
+function boardNeedsRealtime(){
+  return !!(anim||bounce||nudge||shake>0||won||hintMark||movingWallAnimating||chainAutoActive||reactorActive());
+}
 function updatePerformanceGovernor(t){
   if(save.performanceMode!=='auto')return;
   perfFrames++;
@@ -9109,8 +9245,10 @@ function loop(t){
   if(document.hidden){lastT=t;requestAnimationFrame(loop);return;}
   const dt=Math.min(50,t-lastT);lastT=t;updatePerformanceGovernor(t);
   if(scr.game.classList.contains('on')){
-    renderBoard(t);
-    if(curMol)drawMol($('#goalCv'),curMol,false,t);
+    const boardEvery=performanceLow()?33:(boardNeedsRealtime()?16:30);
+    if(t-lastBoardFrame>=boardEvery){lastBoardFrame=t;renderBoard(t);}
+    const goalEvery=performanceLow()?50:33;
+    if(curMol&&t-lastGoalFrame>=goalEvery){lastGoalFrame=t;drawMol($('#goalCv'),curMol,false,t);}
     if((duelMode||crystalMode||chainMode||reactorMode)&&!won&&(!duelMode||!duelState.turnFinished)&&!onlineDuelConnectionPaused()){
       const limit=duelMode?DUEL_TIME_LIMIT:(crystalMode?CRYSTAL_TIME_LIMIT:(chainMode?CHAIN_TIME_LIMIT:REACTOR_TIME_LIMIT));
       const elapsedForTimer=reactorMode?reactorElapsedSeconds(t):(t-levelStartT)/1000;
@@ -9123,7 +9261,8 @@ function loop(t){
       if(remaining<=0){if(duelMode)finishDuelTimeout();else if(crystalMode)finishCrystalTimeout();else if(chainMode)finishChainTimeout();else finishReactorTimeout();}
     }
   }
-  renderFx(t,dt);
+  const fxEvery=PARTS.length?(performanceLow()?33:16):(performanceLow()?80:40);
+  if(t-lastFxFrame>=fxEvery){const fxDt=Math.min(80,t-lastFxFrame||dt);lastFxFrame=t;renderFx(t,fxDt);}
   requestAnimationFrame(loop);
 }
 
@@ -9191,11 +9330,11 @@ $('#btnRestart').addEventListener('pointerdown',e=>{e.preventDefault();SFX.click
   confirmRestart();
 },{passive:false});
 $('#btnHint').addEventListener('pointerdown',e=>{e.preventDefault();if(tutorialActive)return;if(duelMode){say(duelCopy().noHint,'sad',2200,'shk');return;}if(chainMode){say(chainCopy().noHint,'sad',2200,'shk');return;}if(reactorMode){say(reactorCopy().noHint,'sad',2200,'shk');return;}if(!save.seenHintSupport){save.seenHintSupport=true;persist();showSupportTutorial('hint',hint);return;}hint();},{passive:false});
-$('#btnHammer').addEventListener('pointerdown',e=>{e.preventDefault();if(e.currentTarget.hidden||won||tutorialActive)return;if(!save.seenHammerSupport){save.seenHammerSupport=true;persist();showSupportTutorial('hammer',()=>$('#btnHammer').dispatchEvent(new PointerEvent('pointerdown',{bubbles:true})));return;}if(boosterCount('hammer')<1){buyBooster('hammer',()=>{syncHammerUi();say(LANG==='tr'?'Çekiç satın alındı. Şimdi çatlak duvara dokun.':'Hammer purchased. Now tap a cracked wall.','happy',3000,'glow');});return;}if(precisionMode)cancelPrecision();if(barrierMode)cancelBarrier();hammerMode=!hammerMode;SFX.select();mxHaptic('light');syncHammerUi();if(hammerMode)say(LANG==='tr'?'Kırmak için çatlak duvara dokun.':'Tap the cracked wall to break it.','talk',2600,'glow');},{passive:false});
-$('#btnPrecision').addEventListener('pointerdown',e=>{e.preventDefault();if(e.currentTarget.hidden||won||tutorialActive)return;if(!save.seenPrecisionSupport){save.seenPrecisionSupport=true;persist();showSupportTutorial('precision',()=>$('#btnPrecision').dispatchEvent(new PointerEvent('pointerdown',{bubbles:true})));return;}if(boosterCount('precision')<1){buyBooster('precision',()=>{syncPrecisionUi();say(LANG==='tr'?'Tek Kare Hareket satın alındı. Atomu seçip yön ver.':'One-Square Move purchased. Select an atom and choose a direction.','happy',3200,'glow');});return;}if(hammerMode)cancelHammer();if(barrierMode)cancelBarrier();precisionMode=!precisionMode;SFX.select();mxHaptic('light');syncPrecisionUi();if(precisionMode)say(LANG==='tr'?'Atomu seç, sonra yön ver. Atom yalnızca 1 kare ilerler.':'Select an atom, then choose a direction. It will move exactly 1 square.','talk',3000,'glow');},{passive:false});
-$('#btnBarrier').addEventListener('pointerdown',e=>{e.preventDefault();if(e.currentTarget.hidden||won||tutorialActive||barrierUsed)return;if(!save.seenBarrierSupport){save.seenBarrierSupport=true;persist();showSupportTutorial('barrier',()=>$('#btnBarrier').dispatchEvent(new PointerEvent('pointerdown',{bubbles:true})));return;}if(boosterCount('barrier')<1){buyBooster('barrier',()=>{syncBarrierUi();say(LANG==='tr'?'Nano Bariyer satın alındı. Boş bir kareye dokun.':'Nano Barrier purchased. Tap an empty tile.','happy',3000,'glow');});return;}if(hammerMode)cancelHammer();if(precisionMode)cancelPrecision();barrierMode=!barrierMode;SFX.select();mxHaptic('light');syncBarrierUi();if(barrierMode)say(LANG==='tr'?'Geçici blok koymak için boş bir kareye dokun.':'Tap an empty tile to place the temporary block.','talk',2800,'glow');},{passive:false});
+$('#btnHammer').addEventListener('pointerdown',e=>{e.preventDefault();if(e.currentTarget.hidden||won||tutorialActive||autoSolveInProgress)return;if(!save.seenHammerSupport){save.seenHammerSupport=true;persist();showSupportTutorial('hammer',()=>$('#btnHammer').dispatchEvent(new PointerEvent('pointerdown',{bubbles:true})));return;}if(boosterCount('hammer')<1){buyBooster('hammer',()=>{syncHammerUi();say(LANG==='tr'?'Çekiç satın alındı. Şimdi çatlak duvara dokun.':'Hammer purchased. Now tap a cracked wall.','happy',3000,'glow');});return;}if(precisionMode)cancelPrecision();if(barrierMode)cancelBarrier();hammerMode=!hammerMode;SFX.select();mxHaptic('light');syncHammerUi();if(hammerMode)say(LANG==='tr'?'Kırmak için çatlak duvara dokun.':'Tap the cracked wall to break it.','talk',2600,'glow');},{passive:false});
+$('#btnPrecision').addEventListener('pointerdown',e=>{e.preventDefault();if(e.currentTarget.hidden||won||tutorialActive||autoSolveInProgress)return;if(!save.seenPrecisionSupport){save.seenPrecisionSupport=true;persist();showSupportTutorial('precision',()=>$('#btnPrecision').dispatchEvent(new PointerEvent('pointerdown',{bubbles:true})));return;}if(boosterCount('precision')<1){buyBooster('precision',()=>{syncPrecisionUi();say(LANG==='tr'?'Tek Kare Hareket satın alındı. Atomu seçip yön ver.':'One-Square Move purchased. Select an atom and choose a direction.','happy',3200,'glow');});return;}if(hammerMode)cancelHammer();if(barrierMode)cancelBarrier();precisionMode=!precisionMode;SFX.select();mxHaptic('light');syncPrecisionUi();if(precisionMode)say(LANG==='tr'?'Atomu seç, sonra yön ver. Atom yalnızca 1 kare ilerler.':'Select an atom, then choose a direction. It will move exactly 1 square.','talk',3000,'glow');},{passive:false});
+$('#btnBarrier').addEventListener('pointerdown',e=>{e.preventDefault();if(e.currentTarget.hidden||won||tutorialActive||barrierUsed||autoSolveInProgress)return;if(!save.seenBarrierSupport){save.seenBarrierSupport=true;persist();showSupportTutorial('barrier',()=>$('#btnBarrier').dispatchEvent(new PointerEvent('pointerdown',{bubbles:true})));return;}if(boosterCount('barrier')<1){buyBooster('barrier',()=>{syncBarrierUi();say(LANG==='tr'?'Nano Bariyer satın alındı. Boş bir kareye dokun.':'Nano Barrier purchased. Tap an empty tile.','happy',3000,'glow');});return;}if(hammerMode)cancelHammer();if(precisionMode)cancelPrecision();barrierMode=!barrierMode;SFX.select();mxHaptic('light');syncBarrierUi();if(barrierMode)say(LANG==='tr'?'Geçici blok koymak için boş bir kareye dokun.':'Tap an empty tile to place the temporary block.','talk',2800,'glow');},{passive:false});
 $('#btnGear').addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();if(e.stopImmediatePropagation)e.stopImmediatePropagation();SFX.click();if(tutorialActive)return;settingsModal();},{passive:false});
-bindTap('#btnHome',e=>{SFX.click();if(tutorialActive){endTutorial(false);return;}if(duelMode){confirmQuitDuel();return;}if(crystalMode){confirmQuitCrystal();return;}if(chainMode){confirmQuitChain();return;}if(reactorMode){confirmQuitReactor();return;}show('splash');});
+bindTap('#btnHome',e=>{SFX.click();if(autoSolveInProgress){say(LANG==='tr'?'Çözüm oynatımı tamamlanıyor.':'The solution playback is finishing.','talk',2200,'glow');return;}if(tutorialActive){endTutorial(false);return;}if(duelMode){confirmQuitDuel();return;}if(crystalMode){confirmQuitCrystal();return;}if(chainMode){confirmQuitChain();return;}if(reactorMode){confirmQuitReactor();return;}show('splash');});
 $('#lvHome').addEventListener('pointerdown',e=>{e.preventDefault();SFX.click();show('splash');},{passive:false});
 $('#coHome').addEventListener('pointerdown',e=>{e.preventDefault();SFX.click();show('splash');},{passive:false});
 $('#tutorialSkip').addEventListener('pointerdown',e=>{e.preventDefault();SFX.back();endTutorial(false);},{passive:false});
@@ -9212,7 +9351,7 @@ function whatsNewContent(){
     title:'YENİLİKLER',back:'HAKKINDA GERİ DÖN',button:'YENİLİKLER NELER?',about:'HAKKINDA',version:'Sürüm',
     webButton:'OYUNUN WEB SAYFASI',accountButton:accountState.isAnonymous?'KAYIT OL / GİRİŞ YAP':'HESABIM',
     rankNote:'Dünya sıralamasındaki Kariyer RP puanın korunur. Bu Hafta ve Bu Ay sıralamalarında bütün oyuncular aynı UTC Günün Deneyi ile yarışır. Puanını yayımlamak için Google veya e-posta hesabıyla giriş yap.',
-    html:'<section class="release latest"><h4>V8.5.54 — iOS TestFlight Fix</h4><ul><li>Firebase account bootstrap no longer blocks Google, Apple, or email sign-in while the guest session is still restoring.</li><li>The in-game Settings panel preserves the current level and uses a lighter native modal to prevent WebView reloads.</li><li>Dr. E and the speech bubble are repositioned above the iPhone safe area and bottom navigation.</li></ul></section><section class="release"><h4>V8.5.53</h4><ul><li>Geçersiz kalan kampanya başlangıç ipucu koordinatları sertifikalı çözümün ilk hamlesiyle yeniden eşleştirildi.</li><li>İpucu verisi bulunamazsa oyun artık güvenli biçimde sertifikalı ilk hamleye döner; boş veya hatalı atom seçmez.</li><li>Web önbelleği hafifletildi: oyun kodu ve temel görseller güvenli biçimde kurulur, büyük ses ve hikâye dosyaları kullanıldıkça önbelleğe alınır.</li><li>itch.io, Netlify ve Android paketleri aynı 8.5.53 kaynak setinden üretildi.</li></ul></section><section class="release"><h4>V8.5.52</h4><ul><li>Basınç kapısındaki şeffaf çizgili karenin açık kapı olduğu, düğmeden ayrılınca yeniden duvara dönüştüğü açıkça gösterilir.</li><li>Basınç düğmesi ve kapısı aynı harfle eşleştirildi; hareketli duvara ↔, portallara A/B ve kırılabilir duvara küçük çekiç işareti eklendi.</li><li>Oyun içindeki ? yardım ekranı artık yalnızca açık bölümde kullanılan özel mekanikleri ve görsel işaretlerini en üstte gösterir.</li><li>Eski oyunculara yalnızca görseli belirsiz mekaniklerin kısa ilk kullanım kartları bir kez yeniden gösterilir; ilerleme ve diğer eğitimler korunur.</li></ul></section><section class="release"><h4>V8.5.51</h4><ul><li>E-posta ile giriş başarısı bulut sıralama yayınından ayrıldı; hesap bağlandıktan sonra sıralama gecikmesi artık giriş hatası olarak gösterilmez.</li><li>Şimdi Senkronize Et, profil kaydı başarılıysa Classic veya Düello sıralaması beklemede olsa bile bulut kaydını başarılı kabul eder.</li><li>Android Google girişinde Credential Manager yerine daha uyumlu Google giriş yolu kullanılır; cihazda hesap yoksa anlaşılır uyarı gösterilir.</li><li>İlk bulut uzlaştırması gecikirse bir kez otomatik yeniden denenir ve hesap oturumu korunur.</li></ul></section><section class="release"><h4>V8.5.50</h4><ul><li>Google ve e-posta giriş akışları V8.5.49 ile aynı bırakıldı; Android paket kimliği com.whitewaystudio.moleculox olarak korundu.</li><li>Yıldırım yükü ile Zincir Reaksiyonu arasındaki fark ve Combo x2/x3 kuralı açıkça ayrıldı.</li><li>Keşfedilen bütün özel mekanikler Eğitim Merkezi’nde aynı altı dilde, tek kaynaktan ve kısa açıklamalarla gösterilir.</li><li>Nano Bariyer ve diğer destek eğitimleri altı dilde tamamlandı; otomatik karttan sonra tekrarlanan Einstein balonu kaldırıldı.</li><li>Çekiç için çağrılan güçlü titreşimin yanlışlıkla hafif çalışması düzeltildi.</li><li>Görünen stüdyo adı Google Play Console ile aynı biçimde wHiTeWaY studio olarak sabitlendi.</li></ul></section><section class="release"><h4>V5.0</h4><ul><li>Bulut ve Hesap Durumu paneli eklendi; bağlı giriş yöntemleri, son başarılı senkronizasyon, Classic Dünya Sırası ve Online Düello Sırası tek ekranda gösterilir.</li><li>Şimdi Senkronize Et düğmesi profil, Classic sıralaması ve Düello sıralamasını birlikte yeniler; misafir oyuncuya hesap bağlama durumu açıkça gösterilir.</li><li>Final sürümde Classic ilerleme, MoleCoin ekonomisi, laboratuvar teması, günlük kuantum ipucu, Dünya Sıralaması ve Düello Rank bulut alanları tek şemada eşitlendi.</li><li>Firestore kurallarındaki laboratuvar teması, ekonomi şeması ve kuantum ipucu alan eksikliği giderildi; tam profil senkronizasyonunun reddedilmesi önlendi.</li><li>Netlify, itch.io, Android ve iOS aynı Firebase projesinde ortak odaları, Hızlı Eşleşme kuyruğunu ve sıralamaları kullanacak şekilde son kontrolden geçirildi.</li><li>Apple, Google, e-posta ve misafir hesap ekranı küçük iPhone boyutları için korunurken bütün dosya, önbellek ve sürüm kayıtları V5.0 olarak eşitlendi.</li></ul></section><section class="release"><h4>V4.8.8</h4><ul><li>Apple, Google, e-posta ve oyuncu yönetimi bulunan hesap ekranı kısa ve dar iPhone ekranları için yeniden düzenlendi.</li><li>375×667 ekranda bütün giriş düğmeleri aynı anda görünür hale getirildi; 320×568 ekranda güvenli dikey kaydırma ve her zaman erişilebilir üst kapatma düğmesi eklendi.</li><li>Hesap kartı, uyarı metni, düğme aralıkları ve yazı boyutları ekran yüksekliğine göre otomatik küçülür.</li></ul></section><section class="release"><h4>V4.8.7</h4><ul><li>Apple ile Giriş; misafir, Google ve e-posta hesaplarıyla aynı Firebase oyuncu kaydını koruyacak şekilde eklendi.</li><li>Mevcut hesaba Apple bağlanmadan önce açık kullanıcı onayı gösterilir; bağlanan sağlayıcılar aynı Firebase UID ve aynı ilerlemeyi kullanır.</li><li>Web için Firebase Apple OAuth akışı ve native iOS için ID token + raw nonce giriş köprüsü eklendi.</li><li>Giriş ekranı Apple, Google, e-posta ve misafir akışlarını birlikte destekleyecek şekilde yenilendi.</li></ul></section><section class="release"><h4>V4.8.6</h4><ul><li>Netlify, itch.io, Android ve iOS sürümlerinin aynı Firebase projesi üzerinden ortak oda, Hızlı Eşleşme ve sıralama kullanması için platformlar arası yapı güçlendirildi.</li><li>Aynı kalıcı hesap iki cihazda açıkken dereceli Hızlı Eşleşmede kendi kendisiyle eşleşmesi engellendi; kodlu dostluk odaları bundan etkilenmez.</li><li>Android/iOS native Google girişinden alınan kimlik tokenını aynı Firebase hesabına bağlamak için güvenli giriş köprüsü eklendi.</li><li>Classic ilerleme, MoleCoin defteri, Düello Rank, ödüller, çerçeve ve unvanların aynı hesapta birleşme denetimleri yenilendi.</li></ul></section><section class="release"><h4>V4.8.5</h4><ul><li>Ödüller ekranı premium Düello Kariyer Merkezi olarak yenilendi; lig rozeti, aktif çerçeve, unvan ve bir sonraki lige ilerleme tek alanda gösterilir.</li><li>Dereceli maç, galibiyet, en iyi seri, kazanma oranı, haftalık ve aylık puan istatistikleri eklendi.</li><li>Sıradaki çerçeve ve unvan için ilerleme yol haritası, kilit şartları ve nadirlik seviyeleri eklendi.</li><li>Kupa Dolabı, lig rozetleri ve seçili ödül vitrini yeni parıltı, shimmer ve hareket efektleriyle geliştirildi.</li><li>Oyun içi sürüm, JavaScript/CSS sorguları ve servis worker önbelleği V4.8.5 olarak eşitlendi.</li></ul></section><section class="release"><h4>V4.8.0</h4><ul><li>Hızlı Eşleşme; Düello Puanı, yedi lig, galibiyet/mağlubiyet/beraberlik ve seri istatistikleriyle dereceli online moda dönüştürüldü.</li><li>Hall of Fame’e genel, haftalık ve aylık ayrı Düello Rank sıralaması eklendi.</li><li>Laboratuvara lig rozetleri, seçilebilir profil çerçeveleri, unvanlar ve kalıcı Kupa Dolabı içeren Ödüller sekmesi eklendi.</li><li>Kapanan hafta ve ayın ilk 10, ilk 3 ve şampiyon oyuncuları MoleCoin harcamadan ve ücretli Cloud Functions kullanmadan kozmetik kupa kazanır.</li><li>Kodlu arkadaş odaları ve aynı telefon düelloları dostluk maçı olarak kalır ve rank puanı vermez.</li></ul></section><section class="release"><h4>V4.7.0</h4><ul><li>Tüm menüler, düğmeler, animasyonlar, sesler, kampanya bölümleri, günlük deneyler ve düello sonuç akışları son sürüm denetiminden geçirildi.</li><li>Çevrim dışı açılışta sürüm sorgulu CSS ve JavaScript dosyalarının önbellekten bulunamamasına yol açabilen servis worker eşleşme hatası düzeltildi.</li><li>Hesap ve bulut verisi silme işlemi, herhangi bir bulut silme adımı başarısızsa hesabı yarım silinmiş durumda bırakmayacak şekilde güçlendirildi.</li><li>Gizlilik, kullanım şartları ve veri silme açıklamaları iki telefonlu online düello, hazır mesajlar, bağlantı durumu ve geçici oda verileriyle güncellendi.</li><li>İlk açılış dil verileri ile sayfa dil/başlık metadatası seçilen İngilizce veya Türkçe dile göre eşitlendi.</li><li>320 px genişlikte Laboratuvar başlığı ve geniş telefonlarda oyun içi sağ eylem düğmeleri taşmayacak şekilde hizalandı.</li><li>Kaydırma ve yıldız sesleri eksik parametreyle çağrılsa bile güvenli varsayılan kullanacak şekilde sağlamlaştırıldı.</li></ul></section><section class="release"><h4>V4.6.0</h4><ul><li>Atom Düellosu final ekranları tamamen yenilendi; kazanan ve kaybeden için ayrı görsel atmosferler eklendi.</li><li>Kazanan ekranda konfeti, parlayan kupa, Dr. E kutlaması ve kısa zafer müziği görür; kaybeden ekranda destekleyici Dr. E mesajı, gümüş atom rozeti ve kısa yeniden deneme müziği gösterilir.</li><li>Gerçek oyuncu adları, skor, raund geçmişi, rövanş ve ana menü işlemleri yeni tasarım içinde dinamik olarak korunur.</li></ul></section><details class="release"><summary>V4.5.0 — Bağlantı Koruması</summary><ul><li>Online düelloda iki telefonun bağlantısı yaklaşık 4,5 saniyede bir canlı olarak kontrol edilir.</li><li>Rakibin bağlantısı kesilirse oyun ve 90 saniyelik raund süresi durur; ekranda 30 saniyelik geri dönüş sayacı görünür.</li><li>Rakip zamanında dönerse aynı raund kaldığı yerden devam eder; dönmezse bağlı kalan oyuncu hükmen kazanır. İki oyuncu da koparsa maç sonuçsuz iptal edilir.</li></ul></details><details class="release"><summary>V4.4.0 — Tam Ekran Canlı Seyir</summary><ul><li>Rakibin oyunu telefon ekranını dolduran seyir modunda gösterilir.</li><li>Seçilen atom, hareket yönü ve kayma süresi karşı telefona aktarılır; atom aynı yönde animasyonla kayar.</li><li>Dr. E hap bilgileri ve hazır mesajlar canlı oyun ekranının altında korunur.</li></ul></details><details class="release"><summary>V4.3.0 — Canlı Düello ve Hazır Mesajlar</summary><ul><li>Online Atom Düellosunda rakibin atom hamlelerini küçük canlı tahta üzerinden izleme eklendi.</li><li>Bekleme sırasında Dr. E; moleküller, uzay, hayvanlar, bilim ve oyun taktikleri hakkında kısa hap bilgiler anlatır.</li><li>Oyuncular serbest yazı yerine güvenli hazır mesajlar gönderebilir: Merhaba, Bol şans, Güzel hamle, İyi oyundu, Rövanş ve Teşekkürler.</li></ul></details><details class="release"><summary>V4.2.0 — Hızlı Eşleşme</summary><ul><li>Atom Düellosuna üçüncü seçenek olarak Hızlı Eşleşme eklendi.</li><li>İki çevrim içi oyuncu bekleme kuyruğunda otomatik eşleşir ve oyun arka planda özel oda oluşturur.</li><li>Hızlı maçlar karışık oyun türü ve karışık zorlukla 3 raund oynanır; kampanya ve dünya sıralamasını etkilemez.</li></ul></details><details class="release"><summary>V4.1.0 — İki Telefonlu Online Düello</summary><ul><li>Atom Düellosuna iki farklı telefondan oynanan online oda sistemi eklendi.</li><li>Oda sahibi 6 haneli kod üretir; ikinci oyuncu kodla katılır ve sıra otomatik cihazlar arasında geçer.</li><li>Raund ve final skorları iki telefonda aynı anda görünür.</li></ul></details><details class="release"><summary>V4.0.3 — LAB ve Sıralama Ayrıntıları</summary><ul><li>LAB düğmesi ana menü butonlarından çıkarılıp sol tarafta VS düğmesinin tam üstündeki bağımsız kolona taşındı.</li><li>Dünya sıralaması satırlarında RP, tamamlanan bölüm, toplam yıldız, kusursuz bölüm ve doğrulanmış süre görünür hale getirildi.</li><li>Hall of Fame’e elle sıralama yenileme düğmesi eklendi ve Firebase liste önbellekleri zorunlu yenilemede temizleniyor.</li></ul></details><details class="release"><summary>V4.0.2 — Lab Butonu ve Premium Lab</summary><ul><li>Ana menüye animasyonlu tek bir LAB butonu eklendi.</li><li>Oyuncu laboratuvarındaki yerleştirilmiş ekipmanlar premium vitrin tabanları, glow efektleri ve yumuşak animasyonlarla güçlendirildi.</li></ul></details><details class="release"><summary>V4.0.1 — Shop Görsel Yükseltme</summary><ul><li>MoleCoin mağazasındaki ürün kartları yeni premium obje görselleriyle yenilendi.</li><li>Her mağaza ekipmanına kendine özel renk kimliği, glow efekti ve daha detaylı laboratuvar çizimi verildi.</li><li>Satın alma, laboratuvar yerleşimi ve oyun ekonomisi değiştirilmeden yalnızca görsel kalite yükseltildi.</li></ul></details><details class="release"><summary>V4.0.0 — Laboratuvar, Mağaza ve Nobel Yarışı</summary><ul><li>Oyuncunun laboratuvarı, MoleCoin mağazası ve Nobel Yarışı tek bir ilerleme merkezinde birleştirildi.</li><li>7 satın alınabilir laboratuvar ekipmanı, 3 araştırma seferi ve farklı laboratuvar temaları eklendi.</li><li>RP Dünya Sıralaması için korunurken MoleCoin harcama defteri bulut senkronizasyonuna karşı güvenli hale getirildi.</li><li>151. bölümü tamamlayan oyuncu Nobel Adayı olur; aylık sıralamanın 1 numarası Ayın Nobel Ödüllüsü olarak gösterilir.</li><li>Einstein haftalık ve aylık liderleri oyuncu adıyla duyurur; Hall of Fame canlı liderleri ve şampiyon arşivini gösterir.</li><li>İpucu ekonomisi, laboratuvar faydaları ve bölüm kartlarının görünümü yenilendi.</li></ul></details><details class="release"><summary>V3.14.3 — Bonus, Çıkış ve Tam Kontrol</summary><ul><li>Bonus Lab, bonus oyun başlangıçları ve Çıkış/Devam düğmeleri iPhone dokunmalarında güvenilir çalışacak şekilde yenilendi.</li><li>Kampanya, Günün Deneyi, Düello ve üç bonus türünün çıkış akışları yeniden doğrulandı.</li><li>135. bölümde kayıtlı çözümü durduran zombi-donma çakışması düzeltildi.</li><li>Yeni Oyun ad ekranına güvenli Vazgeç düğmesi eklendi.</li></ul></details><details class="release"><summary>V3.14.2 — Atom Düellosu Kompakt Arayüz</summary><ul><li>Atom Düellosu kurulum ekranı kompakt eski haline geri alındı.</li><li>Üstteki ikonlar ve açılır menü ikonları tekrar ilk boyutlarına döndürüldü.</li><li>V3.14.1’de fazla büyüyen ikon düzeni kaldırıldı; oyun mantığı değiştirilmedi.</li></ul></details><details class="release"><summary>V3.14.0 — Gelişen Classic Kampanya</summary><ul><li>151 bölüm, hedef geometrisi art arda tekrarlanmayacak şekilde yeniden sıralandı.</li><li>105 farklı molekül kullanıldı; tekrar eden moleküller arasında en az 36 bölüm bırakıldı.</li><li>İlk Katalizör, Zincir Reaksiyon ve Reaktör bonusları açıldıktan sonra bu mekanikler seçili Classic bölümlerde görünür.</li><li>Haritalar, başlangıç konumları ve kayıtlı çözümler korunurken atom renkleri ve molekül kimlikleri çeşitlendirildi.</li></ul></details><details class="release"><summary>V3.13.12 — Farklı Molekül Kombinasyonları</summary><ul><li>74–90 arasındaki tekrarlanan hedef geometrileri değiştirilmişti.</li></ul></details><details class="release"><summary>V3.13.11 — Zor ve Benzersiz Bölümler</summary><ul><li>Tekrar eden 50 kampanya bölümü, tamamen yeni ve daha zor haritalarla değiştirildi.</li><li>Yeni bölümlerin minimum çözüm ortalaması 6,5 hamleden 8,9 hamleye yükseltildi.</li><li>İki atomlu bölümler 7, üç atomlu bölümler 9, dört atomlu bölümler 9–10 ve beş atomlu bölümler 10–12 hamlelik çözümlerle yeniden tasarlandı.</li></ul></details><details class="release"><summary>V3.13.10 — Son Arayüz Kontrolü</summary><ul><li>Günün Deneyi, başarı kartları ve oyuncu profillerindeki alakasız bonus nesneleri kaldırıldı.</li><li>Düello üst önizlemesi artık yalnızca seçilen oyun türünü gösterir ve seçim değişince anında eşleşir.</li><li>Tüm dosya, önbellek ve oyun içi sürüm numaraları 3.13.10 olarak eşitlendi.</li></ul></details><details class="release"><summary>V3.13.7 — Bonus Lab Görsel Paketi</summary><ul><li>Bonus Lab kartları, ödül ekranları, Düello tipi ikonları, Günün Deneyi kartı, başarı rozetleri ve oyuncu çerçeveleri yeni laboratuvar nesne stiline uyarlandı.</li></ul></details><details class="release"><summary>V3.13.6 — Reaktör Lazer Düzeltmesi</summary><ul><li>Reaktör Kaçışında aktif lazer artık uzaktaki atomu başlangıç noktasında kilitlemez.</li><li>Atom lazerin bir kare önüne kadar kayar; oyuncu oradan yön değiştirip ışının etrafından dolaşabilir.</li><li>3 saniyelik ceza yalnızca atom lazere bitişikken doğrudan ışına hamle yapılırsa uygulanır.</li><li>Lazer yayıcıları, zemin yansıması ve açılmadan önce sarı uyarı efekti eklendi.</li></ul></details><details class="release"><summary>V3.13.5 — Dr. E Oyuncu Adı</summary><ul><li>Dr. E misafir hesaplara “Misafir”, bağlı hesaplara gerçek kullanıcı adıyla hitap eder.</li></ul></details><details class="release"><summary>V3.13.3 — Dünya Sıralaması Onarımı</summary><ul><li>Eski Android sürümlerinde geride kalabilen Dünya Sıralaması kaydı için otomatik onarım eklendi.</li><li>Yerel ve bulut ilerleme birleştirilip sıralama zorunlu olarak yenilenir.</li></ul></details><details class="release"><summary>V3.13.2 — Katalizör Avı</summary><ul><li>Kristal Avı, laboratuvar temasına uygun Katalizör Avı olarak yenilendi.</li><li>Katalizör, Enerji Hücresi ve Stabilizatör adlı üç farklı reaksiyon bileşeni eklendi.</li></ul></details><details class="release"><summary>V3.13.1 — Bölüm Numaraları</summary><ul><li>Bölüm seçim ekranındaki açık ve kilitli 151 bölümün tamamına görünür bölüm numarası eklendi.</li><li>Kilit simgesi korunurken bölüm numarası kartın üst kısmında okunabilir şekilde gösterilir.</li></ul></details><details class="release"><summary>V3.13.0 — Bonus Bölümleri ve Madalyalar</summary><ul><li>Her 10 kampanya bölümünde Katalizör Avı, Zincir Reaksiyon veya Reaktör Kaçışı bonus görevi açılır.</li><li>İlk tamamlamada 1 Bonus Madalyası, 50 MoleCoin ve 100 Kariyer RP verilir; tekrarlar ödül vermez.</li><li>3/6/9/12/15 madalyada kalıcı görsel ödüller açılır.</li></ul></details><details class="release"><summary>V3.12.0 — Reaktör Kaçışı</summary><ul><li>Üç zamanlı lazer kapılı Reaktör Kaçışı tek oyuncu ve düelloya eklendi.</li></ul></details><details class="release"><summary>V3.11.0 — Zincir Reaksiyon</summary><ul><li>Parlayan doğru hamleyle Combo x2 / x3 oluşturan Zincir Reaksiyon Bonus Lab ve Düello modu eklendi.</li></ul></details><details class="release"><summary>V3.10.0 — Katalizör Avı altyapısı</summary><ul><li>Üç reaksiyon bileşenini toplayıp hedef molekülü oluşturduğun Bonus Lab altyapısı eklendi.</li><li>Bu toplama modu tek oyuncuya ve Atom Düellosuna bağlandı.</li></ul></details><details class="release"><summary>V3.9.2 — VS düğmesi</summary><ul><li>VS düğmesi yukarı alındı ve kupa simgesiyle aynı yumuşak animasyona kavuştu.</li></ul></details><details class="release"><summary>V3.9.0 — Atom Düellosu</summary><ul><li>Tek telefonda sırayla oynanan iki oyunculu Atom Düellosu eklendi.</li><li>Düello sonuçları kampanya, coin ve dünya sıralamasını etkilemez.</li></ul></details><details class="release"><summary>V3.8.4 — Kalıcı Firebase oturumu</summary><ul><li>Firebase oturumu itch.io dahil desteklenen tarayıcılarda kalıcı olarak geri yüklenir.</li><li>Kaydedilmiş Google veya e-posta oturumu kontrol edilmeden yeni misafir hesap oluşturulmaz.</li></ul></details><details class="release"><summary>V3.8.3 — Çapraz platform güvenli senkronizasyon</summary><ul><li>Aynı Google veya e-posta hesabı kullanıldığında itch.io, Netlify ve Android ilerlemeleri tek oyuncu profilinde birleşir.</li><li>Bölüm yıldızları, moleküller, başarımlar, en iyi süreler ve en iyi hamleler artık alan alan güvenle senkronize edilir.</li><li>Araştırma Puanı, birleşen bölüm/başarım/günlük kayıtlarından yeniden hesaplanır; aynı puan farklı platformlardan iki kez eklenmez.</li><li>Eski veya çevrimdışı kalan bir cihaz, daha yeni bulut ilerlemesini geriye düşüremez.</li></ul></details><details class="release"><summary>V3.8.2 — Benzersiz bölümler ve Günün Deneyi</summary><ul><li>151 kampanya bölümü benzersiz hale getirildi.</li><li>832 gün tekrar etmeyen, çözücü onaylı otomatik Günün Deneyi eklendi.</li></ul></details><details class="release"><summary>V3.8.1 — Kariyer ve laboratuvar ilerlemesi</summary><ul><li>Her 20 bölümde terfi ve laboratuvar gelişimi geri getirildi.</li><li>Nobel Adayı ve Nobel Ödüllü kariyer aşamaları eklendi.</li></ul></details><details class="release"><summary>Önceki sürümler</summary><ul><li>150 + 1 Nobel kampanyası, adil sıralama, hamle dereceleri, otomatik çözücü ve Araştırma Puanı eklendi.</li></ul></details>'
+    html:'<section class="release latest"><h4>V8.5.68 — iOS Final TestFlight Candidate</h4><ul><li>Bölüm 42 NF₃ deneyinde donmuş-zombi flor, ateş flor ve üç görsel işaret tek birleşik eğitimde açıklanır.</li><li>Özel mekanik eğitimi bittikten sonra hedef molekülün adı, formülü ve kısa bilimsel bilgisi görünür; bilgi artık modalın arkasında kaybolmaz.</li><li>Günün Deneyi başlığı gerçek merkeze hizalandı; günlük MoleCoin ödülü aynı bulut profilinde transaction ile yalnız bir kez verilir.</li><li>Çevrimdışı günlük antrenman MoleCoin veya sıralama RP’si yazmaz; tekrar oyununda yalnız daha iyi RP farkı kaydedilir.</li><li>R22 sertifikalı ipucu, 200 MoleCoin çözüm ve iOS performans korumaları aynen devam eder.</li></ul></section><section class="release"><h4>V8.5.67 — iOS Release Candidate</h4><ul><li>Certified solutions and exact-hint routes for all 301 campaign levels were revalidated with the real movement engine.</li><li>Exact hints and full solutions never charge silently on an unsafe board; the player first approves a verified restart.</li><li>The 50-MoleCoin exact move and 200-MoleCoin remaining solution are protected against duplicate taps, cancellation, lasers, chain reactions, and interrupted playback.</li><li>Adaptive iOS canvas resolution and frame pacing reduce intermittent stutter in the board, GOAL card, and particle layer.</li></ul></section><section class="release"><h4>V8.5.53</h4><ul><li>Geçersiz kalan kampanya başlangıç ipucu koordinatları sertifikalı çözümün ilk hamlesiyle yeniden eşleştirildi.</li><li>İpucu verisi bulunamazsa oyun artık güvenli biçimde sertifikalı ilk hamleye döner; boş veya hatalı atom seçmez.</li><li>Web önbelleği hafifletildi: oyun kodu ve temel görseller güvenli biçimde kurulur, büyük ses ve hikâye dosyaları kullanıldıkça önbelleğe alınır.</li><li>itch.io, Netlify ve Android paketleri aynı 8.5.53 kaynak setinden üretildi.</li></ul></section><section class="release"><h4>V8.5.52</h4><ul><li>Basınç kapısındaki şeffaf çizgili karenin açık kapı olduğu, düğmeden ayrılınca yeniden duvara dönüştüğü açıkça gösterilir.</li><li>Basınç düğmesi ve kapısı aynı harfle eşleştirildi; hareketli duvara ↔, portallara A/B ve kırılabilir duvara küçük çekiç işareti eklendi.</li><li>Oyun içindeki ? yardım ekranı artık yalnızca açık bölümde kullanılan özel mekanikleri ve görsel işaretlerini en üstte gösterir.</li><li>Eski oyunculara yalnızca görseli belirsiz mekaniklerin kısa ilk kullanım kartları bir kez yeniden gösterilir; ilerleme ve diğer eğitimler korunur.</li></ul></section><section class="release"><h4>V8.5.51</h4><ul><li>E-posta ile giriş başarısı bulut sıralama yayınından ayrıldı; hesap bağlandıktan sonra sıralama gecikmesi artık giriş hatası olarak gösterilmez.</li><li>Şimdi Senkronize Et, profil kaydı başarılıysa Classic veya Düello sıralaması beklemede olsa bile bulut kaydını başarılı kabul eder.</li><li>Android Google girişinde Credential Manager yerine daha uyumlu Google giriş yolu kullanılır; cihazda hesap yoksa anlaşılır uyarı gösterilir.</li><li>İlk bulut uzlaştırması gecikirse bir kez otomatik yeniden denenir ve hesap oturumu korunur.</li></ul></section><section class="release"><h4>V8.5.50</h4><ul><li>Google ve e-posta giriş akışları V8.5.49 ile aynı bırakıldı; Android paket kimliği com.whitewaystudio.moleculox olarak korundu.</li><li>Yıldırım yükü ile Zincir Reaksiyonu arasındaki fark ve Combo x2/x3 kuralı açıkça ayrıldı.</li><li>Keşfedilen bütün özel mekanikler Eğitim Merkezi’nde aynı altı dilde, tek kaynaktan ve kısa açıklamalarla gösterilir.</li><li>Nano Bariyer ve diğer destek eğitimleri altı dilde tamamlandı; otomatik karttan sonra tekrarlanan Einstein balonu kaldırıldı.</li><li>Çekiç için çağrılan güçlü titreşimin yanlışlıkla hafif çalışması düzeltildi.</li><li>Görünen stüdyo adı Google Play Console ile aynı biçimde wHiTeWaY studio olarak sabitlendi.</li></ul></section><section class="release"><h4>V5.0</h4><ul><li>Bulut ve Hesap Durumu paneli eklendi; bağlı giriş yöntemleri, son başarılı senkronizasyon, Classic Dünya Sırası ve Online Düello Sırası tek ekranda gösterilir.</li><li>Şimdi Senkronize Et düğmesi profil, Classic sıralaması ve Düello sıralamasını birlikte yeniler; misafir oyuncuya hesap bağlama durumu açıkça gösterilir.</li><li>Final sürümde Classic ilerleme, MoleCoin ekonomisi, laboratuvar teması, günlük kuantum ipucu, Dünya Sıralaması ve Düello Rank bulut alanları tek şemada eşitlendi.</li><li>Firestore kurallarındaki laboratuvar teması, ekonomi şeması ve kuantum ipucu alan eksikliği giderildi; tam profil senkronizasyonunun reddedilmesi önlendi.</li><li>Netlify, itch.io, Android ve iOS aynı Firebase projesinde ortak odaları, Hızlı Eşleşme kuyruğunu ve sıralamaları kullanacak şekilde son kontrolden geçirildi.</li><li>Apple, Google, e-posta ve misafir hesap ekranı küçük iPhone boyutları için korunurken bütün dosya, önbellek ve sürüm kayıtları V5.0 olarak eşitlendi.</li></ul></section><section class="release"><h4>V4.8.8</h4><ul><li>Apple, Google, e-posta ve oyuncu yönetimi bulunan hesap ekranı kısa ve dar iPhone ekranları için yeniden düzenlendi.</li><li>375×667 ekranda bütün giriş düğmeleri aynı anda görünür hale getirildi; 320×568 ekranda güvenli dikey kaydırma ve her zaman erişilebilir üst kapatma düğmesi eklendi.</li><li>Hesap kartı, uyarı metni, düğme aralıkları ve yazı boyutları ekran yüksekliğine göre otomatik küçülür.</li></ul></section><section class="release"><h4>V4.8.7</h4><ul><li>Apple ile Giriş; misafir, Google ve e-posta hesaplarıyla aynı Firebase oyuncu kaydını koruyacak şekilde eklendi.</li><li>Mevcut hesaba Apple bağlanmadan önce açık kullanıcı onayı gösterilir; bağlanan sağlayıcılar aynı Firebase UID ve aynı ilerlemeyi kullanır.</li><li>Web için Firebase Apple OAuth akışı ve native iOS için ID token + raw nonce giriş köprüsü eklendi.</li><li>Giriş ekranı Apple, Google, e-posta ve misafir akışlarını birlikte destekleyecek şekilde yenilendi.</li></ul></section><section class="release"><h4>V4.8.6</h4><ul><li>Netlify, itch.io, Android ve iOS sürümlerinin aynı Firebase projesi üzerinden ortak oda, Hızlı Eşleşme ve sıralama kullanması için platformlar arası yapı güçlendirildi.</li><li>Aynı kalıcı hesap iki cihazda açıkken dereceli Hızlı Eşleşmede kendi kendisiyle eşleşmesi engellendi; kodlu dostluk odaları bundan etkilenmez.</li><li>Android/iOS native Google girişinden alınan kimlik tokenını aynı Firebase hesabına bağlamak için güvenli giriş köprüsü eklendi.</li><li>Classic ilerleme, MoleCoin defteri, Düello Rank, ödüller, çerçeve ve unvanların aynı hesapta birleşme denetimleri yenilendi.</li></ul></section><section class="release"><h4>V4.8.5</h4><ul><li>Ödüller ekranı premium Düello Kariyer Merkezi olarak yenilendi; lig rozeti, aktif çerçeve, unvan ve bir sonraki lige ilerleme tek alanda gösterilir.</li><li>Dereceli maç, galibiyet, en iyi seri, kazanma oranı, haftalık ve aylık puan istatistikleri eklendi.</li><li>Sıradaki çerçeve ve unvan için ilerleme yol haritası, kilit şartları ve nadirlik seviyeleri eklendi.</li><li>Kupa Dolabı, lig rozetleri ve seçili ödül vitrini yeni parıltı, shimmer ve hareket efektleriyle geliştirildi.</li><li>Oyun içi sürüm, JavaScript/CSS sorguları ve servis worker önbelleği V4.8.5 olarak eşitlendi.</li></ul></section><section class="release"><h4>V4.8.0</h4><ul><li>Hızlı Eşleşme; Düello Puanı, yedi lig, galibiyet/mağlubiyet/beraberlik ve seri istatistikleriyle dereceli online moda dönüştürüldü.</li><li>Hall of Fame’e genel, haftalık ve aylık ayrı Düello Rank sıralaması eklendi.</li><li>Laboratuvara lig rozetleri, seçilebilir profil çerçeveleri, unvanlar ve kalıcı Kupa Dolabı içeren Ödüller sekmesi eklendi.</li><li>Kapanan hafta ve ayın ilk 10, ilk 3 ve şampiyon oyuncuları MoleCoin harcamadan ve ücretli Cloud Functions kullanmadan kozmetik kupa kazanır.</li><li>Kodlu arkadaş odaları ve aynı telefon düelloları dostluk maçı olarak kalır ve rank puanı vermez.</li></ul></section><section class="release"><h4>V4.7.0</h4><ul><li>Tüm menüler, düğmeler, animasyonlar, sesler, kampanya bölümleri, günlük deneyler ve düello sonuç akışları son sürüm denetiminden geçirildi.</li><li>Çevrim dışı açılışta sürüm sorgulu CSS ve JavaScript dosyalarının önbellekten bulunamamasına yol açabilen servis worker eşleşme hatası düzeltildi.</li><li>Hesap ve bulut verisi silme işlemi, herhangi bir bulut silme adımı başarısızsa hesabı yarım silinmiş durumda bırakmayacak şekilde güçlendirildi.</li><li>Gizlilik, kullanım şartları ve veri silme açıklamaları iki telefonlu online düello, hazır mesajlar, bağlantı durumu ve geçici oda verileriyle güncellendi.</li><li>İlk açılış dil verileri ile sayfa dil/başlık metadatası seçilen İngilizce veya Türkçe dile göre eşitlendi.</li><li>320 px genişlikte Laboratuvar başlığı ve geniş telefonlarda oyun içi sağ eylem düğmeleri taşmayacak şekilde hizalandı.</li><li>Kaydırma ve yıldız sesleri eksik parametreyle çağrılsa bile güvenli varsayılan kullanacak şekilde sağlamlaştırıldı.</li></ul></section><section class="release"><h4>V4.6.0</h4><ul><li>Atom Düellosu final ekranları tamamen yenilendi; kazanan ve kaybeden için ayrı görsel atmosferler eklendi.</li><li>Kazanan ekranda konfeti, parlayan kupa, Dr. E kutlaması ve kısa zafer müziği görür; kaybeden ekranda destekleyici Dr. E mesajı, gümüş atom rozeti ve kısa yeniden deneme müziği gösterilir.</li><li>Gerçek oyuncu adları, skor, raund geçmişi, rövanş ve ana menü işlemleri yeni tasarım içinde dinamik olarak korunur.</li></ul></section><details class="release"><summary>V4.5.0 — Bağlantı Koruması</summary><ul><li>Online düelloda iki telefonun bağlantısı yaklaşık 4,5 saniyede bir canlı olarak kontrol edilir.</li><li>Rakibin bağlantısı kesilirse oyun ve 90 saniyelik raund süresi durur; ekranda 30 saniyelik geri dönüş sayacı görünür.</li><li>Rakip zamanında dönerse aynı raund kaldığı yerden devam eder; dönmezse bağlı kalan oyuncu hükmen kazanır. İki oyuncu da koparsa maç sonuçsuz iptal edilir.</li></ul></details><details class="release"><summary>V4.4.0 — Tam Ekran Canlı Seyir</summary><ul><li>Rakibin oyunu telefon ekranını dolduran seyir modunda gösterilir.</li><li>Seçilen atom, hareket yönü ve kayma süresi karşı telefona aktarılır; atom aynı yönde animasyonla kayar.</li><li>Dr. E hap bilgileri ve hazır mesajlar canlı oyun ekranının altında korunur.</li></ul></details><details class="release"><summary>V4.3.0 — Canlı Düello ve Hazır Mesajlar</summary><ul><li>Online Atom Düellosunda rakibin atom hamlelerini küçük canlı tahta üzerinden izleme eklendi.</li><li>Bekleme sırasında Dr. E; moleküller, uzay, hayvanlar, bilim ve oyun taktikleri hakkında kısa hap bilgiler anlatır.</li><li>Oyuncular serbest yazı yerine güvenli hazır mesajlar gönderebilir: Merhaba, Bol şans, Güzel hamle, İyi oyundu, Rövanş ve Teşekkürler.</li></ul></details><details class="release"><summary>V4.2.0 — Hızlı Eşleşme</summary><ul><li>Atom Düellosuna üçüncü seçenek olarak Hızlı Eşleşme eklendi.</li><li>İki çevrim içi oyuncu bekleme kuyruğunda otomatik eşleşir ve oyun arka planda özel oda oluşturur.</li><li>Hızlı maçlar karışık oyun türü ve karışık zorlukla 3 raund oynanır; kampanya ve dünya sıralamasını etkilemez.</li></ul></details><details class="release"><summary>V4.1.0 — İki Telefonlu Online Düello</summary><ul><li>Atom Düellosuna iki farklı telefondan oynanan online oda sistemi eklendi.</li><li>Oda sahibi 6 haneli kod üretir; ikinci oyuncu kodla katılır ve sıra otomatik cihazlar arasında geçer.</li><li>Raund ve final skorları iki telefonda aynı anda görünür.</li></ul></details><details class="release"><summary>V4.0.3 — LAB ve Sıralama Ayrıntıları</summary><ul><li>LAB düğmesi ana menü butonlarından çıkarılıp sol tarafta VS düğmesinin tam üstündeki bağımsız kolona taşındı.</li><li>Dünya sıralaması satırlarında RP, tamamlanan bölüm, toplam yıldız, kusursuz bölüm ve doğrulanmış süre görünür hale getirildi.</li><li>Hall of Fame’e elle sıralama yenileme düğmesi eklendi ve Firebase liste önbellekleri zorunlu yenilemede temizleniyor.</li></ul></details><details class="release"><summary>V4.0.2 — Lab Butonu ve Premium Lab</summary><ul><li>Ana menüye animasyonlu tek bir LAB butonu eklendi.</li><li>Oyuncu laboratuvarındaki yerleştirilmiş ekipmanlar premium vitrin tabanları, glow efektleri ve yumuşak animasyonlarla güçlendirildi.</li></ul></details><details class="release"><summary>V4.0.1 — Shop Görsel Yükseltme</summary><ul><li>MoleCoin mağazasındaki ürün kartları yeni premium obje görselleriyle yenilendi.</li><li>Her mağaza ekipmanına kendine özel renk kimliği, glow efekti ve daha detaylı laboratuvar çizimi verildi.</li><li>Satın alma, laboratuvar yerleşimi ve oyun ekonomisi değiştirilmeden yalnızca görsel kalite yükseltildi.</li></ul></details><details class="release"><summary>V4.0.0 — Laboratuvar, Mağaza ve Nobel Yarışı</summary><ul><li>Oyuncunun laboratuvarı, MoleCoin mağazası ve Nobel Yarışı tek bir ilerleme merkezinde birleştirildi.</li><li>7 satın alınabilir laboratuvar ekipmanı, 3 araştırma seferi ve farklı laboratuvar temaları eklendi.</li><li>RP Dünya Sıralaması için korunurken MoleCoin harcama defteri bulut senkronizasyonuna karşı güvenli hale getirildi.</li><li>151. bölümü tamamlayan oyuncu Nobel Adayı olur; aylık sıralamanın 1 numarası Ayın Nobel Ödüllüsü olarak gösterilir.</li><li>Einstein haftalık ve aylık liderleri oyuncu adıyla duyurur; Hall of Fame canlı liderleri ve şampiyon arşivini gösterir.</li><li>İpucu ekonomisi, laboratuvar faydaları ve bölüm kartlarının görünümü yenilendi.</li></ul></details><details class="release"><summary>V3.14.3 — Bonus, Çıkış ve Tam Kontrol</summary><ul><li>Bonus Lab, bonus oyun başlangıçları ve Çıkış/Devam düğmeleri iPhone dokunmalarında güvenilir çalışacak şekilde yenilendi.</li><li>Kampanya, Günün Deneyi, Düello ve üç bonus türünün çıkış akışları yeniden doğrulandı.</li><li>135. bölümde kayıtlı çözümü durduran zombi-donma çakışması düzeltildi.</li><li>Yeni Oyun ad ekranına güvenli Vazgeç düğmesi eklendi.</li></ul></details><details class="release"><summary>V3.14.2 — Atom Düellosu Kompakt Arayüz</summary><ul><li>Atom Düellosu kurulum ekranı kompakt eski haline geri alındı.</li><li>Üstteki ikonlar ve açılır menü ikonları tekrar ilk boyutlarına döndürüldü.</li><li>V3.14.1’de fazla büyüyen ikon düzeni kaldırıldı; oyun mantığı değiştirilmedi.</li></ul></details><details class="release"><summary>V3.14.0 — Gelişen Classic Kampanya</summary><ul><li>151 bölüm, hedef geometrisi art arda tekrarlanmayacak şekilde yeniden sıralandı.</li><li>105 farklı molekül kullanıldı; tekrar eden moleküller arasında en az 36 bölüm bırakıldı.</li><li>İlk Katalizör, Zincir Reaksiyon ve Reaktör bonusları açıldıktan sonra bu mekanikler seçili Classic bölümlerde görünür.</li><li>Haritalar, başlangıç konumları ve kayıtlı çözümler korunurken atom renkleri ve molekül kimlikleri çeşitlendirildi.</li></ul></details><details class="release"><summary>V3.13.12 — Farklı Molekül Kombinasyonları</summary><ul><li>74–90 arasındaki tekrarlanan hedef geometrileri değiştirilmişti.</li></ul></details><details class="release"><summary>V3.13.11 — Zor ve Benzersiz Bölümler</summary><ul><li>Tekrar eden 50 kampanya bölümü, tamamen yeni ve daha zor haritalarla değiştirildi.</li><li>Yeni bölümlerin minimum çözüm ortalaması 6,5 hamleden 8,9 hamleye yükseltildi.</li><li>İki atomlu bölümler 7, üç atomlu bölümler 9, dört atomlu bölümler 9–10 ve beş atomlu bölümler 10–12 hamlelik çözümlerle yeniden tasarlandı.</li></ul></details><details class="release"><summary>V3.13.10 — Son Arayüz Kontrolü</summary><ul><li>Günün Deneyi, başarı kartları ve oyuncu profillerindeki alakasız bonus nesneleri kaldırıldı.</li><li>Düello üst önizlemesi artık yalnızca seçilen oyun türünü gösterir ve seçim değişince anında eşleşir.</li><li>Tüm dosya, önbellek ve oyun içi sürüm numaraları 3.13.10 olarak eşitlendi.</li></ul></details><details class="release"><summary>V3.13.7 — Bonus Lab Görsel Paketi</summary><ul><li>Bonus Lab kartları, ödül ekranları, Düello tipi ikonları, Günün Deneyi kartı, başarı rozetleri ve oyuncu çerçeveleri yeni laboratuvar nesne stiline uyarlandı.</li></ul></details><details class="release"><summary>V3.13.6 — Reaktör Lazer Düzeltmesi</summary><ul><li>Reaktör Kaçışında aktif lazer artık uzaktaki atomu başlangıç noktasında kilitlemez.</li><li>Atom lazerin bir kare önüne kadar kayar; oyuncu oradan yön değiştirip ışının etrafından dolaşabilir.</li><li>3 saniyelik ceza yalnızca atom lazere bitişikken doğrudan ışına hamle yapılırsa uygulanır.</li><li>Lazer yayıcıları, zemin yansıması ve açılmadan önce sarı uyarı efekti eklendi.</li></ul></details><details class="release"><summary>V3.13.5 — Dr. E Oyuncu Adı</summary><ul><li>Dr. E misafir hesaplara “Misafir”, bağlı hesaplara gerçek kullanıcı adıyla hitap eder.</li></ul></details><details class="release"><summary>V3.13.3 — Dünya Sıralaması Onarımı</summary><ul><li>Eski Android sürümlerinde geride kalabilen Dünya Sıralaması kaydı için otomatik onarım eklendi.</li><li>Yerel ve bulut ilerleme birleştirilip sıralama zorunlu olarak yenilenir.</li></ul></details><details class="release"><summary>V3.13.2 — Katalizör Avı</summary><ul><li>Kristal Avı, laboratuvar temasına uygun Katalizör Avı olarak yenilendi.</li><li>Katalizör, Enerji Hücresi ve Stabilizatör adlı üç farklı reaksiyon bileşeni eklendi.</li></ul></details><details class="release"><summary>V3.13.1 — Bölüm Numaraları</summary><ul><li>Bölüm seçim ekranındaki açık ve kilitli 151 bölümün tamamına görünür bölüm numarası eklendi.</li><li>Kilit simgesi korunurken bölüm numarası kartın üst kısmında okunabilir şekilde gösterilir.</li></ul></details><details class="release"><summary>V3.13.0 — Bonus Bölümleri ve Madalyalar</summary><ul><li>Her 10 kampanya bölümünde Katalizör Avı, Zincir Reaksiyon veya Reaktör Kaçışı bonus görevi açılır.</li><li>İlk tamamlamada 1 Bonus Madalyası, 50 MoleCoin ve 100 Kariyer RP verilir; tekrarlar ödül vermez.</li><li>3/6/9/12/15 madalyada kalıcı görsel ödüller açılır.</li></ul></details><details class="release"><summary>V3.12.0 — Reaktör Kaçışı</summary><ul><li>Üç zamanlı lazer kapılı Reaktör Kaçışı tek oyuncu ve düelloya eklendi.</li></ul></details><details class="release"><summary>V3.11.0 — Zincir Reaksiyon</summary><ul><li>Parlayan doğru hamleyle Combo x2 / x3 oluşturan Zincir Reaksiyon Bonus Lab ve Düello modu eklendi.</li></ul></details><details class="release"><summary>V3.10.0 — Katalizör Avı altyapısı</summary><ul><li>Üç reaksiyon bileşenini toplayıp hedef molekülü oluşturduğun Bonus Lab altyapısı eklendi.</li><li>Bu toplama modu tek oyuncuya ve Atom Düellosuna bağlandı.</li></ul></details><details class="release"><summary>V3.9.2 — VS düğmesi</summary><ul><li>VS düğmesi yukarı alındı ve kupa simgesiyle aynı yumuşak animasyona kavuştu.</li></ul></details><details class="release"><summary>V3.9.0 — Atom Düellosu</summary><ul><li>Tek telefonda sırayla oynanan iki oyunculu Atom Düellosu eklendi.</li><li>Düello sonuçları kampanya, coin ve dünya sıralamasını etkilemez.</li></ul></details><details class="release"><summary>V3.8.4 — Kalıcı Firebase oturumu</summary><ul><li>Firebase oturumu itch.io dahil desteklenen tarayıcılarda kalıcı olarak geri yüklenir.</li><li>Kaydedilmiş Google veya e-posta oturumu kontrol edilmeden yeni misafir hesap oluşturulmaz.</li></ul></details><details class="release"><summary>V3.8.3 — Çapraz platform güvenli senkronizasyon</summary><ul><li>Aynı Google veya e-posta hesabı kullanıldığında itch.io, Netlify ve Android ilerlemeleri tek oyuncu profilinde birleşir.</li><li>Bölüm yıldızları, moleküller, başarımlar, en iyi süreler ve en iyi hamleler artık alan alan güvenle senkronize edilir.</li><li>Araştırma Puanı, birleşen bölüm/başarım/günlük kayıtlarından yeniden hesaplanır; aynı puan farklı platformlardan iki kez eklenmez.</li><li>Eski veya çevrimdışı kalan bir cihaz, daha yeni bulut ilerlemesini geriye düşüremez.</li></ul></details><details class="release"><summary>V3.8.2 — Benzersiz bölümler ve Günün Deneyi</summary><ul><li>151 kampanya bölümü benzersiz hale getirildi.</li><li>832 gün tekrar etmeyen, çözücü onaylı otomatik Günün Deneyi eklendi.</li></ul></details><details class="release"><summary>V3.8.1 — Kariyer ve laboratuvar ilerlemesi</summary><ul><li>Her 20 bölümde terfi ve laboratuvar gelişimi geri getirildi.</li><li>Nobel Adayı ve Nobel Ödüllü kariyer aşamaları eklendi.</li></ul></details><details class="release"><summary>Önceki sürümler</summary><ul><li>150 + 1 Nobel kampanyası, adil sıralama, hamle dereceleri, otomatik çözücü ve Araştırma Puanı eklendi.</li></ul></details>'
   }:{
     title:"WHAT'S NEW",back:'BACK TO ABOUT',button:"WHAT'S NEW?",about:'ABOUT',version:'Version',
     webButton:'GAME WEB PAGE',accountButton:accountState.isAnonymous?'SIGN UP / SIGN IN':'MY ACCOUNT',

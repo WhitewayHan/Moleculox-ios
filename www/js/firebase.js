@@ -1278,10 +1278,28 @@ async function updateDisplayName(profileId, playerName) {
 async function claimDailyExperiment(profileId) {
   try {
     await readyPromise;
-    if (!CLOUD_FUNCTIONS_ENABLED || !fx || !uid) return {alreadyClaimed: false, offline: true, disabled: true};
-    const call = httpsCallable(fx, "claimDailyExperiment");
-    const res = await call({profileId});
-    return res.data;
+    const cleanId = safeProfileId(profileId);
+    if (!db || !uid || !cleanId) return {alreadyClaimed: false, offline: true, disabled: true};
+    if (CLOUD_FUNCTIONS_ENABLED && fx) {
+      const call = httpsCallable(fx, "claimDailyExperiment");
+      const res = await call({profileId: cleanId});
+      return res.data;
+    }
+    // R23: when Cloud Functions are not enabled, claim atomically inside the
+    // signed-in player's own profile document. Firestore transactions make two
+    // devices racing on the same profile resolve to one reward and one replay.
+    const day = new Date().toISOString().slice(0, 10);
+    const ref = doc(db, "players", uid, "profiles", cleanId);
+    return await runTransaction(db, async (tx) => {
+      const snap = await tx.get(ref);
+      // A brand-new local profile may reach the Daily Experiment before its
+      // first full autosave has finished. The atomic claim is allowed to create
+      // the profile shell; the normal save immediately merges full progress.
+      const data = snap.exists() ? (snap.data() || {}) : {};
+      if (String(data.dailyDate || "") === day) return {alreadyClaimed: true, reward: 0, day};
+      tx.set(ref, {dailyDate: day, updatedAt: serverTimestamp()}, {merge: true});
+      return {alreadyClaimed: false, reward: 25, day};
+    });
   } catch (e) {
     console.warn("[MXCloud] claimDailyExperiment failed:", e && e.code);
     return {alreadyClaimed: false, offline: true};
