@@ -1,7 +1,7 @@
 {
   "name": "Moleculox — Dr. E's Lab",
   "short_name": "Moleculox",
-  "description": "Moleculox v8.5.64 — iOS R19 menu voice timing and tutorial GOAL spotlight test by wHiTeWaY studio.",
+  "description": "Moleculox v8.5.66 — iOS R21 silent logo unlock and in-level tool-rail spacing test by wHiTeWaY studio.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
@@ -34,5 +34,5 @@
     "games",
     "education"
   ],
-  "version": "8.5.64"
+  "version": "8.5.66"
 }

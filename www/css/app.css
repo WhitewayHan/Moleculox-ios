@@ -4760,3 +4760,10 @@ body.mxIOSNative #playScr .speech{
   body.mxIOSNative #gameScr #einBoxG,
   body.mxIOSNative #gameScr #einBoxG.mxEinResponsive{width:196px!important;max-width:196px!important}
 }
+
+/* ================= V8.5.66 R21 — iOS tool-rail spacing ================= */
+/* Keep Gear/Home as the fixed top controls and give the in-level action rail
+   a clear visual gap below them. The clamp protects shorter iPhones while
+   moving the rail roughly 22 px lower on modern full-height devices. */
+body.mxIOSNative #actionCol{top:clamp(16px,2.6svh,24px)!important}
+

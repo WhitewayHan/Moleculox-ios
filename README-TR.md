@@ -1,24 +1,18 @@
-# Moleculox iOS V8.5.64 R19 — Ana Menü Sesi ve Tutorial GOAL Testi
+# Moleculox iOS V8.5.66 R21 — Sessiz Logo ve Araç Menüsü Aralığı Testi
 
-Bu paket R18'in onaylanan Einstein boyutunu, sağ-alt konumunu, hesap izolasyonunu,
-Apple/Google/e-posta girişlerini ve tek dosyalı 25 repliklik ses sprite sistemini korur.
+Bu paket R19'un onaylanan Einstein boyutunu/konumunu, 25 profesör kaydını,
+ses kuyruğunu, ana menü konuşmasını, tutorial GOAL hizalamasını, hesap izolasyonunu
+ve Apple/Google/e-posta girişlerini korur.
 
-## R19 düzeltmeleri
+## R21 düzeltmeleri
 
-- Studio/boot logosuna ilk dokunuş yalnızca sesi açar; Dr. E konuşması başlatmaz.
-- Dr. E, ana menü tamamen görünür ve geçiş bitmiş olduktan sonra konuşur.
-- Yeni oyuncu, geri dönen oyuncu ve oyundan ana menüye dönüş için bağlama uygun mevcut kayıtlar kullanılır.
-- Aktif replik kesilmez; eski ve gecikmiş menü replikleri kuyruktan temizlenir.
-- İlk tutorial GOAL vurgusu, oyun ekranı ve responsive yerleşim oturduktan sonra gerçek GOAL kartından ölçülür.
-- GOAL spotu iOS viewport/safe-area değişimlerinde tekrar hizalanır.
-- R18'in Web oranındaki Dr. E yerleşimi değiştirilmemiştir.
+- İlk wHiTeWaY logo dokunuşu yalnızca Web Audio sistemini açar ve ses sprite'ını sessizce çözer.
+- Logo/boot aşamasında HTML ses öğesi oynatılmadığı için ilk Einstein cümlesi sızmaz.
+- Profesör konuşması yalnız ana menü görünür ve ekran geçişi tamamlanmışken etkinleştirilir.
+- Sağdaki UNDO, HINT, 1 SQUARE, BARRIER ve RESTART grubu yalnız iOS'ta Gear/Home ikonlarından aşağı ayrılır.
+- Kısa iPhone ekranlarında araç grubunun aşağı taşması clamp ile engellenir.
+- Web ve Android yerleşimleri değiştirilmemiştir.
 
-## Ses notu
-
-Paket içinde onaylanmış 25 İngilizce Dr. E kaydı vardır. Yeni bir “Welcome to Moleculox”
-kaydı mevcut değildir; R19 yeni oyuncuya “Welcome back” çalmaz ve bunun yerine mevcut nötr
-menü repliklerinden birini kullanır.
-
-Sürüm: 8.5.64
+Sürüm: 8.5.66
 Workflow: moleculox-ios-app-store
 Bundle ID: com.whitewayhan.moleculox

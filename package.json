@@ -1,8 +1,8 @@
 {
   "name": "moleculox-ios",
-  "version": "8.5.64",
+  "version": "8.5.66",
   "private": true,
-  "description": "Moleculox iOS V8.5.64 R19 test: R18 visual/audio baseline, menu voice starts only after the main menu is fully visible, first/return/home greeting routing, and tutorial GOAL spotlight alignment.",
+  "description": "Moleculox iOS V8.5.66 R21 test: completely silent wHiTeWaY logo audio unlock, Dr. E speech armed only on the visible main menu, and iOS-only spacing below Gear/Home for the in-level tool rail.",
   "scripts": {
     "ios:prepare": "bash scripts/prepare-ios.sh",
     "ios:sync": "npx cap sync ios",

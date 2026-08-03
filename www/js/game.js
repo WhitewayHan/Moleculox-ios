@@ -1,5 +1,5 @@
 /* Moleculox V6.24.3 — professional story, UX and release polish */
-const APP_VERSION="v8.5.64";
+const APP_VERSION="v8.5.66";
 (()=>{'use strict';
 function isIOSStandaloneMode(){
   try{
@@ -1833,7 +1833,7 @@ const VOICE_BANK={
     nobel:['dre-18-science-wins.mp3']
   }
 };
-// R18/R19: all 25 lines live inside one decoded audio sprite. WKWebView no longer
+// R18-R21: all 25 lines live inside one decoded audio sprite. WKWebView no longer
 // has to replace the source of an HTMLMediaElement for every sentence, which
 // was why only the first Welcome line could be heard on some iPhones.
 const voiceFallback=new Audio(VOICE_SPRITE_URL);
@@ -1841,7 +1841,11 @@ voiceFallback.preload='auto';voiceFallback.playsInline=true;voiceFallback.setAtt
 let activeVoice=null,activeVoiceSource=null,voiceFallbackTimer=0,voiceFallbackPrimed=false;
 let voiceSpriteBuffer=null,voiceSpriteLoad=null,voicePlaying=false,lastVoiceAt=0,lastVoiceName='';
 const voiceQueue=[],voiceShuffleBags=new Map();
-function voiceEnabled(){return !externalMusicMode&&!save.muM&&!save.muS&&clampAudio(save.volM)>0&&clampAudio(save.volS)>0;}
+// R21: no professor speech may start during the wHiTeWaY or laboratory boot screens.
+// The decoded sprite can be prepared silently, but playback is armed only after
+// the real main menu is visible and its transition has settled.
+let speechPlaybackArmed=false;
+function voiceEnabled(){return speechPlaybackArmed&&!externalMusicMode&&!save.muM&&!save.muS&&clampAudio(save.volM)>0&&clampAudio(save.volS)>0;}
 function decodeVoiceBuffer(ctx,data){
   return new Promise((resolve,reject)=>{
     let settled=false;
@@ -1881,7 +1885,10 @@ function primeVoiceFallback(){
 }
 function preloadVoiceBank(){
   if(!audioGestureSeen||externalMusicMode)return;
-  loadVoiceSprite().catch(()=>{});primeVoiceFallback();
+  // Fetch/decode only. Calling HTMLMediaElement.play() here could leak the first
+  // sprite sentence on WKWebView even while muted, which is why Dr. E was heard
+  // as soon as the wHiTeWaY logo was tapped.
+  loadVoiceSprite().catch(()=>{});
 }
 function shuffledVoiceName(character,event,files){
   const key=character+':'+event;let bag=voiceShuffleBags.get(key);
@@ -1957,7 +1964,7 @@ function playCharacterVoice(character,event,opts={}){
 }
 function maybeVoice(character,event,chance=.35,opts={}){if(Math.random()>chance)return;playCharacterVoice(character,event,opts);}
 
-// R19 — menu voice belongs to the visible main menu, never to the studio/boot logo.
+// R19/R21 — menu voice belongs to the visible main menu, never to the studio/boot logo.
 // The first gesture still unlocks and preloads audio, but it cannot enqueue speech.
 let menuVoiceTimer=0,menuVoiceToken=0,menuVoiceLastAt=-1e9;
 function isMenuVoiceEvent(event){return event==='menuFirst'||event==='menuReturn'||event==='menuHome'||event==='menu';}
@@ -1987,6 +1994,8 @@ function scheduleMainMenuVoice(kind='entry',delay=620){
     }
     const nowMs=performance.now();
     if(nowMs-menuVoiceLastAt<2600)return;
+    // This is the single point that arms speech after the visible main menu.
+    speechPlaybackArmed=true;
     const event=kind==='home'?'menuHome':(menuProfileEstablished()?'menuReturn':'menuFirst');
     if(playCharacterVoice('drE',event,{force:true,duck:.26,cooldown:0,maxDelay:2600})){
       menuVoiceLastAt=nowMs;
