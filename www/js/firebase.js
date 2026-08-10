@@ -919,6 +919,10 @@ let saveTimer = null;
 let saveWaiters = [];
 let pendingSaveProfileId = null;
 let pendingSaveSnapshot = null;
+// R35: retain the exact last debounced autosave failure so the UI can
+// distinguish an indeterminate WKWebView timeout from a confirmed Firestore error.
+let lastSaveError = null;
+function getLastSaveError(){ return lastSaveError; }
 
 function settleSaveWaiters(waiters, result) {
   (Array.isArray(waiters) ? waiters : []).forEach((resolve) => {
@@ -928,10 +932,18 @@ function settleSaveWaiters(waiters, result) {
 
 async function executePendingSave(job, waiters) {
   let result = false;
+  lastSaveError = null;
   try {
     result = await withCloudTimeout(writeProgress(job.snapshot, job.profileId), "cloud/save-timeout");
+    if (!result) {
+      lastSaveError = {code:"cloud/save-unavailable", message:"Cloud save returned no result"};
+    }
   } catch (e) {
     console.warn("[MXCloud] saveProgress failed:", e && e.code);
+    lastSaveError = {
+      code:String(e && e.code || "cloud/save-failed"),
+      message:String(e && e.message || "Cloud save failed").slice(0,240)
+    };
     result = false;
   }
   settleSaveWaiters(waiters, result);
@@ -2521,7 +2533,7 @@ window.MXCloud = {
   ready: readyPromise, track, reportJsError,
   subscribeAuth, ensureAnonymous,
   refreshPersistence, connectGoogle, connectGoogleIdToken, connectApple, connectAppleIdToken, registerEmail, signInEmail, resetPassword, signOutToGuest, deleteCurrentAuthAccount, deleteAccountAndData, setAuthDisplayName,
-  saveProgress, saveProgressNow, loadProfile, listProfiles, syncLeaderboard, repairLeaderboard, savePushToken, updatePushLang,
+  saveProgress, saveProgressNow, getLastSaveError, loadProfile, listProfiles, syncLeaderboard, repairLeaderboard, savePushToken, updatePushLang,
   startLevelAttempt, submitLevelResult, updateDisplayName, claimDailyExperiment,
   deleteCloudProfile, cleanupOrphanRankingRows, cleanupPlaceholderRankingRows, reportPlayerName,
   getLeaderboard, getWeeklyLeaderboard, getMonthlyLeaderboard, getMyRankingStatus, clearLeaderboardCache: clearLeaderboardCaches, getChampions,

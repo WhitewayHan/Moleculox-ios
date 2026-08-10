@@ -1,5 +1,5 @@
 /* Moleculox V6.24.3 — professional story, UX and release polish */
-const APP_VERSION="v8.5.74";
+const APP_VERSION="v8.5.75";
 (()=>{'use strict';
 function isIOSStandaloneMode(){
   try{
@@ -1556,9 +1556,31 @@ function persist(){
       const writeProfileId=save.profileId;
       const cloudWrite=window.MXCloud.saveProgress(save,writeProfileId);
       if(cloudWrite&&typeof cloudWrite.then==='function')cloudWrite.then(result=>{
-        if(result){clearPendingProfileId(writeProfileId);setSyncStatus('saved');}
-        else setSyncStatus(navigator.onLine===false?'offline':'error');
-      }).catch(err=>{console.warn('[sync] autosave failed:',err&&err.code||err);setSyncStatus(navigator.onLine===false?'offline':'error');});
+        if(result){
+          clearPendingProfileId(writeProfileId);
+          setSyncStatus('saved');
+        }else{
+          const err=(window.MXCloud&&window.MXCloud.getLastSaveError)?window.MXCloud.getLastSaveError():null;
+          console.warn('[sync] autosave returned no result:',err&&err.code||'unknown');
+          if(navigator.onLine===false)setSyncStatus('offline');
+          else if(isIndeterminateCloudTimeout(err)){
+            // R35: debounced autosave timeout is not proof that Firestore rejected
+            // the write. Keep the last confirmed state healthy and retry via the
+            // persistent checkpoint instead of flashing a false red error.
+            try{queueLevelCloudCheckpoint('autosave-timeout');}catch(_e){}
+            preserveHealthyStatusAfterTimeout();
+          }else{
+            // Confirmed non-timeout failure: keep the red state so diagnostics
+            // remain truthful and the real code can be surfaced by Sync Now.
+            setSyncStatus('error');
+          }
+        }
+      }).catch(err=>{
+        console.warn('[sync] autosave failed:',err&&err.code||err);
+        if(navigator.onLine===false)setSyncStatus('offline');
+        else if(isIndeterminateCloudTimeout(err))preserveHealthyStatusAfterTimeout();
+        else setSyncStatus('error');
+      });
       const account=window.MXCloud.account;
       if(account&&!account.isAnonymous&&window.MXCloud.syncLeaderboard)window.MXCloud.syncLeaderboard(save,save.profileId,false);
       if(account&&!account.isAnonymous&&window.MXCloud.syncDuelLeaderboard)window.MXCloud.syncDuelLeaderboard(save,save.profileId,false);
@@ -8140,6 +8162,14 @@ async function refreshCloudRankStatus(force){
     classic.innerHTML='<b>!</b><small>'+msg+'</small>';duel.innerHTML='<b>!</b><small>'+msg+'</small>';
   }
 }
+function cloudDiagnosticText(err){
+  const base=authErrorText(err);
+  const code=String(err&&err.code||'cloud/unknown').trim();
+  // R35 diagnostic build: expose the exact non-sensitive Firebase/cloud error
+  // code in the status modal. This avoids another blind build if Firestore is
+  // actually rejecting a request (permission-denied, unauthenticated, etc.).
+  return base+' ['+code+']';
+}
 async function runManualCloudSync(btn){
   const c=accountCopy();
   if(accountState.isAnonymous){openCloudStatusModal(c.syncGuest,false);return;}
@@ -8176,7 +8206,7 @@ async function runManualCloudSync(btn){
       openCloudStatusModal(pending,true);
     }else{
       setSyncStatus(navigator.onLine===false?'offline':'error');
-      openCloudStatusModal(authErrorText(e),false);
+      openCloudStatusModal(cloudDiagnosticText(e),false);
     }
   }
 }

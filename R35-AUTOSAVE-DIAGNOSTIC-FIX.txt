@@ -1,0 +1,21 @@
+MOLECULOX iOS V8.5.75 — R35 AUTOSAVE DIAGNOSTIC FIX
+
+PURPOSE
+- Do not treat a debounced WKWebView cloud/save-timeout as proof of a failed Firestore write.
+- Keep the last confirmed sync state healthy and retry the persisted checkpoint.
+- If a real non-timeout cloud failure occurs, show its exact non-sensitive Firebase/cloud error code in the manual sync modal.
+- Preserve Apple/Google/email account separation and all level/progress data.
+
+UNCHANGED
+- Campaign/daily level data
+- Apple/Google/email auth flows
+- Account-scoped progress vault
+- Leaderboards/gameplay/audio/assets
+
+TEST
+1. Sign in with Apple or Google.
+2. Advance several levels and force-close/reopen.
+3. Confirm the newest level remains.
+4. Open Cloud & Account Status.
+5. Press Sync Now.
+6. Expected: Synced, or a concrete error code such as [permission-denied] instead of a generic unexplained red status.

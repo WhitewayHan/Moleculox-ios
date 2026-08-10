@@ -1,8 +1,8 @@
 {
   "name": "moleculox-ios",
-  "version": "8.5.74",
+  "version": "8.5.75",
   "private": true,
-  "description": "Moleculox iOS V8.5.74 R34: preserves the Apple progress persistence fix, separates leaderboard publication failures from core cloud-save status, and raises the iOS deployment target to 15.0.",
+  "description": "Moleculox iOS V8.5.75 R35: preserves account-scoped progress, prevents debounced autosave timeouts from creating false red sync errors, and surfaces exact cloud error codes for diagnosis.",
   "scripts": {
     "ios:prepare": "bash scripts/prepare-ios.sh",
     "ios:sync": "npx cap sync ios",
