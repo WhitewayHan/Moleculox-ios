@@ -1,0 +1,16 @@
+MOLECULOX iOS V8.5.74 R34 — FALSE SYNC ERROR / TIMEOUT TRUTH FIX
+
+Scope:
+- Campaign/level data unchanged.
+- Apple/Google/email authentication logic unchanged.
+- R31 account-scoped progress persistence retained.
+- R32/R33 ranking and reconcile status separation retained.
+
+Fix:
+- cloud/timeout from saveProgressNow is no longer treated as proof that a Firestore write failed.
+- Level checkpoint remains queued and retries in background.
+- If a previous cloud save is confirmed, timeout preserves Synchronized state rather than showing false red Sync error.
+- Manual Sync Now timeout shows a non-destructive retry notice.
+- Non-timeout write failures still show Sync error.
+
+iOS deployment target remains 15.0.

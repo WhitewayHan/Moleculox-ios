@@ -1,5 +1,5 @@
 /* Moleculox V6.24.3 — professional story, UX and release polish */
-const APP_VERSION="v8.5.73";
+const APP_VERSION="v8.5.74";
 (()=>{'use strict';
 function isIOSStandaloneMode(){
   try{
@@ -2942,6 +2942,18 @@ function providerDisplayList(){
   const map={'apple.com':'Apple','google.com':'Google','password':ml("E-posta","Email","E-Mail","Correo","E-mail","メール")};
   return ids.map(id=>map[id]||id).join(' · ')|| (accountState.isAnonymous?(ml("Misafir","Guest","Gast","Invitado","Convidado","ゲスト")):'—');
 }
+function isIndeterminateCloudTimeout(err){
+  const code=String(err&&err.code||'');
+  const msg=String(err&&err.message||'');
+  return code==='cloud/timeout'||code==='cloud/save-timeout'||msg.includes('cloud/save-timeout');
+}
+function preserveHealthyStatusAfterTimeout(){
+  // A Promise.race timeout only means WKWebView stopped waiting; Firestore may
+  // still finish the write. Keep the retryable checkpoint, but never replace a
+  // previously confirmed cloud save with a false red error.
+  if(navigator.onLine===false){setSyncStatus('offline');return;}
+  setSyncStatus(readLastCloudSync()?'saved':'syncing');
+}
 function setSyncStatus(s){
   syncStatus=s;
   if(s==='saved')recordLastCloudSync();
@@ -3041,7 +3053,11 @@ async function runLevelCloudCheckpoint(){
     console.warn('[sync] level checkpoint failed:',job.reason,e&&e.code||e);
     if(!levelCloudCheckpointPending)levelCloudCheckpointPending=job;
     rememberLevelCloudCheckpoint(levelCloudCheckpointPending);
-    setSyncStatus(navigator.onLine===false?'offline':'error');
+    // R34: cloud/timeout is indeterminate, not a confirmed write failure.
+    // Firestore can still complete after WKWebView stops waiting, so retain the
+    // checkpoint and retry without showing a false red Sync error.
+    if(isIndeterminateCloudTimeout(e))preserveHealthyStatusAfterTimeout();
+    else setSyncStatus(navigator.onLine===false?'offline':'error');
   }finally{
     levelCloudCheckpointRunning=false;
     if(levelCloudCheckpointPending){
@@ -8142,7 +8158,27 @@ async function runManualCloudSync(btn){
     try{const duel=window.MXCloud.syncDuelLeaderboard?await window.MXCloud.syncDuelLeaderboard(save,save.profileId,true):{ok:false,reason:'unavailable'};if(!duel||!duel.ok){rankingPending=true;console.warn('[Moleculox] duel ranking remains unpublished:',duel&&duel.reason);}}catch(duelErr){rankingPending=true;console.warn('[Moleculox] duel ranking remains unpublished:',duelErr&&duelErr.code||duelErr);}
     setSyncStatus('saved');
     openCloudStatusModal(rankingPending?c.syncSavedRankPending:c.syncSuccess,true);
-  }catch(e){setSyncStatus(navigator.onLine===false?'offline':'error');openCloudStatusModal(authErrorText(e),false);}
+  }catch(e){
+    if(isIndeterminateCloudTimeout(e)){
+      // R34: manual Sync Now timed out waiting for acknowledgement, but the
+      // underlying Firestore write may still finish. Preserve local progress,
+      // queue a retry, and keep the last confirmed cloud state healthy.
+      try{if(save&&save.profileId)queueLevelCloudCheckpoint('manual-sync-timeout');}catch(_e){}
+      preserveHealthyStatusAfterTimeout();
+      const pending=ml(
+        'Bulut kaydı arka planda yeniden deneniyor. İlerlemen bu cihazda güvende.',
+        'Cloud save is being retried in the background. Your progress is safe on this device.',
+        'Cloud-Speicherung wird im Hintergrund erneut versucht. Dein Fortschritt ist auf diesem Gerät sicher.',
+        'El guardado en la nube se reintentará en segundo plano. Tu progreso está seguro en este dispositivo.',
+        'O salvamento na nuvem será tentado novamente em segundo plano. Seu progresso está seguro neste dispositivo.',
+        'クラウド保存をバックグラウンドで再試行します。進行状況はこの端末に安全に保存されています。'
+      );
+      openCloudStatusModal(pending,true);
+    }else{
+      setSyncStatus(navigator.onLine===false?'offline':'error');
+      openCloudStatusModal(authErrorText(e),false);
+    }
+  }
 }
 function openCloudStatusModal(message,good){
   const c=accountCopy(),state=cloudStatusLabel();
