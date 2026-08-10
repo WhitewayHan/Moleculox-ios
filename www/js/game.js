@@ -1,5 +1,5 @@
 /* Moleculox V6.24.3 — professional story, UX and release polish */
-const APP_VERSION="v8.5.71";
+const APP_VERSION="v8.5.72";
 (()=>{'use strict';
 function isIOSStandaloneMode(){
   try{
@@ -3098,11 +3098,18 @@ async function repairCurrentLeaderboard(reason,force){
       const result=window.MXCloud.repairLeaderboard?
         await fn(save,save.profileId):await fn(save,save.profileId,true);
       if(result&&result.ok){setSyncStatus('saved');return result;}
-      setSyncStatus(navigator.onLine===false?'offline':'error');
+      // Leaderboard publication is optional and must never downgrade a
+      // successful cloud-progress save to a global sync error. The ranking
+      // panel can show its own pending/error state and retry independently.
+      if(navigator.onLine===false)setSyncStatus('offline');
+      else setSyncStatus('saved');
       return result||{ok:false,reason:'unknown'};
     }catch(e){
       console.warn('[sync] leaderboard repair failed:',reason,e&&e.code||e);
-      setSyncStatus(navigator.onLine===false?'offline':'error');
+      // A ranking write/query failure does not mean the player's progress
+      // failed to save. Preserve the core cloud status and retry ranking later.
+      if(navigator.onLine===false)setSyncStatus('offline');
+      else setSyncStatus('saved');
       return {ok:false,reason:e&&e.code||'error'};
     }
   })();

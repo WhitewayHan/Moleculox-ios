@@ -104,12 +104,14 @@ pbx=IOS/'App.xcodeproj'/'project.pbxproj'
 p=pbx.read_text()
 settings={
     'CODE_SIGN_ENTITLEMENTS':'App/App.entitlements',
-    'MARKETING_VERSION':'8.5.71',
+    'MARKETING_VERSION':'8.5.72',
     'CURRENT_PROJECT_VERSION':'1',
     'ASSETCATALOG_COMPILER_APPICON_NAME':'AppIcon',
     # iPhone only. Xcode writes UIDeviceFamily=[1] into the built app.
     # This intentionally removes iPad support and the App Store iPad screenshot requirement.
     'TARGETED_DEVICE_FAMILY':'1',
+    # Apple requires iOS 15+ for uploads starting Spring 2027; adopt it now.
+    'IPHONEOS_DEPLOYMENT_TARGET':'15.0',
 }
 
 def _patch_app_build_settings(match: re.Match[str]) -> str:

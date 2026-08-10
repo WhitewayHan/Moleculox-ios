@@ -1,8 +1,8 @@
 {
   "name": "moleculox-ios",
-  "version": "8.5.71",
+  "version": "8.5.72",
   "private": true,
-  "description": "Moleculox iOS V8.5.71 R31: iPhone-only App Store replacement build fixing monotonic progress saves and false cloud-sync error states caused by cancelled debounce timers.",
+  "description": "Moleculox iOS V8.5.72 R32: preserves the Apple progress persistence fix, separates leaderboard publication failures from core cloud-save status, and raises the iOS deployment target to 15.0.",
   "scripts": {
     "ios:prepare": "bash scripts/prepare-ios.sh",
     "ios:sync": "npx cap sync ios",
