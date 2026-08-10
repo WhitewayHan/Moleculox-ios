@@ -7,7 +7,8 @@ const must = [
   'async function executePendingSave(job, waiters)',
   'saveWaiters.push(resolve);',
   'settleSaveWaiters(waiters, result);',
-  'a debounced save that is superseded by a newer save is not a failed'
+  'snapshot: cloneCloudSnapshot(save)',
+  'pendingSaveContext = nextJob.context;'
 ];
 for (const needle of must) if (!code.includes(needle)) throw new Error(`Missing debounce fix: ${needle}`);
 if (code.includes('saveTimerResolve(false)')) throw new Error('Cancelled debounce still resolves as a false sync failure');

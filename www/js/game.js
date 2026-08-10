@@ -1,5 +1,5 @@
 /* Moleculox V6.24.3 — professional story, UX and release polish */
-const APP_VERSION="v8.5.75";
+const APP_VERSION="v8.5.77";
 (()=>{'use strict';
 function isIOSStandaloneMode(){
   try{
@@ -1508,6 +1508,31 @@ let save=defaultSave();
 // R16: every explicit player switch/reset advances this epoch. Async cloud work
 // captured under an older player is discarded instead of changing the active game.
 let profileContextEpoch=0;
+// R36: player-profile changes and Firebase-account changes are separate axes.
+// Async work must match both before it is allowed to update the visible game.
+let accountContextEpoch=0;
+function currentCloudAuthUid(){
+  return String((window.MXCloud&&window.MXCloud.uid)||
+    (typeof accountState!=='undefined'&&accountState&&accountState.uid)||'').trim();
+}
+function captureCloudOperationContext(profileId){
+  return {
+    accountEpoch:accountContextEpoch,
+    profileEpoch:profileContextEpoch,
+    uid:currentCloudAuthUid(),
+    profileId:String(profileId||(save&&save.profileId)||''),
+  };
+}
+function cloudOperationContextIsCurrent(ctx){
+  if(!ctx)return false;
+  return Number(ctx.accountEpoch)===Number(accountContextEpoch) &&
+    Number(ctx.profileEpoch)===Number(profileContextEpoch) &&
+    String(ctx.uid||'')===currentCloudAuthUid() &&
+    (!ctx.profileId||!save||String(save.profileId||'')===String(ctx.profileId||''));
+}
+function saveResultWasSkipped(result){
+  return !!(result&&typeof result==='object'&&result.__mxSaveSkipped);
+}
 // R31: permanent accounts keep an account-scoped local progress vault. The main
 // profile store is intentionally device-local and can contain players from more
 // than one sign-in. This vault prevents a stale Apple cloud row from replacing a
@@ -1552,34 +1577,44 @@ function persist(){
   if(save&&save.profileId)writeAccountProgressVault(save,save.profileId);
   try{
     if(window.MXCloud&&save.profileId){
-      setSyncStatus(navigator.onLine===false?'offline':'syncing');
       const writeProfileId=save.profileId;
+      const writeContext=captureCloudOperationContext(writeProfileId);
+      setSyncStatus(navigator.onLine===false?'offline':'syncing');
       const cloudWrite=window.MXCloud.saveProgress(save,writeProfileId);
       if(cloudWrite&&typeof cloudWrite.then==='function')cloudWrite.then(result=>{
+        // A save queued under Apple must never change Google/email status (or
+        // vice versa) if it resolves after an account/profile transition.
+        if(saveResultWasSkipped(result)||!cloudOperationContextIsCurrent(writeContext)){
+          console.info('[sync] stale autosave result ignored',writeProfileId);
+          return;
+        }
         if(result){
           clearPendingProfileId(writeProfileId);
+          markCloudSaveConfirmed(writeProfileId,writeContext.uid);
           setSyncStatus('saved');
         }else{
           const err=(window.MXCloud&&window.MXCloud.getLastSaveError)?window.MXCloud.getLastSaveError():null;
           console.warn('[sync] autosave returned no result:',err&&err.code||'unknown');
           if(navigator.onLine===false)setSyncStatus('offline');
-          else if(isIndeterminateCloudTimeout(err)){
-            // R35: debounced autosave timeout is not proof that Firestore rejected
-            // the write. Keep the last confirmed state healthy and retry via the
-            // persistent checkpoint instead of flashing a false red error.
-            try{queueLevelCloudCheckpoint('autosave-timeout');}catch(_e){}
+          else if(isRetryableCloudError(err)){
+            try{queueLevelCloudCheckpoint('autosave-retry');}catch(_e){}
             preserveHealthyStatusAfterTimeout();
           }else{
-            // Confirmed non-timeout failure: keep the red state so diagnostics
-            // remain truthful and the real code can be surfaced by Sync Now.
+            recordCloudDiagnostic('autosave',err||{code:'cloud/save-unavailable'});
             setSyncStatus('error');
           }
         }
       }).catch(err=>{
         console.warn('[sync] autosave failed:',err&&err.code||err);
+        if(!cloudOperationContextIsCurrent(writeContext))return;
         if(navigator.onLine===false)setSyncStatus('offline');
-        else if(isIndeterminateCloudTimeout(err))preserveHealthyStatusAfterTimeout();
-        else setSyncStatus('error');
+        else if(isRetryableCloudError(err)){
+          try{queueLevelCloudCheckpoint('autosave-retry');}catch(_e){}
+          preserveHealthyStatusAfterTimeout();
+        }else{
+          recordCloudDiagnostic('autosave-rejection',err);
+          setSyncStatus('error');
+        }
       });
       const account=window.MXCloud.account;
       if(account&&!account.isAnonymous&&window.MXCloud.syncLeaderboard)window.MXCloud.syncLeaderboard(save,save.profileId,false);
@@ -2942,18 +2977,25 @@ function createProfile(rawName){
 let splashIntroPlayed=false;
 let syncStatus='idle'; // idle | syncing | saved | offline | error
 let lastCloudStatusRefreshToken=0;
-function cloudSyncStorageKey(profileId){
-  const uid=(window.MXCloud&&window.MXCloud.uid)||'guest';
+function cloudSyncStorageKey(profileId,uidOverride){
+  const owner=String(uidOverride||currentCloudAuthUid()||'guest');
   const pid=profileId||(save&&save.profileId)||'profile';
-  return 'moleculox_last_cloud_sync_v1_'+uid+'_'+pid;
+  return 'moleculox_last_cloud_sync_v1_'+owner+'_'+pid;
 }
-function readLastCloudSync(){
-  try{return Math.max(0,Number(localStorage.getItem(cloudSyncStorageKey()))||0);}catch(e){return 0;}
+function readLastCloudSync(profileId,uidOverride){
+  try{return Math.max(0,Number(localStorage.getItem(cloudSyncStorageKey(profileId,uidOverride)))||0);}catch(e){return 0;}
 }
-function recordLastCloudSync(){
+function recordLastCloudSync(profileId,uidOverride){
+  const owner=String(uidOverride||currentCloudAuthUid()||'');
+  if(!owner)return 0;
   const at=Date.now();
-  try{localStorage.setItem(cloudSyncStorageKey(),String(at));}catch(e){}
+  try{localStorage.setItem(cloudSyncStorageKey(profileId,owner),String(at));}catch(e){}
   return at;
+}
+function markCloudSaveConfirmed(profileId,uidOverride){
+  const owner=String(uidOverride||currentCloudAuthUid()||'');
+  if(!owner||owner!==currentCloudAuthUid())return 0;
+  return recordLastCloudSync(profileId,owner);
 }
 function formatCloudDate(at){
   at=Math.max(0,Number(at)||0);if(!at)return '';
@@ -2964,10 +3006,27 @@ function providerDisplayList(){
   const map={'apple.com':'Apple','google.com':'Google','password':ml("E-posta","Email","E-Mail","Correo","E-mail","メール")};
   return ids.map(id=>map[id]||id).join(' · ')|| (accountState.isAnonymous?(ml("Misafir","Guest","Gast","Invitado","Convidado","ゲスト")):'—');
 }
+function cloudErrorCode(err){
+  return String(err&&err.code||err&&err.reason||err&&err.message||'cloud/unknown').trim();
+}
 function isIndeterminateCloudTimeout(err){
-  const code=String(err&&err.code||'');
+  const code=cloudErrorCode(err);
   const msg=String(err&&err.message||'');
   return code==='cloud/timeout'||code==='cloud/save-timeout'||msg.includes('cloud/save-timeout');
+}
+function isRetryableCloudError(err){
+  const code=cloudErrorCode(err).toLowerCase();
+  return isIndeterminateCloudTimeout(err)||
+    code==='cloud/account-context-changed'||
+    code==='unavailable'||code==='firestore/unavailable'||
+    code==='aborted'||code==='firestore/aborted'||
+    code==='deadline-exceeded'||code==='firestore/deadline-exceeded'||
+    code==='failed-precondition'||code==='firestore/failed-precondition'||
+    code==='resource-exhausted'||code==='firestore/resource-exhausted'||
+    code==='auth/network-request-failed'||
+    code==='network-request-failed'||
+    code==='cloud/profile-list-unavailable'||
+    code==='cloud/load-timeout'||code==='cloud/list-timeout';
 }
 function preserveHealthyStatusAfterTimeout(){
   // A Promise.race timeout only means WKWebView stopped waiting; Firestore may
@@ -2978,7 +3037,8 @@ function preserveHealthyStatusAfterTimeout(){
 }
 function setSyncStatus(s){
   syncStatus=s;
-  if(s==='saved')recordLastCloudSync();
+  // R36 truth fix: status presentation is NOT proof of a progress write.
+  // Only markCloudSaveConfirmed() may advance "Last successful sync".
   const el=document.getElementById('syncDot');
   if(el){
     el.className='syncDot sync-'+s;
@@ -3026,6 +3086,7 @@ function queueLevelCloudCheckpoint(reason){
       reason:String(reason||'level-complete'),
       profileId:save.profileId,
       accountUid:currentPermanentAccountUid(),
+      cloudUid:currentCloudAuthUid(),
       queuedAt:Date.now(),
       snapshot:JSON.parse(JSON.stringify(save))
     };
@@ -3049,36 +3110,56 @@ async function runLevelCloudCheckpoint(){
     return;
   }
   const job=levelCloudCheckpointPending;
+  const expectedCloudUid=String(job.cloudUid||job.accountUid||'');
+  const activeCloudUid=currentCloudAuthUid();
   const activeUid=currentPermanentAccountUid();
-  // Never replay a queued save into a different Firebase account. This matters
-  // when the same iPhone switches between Apple, Google and email users.
+  // Never replay a queued save into a different Firebase account. R36 also
+  // protects anonymous->member and member->member transitions, not only the
+  // permanent-account cases covered by R31.
+  if(expectedCloudUid&&activeCloudUid&&expectedCloudUid!==activeCloudUid){
+    clearTimeout(levelCloudCheckpointRetryTimer);
+    levelCloudCheckpointRetryTimer=setTimeout(runLevelCloudCheckpoint,2500);
+    return;
+  }
+  if(expectedCloudUid&&!activeCloudUid){
+    clearTimeout(levelCloudCheckpointRetryTimer);
+    levelCloudCheckpointRetryTimer=setTimeout(runLevelCloudCheckpoint,1800);
+    return;
+  }
   if(job.accountUid&&activeUid&&job.accountUid!==activeUid){
     clearTimeout(levelCloudCheckpointRetryTimer);
     levelCloudCheckpointRetryTimer=setTimeout(runLevelCloudCheckpoint,2500);
     return;
   }
-  if(job.accountUid&&!activeUid){
-    clearTimeout(levelCloudCheckpointRetryTimer);
-    levelCloudCheckpointRetryTimer=setTimeout(runLevelCloudCheckpoint,1800);
-    return;
-  }
+  const jobContext=captureCloudOperationContext(job.profileId);
   levelCloudCheckpointPending=null;
   levelCloudCheckpointRunning=true;
   setSyncStatus('syncing');
   try{
     const merged=await window.MXCloud.saveProgressNow(job.snapshot,job.profileId);
-    if(!merged||typeof merged!=='object')throw new Error('cloud/save-empty-result');
+    if(saveResultWasSkipped(merged)){
+      if(merged.committed){
+        if(!levelCloudCheckpointPending)forgetLevelCloudCheckpoint();
+      }else{
+        if(!levelCloudCheckpointPending)levelCloudCheckpointPending=job;
+        rememberLevelCloudCheckpoint(levelCloudCheckpointPending);
+      }
+      if(cloudOperationContextIsCurrent(jobContext))preserveHealthyStatusAfterTimeout();
+      return;
+    }
+    if(!merged||typeof merged!=='object')throw Object.assign(new Error('cloud/save-empty-result'),{code:'cloud/save-empty-result'});
     if(!levelCloudCheckpointPending)forgetLevelCloudCheckpoint();
-    recordLastCloudSync();
-    setSyncStatus('saved');
+    if(cloudOperationContextIsCurrent(jobContext)){
+      markCloudSaveConfirmed(job.profileId,expectedCloudUid||jobContext.uid);
+      setSyncStatus('saved');
+    }
   }catch(e){
     console.warn('[sync] level checkpoint failed:',job.reason,e&&e.code||e);
+    recordCloudDiagnostic('level-checkpoint',e,{reason:String(job.reason||'')});
     if(!levelCloudCheckpointPending)levelCloudCheckpointPending=job;
     rememberLevelCloudCheckpoint(levelCloudCheckpointPending);
-    // R34: cloud/timeout is indeterminate, not a confirmed write failure.
-    // Firestore can still complete after WKWebView stops waiting, so retain the
-    // checkpoint and retry without showing a false red Sync error.
-    if(isIndeterminateCloudTimeout(e))preserveHealthyStatusAfterTimeout();
+    if(!cloudOperationContextIsCurrent(jobContext))return;
+    if(isRetryableCloudError(e))preserveHealthyStatusAfterTimeout();
     else setSyncStatus(navigator.onLine===false?'offline':'error');
   }finally{
     levelCloudCheckpointRunning=false;
@@ -3116,39 +3197,52 @@ function applyMergedCloudProfile(data){
 async function repairCurrentLeaderboard(reason,force){
   if(!window.MXCloud||!save.profileId)return {ok:false,reason:'cloud-unavailable'};
   if(leaderboardRepairPromise)return leaderboardRepairPromise;
+  const repairProfileId=save.profileId;
+  const repairContext=captureCloudOperationContext(repairProfileId);
   const now=Date.now();
   if(!force&&now-leaderboardRepairLastAt<12000)return {ok:true,throttled:true};
   leaderboardRepairLastAt=now;
   leaderboardRepairPromise=(async()=>{
-    try{
-      await window.MXCloud.ready;
-      if(!hasPermanentCloudAccount())return {ok:false,reason:'account-required'};
-      setSyncStatus('syncing');
-      // First commit the complete locally merged profile. The transaction keeps
-      // the highest stars/RP from either device, so an old device cannot lower it.
-      if(window.MXCloud.saveProgressNow){
-        const merged=await window.MXCloud.saveProgressNow(save,save.profileId);
+    await window.MXCloud.ready;
+    if(!hasPermanentCloudAccount())return {ok:false,reason:'account-required'};
+    setSyncStatus('syncing');
+
+    // Core progress save and leaderboard publication are deliberately split.
+    // A leaderboard error is optional; a progress-write error is not.
+    if(window.MXCloud.saveProgressNow){
+      try{
+        const merged=await window.MXCloud.saveProgressNow(save,repairProfileId);
+        if(saveResultWasSkipped(merged)||!cloudOperationContextIsCurrent(repairContext))return {ok:false,reason:'cloud/account-context-changed',stale:true};
         if(!merged||typeof merged!=='object')throw Object.assign(new Error('cloud/save-failed'),{code:'cloud/save-failed'});
         applyMergedCloudProfile(merged);
+        markCloudSaveConfirmed(repairProfileId,repairContext.uid);
+      }catch(e){
+        console.warn('[sync] core save before leaderboard failed:',reason,e&&e.code||e);
+        recordCloudDiagnostic('core-save-'+String(reason||'leaderboard-repair'),e);
+        if(cloudOperationContextIsCurrent(repairContext)){
+          if(navigator.onLine===false)setSyncStatus('offline');
+          else if(isRetryableCloudError(e))preserveHealthyStatusAfterTimeout();
+          else setSyncStatus('error');
+        }
+        return {ok:false,reason:cloudErrorCode(e),coreSaveFailed:true,retryable:isRetryableCloudError(e)};
       }
+    }
+
+    try{
       const fn=window.MXCloud.repairLeaderboard||window.MXCloud.syncLeaderboard;
-      if(!fn)return {ok:false,reason:'leaderboard-unavailable'};
+      if(!fn){
+        if(cloudOperationContextIsCurrent(repairContext))setSyncStatus('saved');
+        return {ok:false,reason:'leaderboard-unavailable',progressSaved:true};
+      }
       const result=window.MXCloud.repairLeaderboard?
-        await fn(save,save.profileId):await fn(save,save.profileId,true);
-      if(result&&result.ok){setSyncStatus('saved');return result;}
-      // Leaderboard publication is optional and must never downgrade a
-      // successful cloud-progress save to a global sync error. The ranking
-      // panel can show its own pending/error state and retry independently.
-      if(navigator.onLine===false)setSyncStatus('offline');
-      else setSyncStatus('saved');
-      return result||{ok:false,reason:'unknown'};
+        await fn(save,repairProfileId):await fn(save,repairProfileId,true);
+      if(cloudOperationContextIsCurrent(repairContext))setSyncStatus(navigator.onLine===false?'offline':'saved');
+      return result||{ok:false,reason:'unknown',progressSaved:true};
     }catch(e){
-      console.warn('[sync] leaderboard repair failed:',reason,e&&e.code||e);
-      // A ranking write/query failure does not mean the player's progress
-      // failed to save. Preserve the core cloud status and retry ranking later.
-      if(navigator.onLine===false)setSyncStatus('offline');
-      else setSyncStatus('saved');
-      return {ok:false,reason:e&&e.code||'error'};
+      console.warn('[sync] leaderboard publication failed:',reason,e&&e.code||e);
+      // Ranking is optional. The core save above is already confirmed.
+      if(cloudOperationContextIsCurrent(repairContext))setSyncStatus(navigator.onLine===false?'offline':'saved');
+      return {ok:false,reason:e&&e.code||'error',progressSaved:true};
     }
   })();
   try{return await leaderboardRepairPromise;}finally{leaderboardRepairPromise=null;}
@@ -3166,22 +3260,24 @@ function scheduleLeaderboardRepair(reason,delay,force){
 
 async function syncFromCloud(){
   if(!window.MXCloud||!save.profileId)return;
+  const syncProfileId=save.profileId;
+  const syncContext=captureCloudOperationContext(syncProfileId);
   setSyncStatus('syncing');
   try{
     await window.MXCloud.ready;
-    if(!window.MXCloud.uid){setSyncStatus('offline');return;}
-    const cloud=await window.MXCloud.loadProfile(save.profileId);
+    if(!window.MXCloud.uid){if(cloudOperationContextIsCurrent(syncContext))setSyncStatus('offline');return;}
+    const cloud=await window.MXCloud.loadProfile(syncProfileId);
+    if(!cloudOperationContextIsCurrent(syncContext))return;
     if(cloud)applyMergedCloudProfile(cloud);
     // A successful account restore must always push the merged local maximum
     // back to both the profile document and the public leaderboard.
     if(hasPermanentCloudAccount())await repairCurrentLeaderboard('startup-merge',true);
-    else setSyncStatus(window.MXCloud.authFailed?'offline':'saved');
+    else if(cloudOperationContextIsCurrent(syncContext))setSyncStatus(window.MXCloud.authFailed?'offline':'saved');
   }catch(e){
     console.warn('[sync] cloud restore failed:',e);
-    // R33: a profile read/restore failure is non-fatal to a cloud save that
-    // already succeeded. Keep the core sync state healthy while online; only
-    // actual save/write failures may show the red Sync error state.
-    setSyncStatus(navigator.onLine===false?'offline':'saved');
+    if(!cloudOperationContextIsCurrent(syncContext))return;
+    recordCloudDiagnostic('cloud-restore',e);
+    setSyncStatus(navigator.onLine===false?'offline':(readLastCloudSync(syncProfileId,syncContext.uid)?'saved':'idle'));
   }
 }
 
@@ -7651,7 +7747,7 @@ function closeModal(){
   },220);
 }
 /* ================= ACCOUNT / FIREBASE AUTH ================= */
-let accountState={signedIn:false,isAnonymous:true,email:'',displayName:'',photoURL:'',providers:[]};
+let accountState={uid:'',authGeneration:0,signedIn:false,isAnonymous:true,email:'',displayName:'',photoURL:'',providers:[]};
 let accountAuthBound=false;
 let accountToastTimer=0;
 let accountReconcilePromise=null;
@@ -7703,7 +7799,19 @@ function authErrorText(err){
   return map[code]||(tr?'Giriş işlemi tamamlanamadı. Bağlantını kontrol edip yeniden dene.':'Sign-in could not be completed. Check your connection and try again.');
 }
 function setAccountState(next){
-  accountState=Object.assign({signedIn:false,isAnonymous:true,email:'',displayName:'',photoURL:'',providers:[]},next||{});
+  const previousUid=String(accountState&&accountState.uid||'');
+  const nextState=Object.assign({uid:'',authGeneration:0,signedIn:false,isAnonymous:true,email:'',displayName:'',photoURL:'',providers:[]},next||{});
+  const nextUid=String(nextState.uid||'');
+  const accountChanged=previousUid!==nextUid;
+  accountState=nextState;
+  if(accountChanged){
+    accountContextEpoch++;
+    // Never carry a red result produced by the previous Firebase user into the
+    // newly active Apple/Google/email account. Each UID has its own confirmed
+    // sync timestamp and its own progress vault.
+    if(navigator.onLine===false)setSyncStatus('offline');
+    else setSyncStatus(readLastCloudSync(save&&save.profileId,nextUid)?'saved':'idle');
+  }
   const dot=$('#accountDot');
   if(dot)dot.className='accountDot '+(!window.MXCloud||window.MXCloud.authFailed?'offline':accountState.isAnonymous?'guest':'member');
   const b=$('#btnSwitchProfile');
@@ -7866,9 +7974,12 @@ async function flushPendingActiveProfile(expectedEpoch){
   if(expectedEpoch!==undefined&&expectedEpoch!==profileContextEpoch)return false;
   if(!window.MXCloud||accountState.isAnonymous||!save||!save.profileId||!activeProfileIsPending())return true;
   const pid=save.profileId,snapshot=ensureResearchState(Object.assign(defaultSave(),save));
+  const context=captureCloudOperationContext(pid);
   const merged=await window.MXCloud.saveProgressNow(snapshot,pid);
+  if(saveResultWasSkipped(merged)||!cloudOperationContextIsCurrent(context))return false;
   if(!merged)return false;
   clearPendingProfileId(pid);
+  markCloudSaveConfirmed(pid,context.uid);
   if((expectedEpoch===undefined||expectedEpoch===profileContextEpoch)&&save.profileId===pid)applyMergedCloudProfile(merged);
   return true;
 }
@@ -7883,7 +7994,9 @@ async function syncActiveProfileSafely(expectedEpoch){
 async function reconcileAccountProfiles(){
   if(!window.MXCloud||accountState.isAnonymous)return false;
   if(accountReconcilePromise)return accountReconcilePromise;
-  const startEpoch=profileContextEpoch,startId=save&&save.profileId,startKey=curProfile;
+  const startEpoch=profileContextEpoch,startAccountEpoch=accountContextEpoch,startUid=currentCloudAuthUid(),startId=save&&save.profileId,startKey=curProfile;
+  const reconcileContextCurrent=()=>startEpoch===profileContextEpoch&&startAccountEpoch===accountContextEpoch&&startUid===currentCloudAuthUid();
+  const priorSyncStatus=syncStatus;
   accountReconcilePromise=(async()=>{
     setSyncStatus('syncing');
     try{
@@ -7891,7 +8004,7 @@ async function reconcileAccountProfiles(){
       if(!Array.isArray(listed))throw Object.assign(new Error('cloud/profile-list-unavailable'),{code:'cloud/profile-list-unavailable'});
       // The user may create/select another player while Firestore is responding.
       // Never apply the now-stale response to that new context.
-      if(startEpoch!==profileContextEpoch){setSyncStatus('saved');return false;}
+      if(!reconcileContextCurrent())return false;
       const oldProfiles=profiles||{},pending=pendingProfileIds(),suppressed=suppressedProfileIds();
       const rows=listed.filter(r=>r&&r.profileId&&!suppressed.has(r.profileId));
       const rebuilt={};
@@ -7919,8 +8032,8 @@ async function reconcileAccountProfiles(){
         if(!local.profileId)local.profileId=genProfileId();
         local.playerName=local.playerName||startKey;local.saveSchema=5;
         const written=await window.MXCloud.saveProgressNow(local,local.profileId);
-        if(startEpoch!==profileContextEpoch)return false;
-        if(written){clearPendingProfileId(local.profileId);addProfile(cloudAuthoritativeProfile(local,written),local.playerName);}
+        if(!reconcileContextCurrent())return false;
+        if(written&&!saveResultWasSkipped(written)){clearPendingProfileId(local.profileId);markCloudSaveConfirmed(local.profileId,startUid);addProfile(cloudAuthoritativeProfile(local,written),local.playerName);}
         else addProfile(local,startKey);
       }
       profiles=rebuilt;
@@ -7931,7 +8044,7 @@ async function reconcileAccountProfiles(){
         const score=p=>(Math.max(0,Number(p.cur)||0)*1000000)+(Object.keys(p.stars||{}).length*10000)+(Math.max(0,Number(p.researchPoints)||0)*10)+Math.max(0,Number(p.coins)||0);
         return score(profiles[b]||{})-score(profiles[a]||{});
       })[0];
-      if(startEpoch!==profileContextEpoch)return false;
+      if(!reconcileContextCurrent())return false;
       if(target){
         if(curProfile!==target)clearTutorialRuntime();
         curProfile=target;lastProfile=target;save=ensureResearchState(Object.assign(defaultSave(),profiles[target]));
@@ -7940,14 +8053,22 @@ async function reconcileAccountProfiles(){
       persistAll();updateCoins();updateBadge();refreshSplash();buildProfileSelect();
       if(target)scheduleLeaderboardRepair('safe-account-reconcile',250,true);
       if(!target&&names.length>1){closeModal();show('profile');}
-      setSyncStatus('saved');return true;
+      // Profile listing is a read, not proof that current progress was written.
+      // Keep "Saving" until the scheduled core-save/leaderboard repair confirms
+      // the write; with no active profile, restore only the last known state.
+      if(reconcileContextCurrent()&&!target)setSyncStatus(readLastCloudSync()?'saved':'idle');
+      return true;
     }catch(e){
       console.warn('[account] safe reconcile failed',e);
       // R33: listing/reconciling profiles is a read/metadata operation, not a
       // progress-write failure. Do not paint the whole cloud account red when
       // the player's last cloud save is already valid. Real write failures are
       // still surfaced by autosave/saveProgressNow/checkpoint paths.
-      setSyncStatus(navigator.onLine===false?'offline':(readLastCloudSync()?'saved':'saved'));
+      if(reconcileContextCurrent()){
+        if(navigator.onLine===false)setSyncStatus('offline');
+        else if(priorSyncStatus==='error')setSyncStatus('error');
+        else setSyncStatus(readLastCloudSync()?'saved':'idle');
+      }
       return false;
     }
   })();
@@ -7959,6 +8080,9 @@ async function reconcileAccountProfiles(){
 window.addEventListener('mx-cloud-profile-merged',ev=>{
   try{
     const detail=ev&&ev.detail||{};if(!detail.profileId||!detail.data)return;
+    // The transaction event is emitted asynchronously. Ignore an Apple event
+    // after Google/email became active (and vice versa).
+    if(detail.accountUid&&String(detail.accountUid)!==currentCloudAuthUid())return;
     const name=findProfileById(detail.profileId);if(!name)return;
     profiles[name]=hasPermanentCloudAccount()?cloudAuthoritativeProfile(profiles[name],detail.data):mergeCloudData(profiles[name],detail.data);
     if(profiles[name]&&profiles[name].profileId)writeAccountProgressVault(profiles[name],profiles[name].profileId);
@@ -8162,55 +8286,119 @@ async function refreshCloudRankStatus(force){
     classic.innerHTML='<b>!</b><small>'+msg+'</small>';duel.innerHTML='<b>!</b><small>'+msg+'</small>';
   }
 }
+const MX_CLOUD_DIAG_KEY='mxCloudSyncDiagnosticsR36';
+function recordCloudDiagnostic(stage,err,extra){
+  const entry=Object.assign({
+    at:new Date().toISOString(),
+    stage:String(stage||'unknown'),
+    code:cloudErrorCode(err),
+    profileId:String(save&&save.profileId||''),
+    accountSuffix:currentCloudAuthUid().slice(-6),
+  },extra||{});
+  let history=[];
+  try{const parsed=JSON.parse(localStorage.getItem(MX_CLOUD_DIAG_KEY)||'[]');if(Array.isArray(parsed))history=parsed.slice(-15);}catch(e){}
+  history.push(entry);window.MXCloudSyncDiagnostics=history;
+  try{localStorage.setItem(MX_CLOUD_DIAG_KEY,JSON.stringify(history));}catch(e){}
+  console.warn('[MXCloudDiag]',entry);
+  return entry;
+}
+function latestCloudDiagnostic(){
+  try{
+    const parsed=JSON.parse(localStorage.getItem(MX_CLOUD_DIAG_KEY)||'[]');
+    return Array.isArray(parsed)&&parsed.length?parsed[parsed.length-1]:null;
+  }catch(e){return null;}
+}
 function cloudDiagnosticText(err){
-  const base=authErrorText(err);
-  const code=String(err&&err.code||'cloud/unknown').trim();
-  // R35 diagnostic build: expose the exact non-sensitive Firebase/cloud error
-  // code in the status modal. This avoids another blind build if Firestore is
-  // actually rejecting a request (permission-denied, unauthenticated, etc.).
+  const code=cloudErrorCode(err);
+  const lower=code.toLowerCase();
+  let base;
+  if(lower==='permission-denied'||lower==='firestore/permission-denied'){
+    base=ml('Bulut kaydına Firebase/Firestore tarafından izin verilmedi.','Firebase/Firestore denied the cloud save.','Firebase/Firestore hat die Cloud-Speicherung abgelehnt.','Firebase/Firestore rechazó el guardado en la nube.','Firebase/Firestore negou o salvamento na nuvem.','Firebase/Firestore がクラウド保存を拒否しました。');
+  }else if(lower==='unauthenticated'||lower==='firestore/unauthenticated'){
+    base=ml('Bulut oturumu doğrulanamadı. Hesap bağlı olsa da Firebase yazma oturumu yenilenmelidir.','The cloud session could not be authenticated even though the account is connected.','Die Cloud-Sitzung konnte trotz verbundenem Konto nicht authentifiziert werden.','La sesión en la nube no pudo autenticarse aunque la cuenta está conectada.','A sessão na nuvem não pôde ser autenticada apesar da conta conectada.','アカウントは接続されていますがクラウドセッションを認証できませんでした。');
+  }else if(isRetryableCloudError(err)){
+    base=ml('Bulut kaydı geçici olarak doğrulanamadı. İlerleme cihazda güvende ve yeniden denenecek.','Cloud save could not be confirmed temporarily. Progress is safe on this device and will be retried.','Die Cloud-Speicherung konnte vorübergehend nicht bestätigt werden. Der Fortschritt ist auf diesem Gerät sicher und wird erneut versucht.','El guardado en la nube no pudo confirmarse temporalmente. El progreso está seguro en este dispositivo y se reintentará.','O salvamento na nuvem não pôde ser confirmado temporariamente. O progresso está seguro neste dispositivo e será tentado novamente.','クラウド保存を一時的に確認できませんでした。進行状況は端末に保存され、再試行されます。');
+  }else{
+    base=ml('Bulut senkronizasyonu tamamlanamadı.','Cloud synchronization could not be completed.','Die Cloud-Synchronisierung konnte nicht abgeschlossen werden.','No se pudo completar la sincronización en la nube.','Não foi possível concluir a sincronização na nuvem.','クラウド同期を完了できませんでした。');
+  }
   return base+' ['+code+']';
 }
 async function runManualCloudSync(btn){
   const c=accountCopy();
   if(accountState.isAnonymous){openCloudStatusModal(c.syncGuest,false);return;}
   if(navigator.onLine===false){setSyncStatus('offline');openCloudStatusModal(c.syncOffline,false);return;}
+  const manualProfileId=save&&save.profileId;
+  const manualContext=captureCloudOperationContext(manualProfileId);
+  const manualContextIsCurrent=()=>cloudOperationContextIsCurrent(manualContext);
+  const stopStaleManualSync=()=>{
+    if(manualContextIsCurrent())return false;
+    setAuthBusy(btn,false);
+    return true;
+  };
   setAuthBusy(btn,true,c.syncWorking);setSyncStatus('syncing');
   try{
-    if(!window.MXCloud||!save.profileId)throw Object.assign(new Error('auth/unavailable'),{code:'auth/unavailable'});
+    if(!window.MXCloud||!manualProfileId)throw Object.assign(new Error('auth/unavailable'),{code:'auth/unavailable'});
     await window.MXCloud.ready;
+    if(stopStaleManualSync())return false;
     await reconcileAccountProfiles();
-    const merged=await window.MXCloud.saveProgressNow(save,save.profileId);
+    if(stopStaleManualSync())return false;
+    const manualSnapshot=JSON.parse(JSON.stringify(save));
+    const merged=await window.MXCloud.saveProgressNow(manualSnapshot,manualProfileId);
+    if(saveResultWasSkipped(merged)||stopStaleManualSync())return false;
     if(!merged||typeof merged!=='object')throw Object.assign(new Error('cloud/save-failed'),{code:'cloud/save-failed'});
     applyMergedCloudProfile(merged);
+    markCloudSaveConfirmed(manualProfileId,manualContext.uid);
     let rankingPending=false;
-    try{if(window.MXCloud.cleanupOrphanRankingRows)await window.MXCloud.cleanupOrphanRankingRows();}catch(cleanErr){rankingPending=true;console.warn('[Moleculox] ranking cleanup pending:',cleanErr&&cleanErr.code||cleanErr);}
-    try{const classic=await repairCurrentLeaderboard('manual-cloud-panel',true);if(!classic||!classic.ok)rankingPending=true;}catch(classicErr){rankingPending=true;console.warn('[Moleculox] classic ranking remains unpublished:',classicErr&&classicErr.code||classicErr);}
-    try{const duel=window.MXCloud.syncDuelLeaderboard?await window.MXCloud.syncDuelLeaderboard(save,save.profileId,true):{ok:false,reason:'unavailable'};if(!duel||!duel.ok){rankingPending=true;console.warn('[Moleculox] duel ranking remains unpublished:',duel&&duel.reason);}}catch(duelErr){rankingPending=true;console.warn('[Moleculox] duel ranking remains unpublished:',duelErr&&duelErr.code||duelErr);}
+    try{
+      if(window.MXCloud.cleanupOrphanRankingRows){
+        const cleanup=await window.MXCloud.cleanupOrphanRankingRows();
+        if(stopStaleManualSync())return false;
+        if(!cleanup||!cleanup.ok)rankingPending=true;
+      }
+    }catch(cleanErr){
+      if(stopStaleManualSync())return false;
+      rankingPending=true;console.warn('[Moleculox] ranking cleanup pending:',cleanErr&&cleanErr.code||cleanErr);
+    }
+    try{
+      const classic=await repairCurrentLeaderboard('manual-cloud-panel',true);
+      if(stopStaleManualSync())return false;
+      if(!classic||!classic.ok)rankingPending=true;
+    }catch(classicErr){
+      if(stopStaleManualSync())return false;
+      rankingPending=true;console.warn('[Moleculox] classic ranking remains unpublished:',classicErr&&classicErr.code||classicErr);
+    }
+    try{
+      const duelSnapshot=JSON.parse(JSON.stringify(save));
+      const duel=window.MXCloud.syncDuelLeaderboard?await window.MXCloud.syncDuelLeaderboard(duelSnapshot,manualProfileId,true):{ok:false,reason:'unavailable'};
+      if(stopStaleManualSync())return false;
+      if(!duel||!duel.ok){rankingPending=true;console.warn('[Moleculox] duel ranking remains unpublished:',duel&&duel.reason);}
+    }catch(duelErr){
+      if(stopStaleManualSync())return false;
+      rankingPending=true;console.warn('[Moleculox] duel ranking remains unpublished:',duelErr&&duelErr.code||duelErr);
+    }
+    if(stopStaleManualSync())return false;
     setSyncStatus('saved');
     openCloudStatusModal(rankingPending?c.syncSavedRankPending:c.syncSuccess,true);
+    return true;
   }catch(e){
-    if(isIndeterminateCloudTimeout(e)){
-      // R34: manual Sync Now timed out waiting for acknowledgement, but the
-      // underlying Firestore write may still finish. Preserve local progress,
-      // queue a retry, and keep the last confirmed cloud state healthy.
-      try{if(save&&save.profileId)queueLevelCloudCheckpoint('manual-sync-timeout');}catch(_e){}
+    if(stopStaleManualSync())return false;
+    recordCloudDiagnostic('manual-sync',e);
+    if(isRetryableCloudError(e)){
+      try{if(save&&save.profileId)queueLevelCloudCheckpoint('manual-sync-retry');}catch(_e){}
       preserveHealthyStatusAfterTimeout();
-      const pending=ml(
-        'Bulut kaydı arka planda yeniden deneniyor. İlerlemen bu cihazda güvende.',
-        'Cloud save is being retried in the background. Your progress is safe on this device.',
-        'Cloud-Speicherung wird im Hintergrund erneut versucht. Dein Fortschritt ist auf diesem Gerät sicher.',
-        'El guardado en la nube se reintentará en segundo plano. Tu progreso está seguro en este dispositivo.',
-        'O salvamento na nuvem será tentado novamente em segundo plano. Seu progresso está seguro neste dispositivo.',
-        'クラウド保存をバックグラウンドで再試行します。進行状況はこの端末に安全に保存されています。'
-      );
-      openCloudStatusModal(pending,true);
+      openCloudStatusModal(cloudDiagnosticText(e),true);
     }else{
       setSyncStatus(navigator.onLine===false?'offline':'error');
       openCloudStatusModal(cloudDiagnosticText(e),false);
     }
+    return false;
   }
 }
 function openCloudStatusModal(message,good){
+  if(!message&&syncStatus==='error'){
+    const lastErr=(window.MXCloud&&window.MXCloud.getLastSaveError?window.MXCloud.getLastSaveError():null)||latestCloudDiagnostic();
+    if(lastErr){message=cloudDiagnosticText(lastErr);good=false;}
+  }
   const c=accountCopy(),state=cloudStatusLabel();
   const player=esc((save.playerName||curProfile||'PLAYER').slice(0,18));
   openModal('<button type="button" class="accountCloseX" id="cloudCloseTop" aria-label="'+c.close+'">×</button><h3>☁ '+c.cloudTitle+'</h3>'+
@@ -9792,29 +9980,36 @@ let connectivityCloudSyncPromise=null;
 async function runConnectivityCloudSync(reason){
   if(connectivityCloudSyncPromise)return connectivityCloudSyncPromise;
   connectivityCloudSyncPromise=(async()=>{
+    let connectionContext=null;
     try{
       if(!window.MXCloud||!window.MXCloud.account||window.MXCloud.account.isAnonymous||navigator.onLine===false)return false;
+      const activeId=save&&save.profileId;
+      connectionContext=captureCloudOperationContext(activeId);
       setSyncStatus('syncing');
       await window.MXCloud.ready;
+      if(!cloudOperationContextIsCurrent(connectionContext))return false;
       const epoch=profileContextEpoch;
       if(tutorialActive||activeProfileIsPending())await flushPendingActiveProfile(epoch);
       else await reconcileAccountProfiles();
-      if(epoch!==profileContextEpoch)return false;
-      if(save&&save.profileId&&window.MXCloud.saveProgressNow){
-        const activeId=save.profileId,merged=await window.MXCloud.saveProgressNow(save,activeId);
-        if(merged&&epoch===profileContextEpoch&&save.profileId===activeId)applyMergedCloudProfile(merged);
+      if(epoch!==profileContextEpoch||!cloudOperationContextIsCurrent(connectionContext))return false;
+      if(save&&activeId&&window.MXCloud.saveProgressNow){
+        const merged=await window.MXCloud.saveProgressNow(save,activeId);
+        if(saveResultWasSkipped(merged)||!cloudOperationContextIsCurrent(connectionContext))return false;
+        if(merged){
+          applyMergedCloudProfile(merged);
+          markCloudSaveConfirmed(activeId,connectionContext.uid);
+        }
       }
-      if(epoch===profileContextEpoch)await syncFromCloud();
-      markCloudSyncSuccess();
-      setSyncStatus('saved');
+      if(cloudOperationContextIsCurrent(connectionContext))await syncFromCloud();
+      if(cloudOperationContextIsCurrent(connectionContext))setSyncStatus('saved');
       return true;
     }catch(e){
       console.warn('[sync] connectivity reconciliation failed:',reason,e&&e.code||e);
-      // R33: connectivity/profile reconciliation contains reads and metadata
-      // refreshes. A failure here must not overwrite a confirmed cloud-save
-      // state with a false red error. Explicit write/checkpoint failures keep
-      // their existing error handling elsewhere.
-      setSyncStatus(navigator.onLine===false?'offline':'saved');
+      if(connectionContext&&!cloudOperationContextIsCurrent(connectionContext))return false;
+      recordCloudDiagnostic('connectivity-'+String(reason||'unknown'),e);
+      // Connectivity reconciliation is best-effort. Transient or stale work
+      // never converts a previously healthy account into a red global error.
+      setSyncStatus(navigator.onLine===false?'offline':(readLastCloudSync()?'saved':'idle'));
       return false;
     }finally{connectivityCloudSyncPromise=null;}
   })();

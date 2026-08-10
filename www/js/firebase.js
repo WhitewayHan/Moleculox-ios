@@ -38,6 +38,10 @@ let auth = null;
 let fx = null;
 let uid = null;
 let currentUser = null;
+// R36: every Firebase UID transition advances a generation counter. Any
+// delayed save that was queued for an older auth context can then be ignored
+// instead of writing through the newly active account.
+let authGeneration = 0;
 let authFailed = false;
 let guestSignInInFlight = null;
 let initialAuthCheckComplete = false;
@@ -72,6 +76,35 @@ function withCloudTimeout(promise, label, timeoutMs = CLOUD_OPERATION_TIMEOUT_MS
   return Promise.race([Promise.resolve(promise), timeout]).finally(() => clearTimeout(timer));
 }
 
+function cloneCloudSnapshot(value) {
+  try { return JSON.parse(JSON.stringify(value || {})); }
+  catch (e) { return Object.assign({}, value || {}); }
+}
+function cloudContextSnapshot() {
+  return {uid: String(uid || ""), generation: authGeneration};
+}
+function cloudContextMatches(context) {
+  return !!context &&
+    String(context.uid || "") === String(uid || "") &&
+    Number(context.generation) === Number(authGeneration);
+}
+function cloudContextChangedError(context) {
+  const err = new Error("cloud/account-context-changed");
+  err.code = "cloud/account-context-changed";
+  err.accountUid = String(context && context.uid || "");
+  err.authGeneration = Number(context && context.generation || 0);
+  return err;
+}
+function skippedCloudSave(context, committed) {
+  return {
+    __mxSaveSkipped: true,
+    reason: "cloud/account-context-changed",
+    committed: !!committed,
+    accountUid: String(context && context.uid || ""),
+    authGeneration: Number(context && context.generation || 0),
+  };
+}
+
 function providerIdsOf(user) {
   return user && Array.isArray(user.providerData) ?
     user.providerData.map((p) => p && p.providerId).filter(Boolean) : [];
@@ -79,6 +112,7 @@ function providerIdsOf(user) {
 function accountSnapshot() {
   return {
     uid,
+    authGeneration,
     signedIn: !!currentUser,
     isAnonymous: !currentUser || !!currentUser.isAnonymous,
     email: currentUser && currentUser.email ? currentUser.email : "",
@@ -142,8 +176,10 @@ async function ensureAnonymous() {
 }
 
 function applyAuthUser(user) {
+  const nextUid = user ? user.uid : null;
+  if (String(nextUid || "") !== String(uid || "")) authGeneration += 1;
   currentUser = user || null;
-  uid = user ? user.uid : null;
+  uid = nextUid;
   authFailed = false;
   notifyAuthListeners();
   if (user && !readySettled) {
@@ -230,10 +266,19 @@ try {
   } catch (e) {
     console.warn("[MXCloud] App Check not initialized:", e && e.message);
   }
-  try {
-    db = initializeFirestore(app, {ignoreUndefinedProperties: true, localCache: persistentLocalCache({tabManager: persistentMultipleTabManager()})});
-  } catch (e) {
+  // R36 native reliability: iOS already has a synchronous UID-scoped local
+  // progress vault and a persistent retry checkpoint. Do not layer Firestore's
+  // IndexedDB multi-tab cache on top of WKWebView as well. Web keeps the
+  // persistent cache; native iOS uses the simpler Firestore client so auth
+  // changes and transactions do not inherit stale IndexedDB lease/state.
+  if (MX_NATIVE_AUTH_HOST) {
     db = initializeFirestore(app, {ignoreUndefinedProperties: true});
+  } else {
+    try {
+      db = initializeFirestore(app, {ignoreUndefinedProperties: true, localCache: persistentLocalCache({tabManager: persistentMultipleTabManager()})});
+    } catch (e) {
+      db = initializeFirestore(app, {ignoreUndefinedProperties: true});
+    }
   }
   analyticsIsSupported().then((supported) => {
     if (supported) {
@@ -425,6 +470,7 @@ function accountSnapshotFor(user) {
   if (!user) return accountSnapshot();
   return {
     uid: user.uid,
+    authGeneration,
     signedIn: true,
     isAnonymous: !!user.isAnonymous,
     email: user.email || "",
@@ -682,29 +728,40 @@ function genRunId() {
 // V6.9.3 — remove ranking rows whose profile no longer exists.
 // This repairs old entries left behind by earlier profile-deletion builds.
 async function cleanupOrphanRankingRows() {
+  let context = null;
   try {
     await readyPromise;
-    if (!db || !uid || !currentUser || currentUser.isAnonymous) return {ok:false, reason:"account-required"};
-    const profilesSnap = await getDocs(collection(db, "players", uid, "profiles"));
+    context = cloudContextSnapshot();
+    const ownerUid = String(context.uid || "");
+    if (!db || !ownerUid || !currentUser || currentUser.isAnonymous || !cloudContextMatches(context)) return {ok:false, reason:"account-required"};
+    const profilesSnap = await getDocs(collection(db, "players", ownerUid, "profiles"));
+    if (!cloudContextMatches(context)) return {ok:false, reason:"cloud/account-context-changed", stale:true};
     const valid = new Set();
     profilesSnap.forEach((d) => valid.add(safeProfileId(d.id)));
     const [classicSnap, duelSnap] = await Promise.all([
       getDocs(collection(db, "leaderboard")),
       getDocs(collection(db, "duelLeaderboard")),
     ]);
+    if (!cloudContextMatches(context)) return {ok:false, reason:"cloud/account-context-changed", stale:true};
     const removals = [];
     classicSnap.forEach((d) => {
       const row = d.data() || {};
-      if (row.uid === uid && row.profileId && !valid.has(safeProfileId(row.profileId))) removals.push(deleteDoc(d.ref));
+      if (row.uid === ownerUid && row.profileId && !valid.has(safeProfileId(row.profileId))) removals.push(d.ref);
     });
     duelSnap.forEach((d) => {
       const row = d.data() || {};
-      if (row.uid === uid && row.profileId && !valid.has(safeProfileId(row.profileId))) removals.push(deleteDoc(d.ref));
+      if (row.uid === ownerUid && row.profileId && !valid.has(safeProfileId(row.profileId))) removals.push(d.ref);
     });
-    await Promise.all(removals);
+    // Build the deletion list first, then validate the same immutable account
+    // context immediately before issuing any write. This closes the A-profile
+    // list / B-leaderboard deletion race found by the R37 runtime test.
+    if (!cloudContextMatches(context)) return {ok:false, reason:"cloud/account-context-changed", stale:true};
+    await Promise.all(removals.map((ref) => deleteDoc(ref)));
+    if (!cloudContextMatches(context)) return {ok:false, reason:"cloud/account-context-changed", stale:true, committed:removals.length > 0};
     if (removals.length) clearLeaderboardCaches();
     return {ok:true, removed:removals.length};
   } catch (e) {
+    if (context && !cloudContextMatches(context)) return {ok:false, reason:"cloud/account-context-changed", stale:true};
     console.warn("[MXCloud] orphan ranking cleanup failed:", e && e.code, e && e.message);
     return {ok:false, reason:(e && (e.code || e.message)) || "error"};
   }
@@ -714,21 +771,28 @@ async function cleanupOrphanRankingRows() {
 // Other users' documents remain protected by Firestore rules, but are filtered
 // from every public leaderboard by isPlaceholderPlayerName().
 async function cleanupPlaceholderRankingRows() {
+  let context = null;
   try {
     await readyPromise;
-    if (!db || !uid || !currentUser || currentUser.isAnonymous) return {ok:false, reason:"account-required"};
+    context = cloudContextSnapshot();
+    const ownerUid = String(context.uid || "");
+    if (!db || !ownerUid || !currentUser || currentUser.isAnonymous || !cloudContextMatches(context)) return {ok:false, reason:"account-required"};
     const [classicSnap, duelSnap] = await Promise.all([
       getDocs(collection(db, "leaderboard")),
       getDocs(collection(db, DUEL_BOARD_COLLECTION)),
     ]);
+    if (!cloudContextMatches(context)) return {ok:false, reason:"cloud/account-context-changed", stale:true};
     const removals = [];
-    classicSnap.forEach((d) => { const row=d.data()||{}; if(row.uid===uid && isPlaceholderPlayerName(row.playerName)) removals.push(deleteDoc(d.ref)); });
-    duelSnap.forEach((d) => { const row=d.data()||{}; if(row.uid===uid && isPlaceholderPlayerName(row.playerName)) removals.push(deleteDoc(d.ref)); });
-    const settled = await Promise.allSettled(removals);
+    classicSnap.forEach((d) => { const row=d.data()||{}; if(row.uid===ownerUid && isPlaceholderPlayerName(row.playerName)) removals.push(d.ref); });
+    duelSnap.forEach((d) => { const row=d.data()||{}; if(row.uid===ownerUid && isPlaceholderPlayerName(row.playerName)) removals.push(d.ref); });
+    if (!cloudContextMatches(context)) return {ok:false, reason:"cloud/account-context-changed", stale:true};
+    const settled = await Promise.allSettled(removals.map((ref) => deleteDoc(ref)));
     const removed = settled.filter((r) => r.status === "fulfilled").length;
+    if (!cloudContextMatches(context)) return {ok:false, reason:"cloud/account-context-changed", stale:true, committed:removed > 0};
     if (removed) { clearLeaderboardCaches(); duelBoardCache.clear(); }
     return {ok:true, removed};
   } catch (e) {
+    if (context && !cloudContextMatches(context)) return {ok:false, reason:"cloud/account-context-changed", stale:true};
     console.warn("[MXCloud] placeholder ranking cleanup failed:", e && e.code, e && e.message);
     return {ok:false, reason:(e && (e.code || e.message)) || "error"};
   }
@@ -755,9 +819,10 @@ function safeProfileId(value) {
   const id = String(value || "").trim();
   return /^[A-Za-z0-9_-]{3,80}$/.test(id) ? id : "";
 }
-function leaderboardDocId(profileId) {
+function leaderboardDocId(profileId, ownerUid = uid) {
   const id = safeProfileId(profileId);
-  return id && uid ? uid + "_" + id : "";
+  const owner=String(ownerUid||"");
+  return id && owner ? owner + "_" + id : "";
 }
 function leaderboardMetrics(save) {
   const stars = save && save.stars && typeof save.stars === "object" ? save.stars : {};
@@ -779,7 +844,7 @@ function leaderboardMetrics(save) {
   });
   return {totalStars, completedLevels, perfectLevels, totalValidatedSolveTime};
 }
-function leaderboardPayload(save, profileId) {
+function leaderboardPayload(save, profileId, ownerUid = uid) {
   const id = safeProfileId(profileId);
   if (!id) return null;
   const playerName = cleanName(save && (save.playerName || "Player"));
@@ -788,7 +853,7 @@ function leaderboardPayload(save, profileId) {
   const seasonId = monthIdOf(now);
   const weekId = isoWeekId(now);
   return Object.assign({
-    uid, profileId: id, playerName,
+    uid: String(ownerUid||""), profileId: id, playerName,
     researchPoints: Math.max(0, Math.floor(Number(save && save.researchPoints) || 0)),
     seasonId,
     seasonRP: save && save.seasonId === seasonId ? Math.max(0, Math.floor(Number(save.seasonRP) || 0)) : 0,
@@ -803,12 +868,15 @@ function leaderboardSignature(payload) {
     payload.weekId, payload.weekRP, payload.totalStars, payload.completedLevels,
     payload.perfectLevels, payload.totalValidatedSolveTime].join("|");
 }
-async function writeLeaderboard(save, profileId, force) {
+async function writeLeaderboard(save, profileId, force, expectedContext) {
+  const context=expectedContext||cloudContextSnapshot();
+  if(!cloudContextMatches(context))return {ok:false,reason:"cloud/account-context-changed",stale:true};
   if (!canPublishLeaderboard()) return {ok: false, reason: "account-required"};
-  const boardId = leaderboardDocId(profileId);
+  const ownerUid=String(context.uid||"");
+  const boardId = leaderboardDocId(profileId,ownerUid);
   if (!boardId) return {ok: false, reason: "invalid-profile"};
   const ref = doc(db, "leaderboard", boardId);
-  const localPayload = leaderboardPayload(save, profileId);
+  const localPayload = leaderboardPayload(save, profileId,ownerUid);
   if (!localPayload) {
     leaderboardLocalSignatures.delete(boardId);
     try { await deleteDoc(ref); clearLeaderboardCaches(); } catch (e) {}
@@ -818,6 +886,7 @@ async function writeLeaderboard(save, profileId, force) {
   if (!force && leaderboardLocalSignatures.get(boardId) === localSig) return {ok: true, unchanged: true};
   try {
     const existingSnap = await getDoc(ref);
+    if(!cloudContextMatches(context))return {ok:false,reason:"cloud/account-context-changed",stale:true};
     const payload = Object.assign({}, localPayload);
     if (existingSnap.exists()) {
       const old = existingSnap.data() || {};
@@ -837,7 +906,9 @@ async function writeLeaderboard(save, profileId, force) {
         return {ok: true, unchanged: true};
       }
     }
+    if(!cloudContextMatches(context))return {ok:false,reason:"cloud/account-context-changed",stale:true};
     await setDoc(ref, payload, {merge: false});
+    if(!cloudContextMatches(context))return {ok:false,reason:"cloud/account-context-changed",stale:true};
     leaderboardLocalSignatures.set(boardId, localSig);
     clearLeaderboardCaches();
     return {ok: true};
@@ -849,21 +920,20 @@ async function writeLeaderboard(save, profileId, force) {
 }
 function syncLeaderboard(save, profileId, immediate) {
   if (!canPublishLeaderboard()) return Promise.resolve({ok: false, reason: "account-required"});
-  if (SECURE_BACKEND_ENABLED) {
-    // Competitive fields are written only by submitLevelResult on the server.
-    return Promise.resolve({ok: true, secure: true, serverValidated: true});
-  }
-  const boardId = leaderboardDocId(profileId);
+  const context=cloudContextSnapshot();
+  const frozen=cloneCloudSnapshot(save);
+  const boardId = leaderboardDocId(profileId,context.uid);
   if (!boardId) return Promise.resolve({ok: false, reason: "invalid-profile"});
   if (leaderboardTimers.has(boardId)) {
     clearTimeout(leaderboardTimers.get(boardId));
     leaderboardTimers.delete(boardId);
   }
-  if (immediate) return writeLeaderboard(save, profileId);
+  if (immediate) return writeLeaderboard(frozen, profileId, false, context);
   return new Promise((resolve) => {
     const timer = setTimeout(async () => {
       leaderboardTimers.delete(boardId);
-      resolve(await writeLeaderboard(save, profileId));
+      if(!cloudContextMatches(context)){resolve({ok:false,reason:"cloud/account-context-changed",stale:true});return;}
+      resolve(await writeLeaderboard(frozen, profileId, false, context));
     }, 1400);
     leaderboardTimers.set(boardId, timer);
   });
@@ -875,14 +945,16 @@ function syncLeaderboard(save, profileId, immediate) {
 function repairLeaderboard(save, profileId) {
   if (!canPublishLeaderboard()) return Promise.resolve({ok: false, reason: "account-required"});
   if (SECURE_BACKEND_ENABLED) return Promise.resolve({ok: true, secure: true, serverValidated: true});
-  const boardId = leaderboardDocId(profileId);
+  const context=cloudContextSnapshot();
+  const frozen=cloneCloudSnapshot(save);
+  const boardId = leaderboardDocId(profileId,context.uid);
   if (!boardId) return Promise.resolve({ok: false, reason: "invalid-profile"});
   if (leaderboardTimers.has(boardId)) {
     clearTimeout(leaderboardTimers.get(boardId));
     leaderboardTimers.delete(boardId);
   }
   leaderboardLocalSignatures.delete(boardId);
-  return writeLeaderboard(save, profileId, true);
+  return writeLeaderboard(frozen, profileId, true, context);
 }
 
 
@@ -891,7 +963,7 @@ const DUEL_BOARD_COLLECTION = "duelLeaderboard";
 const duelBoardTimers = new Map();
 const duelBoardSignatures = new Map();
 const duelBoardCache = new Map();
-function duelBoardDocId(profileId) { const id=safeProfileId(profileId); return id ? uid + "_" + id : ""; }
+function duelBoardDocId(profileId,ownerUid=uid) { const id=safeProfileId(profileId),owner=String(ownerUid||""); return id&&owner ? owner + "_" + id : ""; }
 function duelMonthId(date) { date=date instanceof Date?date:new Date(); return date.getUTCFullYear()+"-"+String(date.getUTCMonth()+1).padStart(2,"0"); }
 function duelWeekId(date) { date=date instanceof Date?date:new Date(); const d=new Date(Date.UTC(date.getUTCFullYear(),date.getUTCMonth(),date.getUTCDate())); const day=d.getUTCDay()||7; d.setUTCDate(d.getUTCDate()+4-day); const start=new Date(Date.UTC(d.getUTCFullYear(),0,1)); const week=Math.ceil((((d-start)/86400000)+1)/7); return d.getUTCFullYear()+"-W"+String(week).padStart(2,"0"); }
 function previousDuelWeekId(){const d=new Date();d.setUTCDate(d.getUTCDate()-7);return duelWeekId(d);}
@@ -906,10 +978,10 @@ function duelBoardMetrics(save){
   for(const v of vals){const outcome=duelOutcome(v),d=duelReceiptDate(v),w=duelWeekId(d),m=duelMonthId(d);let points=0;if(outcome===1){wins++;streak++;bestStreak=Math.max(bestStreak,streak);rating+=25;points=3;}else if(outcome===2){losses++;streak=0;rating=Math.max(0,rating-10);}else{draws++;streak=0;rating+=3;points=1;}peak=Math.max(peak,rating);if(w===weekId){weekPoints+=points;if(outcome===1)weekWins++;}if(w===previousWeekId){previousWeekPoints+=points;if(outcome===1)previousWeekWins++;}if(m===monthId){monthPoints+=points;if(outcome===1)monthWins++;}if(m===previousMonthId){previousMonthPoints+=points;if(outcome===1)previousMonthWins++;}}
   return {rating,peak,wins,losses,draws,bestStreak,weekId,weekPoints,weekWins,previousWeekId,previousWeekPoints,previousWeekWins,monthId,monthPoints,monthWins,previousMonthId,previousMonthPoints,previousMonthWins};
 }
-function duelBoardPayload(save,profileId){const playerName=cleanName(save&&save.playerName);if(isPlaceholderPlayerName(playerName))return null;const m=duelBoardMetrics(save);return {uid,profileId,playerName,rating:m.rating,peakRating:m.peak,wins:m.wins,losses:m.losses,draws:m.draws,bestStreak:m.bestStreak,activeFrame:String(save.activeDuelFrame||"frame_bronze").slice(0,40),activeTitle:String(save.activeDuelTitle||"").slice(0,40),weekId:m.weekId,weekPoints:m.weekPoints,weekWins:m.weekWins,previousWeekId:m.previousWeekId,previousWeekPoints:m.previousWeekPoints,previousWeekWins:m.previousWeekWins,monthId:m.monthId,monthPoints:m.monthPoints,monthWins:m.monthWins,previousMonthId:m.previousMonthId,previousMonthPoints:m.previousMonthPoints,previousMonthWins:m.previousMonthWins,updatedAt:serverTimestamp()};}
+function duelBoardPayload(save,profileId,ownerUid=uid){const playerName=cleanName(save&&save.playerName);if(isPlaceholderPlayerName(playerName))return null;const m=duelBoardMetrics(save);return {uid:String(ownerUid||""),profileId,playerName,rating:m.rating,peakRating:m.peak,wins:m.wins,losses:m.losses,draws:m.draws,bestStreak:m.bestStreak,activeFrame:String(save.activeDuelFrame||"frame_bronze").slice(0,40),activeTitle:String(save.activeDuelTitle||"").slice(0,40),weekId:m.weekId,weekPoints:m.weekPoints,weekWins:m.weekWins,previousWeekId:m.previousWeekId,previousWeekPoints:m.previousWeekPoints,previousWeekWins:m.previousWeekWins,monthId:m.monthId,monthPoints:m.monthPoints,monthWins:m.monthWins,previousMonthId:m.previousMonthId,previousMonthPoints:m.previousMonthPoints,previousMonthWins:m.previousMonthWins,updatedAt:serverTimestamp()};}
 function duelBoardSignature(value){return JSON.stringify(value,(k,v)=>k==="updatedAt"?undefined:v);}
-async function writeDuelLeaderboard(save,profileId){await readyPromise;if(!db||!uid||!profileId||!currentUser||currentUser.isAnonymous)return {ok:false,reason:"account-required"};const id=duelBoardDocId(profileId);if(!id)return {ok:false,reason:"invalid-profile"};const ref=doc(db,DUEL_BOARD_COLLECTION,id),payload=duelBoardPayload(save,profileId);if(!payload){duelBoardSignatures.delete(id);try{await deleteDoc(ref);duelBoardCache.clear();}catch(e){}return {ok:false,reason:"placeholder-name"};}const sig=duelBoardSignature(payload);if(duelBoardSignatures.get(id)===sig)return {ok:true,unchanged:true};try{await setDoc(ref,payload,{merge:false});duelBoardSignatures.set(id,sig);duelBoardCache.clear();return {ok:true};}catch(e){console.warn("[MXCloud] writeDuelLeaderboard failed:",e&&e.code,e&&e.message);return {ok:false,reason:(e&&(e.code||e.message))||"error"};}}
-function syncDuelLeaderboard(save,profileId,immediate){if(!currentUser||currentUser.isAnonymous)return Promise.resolve({ok:false,reason:"account-required"});const id=duelBoardDocId(profileId);if(!id)return Promise.resolve({ok:false,reason:"invalid-profile"});if(duelBoardTimers.has(id)){clearTimeout(duelBoardTimers.get(id));duelBoardTimers.delete(id);}if(immediate)return writeDuelLeaderboard(save,profileId);return new Promise(resolve=>{const timer=setTimeout(async()=>{duelBoardTimers.delete(id);resolve(await writeDuelLeaderboard(save,profileId));},700);duelBoardTimers.set(id,timer);});}
+async function writeDuelLeaderboard(save,profileId,expectedContext){await readyPromise;const context=expectedContext||cloudContextSnapshot();if(!cloudContextMatches(context))return {ok:false,reason:"cloud/account-context-changed",stale:true};const ownerUid=String(context.uid||"");if(!db||!ownerUid||!profileId||!currentUser||currentUser.isAnonymous)return {ok:false,reason:"account-required"};const id=duelBoardDocId(profileId,ownerUid);if(!id)return {ok:false,reason:"invalid-profile"};const ref=doc(db,DUEL_BOARD_COLLECTION,id),payload=duelBoardPayload(save,profileId,ownerUid);if(!payload){duelBoardSignatures.delete(id);try{await deleteDoc(ref);duelBoardCache.clear();}catch(e){}return {ok:false,reason:"placeholder-name"};}const sig=duelBoardSignature(payload);if(duelBoardSignatures.get(id)===sig)return {ok:true,unchanged:true};try{if(!cloudContextMatches(context))return {ok:false,reason:"cloud/account-context-changed",stale:true};await setDoc(ref,payload,{merge:false});if(!cloudContextMatches(context))return {ok:false,reason:"cloud/account-context-changed",stale:true};duelBoardSignatures.set(id,sig);duelBoardCache.clear();return {ok:true};}catch(e){console.warn("[MXCloud] writeDuelLeaderboard failed:",e&&e.code,e&&e.message);return {ok:false,reason:(e&&(e.code||e.message))||"error"};}}
+function syncDuelLeaderboard(save,profileId,immediate){if(!currentUser||currentUser.isAnonymous)return Promise.resolve({ok:false,reason:"account-required"});const context=cloudContextSnapshot(),frozen=cloneCloudSnapshot(save),id=duelBoardDocId(profileId,context.uid);if(!id)return Promise.resolve({ok:false,reason:"invalid-profile"});if(duelBoardTimers.has(id)){clearTimeout(duelBoardTimers.get(id));duelBoardTimers.delete(id);}if(immediate)return writeDuelLeaderboard(frozen,profileId,context);return new Promise(resolve=>{const timer=setTimeout(async()=>{duelBoardTimers.delete(id);if(!cloudContextMatches(context)){resolve({ok:false,reason:"cloud/account-context-changed",stale:true});return;}resolve(await writeDuelLeaderboard(frozen,profileId,context));},700);duelBoardTimers.set(id,timer);});}
 function duelRankRows(rows,period,targetId){const out=[];for(const r of rows){const row=Object.assign({},r);if(isPlaceholderPlayerName(row.playerName))continue;if(period==="week"){if(row.weekId!==duelWeekId())continue;row.periodPoints=Math.max(0,Number(row.weekPoints)||0);row.periodWins=Math.max(0,Number(row.weekWins)||0);}else if(period==="month"){if(row.monthId!==duelMonthId())continue;row.periodPoints=Math.max(0,Number(row.monthPoints)||0);row.periodWins=Math.max(0,Number(row.monthWins)||0);}else if(period==="closedWeek"){let ok=false;if(row.weekId===targetId){row.periodPoints=Math.max(0,Number(row.weekPoints)||0);row.periodWins=Math.max(0,Number(row.weekWins)||0);ok=true;}else if(row.previousWeekId===targetId){row.periodPoints=Math.max(0,Number(row.previousWeekPoints)||0);row.periodWins=Math.max(0,Number(row.previousWeekWins)||0);ok=true;}if(!ok)continue;}else if(period==="closedMonth"){let ok=false;if(row.monthId===targetId){row.periodPoints=Math.max(0,Number(row.monthPoints)||0);row.periodWins=Math.max(0,Number(row.monthWins)||0);ok=true;}else if(row.previousMonthId===targetId){row.periodPoints=Math.max(0,Number(row.previousMonthPoints)||0);row.periodWins=Math.max(0,Number(row.previousMonthWins)||0);ok=true;}if(!ok)continue;}if(period!=="world"&&row.periodPoints<=0)continue;out.push(row);}out.sort((a,b)=>period==="world"?((Number(b.rating)||0)-(Number(a.rating)||0)||(Number(b.wins)||0)-(Number(a.wins)||0)||(Number(a.losses)||0)-(Number(b.losses)||0)):((Number(b.periodPoints)||0)-(Number(a.periodPoints)||0)||(Number(b.periodWins)||0)-(Number(a.periodWins)||0)||(Number(b.rating)||0)-(Number(a.rating)||0)));return out;}
 async function getDuelLeaderboard(period,n,forceRefresh,targetId){period=["world","week","month","closedWeek","closedMonth"].includes(period)?period:"world";n=Math.max(1,Math.min(100,Math.floor(Number(n)||100)));const key=period+":"+(targetId||"")+":"+n,cached=duelBoardCache.get(key);if(!forceRefresh&&cached&&Date.now()-cached.at<20000)return cached.value;try{await readyPromise;const snap=await getDocs(collection(db,DUEL_BOARD_COLLECTION)),rows=[];snap.forEach(d=>rows.push(Object.assign({id:d.id},d.data())));const value={rows:duelRankRows(rows,period,targetId).slice(0,n),period,targetId:targetId||""};duelBoardCache.set(key,{at:Date.now(),value});return value;}catch(e){console.warn("[MXCloud] getDuelLeaderboard failed:",e&&e.code);return null;}}
 
@@ -919,10 +991,27 @@ let saveTimer = null;
 let saveWaiters = [];
 let pendingSaveProfileId = null;
 let pendingSaveSnapshot = null;
-// R35: retain the exact last debounced autosave failure so the UI can
-// distinguish an indeterminate WKWebView timeout from a confirmed Firestore error.
+let pendingSaveContext = null;
+// R36: the last failure is meaningful only for the Firebase account that
+// produced it. An old Apple/Google/email request may finish after the player
+// has switched accounts, so stale errors must never paint the new account red.
 let lastSaveError = null;
-function getLastSaveError(){ return lastSaveError; }
+function getLastSaveError(){
+  if(!lastSaveError)return null;
+  if(String(lastSaveError.accountUid||"")!==String(uid||"") ||
+     Number(lastSaveError.authGeneration)!==Number(authGeneration))return null;
+  return Object.assign({},lastSaveError);
+}
+function rememberLastSaveError(err,context){
+  if(!cloudContextMatches(context))return;
+  lastSaveError={
+    code:String(err&&err.code||"cloud/save-failed"),
+    message:String(err&&err.message||"Cloud save failed").slice(0,240),
+    accountUid:String(context&&context.uid||""),
+    authGeneration:Number(context&&context.generation||0),
+    at:Date.now(),
+  };
+}
 
 function settleSaveWaiters(waiters, result) {
   (Array.isArray(waiters) ? waiters : []).forEach((resolve) => {
@@ -932,19 +1021,25 @@ function settleSaveWaiters(waiters, result) {
 
 async function executePendingSave(job, waiters) {
   let result = false;
+  const context=job&&job.context?job.context:cloudContextSnapshot();
+  if(!cloudContextMatches(context)){
+    result=skippedCloudSave(context,false);
+    settleSaveWaiters(waiters,result);
+    return result;
+  }
   lastSaveError = null;
   try {
-    result = await withCloudTimeout(writeProgress(job.snapshot, job.profileId), "cloud/save-timeout");
+    result = await withCloudTimeout(writeProgress(job.snapshot, job.profileId, context), "cloud/save-timeout");
     if (!result) {
-      lastSaveError = {code:"cloud/save-unavailable", message:"Cloud save returned no result"};
+      rememberLastSaveError({code:"cloud/save-unavailable",message:"Cloud save returned no result"},context);
     }
   } catch (e) {
     console.warn("[MXCloud] saveProgress failed:", e && e.code);
-    lastSaveError = {
-      code:String(e && e.code || "cloud/save-failed"),
-      message:String(e && e.message || "Cloud save failed").slice(0,240)
-    };
-    result = false;
+    if(e&&e.code==="cloud/account-context-changed")result=skippedCloudSave(context,false);
+    else{
+      rememberLastSaveError(e,context);
+      result=false;
+    }
   }
   settleSaveWaiters(waiters, result);
   return result;
@@ -952,9 +1047,9 @@ async function executePendingSave(job, waiters) {
 const deletedProfileIds = new Set();
 let fullProfileWriteAllowed = null;
 let researchProfileWriteAllowed = null;
-function profilePayload(save, profileId, includeFullProgress, includeResearch = true) {
+function profilePayload(save, profileId, includeFullProgress, includeResearch = true, ownerUid = uid) {
   const payload = {
-    uid, profileId,
+    uid: ownerUid, profileId,
     playerName: cleanName(save.playerName),
     coins: Math.max(0, Math.floor(Number(save.coins) || 0)),
     maxCoins: Math.max(0, Math.floor(Number(save.maxCoins) || 0)),
@@ -1035,13 +1130,18 @@ function profilePayload(save, profileId, includeFullProgress, includeResearch = 
   }
   return payload;
 }
-async function writeProgressTransaction(save, profileId, includeFullProgress, includeResearch, includeBestMoves) {
-  const ref = doc(db, "players", uid, "profiles", profileId);
+async function writeProgressTransaction(save, profileId, includeFullProgress, includeResearch, includeBestMoves, expectedContext) {
+  const context=expectedContext||cloudContextSnapshot();
+  const ownerUid=String(context&&context.uid||"");
+  if(!ownerUid||!cloudContextMatches(context))throw cloudContextChangedError(context);
+  const ref = doc(db, "players", ownerUid, "profiles", profileId);
   let finalPayload = null;
   await runTransaction(db, async (tx) => {
+    if(!cloudContextMatches(context))throw cloudContextChangedError(context);
     const snap = await tx.get(ref);
+    if(!cloudContextMatches(context))throw cloudContextChangedError(context);
     const oldData = snap.exists() ? (snap.data() || {}) : {};
-    const incoming = profilePayload(save, profileId, includeFullProgress, includeResearch);
+    const incoming = profilePayload(save, profileId, includeFullProgress, includeResearch, ownerUid);
     if (includeBestMoves) {
       incoming.bonusClaims = (save.bonusClaims && typeof save.bonusClaims === "object") ? save.bonusClaims : {};
       incoming.researchBonuses = (save.researchBonuses && typeof save.researchBonuses === "object") ? save.researchBonuses : {};
@@ -1050,7 +1150,7 @@ async function writeProgressTransaction(save, profileId, includeFullProgress, in
     let merged = core && typeof core.mergeProfiles === "function" ?
       core.mergeProfiles(incoming, oldData, {settings: "left", identity: "left", now: new Date(), includeBonus: includeBestMoves}) :
       Object.assign({}, oldData, incoming);
-    merged.uid = uid;
+    merged.uid = ownerUid;
     merged.profileId = profileId;
     merged.playerName = cleanName(save.playerName);
     merged.updatedAt = serverTimestamp();
@@ -1070,25 +1170,34 @@ async function writeProgressTransaction(save, profileId, includeFullProgress, in
     finalPayload = merged;
     tx.set(ref, merged, {merge: !(includeFullProgress && includeResearch && includeBestMoves)});
   });
-  if (finalPayload) {
+  const stillCurrent=cloudContextMatches(context);
+  if (finalPayload && stillCurrent) {
     try {
-      window.dispatchEvent(new CustomEvent("mx-cloud-profile-merged", {detail: {profileId, data: finalPayload}}));
+      window.dispatchEvent(new CustomEvent("mx-cloud-profile-merged", {detail: {
+        profileId, data: finalPayload, accountUid: ownerUid, authGeneration: Number(context.generation)||0
+      }}));
     } catch (e) {}
     if (!SECURE_BACKEND_ENABLED) syncLeaderboard(finalPayload, profileId, false);
     syncDuelLeaderboard(finalPayload, profileId, false);
   }
+  // The write may have committed correctly to the old account just as the
+  // player switched sign-in methods. Report that as a neutral stale result so
+  // old async work cannot update the new account's UI or local profile.
+  if(finalPayload&&!stillCurrent)return skippedCloudSave(context,true);
   return finalPayload || true;
 }
 
-async function writeProgress(save, profileId) {
+async function writeProgress(save, profileId, expectedContext) {
   await readyPromise;
-  if (!db || !uid || !profileId || deletedProfileIds.has(profileId)) return false;
+  const context=expectedContext||cloudContextSnapshot();
+  if(!cloudContextMatches(context))return skippedCloudSave(context,false);
+  if (!db || !context.uid || !profileId || deletedProfileIds.has(profileId)) return false;
 
   // V3.8.3 first writes the complete merge-safe schema, including bestMoves.
   // Compatibility fallbacks keep older published rules usable, but the new
   // Firestore rules are required for full cross-platform best-move sync.
   try {
-    const merged = await writeProgressTransaction(save, profileId, true, true, true);
+    const merged = await writeProgressTransaction(save, profileId, true, true, true, context);
     researchProfileWriteAllowed = true;
     fullProfileWriteAllowed = true;
     return merged;
@@ -1099,7 +1208,7 @@ async function writeProgress(save, profileId) {
 
   if (researchProfileWriteAllowed !== false) {
     try {
-      const merged = await writeProgressTransaction(save, profileId, true, true, false);
+      const merged = await writeProgressTransaction(save, profileId, true, true, false, context);
       researchProfileWriteAllowed = true;
       fullProfileWriteAllowed = true;
       return merged;
@@ -1111,7 +1220,7 @@ async function writeProgress(save, profileId) {
   }
   if (fullProfileWriteAllowed !== false) {
     try {
-      const merged = await writeProgressTransaction(save, profileId, true, false, false);
+      const merged = await writeProgressTransaction(save, profileId, true, false, false, context);
       fullProfileWriteAllowed = true;
       return merged;
     } catch (e) {
@@ -1119,27 +1228,39 @@ async function writeProgress(save, profileId) {
       else throw e;
     }
   }
-  return await writeProgressTransaction(save, profileId, false, false, false);
+  return await writeProgressTransaction(save, profileId, false, false, false, context);
 }
 
 function saveProgress(save, profileId) {
   if (deletedProfileIds.has(profileId)) return Promise.resolve(false);
 
-  // R30: a debounced save that is superseded by a newer save is not a failed
-  // cloud operation. All callers for the same profile now wait for the newest
-  // snapshot to be written and receive that real result. The old implementation
-  // resolved cancelled timers with false, which made the UI show "Sync error"
-  // even though the following Firestore write succeeded.
+  // R36: freeze BOTH the progress snapshot and Firebase auth context at queue
+  // time. The old implementation held a live save object plus a mutable global
+  // UID. A delayed Apple/Google/email autosave could therefore execute through
+  // whichever account happened to be active 1.1 seconds later.
   return new Promise((resolve) => {
-    const nextJob = { profileId, snapshot: save };
+    const nextJob = {
+      profileId,
+      snapshot: cloneCloudSnapshot(save),
+      context: cloudContextSnapshot(),
+    };
 
-    if (saveTimer && pendingSaveProfileId && pendingSaveProfileId !== profileId) {
+    if (saveTimer && pendingSaveProfileId &&
+        (pendingSaveProfileId !== profileId ||
+         !pendingSaveContext ||
+         String(pendingSaveContext.uid||"") !== String(nextJob.context.uid||"") ||
+         Number(pendingSaveContext.generation) !== Number(nextJob.context.generation))) {
       clearTimeout(saveTimer);
       saveTimer = null;
-      const previousJob = { profileId: pendingSaveProfileId, snapshot: pendingSaveSnapshot };
+      const previousJob = {
+        profileId: pendingSaveProfileId,
+        snapshot: pendingSaveSnapshot,
+        context: pendingSaveContext,
+      };
       const previousWaiters = saveWaiters.splice(0);
       pendingSaveProfileId = null;
       pendingSaveSnapshot = null;
+      pendingSaveContext = null;
       executePendingSave(previousJob, previousWaiters);
     } else if (saveTimer) {
       clearTimeout(saveTimer);
@@ -1148,20 +1269,28 @@ function saveProgress(save, profileId) {
 
     pendingSaveProfileId = profileId;
     pendingSaveSnapshot = nextJob.snapshot;
+    pendingSaveContext = nextJob.context;
     saveWaiters.push(resolve);
     saveTimer = setTimeout(async () => {
-      const job = { profileId: pendingSaveProfileId, snapshot: pendingSaveSnapshot };
+      const job = {
+        profileId: pendingSaveProfileId,
+        snapshot: pendingSaveSnapshot,
+        context: pendingSaveContext,
+      };
       const waiters = saveWaiters.splice(0);
       saveTimer = null;
       pendingSaveProfileId = null;
       pendingSaveSnapshot = null;
+      pendingSaveContext = null;
       await executePendingSave(job, waiters);
     }, 1100);
   });
 }
 async function saveProgressNow(save, profileId) {
+  const context=cloudContextSnapshot();
+  const frozen=cloneCloudSnapshot(save);
   try {
-    const result = await withCloudTimeout(writeProgress(save, profileId), "cloud/save-timeout");
+    const result = await withCloudTimeout(writeProgress(frozen, profileId, context), "cloud/save-timeout");
     if (!result) {
       const err = new Error("cloud/save-failed");
       err.code = "cloud/save-failed";
@@ -1176,8 +1305,10 @@ async function saveProgressNow(save, profileId) {
 async function listProfiles() {
   try {
     await readyPromise;
-    if (!db || !uid) return [];
-    const snap = await withCloudTimeout(getDocs(collection(db, "players", uid, "profiles")), "cloud/list-timeout");
+    const context=cloudContextSnapshot(),ownerUid=String(context.uid||"");
+    if (!db || !ownerUid) return [];
+    const snap = await withCloudTimeout(getDocs(collection(db, "players", ownerUid, "profiles")), "cloud/list-timeout");
+    if(!cloudContextMatches(context))return null;
     const rows = [];
     snap.forEach((d) => rows.push(Object.assign({profileId: d.id}, d.data())));
     return rows;
@@ -1190,8 +1321,10 @@ async function listProfiles() {
 async function loadProfile(profileId) {
   try {
     await readyPromise;
-    if (!db || !uid || !profileId) return null;
-    const snap = await withCloudTimeout(getDoc(doc(db, "players", uid, "profiles", profileId)), "cloud/load-timeout");
+    const context=cloudContextSnapshot(),ownerUid=String(context.uid||"");
+    if (!db || !ownerUid || !profileId) return null;
+    const snap = await withCloudTimeout(getDoc(doc(db, "players", ownerUid, "profiles", profileId)), "cloud/load-timeout");
+    if(!cloudContextMatches(context))return null;
     return snap.exists() ? snap.data() : null;
   } catch (e) {
     console.warn("[MXCloud] loadProfile failed:", e && e.code);
@@ -1251,6 +1384,7 @@ async function deleteCloudProfile(profileId) {
       saveTimer = null;
       pendingSaveProfileId = null;
       pendingSaveSnapshot = null;
+      pendingSaveContext = null;
       const cancelledWaiters = saveWaiters.splice(0);
       settleSaveWaiters(cancelledWaiters, false);
     }
@@ -2532,6 +2666,8 @@ window.MXCloud = {
   },
   ready: readyPromise, track, reportJsError,
   subscribeAuth, ensureAnonymous,
+  cloudContextSnapshot, cloudContextMatches,
+  isSkippedSaveResult: (value) => !!(value && value.__mxSaveSkipped),
   refreshPersistence, connectGoogle, connectGoogleIdToken, connectApple, connectAppleIdToken, registerEmail, signInEmail, resetPassword, signOutToGuest, deleteCurrentAuthAccount, deleteAccountAndData, setAuthDisplayName,
   saveProgress, saveProgressNow, getLastSaveError, loadProfile, listProfiles, syncLeaderboard, repairLeaderboard, savePushToken, updatePushLang,
   startLevelAttempt, submitLevelResult, updateDisplayName, claimDailyExperiment,

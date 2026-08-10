@@ -1,3 +1,16 @@
+# Moleculox iOS V8.5.77 R37 — Son Hesap Bağlamı Yarış Düzeltmesi
+
+R37, R36 üzerinde bağımsız çalışma-zamanı testinde bulunan son iki Apple→Google hesap geçişi yarışını kapatır:
+
+1. **Şimdi Senkronize Et** akışı her asenkron adımdan sonra aynı hesap ve oyuncu bağlamını yeniden doğrular; eski işlem yeni hesabın sıralamasına veya durum göstergesine devam edemez.
+2. **Sahipsiz sıralama temizliği** profil listesini, filtreleri ve silme hedeflerini tek bir değişmez Firebase UID/auth-generation bağlamına sabitler.
+
+`npm run check` artık gerçek Promise zamanlamasıyla normal senkronu ve Apple→Google geçişini çalıştıran `scripts/verify-root-sync-runtime.js` testini de içerir. R37 doğrulamasında 7/7 çalışma-zamanı senaryosu geçmiştir.
+
+Codemagic iş akışı: `moleculox-ios-app-store`
+
+Gerçek Firebase üretim yazısının son doğrulaması için yeni 8.5.77 build'ini TestFlight üzerinden fiziksel iPhone'a kurun.
+
 # Moleculox iOS V8.5.70 R29 — İlerleme Kaydı Yarış Durumu Düzeltmesi
 
 Bu paket R28 iPhone-only App Store yapısını korur ve hızlı arka arkaya bölüm bitirme / uygulamadan çıkma sırasında eski bulut yanıtının daha yeni yerel ilerlemeyi geri almasını engeller.

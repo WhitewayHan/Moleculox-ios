@@ -1,0 +1,66 @@
+MOLECULOX iOS V8.5.76 — R36 ROOT SYNC CONTEXT FIX
+
+PURPOSE
+This build attacks the common iOS-only cloud/sync failure below the UI layer instead of adding another cosmetic retry:
+- Apple / Google / email authentication can be connected, leaderboard reads can work, yet Cloud & Account Status can still show Sync error.
+- A recently displayed "Last successful sync" was not reliable proof that progress itself was written.
+
+ROOT-LEVEL DEFECTS FOUND IN R35
+1. Debounced autosave captured only profileId plus a LIVE save object. It did not capture the Firebase UID/auth generation that owned the save.
+2. Firestore progress transactions built their document path and payload from mutable global `uid`. If auth changed while a delayed/retried transaction was running, the request could use mixed account identity and fail or finish under a stale account context.
+3. Async `mx-cloud-profile-merged` events carried no account UID, so a result from a previous Apple/Google/email session could be applied after an account switch.
+4. Async save completions could update the global sync indicator even after the active account/profile had changed.
+5. Classic and Duel leaderboard timers also used mutable global UID at execution time rather than the UID that queued the write.
+6. `setSyncStatus('saved')` automatically advanced "Last successful sync" even for read/reconcile/ranking paths that did NOT confirm a progress write. This explains how the UI could show a fresh successful-sync timestamp and a red error in the same session.
+7. Cloud errors were formatted through `authErrorText()`. A Firestore/cloud failure therefore fell back to "Sign-in could not be completed" even though sign-in had actually succeeded.
+8. Connectivity reconciliation called an undefined `markCloudSyncSuccess()` function.
+9. `repairCurrentLeaderboard()` treated a core progress-save exception like an optional leaderboard failure and could restore a healthy status after a real core write failure.
+10. Native iOS used Firestore IndexedDB persistent multi-tab caching despite already having a synchronous UID-scoped local vault and persistent retry checkpoint. R36 removes that extra WKWebView cache layer on native iOS while leaving browser behavior unchanged.
+
+R36 FIXES
+- Added Firebase `authGeneration` and immutable cloud-operation context snapshots.
+- Deep-clones every queued autosave snapshot.
+- Debounced saves capture `{uid, authGeneration}` and stale jobs resolve neutrally instead of failing the new account.
+- Progress transaction document path, payload UID and merge event all use the captured owner UID.
+- Transaction callbacks re-check auth context before/after reads and before applying results.
+- Stale post-commit results never update the newly active account UI/profile.
+- Added game-side `accountContextEpoch` + profile/account/UID guards to autosave, checkpoint, reconcile, manual sync, connectivity sync and live merge events.
+- Added the same captured-UID protection to delayed Classic/Duel leaderboard writes.
+- "Last successful sync" now changes ONLY after a confirmed core progress write.
+- Core save and leaderboard publication are separated: ranking failure is optional; core save failure is not.
+- Transient/indeterminate errors (timeout, unavailable, aborted, deadline-exceeded, failed-precondition, account-context-changed, network) keep a retryable checkpoint and do not create a false permanent red error.
+- Durable failures still show red and now display a CLOUD-specific exact code such as `[permission-denied]` instead of a sign-in message.
+- Added local R36 cloud diagnostic history (`mxCloudSyncDiagnosticsR36`) without storing tokens.
+- Native iOS Firestore now uses the simple client cache path; browser/Netlify/itch keep persistent Firestore cache behavior.
+- Removed the undefined connectivity success call.
+- Fixed active build version consistency to 8.5.76, including `MARKETING_VERSION`.
+
+PRESERVED / NOT MERGED
+- Apple, Google and email identities remain separate unless the user explicitly chooses an existing linking flow. No automatic cross-provider merge was added.
+- UID-scoped local Apple/Google/email progress vault remains.
+- Campaign, daily levels, level FX recipes and sync-core data are byte-identical to supplied R35.
+- Gameplay, art, audio and level content were not changed by R36.
+
+AUTOMATED VALIDATION PASSED
+- JavaScript syntax: game.js, firebase.js, sync-core.js, campaign-levels.js, daily-levels.js, level-fx-recipes.js
+- Existing progress-save race regression
+- Existing debounce regression (updated for context capture)
+- Existing UID-scoped account progress vault regression
+- New R36 Firebase/account-context race regression
+- New R36 sync-truth/cloud-diagnostic regression
+- Shell syntax: prepare-ios.sh
+- Python source syntax: iOS patch/verification scripts
+- JSON/plist parsing: package, Capacitor config, manifest, GoogleService-Info.plist, App.entitlements
+- Campaign/daily/FX/sync-core files are byte-identical to R35
+
+REQUIRED REAL-IPHONE TESTFLIGHT TEST
+1. Install the fresh R36 build through TestFlight.
+2. Sign in with Apple. Play 3+ levels. Wait ~3 seconds, force-close, reopen. Confirm newest level remains.
+3. Open Cloud & Account Status. "Last successful sync" must represent a real confirmed progress write, not just a ranking/read refresh.
+4. Sign out, sign in with the separate Google user. Confirm Google keeps its own level/progress. Repeat close/reopen.
+5. Repeat with email if desired.
+6. Tap Sync Now. Expected: success, or a cloud-specific exact code. It must NOT say generic "Sign-in could not be completed" for a Firestore failure.
+7. If a durable code such as `[permission-denied]` remains in R36, the remaining blocker is server-side Firestore rules/configuration rather than another blind iOS client race; use that exact code for the next correction.
+
+LIMITATION
+No local container can sign/install an IPA or prove a real Firebase write from the user's production iPhone account. R36 fixes the concrete source-level races and false-status paths found in the supplied project; final proof still requires the fresh TestFlight build.

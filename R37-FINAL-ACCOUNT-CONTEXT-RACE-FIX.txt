@@ -1,0 +1,56 @@
+MOLECULOX iOS V8.5.77 — R37 FINAL ACCOUNT CONTEXT RACE FIX
+
+WHY R37 EXISTS
+An executable Apple-to-Google account-switch simulation exposed two remaining
+context races in the supplied R36 package even though its string-presence tests
+passed:
+
+1. Manual Sync Now rechecked account context after the core progress save, but
+   not after ranking cleanup/classic/duel awaits. An old Apple operation could
+   therefore continue with the newly active Google profile and mark it saved.
+2. cleanupOrphanRankingRows() fetched the Apple profile set and then compared
+   leaderboard rows against the mutable global uid. If uid changed while the
+   reads were pending, the function could build deletion requests for the new
+   account using the old account's valid-profile set.
+
+R37 CORRECTIONS
+- Ranking cleanup captures {uid, authGeneration} after Firebase readiness.
+- Profile paths, row ownership filters and deletion targets use captured ownerUid.
+- Cleanup rechecks the captured account after every read, immediately before
+  every delete batch, and after the batch completes.
+- A stale cleanup resolves neutrally as cloud/account-context-changed.
+- Placeholder ranking cleanup receives the same immutable-context protection.
+- Manual Sync Now checks account/profile context after ready, reconciliation,
+  core save, cleanup, classic ranking and duel ranking.
+- Manual core/duel snapshots are deep-cloned and the original profileId is fixed
+  for the complete operation.
+- Stale manual errors do not write diagnostics or update the new account UI.
+- Connectivity reconciliation captures context before Firebase readiness and
+  ignores stale catch/status/diagnostic work.
+
+EXECUTABLE REGRESSION COVERAGE
+scripts/verify-root-sync-runtime.js executes exact functions extracted from the
+shipping firebase.js and game.js with deterministic asynchronous Firebase mocks.
+
+PASS  Debounced save freezes snapshot and rejects stale UID/auth generation
+PASS  Progress transaction freezes owner path/payload and neutralizes stale completion
+PASS  Saved UI state does not fabricate Last successful sync timestamp
+PASS  Manual Sync Now completes normally without an account switch
+PASS  Orphan cleanup still removes an orphan owned by the active account
+PASS  Manual Sync Now stops after Apple-to-Google account switch
+PASS  Orphan cleanup cannot mix Apple profiles with Google ranking deletion
+
+RESULT: 7 passed, 0 failed.
+
+PRESERVED
+- Apple, Google and email accounts remain separate unless the existing explicit
+  linking flow is selected by the user.
+- UID-scoped local progress vault, retry checkpoint and R36 core progress
+  transaction guards remain intact.
+- Gameplay, campaign/daily/FX/sync-core data, art and audio are unchanged.
+
+REAL DEVICE CONFIRMATION
+The source/runtime regression and generated iOS project checks pass. A local
+Linux container cannot sign/install an IPA or authenticate the user's production
+Apple/Google accounts. Final production proof still requires a fresh Codemagic
+8.5.77 build installed through TestFlight on a physical iPhone.

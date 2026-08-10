@@ -1,0 +1,48 @@
+MOLECULOX iOS V8.5.77 R37 — FINAL SOURCE VALIDATION
+
+VERSION / CONFIGURATION
+PASS  package.json version: 8.5.77
+PASS  game APP_VERSION: v8.5.77
+PASS  web manifest version: 8.5.77
+PASS  service-worker cache: v8.5.77-r37
+PASS  Codemagic CFBundleShortVersionString: 8.5.77
+PASS  generated Xcode MARKETING_VERSION: 8.5.77
+PASS  bundle ID preserved: com.whitewayhan.moleculox
+
+R37 ACCOUNT-CONTEXT FIX
+PASS  orphan ranking cleanup captures immutable UID/auth generation
+PASS  profile path, row filter and delete target use captured owner UID
+PASS  cleanup rechecks context after awaits and before/after deletes
+PASS  placeholder cleanup has the same context protection
+PASS  Manual Sync Now rechecks context after every asynchronous stage
+PASS  manual progress/duel writes use frozen snapshots and fixed profile ID
+PASS  stale manual errors cannot update diagnostics/status/modal for new account
+PASS  connectivity error/status path ignores stale account work
+
+AUTOMATED TESTS
+PASS  JavaScript syntax: game/firebase/sync-core/campaign/daily/FX
+PASS  existing progress-save race regression
+PASS  existing debounce regression
+PASS  existing account-scoped progress-vault regression
+PASS  R37 static Firebase/account-context regression
+PASS  sync truth/cloud diagnostic regression
+PASS  R37 executable runtime behavior: 7 passed, 0 failed
+PASS  prepare-ios.sh shell syntax
+PASS  iOS Python patch/verification script syntax
+PASS  package/capacitor/manifest JSON parse
+PASS  GoogleService-Info.plist/App.entitlements/generated Info.plist parse
+
+GENERATED iOS PROJECT
+PASS  Capacitor iOS project generation and web asset copy
+PASS  deterministic Apple raw nonce patch
+PASS  Google authentication Podfile patch
+PASS  GoogleService-Info.plist registered as Xcode resource
+PASS  approved opaque 1024px App Store icon validation
+PASS  two app configurations strictly iPhone-only
+PASS  deployment target 15.0 and entitlement settings
+
+LIMITATION
+- CocoaPods and Xcode are unavailable in the Linux validation environment, so a
+  signed IPA was not produced locally.
+- Final production Firebase confirmation requires a fresh Codemagic/TestFlight
+  build and physical-iPhone Apple→Google→Apple test.
