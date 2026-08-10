@@ -1,7 +1,7 @@
-// Moleculox V8.5.77 R37 Final Account Context Race Fix service worker.
+// Moleculox V8.5.78 R38 Native Cache Identity Fix service worker.
 // Core code is precached; large audio/story assets are cached only after use.
 // Firebase and Google traffic is never intercepted.
-const CACHE_NAME = 'moleculox-v8.5.77-r37-ios-account-context';
+const CACHE_NAME = 'moleculox-v8.5.78-r38-native-cache-bust';
 const CACHE_PREFIX = 'moleculox-';
 const CORE_SHELL = [
   './index.html','./css/app.css','./js/sync-core.js','./js/daily-levels.js',

@@ -1,13 +1,13 @@
 {
   "name": "moleculox-ios",
-  "version": "8.5.77",
+  "version": "8.5.78",
   "private": true,
-  "description": "Moleculox iOS V8.5.77 R37: closes the remaining manual-sync and leaderboard-cleanup account-context races with executable Apple-to-Google regression coverage.",
+  "description": "Moleculox iOS V8.5.78 R38: forces WKWebView to load the R37 account/sync fixes with a unique native asset cache identity.",
   "scripts": {
     "ios:prepare": "bash scripts/prepare-ios.sh",
     "ios:sync": "npx cap sync ios",
     "ios:open": "npx cap open ios",
-    "check": "node --check www/js/game.js && node --check www/js/firebase.js && node --check www/js/sync-core.js && node --check www/js/campaign-levels.js && node --check www/js/daily-levels.js && node --check www/js/level-fx-recipes.js && node scripts/verify-progress-save-race.js && node scripts/verify-sync-debounce.js && node scripts/verify-account-progress-vault.js && node scripts/verify-cloud-context-race.js && node scripts/verify-sync-truth.js && node scripts/verify-root-sync-runtime.js"
+    "check": "node --check www/js/game.js && node --check www/js/firebase.js && node --check www/js/sync-core.js && node --check www/js/campaign-levels.js && node --check www/js/daily-levels.js && node --check www/js/level-fx-recipes.js && node scripts/verify-progress-save-race.js && node scripts/verify-sync-debounce.js && node scripts/verify-account-progress-vault.js && node scripts/verify-cloud-context-race.js && node scripts/verify-sync-truth.js && node scripts/verify-root-sync-runtime.js && node scripts/verify-native-cache-version.js"
   },
   "dependencies": {
     "@capacitor/core": "7.4.2",

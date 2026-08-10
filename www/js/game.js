@@ -1,5 +1,5 @@
 /* Moleculox V6.24.3 — professional story, UX and release polish */
-const APP_VERSION="v8.5.77";
+const APP_VERSION="v8.5.78";
 (()=>{'use strict';
 function isIOSStandaloneMode(){
   try{

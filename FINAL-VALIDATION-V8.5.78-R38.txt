@@ -1,0 +1,39 @@
+MOLECULOX iOS V8.5.78 R38 — FINAL VALIDATION
+
+Observed iPhone evidence
+- The panel displayed the old pre-R36 sentence:
+  “Sign-in could not be completed … [permission-denied]”.
+- It simultaneously displayed a current successful-sync timestamp and valid
+  Classic/Duel ranking rows.
+
+Confirmed root cause
+- R37 index.html still referenced game/firebase/sync runtime files with the
+  V8.5.69 R24 query identity and CSS with the V8.5.73 R25 identity.
+- That allowed WKWebView to reuse an older cached client after a TestFlight
+  update, so the R32–R37 status and account-context fixes were not executing.
+
+R38 correction
+- All mutable runtime assets use: 8.5.78-r38-native-cache-bust
+- Visible app, package, manifest, service worker, Xcode and Codemagic versions
+  are aligned to 8.5.78 / R38.
+- A deterministic cache/version regression test is part of npm run check.
+
+Validation result
+PASS  JavaScript syntax: game/firebase/sync-core/campaign/daily/FX
+PASS  Progress-save race regression
+PASS  Sync debounce regression
+PASS  Account-scoped progress vault regression
+PASS  R37 Firebase/account-context static regression
+PASS  R37 sync truth/diagnostic regression
+PASS  Runtime account/sync behavior: 7 passed, 0 failed
+PASS  R38 native asset cache/version regression
+
+Physical TestFlight confirmation
+1. Install the new 8.5.78 build.
+2. Open About and verify the visible version is v8.5.78.
+3. Open Cloud & Account Status and tap Sync Now.
+4. A ranking-only permission failure must remain a non-red “ranking pending”
+   result after the core profile save succeeds.
+5. If v8.5.78 instead reports the new explicit message
+   “Firebase/Firestore denied the cloud save [permission-denied]”, the remaining
+   issue is the deployed Firestore profile-write rule, not stale iPhone code.

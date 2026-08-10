@@ -1,7 +1,7 @@
 {
   "name": "Moleculox — Dr. E's Lab",
   "short_name": "Moleculox",
-  "description": "Moleculox v8.5.77 — R37 Final Account Context Race Fix with executable cross-account sync regression coverage by wHiTeWaY studio.",
+  "description": "Moleculox v8.5.78 — R38 Native Cache Identity Fix, retaining the R37 cross-account sync protections by wHiTeWaY studio.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
@@ -34,5 +34,5 @@
     "games",
     "education"
   ],
-  "version": "8.5.77"
+  "version": "8.5.78"
 }

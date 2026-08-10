@@ -1,3 +1,14 @@
+# Moleculox iOS V8.5.78 R38 — Yerel Web Dosyası Önbellek Kimliği Düzeltmesi
+
+R38, TestFlight güncellemesinde `index.html` dosyasının yeni R37 kaynaklarını hâlâ R24/R25 sorgu kimlikleriyle istemesi nedeniyle iPhone WKWebView'in eski JavaScript'i çalıştırabilmesini düzeltir.
+
+1. CSS ve bütün çalışma-zamanı JavaScript dosyaları tek ve benzersiz `8.5.78-r38-native-cache-bust` kimliğiyle yüklenir.
+2. `game.js`, `firebase.js` ve `sync-core.js` artık eski R24 önbellek girdileriyle karışamaz.
+3. R37'deki hesap bağlamı, manuel senkron ve sıralama ayrıştırma düzeltmeleri aynen korunur.
+4. `scripts/verify-native-cache-version.js`, paket sürümü, TestFlight sürümü, native build kimliği, servis çalışanı ve tüm HTML kaynak URL'lerinin aynı R38 sürümünde olduğunu zorunlu kılar.
+
+TestFlight doğrulamasında uygulama içindeki **Hakkında** ekranı `v8.5.78` göstermelidir. Daha eski bir sürüm görünüyorsa yeni build çalışmıyordur.
+
 # Moleculox iOS V8.5.77 R37 — Son Hesap Bağlamı Yarış Düzeltmesi
 
 R37, R36 üzerinde bağımsız çalışma-zamanı testinde bulunan son iki Apple→Google hesap geçişi yarışını kapatır:
