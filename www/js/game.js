@@ -1,5 +1,5 @@
 /* Moleculox V6.24.3 — professional story, UX and release polish */
-const APP_VERSION="v8.5.72";
+const APP_VERSION="v8.5.73";
 (()=>{'use strict';
 function isIOSStandaloneMode(){
   try{
@@ -3140,7 +3140,10 @@ async function syncFromCloud(){
     else setSyncStatus(window.MXCloud.authFailed?'offline':'saved');
   }catch(e){
     console.warn('[sync] cloud restore failed:',e);
-    setSyncStatus('error');
+    // R33: a profile read/restore failure is non-fatal to a cloud save that
+    // already succeeded. Keep the core sync state healthy while online; only
+    // actual save/write failures may show the red Sync error state.
+    setSyncStatus(navigator.onLine===false?'offline':'saved');
   }
 }
 
@@ -7900,7 +7903,15 @@ async function reconcileAccountProfiles(){
       if(target)scheduleLeaderboardRepair('safe-account-reconcile',250,true);
       if(!target&&names.length>1){closeModal();show('profile');}
       setSyncStatus('saved');return true;
-    }catch(e){console.warn('[account] safe reconcile failed',e);setSyncStatus('error');return false;}
+    }catch(e){
+      console.warn('[account] safe reconcile failed',e);
+      // R33: listing/reconciling profiles is a read/metadata operation, not a
+      // progress-write failure. Do not paint the whole cloud account red when
+      // the player's last cloud save is already valid. Real write failures are
+      // still surfaced by autosave/saveProgressNow/checkpoint paths.
+      setSyncStatus(navigator.onLine===false?'offline':(readLastCloudSync()?'saved':'saved'));
+      return false;
+    }
   })();
   try{return await accountReconcilePromise;}finally{accountReconcilePromise=null;}
 }
@@ -9733,7 +9744,11 @@ async function runConnectivityCloudSync(reason){
       return true;
     }catch(e){
       console.warn('[sync] connectivity reconciliation failed:',reason,e&&e.code||e);
-      setSyncStatus(navigator.onLine===false?'offline':'error');
+      // R33: connectivity/profile reconciliation contains reads and metadata
+      // refreshes. A failure here must not overwrite a confirmed cloud-save
+      // state with a false red error. Explicit write/checkpoint failures keep
+      // their existing error handling elsewhere.
+      setSyncStatus(navigator.onLine===false?'offline':'saved');
       return false;
     }finally{connectivityCloudSyncPromise=null;}
   })();

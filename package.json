@@ -1,8 +1,8 @@
 {
   "name": "moleculox-ios",
-  "version": "8.5.72",
+  "version": "8.5.73",
   "private": true,
-  "description": "Moleculox iOS V8.5.72 R32: preserves the Apple progress persistence fix, separates leaderboard publication failures from core cloud-save status, and raises the iOS deployment target to 15.0.",
+  "description": "Moleculox iOS V8.5.73 R32: preserves the Apple progress persistence fix, separates leaderboard publication failures from core cloud-save status, and raises the iOS deployment target to 15.0.",
   "scripts": {
     "ios:prepare": "bash scripts/prepare-ios.sh",
     "ios:sync": "npx cap sync ios",

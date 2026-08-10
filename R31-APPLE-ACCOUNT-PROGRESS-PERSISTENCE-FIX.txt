@@ -1,4 +1,4 @@
-MOLECULOX iOS V8.5.72 R31 — APPLE ACCOUNT PROGRESS PERSISTENCE FIX
+MOLECULOX iOS V8.5.73 R31 — APPLE ACCOUNT PROGRESS PERSISTENCE FIX
 
 Observed device symptom
 - Apple user resumes from level 56 after closing/reopening even after completing later levels.

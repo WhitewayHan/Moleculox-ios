@@ -1,4 +1,4 @@
-MOLECULOX iOS V8.5.72 R32
+MOLECULOX iOS V8.5.73 R32
 
 FIXES
 - Apple/Google/email progress cloud-save success is no longer downgraded to a global Sync Error when optional leaderboard repair fails.
