@@ -1,5 +1,5 @@
 /* Moleculox V6.24.3 — professional story, UX and release polish */
-const APP_VERSION="v8.5.70";
+const APP_VERSION="v8.5.71";
 (()=>{'use strict';
 function isIOSStandaloneMode(){
   try{
@@ -1508,10 +1508,48 @@ let save=defaultSave();
 // R16: every explicit player switch/reset advances this epoch. Async cloud work
 // captured under an older player is discarded instead of changing the active game.
 let profileContextEpoch=0;
+// R31: permanent accounts keep an account-scoped local progress vault. The main
+// profile store is intentionally device-local and can contain players from more
+// than one sign-in. This vault prevents a stale Apple cloud row from replacing a
+// newer Apple-session checkpoint after WKWebView is killed/restarted, while the
+// Firebase UID in the key keeps Google/email/Apple accounts isolated.
+const ACCOUNT_PROGRESS_VAULT_PREFIX='mx_account_progress_v1_';
+function currentPermanentAccountUid(){
+  const a=(typeof accountState!=='undefined'&&accountState)||null;
+  const value=String((a&&a.uid)||(window.MXCloud&&window.MXCloud.uid)||'').trim();
+  return value&&a&&a.signedIn&&!a.isAnonymous?value:'';
+}
+function accountProgressVaultKey(profileId,uidOverride){
+  const owner=String(uidOverride||currentPermanentAccountUid()||'').replace(/[^a-zA-Z0-9_-]/g,'_');
+  const pid=String(profileId||'').replace(/[^a-zA-Z0-9_-]/g,'_');
+  return owner&&pid?ACCOUNT_PROGRESS_VAULT_PREFIX+owner+'_'+pid:'';
+}
+function readAccountProgressVault(profileId,uidOverride){
+  const key=accountProgressVaultKey(profileId,uidOverride);if(!key)return null;
+  try{const v=JSON.parse(localStorage.getItem(key)||'null');return v&&typeof v==='object'?v:null;}catch(e){return null;}
+}
+function writeAccountProgressVault(snapshot,profileId,uidOverride){
+  const key=accountProgressVaultKey(profileId,uidOverride);if(!key||!snapshot)return false;
+  try{
+    const clean=JSON.parse(JSON.stringify(snapshot));
+    clean.profileId=profileId||clean.profileId;clean._accountUid=String(uidOverride||currentPermanentAccountUid()||'');clean._vaultAt=Date.now();
+    localStorage.setItem(key,JSON.stringify(clean));return true;
+  }catch(e){return false;}
+}
+function mergeAccountProgressVault(base,profileId,uidOverride){
+  const vault=readAccountProgressVault(profileId,uidOverride);if(!vault)return base;
+  const core=window.MXSyncCore;
+  if(core&&typeof core.mergeProfiles==='function')return core.mergeProfiles(base||{},vault,{settings:'left',identity:'left',includeBonus:true,now:new Date()});
+  const out=Object.assign({},base||{});out.cur=Math.max(Number(out.cur)||0,Number(vault.cur)||0);out.stars=Object.assign({},vault.stars||{},out.stars||{});return out;
+}
 function persistAll(){try{localStorage.setItem(PKEY,JSON.stringify({profiles,last:lastProfile}));}catch(e){}}
 function persist(){
   if(!curProfile)return;
   profiles[curProfile]=save;lastProfile=curProfile;persistAll();
+  // Local first: this is synchronous and survives an immediate iOS suspend.
+  // The UID-scoped key prevents one sign-in method/account from borrowing the
+  // progress journal of another account on the same iPhone.
+  if(save&&save.profileId)writeAccountProgressVault(save,save.profileId);
   try{
     if(window.MXCloud&&save.profileId){
       setSyncStatus(navigator.onLine===false?'offline':'syncing');
@@ -2946,14 +2984,18 @@ function restoreLevelCloudCheckpoint(){
 }
 function queueLevelCloudCheckpoint(reason){
   try{
-    const account=window.MXCloud&&window.MXCloud.account;
-    if(!window.MXCloud||!window.MXCloud.saveProgressNow||!save||!save.profileId||!account||!account.signedIn)return;
+    // R29: persist the newest completed-level snapshot even when Firebase Auth
+    // is still restoring. WKWebView may suspend the page before a network write
+    // finishes; the checkpoint is retried on the next foreground/launch.
+    if(!window.MXCloud||!save||!save.profileId)return;
     levelCloudCheckpointPending={
       reason:String(reason||'level-complete'),
       profileId:save.profileId,
+      accountUid:currentPermanentAccountUid(),
       queuedAt:Date.now(),
       snapshot:JSON.parse(JSON.stringify(save))
     };
+    if(levelCloudCheckpointPending.accountUid)writeAccountProgressVault(levelCloudCheckpointPending.snapshot,save.profileId,levelCloudCheckpointPending.accountUid);
     rememberLevelCloudCheckpoint(levelCloudCheckpointPending);
     runLevelCloudCheckpoint();
   }catch(e){console.warn('[sync] checkpoint queue failed',e);}
@@ -2973,6 +3015,19 @@ async function runLevelCloudCheckpoint(){
     return;
   }
   const job=levelCloudCheckpointPending;
+  const activeUid=currentPermanentAccountUid();
+  // Never replay a queued save into a different Firebase account. This matters
+  // when the same iPhone switches between Apple, Google and email users.
+  if(job.accountUid&&activeUid&&job.accountUid!==activeUid){
+    clearTimeout(levelCloudCheckpointRetryTimer);
+    levelCloudCheckpointRetryTimer=setTimeout(runLevelCloudCheckpoint,2500);
+    return;
+  }
+  if(job.accountUid&&!activeUid){
+    clearTimeout(levelCloudCheckpointRetryTimer);
+    levelCloudCheckpointRetryTimer=setTimeout(runLevelCloudCheckpoint,1800);
+    return;
+  }
   levelCloudCheckpointPending=null;
   levelCloudCheckpointRunning=true;
   setSyncStatus('syncing');
@@ -2996,12 +3051,25 @@ async function runLevelCloudCheckpoint(){
   }
 }
 window.addEventListener('online',()=>runLevelCloudCheckpoint(),{passive:true});
-document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')runLevelCloudCheckpoint();},{passive:true});
+function preserveProgressBeforeSuspend(reason){
+  try{
+    // Local storage is the immediate crash-safe journal. Keep the latest
+    // campaign state plus a retryable cloud snapshot before iOS suspends us.
+    persistAll();
+    if(save&&save.profileId)queueLevelCloudCheckpoint(reason||'app-suspend');
+  }catch(e){console.warn('[sync] suspend checkpoint failed',e);}
+}
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState==='hidden')preserveProgressBeforeSuspend('visibility-hidden');
+  else if(document.visibilityState==='visible')runLevelCloudCheckpoint();
+},{passive:true});
+window.addEventListener('pagehide',()=>preserveProgressBeforeSuspend('pagehide'),{passive:true});
 setTimeout(()=>runLevelCloudCheckpoint(),1800);
 
 function applyMergedCloudProfile(data){
   if(!data||typeof data!=="object")return;
   save=hasPermanentCloudAccount()?cloudAuthoritativeProfile(save,data):mergeCloudData(save,data);save.autoGuest=false;
+  if(save&&save.profileId)writeAccountProgressVault(save,save.profileId);
   if(curProfile)profiles[curProfile]=save;
   persistAll();updateCoins();updateBadge();
   document.body.classList.toggle('nodpad',!save.dpad);
@@ -7697,18 +7765,26 @@ function mergeCloudData(target,cloud){
 }
 
 function cloudAuthoritativeProfile(local,cloud){
-  // Signed-in Web accounts use Firestore as the only progress authority.
-  // Device storage may keep presentation preferences, but it must never raise
-  // campaign, coins, RP, achievements, records or competitive values.
+  // R31: first restore this Firebase account's synchronous device checkpoint.
+  // Then perform the existing monotonic cloud merge. This makes an Apple UID's
+  // newer local level survive even when Firestore still contains an older level.
+  const vaultProfileId=(cloud&&cloud.profileId)||(local&&local.profileId)||'';
+  local=mergeAccountProgressVault(local||{},vaultProfileId);
+  // R29 progress-safety rule: cloud identity/settings may win, but campaign
+  // progress must be monotonic. A delayed Firestore response from level N must
+  // never overwrite levels N+1/N+2 already completed on this device.
   local=local&&typeof local==='object'?local:{};
   cloud=cloud&&typeof cloud==='object'?cloud:{};
-  const result=ensureResearchState(Object.assign(defaultSave(),cloud));
-  ['lang','volM','volMu','volS','muM','muMu','muS','externalMusic','dpad'].forEach(k=>{
-    if(Object.prototype.hasOwnProperty.call(local,k))result[k]=local[k];
-  });
-  result.autoGuest=false;
-  result.saveSchema=5;
-  return result;
+  const core=window.MXSyncCore;
+  if(core&&typeof core.mergeProfiles==='function'){
+    const merged=core.mergeProfiles(local,cloud,{settings:'right',identity:'right',now:new Date(),includeBonus:true});
+    merged.autoGuest=false;merged.saveSchema=5;
+    return ensureResearchState(Object.assign(defaultSave(),merged));
+  }
+  // Compatibility fallback keeps the same max/union semantics.
+  const merged=mergeCloudData(local,cloud);
+  merged.autoGuest=false;merged.saveSchema=5;
+  return ensureResearchState(Object.assign(defaultSave(),merged));
 }
 
 function normalizedPlayerName(value){
@@ -7829,6 +7905,7 @@ window.addEventListener('mx-cloud-profile-merged',ev=>{
     const detail=ev&&ev.detail||{};if(!detail.profileId||!detail.data)return;
     const name=findProfileById(detail.profileId);if(!name)return;
     profiles[name]=hasPermanentCloudAccount()?cloudAuthoritativeProfile(profiles[name],detail.data):mergeCloudData(profiles[name],detail.data);
+    if(profiles[name]&&profiles[name].profileId)writeAccountProgressVault(profiles[name],profiles[name].profileId);
     if(curProfile===name){save=Object.assign(defaultSave(),profiles[name]);updateCoins();updateBadge();refreshSplash();}
     persistAll();
   }catch(e){console.warn('[account] live cloud merge failed',e);}

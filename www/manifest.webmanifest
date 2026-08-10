@@ -1,7 +1,7 @@
 {
   "name": "Moleculox — Dr. E's Lab",
   "short_name": "Moleculox",
-  "description": "Moleculox v8.5.70 — R25 Final Reference with fair solve timing, certified hints, safe MoleCoin rewards, scientific mechanic explanations, original SVG metrics and adaptive rendering by wHiTeWaY studio.",
+  "description": "Moleculox v8.5.71 — R25 Final Reference with fair solve timing, certified hints, safe MoleCoin rewards, scientific mechanic explanations, original SVG metrics and adaptive rendering by wHiTeWaY studio.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
@@ -34,5 +34,5 @@
     "games",
     "education"
   ],
-  "version": "8.5.70"
+  "version": "8.5.71"
 }

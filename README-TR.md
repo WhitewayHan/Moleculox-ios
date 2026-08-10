@@ -1,3 +1,11 @@
+# Moleculox iOS V8.5.70 R29 — İlerleme Kaydı Yarış Durumu Düzeltmesi
+
+Bu paket R28 iPhone-only App Store yapısını korur ve hızlı arka arkaya bölüm bitirme / uygulamadan çıkma sırasında eski bulut yanıtının daha yeni yerel ilerlemeyi geri almasını engeller.
+
+Codemagic iş akışı: `moleculox-ios-app-store`
+
+Yükleme sonrası App Store Connect'te aynı 8.5.70 sürüm etiketi altında **en yeni ve daha yüksek zaman damgalı build numarasını** seçin.
+
 # Moleculox iOS V8.5.70 R28 — iPhone-Only App Store Final
 
 Bu paket App Store gönderimi için yalnız iPhone hedefler. R25 oyun içeriği ve R27 gerçek Moleculox ikon sistemi aynen korunmuştur.

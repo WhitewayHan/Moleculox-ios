@@ -916,8 +916,27 @@ async function getDuelLeaderboard(period,n,forceRefresh,targetId){period=["world
 // ---- Cloud save: profile-scoped, owner-writable directly (no leaderboard fields live here) ----
 // This mirrors ALL local fields so a lost/reset device can be fully restored.
 let saveTimer = null;
-let saveTimerResolve = null;
+let saveWaiters = [];
 let pendingSaveProfileId = null;
+let pendingSaveSnapshot = null;
+
+function settleSaveWaiters(waiters, result) {
+  (Array.isArray(waiters) ? waiters : []).forEach((resolve) => {
+    try { resolve(result); } catch (e) {}
+  });
+}
+
+async function executePendingSave(job, waiters) {
+  let result = false;
+  try {
+    result = await withCloudTimeout(writeProgress(job.snapshot, job.profileId), "cloud/save-timeout");
+  } catch (e) {
+    console.warn("[MXCloud] saveProgress failed:", e && e.code);
+    result = false;
+  }
+  settleSaveWaiters(waiters, result);
+  return result;
+}
 const deletedProfileIds = new Set();
 let fullProfileWriteAllowed = null;
 let researchProfileWriteAllowed = null;
@@ -1093,23 +1112,38 @@ async function writeProgress(save, profileId) {
 
 function saveProgress(save, profileId) {
   if (deletedProfileIds.has(profileId)) return Promise.resolve(false);
-  if (saveTimer) {
-    clearTimeout(saveTimer);
-    if (saveTimerResolve) saveTimerResolve(false);
-  }
+
+  // R30: a debounced save that is superseded by a newer save is not a failed
+  // cloud operation. All callers for the same profile now wait for the newest
+  // snapshot to be written and receive that real result. The old implementation
+  // resolved cancelled timers with false, which made the UI show "Sync error"
+  // even though the following Firestore write succeeded.
   return new Promise((resolve) => {
-    saveTimerResolve = resolve;
-    pendingSaveProfileId = profileId;
-    saveTimer = setTimeout(async () => {
+    const nextJob = { profileId, snapshot: save };
+
+    if (saveTimer && pendingSaveProfileId && pendingSaveProfileId !== profileId) {
+      clearTimeout(saveTimer);
       saveTimer = null;
-      saveTimerResolve = null;
+      const previousJob = { profileId: pendingSaveProfileId, snapshot: pendingSaveSnapshot };
+      const previousWaiters = saveWaiters.splice(0);
       pendingSaveProfileId = null;
-      try {
-        resolve(await withCloudTimeout(writeProgress(save, profileId), "cloud/save-timeout"));
-      } catch (e) {
-        console.warn("[MXCloud] saveProgress failed:", e && e.code);
-        resolve(false);
-      }
+      pendingSaveSnapshot = null;
+      executePendingSave(previousJob, previousWaiters);
+    } else if (saveTimer) {
+      clearTimeout(saveTimer);
+      saveTimer = null;
+    }
+
+    pendingSaveProfileId = profileId;
+    pendingSaveSnapshot = nextJob.snapshot;
+    saveWaiters.push(resolve);
+    saveTimer = setTimeout(async () => {
+      const job = { profileId: pendingSaveProfileId, snapshot: pendingSaveSnapshot };
+      const waiters = saveWaiters.splice(0);
+      saveTimer = null;
+      pendingSaveProfileId = null;
+      pendingSaveSnapshot = null;
+      await executePendingSave(job, waiters);
     }, 1100);
   });
 }
@@ -1204,8 +1238,9 @@ async function deleteCloudProfile(profileId) {
       clearTimeout(saveTimer);
       saveTimer = null;
       pendingSaveProfileId = null;
-      if (saveTimerResolve) saveTimerResolve(false);
-      saveTimerResolve = null;
+      pendingSaveSnapshot = null;
+      const cancelledWaiters = saveWaiters.splice(0);
+      settleSaveWaiters(cancelledWaiters, false);
     }
     const boardId = leaderboardDocId(cleanId);
     if (boardId && leaderboardTimers.has(boardId)) {

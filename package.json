@@ -1,13 +1,13 @@
 {
   "name": "moleculox-ios",
-  "version": "8.5.70",
+  "version": "8.5.71",
   "private": true,
-  "description": "Moleculox iOS V8.5.70 R28: final iPhone-only App Store package, preserving R25 gameplay, R27 approved icon generation/validation, and removing iPad device-family support so App Store Connect does not require iPad screenshots.",
+  "description": "Moleculox iOS V8.5.71 R31: iPhone-only App Store replacement build fixing monotonic progress saves and false cloud-sync error states caused by cancelled debounce timers.",
   "scripts": {
     "ios:prepare": "bash scripts/prepare-ios.sh",
     "ios:sync": "npx cap sync ios",
     "ios:open": "npx cap open ios",
-    "check": "node --check www/js/game.js && node --check www/js/firebase.js && node --check www/js/sync-core.js && node --check www/js/campaign-levels.js && node --check www/js/daily-levels.js && node --check www/js/level-fx-recipes.js"
+    "check": "node --check www/js/game.js && node --check www/js/firebase.js && node --check www/js/sync-core.js && node --check www/js/campaign-levels.js && node --check www/js/daily-levels.js && node --check www/js/level-fx-recipes.js && node scripts/verify-progress-save-race.js && node scripts/verify-sync-debounce.js && node scripts/verify-account-progress-vault.js"
   },
   "dependencies": {
     "@capacitor/core": "7.4.2",

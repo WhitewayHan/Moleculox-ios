@@ -1,0 +1,19 @@
+MOLECULOX iOS V8.5.71 R31 — APPLE ACCOUNT PROGRESS PERSISTENCE FIX
+
+Observed device symptom
+- Apple user resumes from level 56 after closing/reopening even after completing later levels.
+- Google/email users on the same iOS build continue correctly.
+
+Fix
+1. Adds a synchronous local progress vault keyed by Firebase UID + profileId.
+2. The vault is updated before each network autosave, so iOS suspension cannot erase the newest completed level.
+3. Apple/Google/email account journals are isolated by UID.
+4. A pending checkpoint is never replayed into a different signed-in Firebase UID.
+5. On cloud restore, the account-scoped vault is merged first and campaign progress remains monotonic (max level/stars).
+6. Successful cloud merges refresh the same UID-scoped vault.
+
+Scope
+- No campaign level data changed.
+- No Google/email authentication logic changed.
+- No Apple nonce/authentication flow changed.
+- Existing R30 false Sync Error debounce fix retained.
