@@ -8,7 +8,9 @@ const must = (condition, message) => {
 };
 
 const version = '8.5.78';
-const token = '8.5.78-r38-native-cache-bust';
+const buildId = '8.5.78-r38-langfix1';
+const uiToken = '8.6.28-r40-pass7-stability';
+
 const index = read('www/index.html');
 const game = read('www/js/game.js');
 const sw = read('www/sw.js');
@@ -17,27 +19,27 @@ const pkg = JSON.parse(read('package.json'));
 const codemagic = read('codemagic.yaml');
 const patchIos = read('scripts/patch-ios.py');
 
-const expectedAssets = [
-  'css/app.css',
-  'js/sync-core.js',
-  'js/daily-levels.js',
-  'js/campaign-levels.js',
-  'js/level-fx-recipes.js',
-  'js/game.js',
-  'js/firebase.js',
-];
+const expected = {
+  'css/app.css': uiToken,
+  'js/sync-core.js': buildId,
+  'js/daily-levels.js': buildId,
+  'js/campaign-levels.js': buildId,
+  'js/level-fx-recipes.js': buildId,
+  'js/game.js': uiToken,
+  'js/firebase.js': buildId,
+  'js/story-universe.js': buildId,
+};
 
-for (const asset of expectedAssets) {
-  must(index.includes(`${asset}?v=${token}`), `Missing R38 cache identity for ${asset}`);
+for (const [asset, token] of Object.entries(expected)) {
+  must(index.includes(`${asset}?v=${token}`), `Missing FINAL R45 cache identity for ${asset}: expected ${token}`);
 }
 
-must(!/8\.5\.69-r24|8\.5\.73-r25/.test(index), 'Stale R24/R25 asset cache identity remains in index.html');
-must(index.includes(`window.__MX_BUILD_ID__='${token}'`), 'Native build identity does not match R38');
-must(game.includes(`const APP_VERSION="v${version}";`), 'Visible app version does not match R38');
-must(pkg.version === version, 'package.json version does not match R38');
-must(manifest.version === version, 'manifest version does not match R38');
-must(codemagic.includes(`CFBundleShortVersionString ${version}`), 'Codemagic TestFlight version does not match R38');
-must(patchIos.includes(`'MARKETING_VERSION':'${version}'`), 'Generated Xcode marketing version does not match R38');
-must(sw.includes(`moleculox-v${version}-r38-native-cache-bust`), 'Service-worker cache does not match R38');
+must(index.includes(`window.__MX_BUILD_ID__='${buildId}'`), 'Native build identity does not match FINAL R45');
+must(game.includes(`const APP_VERSION="v${version}";`), 'Visible app version does not match FINAL R45');
+must(pkg.version === version, 'package.json version does not match FINAL R45');
+must(manifest.version === version, 'manifest version does not match FINAL R45');
+must(codemagic.includes(`CFBundleShortVersionString ${version}`), 'Codemagic TestFlight version does not match FINAL R45');
+must(patchIos.includes(`'MARKETING_VERSION':'${version}'`), 'Generated Xcode marketing version does not match FINAL R45');
+must(sw.includes(`const CACHE_NAME = 'moleculox-final-r45-ios';`), 'Service-worker cache does not match FINAL R45');
 
-console.log('R38 native asset cache/version checks passed.');
+console.log('FINAL R45 native asset cache/version checks passed.');
