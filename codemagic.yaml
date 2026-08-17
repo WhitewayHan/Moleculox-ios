@@ -1,6 +1,6 @@
 workflows:
   moleculox-ios-app-store:
-    name: Moleculox iOS V8.5.78 R38 Native Cache Identity Fix
+    name: Moleculox FINAL R45 v8.5.78 iOS
     instance_type: mac_mini_m2
     max_build_duration: 120
     integrations:

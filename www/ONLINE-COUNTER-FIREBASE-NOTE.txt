@@ -1,7 +1,0 @@
-ONLINE PLAYER COUNTER — V8.5.46
-================================
-1. Publish FIRESTORE-ONLINE-PRESENCE-PATCH-V8.5.46.txt inside the CURRENT Firestore rules, immediately before the final deny-all match.
-2. Do not replace the rest of the current rules; the patch is additive.
-3. Optional cleanup: Firebase Console > Firestore > TTL > onlinePresence > expiresAt.
-4. The main-menu counter refreshes every 30 seconds and treats heartbeats newer than 90 seconds as online.
-5. Multiple tabs/devices with the same Firebase UID are displayed as one player.

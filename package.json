@@ -2,7 +2,7 @@
   "name": "moleculox-ios",
   "version": "8.5.78",
   "private": true,
-  "description": "Moleculox iOS V8.5.78 R38: forces WKWebView to load the R37 account/sync fixes with a unique native asset cache identity.",
+  "description": "Moleculox iOS FINAL R45 / v8.5.78 App Store build with Sign in with Apple enabled.",
   "scripts": {
     "ios:prepare": "bash scripts/prepare-ios.sh",
     "ios:sync": "npx cap sync ios",

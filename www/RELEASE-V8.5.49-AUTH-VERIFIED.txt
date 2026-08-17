@@ -1,8 +1,0 @@
-Moleculox V8.5.49
-
-- Android Google login is routed through the native Firebase Authentication plugin.
-- Email login/account creation publishes the signed-in state immediately and verifies cloud reconciliation before reporting success.
-- Authentication operations have timeouts and readable error messages instead of remaining stuck.
-- Package ID remains com.whitewaystudio.moleculox.
-- Visible studio name is aligned to Google Play Console: wHiTeWaY studio.
-- V8.5.48 smart tutorial and mechanic explanation changes are preserved.

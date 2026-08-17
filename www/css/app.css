@@ -4810,3 +4810,3745 @@ body.mxIOSNative #actionCol{top:clamp(24px,3.2svh,30px)!important}
 .mxSolveTimeResult .mxSolveMeta strong{font:inherit;color:#dffbff}
 .mxMetricDot{width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.72;margin:0 1px}
 @media(max-height:700px){.mxSolveTimeResult b .mxClockIcon{width:19px;height:19px}.mxSolveTimeResult .mxSolveMeta .mxHintIcon{width:12px;height:12px}}
+
+/* R38 STORY TEST 1 — canonical story cast/world art only. Strictly scoped to #levelStoryPanel. */
+#levelStoryPanel #storyCatArt,#levelStoryPanel #storyMoxyArt{display:none}
+#levelStoryPanel.showCat #storyCatArt,#levelStoryPanel.showMoxy #storyMoxyArt{display:block}
+#levelStoryPanel #storyCatArt{left:34%;bottom:-3%;height:52%!important;max-width:44%;z-index:3;object-position:center bottom}
+#levelStoryPanel #storyMoxyArt{left:42%;bottom:28%;height:44%!important;max-width:40%;z-index:4;object-position:center;filter:drop-shadow(0 8px 10px #0007)!important}
+#levelStoryPanel.storyCast3 #storyHeroArt,#levelStoryPanel.storyCast4 #storyHeroArt{height:70%!important;left:-3%}
+#levelStoryPanel.storyCast3 #nullStoryArt,#levelStoryPanel.storyCast4 #nullStoryArt{height:68%!important;right:-4%}
+#levelStoryPanel.storyCast3 #storyCatArt,#levelStoryPanel.storyCast4 #storyCatArt{height:39%!important;left:31%}
+#levelStoryPanel.storyCast3 #storyMoxyArt,#levelStoryPanel.storyCast4 #storyMoxyArt{height:36%!important;left:45%;bottom:30%}
+#levelStoryPanel.speakerNull:not(.hasSceneArt) .comicHero .speechBubble{left:10px;right:auto}
+#levelStoryPanel.speakerCat:not(.hasSceneArt) .comicHero .speechBubble{left:10px;right:auto}
+#levelStoryPanel.speakerMoxy:not(.hasSceneArt) .comicHero .speechBubble{right:10px;left:auto}
+#levelStoryPanel:not(.hasSceneArt) .comicHero{background-repeat:no-repeat;background-color:#0a1830}
+#levelStoryPanel.hasSceneArt .comicHero .sceneArtImg{border-radius:0}
+@media(max-width:620px){
+  #levelStoryPanel #storyCatArt{height:45%!important;left:29%}
+  #levelStoryPanel #storyMoxyArt{height:38%!important;left:43%;bottom:29%}
+  #levelStoryPanel.storyCast3 #storyHeroArt,#levelStoryPanel.storyCast4 #storyHeroArt{height:62%!important}
+  #levelStoryPanel.storyCast3 #nullStoryArt,#levelStoryPanel.storyCast4 #nullStoryArt{height:60%!important}
+  #levelStoryPanel.storyCast3 #storyCatArt,#levelStoryPanel.storyCast4 #storyCatArt{height:34%!important;left:29%}
+  #levelStoryPanel.storyCast3 #storyMoxyArt,#levelStoryPanel.storyCast4 #storyMoxyArt{height:31%!important;left:44%;bottom:31%}
+}
+
+/* R38 STORY FINAL — narrator and dialogue are deliberately separate. */
+#levelStoryPanel:not(.storyHasDialogue) .speechBubble{display:none!important}
+#levelStoryPanel .storySpeakerName{
+  margin:0 0 4px;
+  color:#6c3bb2;
+  font-size:10px;
+  font-weight:1000;
+  letter-spacing:.7px;
+  line-height:1;
+}
+#levelStoryPanel.speakerNull .storySpeakerName{color:#51306f}
+#levelStoryPanel.speakerCat .storySpeakerName{color:#176e9d}
+#levelStoryPanel.speakerMoxy .storySpeakerName{color:#b46800}
+#levelStoryPanel .storyNarration{
+  box-sizing:border-box;
+  width:100%;
+  margin:10px 0 0;
+  padding:9px 10px;
+  border:3px solid #17243a;
+  border-radius:8px;
+  background:#17243a;
+  color:#fff;
+  text-align:left;
+  font-size:clamp(11px,2.15vw,14px);
+  font-weight:800;
+  line-height:1.3;
+  overflow-wrap:anywhere;
+}
+#levelStoryPanel .storyNarratorLabel{
+  margin:0 0 4px;
+  color:#ffd95a;
+  font-size:9px;
+  font-weight:1000;
+  letter-spacing:.8px;
+  line-height:1;
+}
+#levelStoryPanel .reactionText{
+  font-style:italic;
+}
+#levelStoryPanel.hasSceneArt:not(.storyHasDialogue) .comicHero{margin-bottom:0}
+@media(max-width:620px){
+  #levelStoryPanel .storySpeakerName{font-size:8.5px;margin-bottom:3px}
+  #levelStoryPanel .storyNarration{margin-top:6px;padding:7px 8px;border-width:2px;font-size:10.5px;line-height:1.24}
+  #levelStoryPanel .storyNarratorLabel{font-size:8px;margin-bottom:3px}
+  #levelStoryPanel .reactionText{max-height:none;overflow:visible}
+}
+
+/* ================= STORY FINAL 2 — wordless Moxy gameplay companion ================= */
+#moxyGameCompanion[hidden]{display:none!important}
+#moxyGameCompanion{
+  position:absolute;
+  right:clamp(132px,31vw,218px);
+  bottom:calc(var(--sab) + 8px);
+  width:clamp(66px,16vw,96px);
+  aspect-ratio:1.05/1;
+  z-index:8;
+  pointer-events:none;
+  user-select:none;
+  -webkit-user-select:none;
+  filter:drop-shadow(0 8px 13px rgba(0,0,0,.48));
+  transform-origin:50% 100%;
+}
+#moxyGameCompanion img{display:block;width:100%;height:100%;object-fit:contain;position:relative;z-index:2}
+#moxyGameCompanion i{
+  position:absolute;left:13%;right:13%;bottom:4%;height:21%;border-radius:50%;z-index:1;
+  background:radial-gradient(ellipse,rgba(79,216,255,.36) 0%,rgba(79,216,255,.08) 46%,rgba(79,216,255,0) 72%);
+  filter:blur(3px);
+}
+#moxyGameCompanion.react-ready img{animation:mxMoxyFloat 2.55s ease-in-out infinite}
+#moxyGameCompanion.react-ready i{animation:mxMoxyHalo 2.55s ease-in-out infinite}
+@keyframes mxMoxyFloat{0%,100%{transform:translateY(0) rotate(-1.2deg)}50%{transform:translateY(-7px) rotate(1.5deg)}}
+@keyframes mxMoxyHalo{0%,100%{opacity:.55;transform:scale(.92)}50%{opacity:.92;transform:scale(1.06)}}
+@media(max-width:620px){#moxyGameCompanion{right:clamp(126px,33vw,180px);width:78px;bottom:calc(var(--sab) + 7px)}}
+@media(max-width:370px), (max-height:690px){#moxyGameCompanion{right:116px;width:64px;bottom:calc(var(--sab) + 5px)}}
+body.mxNative #moxyGameCompanion{right:clamp(154px,36vw,224px);bottom:calc(var(--sab) + 8px)}
+body.mxIOSNative #moxyGameCompanion{right:clamp(184px,43vw,274px);width:clamp(70px,17vw,94px);bottom:calc(var(--sab) + 10px)}
+@media(max-width:430px){body.mxIOSNative #moxyGameCompanion{right:172px;width:76px}}
+
+
+/* ================= STORY + UI LAYOUT POLISH 1 — no-scroll story/results ================= */
+/* User-approved rule: fit the whole interaction on one phone screen. Text/buttons
+   may shrink slightly on short phones, never to unreadable sizes. */
+#levelStoryPanel{
+  box-sizing:border-box!important;
+  width:min(96vw,720px)!important;
+  max-height:calc(100dvh - max(10px,var(--sat)) - max(10px,var(--sab)))!important;
+  overflow:hidden!important;
+  padding:10px 10px 9px!important;
+}
+#levelStoryPanel .storyPageHead{margin:0 38px 6px 0!important;min-height:22px}
+#levelStoryPanel .comicStrip{gap:7px!important;margin-bottom:7px!important;min-height:0!important}
+#levelStoryPanel .comicPanel{min-height:0!important;overflow:hidden!important}
+
+/* Generated/supplied story artwork fills the comic frame. No white letterboxing. */
+#levelStoryPanel.hasSceneArt .comicPanel.comicHero{
+  position:relative!important;
+  height:clamp(210px,31dvh,310px)!important;
+  min-height:0!important;
+  overflow:hidden!important;
+  background:#09172c!important;
+}
+#levelStoryPanel.hasSceneArt .comicHero .sceneArtImg{
+  position:absolute!important;
+  inset:0!important;
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:none!important;
+  max-height:none!important;
+  object-fit:cover!important;
+  object-position:center center!important;
+  margin:0!important;
+  border:0!important;
+}
+/* Dialogue overlays the art so it does not add a second vertical block. */
+#levelStoryPanel.hasSceneArt .comicHero .speechBubble{
+  position:absolute!important;
+  z-index:9!important;
+  left:auto!important;right:8px!important;bottom:8px!important;
+  width:min(60%,330px)!important;
+  max-width:calc(100% - 16px)!important;
+  max-height:none!important;
+  margin:0!important;
+  padding:9px 10px!important;
+  overflow:visible!important;
+  background:rgba(255,255,255,.96)!important;
+  box-shadow:0 3px 0 rgba(23,36,58,.95),0 7px 18px rgba(0,0,0,.22)!important;
+}
+#levelStoryPanel.hasSceneArt .comicHero .speechBubble:after{display:block!important}
+#levelStoryPanel.hasSceneArt.speakerNull .comicHero .speechBubble,
+#levelStoryPanel.hasSceneArt.speakerCat .comicHero .speechBubble{left:8px!important;right:auto!important}
+
+/* Narration stays fully visible; no inner scrollbars. */
+#levelStoryPanel .comicReaction{min-height:0!important;padding:8px 9px!important}
+#levelStoryPanel .storyNarration{margin-top:5px!important;padding:6px 8px!important;font-size:clamp(10.2px,2.25vw,13px)!important;line-height:1.22!important}
+#levelStoryPanel .reactionText{max-height:none!important;overflow:visible!important;margin-top:5px!important;padding:5px 7px!important;font-size:clamp(10px,2.15vw,12px)!important;line-height:1.2!important}
+#levelStoryPanel .reactionMolecule{font-size:clamp(18px,4vw,24px)!important;padding:3px 8px!important;border-width:3px!important}
+#levelStoryPanel .storyNav{position:relative!important;bottom:auto!important;padding:0!important;background:transparent!important;backdrop-filter:none!important;grid-template-columns:48px 1fr!important;gap:6px!important}
+#levelStoryPanel .storyNav .btn{min-height:40px!important;padding:7px 9px!important;font-size:clamp(11px,2.8vw,13px)!important}
+#levelStoryPanel .storySkipText{margin-top:4px!important;font-size:10px!important}
+
+@media(max-width:620px){
+  #levelStoryPanel{width:min(96vw,520px)!important;padding:8px!important}
+  #levelStoryPanel .comicStrip{grid-template-columns:1fr!important;gap:5px!important;margin-bottom:5px!important}
+  #levelStoryPanel.hasSceneArt .comicPanel.comicHero{height:clamp(180px,29dvh,235px)!important}
+  #levelStoryPanel:not(.hasSceneArt) .comicHero{min-height:clamp(170px,27dvh,220px)!important}
+  #levelStoryPanel .comicReaction{padding:6px 7px!important}
+  #levelStoryPanel #storyChapter{font-size:clamp(10.5px,2.9vw,12px)!important}
+  #levelStoryPanel #storyPageCounter{font-size:9.5px!important}
+  #levelStoryPanel.hasSceneArt .comicHero .speechBubble{width:min(66%,300px)!important;padding:7px 8px!important;font-size:clamp(10px,2.65vw,11.5px)!important;line-height:1.2!important}
+  #levelStoryPanel #storyText{font-size:inherit!important;line-height:inherit!important}
+  #levelStoryPanel .storySpeakerName{font-size:8px!important;margin-bottom:2px!important}
+  #levelStoryPanel .storyNarration{font-size:clamp(9.8px,2.55vw,11px)!important;line-height:1.18!important;padding:5px 7px!important}
+  #levelStoryPanel .storyNarratorLabel{font-size:7.5px!important;margin-bottom:2px!important}
+  #levelStoryPanel .reactionText{font-size:clamp(9.5px,2.45vw,10.5px)!important;line-height:1.17!important}
+  #levelStoryPanel .reactionMolecule{font-size:18px!important;margin:0 auto!important}
+}
+@media(max-height:700px){
+  #levelStoryPanel{padding:7px!important}
+  #levelStoryPanel .storyPageHead{margin-bottom:4px!important}
+  #levelStoryPanel.hasSceneArt .comicPanel.comicHero{height:clamp(165px,27dvh,195px)!important}
+  #levelStoryPanel:not(.hasSceneArt) .comicHero{min-height:160px!important}
+  #levelStoryPanel .storyNarration{font-size:9.7px!important;line-height:1.16!important}
+  #levelStoryPanel .reactionText{font-size:9.3px!important;line-height:1.15!important}
+  #levelStoryPanel .storyNav .btn{min-height:37px!important;padding:6px 8px!important}
+}
+
+/* Level-complete modal: keep all routine result information on one screen. */
+#modalBox.winResultModal{
+  width:min(91vw,380px)!important;
+  max-height:calc(100dvh - max(14px,var(--sat)) - max(14px,var(--sab)))!important;
+  overflow:hidden!important;
+  padding:clamp(10px,1.8vh,15px) clamp(11px,3vw,16px)!important;
+  text-align:center!important;
+}
+#modalBox.winResultModal>.mxModalScrollRail{display:none!important}
+#modalBox.winResultModal h3{font-size:clamp(17px,4.8vw,21px)!important;margin-bottom:2px!important;line-height:1.08!important}
+#modalBox.winResultModal .msub{font-size:clamp(10.5px,2.9vw,12.5px)!important;margin-bottom:4px!important;line-height:1.15!important}
+#modalBox.winResultModal .mxResultMolecule{width:clamp(70px,18vw,88px)!important;height:clamp(70px,18vw,88px)!important;margin:2px auto!important}
+#modalBox.winResultModal .mxResultOrbit{font-size:clamp(30px,8vw,39px)!important}
+#modalBox.winResultModal .mxResultMolecule>b{font-size:clamp(12px,3.3vw,14px)!important}
+#modalBox.winResultModal .mxResultMolecule>small{font-size:7.5px!important;max-width:82px!important}
+#modalBox.winResultModal .performanceResult{margin:4px auto!important;padding:5px 8px!important;gap:4px 6px!important;border-radius:11px!important}
+#modalBox.winResultModal .performanceResult b{font-size:clamp(13px,3.6vw,15px)!important}
+#modalBox.winResultModal .performanceResult span{font-size:9px!important}
+#modalBox.winResultModal .performanceResult em{font-size:8px!important}
+#modalBox.winResultModal .mxSolveTimeResult{margin:4px auto!important;padding:6px 8px!important;gap:1px 7px!important;border-radius:11px!important}
+#modalBox.winResultModal .mxSolveTimeResult b{font-size:clamp(15px,4.2vw,18px)!important}
+#modalBox.winResultModal .mxSolveTimeResult span{font-size:8.5px!important}
+#modalBox.winResultModal .mxSolveTimeResult em{font-size:9px!important}
+#modalBox.winResultModal .mstars{font-size:clamp(28px,8vw,34px)!important;letter-spacing:5px!important;min-height:34px!important;margin:3px 0 1px!important;line-height:1!important}
+#modalBox.winResultModal .mcoins{font-size:clamp(12px,3.4vw,15px)!important;margin-bottom:4px!important;line-height:1.1!important}
+#modalBox.winResultModal .bonusUnlockNotice{margin:4px 0!important;padding:6px 8px!important}
+#modalBox.winResultModal .bonusUnlockNotice b{font-size:11px!important}
+#modalBox.winResultModal .bonusUnlockNotice span{margin-top:2px!important;font-size:9px!important;line-height:1.2!important}
+#modalBox.winResultModal .accountMilestoneInvite{margin:4px 0!important;padding:7px!important;gap:7px!important}
+#modalBox.winResultModal .accountMilestoneIcon{font-size:20px!important}
+#modalBox.winResultModal .accountMilestoneInvite b{font-size:10.5px!important}
+#modalBox.winResultModal .accountMilestoneInvite span{font-size:9px!important;line-height:1.15!important}
+#modalBox.winResultModal>#mDiscoverMolecule{width:100%!important;min-height:38px!important;padding:7px 9px!important;font-size:clamp(10.5px,3vw,12.5px)!important;margin-top:2px!important}
+#modalBox.winResultModal .mrow{display:grid!important;grid-template-columns:1fr 1fr!important;gap:6px!important;margin-top:6px!important;padding:0!important}
+#modalBox.winResultModal .mrow>.btn{min-height:38px!important;padding:7px 8px!important;font-size:clamp(10.5px,3vw,12.5px)!important;line-height:1.12!important;margin:0!important}
+#modalBox.winResultModal #mNext{grid-column:1/-1!important;min-height:42px!important;font-size:clamp(12px,3.5vw,14px)!important}
+#modalBox.winResultModal #mBonusNow{grid-column:1/-1!important}
+
+/* The Nobel final has genuinely extra certificate controls; compact them too. */
+#modalBox.winResultModal .nobelCertificatePreview{margin:4px auto!important;padding:7px 9px!important;border-radius:12px!important}
+#modalBox.winResultModal .nobelCertSeal{font-size:24px!important}
+#modalBox.winResultModal .nobelCertificatePreview h4{margin:2px 0!important;font-size:12px!important}
+#modalBox.winResultModal .nobelCertificatePreview strong{font-size:14px!important}
+#modalBox.winResultModal .nobelCertificatePreview p{margin:3px auto!important;font-size:9px!important;line-height:1.18!important}
+#modalBox.winResultModal .nobelCertFormula{padding:3px 7px!important;font-size:9px!important}
+#modalBox.winResultModal .nobelShareActions{gap:5px!important;margin:4px 0!important}
+#modalBox.winResultModal .nobelShareActions .btn{min-height:34px!important;padding:6px 8px!important;font-size:10px!important}
+
+@media(max-height:700px){
+  #modalBox.winResultModal{padding:8px 10px!important}
+  #modalBox.winResultModal .mxResultMolecule{width:62px!important;height:62px!important}
+  #modalBox.winResultModal .mxResultOrbit{font-size:28px!important}
+  #modalBox.winResultModal .performanceResult{margin:3px auto!important;padding:4px 6px!important}
+  #modalBox.winResultModal .mxSolveTimeResult{margin:3px auto!important;padding:4px 7px!important}
+  #modalBox.winResultModal .mstars{font-size:27px!important;min-height:29px!important;margin:2px 0!important}
+  #modalBox.winResultModal .mrow{gap:4px!important;margin-top:4px!important}
+  #modalBox.winResultModal .mrow>.btn{min-height:34px!important;padding:5px 7px!important;font-size:10.5px!important}
+  #modalBox.winResultModal #mNext{min-height:38px!important;font-size:12px!important}
+}
+
+/* Final guard: no sideways menu drift on phone screens. */
+.screen,#modal,#modalBox,#levelStoryPanel{max-width:100vw;overflow-x:hidden}
+/* Science content polish — keep educational notes readable without enlarging cards. */
+.molCard .molModelNote{font-size:9.5px;line-height:1.3;color:rgba(190,220,245,.72);padding-top:2px}
+.elCard .elFact{font-size:8.8px;line-height:1.25;color:var(--dim);margin:3px 4px 0;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+@media(max-width:420px){
+  .molCard .molModelNote{font-size:9px}
+  .elCard .elFact{font-size:8.3px;-webkit-line-clamp:3}
+}
+
+
+/* STORY LOCK CANDIDATE 2 — art is never covered by dialogue */
+#levelStoryPanel .comicHero .speechBubble{display:none!important}
+#levelStoryPanel .comicReaction{justify-content:flex-start!important;align-items:stretch!important;gap:5px!important;background:linear-gradient(180deg,#fffdf5,#f7f1df)!important}
+#levelStoryPanel .comicReaction .speechBubble{display:block;position:relative!important;inset:auto!important;box-sizing:border-box!important;width:min(92%,390px)!important;max-width:100%!important;max-height:none!important;overflow:visible!important;margin:0!important;padding:8px 10px!important;border:2px solid #17243a!important;border-radius:15px!important;background:#fff!important;color:#17243a!important;box-shadow:2px 3px 0 rgba(23,36,58,.85)!important;transform:none!important;font-size:clamp(10.5px,2.3vw,12.5px)!important;line-height:1.22!important;text-align:left!important;align-self:flex-start!important}
+#levelStoryPanel .comicReaction .speechBubble:after{display:block!important;content:""!important;position:absolute!important;left:18px!important;right:auto!important;bottom:-7px!important;width:12px!important;height:12px!important;background:#fff!important;border:0!important;border-right:2px solid #17243a!important;border-bottom:2px solid #17243a!important;transform:rotate(45deg)!important}
+#levelStoryPanel.speakerNull .comicReaction .speechBubble{align-self:flex-end!important}
+#levelStoryPanel.speakerNull .comicReaction .speechBubble:after{left:auto!important;right:18px!important}
+#levelStoryPanel.speakerCat .comicReaction .speechBubble,#levelStoryPanel.speakerMoxy .comicReaction .speechBubble{align-self:center!important}
+#levelStoryPanel.speakerCat .comicReaction .speechBubble:after,#levelStoryPanel.speakerMoxy .comicReaction .speechBubble:after{left:50%!important;margin-left:-6px!important}
+#levelStoryPanel:not(.storyHasDialogue) .comicReaction .speechBubble{display:none!important}
+#levelStoryPanel .reactionMolecule{display:none!important}
+#levelStoryPanel:not(.storyHasFx) .comicBang{display:none!important}
+#levelStoryPanel .comicBang{max-width:45%!important;padding:3px 6px!important;border-width:2px!important;border-radius:8px!important;font-size:clamp(9px,2.2vw,12px)!important;line-height:1!important;opacity:.92!important}
+#levelStoryPanel.hasSceneArt .comicHero .sceneArtImg{inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important}
+#levelStoryPanel .storyNarration{margin-top:0!important}
+#levelStoryPanel .reactionText{margin-top:0!important}
+@media(max-width:620px){#levelStoryPanel .comicReaction{padding:6px 7px!important;gap:4px!important}#levelStoryPanel .comicReaction .speechBubble{padding:6px 8px!important;font-size:clamp(9.7px,2.55vw,10.8px)!important;line-height:1.18!important}#levelStoryPanel.hasSceneArt .comicPanel.comicHero{height:clamp(176px,27dvh,225px)!important}}
+@media(max-height:700px){#levelStoryPanel .comicReaction .speechBubble{padding:5px 7px!important;font-size:9.5px!important;line-height:1.16!important}#levelStoryPanel.hasSceneArt .comicPanel.comicHero{height:clamp(155px,25dvh,185px)!important}}
+
+
+/* ================= UI BALANCE + MOXY COMPANION POLISH 2 ================= */
+/* Result screen: one-screen composition, centered hierarchy, no internal rail. */
+#modal.winResultHost,#modal:has(#modalBox.winResultModal){overflow:hidden!important}
+#modalBox.winResultModal{
+  width:min(90vw,366px)!important;
+  max-height:calc(100dvh - max(10px,var(--sat)) - max(10px,var(--sab)))!important;
+  padding:clamp(8px,1.35vh,12px) clamp(10px,2.7vw,14px)!important;
+  overflow:hidden!important;
+}
+#modalBox.winResultModal h3{font-size:clamp(16px,4.35vw,19px)!important}
+#modalBox.winResultModal .msub{font-size:clamp(9.7px,2.55vw,11.5px)!important;margin-bottom:3px!important}
+#modalBox.winResultModal .mxResultMolecule{
+  width:clamp(62px,16.2vw,78px)!important;height:clamp(62px,16.2vw,78px)!important;
+  margin:1px auto 2px!important;overflow:hidden!important;
+  border:1px solid rgba(114,225,255,.32)!important;
+  box-shadow:inset 0 0 18px rgba(79,216,255,.08),0 6px 13px rgba(0,0,0,.24)!important;
+}
+#modalBox.winResultModal .mxResultMolecule::before,#modalBox.winResultModal .mxResultMolecule::after{inset:14%!important}
+#modalBox.winResultModal .mxResultOrbit{font-size:clamp(25px,6.7vw,32px)!important;transform-origin:center!important}
+#modalBox.winResultModal .mxResultMolecule>b{font-size:clamp(10.5px,2.8vw,12px)!important;margin-top:1px!important}
+#modalBox.winResultModal .mxResultMolecule>small{font-size:6.8px!important;max-width:68px!important}
+#modalBox.winResultModal .performanceResult{margin:3px auto!important;padding:4px 7px!important}
+#modalBox.winResultModal .mxSolveTimeResult{margin:3px auto!important;padding:5px 7px!important}
+#modalBox.winResultModal .mstars{font-size:clamp(25px,7vw,31px)!important;min-height:30px!important;letter-spacing:4px!important;margin:2px 0!important}
+#modalBox.winResultModal .mcoins{font-size:clamp(11px,3vw,13.5px)!important;margin-bottom:3px!important}
+/* Account invitation should inform without dominating the result card. */
+#modalBox.winResultModal .accountMilestoneInvite{
+  grid-template-columns:22px minmax(0,1fr) auto!important;gap:6px!important;
+  margin:3px 0!important;padding:5px 7px!important;border-radius:11px!important;
+}
+#modalBox.winResultModal .accountMilestoneIcon{font-size:17px!important}
+#modalBox.winResultModal .accountMilestoneInvite b{font-size:9.4px!important;line-height:1.05!important}
+#modalBox.winResultModal .accountMilestoneInvite span{font-size:8px!important;line-height:1.12!important;margin-top:1px!important}
+#modalBox.winResultModal .accountMilestoneInvite .btn{
+  grid-column:auto!important;width:auto!important;min-height:30px!important;padding:5px 8px!important;
+  font-size:9px!important;white-space:nowrap!important;margin:0!important;
+}
+#modalBox.winResultModal>#mDiscoverMolecule{
+  display:block!important;width:88%!important;min-height:34px!important;margin:3px auto 0!important;
+  padding:5px 8px!important;font-size:clamp(9.5px,2.6vw,11px)!important;
+}
+#modalBox.winResultModal .mrow{grid-template-columns:1fr 1fr!important;gap:5px!important;margin-top:5px!important}
+#modalBox.winResultModal .mrow>.btn{min-height:34px!important;padding:5px 7px!important;font-size:clamp(9.8px,2.7vw,11.3px)!important}
+#modalBox.winResultModal #mNext{
+  grid-column:1/-1!important;width:82%!important;justify-self:center!important;
+  min-height:37px!important;font-size:clamp(10.8px,3vw,12.5px)!important;
+}
+#modalBox.winResultModal #mBonusNow{width:86%!important;justify-self:center!important}
+@media(max-height:760px){
+  #modalBox.winResultModal{padding:7px 9px!important}
+  #modalBox.winResultModal .accountMilestoneInvite span{display:none!important}
+  #modalBox.winResultModal .accountMilestoneInvite{grid-template-columns:20px 1fr auto!important}
+  #modalBox.winResultModal .mxResultMolecule{width:58px!important;height:58px!important}
+  #modalBox.winResultModal .mrow>.btn{min-height:31px!important;font-size:9.7px!important}
+  #modalBox.winResultModal #mNext{min-height:34px!important}
+}
+@media(max-width:390px){
+  #modalBox.winResultModal{width:min(91vw,350px)!important}
+  #modalBox.winResultModal .accountMilestoneInvite .btn{padding:4px 6px!important;font-size:8.5px!important}
+}
+
+/* Moxy lives on the upper-left rim of the board after Experiment 50.
+   It stays outside playable cells and balances Dr. E on the lower-right. */
+#boardFrame>#moxyGameCompanion{
+  position:absolute!important;left:clamp(5px,1.6vw,10px)!important;right:auto!important;
+  top:clamp(-43px,-5.2vw,-31px)!important;bottom:auto!important;
+  width:clamp(48px,11.5vw,64px)!important;aspect-ratio:1.05/1!important;
+  z-index:18!important;pointer-events:none!important;filter:drop-shadow(0 5px 9px rgba(0,0,0,.52))!important;
+}
+#boardFrame>#moxyGameCompanion i{left:17%!important;right:17%!important;bottom:2%!important;height:18%!important}
+#boardFrame>#moxyGameCompanion.react-ready img{animation:mxMoxyFloatRim 2.7s ease-in-out infinite}
+#boardFrame>#moxyGameCompanion.mx-pop img{animation:mxMoxyPop .58s cubic-bezier(.2,1.55,.35,1)!important}
+#boardFrame>#moxyGameCompanion.mx-squish img{animation:mxMoxySquish .46s cubic-bezier(.2,1.6,.35,1)!important}
+#boardFrame>#moxyGameCompanion.mx-happy img{animation:mxMoxyHappy .78s ease!important}
+@keyframes mxMoxyFloatRim{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-4px) rotate(2deg)}}
+@keyframes mxMoxyPop{0%{transform:scale(.8,.72) translateY(3px)}42%{transform:scale(1.12,.94) translateY(-8px)}72%{transform:scale(.96,1.06) translateY(-2px)}100%{transform:scale(1) translateY(0)}}
+@keyframes mxMoxySquish{0%,100%{transform:scale(1)}35%{transform:scale(1.12,.78) translateY(4px)}65%{transform:scale(.9,1.13) translateY(-5px)}}
+@keyframes mxMoxyHappy{0%,100%{transform:translateY(0) rotate(0)}28%{transform:translateY(-7px) rotate(-8deg)}55%{transform:translateY(-3px) rotate(8deg)}78%{transform:translateY(-5px) rotate(-4deg)}}
+@media(max-width:390px){#boardFrame>#moxyGameCompanion{left:4px!important;top:-35px!important;width:50px!important}}
+@media(max-height:700px){#boardFrame>#moxyGameCompanion{top:-31px!important;width:46px!important}}
+body.mxReduceMotion #boardFrame>#moxyGameCompanion img{animation:none!important}
+\n\n/* ================= RESULT CLEANUP + FX POLISH 3 ================= */\n/* Moleculopedia remains available from the collection navigation; the result card focuses on flow. */\n#modalBox.winResultModal>#mDiscoverMolecule{display:none!important}\n#modalBox.winResultModal .mrow{margin-top:7px!important;gap:7px!important}\n#modalBox.winResultModal #mNext{\n  width:88%!important;min-height:42px!important;justify-self:center!important;\n  font-size:clamp(11.5px,3.2vw,13.5px)!important;letter-spacing:.02em!important;\n}\n#modalBox.winResultModal #mRetry,#modalBox.winResultModal #mLab{\n  min-height:35px!important;font-size:clamp(9.8px,2.7vw,11.4px)!important;\n}\n/* Nudge Moxy slightly down while keeping it on the non-playable board rim. */\n#boardFrame>#moxyGameCompanion{top:clamp(-36px,-4.35vw,-24px)!important}\n@media(max-width:390px){#boardFrame>#moxyGameCompanion{top:-28px!important}}\n@media(max-height:700px){#boardFrame>#moxyGameCompanion{top:-24px!important}}\n
+/* ================= CHARACTER LIFE PASS 1 =================
+   Moxy: organic wordless idle reactions. Dr. E: subtle idle life only.
+   No gameplay geometry is affected. */
+#boardFrame>#moxyGameCompanion b{
+  position:absolute;z-index:4;pointer-events:none;
+  width:10px;height:10px;border-radius:50%;right:13%;top:20%;
+  opacity:0;background:radial-gradient(circle,#fff 0 18%,#8eeaff 28%,rgba(142,234,255,0) 72%);
+  filter:drop-shadow(0 0 5px rgba(110,226,255,.95));
+}
+#boardFrame>#moxyGameCompanion.react-ready b{animation:mxMoxyGlint 7.4s ease-in-out infinite}
+#boardFrame>#moxyGameCompanion.mx-curious img{animation:mxMoxyCurious 1.45s cubic-bezier(.22,.8,.24,1)!important}
+#boardFrame>#moxyGameCompanion.mx-wiggle img{animation:mxMoxyWiggle 1.05s cubic-bezier(.2,.9,.24,1)!important}
+#boardFrame>#moxyGameCompanion.mx-listen img{animation:mxMoxyListen 1.2s ease!important}
+#boardFrame>#moxyGameCompanion.mx-curious b,
+#boardFrame>#moxyGameCompanion.mx-happy b{animation:mxMoxySpark .72s ease-out 1!important}
+@keyframes mxMoxyCurious{
+  0%,100%{transform:translateY(0) rotate(-1deg) scale(1)}
+  32%{transform:translate(3px,-4px) rotate(7deg) scale(.98,1.03)}
+  62%{transform:translate(4px,-2px) rotate(9deg) scale(1.02,.99)}
+}
+@keyframes mxMoxyWiggle{
+  0%,100%{transform:translateY(0) rotate(0) scale(1)}
+  18%{transform:translateY(-2px) rotate(-7deg) scale(1.03,.97)}
+  42%{transform:translateY(-4px) rotate(7deg) scale(.98,1.04)}
+  68%{transform:translateY(-2px) rotate(-4deg) scale(1.02,.99)}
+}
+@keyframes mxMoxyListen{
+  0%,100%{transform:translateY(0) rotate(-1deg)}
+  35%,70%{transform:translate(3px,-3px) rotate(5deg) scale(.99,1.02)}
+}
+@keyframes mxMoxyGlint{
+  0%,72%,100%{opacity:0;transform:scale(.35) rotate(0)}
+  77%{opacity:.95;transform:scale(1.35) rotate(45deg)}
+  82%{opacity:0;transform:scale(.6) rotate(90deg)}
+}
+@keyframes mxMoxySpark{0%{opacity:0;transform:scale(.2)}38%{opacity:1;transform:scale(1.7)}100%{opacity:0;transform:scale(.5)}}
+
+#einBoxG:not(.mxPoseAsset).mx-life-breathe .einImg{animation:mxDrELifeBreathe 1.35s ease-in-out!important}
+#einBoxG:not(.mxPoseAsset).mx-life-nod .einImg{animation:mxDrELifeNod 1.25s ease-in-out!important}
+@keyframes mxDrELifeBreathe{
+  0%,100%{transform:translateY(0) scale(1)}
+  50%{transform:translateY(-2px) scale(1.008,1.018)}
+}
+@keyframes mxDrELifeNod{
+  0%,100%{transform:translateY(0) rotate(0)}
+  38%{transform:translateY(2px) rotate(1.1deg)}
+  66%{transform:translateY(-1px) rotate(-.6deg)}
+}
+body.mxReduceMotion #boardFrame>#moxyGameCompanion b,
+body.mxReduceMotion #einBoxG .einImg{animation:none!important}
+
+
+/* R38 UI + Animation Polish — account single-screen layout */
+#modalBox.accountModal{
+  width:min(92vw,390px)!important;
+  max-height:calc(100dvh - max(10px,var(--sat)) - max(10px,var(--sab)))!important;
+  overflow:hidden!important;
+  padding:clamp(10px,1.55vh,14px) 14px 11px!important;
+}
+#modalBox.accountModal>.mxModalScrollRail{display:none!important}
+#modalBox.accountModal>.mxUniversalBody{
+  overflow:visible!important;max-height:none!important;height:auto!important;padding:0!important;
+}
+#modalBox.accountModal h3{
+  margin:0 0 5px!important;
+  font-size:clamp(14px,3.8vw,17px)!important;
+  line-height:1.08!important;
+}
+#modalBox.accountModal .accountCloseX{
+  width:36px!important;height:36px!important;min-height:36px!important;
+  right:8px!important;top:8px!important;font-size:25px!important;
+}
+#modalBox.accountModal .accountHero{
+  gap:9px!important;padding:8px 9px!important;margin-bottom:5px!important;
+  border-radius:13px!important;
+}
+#modalBox.accountModal .accountAvatar{width:40px!important;height:40px!important;font-size:19px!important}
+#modalBox.accountModal .accountHero strong{font-size:13.5px!important;margin-bottom:1px!important;line-height:1.1!important}
+#modalBox.accountModal .accountHero small{font-size:10px!important;line-height:1.22!important}
+#modalBox.accountModal .accountNotice{
+  padding:7px 9px!important;margin:5px 0!important;border-radius:11px!important;
+  font-size:10.5px!important;line-height:1.23!important;
+}
+#modalBox.accountModal .accountActions{gap:5px!important}
+#modalBox.accountModal .accountActions .btn{
+  min-height:38px!important;height:auto!important;padding:7px 8px!important;
+  font-size:clamp(11px,3.15vw,13px)!important;line-height:1.12!important;
+  border-radius:12px!important;margin:0!important;
+}
+#modalBox.accountModal .accountActions .btn.google::before{
+  width:19px!important;height:19px!important;font-size:13px!important;
+}
+#modalBox.accountModal .accountUtilityRow{
+  gap:5px!important;margin:0!important;
+}
+#modalBox.accountModal .accountUtilityRow .btn{
+  min-height:46px!important;font-size:clamp(10px,2.9vw,12px)!important;
+  padding:6px!important;
+}
+#modalBox.accountModal .authTiny{
+  margin-top:4px!important;font-size:9px!important;line-height:1.15!important;
+}
+#modalBox.accountModal .accountDivider{margin:4px 0!important;font-size:8.5px!important}
+@media(max-height:760px){
+  #modalBox.accountModal{padding:8px 11px!important}
+  #modalBox.accountModal h3{font-size:14px!important;margin-bottom:3px!important}
+  #modalBox.accountModal .accountHero{padding:6px 8px!important;margin-bottom:3px!important}
+  #modalBox.accountModal .accountAvatar{width:36px!important;height:36px!important}
+  #modalBox.accountModal .accountHero strong{font-size:12.5px!important}
+  #modalBox.accountModal .accountHero small{font-size:9px!important}
+  #modalBox.accountModal .accountNotice{padding:5px 7px!important;margin:3px 0!important;font-size:9.5px!important}
+  #modalBox.accountModal .accountActions{gap:4px!important}
+  #modalBox.accountModal .accountActions .btn{min-height:34px!important;padding:5px 7px!important;font-size:11px!important}
+  #modalBox.accountModal .accountUtilityRow .btn{min-height:40px!important;font-size:9.5px!important}
+  #modalBox.accountModal .authTiny{font-size:8.5px!important;margin-top:2px!important}
+}
+
+/* R38 premium but brief level-entry transition */
+#levelTransition{
+  display:grid;place-items:center;
+  background:
+    radial-gradient(circle at 50% 43%,rgba(59,42,116,.94),rgba(10,8,24,.98) 68%),
+    linear-gradient(180deg,#11102a,#070611)!important;
+  transition:opacity .25s ease!important;
+}
+#levelTransition .mxLevelEntryCard{
+  min-width:min(72vw,280px);padding:14px 22px 16px;border-radius:22px;text-align:center;
+  opacity:0;transform:translateY(13px) scale(.92);
+  border:1px solid rgba(126,228,255,.42);
+  background:linear-gradient(145deg,rgba(20,24,62,.86),rgba(39,20,73,.82));
+  box-shadow:0 18px 55px rgba(0,0,0,.48),0 0 32px rgba(112,93,255,.18),inset 0 0 0 1px rgba(255,255,255,.05);
+}
+#levelTransition.on .mxLevelEntryCard{animation:mxLevelEntryIn .46s cubic-bezier(.18,.9,.24,1) both}
+#levelTransition.mxOut .mxLevelEntryCard{animation:mxLevelEntryOut .28s ease-in both}
+.mxLevelEntryCard small{display:block;color:#7deaff;font:900 10px/1 system-ui;letter-spacing:.26em;margin-bottom:4px}
+.mxLevelEntryCard strong{display:block;color:#fff;font:1000 clamp(30px,9vw,42px)/.95 system-ui;text-shadow:0 0 18px rgba(143,117,255,.55)}
+.mxLevelEntryCard b{display:block;margin-top:9px;color:#fff;font:900 clamp(12px,3.7vw,15px)/1.1 system-ui;letter-spacing:.04em}
+.mxLevelEntryCard em{display:block;margin-top:3px;color:#ffd86e;font:900 12px/1 system-ui;font-style:normal}
+@keyframes mxLevelEntryIn{
+  0%{opacity:0;transform:translateY(13px) scale(.92);filter:blur(3px)}
+  58%{opacity:1;transform:translateY(-2px) scale(1.025);filter:blur(0)}
+  100%{opacity:1;transform:translateY(0) scale(1)}
+}
+@keyframes mxLevelEntryOut{to{opacity:0;transform:translateY(-8px) scale(1.025);filter:blur(2px)}}
+
+/* R38 result arrival + clearer three-star celebration */
+#modalBox.winResultModal.mxResultArrive{animation:mxResultPanelIn .38s cubic-bezier(.18,.9,.24,1) both}
+#modalBox.winResultModal.mxResultArrive .mstars{position:relative}
+#modalBox.winResultModal.mxResultArrive .mstars::after{
+  content:'';position:absolute;left:50%;top:50%;width:150px;height:44px;
+  transform:translate(-50%,-50%) scale(.45);border-radius:50%;
+  background:radial-gradient(ellipse,rgba(255,224,105,.30),rgba(255,205,69,.08) 48%,transparent 72%);
+  opacity:0;pointer-events:none;animation:mxStarsHalo 1.45s .62s ease-out both;
+}
+#modalBox.winResultModal .mstars span.pop{
+  filter:drop-shadow(0 0 7px rgba(255,211,75,.72));
+}
+@keyframes mxResultPanelIn{
+  0%{opacity:0;transform:translateY(18px) scale(.965)}
+  70%{opacity:1;transform:translateY(-2px) scale(1.008)}
+  100%{opacity:1;transform:none}
+}
+@keyframes mxStarsHalo{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.45)}
+  35%{opacity:.95}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(1.35)}
+}
+@media(prefers-reduced-motion:reduce){
+  #levelTransition .mxLevelEntryCard,#modalBox.winResultModal.mxResultArrive,
+  #modalBox.winResultModal.mxResultArrive .mstars::after{animation:none!important}
+}
+
+
+/* R38 VFX Pass 1 — restrained chemical bond bloom */
+.mxBondBloom{
+  position:fixed;z-index:88;pointer-events:none;
+  width:22px;height:22px;border-radius:50%;
+  transform:translate(-50%,-50%) scale(.25);opacity:0;
+  border:2px solid color-mix(in srgb,var(--mx-bond-col,#9feeff) 72%,white);
+  box-shadow:
+    0 0 9px var(--mx-bond-col,#9feeff),
+    0 0 22px color-mix(in srgb,var(--mx-bond-col,#9feeff) 62%,transparent),
+    inset 0 0 12px rgba(255,255,255,.7);
+  animation:mxBondBloomOut .56s cubic-bezier(.15,.76,.22,1) both;
+}
+@keyframes mxBondBloomOut{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.22)}
+  18%{opacity:.95}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(3.1)}
+}
+@media(prefers-reduced-motion:reduce){.mxBondBloom{display:none!important}}
+
+
+/* R38 VFX Pass 2 — readable, short-lived mechanic pulses */
+.mxSpecialCellPulse{
+  position:fixed;z-index:87;pointer-events:none;
+  width:38px;height:38px;border-radius:50%;
+  transform:translate(-50%,-50%) scale(.35);opacity:0;
+  border:2px solid #9fefff;
+  box-shadow:0 0 12px rgba(122,232,255,.75),inset 0 0 12px rgba(255,255,255,.42);
+  animation:mxSpecialCellPulseOut .58s cubic-bezier(.14,.76,.2,1) both;
+}
+.mxSpecialCellPulse.chain{
+  border-color:#ffd65c;box-shadow:0 0 13px rgba(255,202,68,.82),0 0 28px rgba(255,123,45,.28);
+}
+.mxSpecialCellPulse.gateOpen{
+  border-color:#70ffb0;box-shadow:0 0 13px rgba(88,255,171,.72),0 0 25px rgba(88,255,171,.22);
+}
+.mxSpecialCellPulse.gateClose{
+  border-color:#ffd06c;box-shadow:0 0 13px rgba(255,203,95,.68),0 0 22px rgba(255,144,52,.20);
+}
+.mxSpecialCellPulse.barrierBreak{
+  border-color:#9af4ff;box-shadow:0 0 14px rgba(116,235,255,.86),0 0 31px rgba(79,173,255,.3);
+}
+@keyframes mxSpecialCellPulseOut{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.28)}
+  16%{opacity:.96}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(calc(2.25 * var(--mx-cell-strength,1)))}
+}
+@media(prefers-reduced-motion:reduce){.mxSpecialCellPulse{display:none!important}}
+
+.mxSpecialCellPulse.portalA{
+  border-color:#6eefff;box-shadow:0 0 14px rgba(90,235,255,.84),0 0 31px rgba(52,159,255,.24);
+}
+.mxSpecialCellPulse.portalB{
+  border-color:#cf92ff;box-shadow:0 0 14px rgba(199,126,255,.84),0 0 31px rgba(126,66,255,.24);
+}
+
+
+/* R38 Character Interaction Pass */
+#boardFrame>#moxyGameCompanion{
+  transition:transform .78s cubic-bezier(.2,.78,.2,1),filter .35s ease!important;
+  will-change:transform;
+}
+#boardFrame>#moxyGameCompanion.mx-visit-dre{
+  transform:translate(var(--mx-visit-x,0px),var(--mx-visit-y,0px)) scale(1.06)!important;
+  filter:drop-shadow(0 8px 14px rgba(0,0,0,.52)) drop-shadow(0 0 9px rgba(104,229,255,.38))!important;
+  z-index:74!important;
+}
+#mxMoxyEmojiBubble{
+  position:fixed;z-index:96;pointer-events:none;
+  min-width:42px;min-height:34px;padding:5px 8px;
+  display:grid;place-items:center;
+  border:2px solid rgba(20,37,58,.92);border-radius:18px 18px 18px 5px;
+  background:rgba(255,255,255,.97);color:#17243a;
+  box-shadow:0 7px 18px rgba(0,0,0,.30);
+  font:900 clamp(17px,5vw,23px)/1 system-ui,-apple-system,sans-serif;
+  opacity:0;transform:translate(-50%,-100%) scale(.7);
+}
+#mxMoxyEmojiBubble.on{animation:mxMoxyEmojiTalk 1.45s cubic-bezier(.18,.86,.25,1) both}
+@keyframes mxMoxyEmojiTalk{
+  0%{opacity:0;transform:translate(-50%,-92%) scale(.66)}
+  18%{opacity:1;transform:translate(-50%,-108%) scale(1.08)}
+  30%,74%{opacity:1;transform:translate(-50%,-104%) scale(1)}
+  100%{opacity:0;transform:translate(-50%,-114%) scale(.9)}
+}
+body.mxReduceMotion #boardFrame>#moxyGameCompanion{transition:none!important}
+body.mxReduceMotion #mxMoxyEmojiBubble{display:none!important}
+
+
+/* ================= R38 AAA CHARACTER + VFX POLISH =================
+   Existing artwork only: motion, light, timing and material response. */
+
+/* Moxy: organic jelly motion rather than repeated sprite bouncing. */
+#boardFrame>#moxyGameCompanion img{
+  transform-origin:50% 84%;
+  backface-visibility:hidden;
+}
+#boardFrame>#moxyGameCompanion.mx-peek img{animation:mxMoxyPeek 1.35s cubic-bezier(.22,.75,.2,1)!important}
+#boardFrame>#moxyGameCompanion.mx-floaty img{animation:mxMoxyFloaty 1.65s cubic-bezier(.2,.78,.22,1)!important}
+#boardFrame>#moxyGameCompanion.mx-greet img{animation:mxMoxyGreet 1.12s cubic-bezier(.16,.88,.25,1)!important}
+#boardFrame>#moxyGameCompanion.mx-curious img{animation:mxMoxyCuriousAAA 1.55s cubic-bezier(.2,.8,.22,1)!important}
+#boardFrame>#moxyGameCompanion.mx-wiggle img{animation:mxMoxyWiggleAAA 1.08s cubic-bezier(.22,.78,.2,1)!important}
+#boardFrame>#moxyGameCompanion.mx-listen img{animation:mxMoxyListenAAA 1.3s cubic-bezier(.2,.8,.2,1)!important}
+#boardFrame>#moxyGameCompanion.mx-happy img{animation:mxMoxyHappyAAA .86s cubic-bezier(.18,1.1,.22,1)!important}
+
+@keyframes mxMoxyPeek{
+  0%,100%{transform:translate(0,0) rotate(0) scale(1)}
+  28%{transform:translate(3px,-3px) rotate(5deg) scale(.98,1.03)}
+  52%{transform:translate(5px,-5px) rotate(7deg) scale(.96,1.05)}
+  72%{transform:translate(2px,-2px) rotate(2deg) scale(1.02,.98)}
+}
+@keyframes mxMoxyFloaty{
+  0%,100%{transform:translateY(0) scale(1)}
+  25%{transform:translateY(-5px) scale(.97,1.035)}
+  52%{transform:translateY(-8px) scale(1.025,.98)}
+  76%{transform:translateY(-3px) scale(.99,1.015)}
+}
+@keyframes mxMoxyGreet{
+  0%,100%{transform:translateY(0) rotate(0) scale(1)}
+  24%{transform:translateY(-6px) rotate(-7deg) scale(.94,1.08)}
+  48%{transform:translateY(-2px) rotate(8deg) scale(1.08,.94)}
+  68%{transform:translateY(-5px) rotate(-4deg) scale(.97,1.04)}
+}
+@keyframes mxMoxyCuriousAAA{
+  0%,100%{transform:rotate(0) translateY(0) scale(1)}
+  30%{transform:rotate(-6deg) translate(-1px,-2px) scale(.98,1.025)}
+  62%{transform:rotate(5deg) translate(2px,-4px) scale(1.02,.985)}
+  78%{transform:rotate(2deg) translateY(-1px) scale(.995,1.01)}
+}
+@keyframes mxMoxyWiggleAAA{
+  0%,100%{transform:translateX(0) scale(1)}
+  18%{transform:translateX(-2px) rotate(-5deg) scale(1.07,.94)}
+  38%{transform:translateX(2px) rotate(5deg) scale(.94,1.07)}
+  58%{transform:translateX(-1px) rotate(-3deg) scale(1.04,.97)}
+  78%{transform:translateX(1px) rotate(2deg) scale(.98,1.025)}
+}
+@keyframes mxMoxyListenAAA{
+  0%,100%{transform:translate(0,0) rotate(0) scale(1)}
+  35%,68%{transform:translate(2px,-2px) rotate(5deg) scale(.98,1.025)}
+}
+@keyframes mxMoxyHappyAAA{
+  0%,100%{transform:translateY(0) rotate(0) scale(1)}
+  20%{transform:translateY(2px) scale(1.13,.88)}
+  43%{transform:translateY(-9px) rotate(-6deg) scale(.93,1.10)}
+  66%{transform:translateY(-3px) rotate(6deg) scale(1.06,.96)}
+  84%{transform:translateY(-1px) rotate(-2deg) scale(.99,1.02)}
+}
+
+/* Curved, buoyant trip to Dr. E instead of a straight UI translation. */
+#boardFrame>#moxyGameCompanion.mx-visit-dre{
+  animation:mxMoxyVisitArc .82s cubic-bezier(.18,.82,.2,1) both!important;
+  transition:filter .3s ease!important;
+}
+@keyframes mxMoxyVisitArc{
+  0%{transform:translate(0,0) scale(1)}
+  58%{transform:translate(calc(var(--mx-visit-x,0px)*.58),calc(var(--mx-visit-y,0px)*.58 - 10px)) scale(1.08)}
+  100%{transform:translate(var(--mx-visit-x,0px),var(--mx-visit-y,0px)) scale(1.055)}
+}
+
+/* Dr. E: tiny human-like weight shifts. Existing pose system remains authoritative. */
+#einBoxG:not(.mxPoseAsset).mx-life-focus .einImg{animation:mxDrEFocus 1.45s cubic-bezier(.25,.72,.2,1)!important}
+#einBoxG:not(.mxPoseAsset).mx-life-think .einImg{animation:mxDrEThink 1.65s cubic-bezier(.25,.72,.2,1)!important}
+#einBoxG:not(.mxPoseAsset).mx-life-settle .einImg{animation:mxDrESettle 1.45s ease-in-out!important}
+@keyframes mxDrEFocus{
+  0%,100%{transform:translate(0,0) scale(1);filter:brightness(1)}
+  40%,67%{transform:translate(-1px,-2px) scale(1.012);filter:brightness(1.035)}
+}
+@keyframes mxDrEThink{
+  0%,100%{transform:translate(0,0) rotate(0) scale(1)}
+  35%,66%{transform:translate(-1px,-1px) rotate(-1.25deg) scale(1.008)}
+}
+@keyframes mxDrESettle{
+  0%,100%{transform:translateY(0) scale(1)}
+  35%{transform:translateY(1px) scale(1.008,.992)}
+  68%{transform:translateY(-1px) scale(.997,1.005)}
+}
+
+/* Gentle optical polish around Dr. E, not an extra sprite. */
+#einBoxG::after{
+  content:'';position:absolute;inset:9% 10% 8%;pointer-events:none;z-index:0;border-radius:48%;
+  opacity:0;background:radial-gradient(ellipse at 50% 62%,rgba(114,226,255,.13),rgba(130,113,255,.035) 52%,transparent 72%);
+  transition:opacity .4s ease;
+}
+#einBoxG.mx-life-focus::after,#einBoxG.mx-life-think::after{opacity:1}
+
+body.mxReduceMotion #boardFrame>#moxyGameCompanion,
+body.mxReduceMotion #boardFrame>#moxyGameCompanion img,
+body.mxReduceMotion #einBoxG .einImg{animation:none!important}
+
+
+/* ================= MOXY ORIGINAL EXPRESSION LANGUAGE =================
+   No system emoji. All symbols and temporary hands are inline SVG. */
+#mxMoxyExpression{
+  position:fixed;z-index:98;pointer-events:none;
+  width:48px;height:48px;display:grid;place-items:center;
+  opacity:0;transform:translate(-50%,-92%) scale(.45) rotate(-7deg);
+  filter:drop-shadow(0 5px 10px rgba(0,0,0,.38));
+}
+#mxMoxyExpression.on{animation:mxExpressionPop 1.4s cubic-bezier(.16,.88,.22,1) both}
+#mxMoxyExpression.on.energy,#mxMoxyExpression.on.burst{animation-duration:1.65s}
+#mxMoxyExpression svg{overflow:visible}
+@keyframes mxExpressionPop{
+  0%{opacity:0;transform:translate(-50%,-88%) scale(.35) rotate(-9deg)}
+  18%{opacity:1;transform:translate(-50%,-108%) scale(1.12) rotate(4deg)}
+  34%,72%{opacity:1;transform:translate(-50%,-104%) scale(1) rotate(0)}
+  100%{opacity:0;transform:translate(-50%,-122%) scale(.78) rotate(7deg)}
+}
+
+#boardFrame>#moxyGameCompanion .mxMoxyGesture{
+  position:absolute;left:-24%;right:-24%;top:-17%;bottom:-14%;z-index:1;
+  pointer-events:none;opacity:0;transform-origin:50% 65%;
+}
+#boardFrame>#moxyGameCompanion .mxMoxyGesture:not(:empty){opacity:1}
+#boardFrame>#moxyGameCompanion .mxMoxyGesture.point{animation:mxGelPoint 1.35s cubic-bezier(.18,.85,.22,1) both}
+#boardFrame>#moxyGameCompanion .mxMoxyGesture.think{animation:mxGelThink 1.4s cubic-bezier(.18,.85,.22,1) both}
+#boardFrame>#moxyGameCompanion .mxMoxyGesture.celebrate{animation:mxGelCelebrate 1.65s cubic-bezier(.14,.9,.2,1) both}
+#boardFrame>#moxyGameCompanion .mxMoxyGesture.wave{animation:mxGelWave 1.25s cubic-bezier(.16,.88,.22,1) both}
+#boardFrame>#moxyGameCompanion .mxMoxyGesture.shield{animation:mxGelShield 1.35s cubic-bezier(.16,.82,.22,1) both}
+#boardFrame>#moxyGameCompanion .mxMoxyGesture svg{filter:drop-shadow(0 2px 4px rgba(30,185,220,.32))}
+@keyframes mxGelPoint{
+  0%,100%{opacity:0;transform:scale(.45,.7) translateX(-5px)}
+  20%,74%{opacity:1;transform:scale(1) translateX(0)}
+  42%{transform:scale(1.08,.94) translateX(3px)}
+}
+@keyframes mxGelThink{
+  0%,100%{opacity:0;transform:scale(.5) translate(-6px,5px)}
+  20%,76%{opacity:1;transform:scale(1) translate(0,0)}
+  48%{transform:scale(.96,1.05) translate(-1px,-2px)}
+}
+@keyframes mxGelCelebrate{
+  0%,100%{opacity:0;transform:scale(.5,.65) translateY(9px)}
+  18%{opacity:1;transform:scale(1.08,.92) translateY(-3px)}
+  38%,68%{opacity:1;transform:scale(.98,1.08) translateY(-7px)}
+  84%{opacity:.8;transform:scale(1.03,.97)}
+}
+@keyframes mxGelWave{
+  0%,100%{opacity:0;transform:scale(.55) rotate(0)}
+  20%{opacity:1;transform:scale(1) rotate(-8deg)}
+  38%{transform:scale(1.03) rotate(9deg)}
+  56%{transform:scale(.99) rotate(-7deg)}
+  74%{opacity:1;transform:scale(1) rotate(5deg)}
+}
+@keyframes mxGelShield{
+  0%,100%{opacity:0;transform:scale(.55) translateX(4px)}
+  20%,76%{opacity:1;transform:scale(1) translateX(0)}
+  46%{transform:scale(1.08,.96) translateX(2px)}
+}
+
+/* Ten named reaction states share the same canonical Moxy art, but have
+   independent performance/gesture/expression layers. */
+#boardFrame>#moxyGameCompanion.mx-state-pointing img{animation:mxMoxyPeek 1.35s cubic-bezier(.22,.75,.2,1)!important}
+#boardFrame>#moxyGameCompanion.mx-state-thinking img{animation:mxMoxyCuriousAAA 1.5s cubic-bezier(.2,.8,.22,1)!important}
+#boardFrame>#moxyGameCompanion.mx-state-worried img{animation:mxMoxySquish .52s cubic-bezier(.2,1.5,.35,1)!important}
+
+body.mxReduceMotion #mxMoxyExpression,
+body.mxReduceMotion #boardFrame>#moxyGameCompanion .mxMoxyGesture{display:none!important}
+
+
+/* ================= R38 REAL MOXY 10-POSE ART ================= */
+#boardFrame>#moxyGameCompanion img.mxPoseSwap{
+  animation:mxMoxyPoseSwap .24s cubic-bezier(.2,.82,.22,1) both;
+}
+@keyframes mxMoxyPoseSwap{
+  0%{opacity:.35;transform:scale(.88) translateY(3px)}
+  100%{opacity:1;transform:scale(1) translateY(0)}
+}
+#boardFrame>#moxyGameCompanion img{
+  object-fit:contain!important;
+  object-position:center!important;
+}
+
+/* ================= RESULT MOLECULE FORMULA VISIBILITY FIX =================
+   Keep the orbit compact, but never crop the chemical formula or molecule name. */
+#modalBox.winResultModal .mxResultMolecule{
+  overflow:visible!important;
+  width:clamp(70px,18vw,84px)!important;
+  height:clamp(70px,18vw,84px)!important;
+  margin:2px auto 17px!important;
+}
+#modalBox.winResultModal .mxResultOrbit{
+  position:absolute!important;
+  left:50%!important;top:44%!important;
+  transform:translate(-50%,-50%)!important;
+}
+#modalBox.winResultModal .mxResultMolecule::before,
+#modalBox.winResultModal .mxResultMolecule::after{
+  inset:8%!important;
+}
+#modalBox.winResultModal .mxResultFormula{
+  position:absolute!important;
+  left:50%!important;bottom:-8px!important;
+  transform:translateX(-50%)!important;
+  z-index:4!important;
+  display:block!important;
+  min-width:max-content!important;
+  padding:1px 6px!important;
+  border-radius:8px!important;
+  background:rgba(14,19,52,.78)!important;
+  color:#f5fbff!important;
+  font-size:clamp(12px,3.3vw,15px)!important;
+  line-height:1.15!important;
+  letter-spacing:.02em!important;
+  white-space:nowrap!important;
+  text-shadow:0 0 9px rgba(79,216,255,.75)!important;
+}
+#modalBox.winResultModal .mxResultName{
+  position:absolute!important;
+  left:50%!important;top:calc(100% + 10px)!important;
+  transform:translateX(-50%)!important;
+  z-index:4!important;
+  display:block!important;
+  width:min(170px,52vw)!important;
+  max-width:none!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+  white-space:nowrap!important;
+  color:#cfdcff!important;
+  font-size:clamp(7.5px,2vw,9px)!important;
+  line-height:1.1!important;
+  font-weight:850!important;
+  text-align:center!important;
+}
+@media(max-height:690px){
+  #modalBox.winResultModal .mxResultMolecule{
+    width:64px!important;height:64px!important;margin-bottom:15px!important;
+  }
+  #modalBox.winResultModal .mxResultFormula{font-size:11.5px!important;bottom:-8px!important}
+  #modalBox.winResultModal .mxResultName{font-size:7px!important;top:calc(100% + 9px)!important}
+}
+
+
+/* ================= GLOBAL CHEMICAL FORMULA FIT =================
+   Formulas stay on one line and shrink by content length instead of clipping. */
+#goalFor,
+.lvFormula,
+.mxResultFormula,
+.mxResultHeadingFormula,
+.nobelCertFormula{
+  max-width:100%!important;
+  box-sizing:border-box!important;
+  white-space:nowrap!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+  font-variant-numeric:lining-nums tabular-nums;
+}
+#goalFor{
+  display:block!important;
+  width:100%!important;
+  padding-inline:3px!important;
+  text-align:center!important;
+  line-height:1.05!important;
+}
+#goalFor.mxFormulaS{font-size:13px!important}
+#goalFor.mxFormulaM{font-size:11.5px!important;letter-spacing:-.1px!important}
+#goalFor.mxFormulaL{font-size:10px!important;letter-spacing:-.25px!important}
+#goalFor.mxFormulaXL{font-size:8.8px!important;letter-spacing:-.35px!important}
+
+.lvFormula.mxFormulaS{font-size:10px!important}
+.lvFormula.mxFormulaM{font-size:9px!important}
+.lvFormula.mxFormulaL{font-size:8px!important;max-width:92%!important}
+.lvFormula.mxFormulaXL{font-size:7px!important;max-width:96%!important;letter-spacing:-.25px!important}
+
+#modalBox.winResultModal .mxResultFormula.mxFormulaS{font-size:14px!important}
+#modalBox.winResultModal .mxResultFormula.mxFormulaM{font-size:12.5px!important}
+#modalBox.winResultModal .mxResultFormula.mxFormulaL{font-size:10.8px!important;letter-spacing:-.18px!important}
+#modalBox.winResultModal .mxResultFormula.mxFormulaXL{font-size:9.4px!important;letter-spacing:-.28px!important}
+#modalBox.winResultModal .mxResultFormula{
+  max-width:min(74vw,210px)!important;
+  min-width:0!important;
+  width:max-content!important;
+}
+
+/* Completion title no longer forces name + formula into one oversized line. */
+#modalBox.winResultModal .mxResultHeading{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  align-items:baseline!important;
+  justify-content:center!important;
+  gap:2px 7px!important;
+  width:100%!important;
+  max-width:100%!important;
+  padding-inline:4px!important;
+  overflow:visible!important;
+  text-align:center!important;
+  line-height:1.08!important;
+}
+#modalBox.winResultModal .mxResultHeadingName{
+  min-width:0!important;
+  max-width:100%!important;
+  overflow-wrap:anywhere!important;
+}
+#modalBox.winResultModal .mxResultHeadingFormula{
+  display:inline-block!important;
+  flex:0 0 auto!important;
+  white-space:nowrap!important;
+  color:#bff5ff!important;
+  text-shadow:0 0 8px rgba(79,216,255,.65)!important;
+}
+#modalBox.winResultModal .mxResultHeadingFormula.mxFormulaS{font-size:.82em!important}
+#modalBox.winResultModal .mxResultHeadingFormula.mxFormulaM{font-size:.75em!important}
+#modalBox.winResultModal .mxResultHeadingFormula.mxFormulaL{font-size:.66em!important}
+#modalBox.winResultModal .mxResultHeadingFormula.mxFormulaXL{font-size:.58em!important}
+
+@media(max-width:390px){
+  #goalFor.mxFormulaL{font-size:9.2px!important}
+  #goalFor.mxFormulaXL{font-size:8px!important}
+  #modalBox.winResultModal .mxResultFormula.mxFormulaL{font-size:10px!important}
+  #modalBox.winResultModal .mxResultFormula.mxFormulaXL{font-size:8.7px!important}
+}
+@media(max-height:690px){
+  #goalFor.mxFormulaS{font-size:11px!important}
+  #goalFor.mxFormulaM{font-size:10px!important}
+  #goalFor.mxFormulaL{font-size:9px!important}
+  #goalFor.mxFormulaXL{font-size:7.8px!important}
+}
+
+
+/* ================= MOBILE PLAYABILITY FIX ================= */
+
+/* iOS Safari: manipulation was overriding the board's touch-action:none.
+   The puzzle board owns the gesture completely; page scrolling must never steal atom swipes. */
+html body #board,
+html body #boardFrame canvas#board{
+  touch-action:none!important;
+  -ms-touch-action:none!important;
+  user-select:none!important;
+  -webkit-user-select:none!important;
+  -webkit-touch-callout:none!important;
+}
+
+/* Slightly smaller target card: enough room for Moxy without shrinking gameplay text aggressively. */
+
+
+
+/* Moxy: larger and closer to the playable board rim, but never inside a cell hit area. */
+#boardFrame>#moxyGameCompanion{
+  left:clamp(5px,1.5vw,9px)!important;
+  top:clamp(-18px,-2.1vw,-11px)!important;
+  width:clamp(66px,16.5vw,82px)!important;
+  z-index:108!important;
+  overflow:visible!important;
+}
+@media(max-width:390px){
+  #boardFrame>#moxyGameCompanion{
+    left:5px!important;
+    top:-15px!important;
+    width:68px!important;
+  }
+}
+#boardFrame>#moxyGameCompanion.mx-visit-dre,
+#boardFrame>#moxyGameCompanion.mx-visit-return,
+#boardFrame>#moxyGameCompanion.mxCinemaFocus{
+  z-index:118!important;
+}
+
+/* Original Moleculox expression symbols must remain readable over HUD/bubbles. */
+#mxMoxyExpression{
+  z-index:126!important;
+  width:58px!important;height:58px!important;
+  filter:drop-shadow(0 3px 3px rgba(0,0,0,.72)) drop-shadow(0 0 9px rgba(94,229,255,.78))!important;
+}
+#mxMoxyExpression svg{width:58px!important;height:58px!important}
+#mxMoxyExpression.on{opacity:1}
+
+/* During a Dr. E line, keep Moxy optically above the board and never behind the legacy bubble. */
+#boardFrame>#moxyGameCompanion.mx-look-dre,
+#boardFrame>#moxyGameCompanion.mxCinemaFocus{opacity:1!important;visibility:visible!important}
+
+/* Character bubble stays below expression symbols but above the board. */
+#mxCharacterBeatBubble{z-index:122!important}
+
+
+/* ================= LEVEL TITLE CENTERING ================= */
+#hudMid{
+  align-items:center!important;
+  text-align:center!important;
+}
+#lvPill{
+  display:block!important;
+  width:100%!important;
+  max-width:100%!important;
+  margin-inline:auto!important;
+  text-align:center!important;
+  white-space:normal!important;
+  overflow-wrap:anywhere!important;
+  line-height:1.12!important;
+  padding-inline:4px!important;
+  box-sizing:border-box!important;
+}
+@media(max-width:430px){
+  #lvPill{font-size:clamp(14px,4.3vw,17px)!important;letter-spacing:.7px!important}
+}
+@media(max-width:370px){
+  #lvPill{font-size:13.5px!important;letter-spacing:.45px!important}
+}
+
+/* ================= RESPONSIVE FRAME CENTERING — R38 =================
+   Remove the old native right-bias and center all modal frames from the viewport,
+   not from an inner scroll rail. */
+#modal{
+  box-sizing:border-box!important;
+  width:100%!important;
+  left:0!important;right:0!important;
+  justify-content:center!important;
+  padding-left:max(10px,var(--sal))!important;
+  padding-right:max(10px,var(--sar))!important;
+}
+#modalBox{
+  position:relative!important;
+  left:auto!important;right:auto!important;
+  margin-left:auto!important;margin-right:auto!important;
+  box-sizing:border-box!important;
+  transform-origin:50% 50%!important;
+}
+body.mxNative #modalBox.accountModal .accountActions,
+body.mxNative #modalBox .mrow,
+body.mxNative #modalBox.settingsModal .settingsActions{
+  margin-left:auto!important;
+  margin-right:auto!important;
+  width:100%!important;
+}
+#modalBox>.mxFirstUseHead,
+#modalBox>.mxMechanicContextNote,
+#modalBox>.mxFirstUseList,
+#modalBox>.mrow,
+#modalBox>.performanceResult,
+#modalBox>.mxSolveTimeResult,
+#modalBox>.accountMilestoneInvite{
+  box-sizing:border-box!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  max-width:100%!important;
+}
+#modal:has(.mxFirstUseHead) #modalBox{
+  width:min(calc(100vw - max(20px,var(--sal)) - max(20px,var(--sar))),430px)!important;
+}
+.mxFirstUseHead{
+  width:100%!important;
+  margin-left:auto!important;margin-right:auto!important;
+  padding-left:11px!important;padding-right:11px!important;
+}
+.mxFirstUseList{width:100%!important;padding-left:0!important;padding-right:0!important}
+.mxFirstUseRow{width:100%!important;margin-inline:auto!important}
+#modal:has(.mxFirstUseHead) #modalBox .mrow{width:100%!important}
+@media(max-width:390px){
+  #modal{padding-left:max(8px,var(--sal))!important;padding-right:max(8px,var(--sar))!important}
+  #modal:has(.mxFirstUseHead) #modalBox{width:min(calc(100vw - max(16px,var(--sal)) - max(16px,var(--sar))),390px)!important}
+}
+
+/* ================= RESULT ATOM — RESTORE OLD LIVING MOTION =================
+   The formula/name stay fixed; only the atom icon and orbital rings move. */
+#modalBox.winResultModal .mxResultMolecule{
+  overflow:visible!important;
+}
+#modalBox.winResultModal .mxResultMolecule::before{
+  animation:mxResultOrbitSpin 5.4s linear infinite!important;
+}
+#modalBox.winResultModal .mxResultMolecule::after{
+  animation:mxResultOrbitSpin 6.8s linear infinite reverse!important;
+}
+#modalBox.winResultModal .mxResultOrbit{
+  animation:mxResultCoreSpin 7.2s linear infinite!important;
+  transform-origin:50% 50%!important;
+}
+#modalBox.winResultModal .mxResultFormula,
+#modalBox.winResultModal .mxResultName{
+  animation:none!important;
+}
+@media(prefers-reduced-motion:reduce){
+  #modalBox.winResultModal .mxResultMolecule::before,
+  #modalBox.winResultModal .mxResultMolecule::after,
+  #modalBox.winResultModal .mxResultOrbit{animation:none!important}
+}
+
+/* ================= PROFESSIONAL BOOT REVEAL — EXISTING ART ONLY ================= */
+#bootStage{isolation:isolate!important}
+#bootStage::before{
+  content:'';position:absolute;inset:-8%;z-index:5;pointer-events:none;
+  opacity:0;
+  background:
+    radial-gradient(circle at 30% 28%,rgba(255,217,126,.34),transparent 17%),
+    radial-gradient(circle at 55% 52%,rgba(95,213,255,.10),transparent 38%),
+    linear-gradient(112deg,transparent 38%,rgba(170,238,255,.14) 49%,transparent 60%);
+  mix-blend-mode:screen;
+}
+#bootStage::after{
+  content:'';position:absolute;inset:0;z-index:6;pointer-events:none;
+  opacity:0;
+  background:linear-gradient(90deg,transparent 0%,rgba(102,225,255,.18) 48%,rgba(255,255,255,.30) 50%,rgba(102,225,255,.14) 52%,transparent 100%);
+  transform:translateX(-120%) skewX(-10deg);
+  mix-blend-mode:screen;
+}
+#bootScr.mxBootPower #bootStage::before{animation:mxBootPowerBloom 1.25s ease-out both}
+#bootScr.mxBootScan #bootStage::after{animation:mxBootScanSweep .92s cubic-bezier(.2,.72,.2,1) both}
+#bootScr.mxBootReveal #bootBg{animation:mxBootImageSettle .86s cubic-bezier(.18,.82,.22,1) both}
+#bootScr.mxBootReveal #bootLogoHalo{animation:mxBootHaloProfessional 1.4s ease-out both!important}
+#bootScr.mxBootReveal .bootAtomGlow{animation:mxBootAtomWake 1.05s ease-out both!important}
+@keyframes mxBootPowerBloom{
+  0%{opacity:0;filter:blur(18px);transform:scale(.96)}
+  55%{opacity:.78;filter:blur(5px);transform:scale(1.015)}
+  100%{opacity:.32;filter:blur(0);transform:scale(1)}
+}
+@keyframes mxBootScanSweep{
+  0%{opacity:0;transform:translateX(-120%) skewX(-10deg)}
+  18%{opacity:.78}
+  100%{opacity:0;transform:translateX(120%) skewX(-10deg)}
+}
+@keyframes mxBootImageSettle{
+  0%{filter:brightness(.72) saturate(.78) contrast(1.06);transform:scale(1.018)}
+  100%{filter:brightness(1) saturate(1) contrast(1);transform:scale(1)}
+}
+@keyframes mxBootHaloProfessional{
+  0%{opacity:0;filter:blur(14px);transform:translate(-50%,-50%) scale(.72)}
+  45%{opacity:.88}
+  100%{opacity:.46;filter:blur(6px);transform:translate(-50%,-50%) scale(1)}
+}
+@keyframes mxBootAtomWake{
+  0%{opacity:0;filter:blur(10px) brightness(.7)}
+  55%{opacity:1;filter:blur(2px) brightness(1.35)}
+  100%{opacity:.72;filter:blur(0) brightness(1)}
+}
+#bootDarkScrim{transition:opacity .85s cubic-bezier(.2,.75,.2,1)!important}
+#bootBulbGlow.on{
+  animation:mxBulbProfessional .9s cubic-bezier(.18,.8,.2,1) forwards,bulbPulse 3.6s ease-in-out .9s infinite!important;
+}
+@keyframes mxBulbProfessional{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.52);filter:blur(7px)}
+  28%{opacity:.42}
+  55%{opacity:1;transform:translate(-50%,-50%) scale(1.14);filter:blur(1px)}
+  100%{opacity:.9;transform:translate(-50%,-50%) scale(1);filter:blur(0)}
+}
+@media(prefers-reduced-motion:reduce){
+  #bootStage::before,#bootStage::after,#bootBg,#bootLogoHalo,.bootAtomGlow,#bootBulbGlow.on{animation:none!important}
+}
+
+
+/* ================= RESULT ATOM — ACTUAL GLYPH ROTATION FIX =================
+   Previous rule animated .mxResultOrbit itself, whose transform is also used
+   for centering. Rotate the visible atom glyph instead; formula/name stay still. */
+#modalBox.winResultModal .mxResultOrbit span{
+  display:inline-block!important;
+  transform-origin:50% 50%!important;
+  animation:mxResultAtomGlyphSpin 3.8s linear infinite!important;
+  will-change:transform;
+}
+#modalBox.winResultModal .mxResultMolecule::before{
+  animation:mxResultRingA 4.6s linear infinite!important;
+}
+#modalBox.winResultModal .mxResultMolecule::after{
+  animation:mxResultRingB 5.8s linear infinite reverse!important;
+}
+@keyframes mxResultAtomGlyphSpin{
+  from{transform:rotate(0deg) scale(1)}
+  50%{transform:rotate(180deg) scale(1.035)}
+  to{transform:rotate(360deg) scale(1)}
+}
+@keyframes mxResultRingA{
+  from{transform:rotate(55deg)}
+  to{transform:rotate(415deg)}
+}
+@keyframes mxResultRingB{
+  from{transform:rotate(-55deg)}
+  to{transform:rotate(305deg)}
+}
+/* Keep the requested completion animation even when the OS has Reduce Motion;
+   it is small, local and does not move the page or UI. */
+@media(prefers-reduced-motion:reduce){
+  #modalBox.winResultModal .mxResultOrbit span{
+    animation:mxResultAtomGlyphSpin 5.4s linear infinite!important;
+  }
+}
+
+
+/* ================= COLLECTION TABS ================= */
+#collectionTabs.collectionTabs{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;
+  width:min(100%,620px);margin:6px auto 8px;padding:0 8px;box-sizing:border-box;
+}
+.collectionTab{
+  min-width:0;border:1px solid rgba(128,138,255,.34);border-radius:12px;
+  padding:8px 4px;background:rgba(18,23,61,.86);color:#cbd5ff;
+  font:800 clamp(8px,2.2vw,11px)/1.05 inherit;letter-spacing:.02em;
+  display:flex;align-items:center;justify-content:center;gap:4px;white-space:nowrap;
+}
+.collectionTab.on{
+  color:#fff;border-color:rgba(95,225,255,.78);
+  background:linear-gradient(180deg,rgba(55,107,185,.86),rgba(42,60,139,.90));
+  box-shadow:0 0 14px rgba(72,213,255,.16),inset 0 0 10px rgba(112,234,255,.08);
+}
+.collectionPanel{display:none}
+.collectionPanel.on{display:block;animation:mxCollectionPaneIn .18s ease both}
+@keyframes mxCollectionPaneIn{from{opacity:.25;transform:translateY(4px)}to{opacity:1;transform:none}}
+#collectScr .collectionScroll{padding-top:0!important}
+@media(max-width:390px){
+  #collectionTabs.collectionTabs{gap:4px;padding:0 5px}
+  .collectionTab{padding:7px 2px;font-size:7.7px;gap:2px}
+}
+
+/* ================= AAA NEXT-MOLECULE TRANSITION ================= */
+#mxNextMoleculeTransition{
+  position:fixed;inset:0;z-index:170;display:none;place-items:center;
+  pointer-events:none;overflow:hidden;
+}
+#mxNextMoleculeTransition.on{display:grid}
+#mxNextMoleculeTransition .mxNextMolVeil{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(circle at 50% 48%,rgba(66,129,200,.20),transparent 34%),
+    linear-gradient(180deg,rgba(5,8,24,.72),rgba(4,7,20,.94));
+  backdrop-filter:blur(4px);
+  opacity:0;animation:mxNextVeilIn .28s ease forwards;
+}
+#mxNextMoleculeTransition .mxNextMolStage{
+  position:relative;z-index:2;width:min(88vw,520px);min-height:250px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:26px 20px 22px;box-sizing:border-box;text-align:center;
+  opacity:0;transform:translateY(16px) scale(.965);
+  animation:mxNextStageIn .52s .08s cubic-bezier(.16,.9,.22,1) forwards;
+}
+.mxNextMolOrb{
+  position:relative;width:86px;height:86px;margin-bottom:13px;
+  display:grid;place-items:center;
+}
+.mxNextMolOrb>b{
+  font-size:42px;line-height:1;color:#dffcff;
+  text-shadow:0 0 10px rgba(107,232,255,.95),0 0 28px rgba(132,111,255,.8);
+  animation:mxNextAtomTurn 4s linear infinite;
+}
+.mxNextMolOrb>i{
+  position:absolute;inset:12px;border:1.4px solid rgba(128,232,255,.55);
+  border-radius:50%;box-shadow:0 0 14px rgba(80,212,255,.12);
+}
+.mxNextMolOrb>i:nth-child(1){transform:rotate(58deg);animation:mxNextRingA 3.3s linear infinite}
+.mxNextMolOrb>i:nth-child(2){transform:rotate(-58deg);animation:mxNextRingB 4.2s linear infinite reverse}
+.mxNextMolOrb>i:nth-child(3){inset:19px;border-color:rgba(188,145,255,.42);animation:mxNextRingC 5.1s linear infinite}
+.mxNextMolEyebrow{
+  font-size:clamp(9px,2.4vw,11px);font-weight:950;letter-spacing:.22em;
+  color:#77e9ff;margin-bottom:7px;text-shadow:0 0 10px rgba(75,215,255,.55);
+  opacity:0;animation:mxNextTextIn .34s .27s ease forwards;
+}
+.mxNextMolName{
+  max-width:100%;font-size:clamp(28px,8vw,48px);line-height:.98;font-weight:1000;
+  letter-spacing:-.025em;color:#fff;text-wrap:balance;
+  text-shadow:0 4px 0 rgba(0,0,0,.28),0 0 22px rgba(128,221,255,.30);
+  opacity:0;transform:translateY(7px);animation:mxNextTextIn .44s .34s cubic-bezier(.2,.8,.2,1) forwards;
+}
+.mxNextMolFormula{
+  margin-top:8px;padding:4px 11px;border:1px solid rgba(131,224,255,.36);border-radius:999px;
+  background:rgba(21,35,70,.62);color:#c6f8ff;font-size:clamp(15px,4.2vw,21px);font-weight:900;
+  letter-spacing:.04em;box-shadow:inset 0 0 12px rgba(90,210,255,.06);
+  opacity:0;animation:mxNextTextIn .38s .43s ease forwards;
+}
+.mxNextMolLine{
+  width:min(74%,320px);height:1px;margin:15px auto 10px;overflow:visible;background:rgba(255,255,255,.10)
+}
+.mxNextMolLine>span{
+  display:block;width:0;height:100%;margin:auto;background:linear-gradient(90deg,transparent,#79ecff,#c99cff,transparent);
+  box-shadow:0 0 9px rgba(111,226,255,.85);animation:mxNextLineGrow .55s .48s ease-out forwards;
+}
+.mxNextMolLevel{
+  max-width:94%;font-size:clamp(10px,2.8vw,13px);font-weight:850;letter-spacing:.08em;
+  color:#aab8e8;text-transform:uppercase;opacity:0;animation:mxNextTextIn .34s .57s ease forwards;
+}
+#mxNextMoleculeTransition.leave .mxNextMolStage{animation:mxNextStageOut .35s ease-in both}
+#mxNextMoleculeTransition.leave .mxNextMolVeil{animation:mxNextVeilOut .36s ease-in both}
+
+/* Molecule family gives the transition a subtle identity without new artwork. */
+#mxNextMoleculeTransition[data-fx="flame"] .mxNextMolOrb>b{color:#fff2b4;text-shadow:0 0 12px #ffb342,0 0 28px rgba(255,75,32,.75)}
+#mxNextMoleculeTransition[data-fx="crys"] .mxNextMolOrb>b{color:#f1ffff;text-shadow:0 0 12px #a9f3ff,0 0 28px rgba(147,139,255,.82)}
+#mxNextMoleculeTransition[data-fx="splash"] .mxNextMolOrb>b,
+#mxNextMoleculeTransition[data-fx="bub"] .mxNextMolOrb>b{color:#dfffff;text-shadow:0 0 12px #65ddff,0 0 28px rgba(49,143,255,.78)}
+#mxNextMoleculeTransition[data-fx="spark"] .mxNextMolOrb>b{color:#f5ffd1;text-shadow:0 0 12px #c8ff63,0 0 28px rgba(100,231,77,.72)}
+
+@keyframes mxNextVeilIn{to{opacity:1}}
+@keyframes mxNextVeilOut{from{opacity:1}to{opacity:0}}
+@keyframes mxNextStageIn{to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes mxNextStageOut{to{opacity:0;transform:translateY(-10px) scale(.985)}}
+@keyframes mxNextTextIn{to{opacity:1;transform:translateY(0)}}
+@keyframes mxNextLineGrow{to{width:100%}}
+@keyframes mxNextAtomTurn{to{transform:rotate(360deg)}}
+@keyframes mxNextRingA{to{transform:rotate(418deg)}}
+@keyframes mxNextRingB{to{transform:rotate(302deg)}}
+@keyframes mxNextRingC{to{transform:rotate(360deg)}}
+
+@media(max-height:700px){
+  #mxNextMoleculeTransition .mxNextMolStage{min-height:210px;padding:18px 16px}
+  .mxNextMolOrb{width:68px;height:68px;margin-bottom:8px}
+  .mxNextMolOrb>b{font-size:34px}
+  .mxNextMolName{font-size:clamp(24px,6.7vw,38px)}
+}
+body.mxReduceMotion #mxNextMoleculeTransition *{animation:none!important}
+
+
+/* ================= DR. E-ONLY GAMEPLAY ================= */
+#moxyGameCompanion,#mxMoxyExpression,#mxCharacterBeatBubble.fromMoxy{display:none!important}
+
+/* Restore the pre-Moxy target-card sizing behavior. The original responsive
+   rules above remain authoritative for smaller phones. */
+
+
+/* ================= GOAL CARD RESTORED TO PRE-MOXY LAYOUT ================= */
+#goalCard{
+  width:122px!important;min-width:122px!important;
+  padding:8px 7px 9px!important;gap:2px!important;
+  border-radius:var(--radius,18px);
+}
+#goalCard .gt{font-size:10.5px!important;letter-spacing:2.5px!important}
+#goalCv{width:100px!important;height:76px!important}
+#goalName{font-size:12.5px!important;line-height:1.1!important}
+#goalFor.mxFormulaS{font-size:13px!important}
+#goalFor.mxFormulaM{font-size:11.5px!important}
+#goalFor.mxFormulaL{font-size:10px!important}
+#goalFor.mxFormulaXL{font-size:8.8px!important}
+@media(max-width:520px){
+  #goalCard{width:108px!important;min-width:108px!important;padding:6px!important}
+  #goalCv{width:88px!important;height:65px!important}
+  #goalName{font-size:10.5px!important}
+}
+@media(max-width:390px){
+  #goalCard{width:96px!important;min-width:96px!important}
+  #goalCv{width:76px!important;height:56px!important}
+}
+
+
+/* ================= QA STAGE 5 · CROSS-PLATFORM UI RHYTHM =================
+   One geometry system for Web, iOS WKWebView and Android WebView. */
+:root{
+  --mx-edge:clamp(8px,2.6vw,16px);
+  --mx-control-h:clamp(38px,5.5vh,44px);
+  --mx-control-r:clamp(10px,2.8vw,14px);
+  --mx-control-pad-x:clamp(10px,3.1vw,15px);
+}
+.btn{
+  box-sizing:border-box!important;
+  min-height:var(--mx-control-h);
+  padding:clamp(8px,1.25vh,11px) var(--mx-control-pad-x)!important;
+  border-radius:var(--mx-control-r)!important;
+  line-height:1.12!important;
+  text-align:center!important;
+  overflow-wrap:anywhere;
+  text-wrap:balance;
+}
+button,.btn,input,select{box-sizing:border-box}
+.mrow{
+  width:100%!important;
+  box-sizing:border-box!important;
+  margin-left:auto!important;margin-right:auto!important;
+  padding-left:0!important;padding-right:0!important;
+}
+.mrow>.btn{flex:1 1 0;min-width:0}
+.accountActions,.settingsActions,.accountUtilityRow{
+  width:100%!important;box-sizing:border-box!important;
+  margin-left:auto!important;margin-right:auto!important;
+}
+body.mxNative #modalBox.accountModal .accountActions,
+body.mxNative #modalBox .mrow,
+body.mxNative #modalBox.settingsModal .settingsActions{
+  margin-left:auto!important;margin-right:auto!important;width:100%!important;
+}
+
+/* Modal frames are centered from the viewport on Web/Android/iOS. */
+#modal{
+  padding-left:max(var(--mx-edge),env(safe-area-inset-left,0px))!important;
+  padding-right:max(var(--mx-edge),env(safe-area-inset-right,0px))!important;
+  padding-top:max(8px,env(safe-area-inset-top,0px))!important;
+  padding-bottom:max(8px,env(safe-area-inset-bottom,0px))!important;
+  box-sizing:border-box!important;
+}
+#modalBox{
+  box-sizing:border-box!important;
+  max-width:min(94vw,520px);
+  max-height:min(94dvh,820px);
+  margin-inline:auto!important;
+  border-width:1px!important;
+  overflow-x:hidden!important;
+}
+#modalBox.accountModal{
+  width:min(calc(100vw - 2*var(--mx-edge)),410px)!important;
+  max-height:calc(100dvh - max(16px,env(safe-area-inset-top,0px)) - max(16px,env(safe-area-inset-bottom,0px)))!important;
+  padding:clamp(14px,3.6vw,20px)!important;
+  padding-top:clamp(16px,4vw,22px)!important;
+  overflow-x:hidden!important;
+}
+#modalBox.accountModal h3{
+  padding-inline:34px!important;
+  margin-top:0!important;
+  text-wrap:balance;
+}
+
+/* Account/profile X: fully inset, complete border, finger-safe on all platforms. */
+#modalBox .accountCloseX{
+  position:absolute!important;
+  top:clamp(8px,2.2vw,12px)!important;
+  right:clamp(8px,2.2vw,12px)!important;
+  left:auto!important;
+  width:clamp(36px,9.5vw,40px)!important;
+  height:clamp(36px,9.5vw,40px)!important;
+  min-width:36px!important;min-height:36px!important;
+  padding:0!important;margin:0!important;
+  display:grid!important;place-items:center!important;
+  border:1.5px solid rgba(190,211,255,.52)!important;
+  border-radius:50%!important;
+  background:linear-gradient(180deg,rgba(35,44,83,.96),rgba(14,19,48,.96))!important;
+  color:#eef4ff!important;
+  font:800 24px/1 system-ui,sans-serif!important;
+  box-shadow:0 3px 12px rgba(0,0,0,.28),inset 0 0 0 1px rgba(255,255,255,.05)!important;
+  z-index:20!important;
+  transform:none!important;
+}
+#modalBox .accountCloseX:active{transform:scale(.94)!important}
+
+/* Long localized labels must shrink before they overflow borders. */
+#modalBox .btn,#collectScr .btn,#levelsScr .btn,#labScr .btn,#hofScr .btn{
+  font-size:clamp(10.5px,3vw,14px);
+}
+@media(max-width:380px), (max-height:690px){
+  :root{--mx-control-h:36px;--mx-control-pad-x:8px}
+  #modalBox.accountModal{padding:11px!important;padding-top:13px!important}
+  #modalBox.accountModal h3{font-size:16px!important;padding-inline:31px!important}
+  #modalBox .btn{font-size:10.5px!important;padding-block:7px!important}
+}
+@media(min-width:700px) and (pointer:fine){
+  :root{--mx-control-h:40px;--mx-control-pad-x:14px}
+  #modalBox.accountModal{width:min(88vw,430px)!important}
+  #modalBox .accountCloseX{width:36px!important;height:36px!important;font-size:21px!important}
+}
+@media(pointer:coarse){
+  button,.btn,.iconBadge,.accountCloseX{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+}
+
+/* ================= DR. E · CINEMATIC POSE TRANSITIONS ================= */
+#einBoxG{isolation:isolate;overflow:visible}
+#einBoxG .einImg{transform-origin:52% 86%;will-change:transform,opacity,filter}
+#einBoxG .mxDrEPoseGhost{
+  position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
+  object-fit:contain!important;pointer-events:none!important;opacity:0;z-index:3!important;
+}
+#einBoxG .einImg:not(.mxDrEPoseGhost){position:relative;z-index:4}
+#einBoxG .mxPoseIncoming{opacity:.08}
+#einBoxG .mxPoseIncoming.mxPoseIncomingOn{opacity:1;transition:opacity .24s ease,transform .34s cubic-bezier(.18,.88,.2,1),filter .28s ease}
+#einBoxG .mxPoseGhostOn{opacity:1}
+#einBoxG .mxPoseGhostOut{opacity:0!important;transition:opacity .25s ease,transform .32s ease,filter .27s ease}
+
+/* Each type has a different physical intention rather than one generic fade. */
+#einBoxG .mxPoseIncoming.mxPose-focus{transform:translateY(3px) scale(.985);filter:brightness(.92) blur(.3px)}
+#einBoxG .mxPoseIncomingOn.mxPose-focus{transform:translateY(0) scale(1);filter:none}
+#einBoxG .mxPoseGhostOn.mxPose-focus{transform:translateY(0) scale(1)}
+#einBoxG .mxPoseGhostOut.mxPose-focus{transform:translateY(-2px) scale(1.018);filter:blur(.7px)}
+
+#einBoxG .mxPoseIncoming.mxPose-lift{transform:translateY(8px) scale(.97);filter:brightness(.92)}
+#einBoxG .mxPoseIncomingOn.mxPose-lift{transform:translateY(-1px) scale(1.015);filter:none}
+#einBoxG .mxPoseGhostOut.mxPose-lift{transform:translateY(-8px) scale(1.025)}
+
+#einBoxG .mxPoseIncoming.mxPose-snap{transform:translateX(5px) rotate(1.1deg) scale(.99);filter:contrast(.95)}
+#einBoxG .mxPoseIncomingOn.mxPose-snap{transform:none;filter:none}
+#einBoxG .mxPoseGhostOut.mxPose-snap{transform:translateX(-5px) rotate(-.8deg) scale(.99)}
+
+#einBoxG .mxPoseIncoming.mxPose-lab{transform:translateY(3px) rotate(-.7deg) scale(.98);filter:brightness(.88) saturate(.9)}
+#einBoxG .mxPoseIncomingOn.mxPose-lab{transform:none;filter:none}
+#einBoxG .mxPoseGhostOut.mxPose-lab{transform:translateY(-3px) rotate(.7deg);filter:brightness(1.08)}
+
+#einBoxG .mxPoseIncoming.mxPose-enter{transform:translateY(5px) scale(.98);filter:blur(.45px)}
+#einBoxG .mxPoseIncomingOn.mxPose-enter{transform:none;filter:none}
+#einBoxG .mxPoseGhostOut.mxPose-enter{transform:scale(1.015);filter:blur(.6px)}
+#einBoxG .mxPoseIncoming.mxPose-cross{transform:scale(.985);filter:blur(.35px)}
+#einBoxG .mxPoseIncomingOn.mxPose-cross{transform:scale(1);filter:none}
+
+#einBoxG.mxDrETransitionFocus::after,
+#einBoxG.mxDrETransitionLab::after,
+#einBoxG.mxDrETransitionLift::after{
+  content:'';position:absolute;left:18%;right:18%;bottom:4%;height:18%;
+  border-radius:50%;pointer-events:none;z-index:2;
+  background:radial-gradient(ellipse,rgba(102,226,255,.20),transparent 68%);
+  animation:mxDrEPoseFloorGlow .42s ease-out both;
+}
+#einBoxG.mxDrETransitionLift::after{background:radial-gradient(ellipse,rgba(255,222,111,.20),transparent 68%)}
+@keyframes mxDrEPoseFloorGlow{0%{opacity:0;transform:scale(.7)}45%{opacity:1}100%{opacity:0;transform:scale(1.14)}}
+body.mxReduceMotion #einBoxG .mxDrEPoseGhost{display:none!important}
+body.mxReduceMotion #einBoxG .einImg{transition:none!important;animation:none!important}
+
+
+/* ================= HOTFIX · RESULT/TIMER TRUE CENTER ================= */
+#duelTimer.countup{
+  width:max-content!important;
+  min-width:112px!important;
+  margin-inline:auto!important;
+  justify-content:center!important;
+  text-align:center!important;
+}
+.mxSolveTimeResult{
+  grid-template-columns:auto!important;
+  justify-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+  gap:3px!important;
+}
+.mxSolveTimeResult b{
+  grid-row:auto!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:7px!important;
+  width:100%!important;
+}
+.mxSolveTimeResult .mxSolveMeta{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:5px!important;
+}
+.mxSolveTimeResult em{text-align:center!important;width:100%!important}
+
+/* ================= HOTFIX · RESTORE ORIGINAL COMPACT GAME CONTROLS =================
+   QA5's global button rhythm remains for dialogs/account screens only. */
+#gameScr #actionCol .btn.iconBadge{
+  width:58px!important;
+  height:68px!important;
+  min-width:58px!important;
+  min-height:68px!important;
+  padding:7px 4px 6px!important;
+  border-radius:16px!important;
+  flex:none!important;
+}
+#gameScr #actionCol .btn.iconBadge .badgeIcon{
+  width:28px!important;height:28px!important;padding:3px!important;
+}
+#gameScr #actionCol .btn.iconBadge small{
+  font-size:8px!important;line-height:1!important;letter-spacing:.55px!important;
+}
+#gameScr #actionCol{gap:8px!important}
+
+/* Bottom LAB / MOLECULES / AWARDS return to their old compact geometry. */
+#gameScr #navBtns .navB{
+  width:52px!important;height:64px!important;
+  min-width:52px!important;min-height:64px!important;
+  padding:7px 3px 6px!important;
+  border-radius:15px!important;
+  flex:none!important;
+}
+#gameScr #navBtns .navB .badgeIcon{width:27px!important;height:27px!important}
+#gameScr #navBtns .navB small{
+  font-size:7.3px!important;line-height:1.05!important;letter-spacing:.2px!important;
+}
+@media(max-width:390px),(max-height:700px){
+  #gameScr #actionCol .btn.iconBadge{
+    width:54px!important;height:63px!important;min-width:54px!important;min-height:63px!important;
+  }
+  #gameScr #actionCol .btn.iconBadge .badgeIcon{width:25px!important;height:25px!important}
+  #gameScr #navBtns .navB{
+    width:46px!important;height:57px!important;min-width:46px!important;min-height:57px!important;
+    padding:6px 2px 5px!important;
+  }
+  #gameScr #navBtns .navB .badgeIcon{width:24px!important;height:24px!important}
+}
+
+/* ================= HOTFIX · SINGLE AAA LEVEL ENTRY ================= */
+#levelTransition{
+  overflow:hidden!important;
+  background:
+    radial-gradient(circle at 50% 47%,rgba(66,38,138,.72),transparent 34%),
+    radial-gradient(circle at 50% 45%,rgba(18,16,54,.96),rgba(5,6,18,.995) 72%)!important;
+}
+#levelTransition .mxLevelEntryEnergy{
+  position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;
+}
+#levelTransition .mxLevelEntryEnergy i{
+  position:absolute;width:54vw;height:54vw;max-width:430px;max-height:430px;
+  border:1px solid rgba(110,225,255,.16);border-radius:50%;
+  box-shadow:0 0 40px rgba(83,123,255,.08);
+  opacity:0;transform:scale(.45);
+}
+#levelTransition.on .mxLevelEntryEnergy i:nth-child(1){animation:mxEntryEnergy 1.05s ease-out .02s both}
+#levelTransition.on .mxLevelEntryEnergy i:nth-child(2){animation:mxEntryEnergy 1.05s ease-out .12s both}
+#levelTransition.on .mxLevelEntryEnergy i:nth-child(3){animation:mxEntryEnergy 1.05s ease-out .22s both}
+
+#levelTransition .mxLevelEntryCard{
+  position:relative!important;
+  min-width:min(78vw,310px)!important;
+  max-width:min(86vw,360px)!important;
+  padding:16px 22px 18px!important;
+  border-radius:24px!important;
+  border:1px solid rgba(128,228,255,.52)!important;
+  background:
+    linear-gradient(145deg,rgba(17,27,68,.92),rgba(43,21,83,.91))!important;
+  box-shadow:
+    0 22px 70px rgba(0,0,0,.56),
+    0 0 42px rgba(91,116,255,.16),
+    inset 0 0 0 1px rgba(255,255,255,.06)!important;
+}
+#levelTransition .mxLevelEntryCard>small{
+  display:block;color:#81ecff;font-size:9px;font-weight:1000;
+  letter-spacing:.24em;margin-bottom:4px;
+}
+.mxLevelEntryNo{display:flex;align-items:baseline;justify-content:center;gap:7px}
+.mxLevelEntryNo span{font-size:9px;font-weight:900;letter-spacing:.19em;color:#aab6dd}
+.mxLevelEntryNo strong{font-size:36px;line-height:1;font-weight:1000;color:#fff;text-shadow:0 0 18px rgba(117,224,255,.32)}
+#levelTransition .mxLevelEntryAtom{
+  margin:8px auto 6px;width:52px;height:52px;display:grid;place-items:center;
+  font-size:29px;color:#e8fcff;border-radius:50%;
+  border:1px solid rgba(123,230,255,.44);
+  box-shadow:0 0 20px rgba(89,218,255,.22),inset 0 0 18px rgba(117,90,255,.14);
+}
+#levelTransition.on .mxLevelEntryAtom{animation:mxEntryAtom .72s cubic-bezier(.2,.86,.22,1) both}
+#levelTransition .mxLevelEntryCard>b{
+  display:block;font-size:clamp(19px,5.8vw,27px);line-height:1.02;
+  color:#fff;text-wrap:balance;letter-spacing:.02em;
+}
+#levelTransition .mxLevelEntryCard>em{
+  display:inline-block;margin-top:6px;padding:3px 10px;border-radius:999px;
+  font-style:normal;font-weight:950;font-size:13px;color:#ffe17a;
+  border:1px solid rgba(255,223,114,.28);background:rgba(255,209,71,.06);
+}
+.mxLevelEntryBeam{
+  height:1px;width:0;margin:11px auto 0;
+  background:linear-gradient(90deg,transparent,#65e7ff,#c48bff,transparent);
+  box-shadow:0 0 8px rgba(97,227,255,.7);
+}
+#levelTransition.on .mxLevelEntryBeam{animation:mxEntryBeam .48s .2s ease-out forwards}
+#levelTransition.mxOut{opacity:0!important;transition:opacity .22s ease!important}
+
+@keyframes mxEntryEnergy{
+  0%{opacity:0;transform:scale(.45)}
+  35%{opacity:.65}
+  100%{opacity:0;transform:scale(1.3)}
+}
+@keyframes mxEntryAtom{
+  0%{opacity:0;transform:scale(.45) rotate(-25deg);filter:blur(2px)}
+  60%{opacity:1;transform:scale(1.08) rotate(8deg);filter:none}
+  100%{opacity:1;transform:scale(1) rotate(0)}
+}
+@keyframes mxEntryBeam{to{width:82%}}
+@media(prefers-reduced-motion:reduce){
+  #levelTransition .mxLevelEntryEnergy{display:none!important}
+  #levelTransition .mxLevelEntryAtom,#levelTransition .mxLevelEntryBeam{animation:none!important}
+  #levelTransition .mxLevelEntryBeam{width:82%!important}
+}
+
+
+/* ================= MODAL CENTER + FULL BORDER HOTFIX =================
+   Applies to Web, iOS Safari/WKWebView and Android WebView. */
+#modal{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  box-sizing:border-box!important;
+  width:100%!important;
+  height:100dvh!important;
+  inset:0!important;
+  padding:
+    max(12px,env(safe-area-inset-top,0px))
+    max(14px,env(safe-area-inset-right,0px))
+    max(12px,env(safe-area-inset-bottom,0px))
+    max(14px,env(safe-area-inset-left,0px))!important;
+  overflow:hidden!important;
+}
+#modalBox{
+  position:relative!important;
+  left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;
+  transform:none!important;
+  margin:auto!important;
+  width:min(100%,520px)!important;
+  max-width:520px!important;
+  max-height:calc(100dvh - max(24px,env(safe-area-inset-top,0px)) - max(24px,env(safe-area-inset-bottom,0px)))!important;
+  box-sizing:border-box!important;
+  border:1.5px solid rgba(135,119,229,.68)!important;
+  border-radius:22px!important;
+  overflow-x:hidden!important;
+  background-clip:padding-box!important;
+}
+#modalBox>*{box-sizing:border-box!important}
+#modalBox input,
+#modalBox select,
+#modalBox textarea,
+#modalBox .btn,
+#modalBox .mrow{
+  max-width:100%!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  box-sizing:border-box!important;
+}
+#modalBox input{
+  width:100%!important;
+  text-align:center!important;
+  padding-left:14px!important;
+  padding-right:14px!important;
+}
+#modalBox .mrow{
+  width:100%!important;
+  display:flex!important;
+  justify-content:center!important;
+  gap:10px!important;
+}
+#modalBox .mrow>.btn{
+  min-width:0!important;
+  flex:1 1 0!important;
+}
+#modalBox.accountModal{
+  width:min(100%,410px)!important;
+  margin:auto!important;
+  border:1.5px solid rgba(135,119,229,.68)!important;
+}
+#modalBox .accountCloseX{
+  top:10px!important;
+  right:10px!important;
+  left:auto!important;
+  transform:none!important;
+}
+
+/* Name/profile creation dialog: balanced visual rhythm. */
+#modalBox:has(input[type="text"]),
+#modalBox:has(input:not([type])){
+  padding-left:18px!important;
+  padding-right:18px!important;
+}
+#modalBox:has(input[type="text"]) h3,
+#modalBox:has(input:not([type])) h3{
+  text-align:center!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+#modalBox:has(input[type="text"]) .msub,
+#modalBox:has(input:not([type])) .msub{
+  text-align:center!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+
+/* Keyboard-open viewport: keep the dialog inside the visible viewport rather than clipping borders. */
+@media(max-height:650px){
+  #modal{
+    align-items:flex-start!important;
+    overflow-y:auto!important;
+    padding-top:max(8px,env(safe-area-inset-top,0px))!important;
+    padding-bottom:max(8px,env(safe-area-inset-bottom,0px))!important;
+  }
+  #modalBox{
+    margin-top:8px!important;
+    margin-bottom:8px!important;
+    max-height:none!important;
+  }
+}
+
+/* Keep the result screen and gameplay controls on their pre-QA5 compact sizing. */
+#modalBox.winResultModal .btn{
+  min-height:unset!important;
+}
+
+
+/* ================= NEXT LEVEL HARD FIX ================= */
+/* Legacy reveal is retired from gameplay navigation. */
+#mxNextMoleculeTransition{display:none!important;pointer-events:none!important}
+
+/* New entry reveal sits over an already-loaded level, so it can never block progress. */
+#levelTransition{
+  pointer-events:none!important;
+  overflow:hidden!important;
+}
+#levelTransition .mxLevelEntryCard{
+  min-width:min(76vw,300px)!important;
+  padding:15px 22px 17px!important;
+}
+#levelTransition .mxLevelEntryCard small{
+  display:block!important;
+  margin-bottom:1px!important;
+  color:#7be8ff!important;
+  letter-spacing:.22em!important;
+  font-size:9px!important;
+  font-weight:950!important;
+}
+#levelTransition .mxLevelEntryCard strong{
+  display:block!important;
+  font-size:38px!important;
+  line-height:1!important;
+  color:#fff!important;
+}
+#levelTransition .mxEntryAtom{
+  width:48px;height:48px;margin:7px auto 5px;
+  display:grid;place-items:center;border-radius:50%;
+  font-size:27px;color:#eaffff;
+  border:1px solid rgba(118,230,255,.42);
+  box-shadow:0 0 18px rgba(85,217,255,.25),inset 0 0 14px rgba(142,103,255,.12);
+}
+#levelTransition.on .mxEntryAtom{animation:mxHardEntryAtom .58s cubic-bezier(.18,.88,.22,1) both}
+#levelTransition .mxLevelEntryCard b{
+  display:block!important;
+  font-size:clamp(19px,5.7vw,27px)!important;
+  line-height:1.02!important;
+  text-wrap:balance!important;
+}
+#levelTransition .mxLevelEntryCard em{
+  display:inline-block!important;
+  margin-top:5px!important;
+  color:#ffe376!important;
+  font-style:normal!important;
+  font-size:13px!important;
+  font-weight:950!important;
+}
+@keyframes mxHardEntryAtom{
+  0%{opacity:0;transform:scale(.45) rotate(-30deg)}
+  60%{opacity:1;transform:scale(1.08) rotate(8deg)}
+  100%{opacity:1;transform:scale(1) rotate(0)}
+}
+
+
+/* ================= UI RESTORE · USER REQUEST ================= */
+
+/* A) Restart confirmation: restore the compact pre-QA5 dialog. */
+#modal:has(#mRestartYes) #modalBox{
+  width:min(86vw,340px)!important;
+  max-width:340px!important;
+  padding:22px 18px 18px!important;
+  border-radius:20px!important;
+  margin:auto!important;
+}
+#modal:has(#mRestartYes) #modalBox h3{
+  font-size:22px!important;
+  line-height:1.15!important;
+  margin:0 0 4px!important;
+  letter-spacing:1px!important;
+}
+#modal:has(#mRestartYes) #modalBox .msub{
+  font-size:13.5px!important;
+  line-height:1.32!important;
+  margin:0 0 10px!important;
+}
+#modal:has(#mRestartYes) #modalBox .mrow{
+  display:flex!important;
+  flex-direction:column!important;
+  width:100%!important;
+  gap:10px!important;
+  margin-top:8px!important;
+}
+#modal:has(#mRestartYes) #modalBox .btn{
+  width:100%!important;
+  min-height:0!important;
+  padding:14px 10px!important;
+  font-size:16px!important;
+  line-height:1.1!important;
+  border-radius:12px!important;
+}
+
+/* Player delete uses the same compact dialog rhythm. */
+#modal:has(#mDelYes) #modalBox{
+  width:min(86vw,340px)!important;
+  max-width:340px!important;
+  padding:22px 18px 18px!important;
+}
+#modal:has(#mDelYes) #modalBox h3{font-size:22px!important;line-height:1.15!important}
+#modal:has(#mDelYes) #modalBox .msub{font-size:13.5px!important;line-height:1.35!important}
+#modal:has(#mDelYes) #modalBox .mrow{
+  display:flex!important;flex-direction:column!important;gap:10px!important;width:100%!important;
+}
+#modal:has(#mDelYes) #modalBox .btn{
+  width:100%!important;min-height:0!important;padding:14px 10px!important;font-size:15px!important;
+}
+
+/* B) "KİM OYNUYOR?" screen: exactly restore compact card text/layout despite global .btn rules. */
+#profileScr #profileWrap{
+  width:min(86vw,340px)!important;
+  margin:auto!important;
+  text-align:center!important;
+  display:flex!important;
+  flex-direction:column!important;
+  gap:14px!important;
+  max-height:80vh!important;
+  padding-top:calc(var(--sat) + 6vh)!important;
+}
+#profileScr #profileTop{
+  font-size:14px!important;font-weight:800!important;letter-spacing:4px!important;text-align:center!important;
+}
+#profileScr #profileTitle{
+  font-size:26px!important;font-weight:900!important;margin-bottom:4px!important;text-align:center!important;
+}
+#profileScr .profileRow{
+  display:flex!important;align-items:stretch!important;gap:8px!important;width:100%!important;
+}
+#profileScr .profileBtn{
+  flex:1 1 auto!important;
+  width:auto!important;
+  min-width:0!important;
+  min-height:0!important;
+  padding:15px 18px!important;
+  border-radius:14px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:10px!important;
+  text-align:left!important;
+}
+#profileScr .profileIdentity{
+  display:flex!important;align-items:center!important;gap:10px!important;min-width:0!important;
+}
+#profileScr .profileAvatar{
+  flex:0 0 34px!important;width:34px!important;height:34px!important;
+}
+#profileScr .profileTexts{
+  display:flex!important;flex-direction:column!important;align-items:flex-start!important;
+  justify-content:center!important;min-width:0!important;text-align:left!important;
+}
+#profileScr .profileTexts strong{
+  font-size:14px!important;line-height:1.1!important;max-width:160px!important;
+  overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;
+}
+#profileScr .profileTexts small{
+  margin-top:2px!important;font-size:13px!important;line-height:1.15!important;
+  white-space:nowrap!important;text-align:left!important;
+}
+#profileScr .profileDel{
+  flex:0 0 52px!important;width:52px!important;min-width:52px!important;
+  padding:0!important;margin:0!important;border-radius:14px!important;
+}
+#profileScr #profileBack{
+  margin-top:2px!important;min-height:0!important;padding:13px!important;
+  font-size:14px!important;border-radius:14px!important;
+}
+
+/* C) First-use mechanic briefing: freeze all frames in one coordinate system.
+   This prevents borders from sliding/clipping during Dr. E/UI transitions. */
+#modal:has(.mxFirstUseHead){
+  align-items:center!important;
+  justify-content:center!important;
+}
+#modal:has(.mxFirstUseHead) #modalBox{
+  width:min(calc(100vw - max(28px,var(--sal)) - max(28px,var(--sar))),430px)!important;
+  max-width:430px!important;
+  padding:14px 13px 13px!important;
+  overflow:hidden!important;
+  border:1.5px solid rgba(135,119,229,.68)!important;
+  border-radius:22px!important;
+  transform:none!important;
+  margin:auto!important;
+}
+#modal:has(.mxFirstUseHead) #modalBox>.mxFirstUseHead,
+#modal:has(.mxFirstUseHead) #modalBox>.mxMechanicContextNote,
+#modal:has(.mxFirstUseHead) #modalBox>.mxFirstUseList,
+#modal:has(.mxFirstUseHead) #modalBox>.mrow{
+  width:100%!important;
+  max-width:100%!important;
+  margin-left:0!important;
+  margin-right:0!important;
+  box-sizing:border-box!important;
+  transform:none!important;
+}
+#modal:has(.mxFirstUseHead) .mxFirstUseHead{
+  margin:0 0 10px!important;
+  padding:10px 11px!important;
+  border:1px solid rgba(120,231,255,.30)!important;
+  border-radius:18px!important;
+  overflow:hidden!important;
+  animation:none!important;
+}
+#modal:has(.mxFirstUseHead) .mxMechanicContextNote{
+  margin:10px 0 13px!important;
+  border:1px solid rgba(255,211,110,.34)!important;
+  border-radius:15px!important;
+  overflow:hidden!important;
+}
+#modal:has(.mxFirstUseHead) .mxFirstUseList{
+  padding:2px 2px 4px!important;
+  overflow-x:hidden!important;
+}
+#modal:has(.mxFirstUseHead) .mxFirstUseRow{
+  width:100%!important;
+  margin:0!important;
+  border:1px solid rgba(255,255,255,.12)!important;
+  border-radius:14px!important;
+  transform:none!important;
+  animation:none!important;
+}
+#modal:has(.mxFirstUseHead) #modalBox .mrow{
+  gap:7px!important;margin-top:6px!important;
+}
+#modal:has(.mxFirstUseHead) #modalBox .btn{
+  min-height:0!important;
+  padding:10px 8px!important;
+  font-size:13px!important;
+  line-height:1.12!important;
+}
+
+/* Small phones: same design, merely tighter — no horizontal movement. */
+@media(max-width:390px){
+  #modal:has(.mxFirstUseHead) #modalBox{
+    width:calc(100vw - max(24px,var(--sal)) - max(24px,var(--sar)))!important;
+    padding:12px 11px!important;
+  }
+  #modal:has(.mxFirstUseHead) .mxFirstUseHead{
+    grid-template-columns:70px minmax(0,1fr)!important;
+  }
+  #profileScr #profileWrap{width:min(88vw,330px)!important}
+  #profileScr .profileBtn{padding:13px 14px!important}
+  #profileScr .profileTexts strong{max-width:130px!important}
+  #profileScr .profileTexts small{font-size:11.5px!important}
+  #profileScr .profileDel{flex-basis:48px!important;width:48px!important;min-width:48px!important}
+}
+
+
+/* DIRECT NEXT LEVEL: result-screen advancement never depends on a transition overlay. */
+body.mxDirectNext #levelTransition,
+body.mxDirectNext #mxNextMoleculeTransition{
+  display:none!important;
+  pointer-events:none!important;
+}
+
+
+
+
+/* ================= OLD ICONS · UI SIZE RESTORE ================= */
+/* First-use rule card: keep the clean layout, use the original game icons. */
+#modal:has(.mxFirstUseHead) #modalBox{
+  width:min(92vw,430px)!important;
+  max-width:430px!important;
+  max-height:min(90dvh,720px)!important;
+  padding:14px 13px 13px!important;
+  overflow:hidden!important;
+  border-radius:22px!important;
+}
+#modal:has(.mxFirstUseHead) .mxFirstUseHead{
+  display:grid!important;
+  grid-template-columns:84px minmax(0,1fr)!important;
+  gap:12px!important;
+  align-items:end!important;
+  width:100%!important;
+  margin:-6px -4px 10px!important;
+  padding:10px 11px!important;
+  border:1px solid rgba(120,231,255,.30)!important;
+  border-radius:18px!important;
+  text-align:left!important;
+}
+#modal:has(.mxFirstUseHead) .mxFirstUseHead img{
+  width:84px!important;height:94px!important;object-fit:contain!important;object-position:center bottom!important;
+}
+#modal:has(.mxFirstUseHead) .mxFirstUseList{
+  width:100%!important;max-height:min(40dvh,310px)!important;
+  display:flex!important;flex-direction:column!important;gap:8px!important;
+  overflow-y:auto!important;overflow-x:hidden!important;padding:2px 2px 4px!important;
+}
+#modal:has(.mxFirstUseHead) .mxFirstUseRow{
+  display:grid!important;grid-template-columns:46px minmax(0,1fr)!important;
+  gap:10px!important;align-items:center!important;
+  width:100%!important;padding:10px 11px!important;margin:0!important;
+  border:1px solid rgba(255,255,255,.12)!important;border-radius:14px!important;
+}
+#modal:has(.mxFirstUseHead) .mxFirstUseIcon{
+  width:42px!important;height:42px!important;display:grid!important;place-items:center!important;
+  font-size:22px!important;border:1px solid rgba(120,231,255,.30)!important;
+  border-radius:12px!important;background:rgba(10,24,52,.72)!important;
+}
+#modal:has(.mxFirstUseHead) #modalBox>.mrow{
+  display:flex!important;flex-direction:column!important;gap:10px!important;
+  width:100%!important;margin:9px 0 0!important;
+}
+#modal:has(.mxFirstUseHead) #modalBox>.mrow .btn{
+  width:100%!important;min-height:46px!important;
+  padding:11px 10px!important;font-size:14px!important;line-height:1.1!important;margin:0!important;
+}
+
+/* Restart confirm: retain the larger readable proportions requested. */
+#modal:has(#mRestartYes) #modalBox{
+  width:min(88vw,365px)!important;max-width:365px!important;
+  padding:24px 20px 20px!important;border-radius:22px!important;
+}
+#modal:has(#mRestartYes) #modalBox h3{
+  font-size:24px!important;line-height:1.12!important;margin:0 0 7px!important;
+}
+#modal:has(#mRestartYes) #modalBox .msub{
+  font-size:14.5px!important;line-height:1.38!important;margin:0 0 14px!important;
+}
+#modal:has(#mRestartYes) #modalBox .mrow{
+  display:flex!important;flex-direction:column!important;gap:12px!important;width:100%!important;margin:0!important;
+}
+#modal:has(#mRestartYes) #modalBox .btn{
+  width:100%!important;min-height:49px!important;padding:13px 12px!important;
+  font-size:17px!important;line-height:1.05!important;border-radius:14px!important;
+}
+
+
+/* ================= MOLECULOX PRODUCTION PNG ICON TRIAL ================= */
+.mxProdIcon{
+  display:block!important;
+  width:100%!important;height:100%!important;
+  object-fit:contain!important;object-position:center!important;
+  background:transparent!important;border:0!important;
+  box-shadow:none!important;filter:none!important;
+  user-select:none!important;-webkit-user-drag:none!important;
+}
+.mxProdSupportTitle{
+  display:flex!important;align-items:center!important;justify-content:center!important;gap:9px!important;
+}
+.mxProdSupportTitle>.mxProdIcon{width:34px!important;height:34px!important;flex:0 0 34px!important}
+.mxDrETrainingAvatar{
+  width:46px!important;height:46px!important;flex:0 0 46px!important;
+  padding:3px!important;overflow:hidden!important;
+}
+.mxDrETrainingAvatar>.mxProdIcon{width:100%!important;height:100%!important}
+.mxDrETrainingArrow{
+  width:32px!important;height:32px!important;display:grid!important;place-items:center!important;
+}
+.mxDrETrainingArrow>.mxProdIcon{width:30px!important;height:30px!important}
+.mxProdDemoCell{
+  width:48px!important;height:46px!important;flex:0 0 48px!important;
+  padding:4px!important;border-radius:12px!important;
+  display:grid!important;place-items:center!important;
+  background:rgba(255,255,255,.055)!important;
+  border:1px solid rgba(121,223,255,.16)!important;
+}
+.mxProdDemoCell>.mxProdIcon{width:38px!important;height:38px!important}
+.mxProdDemoArrow{
+  width:25px!important;height:25px!important;flex:0 0 25px!important;
+  display:grid!important;place-items:center!important;opacity:.8!important;
+}
+.mxProdDemoArrow>.mxProdIcon{width:23px!important;height:23px!important}
+#mSupportTry{
+  display:flex!important;align-items:center!important;justify-content:center!important;gap:7px!important;
+}
+#mSupportTry>.mxProdIcon{width:20px!important;height:20px!important;flex:0 0 20px!important}
+.mxProdRestartTitle{
+  display:flex!important;align-items:center!important;justify-content:center!important;gap:8px!important;
+}
+.mxProdRestartTitle>.mxProdIcon{width:32px!important;height:32px!important;flex:0 0 32px!important}
+@media(max-width:390px){
+  .mxProdDemoCell{width:43px!important;height:42px!important;flex-basis:43px!important}
+  .mxProdDemoCell>.mxProdIcon{width:34px!important;height:34px!important}
+  .mxDrETrainingAvatar{width:42px!important;height:42px!important;flex-basis:42px!important}
+}
+
+
+/* ================= MODAL RHYTHM + DR. E SUPPORT FIX ================= */
+/* A consistent spacing system for all modal/card stacks without changing gameplay geometry. */
+#modalBox{
+  --mx-modal-gap:12px;
+}
+#modalBox .modalScroll{
+  box-sizing:border-box!important;
+}
+#modalBox .modalScroll>*+*{
+  margin-top:var(--mx-modal-gap);
+}
+#modalBox .modalScroll>h3,
+#modalBox .modalScroll>.msub{
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+#modalBox .mrow{
+  gap:12px!important;
+}
+#modalBox .mrow+.mrow{
+  margin-top:12px!important;
+}
+#modalBox .btn{
+  box-sizing:border-box!important;
+}
+#modalBox .btn+.btn{
+  margin-left:0!important;
+}
+
+/* Player Support Dr. E card — the missing layout that caused image/text overlap. */
+.mxDrETrainingCard{
+  display:grid!important;
+  grid-template-columns:64px minmax(0,1fr) 34px!important;
+  align-items:center!important;
+  gap:12px!important;
+  width:100%!important;
+  box-sizing:border-box!important;
+  margin:16px 0!important;
+  padding:13px 14px!important;
+  border-radius:18px!important;
+  border:1px solid rgba(120,231,255,.34)!important;
+  background:linear-gradient(135deg,rgba(37,69,98,.66),rgba(27,25,64,.74))!important;
+  overflow:hidden!important;
+}
+.mxDrETrainingAvatar{
+  width:60px!important;
+  height:64px!important;
+  min-width:60px!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:14px!important;
+  background:rgba(5,15,34,.44)!important;
+  overflow:hidden!important;
+  display:block!important;
+}
+.mxDrETrainingAvatar>.mxProdIcon{
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain!important;
+  object-position:center bottom!important;
+  transform:scale(1.08)!important;
+  transform-origin:center bottom!important;
+}
+.mxDrETrainingCopy{
+  min-width:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  justify-content:center!important;
+  gap:4px!important;
+  text-align:left!important;
+}
+.mxDrETrainingCopy b{
+  display:block!important;
+  margin:0!important;
+  color:#ffd974!important;
+  font-size:13px!important;
+  line-height:1.1!important;
+  letter-spacing:.08em!important;
+}
+.mxDrETrainingCopy span{
+  display:block!important;
+  margin:0!important;
+  color:#f3f5ff!important;
+  font-size:15px!important;
+  line-height:1.3!important;
+  text-align:left!important;
+  overflow-wrap:anywhere!important;
+}
+.mxDrETrainingArrow{
+  width:32px!important;
+  height:32px!important;
+  align-self:center!important;
+  justify-self:end!important;
+  margin:0!important;
+  display:grid!important;
+  place-items:center!important;
+}
+.mxDrETrainingArrow>.mxProdIcon{
+  width:30px!important;
+  height:30px!important;
+  object-fit:contain!important;
+}
+
+/* Support flow gets its own clean vertical spacing. */
+#modalBox .supportTutorialScroll{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  gap:0!important;
+  padding:2px 4px 8px!important;
+}
+#modalBox .supportTutorialScroll>div[style*="display:flex"][style*="flex-wrap:wrap"]{
+  margin:14px 0 16px!important;
+}
+#modalBox .supportTutorialScroll>.mrow{
+  margin:0!important;
+}
+#modalBox .supportTutorialScroll+.modalFixedClose{
+  margin-top:14px!important;
+  padding-top:12px!important;
+}
+
+/* Keep buttons visually separated on all modal screens. */
+#modalBox .modalFixedClose .btn,
+#modalBox .supportTutorialScroll .btn,
+#modalBox .accountActions .btn,
+#modalBox .settingsActions .btn{
+  margin-top:0!important;
+  margin-bottom:0!important;
+}
+
+/* Small phones: compact but never overlapping. */
+@media(max-width:390px),(max-height:700px){
+  #modalBox{--mx-modal-gap:10px}
+  .mxDrETrainingCard{
+    grid-template-columns:52px minmax(0,1fr) 28px!important;
+    gap:9px!important;
+    margin:12px 0!important;
+    padding:11px 10px!important;
+  }
+  .mxDrETrainingAvatar{
+    width:50px!important;height:56px!important;min-width:50px!important;
+  }
+  .mxDrETrainingCopy b{font-size:12px!important}
+  .mxDrETrainingCopy span{font-size:13.5px!important;line-height:1.28!important}
+  .mxDrETrainingArrow{width:27px!important;height:27px!important}
+  .mxDrETrainingArrow>.mxProdIcon{width:25px!important;height:25px!important}
+}
+
+/* Inputs/buttons remain inside their cards and keep a clear gap from borders. */
+#modalBox input,
+#modalBox select,
+#modalBox textarea{
+  box-sizing:border-box!important;
+  max-width:100%!important;
+}
+
+
+/* ================= QA SPACING PASS 2 · MODAL RHYTHM =================
+   Dialog/form spacing only. Gameplay HUD/control dimensions are untouched. */
+#modalBox{
+  --mx-stack-gap:14px;
+  --mx-action-gap:12px;
+}
+#modalBox .msub{
+  margin-top:6px!important;
+  margin-bottom:10px!important;
+  line-height:1.34!important;
+}
+#modalBox>.mrow,
+#modalBox .modalScroll>.mrow{
+  gap:var(--mx-action-gap)!important;
+}
+#modalBox>.mrow+.mrow,
+#modalBox .modalScroll>.mrow+.mrow{
+  margin-top:var(--mx-action-gap)!important;
+}
+#modalBox .btn{
+  line-height:1.12!important;
+}
+#modalBox .btn>span{
+  line-height:inherit;
+}
+
+/* Any single-button action row is centered rather than left-biased. */
+#modalBox .mrow:has(>button:only-child){
+  display:flex!important;
+  justify-content:center!important;
+  width:100%!important;
+}
+#modalBox .mrow:has(>button:only-child)>button{
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+
+/* Two-button form rows keep equal visual weight and breathing room. */
+#modalBox .mrow:has(>button:nth-child(2)):not(:has(>button:nth-child(3))){
+  display:flex!important;
+  align-items:stretch!important;
+  justify-content:center!important;
+  gap:12px!important;
+}
+#modalBox .mrow:has(>button:nth-child(2)):not(:has(>button:nth-child(3)))>button{
+  min-width:0!important;
+}
+
+/* ================= NEW PLAYER / NAME ENTRY ================= */
+#modalBox:has(#newNameInput){
+  width:min(90vw,390px)!important;
+  padding:24px 22px 22px!important;
+  text-align:center!important;
+}
+#modalBox:has(#newNameInput)>h3{
+  margin:0 0 7px!important;
+  text-align:center!important;
+  line-height:1.14!important;
+}
+#modalBox:has(#newNameInput)>.msub{
+  margin:0 auto 18px!important;
+  max-width:320px!important;
+  text-align:center!important;
+  line-height:1.32!important;
+}
+#newNameInput{
+  display:block!important;
+  width:100%!important;
+  margin:0 auto 20px!important;
+  min-height:52px!important;
+  box-sizing:border-box!important;
+}
+#modalBox:has(#newNameInput)>.mrow{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  gap:12px!important;
+  width:100%!important;
+  margin:0!important;
+}
+#modalBox:has(#newNameInput) #newNameGo{
+  width:min(100%,320px)!important;
+  min-height:50px!important;
+  margin:0 auto!important;
+}
+#modalBox:has(#newNameInput) #newNameCancel{
+  width:min(62%,190px)!important;
+  min-height:46px!important;
+  margin:0 auto!important;
+}
+
+/* ================= RESULT SCREEN BREATHING ROOM ================= */
+#modalBox.winResultModal{
+  padding-top:18px!important;
+  padding-bottom:18px!important;
+}
+#modalBox.winResultModal .mxResultMolecule{
+  margin-top:6px!important;
+  margin-bottom:8px!important;
+}
+#modalBox.winResultModal .performanceResult{
+  margin-top:9px!important;
+  margin-bottom:9px!important;
+}
+#modalBox.winResultModal .accountMilestoneInvite{
+  margin-top:8px!important;
+  margin-bottom:10px!important;
+  padding-top:9px!important;
+  padding-bottom:9px!important;
+}
+#modalBox.winResultModal .mxSolveTimeResult{
+  margin:9px auto!important;
+  padding:8px 9px!important;
+  gap:3px!important;
+}
+#modalBox.winResultModal .mstars{
+  margin-top:9px!important;
+  margin-bottom:7px!important;
+}
+#modalBox.winResultModal .mcoins{
+  margin-top:4px!important;
+  margin-bottom:8px!important;
+}
+#modalBox.winResultModal>.mrow{
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  gap:11px!important;
+  width:100%!important;
+  margin-top:12px!important;
+}
+#modalBox.winResultModal>.mrow #mNext,
+#modalBox.winResultModal>.mrow #mBonusNow{
+  grid-column:1/-1!important;
+  width:82%!important;
+  justify-self:center!important;
+  min-height:48px!important;
+}
+#modalBox.winResultModal>.mrow #mRetry,
+#modalBox.winResultModal>.mrow #mLab{
+  width:100%!important;
+  min-height:45px!important;
+}
+
+/* ================= ACCOUNT / PLAYERS ================= */
+#modalBox.accountModal{
+  padding-bottom:18px!important;
+}
+#modalBox.accountModal .accountActions{
+  display:flex!important;
+  flex-direction:column!important;
+  gap:10px!important;
+  width:100%!important;
+  margin-top:12px!important;
+}
+#modalBox.accountModal .accountActions .btn{
+  width:100%!important;
+  margin:0!important;
+  min-height:44px!important;
+}
+#modalBox.accountModal .accountUtilityRow{
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  gap:10px!important;
+  width:100%!important;
+  margin-top:12px!important;
+}
+#modalBox.accountModal .accountUtilityRow .btn{
+  width:100%!important;
+  margin:0!important;
+  min-height:44px!important;
+}
+#modalBox.accountModal>.btn:last-of-type{
+  margin-top:12px!important;
+}
+
+/* ================= PLAYER SUPPORT · CHARACTERFUL DR. E ================= */
+.mxDrETrainingCard{
+  grid-template-columns:78px minmax(0,1fr) 34px!important;
+  gap:13px!important;
+  margin:18px 0!important;
+  padding:14px 15px!important;
+  min-height:104px!important;
+}
+.mxDrETrainingAvatar{
+  width:76px!important;
+  height:92px!important;
+  min-width:76px!important;
+  padding:0!important;
+  background:transparent!important;
+  border:0!important;
+  overflow:visible!important;
+  align-self:end!important;
+}
+.mxDrETrainingAvatar>img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain!important;
+  object-position:center bottom!important;
+  filter:drop-shadow(0 6px 7px rgba(0,0,0,.28))!important;
+}
+.mxDrETrainingCopy{
+  gap:6px!important;
+}
+.mxDrETrainingCopy b{
+  font-size:13.5px!important;
+}
+.mxDrETrainingCopy span{
+  font-size:15px!important;
+  line-height:1.34!important;
+}
+#modalBox .supportTutorialScroll>div[style*="flex-wrap:wrap"]{
+  margin:16px 0 18px!important;
+}
+#modalBox .supportTutorialScroll>.mrow{
+  margin-top:0!important;
+}
+#modalBox .supportTutorialScroll+.modalFixedClose{
+  margin-top:16px!important;
+  padding-top:13px!important;
+}
+
+/* Narrow phones: preserve separation rather than overlapping. */
+@media(max-width:390px),(max-height:700px){
+  #modalBox{--mx-stack-gap:11px;--mx-action-gap:10px}
+  #modalBox:has(#newNameInput){padding:19px 16px 17px!important}
+  #modalBox:has(#newNameInput)>.msub{margin-bottom:14px!important}
+  #newNameInput{margin-bottom:16px!important;min-height:48px!important}
+  #modalBox:has(#newNameInput) #newNameGo{min-height:46px!important}
+  #modalBox:has(#newNameInput) #newNameCancel{min-height:42px!important}
+  #modalBox.winResultModal{padding-top:14px!important;padding-bottom:14px!important}
+  #modalBox.winResultModal .accountMilestoneInvite{margin-top:6px!important;margin-bottom:8px!important}
+  #modalBox.winResultModal .mxSolveTimeResult{margin:7px auto!important;padding:7px 8px!important}
+  #modalBox.winResultModal>.mrow{gap:9px!important;margin-top:10px!important}
+  .mxDrETrainingCard{
+    grid-template-columns:62px minmax(0,1fr) 28px!important;
+    gap:9px!important;margin:14px 0!important;padding:11px 10px!important;min-height:88px!important;
+  }
+  .mxDrETrainingAvatar{width:60px!important;height:74px!important;min-width:60px!important}
+  .mxDrETrainingCopy b{font-size:12px!important}
+  .mxDrETrainingCopy span{font-size:13.5px!important;line-height:1.3!important}
+}
+
+/* Touch keyboard can reduce viewport height drastically; keep forms centered and usable. */
+@media(max-height:560px){
+  #modalBox:has(#newNameInput){
+    margin-top:8px!important;margin-bottom:8px!important;
+  }
+}
+
+
+/* ================= FIRST-USE MECHANIC MODAL · STRUCTURAL FIX =================
+   The content and actions now have separate layout containers, so the global
+   modal scroll wrapper can never collapse/overlap the two bottom buttons. */
+#modal:has(.mxFirstUseBody) #modalBox{
+  width:min(92vw,430px)!important;
+  max-width:430px!important;
+  max-height:min(90dvh,720px)!important;
+  padding:14px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  gap:12px!important;
+  overflow:hidden!important;
+  box-sizing:border-box!important;
+  border:1.5px solid rgba(135,119,229,.68)!important;
+  border-radius:22px!important;
+}
+#modal:has(.mxFirstUseBody) .mxFirstUseBody{
+  flex:1 1 auto!important;
+  min-height:0!important;
+  width:100%!important;
+  box-sizing:border-box!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  padding:2px 2px 4px!important;
+  margin:0!important;
+  -webkit-overflow-scrolling:touch!important;
+  overscroll-behavior:contain!important;
+}
+
+/* Header card: no negative margins, equal left/right breathing room. */
+#modal:has(.mxFirstUseBody) .mxFirstUseHead{
+  display:grid!important;
+  grid-template-columns:82px minmax(0,1fr)!important;
+  gap:12px!important;
+  align-items:end!important;
+  width:100%!important;
+  margin:0 0 12px!important;
+  padding:11px 12px!important;
+  box-sizing:border-box!important;
+  border:1px solid rgba(120,231,255,.30)!important;
+  border-radius:18px!important;
+  overflow:hidden!important;
+  background:linear-gradient(145deg,rgba(53,75,111,.58),rgba(38,35,77,.56))!important;
+}
+#modal:has(.mxFirstUseBody) .mxFirstUseHead img{
+  width:82px!important;
+  height:94px!important;
+  object-fit:contain!important;
+  object-position:center bottom!important;
+  align-self:end!important;
+}
+#modal:has(.mxFirstUseBody) .mxFirstUseHead>div{
+  min-width:0!important;
+  padding:2px 0!important;
+}
+#modal:has(.mxFirstUseBody) .mxFirstUseHead span{
+  display:block!important;
+  margin:0 0 4px!important;
+}
+#modal:has(.mxFirstUseBody) .mxFirstUseHead h3{
+  margin:0 0 6px!important;
+  line-height:1.12!important;
+  text-wrap:balance!important;
+}
+#modal:has(.mxFirstUseBody) .mxFirstUseHead p{
+  margin:0!important;
+  line-height:1.35!important;
+}
+
+/* Mechanic card/list always stays inside the same inner edge. */
+#modal:has(.mxFirstUseBody) .mxMechanicContextNote{
+  width:100%!important;
+  box-sizing:border-box!important;
+  margin:0 0 12px!important;
+}
+#modal:has(.mxFirstUseBody) .mxFirstUseList{
+  width:100%!important;
+  max-height:none!important;
+  overflow:visible!important;
+  box-sizing:border-box!important;
+  display:flex!important;
+  flex-direction:column!important;
+  gap:10px!important;
+  padding:0!important;
+  margin:0!important;
+}
+#modal:has(.mxFirstUseBody) .mxFirstUseRow{
+  width:100%!important;
+  box-sizing:border-box!important;
+  margin:0!important;
+  padding:11px 12px!important;
+  display:grid!important;
+  grid-template-columns:48px minmax(0,1fr)!important;
+  gap:11px!important;
+  align-items:center!important;
+  border:1px solid rgba(255,255,255,.12)!important;
+  border-radius:15px!important;
+  overflow:hidden!important;
+}
+#modal:has(.mxFirstUseBody) .mxFirstUseIcon{
+  width:44px!important;height:44px!important;
+  box-sizing:border-box!important;
+}
+
+/* Dedicated footer: two clearly separated full-width buttons. */
+#modal:has(.mxFirstUseBody) .mxFirstUseActions{
+  flex:0 0 auto!important;
+  width:100%!important;
+  box-sizing:border-box!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  gap:11px!important;
+  padding:2px 2px 0!important;
+  margin:0!important;
+}
+#modal:has(.mxFirstUseBody) .mxFirstUseActions .btn{
+  position:relative!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-height:48px!important;
+  margin:0!important;
+  padding:12px 14px!important;
+  box-sizing:border-box!important;
+  border-radius:15px!important;
+  font-size:14px!important;
+  line-height:1.12!important;
+  transform:none!important;
+}
+#modal:has(.mxFirstUseBody) #mMechanicDetails{
+  order:1!important;
+}
+#modal:has(.mxFirstUseBody) #mMechanicQuickGo{
+  order:2!important;
+  outline:2px solid rgba(255,211,110,.78)!important;
+  box-shadow:0 0 16px rgba(255,211,110,.28)!important;
+}
+#modal:has(.mxFirstUseBody) #mMechanicQuickGo.mxGuidedTarget{
+  transform:none!important;
+}
+
+/* This modal has a real scroll body; don't add the generic wrapper rail/layout. */
+#modal:has(.mxFirstUseBody) #modalBox.mxTouchScrollModal{
+  overflow:hidden!important;
+}
+
+/* Phone-height fallback keeps all borders visible and only scrolls content. */
+@media(max-width:390px),(max-height:700px){
+  #modal:has(.mxFirstUseBody) #modalBox{
+    width:min(94vw,420px)!important;
+    max-height:88dvh!important;
+    padding:11px!important;
+    gap:10px!important;
+  }
+  #modal:has(.mxFirstUseBody) .mxFirstUseHead{
+    grid-template-columns:70px minmax(0,1fr)!important;
+    gap:9px!important;
+    margin-bottom:10px!important;
+    padding:9px 10px!important;
+  }
+  #modal:has(.mxFirstUseBody) .mxFirstUseHead img{
+    width:70px!important;height:82px!important;
+  }
+  #modal:has(.mxFirstUseBody) .mxFirstUseRow{
+    grid-template-columns:42px minmax(0,1fr)!important;
+    gap:9px!important;padding:9px 10px!important;
+  }
+  #modal:has(.mxFirstUseBody) .mxFirstUseIcon{
+    width:39px!important;height:39px!important;
+  }
+  #modal:has(.mxFirstUseBody) .mxFirstUseActions{
+    gap:9px!important;
+  }
+  #modal:has(.mxFirstUseBody) .mxFirstUseActions .btn{
+    min-height:44px!important;
+    padding:10px 11px!important;
+    font-size:13px!important;
+  }
+}
+
+
+/* =====================================================================
+   MOLECULOX UI CONSISTENCY PASS 1
+   Visual hierarchy only. Gameplay board/touch mechanics remain untouched.
+   ===================================================================== */
+
+:root{
+  --mx-ui-radius:14px;
+  --mx-ui-radius-lg:17px;
+  --mx-ui-btn-h:44px;
+  --mx-ui-btn-primary-h:48px;
+  --mx-ui-gap:10px;
+  --mx-ui-gap-lg:14px;
+}
+
+/* ---- Shared text-button rhythm ---- */
+#modalBox .btn,
+#profileScr .btn,
+#splash .btn:not(.iconBadge),
+#levelsScr .btn:not(.iconBadge):not(.crystalLabBtn),
+#collectScr .btn:not(.iconBadge),
+#labScr .btn:not(.iconBadge),
+#hofScr .btn:not(.iconBadge){
+  min-height:var(--mx-ui-btn-h)!important;
+  height:auto!important;
+  padding:10px 14px!important;
+  border-radius:var(--mx-ui-radius)!important;
+  font-size:clamp(12.5px,3.35vw,15px)!important;
+  line-height:1.12!important;
+  letter-spacing:.02em!important;
+  box-sizing:border-box!important;
+  text-align:center!important;
+}
+
+/* Primary calls-to-action get one controlled step of emphasis. */
+#modalBox .btn.green,
+#splash .btn.green,
+#profileScr .btn.green,
+#levelsScr .btn.green,
+#collectScr .btn.green,
+#labScr .btn.green,
+#hofScr .btn.green{
+  min-height:var(--mx-ui-btn-primary-h)!important;
+  border-radius:var(--mx-ui-radius-lg)!important;
+  padding:11px 15px!important;
+  font-size:clamp(13.5px,3.55vw,16px)!important;
+}
+
+/* Secondary / ghost controls should visually recede. */
+#modalBox .btn.ghost,
+#profileScr .btn.ghost,
+#splash .btn.ghost{
+  min-height:42px!important;
+  padding:9px 13px!important;
+}
+
+/* Equal spacing for stacked action areas. */
+#modalBox .mrow,
+#modalBox .accountActions,
+#modalBox .settingsActions{
+  gap:var(--mx-ui-gap)!important;
+}
+#modalBox .mrow+.mrow,
+#modalBox .accountActions+.accountActions,
+#modalBox .settingsActions+.settingsActions{
+  margin-top:var(--mx-ui-gap)!important;
+}
+
+/* ---- Modal hierarchy ---- */
+#modalBox{
+  --mx-modal-gap:12px;
+}
+#modalBox h3{
+  line-height:1.14!important;
+  text-wrap:balance!important;
+}
+#modalBox .msub{
+  line-height:1.35!important;
+}
+#modalBox .modalFixedClose .btn{
+  min-height:44px!important;
+}
+#modalBox .modalFixedClose{
+  margin-top:12px!important;
+  padding-top:11px!important;
+}
+
+/* Result screen: clear 3-tier action hierarchy. */
+#modalBox.winResultModal>.mrow{
+  gap:10px!important;
+}
+#modalBox.winResultModal #mNext,
+#modalBox.winResultModal #mBonusNow{
+  min-height:48px!important;
+  border-radius:16px!important;
+  font-size:15px!important;
+}
+#modalBox.winResultModal #mRetry,
+#modalBox.winResultModal #mLab{
+  min-height:42px!important;
+  border-radius:13px!important;
+  font-size:13.5px!important;
+}
+
+/* Account screen: compact, calm, still easy to tap. */
+#modalBox.accountModal .accountActions{
+  gap:8px!important;
+}
+#modalBox.accountModal .accountActions .btn{
+  min-height:42px!important;
+  padding:9px 12px!important;
+  font-size:13px!important;
+  border-radius:13px!important;
+}
+#modalBox.accountModal .accountUtilityRow{
+  gap:9px!important;
+}
+#modalBox.accountModal .accountUtilityRow .btn{
+  min-height:42px!important;
+  padding:9px 9px!important;
+  font-size:11.5px!important;
+  border-radius:13px!important;
+}
+
+/* New player form: centered action hierarchy. */
+#modalBox:has(#newNameInput) #newNameGo{
+  min-height:48px!important;
+  width:min(100%,310px)!important;
+}
+#modalBox:has(#newNameInput) #newNameCancel{
+  min-height:42px!important;
+  width:min(58%,180px)!important;
+  margin-inline:auto!important;
+}
+
+/* First-use mechanic guide keeps its dedicated footer but follows same sizes. */
+#modal:has(.mxFirstUseBody) .mxFirstUseActions{
+  gap:10px!important;
+}
+#modal:has(.mxFirstUseBody) .mxFirstUseActions .btn{
+  min-height:44px!important;
+  padding:10px 13px!important;
+  font-size:13.5px!important;
+  border-radius:14px!important;
+}
+#modal:has(.mxFirstUseBody) #mMechanicQuickGo{
+  min-height:47px!important;
+  font-size:14px!important;
+}
+
+/* ---- Profile screen ---- */
+#profileScr #profileWrap{
+  gap:12px!important;
+}
+#profileScr .profileBtn{
+  min-height:62px!important;
+  padding:11px 14px!important;
+  border-radius:14px!important;
+}
+#profileScr .profileDel{
+  width:48px!important;
+  min-width:48px!important;
+  flex-basis:48px!important;
+  border-radius:14px!important;
+}
+#profileScr #profileBack{
+  width:min(72%,240px)!important;
+  min-height:42px!important;
+  margin:4px auto 0!important;
+  align-self:center!important;
+}
+
+/* ---- List headers: back/home should feel like header controls, not giant buttons ---- */
+#levelsScr .listHead .iconBadge,
+#collectScr .listHead .iconBadge,
+#labScr .listHead .iconBadge{
+  width:48px!important;
+  height:48px!important;
+  min-width:48px!important;
+  min-height:48px!important;
+  padding:8px!important;
+  border-radius:14px!important;
+}
+#levelsScr .listHead .iconBadge .badgeIcon,
+#collectScr .listHead .iconBadge .badgeIcon,
+#labScr .listHead .iconBadge .badgeIcon{
+  width:25px!important;
+  height:25px!important;
+}
+
+/* Bonus button in level header should not dominate title/navigation. */
+#levelsScr .crystalLabBtn{
+  min-height:46px!important;
+  height:46px!important;
+  padding:6px 10px!important;
+  border-radius:14px!important;
+  font-size:11px!important;
+}
+
+/* ---- Collection / Lab tabs ---- */
+#collectionTabs{
+  gap:7px!important;
+}
+#collectionTabs .collectionTab{
+  min-height:44px!important;
+  padding:7px 5px!important;
+  border-radius:13px!important;
+  font-size:10.5px!important;
+  line-height:1.05!important;
+}
+#labTabs{
+  gap:7px!important;
+}
+#labTabs .labTab{
+  min-height:44px!important;
+  padding:7px 6px!important;
+  border-radius:13px!important;
+  font-size:10.5px!important;
+  line-height:1.05!important;
+}
+
+/* ---- Splash / main menu ---- */
+#splashBtns{
+  gap:9px!important;
+}
+#splashBtns .btn{
+  min-height:45px!important;
+  padding:10px 14px!important;
+  border-radius:15px!important;
+}
+#splashBtns .btn.green{
+  min-height:49px!important;
+}
+
+/* Corner icon controls use one shared scale. */
+#splash .iconBadge{
+  width:48px!important;
+  height:48px!important;
+  min-width:48px!important;
+  min-height:48px!important;
+  border-radius:14px!important;
+}
+#splash .iconBadge .badgeIcon{
+  width:25px!important;
+  height:25px!important;
+}
+
+/* ---- Keep gameplay touch controls as-is; only unify their visible radius/text ---- */
+#gameScr #actionCol .btn.iconBadge{
+  border-radius:15px!important;
+}
+#gameScr #navBtns .navB{
+  border-radius:14px!important;
+}
+
+/* Avoid cramped localized labels without enlarging whole buttons. */
+#modalBox .btn,
+#profileScr .btn,
+#splashBtns .btn,
+#collectionTabs .collectionTab,
+#labTabs .labTab{
+  overflow:hidden!important;
+  text-overflow:ellipsis;
+}
+#modalBox .btn{
+  white-space:normal!important;
+  text-wrap:balance!important;
+}
+
+/* ---- Small phones: proportion, not shrink-to-tiny ---- */
+@media(max-width:390px),(max-height:700px){
+  :root{
+    --mx-ui-btn-h:42px;
+    --mx-ui-btn-primary-h:46px;
+    --mx-ui-gap:9px;
+  }
+  #modalBox .btn,
+  #profileScr .btn,
+  #splash .btn:not(.iconBadge){
+    padding:9px 11px!important;
+  }
+  #levelsScr .listHead .iconBadge,
+  #collectScr .listHead .iconBadge,
+  #labScr .listHead .iconBadge,
+  #splash .iconBadge{
+    width:45px!important;height:45px!important;
+    min-width:45px!important;min-height:45px!important;
+  }
+  #profileScr .profileBtn{
+    min-height:58px!important;
+  }
+  #collectionTabs .collectionTab,
+  #labTabs .labTab{
+    min-height:41px!important;
+    font-size:9.5px!important;
+  }
+}
+
+/* =====================================================================
+   MOLECULOX UI CONSISTENCY PASS 2 — LAYOUT & SPACING
+   Keeps gameplay geometry/mechanics untouched. Fixes cramped modal rhythm,
+   clipped borders and uneven action spacing across phone-sized screens.
+   ===================================================================== */
+:root{--mx-space-1:8px;--mx-space-2:12px;--mx-space-3:16px;--mx-space-4:20px}
+#modalBox{padding-left:20px!important;padding-right:20px!important;box-sizing:border-box!important}
+#modalBox>h3{margin:0 0 7px!important}
+#modalBox>h3+.msub{margin-top:0!important;margin-bottom:14px!important}
+#modalBox .mrow{margin-top:12px!important;align-items:stretch!important}
+#modalBox .mrow .btn{margin:0!important}
+
+/* Result: breathing room between information blocks and actions. */
+#modalBox.winResultModal{padding-top:18px!important;padding-bottom:18px!important}
+#modalBox.winResultModal .mxResultMolecule{margin-top:7px!important;margin-bottom:8px!important}
+#modalBox.winResultModal .mxPerformanceResult{margin-top:8px!important;margin-bottom:8px!important}
+#modalBox.winResultModal .mstars{margin-top:8px!important;margin-bottom:5px!important}
+#modalBox.winResultModal>.mrow{margin-top:13px!important;row-gap:9px!important}
+
+/* Account/player forms: consistent vertical rhythm and no border clipping. */
+#modalBox.accountModal{padding:18px 20px 19px!important}
+#modalBox.accountModal .accountActions{margin-top:10px!important;margin-bottom:0!important}
+#modalBox.accountModal .accountUtilityRow{margin-top:10px!important}
+#modalBox.accountModal .btn{box-sizing:border-box!important}
+
+/* New-player form: input and actions read as one centered stack. */
+#modalBox:has(#newNameInput){padding:24px 22px!important}
+#modalBox:has(#newNameInput) #newNameInput{margin:18px 0 16px!important;min-height:54px!important;box-sizing:border-box!important}
+#modalBox:has(#newNameInput) .mrow{display:flex!important;flex-direction:column!important;align-items:center!important;gap:12px!important;margin-top:0!important}
+#modalBox:has(#newNameInput) #newNameGo{width:min(100%,330px)!important}
+#modalBox:has(#newNameInput) #newNameCancel{width:min(72%,220px)!important;margin:0 auto!important}
+
+/* First-use mechanic card: reserve a real footer lane so actions never overlap. */
+#modal:has(.mxFirstUseBody) #modalBox{padding:16px 18px 18px!important;display:flex!important;flex-direction:column!important;gap:12px!important}
+#modal:has(.mxFirstUseBody) .mxFirstUseBody{min-height:0!important;margin:0!important;padding-bottom:0!important}
+#modal:has(.mxFirstUseBody) .mxFirstUseHead{margin-bottom:10px!important}
+#modal:has(.mxFirstUseBody) .mxFirstUseList{margin-top:10px!important;margin-bottom:0!important}
+#modal:has(.mxFirstUseBody) .mxFirstUseActions{position:static!important;display:flex!important;flex-direction:column!important;gap:10px!important;margin:0!important;padding:0!important;flex:0 0 auto!important}
+#modal:has(.mxFirstUseBody) .mxFirstUseActions .btn{width:min(100%,360px)!important;margin:0 auto!important;flex:none!important}
+
+/* Profile/player chooser: even rows and centered exit action. */
+#profileScr #profileWrap{padding-inline:14px!important;box-sizing:border-box!important}
+#profileScr .profileRow{gap:10px!important;align-items:stretch!important}
+#profileScr #profileBack{margin-top:10px!important;margin-bottom:8px!important}
+
+/* List pages: consistent safe gutters, header rhythm and tab separation. */
+#levelsScr .listHead,#collectScr .listHead,#labScr .listHead{padding-inline:14px!important;gap:10px!important;box-sizing:border-box!important}
+#collectionTabs,#labTabs{margin-top:8px!important;margin-bottom:10px!important;padding-inline:12px!important;box-sizing:border-box!important}
+
+@media(max-width:390px),(max-height:700px){
+  #modalBox{padding-left:16px!important;padding-right:16px!important}
+  #modalBox.accountModal{padding:15px 16px 16px!important}
+  #modalBox:has(#newNameInput){padding:20px 18px!important}
+  #modal:has(.mxFirstUseBody) #modalBox{padding:13px 14px 15px!important;gap:9px!important}
+  #modal:has(.mxFirstUseBody) .mxFirstUseHead{margin-bottom:7px!important}
+  #modal:has(.mxFirstUseBody) .mxFirstUseList{margin-top:7px!important}
+  #modal:has(.mxFirstUseBody) .mxFirstUseActions{gap:8px!important}
+}
+
+/* =====================================================================
+   MOLECULOX UI PASS 3 — ICON LANGUAGE + DELETE PROFILE PROPORTIONS
+   Code-drawn SVG only; no phone/OS emoji icons in this corrected modal.
+   ===================================================================== */
+.mxCodeIcon{width:1.15em;height:1.15em;display:block;flex:0 0 auto}
+.mxModalTitleIcon,.mxBtnIcon{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto}
+.mxModalTitleIcon{width:34px;height:34px;border:1px solid rgba(124,231,255,.34);border-radius:11px;color:#b9f5ff;background:linear-gradient(145deg,rgba(38,104,146,.28),rgba(71,36,128,.22));box-shadow:inset 0 0 14px rgba(81,217,255,.08)}
+.mxModalTitleIcon .mxCodeIcon{width:20px;height:20px}
+.mxBtnIcon{width:22px;height:22px;color:currentColor}
+.mxBtnIcon .mxCodeIcon{width:19px;height:19px}
+
+#modalBox.deleteProfileModal{width:min(86vw,440px)!important;padding:24px 24px 22px!important}
+#modalBox.deleteProfileModal .mxDeleteTitle{display:flex!important;align-items:center!important;justify-content:center!important;gap:11px!important;margin:0 0 10px!important;font-size:clamp(24px,6vw,32px)!important;line-height:1.08!important;text-align:center!important}
+#modalBox.deleteProfileModal>.msub{max-width:360px!important;margin:0 auto 19px!important;font-size:clamp(14px,3.8vw,17px)!important;line-height:1.38!important;text-align:center!important}
+#modalBox.deleteProfileModal .mxDeleteActions{display:flex!important;flex-direction:column!important;align-items:center!important;gap:12px!important;margin:0!important}
+#modalBox.deleteProfileModal .mxDeleteActions .btn{width:min(100%,350px)!important;min-height:50px!important;padding:11px 18px!important;margin:0!important;font-size:clamp(14px,3.8vw,16px)!important;line-height:1.15!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:9px!important;overflow:visible!important;text-overflow:clip!important;white-space:normal!important}
+#modalBox.deleteProfileModal #mDelYes{border-radius:15px!important}
+#modalBox.deleteProfileModal #mDelNo{width:min(72%,235px)!important;min-height:46px!important;border-radius:14px!important}
+
+@media(max-width:390px),(max-height:700px){
+  #modalBox.deleteProfileModal{width:min(88vw,410px)!important;padding:20px 18px 19px!important}
+  #modalBox.deleteProfileModal .mxDeleteTitle{gap:9px!important;font-size:clamp(22px,6vw,28px)!important}
+  #modalBox.deleteProfileModal>.msub{margin-bottom:16px!important;font-size:14px!important}
+  #modalBox.deleteProfileModal .mxDeleteActions{gap:10px!important}
+  #modalBox.deleteProfileModal .mxDeleteActions .btn{min-height:47px!important}
+  #modalBox.deleteProfileModal #mDelNo{min-height:43px!important}
+}
+
+
+/* =====================================================================
+   MOLECULOX PASS 4 · TYPOGRAPHY & TEXT HIERARCHY
+   Visual text system only. Gameplay logic and touch geometry unchanged.
+   ===================================================================== */
+
+:root{
+  --mx-type-title:clamp(21px,5.8vw,30px);
+  --mx-type-h2:clamp(18px,5vw,25px);
+  --mx-type-h3:clamp(16px,4.3vw,22px);
+  --mx-type-body:clamp(13px,3.45vw,15.5px);
+  --mx-type-small:clamp(10.5px,2.8vw,12.5px);
+  --mx-type-micro:clamp(9px,2.35vw,10.5px);
+  --mx-type-btn:clamp(12.5px,3.35vw,15px);
+  --mx-type-btn-primary:clamp(13.5px,3.6vw,16px);
+  --mx-type-track:.035em;
+}
+
+/* Shared readable defaults */
+body,
+button,
+input,
+select,
+textarea{
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+button,
+.btn{
+  font-family:inherit!important;
+}
+
+/* Screen titles */
+.listHead h2,
+#profileTitle,
+#labTitle,
+#logoTitle{
+  font-size:var(--mx-type-h2)!important;
+  line-height:1.08!important;
+  letter-spacing:.035em!important;
+  font-weight:900!important;
+  text-wrap:balance!important;
+}
+
+/* Splash gets one stronger title tier */
+#logoTitle{
+  font-size:clamp(27px,8vw,39px)!important;
+  letter-spacing:.065em!important;
+}
+#logoTop,
+#profileTop{
+  font-size:var(--mx-type-micro)!important;
+  letter-spacing:.22em!important;
+  font-weight:900!important;
+}
+#logoSub{
+  font-size:var(--mx-type-small)!important;
+  line-height:1.3!important;
+  letter-spacing:.025em!important;
+}
+
+/* Modal titles and supporting copy */
+#modalBox h3{
+  font-size:var(--mx-type-h3)!important;
+  line-height:1.12!important;
+  letter-spacing:.025em!important;
+  font-weight:900!important;
+  text-wrap:balance!important;
+}
+#modalBox .msub,
+#modalBox p,
+#modalBox .mxDrETrainingCopy span,
+#modalBox .mxMechanicContextNote span{
+  font-size:var(--mx-type-body)!important;
+  line-height:1.38!important;
+  letter-spacing:.005em!important;
+}
+#modalBox small,
+#modalBox .authTiny,
+#modalBox .mxFirstUseRow small,
+#modalBox .mxFirstUseCue{
+  font-size:var(--mx-type-small)!important;
+  line-height:1.35!important;
+}
+#modalBox b,
+#modalBox strong{
+  letter-spacing:.015em;
+}
+
+/* Buttons: strong but not shouty */
+#modalBox .btn,
+#profileScr .btn,
+#splash .btn:not(.iconBadge),
+#levelsScr .btn:not(.iconBadge),
+#collectScr .btn:not(.iconBadge),
+#labScr .btn:not(.iconBadge),
+#hofScr .btn:not(.iconBadge){
+  font-size:var(--mx-type-btn)!important;
+  font-weight:850!important;
+  letter-spacing:.025em!important;
+  line-height:1.12!important;
+}
+#modalBox .btn.green,
+#profileScr .btn.green,
+#splash .btn.green,
+#levelsScr .btn.green,
+#collectScr .btn.green,
+#labScr .btn.green,
+#hofScr .btn.green{
+  font-size:var(--mx-type-btn-primary)!important;
+  letter-spacing:.035em!important;
+}
+
+/* Result screen */
+#modalBox.winResultModal .mxResultFormula{
+  font-weight:900!important;
+  letter-spacing:.015em!important;
+}
+#modalBox.winResultModal .mxResultName{
+  font-size:var(--mx-type-small)!important;
+  line-height:1.12!important;
+  letter-spacing:.075em!important;
+  font-weight:800!important;
+}
+#modalBox.winResultModal .performanceResult{
+  font-size:var(--mx-type-small)!important;
+  line-height:1.2!important;
+}
+#modalBox.winResultModal .mxSolveTimeResult b{
+  font-size:clamp(15px,4vw,18px)!important;
+  letter-spacing:.045em!important;
+}
+#modalBox.winResultModal .mxSolveTimeResult span,
+#modalBox.winResultModal .mxSolveTimeResult em{
+  font-size:var(--mx-type-small)!important;
+  line-height:1.22!important;
+}
+#modalBox.winResultModal .mcoins{
+  font-size:clamp(14px,3.9vw,17px)!important;
+  line-height:1.1!important;
+}
+
+/* First-use mechanic tutorial */
+#modal:has(.mxFirstUseBody) .mxFirstUseHead span{
+  font-size:var(--mx-type-micro)!important;
+  letter-spacing:.18em!important;
+  font-weight:900!important;
+}
+#modal:has(.mxFirstUseBody) .mxFirstUseHead h3{
+  font-size:clamp(17px,4.65vw,23px)!important;
+  line-height:1.1!important;
+}
+#modal:has(.mxFirstUseBody) .mxFirstUseHead p{
+  font-size:var(--mx-type-body)!important;
+  line-height:1.35!important;
+}
+#modal:has(.mxFirstUseBody) .mxFirstUseRow b{
+  font-size:clamp(13px,3.55vw,15px)!important;
+  line-height:1.2!important;
+}
+#modal:has(.mxFirstUseBody) .mxFirstUseRow small{
+  font-size:var(--mx-type-small)!important;
+  line-height:1.35!important;
+}
+#modal:has(.mxFirstUseBody) .mxFirstUseCue{
+  font-size:var(--mx-type-small)!important;
+  line-height:1.3!important;
+}
+
+/* Account/profile screens */
+#modalBox.accountModal h3{
+  font-size:clamp(18px,4.9vw,23px)!important;
+}
+#modalBox.accountModal .accountActions .btn,
+#modalBox.accountModal .accountUtilityRow .btn{
+  line-height:1.12!important;
+}
+#profileScr .profileTexts strong{
+  font-size:clamp(13px,3.45vw,15px)!important;
+  line-height:1.12!important;
+}
+#profileScr .profileTexts small{
+  font-size:clamp(10.5px,2.85vw,12.5px)!important;
+  line-height:1.2!important;
+}
+
+/* Level selection / collection / lab */
+#levelsScr .listHead h2,
+#collectScr .listHead h2,
+#labScr .listHead h2{
+  text-align:center!important;
+}
+#lvGrid .lvNum,
+#lvGrid .lvName{
+  line-height:1.08!important;
+}
+.collectionTab span,
+.labTab span{
+  font-size:clamp(8.8px,2.4vw,10.5px)!important;
+  line-height:1.02!important;
+  letter-spacing:.025em!important;
+  font-weight:850!important;
+}
+
+/* HUD typography: align hierarchy, do not alter hit areas */
+#lvPill{
+  font-size:clamp(18px,5vw,24px)!important;
+  line-height:1.05!important;
+  letter-spacing:.025em!important;
+  font-weight:900!important;
+}
+#movePill,
+#duelTimer,
+#crystalCounter,
+#chainCounter,
+#reactorCounter,
+#coinChip{
+  font-weight:850!important;
+  letter-spacing:.03em!important;
+  line-height:1.05!important;
+}
+#goalCard .gt{
+  font-size:clamp(10px,2.6vw,12px)!important;
+  letter-spacing:.18em!important;
+  font-weight:900!important;
+}
+#goalName{
+  font-size:clamp(11px,3vw,13.5px)!important;
+  line-height:1.08!important;
+  font-weight:900!important;
+  text-wrap:balance!important;
+}
+#goalFor{
+  font-size:clamp(13px,3.6vw,16px)!important;
+  line-height:1!important;
+  font-weight:900!important;
+  letter-spacing:.04em!important;
+}
+
+/* Long-language safety */
+#modalBox .btn,
+#profileScr .btn,
+#splashBtns .btn,
+.collectionTab,
+.labTab,
+#goalName,
+#profileTitle,
+.listHead h2{
+  overflow-wrap:anywhere!important;
+  hyphens:auto;
+}
+#modalBox .btn,
+#profileScr .btn,
+#splashBtns .btn{
+  white-space:normal!important;
+  text-wrap:balance!important;
+}
+
+/* Japanese / German / Portuguese can need slightly tighter tracking */
+html[lang="ja"] #modalBox .btn,
+html[lang="ja"] .listHead h2,
+html[lang="ja"] #profileTitle{
+  letter-spacing:0!important;
+}
+html[lang="de"] #modalBox .btn,
+html[lang="pt"] #modalBox .btn{
+  letter-spacing:.01em!important;
+}
+
+/* Small phone fallback */
+@media(max-width:390px),(max-height:700px){
+  :root{
+    --mx-type-title:clamp(20px,5.5vw,26px);
+    --mx-type-h2:clamp(17px,4.7vw,22px);
+    --mx-type-h3:clamp(15px,4.1vw,20px);
+    --mx-type-body:clamp(12px,3.25vw,14px);
+    --mx-type-small:clamp(10px,2.65vw,11.5px);
+    --mx-type-btn:clamp(12px,3.2vw,14px);
+    --mx-type-btn-primary:clamp(13px,3.45vw,15px);
+  }
+  #logoTitle{font-size:clamp(25px,7.4vw,34px)!important}
+  #lvPill{font-size:clamp(17px,4.7vw,21px)!important}
+}
+
+
+/* =====================================================================
+   MOLECULOX PASS 5 · MICRO-ANIMATIONS & TRANSITION POLISH
+   Cosmetic only. Never blocks gameplay or navigation.
+   ===================================================================== */
+
+:root{
+  --mx-ease-out:cubic-bezier(.18,.82,.22,1);
+  --mx-ease-spring:cubic-bezier(.2,.9,.25,1.18);
+  --mx-press:scale(.965);
+}
+
+/* ---------------- BUTTON PRESS FEEL ---------------- */
+.btn,
+.iconBadge,
+.collectionTab,
+.labTab,
+.profileBtn,
+.profileDel{
+  transition:
+    transform .12s ease,
+    filter .15s ease,
+    box-shadow .18s ease,
+    border-color .18s ease,
+    background-color .18s ease!important;
+  transform-origin:center center!important;
+  -webkit-tap-highlight-color:transparent;
+}
+.btn:active,
+.iconBadge:active,
+.collectionTab:active,
+.labTab:active,
+.profileBtn:active,
+.profileDel:active{
+  transform:var(--mx-press)!important;
+  filter:brightness(.94)!important;
+}
+.btn.green:active{
+  transform:scale(.975)!important;
+}
+
+/* hover only on devices that truly have hover */
+@media(hover:hover) and (pointer:fine){
+  .btn:hover,
+  .iconBadge:hover,
+  .collectionTab:hover,
+  .labTab:hover{
+    filter:brightness(1.05);
+  }
+}
+
+/* ---------------- MODAL ARRIVAL ---------------- */
+#modal{
+  transition:background-color .18s ease, backdrop-filter .18s ease!important;
+}
+#modal.on #modalBox{
+  animation:mxModalArrive .26s var(--mx-ease-out) both;
+}
+#modalBox.mxClosing{
+  animation:mxModalLeave .18s ease-in both!important;
+}
+@keyframes mxModalArrive{
+  0%{opacity:0;transform:translateY(12px) scale(.975)}
+  55%{opacity:1}
+  100%{opacity:1;transform:translateY(0) scale(1)}
+}
+@keyframes mxModalLeave{
+  0%{opacity:1;transform:translateY(0) scale(1)}
+  100%{opacity:0;transform:translateY(6px) scale(.985)}
+}
+
+/* Result modal: slightly more celebratory but still fast */
+#modalBox.winResultModal.mxResultArrive{
+  animation:mxResultArrive .34s var(--mx-ease-spring) both!important;
+}
+@keyframes mxResultArrive{
+  0%{opacity:0;transform:translateY(18px) scale(.955)}
+  68%{opacity:1;transform:translateY(-2px) scale(1.006)}
+  100%{opacity:1;transform:translateY(0) scale(1)}
+}
+
+/* ---------------- RESULT ELEMENT CASCADE ---------------- */
+#modalBox.winResultModal .mxResultMolecule,
+#modalBox.winResultModal .performanceResult,
+#modalBox.winResultModal .accountMilestoneInvite,
+#modalBox.winResultModal .mxSolveTimeResult,
+#modalBox.winResultModal .mstars,
+#modalBox.winResultModal .mcoins,
+#modalBox.winResultModal>.mrow{
+  opacity:0;
+  transform:translateY(7px);
+  animation:mxResultItemIn .28s var(--mx-ease-out) forwards;
+}
+#modalBox.winResultModal .mxResultMolecule{animation-delay:.03s}
+#modalBox.winResultModal .performanceResult{animation-delay:.07s}
+#modalBox.winResultModal .accountMilestoneInvite{animation-delay:.10s}
+#modalBox.winResultModal .mxSolveTimeResult{animation-delay:.13s}
+#modalBox.winResultModal .mstars{animation-delay:.16s}
+#modalBox.winResultModal .mcoins{animation-delay:.19s}
+#modalBox.winResultModal>.mrow{animation-delay:.22s}
+@keyframes mxResultItemIn{
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* ---------------- DR. E MOTION ---------------- */
+.mxFirstUseHead img,
+.mxDrETrainingAvatar>img,
+#tutorialEinFace,
+.einImg{
+  transform-origin:center bottom!important;
+}
+#modal.on .mxFirstUseHead img{
+  animation:mxDrEEnter .36s var(--mx-ease-spring) both;
+}
+#modal.on .mxDrETrainingAvatar>img{
+  animation:mxDrECardEnter .34s var(--mx-ease-spring) both;
+}
+@keyframes mxDrEEnter{
+  0%{opacity:0;transform:translateX(-14px) translateY(8px) scale(.92) rotate(-2deg)}
+  70%{opacity:1;transform:translateX(2px) translateY(-1px) scale(1.015) rotate(.4deg)}
+  100%{opacity:1;transform:none}
+}
+@keyframes mxDrECardEnter{
+  0%{opacity:0;transform:translateY(10px) scale(.93)}
+  100%{opacity:1;transform:none}
+}
+
+/* Subtle idle life, not constant bouncing */
+.mxDrETrainingCard:hover .mxDrETrainingAvatar>img{
+  animation:mxDrEHoverNod .6s ease-in-out both;
+}
+@keyframes mxDrEHoverNod{
+  0%,100%{transform:none}
+  45%{transform:translateY(-2px) rotate(-1deg)}
+}
+
+/* ---------------- FIRST-USE GUIDE ---------------- */
+#modal.on .mxFirstUseHead,
+#modal.on .mxFirstUseRow{
+  animation:mxGuideCardIn .28s var(--mx-ease-out) both;
+}
+#modal.on .mxFirstUseRow:nth-child(1){animation-delay:.06s}
+#modal.on .mxFirstUseRow:nth-child(2){animation-delay:.10s}
+#modal.on .mxFirstUseRow:nth-child(3){animation-delay:.14s}
+#modal.on .mxFirstUseActions{animation:mxGuideActionsIn .25s var(--mx-ease-out) .16s both}
+@keyframes mxGuideCardIn{
+  0%{opacity:0;transform:translateY(8px)}
+  100%{opacity:1;transform:none}
+}
+@keyframes mxGuideActionsIn{
+  0%{opacity:0;transform:translateY(6px)}
+  100%{opacity:1;transform:none}
+}
+
+/* ---------------- TAB SWITCH FEEL ---------------- */
+.collectionTab.on,
+.labTab.on{
+  animation:mxTabSelect .20s var(--mx-ease-out) both;
+}
+@keyframes mxTabSelect{
+  0%{transform:scale(.97)}
+  65%{transform:scale(1.018)}
+  100%{transform:scale(1)}
+}
+
+/* ---------------- HEADER ICON FEEDBACK ---------------- */
+.listHead .iconBadge:active,
+#hudRight .iconBadge:active,
+#splash .iconBadge:active{
+  transform:scale(.93)!important;
+}
+
+/* ---------------- PROFILE ROW ARRIVAL ---------------- */
+#profileScr.on .profileRow{
+  animation:mxProfileRowIn .24s var(--mx-ease-out) both;
+}
+#profileScr.on .profileRow:nth-child(2){animation-delay:.035s}
+#profileScr.on .profileRow:nth-child(3){animation-delay:.07s}
+#profileScr.on .profileRow:nth-child(4){animation-delay:.105s}
+#profileScr.on .profileRow:nth-child(5){animation-delay:.14s}
+@keyframes mxProfileRowIn{
+  0%{opacity:0;transform:translateY(7px)}
+  100%{opacity:1;transform:none}
+}
+
+/* ---------------- LEVEL ENTRY REVEAL ---------------- */
+#levelTransition.on{
+  animation:mxLevelBackdropIn .18s ease-out both;
+}
+#levelTransition.on .mxLevelEntryCard{
+  animation:mxLevelCardIn .34s var(--mx-ease-spring) both!important;
+}
+@keyframes mxLevelBackdropIn{
+  from{opacity:0}
+  to{opacity:1}
+}
+@keyframes mxLevelCardIn{
+  0%{opacity:0;transform:scale(.94) translateY(12px)}
+  68%{opacity:1;transform:scale(1.012) translateY(-1px)}
+  100%{opacity:1;transform:none}
+}
+
+/* ---------------- REDUCED MOTION / ACCESSIBILITY ---------------- */
+@media(prefers-reduced-motion:reduce){
+  .btn,
+  .iconBadge,
+  .collectionTab,
+  .labTab,
+  .profileBtn,
+  .profileDel,
+  #modal.on #modalBox,
+  #modalBox.winResultModal.mxResultArrive,
+  #modalBox.winResultModal .mxResultMolecule,
+  #modalBox.winResultModal .performanceResult,
+  #modalBox.winResultModal .accountMilestoneInvite,
+  #modalBox.winResultModal .mxSolveTimeResult,
+  #modalBox.winResultModal .mstars,
+  #modalBox.winResultModal .mcoins,
+  #modalBox.winResultModal>.mrow,
+  #modal.on .mxFirstUseHead,
+  #modal.on .mxFirstUseRow,
+  #modal.on .mxFirstUseActions,
+  #profileScr.on .profileRow,
+  #levelTransition.on,
+  #levelTransition.on .mxLevelEntryCard{
+    animation:none!important;
+    transition:none!important;
+    transform:none!important;
+    opacity:1!important;
+  }
+}
+
+/* Game setting: reduced-motion option gets same behavior */
+body.mxReduceMotion .btn,
+body.mxReduceMotion .iconBadge,
+body.mxReduceMotion .collectionTab,
+body.mxReduceMotion .labTab,
+body.mxReduceMotion #modal.on #modalBox,
+body.mxReduceMotion #modalBox.winResultModal *,
+body.mxReduceMotion #levelTransition,
+body.mxReduceMotion #levelTransition *{
+  animation:none!important;
+  transition:none!important;
+}
+
+
+/* =====================================================================
+   MOLECULOX PASS 6 · VFX/SFX FINAL POLISH
+   Reward readability and low-cost visual accents only.
+   ===================================================================== */
+#modalBox.winResultModal .mstars{
+  position:relative!important;
+  isolation:isolate;
+}
+#modalBox.winResultModal .mstars::after{
+  content:"";
+  position:absolute;
+  inset:50% auto auto 50%;
+  width:120px;height:42px;
+  transform:translate(-50%,-50%) scale(.7);
+  border-radius:50%;
+  background:radial-gradient(ellipse,rgba(255,226,111,.20),rgba(120,231,255,.08) 42%,transparent 72%);
+  filter:blur(2px);
+  opacity:0;
+  pointer-events:none;
+  animation:mxRewardHalo .75s ease-out .18s both;
+  z-index:-1;
+}
+@keyframes mxRewardHalo{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.62)}
+  38%{opacity:1}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(1.18)}
+}
+#modalBox.winResultModal .mcoins{
+  animation:mxRewardSettle .36s cubic-bezier(.2,.85,.25,1.15) .20s both!important;
+}
+@keyframes mxRewardSettle{
+  0%{opacity:0;transform:translateY(5px) scale(.96)}
+  100%{opacity:1;transform:none}
+}
+@media(prefers-reduced-motion:reduce){
+  #modalBox.winResultModal .mstars::after,
+  #modalBox.winResultModal .mcoins{animation:none!important}
+}
+body.mxReduceMotion #modalBox.winResultModal .mstars::after,
+body.mxReduceMotion #modalBox.winResultModal .mcoins{animation:none!important}
+
+
+/* =====================================================================
+   MOLECULOX PASS 7 · STABILITY / MEMORY GUARDS
+   Decorative cost reductions only; gameplay layout is unchanged.
+   ===================================================================== */
+body.mxPerfLow #fx{
+  filter:none!important;
+}
+body.mxPerfLow #mxMoleculeFinishFx .mxOrbit,
+body.mxPerfLow #mxMoleculeFinishFx .mxEnergyRing{
+  filter:none!important;
+}
+body.mxPerfLow .mxDrEPoseGhost{
+  filter:none!important;
+}
+
+/* R44 — micro nudge: only the central CTA stack, +3px right. */
+#splash #splashBtns{
+  transform:translateX(3px)!important;
+}
+
+
+
+#splash #btnCollection span,
+#splash #btnMolecules span,
+#splash #btnMyMolecules span{
+  position:relative!important;
+  left:-2px!important;
+}
+
+
+/* R45 — My Molecules text optical centering only; button itself does not move. */
+#splash #btnCollect > span[data-i18n="myMolsLabel"]{
+  position:relative!important;
+  left:-3px!important;
+}

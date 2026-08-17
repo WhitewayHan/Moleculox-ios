@@ -1,9 +1,0 @@
-MOLECULOX V8.5.46 — ONLINE PRESENCE FINAL
-===========================================
-- Dr. E clean event-driven pose flow preserved.
-- Broken pointing pose remains removed.
-- Online counter remains visible on the main menu.
-- Active presence is refreshed every 30 seconds with a 90-second activity window.
-- Multiple tabs/devices using the same Firebase UID count as one player.
-- Presence rows include expiresAt for optional Firestore TTL cleanup.
-- 301 campaign FX recipes, native/web authentication, progression and audio preserved.

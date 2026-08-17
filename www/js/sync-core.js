@@ -4,6 +4,8 @@
 
   const MAX_LEVELS=301;
   const MAX_DAILY_SCORES=130;
+  const SUPPORTED_LANGS=['en','tr','de','es','pt','ja'];
+  function cleanLang(v){v=String(v||'');return SUPPORTED_LANGS.includes(v)?v:'en';}
 
   function obj(v){return v&&typeof v==='object'&&!Array.isArray(v)?v:{};}
   function int(v,min,max){
@@ -135,7 +137,7 @@
       'seenPressureDoor','seenFragile','seenPrecision','seenHintSupport','seenUndoSupport',
       'seenRestartSupport','seenLabSupport','seenSupportGuide','seenHammerSupport',
       'seenPrecisionSupport','accountMilestoneInviteSeen','nobelCertificateShared'])out[key]=!!(left[key]||right[key]);
-    out.lang=preferField(left,right,settingsSide,'lang','en')==='tr'?'tr':'en';
+    out.lang=cleanLang(preferField(left,right,settingsSide,'lang','en'));
     for(const key of ['volM','volMu','volS','volV']){
       const raw=Number(preferField(left,right,settingsSide,key,key==='volMu'?0.8:1));
       out[key]=Number.isFinite(raw)?Math.max(0,Math.min(1,raw)):(key==='volMu'?0.8:1);

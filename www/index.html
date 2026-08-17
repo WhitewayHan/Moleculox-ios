@@ -25,7 +25,7 @@
 </script>
 <title>Moleculox — Dr. E's Lab</title>
 <script>
-window.__MX_BUILD_ID__='8.5.78-r38-native-cache-bust';
+window.__MX_BUILD_ID__='8.5.78-r38-langfix1';
 window.__MX_NATIVE_SHELL__=!!(window.Capacitor&&window.Capacitor.isNativePlatform&&window.Capacitor.isNativePlatform())||/^(capacitor|ionic):$/i.test(location.protocol)||(location.hostname==='localhost'&&/iPhone|iPad|iPod/i.test(navigator.userAgent||''));
 </script>
 <script>
@@ -56,7 +56,7 @@ if(!window.__MX_NATIVE_SHELL__&&'serviceWorker' in navigator){
   });
 }
 </script>
-<link rel="stylesheet" href="css/app.css?v=8.5.78-r38-native-cache-bust">
+<link rel="stylesheet" href="css/app.css?v=8.6.28-r40-pass7-stability">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
 
@@ -213,14 +213,25 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
     <div id="coCount" class="chip">0/17</div>
     <button id="coHome" class="btn iconBadge tint-amber"><span class="badgeIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.5 12 4l8 7.5"/><path d="M6 10v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-9"/><path d="M10 20v-6h4v6"/></svg></span></button>
   </div>
-  <div class="scrollArea">
-    <div id="molGrid"></div>
-    <div class="sectionHead" data-i18n="periodicTable">⚛️ PERIODIC TABLE</div>
-    <div id="elGrid"></div>
-    <div class="sectionHead" data-i18n="achievements">🏆 ACHIEVEMENTS</div>
-    <div id="achvGrid"></div>
-    <div class="sectionHead" data-i18n="diplomasHead">🎓 DIPLOMAS</div>
-    <div id="diplomaGrid"></div>
+  <div id="collectionTabs" class="collectionTabs" role="tablist" aria-label="Collection sections">
+    <button type="button" class="collectionTab on" data-collection-tab="molecules">🧬 <span>MOLEKÜLLER</span></button>
+    <button type="button" class="collectionTab" data-collection-tab="elements">⚛️ <span>ELEMENTLER</span></button>
+    <button type="button" class="collectionTab" data-collection-tab="achievements">🏆 <span>BAŞARI</span></button>
+    <button type="button" class="collectionTab" data-collection-tab="diplomas">🎓 <span>DİPLOMA</span></button>
+  </div>
+  <div class="scrollArea collectionScroll">
+    <section class="collectionPanel on" data-collection-panel="molecules">
+      <div id="molGrid"></div>
+    </section>
+    <section class="collectionPanel" data-collection-panel="elements">
+      <div id="elGrid"></div>
+    </section>
+    <section class="collectionPanel" data-collection-panel="achievements">
+      <div id="achvGrid"></div>
+    </section>
+    <section class="collectionPanel" data-collection-panel="diplomas">
+      <div id="diplomaGrid"></div>
+    </section>
   </div>
 </div>
 
@@ -437,8 +448,8 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
 <div id="nobelWrap">
   <div id="nobelGlow"></div>
   <div id="nobelTrophy">🏆</div>
-  <div id="nobelTitle" data-i18n="nobelTitle">YOU ARE A NOBEL CANDIDATE!</div>
-  <div id="nobelSub" data-i18n="nobelSub">The campaign is complete. The Nobel itself is won in the World Ranking. — Dr. E</div>
+  <div id="nobelTitle" data-i18n="nobelTitle">YOU ARE A NOBEL LAUREATE!</div>
+  <div id="nobelSub" data-i18n="nobelSub">You completed the 301st final experiment. The Nobel Prize and your permanent laboratory display are unlocked. — Dr. E</div>
 </div>
 
 <div id="rankUpWrap">
@@ -491,14 +502,15 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
 <div id="levelTransition"></div>
 <canvas id="fx"></canvas>
 
-<script src="js/sync-core.js?v=8.5.78-r38-native-cache-bust" defer></script>
-<script src="js/daily-levels.js?v=8.5.78-r38-native-cache-bust" defer></script>
-<script src="js/campaign-levels.js?v=8.5.78-r38-native-cache-bust" defer></script>
-<script src="js/level-fx-recipes.js?v=8.5.78-r38-native-cache-bust" defer></script>
-<script src="js/game.js?v=8.5.78-r38-native-cache-bust" defer></script>
+<script src="js/sync-core.js?v=8.5.78-r38-langfix1" defer></script>
+<script src="js/daily-levels.js?v=8.5.78-r38-langfix1" defer></script>
+<script src="js/campaign-levels.js?v=8.5.78-r38-langfix1" defer></script>
+<script src="js/level-fx-recipes.js?v=8.5.78-r38-langfix1" defer></script>
+<script src="js/story-universe.js?v=8.5.78-r38-langfix1" defer></script>
+<script src="js/game.js?v=8.6.28-r40-pass7-stability" defer></script>
 
 <!-- ================= FIREBASE (cloud save + world leaderboard) ================= -->
-<script type="module" src="js/firebase.js?v=8.5.78-r38-native-cache-bust"></script>
+<script type="module" src="js/firebase.js?v=8.5.78-r38-langfix1"></script>
 
 <script>
 /* V8.5.17: convert functional UI emoji glyphs to one cross-platform SVG family.

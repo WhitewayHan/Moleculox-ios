@@ -1,9 +1,0 @@
-MOLECULOX V8.5.49 — VERIFIED RELEASE AUDIT
-
-1. Direct Bonus Lab starts now use the same compact first-use tutorial cards.
-2. Existing tester saves reopen only Lightning, Catalyst/Chain/Reactor and Nano Barrier guidance once.
-3. Detailed mechanic training shell and results are localized in all six supported languages.
-4. Duplicate one-line bonus messages are suppressed while a first-use card is open.
-5. Studio casing is synchronized with Google Play Console: wHiTeWaY studio.
-6. What’s New, app version, manifest and service-worker cache are synchronized to 8.5.49.
-7. Firebase authentication, cloud save, leaderboard, campaign levels and certified solutions were not modified.

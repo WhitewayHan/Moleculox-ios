@@ -1060,7 +1060,8 @@ function profilePayload(save, profileId, includeFullProgress, includeResearch = 
     totalHints: Math.max(0, Math.floor(Number(save.totalHints) || 0)),
     dailyDate: String(save.dailyDate || ""),
     streak3: Math.max(0, Math.floor(Number(save.streak3) || 0)),
-    lang: save.lang === "en" ? "en" : "tr",
+    // Keep the legacy cloud profile field server-compatible (en/tr). Full six-language UI preference is device-local.
+    lang: save.lang === "tr" ? "tr" : "en",
     volM: Number(save.volM), volMu: Number(save.volMu), volS: Number(save.volS), volV: Number(save.volV),
     muM: !!save.muM, muMu: !!save.muMu, muS: !!save.muS, muV: !!save.muV, externalMusic: !!save.externalMusic, dpad: !!save.dpad,
     reduceMotion: !!save.reduceMotion, duelMessages: save.duelMessages !== false, duelEffects: save.duelEffects !== false,

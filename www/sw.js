@@ -1,11 +1,11 @@
-// Moleculox V8.5.78 R38 Native Cache Identity Fix service worker.
+// Moleculox V8.5.78 R38 Science Info 1 service worker.
 // Core code is precached; large audio/story assets are cached only after use.
 // Firebase and Google traffic is never intercepted.
-const CACHE_NAME = 'moleculox-v8.5.78-r38-native-cache-bust';
+const CACHE_NAME = 'moleculox-final-r45-ios';
 const CACHE_PREFIX = 'moleculox-';
 const CORE_SHELL = [
   './index.html','./css/app.css','./js/sync-core.js','./js/daily-levels.js',
-  './js/campaign-levels.js','./js/level-fx-recipes.js','./js/game.js','./js/firebase.js',
+  './js/campaign-levels.js','./js/level-fx-recipes.js','./js/story-universe.js','./js/game.js','./js/firebase.js',
   './manifest.webmanifest','./privacy-policy.html','./terms-of-use.html',
   './player-name-rules.html','./delete-data.html',
   './assets/icons/icon-192.png','./assets/icons/icon-512.png',
