@@ -791,7 +791,7 @@ const I18N={
     pressureDoorTitle:'🔘 Pressure door',pressureDoorDesc:'Land an atom on the glowing button to open its linked door somewhere else on the board.',
     fragileTitle:'💎 Fragile atom',fragileDesc:'Each hard stop adds a crack. On the third impact it shatters and the experiment restarts. If that third impact completes the molecule, the level is won first.',
     linkedTitle:'🔗 Linked atoms',linkedDesc:'The marked pair moves together in the same direction. Check that BOTH atoms have a clear route before sliding.',
-    precisionTitle:'🎯 One-Square Move (optional)',precisionDesc:'This is an optional booster, not the main objective. Activate it, select an atom, then choose a direction to move exactly ONE tile.',classicCatalystTitle:'🧪 Catalyst Hunt objective',classicCatalystDesc:'First collect the Catalyst, Energy Cell, and Stabilizer shown at the top. After all three display a check mark, complete the target molecule.',classicChainTitle:'⚡ Chain Reaction objective',classicChainDesc:'This is different from the ⚡ charge shown on an atom. Follow the glowing correct move: the sequence continues automatically and builds Combo x2 / x3.',classicReactorTitle:'☢️ Reactor lasers',classicReactorDesc:'Move during the safe laser phase. Contact increases the Impact counter; in Reactor Escape it also adds a 3-second penalty.',
+    precisionTitle:'🎯 One-Square Move (optional)',precisionDesc:'This is an optional booster, not the main objective. Activate it, select an atom, then choose a direction to move exactly ONE tile.',classicCatalystTitle:'🧪 Catalyst Hunt objective',classicCatalystDesc:'First collect the Catalyst, Energy Cell, and Stabilizer shown at the top. After all three display a check mark, complete the target molecule.',classicChainTitle:'⚡ Chain Reaction objective',classicChainDesc:'This is different from the ⚡ charge shown on an atom. Follow the glowing correct move: the sequence continues automatically and builds Combo x2 / x3.',classicReactorTitle:'☢️ Reactor lasers',classicReactorDesc:'Move during the safe laser phase. Contact with an active beam counts as one move and increases the Impact counter; in Reactor Escape it also adds a 3-second penalty.',
     zombieMsg:'🧟‍♂️ Infected! That atom is now a zombie too...',
     cureMsg:'🔥✨ Cured! The zombie is back to normal!',
     meltMsg:'🔥💧 Sizzle! The ice melted — that atom is free to move now!',
@@ -947,7 +947,7 @@ const I18N={
     pressureDoorTitle:'🔘 Basınç kapısı',pressureDoorDesc:'Parlayan düğmenin üzerine bir atom getir, tahtanın başka bir yerindeki bağlı kapı açılsın.',
     fragileTitle:'💎 Kırılgan atom',fragileDesc:'Her sert duruşta çatlar. Üçüncü darbede parçalanır ve deney yeniden başlar. Üçüncü darbe molekülü tamamlıyorsa önce bölüm kazanılır.',
     linkedTitle:'🔗 Bağlı atomlar',linkedDesc:'İşaretli iki atom aynı yönde birlikte hareket eder. Kaydırmadan önce İKİ atomun yolunun da açık olduğunu kontrol et.',
-    precisionTitle:'🎯 1 Kare Taşı (isteğe bağlı)',precisionDesc:'Bu ana görev değil, isteğe bağlı bir güçlendiricidir. Etkinleştir, atomu seç ve yön ver; atom tam olarak BİR kare ilerler.',classicCatalystTitle:'🧪 Katalizör Avı görevi',classicCatalystDesc:'Önce üstte gösterilen Katalizör, Enerji Hücresi ve Stabilizatörü topla. Üçü de onay işareti alınca hedef molekülü tamamla.',classicChainTitle:'⚡ Zincir Reaksiyonu görevi',classicChainDesc:'Bu, atomun üzerindeki ⚡ elektrik yükünden farklıdır. Parlayan doğru hamleyi yap; seri otomatik ilerler ve Combo x2 / x3 oluşturur.',classicReactorTitle:'☢️ Reaktör lazerleri',classicReactorDesc:'Lazerin güvenli fazında hareket et. Temas edersen Darbe sayacı artar; Reaktör Kaçışında ayrıca +3 saniye ceza eklenir.',
+    precisionTitle:'🎯 1 Kare Taşı (isteğe bağlı)',precisionDesc:'Bu ana görev değil, isteğe bağlı bir güçlendiricidir. Etkinleştir, atomu seç ve yön ver; atom tam olarak BİR kare ilerler.',classicCatalystTitle:'🧪 Katalizör Avı görevi',classicCatalystDesc:'Önce üstte gösterilen Katalizör, Enerji Hücresi ve Stabilizatörü topla. Üçü de onay işareti alınca hedef molekülü tamamla.',classicChainTitle:'⚡ Zincir Reaksiyonu görevi',classicChainDesc:'Bu, atomun üzerindeki ⚡ elektrik yükünden farklıdır. Parlayan doğru hamleyi yap; seri otomatik ilerler ve Combo x2 / x3 oluşturur.',classicReactorTitle:'☢️ Reaktör lazerleri',classicReactorDesc:'Lazerin güvenli fazında hareket et. Aktif ışına temas 1 hamle sayılır ve Darbe sayacını artırır; Reaktör Kaçışında ayrıca +3 saniye ceza eklenir.',
     zombieMsg:'🧟‍♂️ Bulaştı! O atom artık zombi oldu...',
     cureMsg:'🔥✨ Tedavi oldu! Zombi normale döndü!',
     meltMsg:'🔥💧 Cızırt! Buz eridi — o atom artık serbest, hareket edebilir!',
@@ -1162,7 +1162,7 @@ Object.assign(I18N.de,{
   precisionTitle:'🎯 Ein-Feld-Zug (optional)',precisionDesc:'Ein optionaler Helfer: aktivieren, Atom wählen und eine Richtung angeben. Das Atom bewegt sich genau ein Feld.',
   classicCatalystTitle:'🧪 Katalysator-Mission',classicCatalystDesc:'Sammle zuerst Katalysator, Energiezelle und Stabilisator. Vervollständige danach das Zielmolekül.',
   classicChainTitle:'⚡ Kettenreaktion',classicChainDesc:'Dies ist etwas anderes als die ⚡-Ladung auf einem Atom. Führe den leuchtenden richtigen Zug aus; die Folge läuft automatisch weiter und bildet Combo x2 / x3.',
-  classicReactorTitle:'☢️ Reaktor-Laser',classicReactorDesc:'Bewege dich in der sicheren Laserphase. Kontakt erhöht den Trefferzähler; in Reactor Escape kommen zusätzlich 3 Sekunden Strafe hinzu.'
+  classicReactorTitle:'☢️ Reaktor-Laser',classicReactorDesc:'Bewege dich in der sicheren Laserphase. Kontakt mit einem aktiven Strahl zählt als 1 Zug und erhöht den Trefferzähler; in Reactor Escape kommen zusätzlich 3 Sekunden Strafe hinzu.'
 });
 Object.assign(I18N.es,{
   lightningTitle:'⚡ Átomo con carga eléctrica',lightningDesc:'El símbolo ⚡ indica carga eléctrica. Al tocar un grupo de átomos conectados, el pulso recorre la cadena y descongela los átomos congelados que alcanza.',
@@ -1170,7 +1170,7 @@ Object.assign(I18N.es,{
   precisionTitle:'🎯 Movimiento de una casilla (opcional)',precisionDesc:'Ayuda opcional: actívala, selecciona un átomo y una dirección. El átomo avanza exactamente una casilla.',
   classicCatalystTitle:'🧪 Misión de catalizador',classicCatalystDesc:'Recoge primero el Catalizador, la Celda de Energía y el Estabilizador. Después completa la molécula objetivo.',
   classicChainTitle:'⚡ Reacción en cadena',classicChainDesc:'Esto es distinto de la carga ⚡ de un átomo. Haz el movimiento correcto que brilla; la secuencia continúa automáticamente y forma Combo x2 / x3.',
-  classicReactorTitle:'☢️ Láseres del reactor',classicReactorDesc:'Muévete durante la fase segura. El contacto aumenta el contador de impactos; en Reactor Escape también añade 3 segundos de penalización.'
+  classicReactorTitle:'☢️ Láseres del reactor',classicReactorDesc:'Muévete durante la fase segura. Tocar un láser activo cuenta como un movimiento y aumenta Impactos; Reactor Escape también añade 3 segundos.'
 });
 Object.assign(I18N.pt,{
   lightningTitle:'⚡ Átomo com carga elétrica',lightningDesc:'O símbolo ⚡ indica carga elétrica. Ao tocar um grupo de átomos ligados, o pulso percorre a cadeia e descongela os átomos alcançados.',
@@ -1178,7 +1178,7 @@ Object.assign(I18N.pt,{
   precisionTitle:'🎯 Movimento de uma casa (opcional)',precisionDesc:'Ajuda opcional: ative, escolha um átomo e uma direção. O átomo avança exatamente uma casa.',
   classicCatalystTitle:'🧪 Missão do catalisador',classicCatalystDesc:'Colete primeiro o Catalisador, a Célula de Energia e o Estabilizador. Depois complete a molécula-alvo.',
   classicChainTitle:'⚡ Reação em cadeia',classicChainDesc:'Isto é diferente da carga ⚡ em um átomo. Faça o movimento correto brilhante; a sequência continua automaticamente e cria Combo x2 / x3.',
-  classicReactorTitle:'☢️ Lasers do reator',classicReactorDesc:'Mova-se durante a fase segura. O contato aumenta o contador de impactos; no Reactor Escape também adiciona 3 segundos de penalidade.'
+  classicReactorTitle:'☢️ Lasers do reator',classicReactorDesc:'Mova-se durante a fase segura. Tocar um laser ativo conta como uma jogada e aumenta Impactos; Reactor Escape também adiciona 3 segundos.'
 });
 Object.assign(I18N.ja,{
   lightningTitle:'⚡ 帯電原子',lightningDesc:'⚡は電気を帯びた原子の印です。連結した原子群に触れると電気が鎖を伝わり、到達した凍結原子を解凍します。',
@@ -1186,7 +1186,7 @@ Object.assign(I18N.ja,{
   precisionTitle:'🎯 1マス移動（任意）',precisionDesc:'任意の補助機能です。有効化して原子と方向を選ぶと、原子がちょうど1マス移動します。',
   classicCatalystTitle:'🧪 触媒ミッション',classicCatalystDesc:'最初に触媒、エネルギーセル、安定化装置を集め、その後で目標分子を完成させます。',
   classicChainTitle:'⚡ 連鎖反応',classicChainDesc:'これは原子上の⚡電荷とは別の仕組みです。光る正しい手を選ぶと連鎖が自動で続き、Combo x2 / x3になります。',
-  classicReactorTitle:'☢️ リアクターレーザー',classicReactorDesc:'レーザーの安全な時間に移動します。接触すると衝突カウンターが増え、Reactor Escapeではさらに3秒のペナルティが加わります。'
+  classicReactorTitle:'☢️ リアクターレーザー',classicReactorDesc:'レーザーの安全な時間に移動します。作動中の光線への接触は1手として数えられ、衝突カウンターも増えます。Reactor Escapeではさらに3秒のペナルティが加わります。'
 });
 
 
@@ -1202,7 +1202,7 @@ Object.assign(I18N.en,{
   linkedDesc:'Atoms joined by the animated dotted line move together in the same direction. BOTH routes must be clear.',
   classicCatalystDesc:'Collect the three board symbols — Catalyst, Energy Cell, and Stabilizer. Their counters at the top turn into check marks; then complete the molecule.',
   classicChainDesc:'This is not the ⚡ charge on an atom. Make the glowing move; the following moves run automatically and raise Combo x2 / x3.',
-  classicReactorDesc:'Move while the laser is dim/off. Touching an active beam raises the Impact counter; Reactor Escape also adds 3 seconds.'
+  classicReactorDesc:'Move while the laser is dim/off. Touching an active beam counts as one move and raises the Impact counter; Reactor Escape also adds 3 seconds.'
 });
 Object.assign(I18N.tr,{
   hammerDesc:'Üzerinde küçük çekiç işareti bulunan çatlak duvar yolu kapatır. ÇEKİÇ aracını seçip o duvara dokun; gerçek kullanımda 1 çekiç harcanır.',
@@ -1213,7 +1213,7 @@ Object.assign(I18N.tr,{
   linkedDesc:'Hareketli noktalı çizgiyle bağlı atomlar aynı yönde birlikte gider. İKİ yolun da açık olması gerekir.',
   classicCatalystDesc:'Tahtadaki üç simgeyi — Katalizör, Enerji Hücresi ve Stabilizatör — topla. Üst sayaçlar onay işaretine dönünce hedef molekülü tamamla.',
   classicChainDesc:'Bu, atom üzerindeki ⚡ yük değildir. Parlayan hamleyi yap; sonraki hamleler otomatik ilerler ve Combo x2 / x3 yükselir.',
-  classicReactorDesc:'Lazer soluk/kapalıyken hareket et. Aktif ışına temas Darbe sayacını artırır; Reaktör Kaçışında ayrıca 3 saniye ekler.'
+  classicReactorDesc:'Lazer soluk/kapalıyken hareket et. Aktif ışına temas 1 hamle sayılır ve Darbe sayacını artırır; Reaktör Kaçışında ayrıca 3 saniye ekler.'
 });
 Object.assign(I18N.de,{
   hammerDesc:'Die rissige Wand mit dem kleinen Hammerzeichen blockiert den Weg. Wähle HAMMER und tippe auf diese Wand; der echte Einsatz verbraucht 1 Hammer.',
@@ -1224,7 +1224,7 @@ Object.assign(I18N.de,{
   linkedDesc:'Atome mit der bewegten gestrichelten Linie bewegen sich gemeinsam in dieselbe Richtung. BEIDE Wege müssen frei sein.',
   classicCatalystDesc:'Sammle die drei Symbole Katalysator, Energiezelle und Stabilisator. Wenn oben drei Häkchen stehen, vervollständige das Molekül.',
   classicChainDesc:'Das ist nicht die ⚡-Ladung eines Atoms. Führe den leuchtenden Zug aus; die Folge läuft automatisch und erhöht Combo x2 / x3.',
-  classicReactorDesc:'Bewege dich, wenn der Laser dunkel/aus ist. Ein aktiver Strahl erhöht Treffer; in Reactor Escape kommen 3 Sekunden hinzu.'
+  classicReactorDesc:'Bewege dich, wenn der Laser dunkel/aus ist. Kontakt mit einem aktiven Strahl zählt als 1 Zug und erhöht Treffer; in Reactor Escape kommen 3 Sekunden hinzu.'
 });
 Object.assign(I18N.es,{
   hammerDesc:'La pared agrietada con el pequeño martillo bloquea la ruta. Selecciona MARTILLO y tócala; el uso real consume 1 martillo.',
@@ -1235,7 +1235,7 @@ Object.assign(I18N.es,{
   linkedDesc:'Los átomos unidos por la línea de puntos animada se mueven juntos en la misma dirección. AMBAS rutas deben estar libres.',
   classicCatalystDesc:'Recoge los tres símbolos: Catalizador, Celda de Energía y Estabilizador. Cuando los contadores superiores tengan ✓, completa la molécula.',
   classicChainDesc:'No es la carga ⚡ de un átomo. Haz el movimiento brillante; la secuencia continúa sola y aumenta Combo x2 / x3.',
-  classicReactorDesc:'Muévete cuando el láser esté tenue/apagado. Tocar un rayo activo aumenta Impactos; Reactor Escape añade 3 segundos.'
+  classicReactorDesc:'Muévete cuando el láser esté tenue/apagado. Tocar un rayo activo cuenta como un movimiento, aumenta Impactos y Reactor Escape añade 3 segundos.'
 });
 Object.assign(I18N.pt,{
   hammerDesc:'A parede rachada com o pequeno martelo bloqueia a rota. Selecione MARTELO e toque nela; o uso real consome 1 martelo.',
@@ -1246,7 +1246,7 @@ Object.assign(I18N.pt,{
   linkedDesc:'Átomos unidos pela linha pontilhada animada se movem juntos na mesma direção. OS DOIS caminhos precisam estar livres.',
   classicCatalystDesc:'Colete os três símbolos: Catalisador, Célula de Energia e Estabilizador. Quando os contadores mostrarem ✓, complete a molécula.',
   classicChainDesc:'Não é a carga ⚡ de um átomo. Faça a jogada brilhante; a sequência continua sozinha e aumenta Combo x2 / x3.',
-  classicReactorDesc:'Mova-se quando o laser estiver fraco/desligado. Tocar o feixe ativo aumenta Impactos; Reactor Escape acrescenta 3 segundos.'
+  classicReactorDesc:'Mova-se quando o laser estiver fraco/desligado. Tocar o feixe ativo conta como uma jogada, aumenta Impactos e Reactor Escape acrescenta 3 segundos.'
 });
 Object.assign(I18N.ja,{
   hammerDesc:'小さなハンマー印のあるひび割れ壁が進路を塞ぎます。ハンマーを選んで壁をタップすると、実戦では1個消費します。',
@@ -1257,7 +1257,7 @@ Object.assign(I18N.ja,{
   linkedDesc:'動く点線で結ばれた原子は同じ方向へ一緒に動きます。両方の進路が空いている必要があります。',
   classicCatalystDesc:'触媒・エネルギーセル・安定化装置の3つの記号を集めます。上部がすべて✓になったら分子を完成させます。',
   classicChainDesc:'原子の⚡電荷とは別です。光る手を選ぶと連鎖が自動で続き、Combo x2 / x3が上がります。',
-  classicReactorDesc:'レーザーが暗い／消えている時に動きます。作動中の光線に触れると衝突回数が増え、Reactor Escapeでは3秒加算されます。'
+  classicReactorDesc:'レーザーが暗い／消えている時に動きます。作動中の光線への接触は1手として数えられ、衝突回数も増えます。Reactor Escapeでは3秒加算されます。'
 });
 
 function ml(tr,en,de,es,pt,ja){
@@ -1773,7 +1773,18 @@ musicAudio.setAttribute('webkit-playsinline','');
 musicAudio.disableRemotePlayback=true;
 musicAudio.muted=false;
 try{musicAudio.src=TRACKS[0];musicAudio.load();}catch(e){}
-let musicDuck=1,musicFadeToken=0;
+let musicDuck=1,musicFadeToken=0,musicTrimIndex=0;
+// FINAL R45 mastering trim. A release audit found roughly a 4 dB average-level
+// spread across the 23 shipped tracks. These attenuation-only trims tame the
+// louder files without re-encoding, boosting, clipping or changing user volume.
+const MUSIC_TRACK_TRIM=[
+  1.000,0.966,1.000,0.955,0.724,0.861,1.000,0.977,1.000,0.977,1.000,1.000,
+  0.955,0.977,1.000,0.989,0.912,1.000,0.966,1.000,0.861,1.000,0.891
+];
+function currentMusicTrim(){
+  const i=Math.max(0,Math.min(MUSIC_TRACK_TRIM.length-1,Math.floor(Number(musicTrimIndex)||0)));
+  return clampAudio(MUSIC_TRACK_TRIM[i]||1);
+}
 let startupAudioStarted=false,startupAudioFailed=false,startupCuePlayed=false;
 let audioSessionConfigured=false;
 function configureAudioSession(){
@@ -1798,8 +1809,12 @@ function syncExternalMusicMode(){
 let audioGestureSeen=false,audioPrimed=false,bootIntroStartedAt=0,bootPlayBusy=false;
 
 function clampAudio(v){v=Number(v);return Number.isFinite(v)?Math.max(0,Math.min(1,v)):0;}
-function targetMusicVolume(){return (save.muM||save.muMu)?0:clampAudio(save.volM*save.volMu);}
-function duckMusic(level=.58,duration=850){musicDuck=1;}
+function targetMusicVolume(){return (save.muM||save.muMu)?0:clampAudio(save.volM*save.volMu*currentMusicTrim()*musicDuck);}
+function duckMusic(level=.58,duration=850){
+  musicDuck=clampAudio(level);applyVol();
+  const token=++musicFadeToken;
+  setTimeout(()=>{if(token!==musicFadeToken)return;musicDuck=1;applyVol();},Math.max(120,Number(duration)||850));
+}
 function setGainNow(node,value){
   if(!node)return;
   value=clampAudio(value);
@@ -1814,6 +1829,7 @@ function applyVol(){
   if(externalMusicMode){stopAllGameAudio();return;}
   const master=save.muM?0:clampAudio(save.volM);
   const music=save.muMu?0:clampAudio(save.volMu);
+  const musicTrim=currentMusicTrim();
   const effects=save.muS?0:clampAudio(save.volS);
   // R17: professor speech follows the visible Master + Effects controls.
   // Old hidden per-profile muV/volV values caused voice to work for one player
@@ -1821,14 +1837,14 @@ function applyVol(){
   const voices=save.muS?0:clampAudio(save.volS);
   if(AC){
     setGainNow(masterG,master);
-    setGainNow(musicG,music);
+    setGainNow(musicG,clampAudio(music*musicTrim*musicDuck));
     setGainNow(sfxG,effects);
     setGainNow(voiceG,voices);
   }
   // iPhone Safari may ignore HTMLMediaElement.volume. When Web Audio routing
   // is available the elements stay at full volume and their GainNodes control
   // the real output. The direct-volume path remains as a browser fallback.
-  try{musicAudio.volume=musicMediaSrc?1:clampAudio(master*music);}catch(e){}
+  try{musicAudio.volume=musicMediaSrc?1:clampAudio(master*music*musicTrim*musicDuck);}catch(e){}
   try{startupAudio.volume=startupMediaSrc?1:clampAudio(master*effects);}catch(e){}
 }
 function ac(){
@@ -1956,14 +1972,24 @@ const SFX={
     nz(sfxG,t,dur,.022,'bandpass',920,1850,1.15);
     osc(sfxG,260+d*22,t,dur,'sine',.026,{atk:.006,f2:430+d*18,f2t:dur*.92,lp:1700});
   },
-  atomLand(d=1,bonded=false){
-    if(!sfxAllowed('atomLand',55)||!ac())return;
+  atomLand(d=1,bonded=false,e1='',e2='',kind='free'){
+    if(!sfxAllowed('atomLand',52)||!ac())return;
     d=Number.isFinite(Number(d))?Math.max(1,Number(d)):1;
+    const z1=Math.max(1,Number(ELINFO_EN[e1]&&ELINFO_EN[e1].z)||6);
+    const z2=Math.max(1,Number(ELINFO_EN[e2]&&ELINFO_EN[e2].z)||(kind==='atom'?6:18));
+    const mass=Math.min(58,(z1+z2)*.5),energy=Math.min(1.35,.82+d*.055);
     const t=now()+.003;
-    // Soft physical stop; a newly formed bond adds a tiny glassy overtone.
-    osc(sfxG,150+Math.min(d,8)*8,t,.075,'triangle',.044,{atk:.003,f2:92,f2t:.065,lp:900});
-    nz(sfxG,t,.045,.014,'lowpass',520,210,.7);
-    if(bonded)osc(sfxG,1180,t+.025,.105,'sine',.028,{atk:.004,f2:1420,f2t:.09});
+    // POLISH 3: element-aware contact. Heavy atoms land lower; atom-to-atom
+    // contacts retain a clean material tone; a real bond gets a short glass lock.
+    const root=kind==='wall'?Math.max(88,150-d*2):Math.max(104,220-mass*1.55);
+    osc(sfxG,root,t,.082,'triangle',.042*energy,{atk:.002,f2:Math.max(58,root*.56),f2t:.072,lp:920});
+    nz(sfxG,t,.046,.0125*energy,kind==='wall'?'bandpass':'lowpass',kind==='wall'?620:470,kind==='wall'?300:170,kind==='wall'?1.25:.72);
+    if(kind==='atom')osc(sfxG,Math.min(780,285+(z1+z2)*4.1),t+.012,.07,'sine',.018*energy,{atk:.002,f2:Math.min(960,360+(z1+z2)*4.5),f2t:.06,lp:1500});
+    if(bonded){
+      const lock=760+((z1*17+z2*11)%260);
+      osc(sfxG,lock,t+.026,.13,'sine',.026,{atk:.003,f2:lock*1.22,f2t:.115,lp:2600});
+      osc(sfxG,lock*2,t+.056,.105,'sine',.012,{atk:.002,f2:lock*2.06,f2t:.09});
+    }
   },
   wallTap(){
     if(!sfxAllowed('wallTap',70)||!ac())return;
@@ -1991,6 +2017,14 @@ const SFX={
     osc(sfxG,210,t,.13,'triangle',.045,{atk:.004,f2:390,f2t:.11,lp:1400});
     osc(sfxG,780,t+.045,.15,'sine',.030,{atk:.004,f2:1120,f2t:.12});
     nz(sfxG,t,.10,.016,'bandpass',1450,740,1.5);
+  },
+  movingWall(){
+    if(!sfxAllowed('movingWall',140)||!ac())return;
+    const t=now()+.002;
+    osc(sfxG,128,t,.22,'triangle',.042,{atk:.004,f2:186,f2t:.19,lp:760});
+    osc(sfxG,510,t+.045,.16,'sine',.020,{atk:.006,f2:690,f2t:.13,lp:1800});
+    nz(sfxG,t+.03,.10,.014,'bandpass',930,460,1.5);
+    osc(sfxG,230,t+.18,.055,'square',.020,{atk:.002,f2:145,f2t:.05,lp:800});
   },
   thunk(){
     if(!sfxAllowed('thunk',110)||!ac())return;
@@ -2072,6 +2106,22 @@ const SFX={
     [[440,0],[523.25,.16],[440,.34]].forEach(([f,d])=>osc(sfxG,f,t+d,.28,'triangle',.05,{atk:.015}));
   },
   whoosh(){tone(200,0.35,'sine',0.055,0,900)},
+  studioIdent(){
+    if(!sfxAllowed('studioIdent',900)||!ac())return;
+    const t=now()+.006;
+    // Short studio ident: restrained low hit + electric W shimmer + crystal resolve.
+    osc(sfxG,82.41,t,.30,'sine',.046,{atk:.012,f2:61.74,f2t:.27,lp:420});
+    nz(sfxG,t+.025,.13,.014,'bandpass',1750,2200,1.8);
+    osc(sfxG,392,t+.15,.34,'sine',.025,{atk:.016,f2:783.99,f2t:.30,lp:2600});
+    osc(sfxG,783.99,t+.34,.30,'triangle',.019,{atk:.010,f2:1174.66,f2t:.26,lp:3200});
+    [1318.51,1760].forEach((f,i)=>osc(sfxG,f,t+.72+i*.075,.28,'sine',.014-i*.002,{atk:.008,f2:f*1.012,f2t:.24}));
+  },
+  bulbTick(strong=false){
+    if(!sfxAllowed('bulbTick',150)||!ac())return;
+    const t=now()+.003;
+    osc(sfxG,strong?245:205,t,.045,'triangle',strong?.025:.018,{atk:.002,f2:strong?130:118,f2t:.04,lp:1200});
+    nz(sfxG,t,.026,strong?.010:.007,'bandpass',strong?2350:1900,800,1.7);
+  },
   labIntro(){
     premiumStartupCue();
   },
@@ -2208,11 +2258,11 @@ function clearActiveVoice(){
   activeVoice=null;
 }
 function finishCharacterVoice(){
-  clearActiveVoice();voicePlaying=false;
+  clearActiveVoice();voicePlaying=false;musicDuck=1;applyVol();
   setTimeout(drainVoiceQueue,120);
 }
 function stopCharacterVoice(){
-  voiceQueue.length=0;clearActiveVoice();voicePlaying=false;
+  voiceQueue.length=0;clearActiveVoice();voicePlaying=false;musicDuck=1;applyVol();
 }
 function ensureFallbackMetadata(){
   if(voiceFallback.readyState>=1)return Promise.resolve();
@@ -2240,7 +2290,7 @@ async function drainVoiceQueue(){
   if(!item)return;
   if(!voiceEnabled()){setTimeout(drainVoiceQueue,80);return;}
   const seg=VOICE_SPRITE[item.name];if(!seg){setTimeout(drainVoiceQueue,0);return;}
-  voicePlaying=true;
+  voicePlaying=true;musicDuck=clampAudio(item.duck==null?.34:item.duck);applyVol();
   try{
     const ctx=ac();if(!ctx)throw new Error('audio-context-unavailable');
     if(ctx.state!=='running'){try{await ctx.resume();}catch(e){}}
@@ -2353,7 +2403,7 @@ function isCurrentTrack(i){
 }
 function setMusicTrack(i){
   i=Math.max(0,Math.min(TRACKS.length-1,Number(i)||0));
-  MP.idx=i;
+  MP.idx=i;musicTrimIndex=i;
   if(!isCurrentTrack(i)){
     musicAudio.src=trackUrl(i);
     musicAudio.load();
@@ -2418,8 +2468,8 @@ function musKick(){
   applyVol();
   if(musicAudio.paused)playTrack(MP.idx,false);
 }
-function fadeMusicDuck(to,durationMs){musicDuck=1;applyVol();}
-function duck(v,when,ramp){musicDuck=1;}
+function fadeMusicDuck(to,durationMs){duckMusic(to,durationMs);}
+function duck(v,when,ramp){duckMusic(v,Math.max(120,Number(ramp)||650));}
 /* ---------- molecule completion sounds ---------- */
 const MSND={
   splash(){nz(sfxG,now(),0.42,0.24,'lowpass',1500,240);[620,830,1080].forEach((f,i)=>tone(f,0.09,'sine',0.09,0.1+i*0.09));nz(sfxG,now()+0.05,0.25,0.09,'bandpass',900,null,2);},
@@ -2473,16 +2523,20 @@ function showMoleculeCompletionFx(){
   const cx=(minX+maxX)/2,cy=(minY+maxY)/2;
   const rx=Math.max(54*scale,(maxX-minX)/2+34*scale),ry=Math.max(38*scale,(maxY-minY)/2+25*scale);
   const wrap=document.createElement('div');wrap.id='mxMoleculeFinishFx';wrap.style.setProperty('--mxfx-scale',String(scale));
-  const atomHalos=pts.map((p,i)=>'<i class="mxAtomHalo" style="left:'+p.x+'px;top:'+p.y+'px;animation-delay:'+(i*.035)+'s"></i>').join('');
+  const molPalette=(curMol&&Array.isArray(curMol.c)&&curMol.c.length)?curMol.c:['#7ee8ff','#a78bfa'];
+  wrap.style.setProperty('--mx-mol-a',molPalette[0]||'#7ee8ff');wrap.style.setProperty('--mx-mol-b',molPalette[1]||molPalette[0]||'#a78bfa');
+  const atomHalos=pts.map((p,i)=>{const ec=EL[p.e]||{c:'#7ee8ff',hi:'#ffffff'};return '<i class="mxAtomHalo" style="left:'+p.x+'px;top:'+p.y+'px;--mx-atom:'+ec.c+';--mx-atom-hi:'+ec.hi+';animation-delay:'+(i*.035)+'s"></i>';}).join('');
   const bondLights=[];
   for(let i=0;i<atoms.length;i++)for(let j=i+1;j<atoms.length;j++){
     const dx=atoms[j].x-atoms[i].x,dy=atoms[j].y-atoms[i].y;if(Math.abs(dx)+Math.abs(dy)!==1)continue;
     if(!curMol.bs.has(atoms[i].e+','+atoms[j].e+','+dx+','+dy))continue;
     const a=pts[i],b=pts[j],len=Math.hypot(b.x-a.x,b.y-a.y),ang=Math.atan2(b.y-a.y,b.x-a.x);
-    bondLights.push('<i class="mxBondLight" style="left:'+a.x+'px;top:'+a.y+'px;width:'+len+'px;--mx-bond-angle:'+ang+'rad;animation-delay:'+(0.09+bondLights.length*.095)+'s"></i>');
+    const eca=EL[atoms[i].e]||{c:'#7ee8ff'},ecb=EL[atoms[j].e]||{c:'#a78bfa'};
+    bondLights.push('<i class="mxBondLight" style="left:'+a.x+'px;top:'+a.y+'px;width:'+len+'px;--mx-bond-angle:'+ang+'rad;--mx-bond-c1:'+eca.c+';--mx-bond-c2:'+ecb.c+';animation-delay:'+(0.09+bondLights.length*.095)+'s"></i>');
   }
   const finalIndex=Math.max(0,Math.min(atoms.length-1,Number.isInteger(sel)?sel:atoms.length-1)),finalPt=pts[finalIndex],finalAtom=atoms[finalIndex]||atoms[atoms.length-1];
-  const finalPop=finalPt?('<div class="mxFinalAtomPop" style="left:'+finalPt.x+'px;top:'+finalPt.y+'px"><b>'+String(finalAtom&&finalAtom.e||'⚛')+'</b><i></i></div>'):'';
+  const finalEc=EL[finalAtom&&finalAtom.e]||{c:'#7ee8ff',hi:'#ffffff'};
+  const finalPop=finalPt?('<div class="mxFinalAtomPop" style="left:'+finalPt.x+'px;top:'+finalPt.y+'px;--mx-final:'+finalEc.c+';--mx-final-hi:'+finalEc.hi+'"><b>'+String(finalAtom&&finalAtom.e||'⚛')+'</b><i></i></div>'):'';
   wrap.innerHTML='<div class="mxEnergyRing" style="left:'+cx+'px;top:'+cy+'px"></div>'+
     '<div class="mxOrbit mxOrbitA" style="left:'+cx+'px;top:'+cy+'px;width:'+(rx*2)+'px;height:'+(ry*2)+'px"><b></b><b></b></div>'+
     '<div class="mxOrbit mxOrbitB" style="left:'+cx+'px;top:'+cy+'px;width:'+(rx*1.72)+'px;height:'+(ry*2.32)+'px"><b></b></div>'+
@@ -2505,14 +2559,14 @@ function installCompletionCinematicStyles(){
   const st=document.createElement('style');st.id='mxCompletionCinematicStyles';st.textContent=`
     #mxMoleculeFinishFx{position:fixed;inset:0;z-index:95;pointer-events:none;overflow:hidden;opacity:0;transition:opacity .12s ease}
     #mxMoleculeFinishFx.on{opacity:1}
-    #mxMoleculeFinishFx .mxAtomHalo{position:fixed;width:calc(58px * var(--mxfx-scale));height:calc(58px * var(--mxfx-scale));border-radius:50%;transform:translate(-50%,-50%) scale(.45);opacity:0;background:radial-gradient(circle,rgba(255,255,255,.92) 0,rgba(132,238,255,.34) 34%,rgba(156,113,255,.14) 58%,transparent 72%);filter:blur(.2px);animation:mxAtomFlash 1.05s cubic-bezier(.18,.84,.22,1) both}
-    #mxMoleculeFinishFx .mxEnergyRing{position:fixed;width:calc(72px * var(--mxfx-scale));height:calc(72px * var(--mxfx-scale));border-radius:50%;transform:translate(-50%,-50%) scale(.25);border:calc(3px * var(--mxfx-scale)) solid rgba(182,244,255,.88);box-shadow:0 0 calc(25px * var(--mxfx-scale)) rgba(107,224,255,.7),inset 0 0 calc(18px * var(--mxfx-scale)) rgba(255,255,255,.5);animation:mxEnergyExpand 1.12s cubic-bezier(.14,.72,.18,1) both}
-    #mxMoleculeFinishFx .mxOrbit{position:fixed;border:calc(1.7px * var(--mxfx-scale)) solid rgba(174,239,255,.62);border-radius:50%;transform:translate(-50%,-50%) rotate(-14deg) scale(.5);opacity:0;filter:drop-shadow(0 0 calc(5px * var(--mxfx-scale)) rgba(99,220,255,.8));animation:mxOrbitIn 1.18s ease-out both}
+    #mxMoleculeFinishFx .mxAtomHalo{position:fixed;width:calc(58px * var(--mxfx-scale));height:calc(58px * var(--mxfx-scale));border-radius:50%;transform:translate(-50%,-50%) scale(.45);opacity:0;background:radial-gradient(circle,#fff 0 7%,var(--mx-atom-hi,#dffbff) 18%,var(--mx-atom,#84eeff) 43%,transparent 72%);filter:blur(.2px);box-shadow:0 0 calc(14px * var(--mxfx-scale)) var(--mx-atom,#84eeff);animation:mxAtomFlash 1.05s cubic-bezier(.18,.84,.22,1) both}
+    #mxMoleculeFinishFx .mxEnergyRing{position:fixed;width:calc(72px * var(--mxfx-scale));height:calc(72px * var(--mxfx-scale));border-radius:50%;transform:translate(-50%,-50%) scale(.25);border:calc(3px * var(--mxfx-scale)) solid var(--mx-mol-a,#b6f4ff);box-shadow:0 0 calc(25px * var(--mxfx-scale)) var(--mx-mol-a,#6be0ff),inset 0 0 calc(18px * var(--mxfx-scale)) rgba(255,255,255,.5);animation:mxEnergyExpand 1.12s cubic-bezier(.14,.72,.18,1) both}
+    #mxMoleculeFinishFx .mxOrbit{position:fixed;border:calc(1.7px * var(--mxfx-scale)) solid var(--mx-mol-a,#aeefff);border-radius:50%;transform:translate(-50%,-50%) rotate(-14deg) scale(.5);opacity:0;filter:drop-shadow(0 0 calc(5px * var(--mxfx-scale)) var(--mx-mol-b,#63dcff));animation:mxOrbitIn 1.18s ease-out both}
     #mxMoleculeFinishFx .mxOrbitB{transform:translate(-50%,-50%) rotate(63deg) scale(.5);animation-delay:.05s}
     #mxMoleculeFinishFx .mxOrbit b{position:absolute;width:calc(8px * var(--mxfx-scale));height:calc(8px * var(--mxfx-scale));border-radius:50%;background:#fff;box-shadow:0 0 calc(8px * var(--mxfx-scale)) #7ff0ff,0 0 calc(15px * var(--mxfx-scale)) #8f72ff;top:50%;left:-4px;animation:mxElectronPulse .42s ease-in-out infinite alternate}
     #mxMoleculeFinishFx .mxOrbit b:nth-child(2){left:auto;right:-4px;animation-delay:-.2s}
-    #mxMoleculeFinishFx .mxBondLight{position:fixed;height:calc(8px * var(--mxfx-scale));border-radius:999px;transform-origin:0 50%;transform:translateY(-50%) rotate(var(--mx-bond-angle)) scaleX(0);opacity:0;background:linear-gradient(90deg,rgba(255,255,255,.2),#ffffff 34%,#74ecff 62%,rgba(155,111,255,.15));box-shadow:0 0 calc(8px * var(--mxfx-scale)) rgba(117,235,255,.95),0 0 calc(17px * var(--mxfx-scale)) rgba(132,102,255,.64);animation:mxBondIgnite 1.14s cubic-bezier(.18,.84,.22,1) both}
-    #mxMoleculeFinishFx .mxFinalAtomPop{position:fixed;width:calc(62px * var(--mxfx-scale));height:calc(62px * var(--mxfx-scale));transform:translate(-50%,-50%) scale(.28);border-radius:50%;display:grid;place-items:center;opacity:0;background:radial-gradient(circle at 34% 28%,#fff 0 8%,#baf5ff 20%,rgba(91,216,255,.54) 48%,rgba(147,99,255,.1) 70%,transparent 74%);box-shadow:0 0 calc(18px * var(--mxfx-scale)) rgba(110,232,255,.95);animation:mxFinalAtomSnap .92s cubic-bezier(.16,1.22,.28,1) both}
+    #mxMoleculeFinishFx .mxBondLight{position:fixed;height:calc(8px * var(--mxfx-scale));border-radius:999px;transform-origin:0 50%;transform:translateY(-50%) rotate(var(--mx-bond-angle)) scaleX(0);opacity:0;background:linear-gradient(90deg,var(--mx-bond-c1,#7ee8ff),#ffffff 48%,var(--mx-bond-c2,#a78bfa));box-shadow:0 0 calc(8px * var(--mxfx-scale)) var(--mx-bond-c1,#75ebff),0 0 calc(17px * var(--mxfx-scale)) var(--mx-bond-c2,#8466ff);animation:mxBondIgnite 1.14s cubic-bezier(.18,.84,.22,1) both}
+    #mxMoleculeFinishFx .mxFinalAtomPop{position:fixed;width:calc(62px * var(--mxfx-scale));height:calc(62px * var(--mxfx-scale));transform:translate(-50%,-50%) scale(.28);border-radius:50%;display:grid;place-items:center;opacity:0;background:radial-gradient(circle at 34% 28%,#fff 0 8%,var(--mx-final-hi,#baf5ff) 22%,var(--mx-final,#5bd8ff) 52%,transparent 74%);box-shadow:0 0 calc(18px * var(--mxfx-scale)) var(--mx-final,#6ee8ff);animation:mxFinalAtomSnap .92s cubic-bezier(.16,1.22,.28,1) both}
     #mxMoleculeFinishFx .mxFinalAtomPop b{font:1000 calc(18px * var(--mxfx-scale))/1 system-ui,-apple-system,sans-serif;color:#10263c;text-shadow:0 1px rgba(255,255,255,.8)}
     #mxMoleculeFinishFx .mxFinalAtomPop i{position:absolute;inset:0;border-radius:50%;border:calc(2px * var(--mxfx-scale)) solid rgba(255,255,255,.92);animation:mxFinalAtomRing .8s ease-out both}
     #mxMoleculeFinishFx .mxChemWord{position:fixed;transform:translate(-50%,-50%) scale(.72);font:900 clamp(32px,calc(48px * var(--mxfx-scale)),58px)/1 system-ui,sans-serif;letter-spacing:.04em;color:#fff4be;text-shadow:0 3px 0 #a65b12,0 7px 16px rgba(0,0,0,.62),0 0 22px rgba(255,213,87,.65);opacity:0;white-space:nowrap;animation:mxChemWord 1.25s cubic-bezier(.18,.82,.18,1) both}
@@ -2576,6 +2630,9 @@ function wallBreakDustFx(gx,gy){
   for(let q=0;q<24;q++){const a=Math.random()*Math.PI*2,sp=1.1+Math.random()*4.1;P({k:'crys',x:cx+(Math.random()-.5)*8,y:cy+(Math.random()-.5)*8,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-2.5,w:3+Math.random()*7,rot:Math.random()*7,vr:(Math.random()-.5)*.55,c:q%3===0?'#d7c5ae':q%3===1?'#9c856e':'#6f5d4d',life:1.05+Math.random()*.45,d:q*.006});}
   for(let q=0;q<20;q++){const a=q/20*Math.PI*2,sp=2+Math.random()*3;P({k:'glit',x:cx,y:cy,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-1,r:1+Math.random()*2,c:q%2?'#eadbc8':'#8c7762',life:.55,d:q*.004});}
   P({k:'ring',x:cx,y:cy,r:7,vr2:115,c:'#f3dfc4',life:.42});
+  // POLISH 8 · hammer contact flash: a few directional metal sparks make the
+  // strike feel deliberate without increasing the overall debris cloud.
+  if(!motionReduced()){for(let q=0;q<7;q++){const a=-2.35+(q/6)*1.55,sp=2.6+Math.random()*2.4;P({k:'streak',x:cx,y:cy,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,len:10+Math.random()*7,w:1.2+Math.random()*.6,c:q%2?'#fff5c4':'#78e8ff',c2:'#ffffff',life:.26+Math.random()*.12,d:q*.008});}P({k:'ring',x:cx,y:cy,r:3,vr2:72,c:'#ffffff',life:.20});}
 }
 
 function elementReactionPalette(e){
@@ -4440,6 +4497,8 @@ function drEGameEvent(evt,force=false){
     special:['experiment',5000,5],
     sticky:['molecule',4400,5],
     zombie:['surprised',5000,6],
+    reactor:['experiment',4600,6],
+    fragile:['magnifier',4600,5],
     thinking:['clipboard',5000,4],
     record:['medal',6200,9],
     perfect:['victory',6100,8],
@@ -4634,9 +4693,13 @@ function einCelebrate(stars){
     const splash=$('#splash');
     if(!document.hidden&&!sleeping&&splash&&splash.classList.contains('active')){
       const r=Math.random();
+      let mxTongueShown=false;
       if(r<0.38)blink();
-      else if(r<0.68)tongue();
+      else if(r<0.68){tongue();mxTongueShown=true;}
       else prop(rnd(['💡','🧪','⚛️']),1100);
+      // Final tuning: keep the existing menu reactions intact and add only
+      // a small extra tongue beat so Dr. E feels more playful.
+      if(!mxTongueShown&&Math.random()<0.18)setTimeout(tongue,420);
     }
     menuEinsteinLoop();
   },8000+Math.random()*6000);
@@ -4675,10 +4738,13 @@ if(gameEin){gameEin.style.pointerEvents='none';}
 (function microLoop(){setTimeout(()=>{
   if(!document.hidden&&!$('#modal').classList.contains('on')&&!exc&&!sleeping){
     const r=Math.random();
+    let mxTongueShown=false;
     if(r<0.42)blink();
-    else if(r<0.67)tongue();
+    else if(r<0.67){tongue();mxTongueShown=true;}
     else if(r<0.84)wink();
     else prop(rnd(['☕','🧪','⚗️','🔍','⚛️']),1500);
+    // Final tuning: preserve blink/wink/prop odds; only add tongue frequency.
+    if(!mxTongueShown&&Math.random()<0.15)setTimeout(tongue,360);
   }
   microLoop();
 },4500+Math.random()*5500);})();
@@ -4855,7 +4921,7 @@ function resetIdle(){wake();schedIdle();}
 
 /* ================= GAME STATE ================= */
 const board=$('#board'),bctx=board.getContext('2d');
-let lv=-1,LV=null,mid='',curMol=null,grid=[],atoms=[],sel=0,selT0=0,moves=0,t2=0,hist=[],levelStartT=0;
+let lv=-1,LV=null,mid='',curMol=null,grid=[],atoms=[],sel=0,selT0=0,atomPressIdx=-1,atomPressAt=0,moves=0,t2=0,hist=[],levelStartT=0;
 
 /* R24 · fair count-up solve clock.
    Campaign and Daily Experiment count upward without a failure limit. The clock
@@ -5144,12 +5210,38 @@ function deriveMovingWalls(level,index,mode){
   return candidates.slice(0,1);
 }
 function drawMovingWall(w,t){
-  let x=w.x,y=w.y;
-  if(w.anim){const q=Math.max(0,Math.min(1,(t-w.anim.t0)/w.anim.dur)),e=q<.5?2*q*q:1-Math.pow(-2*q+2,2)/2;x=w.anim.fx+(w.anim.tx-w.anim.fx)*e;y=w.anim.fy+(w.anim.ty-w.anim.fy)*e;}
-  const px=x*T,py=y*T,pulse=.65+.2*Math.sin(t/190+x+y);
-  bctx.save();bctx.shadowColor='#ffcf67';bctx.shadowBlur=8+6*pulse;drawStone(px,py,Math.round(x),Math.round(y));
-  bctx.globalAlpha=.85;bctx.strokeStyle='#ffd36e';bctx.lineWidth=Math.max(2,T*.045);bctx.setLineDash([T*.12,T*.08]);rrect(bctx,px+T*.12,py+T*.12,T*.76,T*.76,Math.max(4,T*.1));bctx.stroke();bctx.setLineDash([]);
-  bctx.globalAlpha=.95;bctx.fillStyle='#fff2b5';bctx.font='900 '+Math.max(11,Math.round(T*.28))+'px system-ui';bctx.textAlign='center';bctx.textBaseline='middle';bctx.fillText('↔',px+T*.5,py+T*.52);bctx.restore();
+  let x=w.x,y=w.y,qAnim=0;
+  if(w.anim){qAnim=Math.max(0,Math.min(1,(t-w.anim.t0)/w.anim.dur));const e=qAnim<.5?2*qAnim*qAnim:1-Math.pow(-2*qAnim+2,2)/2;x=w.anim.fx+(w.anim.tx-w.anim.fx)*e;y=w.anim.fy+(w.anim.ty-w.anim.fy)*e;}
+  const px=x*T,py=y*T,pulse=.72+.18*Math.sin(t/180+x+y),moving=!!w.anim;
+  bctx.save();
+  // A short, restrained after-image sells mechanical weight while the block moves.
+  if(moving&&!motionReduced()){
+    const dx=w.anim.tx-w.anim.fx,dy=w.anim.ty-w.anim.fy;
+    bctx.globalAlpha=.12*(1-qAnim*.45);bctx.fillStyle='#ffd36e';bctx.shadowColor='#ffbd4a';bctx.shadowBlur=12;
+    rrect(bctx,px-dx*T*.16+T*.12,py-dy*T*.16+T*.12,T*.76,T*.76,Math.max(5,T*.11));bctx.fill();
+  }
+  bctx.globalAlpha=1;bctx.shadowColor='#ffcf67';bctx.shadowBlur=9+7*pulse;drawStone(px,py,Math.round(x),Math.round(y));
+  // Powered metal frame: keeps the original stone identity but clearly marks it as machinery.
+  const frame=bctx.createLinearGradient(px,py,px+T,py+T);frame.addColorStop(0,'rgba(255,245,189,.95)');frame.addColorStop(.45,'rgba(255,193,72,.88)');frame.addColorStop(1,'rgba(117,73,16,.9)');
+  bctx.globalAlpha=.94;bctx.strokeStyle=frame;bctx.lineWidth=Math.max(2,T*.045);rrect(bctx,px+T*.095,py+T*.095,T*.81,T*.81,Math.max(5,T*.12));bctx.stroke();
+  bctx.globalAlpha=.42;bctx.strokeStyle='#fff2b5';bctx.lineWidth=Math.max(1,T*.018);rrect(bctx,px+T*.17,py+T*.17,T*.66,T*.66,Math.max(4,T*.09));bctx.stroke();
+  // Corner fasteners + animated power rail.
+  for(const [ox,oy] of [[.18,.18],[.82,.18],[.18,.82],[.82,.82]]){
+    bctx.globalAlpha=.9;bctx.fillStyle='#1c2634';bctx.beginPath();bctx.arc(px+T*ox,py+T*oy,Math.max(1.8,T*.038),0,7);bctx.fill();
+    bctx.fillStyle='#ffe48c';bctx.beginPath();bctx.arc(px+T*ox,py+T*oy,Math.max(1,T*.017),0,7);bctx.fill();
+  }
+  const railY=py+T*.50,travel=((t/620)+(w.x+w.y)*.17)%1;
+  bctx.globalAlpha=.64;bctx.strokeStyle='rgba(255,224,127,.72)';bctx.lineWidth=Math.max(1.5,T*.03);bctx.beginPath();bctx.moveTo(px+T*.27,railY);bctx.lineTo(px+T*.73,railY);bctx.stroke();
+  if(!motionReduced()){
+    bctx.globalAlpha=.95;bctx.fillStyle='#fff8d2';bctx.shadowColor='#ffc447';bctx.shadowBlur=8;bctx.beginPath();bctx.arc(px+T*(.27+.46*travel),railY,Math.max(1.4,T*.027),0,7);bctx.fill();
+  }
+  // Direction chevrons read faster than a plain text arrow and feel integrated into the block.
+  bctx.shadowBlur=0;bctx.globalAlpha=.95;bctx.strokeStyle='#fff4bf';bctx.lineWidth=Math.max(2,T*.04);bctx.lineCap='round';bctx.lineJoin='round';
+  for(const s of [-1,1]){const cx=px+T*(.5+s*.105),cy=py+T*.5;bctx.beginPath();bctx.moveTo(cx-s*T*.045,cy-T*.08);bctx.lineTo(cx+s*T*.035,cy);bctx.lineTo(cx-s*T*.045,cy+T*.08);bctx.stroke();}
+  if(moving&&!motionReduced()){
+    bctx.globalAlpha=.34+.18*Math.sin(t/70);bctx.strokeStyle='#ffffff';bctx.lineWidth=Math.max(1,T*.018);rrect(bctx,px+T*.12,py+T*.12,T*.76,T*.76,Math.max(5,T*.1));bctx.stroke();
+  }
+  bctx.restore();
 }
 function advanceMovingWalls(){
   if(!movingWalls.length||won||movingWallAnimating)return;
@@ -5163,7 +5255,7 @@ function advanceMovingWalls(){
   if(!plans.length)return;
   movingWallAnimating=true;
   for(const p of plans){grid[p.from.y][p.from.x]=false;grid[p.to.y][p.to.x]=true;p.w.anim={fx:p.from.x,fy:p.from.y,tx:p.to.x,ty:p.to.y,t0:performance.now(),dur:motionReduced()?120:360};}
-  SFX.thunk&&SFX.thunk();mxHaptic('light');
+  (SFX.movingWall?SFX.movingWall():(SFX.thunk&&SFX.thunk()));mxHaptic('light');
   setTimeout(()=>{for(const p of plans){p.w.x=p.to.x;p.w.y=p.to.y;p.w.index=p.ni;p.w.anim=null;}movingWallAnimating=false;},motionReduced()?130:375);
 }
 function portalKey(x,y){return x+','+y;}
@@ -5224,6 +5316,20 @@ function drawPortalTile(p,t){
   g.addColorStop(1,'rgba(2,8,22,.10)');
   bctx.globalAlpha=.92;bctx.fillStyle=g;bctx.shadowColor=main;bctx.shadowBlur=motionReduced()?6:18;
   bctx.beginPath();bctx.arc(0,0,T*.29*pulse,0,Math.PI*2);bctx.fill();
+
+  // POLISH 7 · deeper portal lens: three restrained tunnel rings imply real depth
+  // without making the floor unreadable.
+  if(!motionReduced()){
+    for(let k=0;k<3;k++){
+      const q=((t/760)+k/3)%1,rr=T*(.08+.18*q),alpha=(1-q)*(.28-k*.035);
+      bctx.globalAlpha=Math.max(.06,alpha);bctx.strokeStyle=k%2?soft:main;bctx.lineWidth=Math.max(1,T*.018);
+      bctx.beginPath();bctx.ellipse(0,0,rr,rr*.58,dir*(t/1600+k*.4),0,Math.PI*2);bctx.stroke();
+    }
+    const corePulse=.55+.45*Math.sin(t/145+g.x*.7+g.y);
+    bctx.globalAlpha=.45+.22*corePulse;bctx.fillStyle='#ffffff';bctx.shadowColor=main;bctx.shadowBlur=8+5*corePulse;
+    bctx.beginPath();bctx.arc(0,0,Math.max(1.5,T*(.025+.012*corePulse)),0,Math.PI*2);bctx.fill();bctx.shadowBlur=0;
+  }
+  bctx.globalAlpha=1;
 
   // Counter-rotating rings create a vortex rather than a flat dashed ellipse.
   bctx.rotate(dir*t/820);
@@ -5295,6 +5401,7 @@ function syncHammerUi(){
   const b=document.querySelector('#btnHammer');if(!b)return;
   const usable=breakableWalls.size>0&&!won&&!tutorialActive&&!duelMode&&!dailyMode&&!chainMode&&!reactorMode;
   b.hidden=!usable;b.classList.toggle('on',usable&&hammerMode);b.classList.toggle('empty',boosterCount('hammer')<1);
+  const label=b.querySelector('small');if(label)label.textContent=ml("ÇEKİÇ","HAMMER","HAMMER","MARTILLO","MARTELO","ハンマー");
   const c=b.querySelector('.hammerCount');if(c)c.textContent=boosterCount('hammer');
   setTimeout(gameFeelToolState,0);
 }
@@ -5535,7 +5642,7 @@ function bonusAwardHtml(reward){
     (reward.unlocked?'<em>🔓 '+reward.unlocked+' '+(ml("açıldı!","unlocked!","freigeschaltet!","¡desbloqueado!","desbloqueado!","解放！"))+'</em>':'')+'</div>';
 }
 
-const LEGACY_COPY6={"CHAIN REACTION":["KETTENREAKTION","REACCIÓN EN CADENA","REAÇÃO EM CADEIA","連鎖反応"],"Make the charged move and trigger atoms in sequence":["Führe den geladenen Zug aus und löse die Atome nacheinander aus","Haz el movimiento cargado y activa los átomos en secuencia","Faça o movimento carregado e acione os átomos em sequência","チャージ移動で原子を順番に発動"],"DIFFICULTY POOL":["SCHWIERIGKEITSPOOL","GRUPO DE DIFICULTAD","GRUPO DE DIFICULDADE","難易度プール"],"MEDIUM · LEVELS 41–100":["MITTEL · LEVEL 41–100","MEDIO · NIVELES 41–100","MÉDIO · FASES 41–100","中級・レベル41–100"],"START":["START","INICIAR","INICIAR","開始"],"CANCEL":["ABBRECHEN","CANCELAR","CANCELAR","キャンセル"],"REACTION COMPLETE!":["REAKTION ABGESCHLOSSEN!","¡REACCIÓN COMPLETA!","REAÇÃO CONCLUÍDA!","反応完了！"],"TIME UP":["ZEIT ABGELAUFEN","TIEMPO AGOTADO","TEMPO ESGOTADO","時間切れ"],"Best Combo":["Bestes Combo","Mejor Combo","Melhor Combo","最高コンボ"],"Reactions":["Reaktionen","Reacciones","Reações","反応"],"Time":["Zeit","Tiempo","Tempo","時間"],"Moves":["Züge","Movimientos","Jogadas","手数"],"TRY AGAIN":["NOCHMAL","INTENTAR DE NUEVO","TENTAR DE NOVO","もう一度"],"NEW BOARD":["NEUES BRETT","NUEVO TABLERO","NOVO TABULEIRO","新しい盤面"],"BONUS LAB":["BONUS LAB","BONUS LAB","BONUS LAB","BONUS LAB"],"END CHAIN REACTION?":["KETTENREAKTION BEENDEN?","¿TERMINAR REACCIÓN EN CADENA?","ENCERRAR REAÇÃO EM CADEIA?","連鎖反応を終了しますか？"],"QUIT":["BEENDEN","SALIR","SAIR","終了"],"KEEP PLAYING":["WEITERSPIELEN","SEGUIR JUGANDO","CONTINUAR JOGANDO","続ける"],"Hints are disabled in Chain Reaction.":["Hinweise sind in der Kettenreaktion deaktiviert.","Las pistas están desactivadas en Reacción en Cadena.","As dicas estão desativadas em Reação em Cadeia.","連鎖反応ではヒントを使用できません。"],"REACTOR ESCAPE":["REAKTOR-FLUCHT","ESCAPE DEL REACTOR","FUGA DO REATOR","リアクター脱出"],"Move while lasers are open and complete the molecule":["Bewege dich bei offenen Lasern und vervollständige das Molekül","Muévete cuando los láseres estén abiertos y completa la molécula","Mova-se quando os lasers estiverem abertos e complete a molécula","レーザーが開いている間に進み分子を完成させる"],"REACTOR ESCAPED!":["REAKTOR ENTKOMMEN!","¡ESCAPASTE DEL REACTOR!","ESCAPOU DO REATOR!","リアクター脱出成功！"],"Penalty":["Strafe","Penalización","Penalidade","ペナルティ"],"END REACTOR ESCAPE?":["REAKTOR-FLUCHT BEENDEN?","¿TERMINAR ESCAPE DEL REACTOR?","ENCERRAR FUGA DO REATOR?","リアクター脱出を終了しますか？"],"Hints are disabled in Reactor Escape.":["Hinweise sind in Reaktor-Flucht deaktiviert.","Las pistas están desactivadas en Escape del Reactor.","As dicas estão desativadas em Fuga do Reator.","リアクター脱出ではヒントを使用できません。"],"Laser contact! +3 seconds.":["Laserkontakt! +3 Sekunden.","¡Contacto con láser! +3 segundos.","Contato com laser! +3 segundos.","レーザー接触！+3秒。"],"ATOM DUEL":["ATOM-DUELL","DUELO DE ÁTOMOS","DUELO DE ÁTOMOS","原子デュエル"],"One phone · Best of 3 · First to 2":["Ein Telefon · Best of 3 · Wer zuerst 2 gewinnt","Un teléfono · Mejor de 3 · Primero en llegar a 2","Um telefone · Melhor de 3 · Primeiro a 2","1台・3本勝負・先に2勝"],"PLAYER 1":["SPIELER 1","JUGADOR 1","JOGADOR 1","プレイヤー1"],"PLAYER 2":["SPIELER 2","JUGADOR 2","JOGADOR 2","プレイヤー2"],"GAME TYPE":["SPIELTYP","TIPO DE JUEGO","TIPO DE JOGO","ゲームタイプ"],"CLASSIC MOLECULOX":["KLASSISCHES MOLECULOX","MOLECULOX CLÁSICO","MOLECULOX CLÁSSICO","クラシック MOLECULOX"],"CATALYST HUNT":["KATALYSATOR-JAGD","CAZA DE CATALIZADOR","CAÇA AO CATALISADOR","触媒ハント"],"MIXED · 3 OF 4 GAMES":["GEMISCHT · 3 VON 4 SPIELEN","MIXTO · 3 DE 4 JUEGOS","MISTO · 3 DE 4 JOGOS","ミックス・4種中3種"],"START DUEL":["DUELL STARTEN","INICIAR DUELO","INICIAR DUELO","デュエル開始"],"TURN COMPLETE":["ZUG ABGESCHLOSSEN","TURNO COMPLETADO","TURNO CONCLUÍDO","ターン完了"],"Pass the phone to the other player.":["Gib das Telefon an den anderen Spieler weiter.","Pasa el teléfono al otro jugador.","Passe o telefone para o outro jogador.","端末をもう一人のプレイヤーに渡してください。"],"READY":["BEREIT","LISTO","PRONTO","準備OK"],"ROUND":["RUNDE","RONDA","RODADA","ラウンド"],"WON THE ROUND":["GEWINNT DIE RUNDE","GANÓ LA RONDA","VENCEU A RODADA","ラウンド勝利"],"ROUND DRAW":["RUNDE UNENTSCHIEDEN","RONDA EMPATADA","RODADA EMPATADA","ラウンド引き分け"],"NEXT ROUND":["NÄCHSTE RUNDE","SIGUIENTE RONDA","PRÓXIMA RODADA","次のラウンド"],"WINS THE DUEL!":["GEWINNT DAS DUELL!","¡GANA EL DUELO!","VENCE O DUELO!","デュエル勝利！"],"DUEL DRAW!":["DUELL UNENTSCHIEDEN!","¡DUELO EMPATADO!","DUELO EMPATADO!","デュエル引き分け！"],"REMATCH":["REVANCHE","REVANCHA","REVANCHE","再戦"],"CHANGE DIFFICULTY":["SCHWIERIGKEIT ÄNDERN","CAMBIAR DIFICULTAD","MUDAR DIFICULDADE","難易度変更"],"MAIN MENU":["HAUPTMENÜ","MENÚ PRINCIPAL","MENU PRINCIPAL","メインメニュー"],"QUIT THE DUEL?":["DUELL BEENDEN?","¿SALIR DEL DUELO?","SAIR DO DUELO?","デュエルを終了しますか？"],"END DUEL":["DUELL BEENDEN","TERMINAR DUELO","ENCERRAR DUELO","デュエル終了"],"Completed":["Abgeschlossen","Completado","Concluído","完了"],"Time up":["Zeit abgelaufen","Tiempo agotado","Tempo esgotado","時間切れ"],"SCORE":["PUNKTSTAND","PUNTUACIÓN","PLACAR","スコア"],"Hints are disabled in Duel.":["Hinweise sind im Duell deaktiviert.","Las pistas están desactivadas en Duelo.","As dicas estão desativadas no Duelo.","デュエルではヒントを使用できません。"],"Restart is disabled in Duel.":["Neustart ist im Duell deaktiviert.","Reiniciar está desactivado en Duelo.","Reiniciar está desativado no Duelo.","デュエルではやり直しできません。"],"How do you want to play?":["Wie möchtest du spielen?","¿Cómo quieres jugar?","Como você quer jogar?","どう遊びますか？"],"SAME PHONE":["GLEICHES TELEFON","MISMO TELÉFONO","MESMO TELEFONE","同じ端末"],"Pass one phone between players.":["Gebt ein Telefon abwechselnd weiter.","Pasa un teléfono entre los jugadores.","Passe um telefone entre os jogadores.","1台の端末を交代で使います。"],"PLAY A FRIEND":["MIT FREUND SPIELEN","JUGAR CON AMIGO","JOGAR COM AMIGO","友だちと対戦"],"Create a room and send the 6-digit code.":["Erstelle einen Raum und sende den 6-stelligen Code.","Crea una sala y envía el código de 6 dígitos.","Crie uma sala e envie o código de 6 dígitos.","ルームを作成し6桁コードを送ります。"],"QUICK MATCH":["SCHNELLMATCH","PARTIDA RÁPIDA","PARTIDA RÁPIDA","クイックマッチ"],"Find an online opponent and start automatically.":["Finde einen Online-Gegner und starte automatisch.","Busca un rival en línea e inicia automáticamente.","Encontre um adversário online e inicie automaticamente.","オンラインの対戦相手を探して自動開始。"],"FIND OPPONENT":["GEGNER FINDEN","BUSCAR RIVAL","ENCONTRAR ADVERSÁRIO","対戦相手を探す"],"SEARCHING FOR OPPONENT":["SUCHE NACH GEGNER","BUSCANDO RIVAL","PROCURANDO ADVERSÁRIO","対戦相手を検索中"],"Looking for another Moleculox player online…":["Suche nach einem anderen Moleculox-Spieler online…","Buscando otro jugador de Moleculox en línea…","Procurando outro jogador de Moleculox online…","オンラインのMoleculoxプレイヤーを探しています…"],"CANCEL SEARCH":["SUCHE ABBRECHEN","CANCELAR BÚSQUEDA","CANCELAR BUSCA","検索をキャンセル"],"Opponent found! Preparing the duel…":["Gegner gefunden! Duell wird vorbereitet…","¡Rival encontrado! Preparando el duelo…","Adversário encontrado! Preparando o duelo…","対戦相手が見つかりました！準備中…"],"Match search ended. You can try again.":["Matchsuche beendet. Du kannst es erneut versuchen.","La búsqueda terminó. Puedes intentarlo de nuevo.","A busca terminou. Você pode tentar novamente.","検索が終了しました。もう一度試せます。"],"ONLINE ATOM DUEL":["ONLINE-ATOM-DUELL","DUELO DE ÁTOMOS ONLINE","DUELO DE ÁTOMOS ONLINE","オンライン原子デュエル"],"YOUR PLAYER NAME":["DEIN SPIELERNAME","TU NOMBRE DE JUGADOR","SEU NOME DE JOGADOR","プレイヤー名"],"CREATE ROOM":["RAUM ERSTELLEN","CREAR SALA","CRIAR SALA","ルーム作成"],"JOIN ROOM":["RAUM BEITRETEN","UNIRSE A SALA","ENTRAR NA SALA","ルーム参加"],"ROOM CODE":["RAUMCODE","CÓDIGO DE SALA","CÓDIGO DA SALA","ルームコード"],"ROOM SETTINGS":["RAUMEINSTELLUNGEN","AJUSTES DE SALA","CONFIGURAÇÕES DA SALA","ルーム設定"],"WAITING FOR OPPONENT":["WARTE AUF GEGNER","ESPERANDO RIVAL","AGUARDANDO ADVERSÁRIO","対戦相手を待機中"],"Send this 6-digit code to the other player.":["Sende diesen 6-stelligen Code an den anderen Spieler.","Envía este código de 6 dígitos al otro jugador.","Envie este código de 6 dígitos ao outro jogador.","この6桁コードを相手に送ってください。"],"COPY CODE":["CODE KOPIEREN","COPIAR CÓDIGO","COPIAR CÓDIGO","コードをコピー"],"Code copied!":["Code kopiert!","¡Código copiado!","Código copiado!","コードをコピーしました！"],"OPPONENT IS PLAYING":["GEGNER SPIELT","EL RIVAL ESTÁ JUGANDO","ADVERSÁRIO JOGANDO","相手がプレイ中"],"YOUR TURN":["DU BIST DRAN","TU TURNO","SUA VEZ","あなたの番"],"Sending the result to both phones…":["Ergebnis wird an beide Telefone gesendet…","Enviando el resultado a ambos teléfonos…","Enviando o resultado aos dois telefones…","結果を両方の端末へ送信中…"],"ROUND RESULT":["RUNDENERGEBNIS","RESULTADO DE RONDA","RESULTADO DA RODADA","ラウンド結果"],"LEAVE ROOM":["RAUM VERLASSEN","SALIR DE LA SALA","SAIR DA SALA","ルーム退出"],"The room was closed.":["Der Raum wurde geschlossen.","La sala se cerró.","A sala foi fechada.","ルームが閉じられました。"],"The other player left the duel.":["Der andere Spieler hat das Duell verlassen.","El otro jugador abandonó el duelo.","O outro jogador saiu do duelo.","相手がデュエルを退出しました。"],"START REMATCH":["REVANCHE STARTEN","INICIAR REVANCHA","INICIAR REVANCHE","再戦開始"],"The match will open automatically if the host starts a rematch.":["Das Match öffnet sich automatisch, wenn der Host eine Revanche startet.","La partida se abrirá automáticamente si el anfitrión inicia una revancha.","A partida abrirá automaticamente se o anfitrião iniciar uma revanche.","ホストが再戦を開始すると自動的に試合が開きます。"],"An internet connection is required for online duel.":["Für Online-Duelle ist eine Internetverbindung erforderlich.","Se necesita conexión a Internet para el duelo online.","É necessária conexão com a internet para duelo online.","オンラインデュエルにはインターネット接続が必要です。"],"Firebase is not ready. Try again in a few seconds.":["Firebase ist noch nicht bereit. Versuche es in ein paar Sekunden erneut.","Firebase no está listo. Inténtalo de nuevo en unos segundos.","Firebase ainda não está pronto. Tente novamente em alguns segundos.","Firebaseの準備ができていません。数秒後に再試行してください。"],"No open room was found with this code.":["Mit diesem Code wurde kein offener Raum gefunden.","No se encontró una sala abierta con este código.","Nenhuma sala aberta foi encontrada com este código.","このコードの公開中ルームが見つかりません。"],"The room is full or the match has already started.":["Der Raum ist voll oder das Match hat bereits begonnen.","La sala está llena o la partida ya comenzó.","A sala está cheia ou a partida já começou.","ルームが満員か、試合がすでに始まっています。"],"This room has expired.":["Dieser Raum ist abgelaufen.","Esta sala ha caducado.","Esta sala expirou.","このルームは期限切れです。"],"Enter the 6-digit room code.":["Gib den 6-stelligen Raumcode ein.","Introduce el código de sala de 6 dígitos.","Digite o código de sala de 6 dígitos.","6桁のルームコードを入力してください。"],"Could not connect to the room. Check your internet connection.":["Verbindung zum Raum fehlgeschlagen. Prüfe deine Internetverbindung.","No se pudo conectar a la sala. Comprueba tu conexión a Internet.","Não foi possível conectar à sala. Verifique sua internet.","ルームに接続できません。通信状態を確認してください。"],"ROOM":["RAUM","SALA","SALA","ルーム"],"You are watching your opponent in full-screen spectator mode.":["Du siehst deinen Gegner im Vollbild-Zuschauermodus.","Estás viendo a tu rival en modo espectador a pantalla completa.","Você está assistindo ao adversário em tela cheia.","相手のプレイをフルスクリーン観戦中です。"],"LIVE OPPONENT GAME":["LIVE-SPIEL DES GEGNERS","PARTIDA EN VIVO DEL RIVAL","JOGO AO VIVO DO ADVERSÁRIO","相手のライブゲーム"],"Preparing the live game…":["Live-Spiel wird vorbereitet…","Preparando la partida en vivo…","Preparando o jogo ao vivo…","ライブゲームを準備中…"],"A QUICK FACT FROM DR. E":["KURZFAKT VON DR. E","DATO RÁPIDO DE DR. E","FATO RÁPIDO DO DR. E","Dr. Eのミニ知識"],"PRESET MESSAGES":["SCHNELLNACHRICHTEN","MENSAJES PREDEFINIDOS","MENSAGENS RÁPIDAS","定型メッセージ"],"Message sent":["Nachricht gesendet","Mensaje enviado","Mensagem enviada","メッセージ送信済み"],"Opponent disconnected":["Gegner getrennt","Rival desconectado","Adversário desconectado","相手が切断しました"],"Waiting for them to return":["Warte auf Rückkehr","Esperando su regreso","Aguardando retorno","復帰を待っています"],"Your internet connection was lost":["Deine Internetverbindung wurde getrennt","Se perdió tu conexión a Internet","Sua conexão com a internet caiu","インターネット接続が切れました"],"Reconnecting to the match…":["Verbindung zum Match wird wiederhergestellt…","Reconectando a la partida…","Reconectando à partida…","試合に再接続中…"],"Connection restored.":["Verbindung wiederhergestellt.","Conexión restaurada.","Conexão restaurada.","接続が復旧しました。"],"Your opponent did not return. You win by forfeit!":["Dein Gegner kam nicht zurück. Du gewinnst kampflos!","Tu rival no regresó. ¡Ganas por abandono!","Seu adversário não voltou. Você vence por W.O.!","相手が戻らなかったため不戦勝です！"],"The reconnect timer expired. You lose by forfeit.":["Die Wiederverbindungszeit ist abgelaufen. Du verlierst kampflos.","Se agotó el tiempo de reconexión. Pierdes por abandono.","O tempo de reconexão acabou. Você perde por W.O.","再接続時間切れのため不戦敗です。"],"The match was cancelled because both players disconnected.":["Das Match wurde abgebrochen, weil beide Spieler getrennt wurden.","La partida se canceló porque ambos jugadores se desconectaron.","A partida foi cancelada porque ambos os jogadores desconectaram.","両プレイヤーが切断したため試合をキャンセルしました。"],"WIN BY FORFEIT":["SIEG KAMPFLOS","VICTORIA POR ABANDONO","VITÓRIA POR W.O.","不戦勝"],"seconds":["Sekunden","segundos","segundos","秒"],"Friendly match · Does not affect campaign or world ranking.":["Freundschaftsmatch · Beeinflusst Kampagne und Weltrangliste nicht.","Partida amistosa · No afecta campaña ni clasificación mundial.","Partida amistosa · Não afeta campanha nem ranking mundial.","フレンドマッチ・キャンペーンや世界ランキングに影響しません。"],"Ranked match · Affects your Duel Points and league.":["Gewertetes Match · Beeinflusst Duellpunkte und Liga.","Partida clasificatoria · Afecta tus Puntos de Duelo y liga.","Partida ranqueada · Afeta seus Pontos de Duelo e liga.","ランク戦・デュエルポイントとリーグに影響します。"],"ACCOUNT & PLAYERS":["KONTO & SPIELER","CUENTA Y JUGADORES","CONTA E JOGADORES","アカウントとプレイヤー"],"You are playing as a guest":["Du spielst als Gast","Estás jugando como invitado","Você está jogando como convidado","ゲストとしてプレイ中"],"The game started automatically with a guest account.":["Das Spiel startete automatisch mit einem Gastkonto.","El juego comenzó automáticamente con una cuenta de invitado.","O jogo começou automaticamente com uma conta de convidado.","ゲームはゲストアカウントで自動開始しました。"],"If you delete the game before linking an account, progress stored on this device may be lost.":["Wenn du das Spiel vor dem Verknüpfen eines Kontos löschst, kann der Fortschritt auf diesem Gerät verloren gehen.","Si borras el juego antes de vincular una cuenta, el progreso de este dispositivo puede perderse.","Se você apagar o jogo antes de vincular uma conta, o progresso deste dispositivo pode ser perdido.","アカウント連携前にゲームを削除すると、この端末の進行状況を失う場合があります。"],"Continue with Apple":["Mit Apple fortfahren","Continuar con Apple","Continuar com Apple","Appleで続ける"],"Link Apple account":["Apple-Konto verknüpfen","Vincular cuenta de Apple","Vincular conta Apple","Appleアカウントを連携"],"CONFIRM AND LINK":["BESTÄTIGEN & VERKNÜPFEN","CONFIRMAR Y VINCULAR","CONFIRMAR E VINCULAR","確認して連携"],"Continue with Google":["Mit Google fortfahren","Continuar con Google","Continuar com Google","Googleで続ける"],"Sign in with email":["Mit E-Mail anmelden","Iniciar sesión con correo","Entrar com e-mail","メールでログイン"],"Create new account":["Neues Konto erstellen","Crear nueva cuenta","Criar nova conta","新規アカウント作成"],"👥 MANAGE PLAYERS":["👥 SPIELER VERWALTEN","👥 GESTIONAR JUGADORES","👥 GERENCIAR JOGADORES","👥 プレイヤー管理"],"CLOSE":["SCHLIESSEN","CERRAR","FECHAR","閉じる"],"SIGN OUT":["ABMELDEN","CERRAR SESIÓN","SAIR","ログアウト"],"FORGOT PASSWORD":["PASSWORT VERGESSEN","OLVIDÉ MI CONTRASEÑA","ESQUECI A SENHA","パスワードを忘れた"],"Add email & password":["E-Mail & Passwort hinzufügen","Añadir correo y contraseña","Adicionar e-mail e senha","メールとパスワードを追加"],"Email":["E-Mail","Correo","E-mail","メール"],"Password":["Passwort","Contraseña","Senha","パスワード"],"Repeat password":["Passwort wiederholen","Repetir contraseña","Repetir senha","パスワード再入力"],"Player name / Nickname":["Spielername / Nickname","Nombre / Apodo","Nome / Apelido","プレイヤー名 / ニックネーム"],"SIGN IN":["ANMELDEN","INICIAR SESIÓN","ENTRAR","ログイン"],"CREATE ACCOUNT":["KONTO ERSTELLEN","CREAR CUENTA","CRIAR CONTA","アカウント作成"],"BACK":["ZURÜCK","ATRÁS","VOLTAR","戻る"],"SEND RESET EMAIL":["RESET-E-MAIL SENDEN","ENVIAR CORREO DE RESTABLECIMIENTO","ENVIAR E-MAIL DE REDEFINIÇÃO","リセットメールを送信"],"Password reset email sent.":["E-Mail zum Zurücksetzen des Passworts gesendet.","Correo de restablecimiento enviado.","E-mail de redefinição enviado.","パスワードリセットメールを送信しました。"],"Cloud account connected":["Cloud-Konto verbunden","Cuenta en la nube conectada","Conta na nuvem conectada","クラウドアカウント接続済み"],"☁ CLOUD & RANKING STATUS":["☁ CLOUD- & RANGLISTENSTATUS","☁ ESTADO DE NUBE Y CLASIFICACIÓN","☁ STATUS DA NUVEM E RANKING","☁ クラウドとランキング状況"],"CLOUD & ACCOUNT STATUS":["CLOUD- & KONTOSTATUS","ESTADO DE NUBE Y CUENTA","STATUS DA NUVEM E CONTA","クラウドとアカウント状況"],"SYNC NOW":["JETZT SYNCHRONISIEREN","SINCRONIZAR AHORA","SINCRONIZAR AGORA","今すぐ同期"],"Synchronized":["Synchronisiert","Sincronizado","Sincronizado","同期済み"],"Saving":["Speichern","Guardando","Salvando","保存中"],"Offline":["Offline","Sin conexión","Offline","オフライン"],"Sync error":["Synchronisierungsfehler","Error de sincronización","Erro de sincronização","同期エラー"],"Last successful sync":["Letzte erfolgreiche Synchronisierung","Última sincronización correcta","Última sincronização bem-sucedida","最後の正常同期"],"No successful sync yet":["Noch keine erfolgreiche Synchronisierung","Aún no hay sincronización correcta","Ainda não houve sincronização bem-sucedida","正常同期はまだありません"],"Linked sign-in methods":["Verknüpfte Anmeldemethoden","Métodos de inicio vinculados","Métodos de login vinculados","連携済みログイン方法"],"Player":["Spieler","Jugador","Jogador","プレイヤー"],"Classic World Ranking":["Klassische Weltrangliste","Clasificación Mundial Clásica","Ranking Mundial Clássico","クラシック世界ランキング"],"Online Duel Ranking":["Online-Duell-Rangliste","Clasificación de Duelo Online","Ranking de Duelo Online","オンラインデュエルランキング"],"Checking rankings…":["Ranglisten werden geprüft…","Comprobando clasificaciones…","Verificando rankings…","ランキング確認中…"],"Not published to ranking yet":["Noch nicht in der Rangliste veröffentlicht","Aún no publicado en la clasificación","Ainda não publicado no ranking","ランキング未公開"],"Published after account linking":["Wird nach Kontoverknüpfung veröffentlicht","Se publica tras vincular la cuenta","Publicado após vincular a conta","アカウント連携後に公開"],"BACK TO ACCOUNT":["ZURÜCK ZUM KONTO","VOLVER A LA CUENTA","VOLTAR À CONTA","アカウントへ戻る"],"DELETE ACCOUNT & ALL DATA":["KONTO & ALLE DATEN LÖSCHEN","ELIMINAR CUENTA Y TODOS LOS DATOS","EXCLUIR CONTA E TODOS OS DADOS","アカウントと全データを削除"],"Delete the account permanently?":["Konto dauerhaft löschen?","¿Eliminar la cuenta permanentemente?","Excluir a conta permanentemente?","アカウントを完全に削除しますか？"],"YES, DELETE MY ACCOUNT":["JA, KONTO LÖSCHEN","SÍ, ELIMINAR MI CUENTA","SIM, EXCLUIR MINHA CONTA","はい、アカウントを削除"],"OR":["ODER","O","OU","または"],"Fill in all fields.":["Fülle alle Felder aus.","Completa todos los campos.","Preencha todos os campos.","すべての項目を入力してください。"],"Passwords do not match.":["Die Passwörter stimmen nicht überein.","Las contraseñas no coinciden.","As senhas não coincidem.","パスワードが一致しません。"],"Password must be at least 6 characters.":["Das Passwort muss mindestens 6 Zeichen lang sein.","La contraseña debe tener al menos 6 caracteres.","A senha deve ter pelo menos 6 caracteres.","パスワードは6文字以上必要です。"],"Working…":["Wird verarbeitet…","Procesando…","Processando…","処理中…"],"Collect the catalyst, energy cell, and stabilizer":["Sammle Katalysator, Energiezelle und Stabilisator","Recoge el catalizador, la célula de energía y el estabilizador","Colete o catalisador, a célula de energia e o estabilizador","触媒、エネルギーセル、安定化装置を集める"],"REACTION READY!":["REAKTION BEREIT!","¡REACCIÓN LISTA!","REAÇÃO PRONTA!","反応準備完了！"],"Components":["Komponenten","Componentes","Componentes","構成要素"],"Collect all three reaction components first!":["Sammle zuerst alle drei Reaktionskomponenten!","¡Recoge primero los tres componentes de reacción!","Colete primeiro os três componentes da reação!","先に3つの反応要素をすべて集めてください！"],"END CATALYST HUNT?":["KATALYSATOR-JAGD BEENDEN?","¿TERMINAR CAZA DE CATALIZADOR?","ENCERRAR CAÇA AO CATALISADOR?","触媒ハントを終了しますか？"],"Connected to Firebase · itch.io, Netlify, Android and iOS progress merges into the same player.":["Mit Firebase verbunden · Fortschritt von itch.io, Netlify, Android und iOS wird im selben Spieler zusammengeführt.","Conectado a Firebase · el progreso de itch.io, Netlify, Android e iOS se combina en el mismo jugador.","Conectado ao Firebase · o progresso de itch.io, Netlify, Android e iOS é unido no mesmo jogador.","Firebase接続済み・itch.io、Netlify、Android、iOSの進行状況が同じプレイヤーに統合されます。"],"You consent to associate your Apple account with your existing Moleculox progress. Google or email can then open the same player record.":["Du stimmst zu, dein Apple-Konto mit deinem bestehenden Moleculox-Fortschritt zu verknüpfen. Google oder E-Mail können danach denselben Spieler öffnen.","Aceptas asociar tu cuenta de Apple con tu progreso de Moleculox. Google o correo podrán abrir el mismo jugador.","Você concorda em associar sua conta Apple ao progresso atual do Moleculox. Google ou e-mail poderão abrir o mesmo jogador.","Appleアカウントを現在のMoleculox進行状況に関連付けます。その後Googleやメールでも同じプレイヤーを開けます。"],"Account connected. Player progress from all platforms was merged safely.":["Konto verbunden. Spielerfortschritt aller Plattformen wurde sicher zusammengeführt.","Cuenta conectada. El progreso de todas las plataformas se combinó de forma segura.","Conta conectada. O progresso de todas as plataformas foi unido com segurança.","アカウント接続完了。全プラットフォームの進行状況を安全に統合しました。"],"Signed out. Guest mode is active.":["Abgemeldet. Gastmodus ist aktiv.","Sesión cerrada. El modo invitado está activo.","Sessão encerrada. O modo convidado está ativo.","ログアウトしました。ゲストモードです。"],"Verification email sent.":["Bestätigungs-E-Mail gesendet.","Correo de verificación enviado.","E-mail de verificação enviado.","確認メールを送信しました。"],"You are in guest mode. Link Google or email from this profile icon to protect your progress.":["Du bist im Gastmodus. Verknüpfe über dieses Profilsymbol Google oder E-Mail, um deinen Fortschritt zu schützen.","Estás en modo invitado. Vincula Google o correo desde este icono para proteger tu progreso.","Você está no modo convidado. Vincule Google ou e-mail por este ícone para proteger seu progresso.","ゲストモードです。進行状況を守るため、このプロフィールアイコンからGoogleまたはメールを連携してください。"],"All progress and rankings were synchronized.":["Der gesamte Fortschritt und alle Ranglisten wurden synchronisiert.","Todo el progreso y las clasificaciones se sincronizaron.","Todo o progresso e rankings foram sincronizados.","すべての進行状況とランキングを同期しました。"],"Cloud progress was saved. Ranking publication is pending and will be retried.":["Cloud-Fortschritt gespeichert. Die Ranglistenveröffentlichung steht aus und wird erneut versucht.","Progreso en la nube guardado. La publicación del ranking está pendiente y se reintentará.","Progresso na nuvem salvo. A publicação no ranking está pendente e será tentada novamente.","クラウド進行状況を保存しました。ランキング公開は保留中で、後ほど再試行します。"],"Account connected. Cloud progress could not be loaded yet; use Sync Now to retry.":["Konto verbunden. Cloud-Fortschritt konnte noch nicht geladen werden; nutze Jetzt synchronisieren.","Cuenta conectada. El progreso en la nube aún no pudo cargarse; usa Sincronizar ahora.","Conta conectada. O progresso na nuvem ainda não pôde ser carregado; use Sincronizar agora.","アカウント接続済み。クラウド進行状況をまだ読み込めません。今すぐ同期で再試行してください。"],"Link Google or email for permanent rankings and safe cross-device backup.":["Verknüpfe Google oder E-Mail für permanente Ranglisten und sichere Geräte-Backups.","Vincula Google o correo para clasificaciones permanentes y copias seguras entre dispositivos.","Vincule Google ou e-mail para rankings permanentes e backup seguro entre dispositivos.","永続ランキングと端末間の安全なバックアップにはGoogleまたはメールを連携してください。"],"Player profiles on this device remain available.":["Spielerprofile auf diesem Gerät bleiben verfügbar.","Los perfiles de jugador de este dispositivo permanecen disponibles.","Os perfis de jogador deste dispositivo continuam disponíveis.","この端末のプレイヤープロフィールは引き続き利用できます。"],"Your Firebase sign-in account, every cloud profile, and all Moleculox progress stored on this device will be permanently deleted. This cannot be undone.":["Dein Firebase-Anmeldekonto, alle Cloud-Profile und der gesamte Moleculox-Fortschritt auf diesem Gerät werden dauerhaft gelöscht. Dies kann nicht rückgängig gemacht werden.","Tu cuenta de Firebase, todos los perfiles en la nube y todo el progreso de Moleculox de este dispositivo se eliminarán permanentemente. No se puede deshacer.","Sua conta Firebase, todos os perfis na nuvem e todo o progresso do Moleculox neste dispositivo serão excluídos permanentemente. Não é possível desfazer.","Firebaseログインアカウント、すべてのクラウドプロフィール、この端末のMoleculox進行状況を完全に削除します。元に戻せません。"],"Account and data deleted. A new guest account is active.":["Konto und Daten gelöscht. Ein neues Gastkonto ist aktiv.","Cuenta y datos eliminados. Hay una nueva cuenta de invitado activa.","Conta e dados excluídos. Uma nova conta de convidado está ativa.","アカウントとデータを削除しました。新しいゲストアカウントが有効です。"],"Slide atoms across the Catalyst, Energy Cell, and Stabilizer. The molecule does not count until all three reaction components are collected. The limit is 90 seconds.":["Schiebe Atome über Katalysator, Energiezelle und Stabilisator. Das Molekül zählt erst, wenn alle drei Komponenten gesammelt sind. Zeitlimit: 90 Sekunden.","Desliza átomos sobre Catalizador, Célula de Energía y Estabilizador. La molécula no cuenta hasta recoger los tres componentes. Límite: 90 segundos.","Deslize átomos sobre Catalisador, Célula de Energia e Estabilizador. A molécula só conta após coletar os três componentes. Limite: 90 segundos.","原子を触媒、エネルギーセル、安定化装置の上に通します。3つすべて集めるまで分子は完成扱いになりません。制限時間90秒。"],"MIXED · LEVELS 41–":["GEMISCHT · LEVEL 41–","MIXTO · NIVELES 41–","MISTO · FASES 41–","ミックス・レベル41–"],"HARD · LEVELS 101–":["SCHWER · LEVEL 101–","DIFÍCIL · NIVELES 101–","DIFÍCIL · FASES 101–","上級・レベル101–"],"Slide the glowing atom in the correct direction to automate the next 1–2 solution moves. Complete the molecule within 90 seconds and build the biggest combo.":["Schiebe das leuchtende Atom in die richtige Richtung, um die nächsten 1–2 Lösungszüge automatisch auszuführen. Vervollständige das Molekül in 90 Sekunden und erreiche das größte Combo.","Desliza el átomo brillante en la dirección correcta para automatizar los siguientes 1–2 movimientos. Completa la molécula en 90 segundos y consigue el mayor combo.","Deslize o átomo brilhante na direção correta para automatizar os próximos 1–2 movimentos. Complete a molécula em 90 segundos e faça o maior combo.","光る原子を正しい方向へ動かすと次の1〜2手が自動実行されます。90秒以内に分子を完成させ、最大コンボを狙いましょう。"],"An active laser behaves like a temporary wall. The atom slides to the square immediately before it, allowing a route around the beam. Only pushing into the beam from an adjacent square adds a 3-second penalty. The limit is 90 seconds.":["Ein aktiver Laser wirkt wie eine temporäre Wand. Das Atom gleitet bis zum Feld direkt davor, sodass du um den Strahl herum planen kannst. Nur ein Stoß aus einem angrenzenden Feld in den Strahl gibt 3 Sekunden Strafe. Zeitlimit: 90 Sekunden.","Un láser activo actúa como una pared temporal. El átomo se desliza hasta la casilla justo anterior, permitiendo rodear el haz. Solo empujar al haz desde una casilla adyacente añade 3 segundos. Límite: 90 segundos.","Um laser ativo funciona como uma parede temporária. O átomo desliza até a casa imediatamente anterior, permitindo contornar o feixe. Só empurrar para o feixe de uma casa adjacente adiciona 3 segundos. Limite: 90 segundos.","作動中のレーザーは一時的な壁として働きます。原子はレーザー直前のマスまで滑るので、そこから迂回できます。隣接マスからレーザーへ押し込んだ場合のみ3秒ペナルティ。制限時間90秒。"],"Each round uses a different level. Catalyst Hunt requires all reaction components; Chain Reaction rewards the biggest combo; Reactor Escape rewards fewer laser hits. Each player has 90 seconds. Hints and restart are disabled.":["Jede Runde nutzt ein anderes Level. Bei Katalysator-Jagd brauchst du alle Reaktionskomponenten; Kettenreaktion belohnt das größte Combo; Reaktor-Flucht belohnt weniger Lasertreffer. Jeder Spieler hat 90 Sekunden. Hinweise und Neustart sind deaktiviert.","Cada ronda usa un nivel diferente. Caza de Catalizador requiere todos los componentes; Reacción en Cadena premia el mayor combo; Escape del Reactor premia menos impactos de láser. Cada jugador tiene 90 segundos. Pistas y reinicio están desactivados.","Cada rodada usa uma fase diferente. Caça ao Catalisador exige todos os componentes; Reação em Cadeia premia o maior combo; Fuga do Reator premia menos impactos de laser. Cada jogador tem 90 segundos. Dicas e reinício estão desativados.","各ラウンドは別のレベルです。触媒ハントは全要素収集、連鎖反応は最大コンボ、リアクター脱出はレーザー被弾の少なさを重視します。各プレイヤー90秒。ヒントとやり直しは無効です。"],"Mixed game · Mixed difficulty · 3 rounds · First to 2 wins":["Gemischtes Spiel · Gemischte Schwierigkeit · 3 Runden · Wer zuerst 2 gewinnt","Juego mixto · Dificultad mixta · 3 rondas · Primero en llegar a 2 victorias","Jogo misto · Dificuldade mista · 3 rodadas · Primeiro a 2 vitórias","ゲーム混合・難易度混合・3ラウンド・先に2勝"]};
+const LEGACY_COPY6={"CHAIN REACTION":["KETTENREAKTION","REACCIÓN EN CADENA","REAÇÃO EM CADEIA","連鎖反応"],"Make the charged move and trigger atoms in sequence":["Führe den geladenen Zug aus und löse die Atome nacheinander aus","Haz el movimiento cargado y activa los átomos en secuencia","Faça o movimento carregado e acione os átomos em sequência","チャージ移動で原子を順番に発動"],"DIFFICULTY POOL":["SCHWIERIGKEITSPOOL","GRUPO DE DIFICULTAD","GRUPO DE DIFICULDADE","難易度プール"],"MEDIUM · LEVELS 41–100":["MITTEL · LEVEL 41–100","MEDIO · NIVELES 41–100","MÉDIO · FASES 41–100","中級・レベル41–100"],"START":["START","INICIAR","INICIAR","開始"],"CANCEL":["ABBRECHEN","CANCELAR","CANCELAR","キャンセル"],"REACTION COMPLETE!":["REAKTION ABGESCHLOSSEN!","¡REACCIÓN COMPLETA!","REAÇÃO CONCLUÍDA!","反応完了！"],"TIME UP":["ZEIT ABGELAUFEN","TIEMPO AGOTADO","TEMPO ESGOTADO","時間切れ"],"Best Combo":["Bestes Combo","Mejor Combo","Melhor Combo","最高コンボ"],"Reactions":["Reaktionen","Reacciones","Reações","反応"],"Time":["Zeit","Tiempo","Tempo","時間"],"Moves":["Züge","Movimientos","Jogadas","手数"],"TRY AGAIN":["NOCHMAL","INTENTAR DE NUEVO","TENTAR DE NOVO","もう一度"],"NEW BOARD":["NEUES BRETT","NUEVO TABLERO","NOVO TABULEIRO","新しい盤面"],"BONUS LAB":["BONUS LAB","BONUS LAB","BONUS LAB","BONUS LAB"],"END CHAIN REACTION?":["KETTENREAKTION BEENDEN?","¿TERMINAR REACCIÓN EN CADENA?","ENCERRAR REAÇÃO EM CADEIA?","連鎖反応を終了しますか？"],"QUIT":["BEENDEN","SALIR","SAIR","終了"],"KEEP PLAYING":["WEITERSPIELEN","SEGUIR JUGANDO","CONTINUAR JOGANDO","続ける"],"Hints are disabled in Chain Reaction.":["Hinweise sind in der Kettenreaktion deaktiviert.","Las pistas están desactivadas en Reacción en Cadena.","As dicas estão desativadas em Reação em Cadeia.","連鎖反応ではヒントを使用できません。"],"REACTOR ESCAPE":["REAKTOR-FLUCHT","ESCAPE DEL REACTOR","FUGA DO REATOR","リアクター脱出"],"Move while lasers are open and complete the molecule":["Bewege dich bei offenen Lasern und vervollständige das Molekül","Muévete cuando los láseres estén abiertos y completa la molécula","Mova-se quando os lasers estiverem abertos e complete a molécula","レーザーが開いている間に進み分子を完成させる"],"REACTOR ESCAPED!":["REAKTOR ENTKOMMEN!","¡ESCAPASTE DEL REACTOR!","ESCAPOU DO REATOR!","リアクター脱出成功！"],"Penalty":["Strafe","Penalización","Penalidade","ペナルティ"],"END REACTOR ESCAPE?":["REAKTOR-FLUCHT BEENDEN?","¿TERMINAR ESCAPE DEL REACTOR?","ENCERRAR FUGA DO REATOR?","リアクター脱出を終了しますか？"],"Hints are disabled in Reactor Escape.":["Hinweise sind in Reaktor-Flucht deaktiviert.","Las pistas están desactivadas en Escape del Reactor.","As dicas estão desativadas em Fuga do Reator.","リアクター脱出ではヒントを使用できません。"],"Laser impact! +1 move · +3 seconds.":["Lasertreffer! +1 Zug · +3 Sekunden.","¡Impacto láser! +1 movimiento · +3 segundos.","Impacto de laser! +1 jogada · +3 segundos.","レーザー衝突！+1手・+3秒。"],"ATOM DUEL":["ATOM-DUELL","DUELO DE ÁTOMOS","DUELO DE ÁTOMOS","原子デュエル"],"One phone · Best of 3 · First to 2":["Ein Telefon · Best of 3 · Wer zuerst 2 gewinnt","Un teléfono · Mejor de 3 · Primero en llegar a 2","Um telefone · Melhor de 3 · Primeiro a 2","1台・3本勝負・先に2勝"],"PLAYER 1":["SPIELER 1","JUGADOR 1","JOGADOR 1","プレイヤー1"],"PLAYER 2":["SPIELER 2","JUGADOR 2","JOGADOR 2","プレイヤー2"],"GAME TYPE":["SPIELTYP","TIPO DE JUEGO","TIPO DE JOGO","ゲームタイプ"],"CLASSIC MOLECULOX":["KLASSISCHES MOLECULOX","MOLECULOX CLÁSICO","MOLECULOX CLÁSSICO","クラシック MOLECULOX"],"CATALYST HUNT":["KATALYSATOR-JAGD","CAZA DE CATALIZADOR","CAÇA AO CATALISADOR","触媒ハント"],"MIXED · 3 OF 4 GAMES":["GEMISCHT · 3 VON 4 SPIELEN","MIXTO · 3 DE 4 JUEGOS","MISTO · 3 DE 4 JOGOS","ミックス・4種中3種"],"START DUEL":["DUELL STARTEN","INICIAR DUELO","INICIAR DUELO","デュエル開始"],"TURN COMPLETE":["ZUG ABGESCHLOSSEN","TURNO COMPLETADO","TURNO CONCLUÍDO","ターン完了"],"Pass the phone to the other player.":["Gib das Telefon an den anderen Spieler weiter.","Pasa el teléfono al otro jugador.","Passe o telefone para o outro jogador.","端末をもう一人のプレイヤーに渡してください。"],"READY":["BEREIT","LISTO","PRONTO","準備OK"],"ROUND":["RUNDE","RONDA","RODADA","ラウンド"],"WON THE ROUND":["GEWINNT DIE RUNDE","GANÓ LA RONDA","VENCEU A RODADA","ラウンド勝利"],"ROUND DRAW":["RUNDE UNENTSCHIEDEN","RONDA EMPATADA","RODADA EMPATADA","ラウンド引き分け"],"NEXT ROUND":["NÄCHSTE RUNDE","SIGUIENTE RONDA","PRÓXIMA RODADA","次のラウンド"],"WINS THE DUEL!":["GEWINNT DAS DUELL!","¡GANA EL DUELO!","VENCE O DUELO!","デュエル勝利！"],"DUEL DRAW!":["DUELL UNENTSCHIEDEN!","¡DUELO EMPATADO!","DUELO EMPATADO!","デュエル引き分け！"],"REMATCH":["REVANCHE","REVANCHA","REVANCHE","再戦"],"CHANGE DIFFICULTY":["SCHWIERIGKEIT ÄNDERN","CAMBIAR DIFICULTAD","MUDAR DIFICULDADE","難易度変更"],"MAIN MENU":["HAUPTMENÜ","MENÚ PRINCIPAL","MENU PRINCIPAL","メインメニュー"],"QUIT THE DUEL?":["DUELL BEENDEN?","¿SALIR DEL DUELO?","SAIR DO DUELO?","デュエルを終了しますか？"],"END DUEL":["DUELL BEENDEN","TERMINAR DUELO","ENCERRAR DUELO","デュエル終了"],"Completed":["Abgeschlossen","Completado","Concluído","完了"],"Time up":["Zeit abgelaufen","Tiempo agotado","Tempo esgotado","時間切れ"],"SCORE":["PUNKTSTAND","PUNTUACIÓN","PLACAR","スコア"],"Hints are disabled in Duel.":["Hinweise sind im Duell deaktiviert.","Las pistas están desactivadas en Duelo.","As dicas estão desativadas no Duelo.","デュエルではヒントを使用できません。"],"Restart is disabled in Duel.":["Neustart ist im Duell deaktiviert.","Reiniciar está desactivado en Duelo.","Reiniciar está desativado no Duelo.","デュエルではやり直しできません。"],"How do you want to play?":["Wie möchtest du spielen?","¿Cómo quieres jugar?","Como você quer jogar?","どう遊びますか？"],"SAME PHONE":["GLEICHES TELEFON","MISMO TELÉFONO","MESMO TELEFONE","同じ端末"],"Pass one phone between players.":["Gebt ein Telefon abwechselnd weiter.","Pasa un teléfono entre los jugadores.","Passe um telefone entre os jogadores.","1台の端末を交代で使います。"],"PLAY A FRIEND":["MIT FREUND SPIELEN","JUGAR CON AMIGO","JOGAR COM AMIGO","友だちと対戦"],"Create a room and send the 6-digit code.":["Erstelle einen Raum und sende den 6-stelligen Code.","Crea una sala y envía el código de 6 dígitos.","Crie uma sala e envie o código de 6 dígitos.","ルームを作成し6桁コードを送ります。"],"QUICK MATCH":["SCHNELLMATCH","PARTIDA RÁPIDA","PARTIDA RÁPIDA","クイックマッチ"],"Find an online opponent and start automatically.":["Finde einen Online-Gegner und starte automatisch.","Busca un rival en línea e inicia automáticamente.","Encontre um adversário online e inicie automaticamente.","オンラインの対戦相手を探して自動開始。"],"FIND OPPONENT":["GEGNER FINDEN","BUSCAR RIVAL","ENCONTRAR ADVERSÁRIO","対戦相手を探す"],"SEARCHING FOR OPPONENT":["SUCHE NACH GEGNER","BUSCANDO RIVAL","PROCURANDO ADVERSÁRIO","対戦相手を検索中"],"Looking for another Moleculox player online…":["Suche nach einem anderen Moleculox-Spieler online…","Buscando otro jugador de Moleculox en línea…","Procurando outro jogador de Moleculox online…","オンラインのMoleculoxプレイヤーを探しています…"],"CANCEL SEARCH":["SUCHE ABBRECHEN","CANCELAR BÚSQUEDA","CANCELAR BUSCA","検索をキャンセル"],"Opponent found! Preparing the duel…":["Gegner gefunden! Duell wird vorbereitet…","¡Rival encontrado! Preparando el duelo…","Adversário encontrado! Preparando o duelo…","対戦相手が見つかりました！準備中…"],"Match search ended. You can try again.":["Matchsuche beendet. Du kannst es erneut versuchen.","La búsqueda terminó. Puedes intentarlo de nuevo.","A busca terminou. Você pode tentar novamente.","検索が終了しました。もう一度試せます。"],"ONLINE ATOM DUEL":["ONLINE-ATOM-DUELL","DUELO DE ÁTOMOS ONLINE","DUELO DE ÁTOMOS ONLINE","オンライン原子デュエル"],"YOUR PLAYER NAME":["DEIN SPIELERNAME","TU NOMBRE DE JUGADOR","SEU NOME DE JOGADOR","プレイヤー名"],"CREATE ROOM":["RAUM ERSTELLEN","CREAR SALA","CRIAR SALA","ルーム作成"],"JOIN ROOM":["RAUM BEITRETEN","UNIRSE A SALA","ENTRAR NA SALA","ルーム参加"],"ROOM CODE":["RAUMCODE","CÓDIGO DE SALA","CÓDIGO DA SALA","ルームコード"],"ROOM SETTINGS":["RAUMEINSTELLUNGEN","AJUSTES DE SALA","CONFIGURAÇÕES DA SALA","ルーム設定"],"WAITING FOR OPPONENT":["WARTE AUF GEGNER","ESPERANDO RIVAL","AGUARDANDO ADVERSÁRIO","対戦相手を待機中"],"Send this 6-digit code to the other player.":["Sende diesen 6-stelligen Code an den anderen Spieler.","Envía este código de 6 dígitos al otro jugador.","Envie este código de 6 dígitos ao outro jogador.","この6桁コードを相手に送ってください。"],"COPY CODE":["CODE KOPIEREN","COPIAR CÓDIGO","COPIAR CÓDIGO","コードをコピー"],"Code copied!":["Code kopiert!","¡Código copiado!","Código copiado!","コードをコピーしました！"],"OPPONENT IS PLAYING":["GEGNER SPIELT","EL RIVAL ESTÁ JUGANDO","ADVERSÁRIO JOGANDO","相手がプレイ中"],"YOUR TURN":["DU BIST DRAN","TU TURNO","SUA VEZ","あなたの番"],"Sending the result to both phones…":["Ergebnis wird an beide Telefone gesendet…","Enviando el resultado a ambos teléfonos…","Enviando o resultado aos dois telefones…","結果を両方の端末へ送信中…"],"ROUND RESULT":["RUNDENERGEBNIS","RESULTADO DE RONDA","RESULTADO DA RODADA","ラウンド結果"],"LEAVE ROOM":["RAUM VERLASSEN","SALIR DE LA SALA","SAIR DA SALA","ルーム退出"],"The room was closed.":["Der Raum wurde geschlossen.","La sala se cerró.","A sala foi fechada.","ルームが閉じられました。"],"The other player left the duel.":["Der andere Spieler hat das Duell verlassen.","El otro jugador abandonó el duelo.","O outro jogador saiu do duelo.","相手がデュエルを退出しました。"],"START REMATCH":["REVANCHE STARTEN","INICIAR REVANCHA","INICIAR REVANCHE","再戦開始"],"The match will open automatically if the host starts a rematch.":["Das Match öffnet sich automatisch, wenn der Host eine Revanche startet.","La partida se abrirá automáticamente si el anfitrión inicia una revancha.","A partida abrirá automaticamente se o anfitrião iniciar uma revanche.","ホストが再戦を開始すると自動的に試合が開きます。"],"An internet connection is required for online duel.":["Für Online-Duelle ist eine Internetverbindung erforderlich.","Se necesita conexión a Internet para el duelo online.","É necessária conexão com a internet para duelo online.","オンラインデュエルにはインターネット接続が必要です。"],"Firebase is not ready. Try again in a few seconds.":["Firebase ist noch nicht bereit. Versuche es in ein paar Sekunden erneut.","Firebase no está listo. Inténtalo de nuevo en unos segundos.","Firebase ainda não está pronto. Tente novamente em alguns segundos.","Firebaseの準備ができていません。数秒後に再試行してください。"],"No open room was found with this code.":["Mit diesem Code wurde kein offener Raum gefunden.","No se encontró una sala abierta con este código.","Nenhuma sala aberta foi encontrada com este código.","このコードの公開中ルームが見つかりません。"],"The room is full or the match has already started.":["Der Raum ist voll oder das Match hat bereits begonnen.","La sala está llena o la partida ya comenzó.","A sala está cheia ou a partida já começou.","ルームが満員か、試合がすでに始まっています。"],"This room has expired.":["Dieser Raum ist abgelaufen.","Esta sala ha caducado.","Esta sala expirou.","このルームは期限切れです。"],"Enter the 6-digit room code.":["Gib den 6-stelligen Raumcode ein.","Introduce el código de sala de 6 dígitos.","Digite o código de sala de 6 dígitos.","6桁のルームコードを入力してください。"],"Could not connect to the room. Check your internet connection.":["Verbindung zum Raum fehlgeschlagen. Prüfe deine Internetverbindung.","No se pudo conectar a la sala. Comprueba tu conexión a Internet.","Não foi possível conectar à sala. Verifique sua internet.","ルームに接続できません。通信状態を確認してください。"],"ROOM":["RAUM","SALA","SALA","ルーム"],"You are watching your opponent in full-screen spectator mode.":["Du siehst deinen Gegner im Vollbild-Zuschauermodus.","Estás viendo a tu rival en modo espectador a pantalla completa.","Você está assistindo ao adversário em tela cheia.","相手のプレイをフルスクリーン観戦中です。"],"LIVE OPPONENT GAME":["LIVE-SPIEL DES GEGNERS","PARTIDA EN VIVO DEL RIVAL","JOGO AO VIVO DO ADVERSÁRIO","相手のライブゲーム"],"Preparing the live game…":["Live-Spiel wird vorbereitet…","Preparando la partida en vivo…","Preparando o jogo ao vivo…","ライブゲームを準備中…"],"A QUICK FACT FROM DR. E":["KURZFAKT VON DR. E","DATO RÁPIDO DE DR. E","FATO RÁPIDO DO DR. E","Dr. Eのミニ知識"],"PRESET MESSAGES":["SCHNELLNACHRICHTEN","MENSAJES PREDEFINIDOS","MENSAGENS RÁPIDAS","定型メッセージ"],"Message sent":["Nachricht gesendet","Mensaje enviado","Mensagem enviada","メッセージ送信済み"],"Opponent disconnected":["Gegner getrennt","Rival desconectado","Adversário desconectado","相手が切断しました"],"Waiting for them to return":["Warte auf Rückkehr","Esperando su regreso","Aguardando retorno","復帰を待っています"],"Your internet connection was lost":["Deine Internetverbindung wurde getrennt","Se perdió tu conexión a Internet","Sua conexão com a internet caiu","インターネット接続が切れました"],"Reconnecting to the match…":["Verbindung zum Match wird wiederhergestellt…","Reconectando a la partida…","Reconectando à partida…","試合に再接続中…"],"Connection restored.":["Verbindung wiederhergestellt.","Conexión restaurada.","Conexão restaurada.","接続が復旧しました。"],"Your opponent did not return. You win by forfeit!":["Dein Gegner kam nicht zurück. Du gewinnst kampflos!","Tu rival no regresó. ¡Ganas por abandono!","Seu adversário não voltou. Você vence por W.O.!","相手が戻らなかったため不戦勝です！"],"The reconnect timer expired. You lose by forfeit.":["Die Wiederverbindungszeit ist abgelaufen. Du verlierst kampflos.","Se agotó el tiempo de reconexión. Pierdes por abandono.","O tempo de reconexão acabou. Você perde por W.O.","再接続時間切れのため不戦敗です。"],"The match was cancelled because both players disconnected.":["Das Match wurde abgebrochen, weil beide Spieler getrennt wurden.","La partida se canceló porque ambos jugadores se desconectaron.","A partida foi cancelada porque ambos os jogadores desconectaram.","両プレイヤーが切断したため試合をキャンセルしました。"],"WIN BY FORFEIT":["SIEG KAMPFLOS","VICTORIA POR ABANDONO","VITÓRIA POR W.O.","不戦勝"],"seconds":["Sekunden","segundos","segundos","秒"],"Friendly match · Does not affect campaign or world ranking.":["Freundschaftsmatch · Beeinflusst Kampagne und Weltrangliste nicht.","Partida amistosa · No afecta campaña ni clasificación mundial.","Partida amistosa · Não afeta campanha nem ranking mundial.","フレンドマッチ・キャンペーンや世界ランキングに影響しません。"],"Ranked match · Affects your Duel Points and league.":["Gewertetes Match · Beeinflusst Duellpunkte und Liga.","Partida clasificatoria · Afecta tus Puntos de Duelo y liga.","Partida ranqueada · Afeta seus Pontos de Duelo e liga.","ランク戦・デュエルポイントとリーグに影響します。"],"ACCOUNT & PLAYERS":["KONTO & SPIELER","CUENTA Y JUGADORES","CONTA E JOGADORES","アカウントとプレイヤー"],"You are playing as a guest":["Du spielst als Gast","Estás jugando como invitado","Você está jogando como convidado","ゲストとしてプレイ中"],"The game started automatically with a guest account.":["Das Spiel startete automatisch mit einem Gastkonto.","El juego comenzó automáticamente con una cuenta de invitado.","O jogo começou automaticamente com uma conta de convidado.","ゲームはゲストアカウントで自動開始しました。"],"If you delete the game before linking an account, progress stored on this device may be lost.":["Wenn du das Spiel vor dem Verknüpfen eines Kontos löschst, kann der Fortschritt auf diesem Gerät verloren gehen.","Si borras el juego antes de vincular una cuenta, el progreso de este dispositivo puede perderse.","Se você apagar o jogo antes de vincular uma conta, o progresso deste dispositivo pode ser perdido.","アカウント連携前にゲームを削除すると、この端末の進行状況を失う場合があります。"],"Continue with Apple":["Mit Apple fortfahren","Continuar con Apple","Continuar com Apple","Appleで続ける"],"Link Apple account":["Apple-Konto verknüpfen","Vincular cuenta de Apple","Vincular conta Apple","Appleアカウントを連携"],"CONFIRM AND LINK":["BESTÄTIGEN & VERKNÜPFEN","CONFIRMAR Y VINCULAR","CONFIRMAR E VINCULAR","確認して連携"],"Continue with Google":["Mit Google fortfahren","Continuar con Google","Continuar com Google","Googleで続ける"],"Sign in with email":["Mit E-Mail anmelden","Iniciar sesión con correo","Entrar com e-mail","メールでログイン"],"Create new account":["Neues Konto erstellen","Crear nueva cuenta","Criar nova conta","新規アカウント作成"],"👥 MANAGE PLAYERS":["👥 SPIELER VERWALTEN","👥 GESTIONAR JUGADORES","👥 GERENCIAR JOGADORES","👥 プレイヤー管理"],"CLOSE":["SCHLIESSEN","CERRAR","FECHAR","閉じる"],"SIGN OUT":["ABMELDEN","CERRAR SESIÓN","SAIR","ログアウト"],"FORGOT PASSWORD":["PASSWORT VERGESSEN","OLVIDÉ MI CONTRASEÑA","ESQUECI A SENHA","パスワードを忘れた"],"Add email & password":["E-Mail & Passwort hinzufügen","Añadir correo y contraseña","Adicionar e-mail e senha","メールとパスワードを追加"],"Email":["E-Mail","Correo","E-mail","メール"],"Password":["Passwort","Contraseña","Senha","パスワード"],"Repeat password":["Passwort wiederholen","Repetir contraseña","Repetir senha","パスワード再入力"],"Player name / Nickname":["Spielername / Nickname","Nombre / Apodo","Nome / Apelido","プレイヤー名 / ニックネーム"],"SIGN IN":["ANMELDEN","INICIAR SESIÓN","ENTRAR","ログイン"],"CREATE ACCOUNT":["KONTO ERSTELLEN","CREAR CUENTA","CRIAR CONTA","アカウント作成"],"BACK":["ZURÜCK","ATRÁS","VOLTAR","戻る"],"SEND RESET EMAIL":["RESET-E-MAIL SENDEN","ENVIAR CORREO DE RESTABLECIMIENTO","ENVIAR E-MAIL DE REDEFINIÇÃO","リセットメールを送信"],"Password reset email sent.":["E-Mail zum Zurücksetzen des Passworts gesendet.","Correo de restablecimiento enviado.","E-mail de redefinição enviado.","パスワードリセットメールを送信しました。"],"Cloud account connected":["Cloud-Konto verbunden","Cuenta en la nube conectada","Conta na nuvem conectada","クラウドアカウント接続済み"],"☁ CLOUD & RANKING STATUS":["☁ CLOUD- & RANGLISTENSTATUS","☁ ESTADO DE NUBE Y CLASIFICACIÓN","☁ STATUS DA NUVEM E RANKING","☁ クラウドとランキング状況"],"CLOUD & ACCOUNT STATUS":["CLOUD- & KONTOSTATUS","ESTADO DE NUBE Y CUENTA","STATUS DA NUVEM E CONTA","クラウドとアカウント状況"],"SYNC NOW":["JETZT SYNCHRONISIEREN","SINCRONIZAR AHORA","SINCRONIZAR AGORA","今すぐ同期"],"Synchronized":["Synchronisiert","Sincronizado","Sincronizado","同期済み"],"Saving":["Speichern","Guardando","Salvando","保存中"],"Offline":["Offline","Sin conexión","Offline","オフライン"],"Sync error":["Synchronisierungsfehler","Error de sincronización","Erro de sincronização","同期エラー"],"Last successful sync":["Letzte erfolgreiche Synchronisierung","Última sincronización correcta","Última sincronização bem-sucedida","最後の正常同期"],"No successful sync yet":["Noch keine erfolgreiche Synchronisierung","Aún no hay sincronización correcta","Ainda não houve sincronização bem-sucedida","正常同期はまだありません"],"Linked sign-in methods":["Verknüpfte Anmeldemethoden","Métodos de inicio vinculados","Métodos de login vinculados","連携済みログイン方法"],"Player":["Spieler","Jugador","Jogador","プレイヤー"],"Classic World Ranking":["Klassische Weltrangliste","Clasificación Mundial Clásica","Ranking Mundial Clássico","クラシック世界ランキング"],"Online Duel Ranking":["Online-Duell-Rangliste","Clasificación de Duelo Online","Ranking de Duelo Online","オンラインデュエルランキング"],"Checking rankings…":["Ranglisten werden geprüft…","Comprobando clasificaciones…","Verificando rankings…","ランキング確認中…"],"Not published to ranking yet":["Noch nicht in der Rangliste veröffentlicht","Aún no publicado en la clasificación","Ainda não publicado no ranking","ランキング未公開"],"Published after account linking":["Wird nach Kontoverknüpfung veröffentlicht","Se publica tras vincular la cuenta","Publicado após vincular a conta","アカウント連携後に公開"],"BACK TO ACCOUNT":["ZURÜCK ZUM KONTO","VOLVER A LA CUENTA","VOLTAR À CONTA","アカウントへ戻る"],"DELETE ACCOUNT & ALL DATA":["KONTO & ALLE DATEN LÖSCHEN","ELIMINAR CUENTA Y TODOS LOS DATOS","EXCLUIR CONTA E TODOS OS DADOS","アカウントと全データを削除"],"Delete the account permanently?":["Konto dauerhaft löschen?","¿Eliminar la cuenta permanentemente?","Excluir a conta permanentemente?","アカウントを完全に削除しますか？"],"YES, DELETE MY ACCOUNT":["JA, KONTO LÖSCHEN","SÍ, ELIMINAR MI CUENTA","SIM, EXCLUIR MINHA CONTA","はい、アカウントを削除"],"OR":["ODER","O","OU","または"],"Fill in all fields.":["Fülle alle Felder aus.","Completa todos los campos.","Preencha todos os campos.","すべての項目を入力してください。"],"Passwords do not match.":["Die Passwörter stimmen nicht überein.","Las contraseñas no coinciden.","As senhas não coincidem.","パスワードが一致しません。"],"Password must be at least 6 characters.":["Das Passwort muss mindestens 6 Zeichen lang sein.","La contraseña debe tener al menos 6 caracteres.","A senha deve ter pelo menos 6 caracteres.","パスワードは6文字以上必要です。"],"Working…":["Wird verarbeitet…","Procesando…","Processando…","処理中…"],"Collect the catalyst, energy cell, and stabilizer":["Sammle Katalysator, Energiezelle und Stabilisator","Recoge el catalizador, la célula de energía y el estabilizador","Colete o catalisador, a célula de energia e o estabilizador","触媒、エネルギーセル、安定化装置を集める"],"REACTION READY!":["REAKTION BEREIT!","¡REACCIÓN LISTA!","REAÇÃO PRONTA!","反応準備完了！"],"Components":["Komponenten","Componentes","Componentes","構成要素"],"Collect all three reaction components first!":["Sammle zuerst alle drei Reaktionskomponenten!","¡Recoge primero los tres componentes de reacción!","Colete primeiro os três componentes da reação!","先に3つの反応要素をすべて集めてください！"],"END CATALYST HUNT?":["KATALYSATOR-JAGD BEENDEN?","¿TERMINAR CAZA DE CATALIZADOR?","ENCERRAR CAÇA AO CATALISADOR?","触媒ハントを終了しますか？"],"Connected to Firebase · itch.io, Netlify, Android and iOS progress merges into the same player.":["Mit Firebase verbunden · Fortschritt von itch.io, Netlify, Android und iOS wird im selben Spieler zusammengeführt.","Conectado a Firebase · el progreso de itch.io, Netlify, Android e iOS se combina en el mismo jugador.","Conectado ao Firebase · o progresso de itch.io, Netlify, Android e iOS é unido no mesmo jogador.","Firebase接続済み・itch.io、Netlify、Android、iOSの進行状況が同じプレイヤーに統合されます。"],"You consent to associate your Apple account with your existing Moleculox progress. Google or email can then open the same player record.":["Du stimmst zu, dein Apple-Konto mit deinem bestehenden Moleculox-Fortschritt zu verknüpfen. Google oder E-Mail können danach denselben Spieler öffnen.","Aceptas asociar tu cuenta de Apple con tu progreso de Moleculox. Google o correo podrán abrir el mismo jugador.","Você concorda em associar sua conta Apple ao progresso atual do Moleculox. Google ou e-mail poderão abrir o mesmo jogador.","Appleアカウントを現在のMoleculox進行状況に関連付けます。その後Googleやメールでも同じプレイヤーを開けます。"],"Account connected. Player progress from all platforms was merged safely.":["Konto verbunden. Spielerfortschritt aller Plattformen wurde sicher zusammengeführt.","Cuenta conectada. El progreso de todas las plataformas se combinó de forma segura.","Conta conectada. O progresso de todas as plataformas foi unido com segurança.","アカウント接続完了。全プラットフォームの進行状況を安全に統合しました。"],"Signed out. Guest mode is active.":["Abgemeldet. Gastmodus ist aktiv.","Sesión cerrada. El modo invitado está activo.","Sessão encerrada. O modo convidado está ativo.","ログアウトしました。ゲストモードです。"],"Verification email sent.":["Bestätigungs-E-Mail gesendet.","Correo de verificación enviado.","E-mail de verificação enviado.","確認メールを送信しました。"],"You are in guest mode. Link Google or email from this profile icon to protect your progress.":["Du bist im Gastmodus. Verknüpfe über dieses Profilsymbol Google oder E-Mail, um deinen Fortschritt zu schützen.","Estás en modo invitado. Vincula Google o correo desde este icono para proteger tu progreso.","Você está no modo convidado. Vincule Google ou e-mail por este ícone para proteger seu progresso.","ゲストモードです。進行状況を守るため、このプロフィールアイコンからGoogleまたはメールを連携してください。"],"All progress and rankings were synchronized.":["Der gesamte Fortschritt und alle Ranglisten wurden synchronisiert.","Todo el progreso y las clasificaciones se sincronizaron.","Todo o progresso e rankings foram sincronizados.","すべての進行状況とランキングを同期しました。"],"Cloud progress was saved. Ranking publication is pending and will be retried.":["Cloud-Fortschritt gespeichert. Die Ranglistenveröffentlichung steht aus und wird erneut versucht.","Progreso en la nube guardado. La publicación del ranking está pendiente y se reintentará.","Progresso na nuvem salvo. A publicação no ranking está pendente e será tentada novamente.","クラウド進行状況を保存しました。ランキング公開は保留中で、後ほど再試行します。"],"Account connected. Cloud progress could not be loaded yet; use Sync Now to retry.":["Konto verbunden. Cloud-Fortschritt konnte noch nicht geladen werden; nutze Jetzt synchronisieren.","Cuenta conectada. El progreso en la nube aún no pudo cargarse; usa Sincronizar ahora.","Conta conectada. O progresso na nuvem ainda não pôde ser carregado; use Sincronizar agora.","アカウント接続済み。クラウド進行状況をまだ読み込めません。今すぐ同期で再試行してください。"],"Link Google or email for permanent rankings and safe cross-device backup.":["Verknüpfe Google oder E-Mail für permanente Ranglisten und sichere Geräte-Backups.","Vincula Google o correo para clasificaciones permanentes y copias seguras entre dispositivos.","Vincule Google ou e-mail para rankings permanentes e backup seguro entre dispositivos.","永続ランキングと端末間の安全なバックアップにはGoogleまたはメールを連携してください。"],"Player profiles on this device remain available.":["Spielerprofile auf diesem Gerät bleiben verfügbar.","Los perfiles de jugador de este dispositivo permanecen disponibles.","Os perfis de jogador deste dispositivo continuam disponíveis.","この端末のプレイヤープロフィールは引き続き利用できます。"],"Your Firebase sign-in account, every cloud profile, and all Moleculox progress stored on this device will be permanently deleted. This cannot be undone.":["Dein Firebase-Anmeldekonto, alle Cloud-Profile und der gesamte Moleculox-Fortschritt auf diesem Gerät werden dauerhaft gelöscht. Dies kann nicht rückgängig gemacht werden.","Tu cuenta de Firebase, todos los perfiles en la nube y todo el progreso de Moleculox de este dispositivo se eliminarán permanentemente. No se puede deshacer.","Sua conta Firebase, todos os perfis na nuvem e todo o progresso do Moleculox neste dispositivo serão excluídos permanentemente. Não é possível desfazer.","Firebaseログインアカウント、すべてのクラウドプロフィール、この端末のMoleculox進行状況を完全に削除します。元に戻せません。"],"Account and data deleted. A new guest account is active.":["Konto und Daten gelöscht. Ein neues Gastkonto ist aktiv.","Cuenta y datos eliminados. Hay una nueva cuenta de invitado activa.","Conta e dados excluídos. Uma nova conta de convidado está ativa.","アカウントとデータを削除しました。新しいゲストアカウントが有効です。"],"Slide atoms across the Catalyst, Energy Cell, and Stabilizer. The molecule does not count until all three reaction components are collected. The limit is 90 seconds.":["Schiebe Atome über Katalysator, Energiezelle und Stabilisator. Das Molekül zählt erst, wenn alle drei Komponenten gesammelt sind. Zeitlimit: 90 Sekunden.","Desliza átomos sobre Catalizador, Célula de Energía y Estabilizador. La molécula no cuenta hasta recoger los tres componentes. Límite: 90 segundos.","Deslize átomos sobre Catalisador, Célula de Energia e Estabilizador. A molécula só conta após coletar os três componentes. Limite: 90 segundos.","原子を触媒、エネルギーセル、安定化装置の上に通します。3つすべて集めるまで分子は完成扱いになりません。制限時間90秒。"],"MIXED · LEVELS 41–":["GEMISCHT · LEVEL 41–","MIXTO · NIVELES 41–","MISTO · FASES 41–","ミックス・レベル41–"],"HARD · LEVELS 101–":["SCHWER · LEVEL 101–","DIFÍCIL · NIVELES 101–","DIFÍCIL · FASES 101–","上級・レベル101–"],"Slide the glowing atom in the correct direction to automate the next 1–2 solution moves. Complete the molecule within 90 seconds and build the biggest combo.":["Schiebe das leuchtende Atom in die richtige Richtung, um die nächsten 1–2 Lösungszüge automatisch auszuführen. Vervollständige das Molekül in 90 Sekunden und erreiche das größte Combo.","Desliza el átomo brillante en la dirección correcta para automatizar los siguientes 1–2 movimientos. Completa la molécula en 90 segundos y consigue el mayor combo.","Deslize o átomo brilhante na direção correta para automatizar os próximos 1–2 movimentos. Complete a molécula em 90 segundos e faça o maior combo.","光る原子を正しい方向へ動かすと次の1〜2手が自動実行されます。90秒以内に分子を完成させ、最大コンボを狙いましょう。"],"An active laser behaves like a temporary wall. The atom slides to the square immediately before it, allowing a route around the beam. Pushing into an adjacent active beam counts as one move and raises the Impact counter; Reactor Escape also adds a 3-second penalty. The limit is 90 seconds.":["Ein aktiver Laser wirkt wie eine temporäre Wand. Das Atom gleitet bis zum Feld direkt davor. Ein Stoß aus einem angrenzenden Feld in den aktiven Strahl zählt als 1 Zug und erhöht den Trefferzähler; in der Reaktor-Flucht kommen zusätzlich 3 Sekunden Strafe hinzu. Zeitlimit: 90 Sekunden.","Un láser activo actúa como una pared temporal. El átomo se desliza hasta la casilla anterior. Empujar desde una casilla adyacente contra el haz activo cuenta como 1 movimiento y aumenta Impactos; en Escape del Reactor añade además 3 segundos. Límite: 90 segundos.","Um laser ativo funciona como uma parede temporária. O átomo desliza até a casa anterior. Empurrar de uma casa adjacente contra o feixe ativo conta como 1 jogada e aumenta Impactos; na Fuga do Reator também soma 3 segundos. Limite: 90 segundos.","作動中のレーザーは一時的な壁です。原子はレーザー直前で止まります。隣接マスから作動中レーザーへ押すと1手として数えられ、衝突カウンターも増えます。リアクター脱出ではさらに3秒加算。制限時間90秒。"],"Each round uses a different level. Catalyst Hunt requires all reaction components; Chain Reaction rewards the biggest combo; Reactor Escape rewards fewer laser hits. Each player has 90 seconds. Hints and restart are disabled.":["Jede Runde nutzt ein anderes Level. Bei Katalysator-Jagd brauchst du alle Reaktionskomponenten; Kettenreaktion belohnt das größte Combo; Reaktor-Flucht belohnt weniger Lasertreffer. Jeder Spieler hat 90 Sekunden. Hinweise und Neustart sind deaktiviert.","Cada ronda usa un nivel diferente. Caza de Catalizador requiere todos los componentes; Reacción en Cadena premia el mayor combo; Escape del Reactor premia menos impactos de láser. Cada jugador tiene 90 segundos. Pistas y reinicio están desactivados.","Cada rodada usa uma fase diferente. Caça ao Catalisador exige todos os componentes; Reação em Cadeia premia o maior combo; Fuga do Reator premia menos impactos de laser. Cada jogador tem 90 segundos. Dicas e reinício estão desativados.","各ラウンドは別のレベルです。触媒ハントは全要素収集、連鎖反応は最大コンボ、リアクター脱出はレーザー被弾の少なさを重視します。各プレイヤー90秒。ヒントとやり直しは無効です。"],"Mixed game · Mixed difficulty · 3 rounds · First to 2 wins":["Gemischtes Spiel · Gemischte Schwierigkeit · 3 Runden · Wer zuerst 2 gewinnt","Juego mixto · Dificultad mixta · 3 rondas · Primero en llegar a 2 victorias","Jogo misto · Dificuldade mista · 3 rodadas · Primeiro a 2 vitórias","ゲーム混合・難易度混合・3ラウンド・先に2勝"]};
 function copy6Value(v){if(typeof v!=='string'||LANG==='en')return v;if(LANG==='tr')return v;let x=LEGACY_COPY6[v];if(!x){for(const k in LEGACY_COPY6){if(v.startsWith(k)&&k.endsWith('–')){x=LEGACY_COPY6[k].map(t=>t+v.slice(k.length));break;}}}if(!x)return v;return LANG==='de'?x[0]:LANG==='es'?x[1]:LANG==='pt'?x[2]:LANG==='ja'?x[3]:v;}
 function copy6Object(o){const out={};for(const k in o)out[k]=copy6Value(o[k]);return out;}
 function crystalCopy(){
@@ -5848,12 +5955,12 @@ function reactorCopy(){
   const tr=LANG==='tr';
   return tr?{
     title:'REAKTÖR KAÇIŞI',sub:'Lazerler kapanınca geç ve molekülü tamamla',difficulty:'ZORLUK HAVUZU',mixed:'KARIŞIK · BÖLÜM 41–'+LEVELS.length,medium:'ORTA · BÖLÜM 41–100',hard:'ZOR · BÖLÜM 121–'+LEVELS.length,
-    rules:'Aktif lazer geçici duvar gibi davranır. Atom lazerin bir kare önüne kadar kayar; oradan yön değiştirip etrafından dolaşabilirsin. Yalnızca lazere bitişikken ışına hamle yapmak 3 saniye ceza ekler. Süre 90 saniyedir.',start:'BAŞLAT',cancel:'VAZGEÇ',complete:'REAKTÖRDEN KAÇTIN!',timeUp:'SÜRE DOLDU',
-    hits:reactorImpactResultLabel(),penalty:'Ceza',time:'Süre',moves:'Hamle',retry:'TEKRAR DENE',newGame:'YENİ HARİTA',menu:'BONUS LAB',quitTitle:'REAKTÖR KAÇIŞI BİTİRİLSİN Mİ?',quit:'ÇIKIŞ',stay:'DEVAM ET',noHint:'Reaktör Kaçışında ipucu kapalı.',blocked:'Lazere temas ettin! +3 saniye.'
+    rules:'Aktif lazer geçici duvar gibi davranır. Atom lazerin bir kare önüne kadar kayar; oradan yön değiştirip etrafından dolaşabilirsin. Lazere bitişikken aktif ışına yapılan temas 1 hamle sayılır ve Darbe sayacını artırır; Reaktör Kaçışında ayrıca 3 saniye ceza ekler. Süre 90 saniyedir.',start:'BAŞLAT',cancel:'VAZGEÇ',complete:'REAKTÖRDEN KAÇTIN!',timeUp:'SÜRE DOLDU',
+    hits:reactorImpactResultLabel(),penalty:'Ceza',time:'Süre',moves:'Hamle',retry:'TEKRAR DENE',newGame:'YENİ HARİTA',menu:'BONUS LAB',quitTitle:'REAKTÖR KAÇIŞI BİTİRİLSİN Mİ?',quit:'ÇIKIŞ',stay:'DEVAM ET',noHint:'Reaktör Kaçışında ipucu kapalı.',blocked:'Lazer darbesi! +1 hamle · +3 saniye.'
   }:copy6Object({
     title:'REACTOR ESCAPE',sub:'Move while lasers are open and complete the molecule',difficulty:'DIFFICULTY POOL',mixed:'MIXED · LEVELS 41–'+LEVELS.length,medium:'MEDIUM · LEVELS 41–100',hard:'HARD · LEVELS 101–'+LEVELS.length,
-    rules:'An active laser behaves like a temporary wall. The atom slides to the square immediately before it, allowing a route around the beam. Only pushing into the beam from an adjacent square adds a 3-second penalty. The limit is 90 seconds.',start:'START',cancel:'CANCEL',complete:'REACTOR ESCAPED!',timeUp:'TIME UP',
-    hits:reactorImpactResultLabel(),penalty:'Penalty',time:'Time',moves:'Moves',retry:'TRY AGAIN',newGame:'NEW BOARD',menu:'BONUS LAB',quitTitle:'END REACTOR ESCAPE?',quit:'QUIT',stay:'KEEP PLAYING',noHint:'Hints are disabled in Reactor Escape.',blocked:'Laser contact! +3 seconds.'
+    rules:'An active laser behaves like a temporary wall. The atom slides to the square immediately before it, allowing a route around the beam. Pushing into an adjacent active beam counts as one move and raises the Impact counter; Reactor Escape also adds a 3-second penalty. The limit is 90 seconds.',start:'START',cancel:'CANCEL',complete:'REACTOR ESCAPED!',timeUp:'TIME UP',
+    hits:reactorImpactResultLabel(),penalty:'Penalty',time:'Time',moves:'Moves',retry:'TRY AGAIN',newGame:'NEW BOARD',menu:'BONUS LAB',quitTitle:'END REACTOR ESCAPE?',quit:'QUIT',stay:'KEEP PLAYING',noHint:'Hints are disabled in Reactor Escape.',blocked:'Laser impact! +1 move · +3 seconds.'
   });
 }
 function buildReactorPlan(levelIndex){
@@ -5916,22 +6023,64 @@ function drawReactorGate(g,t){
     bctx.beginPath();bctx.arc(ex,ey,T*.13,0,Math.PI*2);bctx.fill();bctx.stroke();
     bctx.fillStyle=beam;bctx.beginPath();bctx.arc(ex,ey,T*(active?.065:.05),0,Math.PI*2);bctx.fill();
   }
+  // POLISH 7 · active field electricity: restrained edge arcs and a travelling
+  // charge bead make the Reactor barrier feel energized rather than like a red line.
+  if(active&&!motionReduced()){
+    bctx.globalAlpha=.58+.2*pulse;bctx.strokeStyle='#ffb3c0';bctx.lineWidth=Math.max(1,T*.018);bctx.shadowColor='#ff2947';bctx.shadowBlur=7;
+    for(let k=0;k<2;k++){
+      const side=k?1:-1,off=side*T*.10,phase=t/65+g.phase*.01+k*2.4;
+      bctx.beginPath();
+      if(g.axis==='v'){bctx.moveTo(off,-T*.29);for(let q=1;q<=4;q++)bctx.lineTo(off+Math.sin(phase+q*1.8)*T*.045,-T*.29+q*T*.145);}
+      else{bctx.moveTo(-T*.29,off);for(let q=1;q<=4;q++)bctx.lineTo(-T*.29+q*T*.145,off+Math.sin(phase+q*1.8)*T*.045);}
+      bctx.stroke();
+    }
+    const q=((cycle-g.safeMs)/Math.max(1,g.period-g.safeMs))%1,travel=-T*.30+T*.60*q;
+    bctx.fillStyle='#ffffff';bctx.shadowColor='#ff536d';bctx.shadowBlur=10;
+    bctx.beginPath();if(g.axis==='v')bctx.arc(0,travel,Math.max(1.5,T*.035),0,7);else bctx.arc(travel,0,Math.max(1.5,T*.035),0,7);bctx.fill();
+    bctx.shadowBlur=0;bctx.globalAlpha=1;
+  }else if(!active&&!warning&&!motionReduced()){
+    // Safe phase reads as powered-down technology instead of a vanished obstacle.
+    bctx.globalAlpha=.22;bctx.strokeStyle='#8effdd';bctx.lineWidth=Math.max(1,T*.016);bctx.setLineDash([T*.055,T*.06]);
+    bctx.beginPath();if(g.axis==='v'){bctx.moveTo(0,-T*.3);bctx.lineTo(0,T*.3);}else{bctx.moveTo(-T*.3,0);bctx.lineTo(T*.3,0);}bctx.stroke();bctx.setLineDash([]);bctx.globalAlpha=1;
+  }
   // Amber pre-flash warns that a safe gate is about to turn red.
   if(warning){bctx.globalAlpha=.45+.4*pulse;bctx.strokeStyle='#ffe58b';bctx.lineWidth=Math.max(1,T*.025);for(const q of [-1,1]){bctx.beginPath();if(g.axis==='v'){bctx.moveTo(q*T*.12,-T*.12);bctx.lineTo(q*T*.20,0);bctx.lineTo(q*T*.12,T*.12);}else{bctx.moveTo(-T*.12,q*T*.12);bctx.lineTo(0,q*T*.20);bctx.lineTo(T*.12,q*T*.12);}bctx.stroke();}}
   bctx.restore();
 }
+function reactorImpactFx(g,d){
+  if(!g||!effectsAllowed())return;
+  const br=board.getBoundingClientRect(),cellW=br.width/Math.max(1,W),cellH=br.height/Math.max(1,H);
+  const cx=br.left+(g.x+.5)*cellW,cy=br.top+(g.y+.5)*cellH,quality=mxFxQuality();
+  const count=(motionReduced()||performanceLow())?7:(quality==='high'?17:12);
+  const a=atoms[sel],ec=a&&EL[a.e]?EL[a.e]:{c:'#8fe9ff',hi:'#ffffff'};
+  for(let q=0;q<count;q++){
+    const ang=q/count*Math.PI*2+(Math.random()-.5)*.22,sp=.8+Math.random()*2.0;
+    P({k:q%3?'spark':'glit',x:cx+(Math.random()-.5)*5,y:cy+(Math.random()-.5)*5,vx:Math.cos(ang)*sp,vy:Math.sin(ang)*sp,r:1.1+Math.random()*1.5,c:q%4===0?ec.c:(q%2?'#ff526d':'#ffffff'),life:.32+Math.random()*.18,d:q*.004});
+  }
+  P({k:'ring',x:cx,y:cy,r:4,vr2:82,c:'#ff6d82',life:.26});
+  if(!motionReduced())P({k:'ring',x:cx,y:cy,r:8,vr2:48,c:ec.c,life:.34,d:.035});
+}
+
 function reactorHit(g,d){
-  reactorHits++;if(campaignFeature!=='reactor')reactorPenalty+=3;reactorLastHitAt=performance.now();shake=Math.max(shake,.8);nudge={i:sel,d,t0:performance.now()};SFX.thunk();
+  // Pushing into an adjacent active beam is a real attempted move. Count it in
+  // the same move total used by PAR/stars/results in Campaign, Reactor Escape
+  // and Reactor Duel. The board itself does not move.
+  moves++;
+  reactorHits++;if(campaignFeature!=='reactor')reactorPenalty+=3;reactorLastHitAt=performance.now();shake=Math.max(shake,.8);nudge={i:sel,d,t0:performance.now()};SFX.thunk();mxHaptic('error');gameFeelImpact('medium');reactorImpactFx(g,d);drEGameEvent('reactor');
   const rc=$('#reactorCounter');if(rc){rc.classList.remove('hit');void rc.offsetWidth;rc.classList.add('hit');}
   if(campaignFeature==='reactor'){
-    prop(ml("☢️ LAZER AKTİF","☢️ LASER ACTIVE","☢️ LASER AKTIV","☢️ LÁSER ACTIVO","☢️ LASER ATIVO","☢️ レーザー作動中"),1500);
-    say(ml("Lazer aktifken geçemezsin. Güvenli anı bekle!","The active laser blocks the path. Wait for the safe phase!","Der aktive Laser blockiert den Weg. Warte auf die sichere Phase!","El láser activo bloquea el camino. ¡Espera la fase segura!","O laser ativo bloqueia o caminho. Espere a fase segura!","レーザー作動中は通れません。安全なタイミングを待ってください！"),'sad',1900,'shk');
-  }else{prop('☢️ +3 sn',1500);say(reactorCopy().blocked,'sad',1700,'shk');}
+    prop(ml("☢️ DARBE · +1 HAMLE","☢️ IMPACT · +1 MOVE","☢️ TREFFER · +1 ZUG","☢️ IMPACTO · +1 MOVIMIENTO","☢️ IMPACTO · +1 JOGADA","☢️ 衝突・+1手"),1600);
+    say(ml("Aktif lazere çarptın: Darbe +1 ve hamle +1. Güvenli anı bekle!","Active laser impact: Impact +1 and Move +1. Wait for the safe phase!","Aktiver Lasertreffer: Treffer +1 und Zug +1. Warte auf die sichere Phase!","Impacto con láser activo: Impacto +1 y Movimiento +1. ¡Espera la fase segura!","Impacto com laser ativo: Impacto +1 e Jogada +1. Espere a fase segura!","作動中レーザーに衝突：衝突+1、手数+1。安全なタイミングを待ってください！"),'sad',2200,'shk');
+  }else{
+    prop(ml('☢️ +1 HAMLE · +3 sn','☢️ +1 MOVE · +3 sec','☢️ +1 ZUG · +3 Sek.','☢️ +1 MOVIMIENTO · +3 s','☢️ +1 JOGADA · +3 s','☢️ +1手・+3秒'),1600);
+    say(reactorCopy().blocked,'sad',1900,'shk');
+  }
   updateHUD();
+  if(onlineDuelMode)queueOnlineLiveState(true);
 }
 function openReactorSetup(){
   const c=reactorCopy(),opts='<option value="mixed">🎲 '+c.mixed+'</option><option value="medium">⚗️ '+c.medium+'</option><option value="hard">🔥 '+c.hard+'</option>';
-  openModal('<h3>☢️ '+c.title+'</h3><div class="msub">'+c.sub+'</div><label class="duelLevelLabel">'+c.difficulty+'<select id="reactorLevelSelect">'+opts+'</select></label><div class="duelRules">☢️ 3 lazer · temas: +3 sn · ⏱️ 90 sn<br>'+c.rules+'</div><div class="mrow"><button class="btn green" id="mReactorStart">'+c.start+'</button><button class="btn ghost" id="mReactorCancel">'+c.cancel+'</button></div>');
+  openModal('<h3>☢️ '+c.title+'</h3><div class="msub">'+c.sub+'</div><label class="duelLevelLabel">'+c.difficulty+'<select id="reactorLevelSelect">'+opts+'</select></label><div class="duelRules">'+ml('☢️ 3 lazer · darbe: +1 hamle +3 sn · ⏱️ 90 sn','☢️ 3 lasers · impact: +1 move +3 sec · ⏱️ 90 sec','☢️ 3 Laser · Treffer: +1 Zug +3 Sek. · ⏱️ 90 Sek.','☢️ 3 láseres · impacto: +1 movimiento +3 s · ⏱️ 90 s','☢️ 3 lasers · impacto: +1 jogada +3 s · ⏱️ 90 s','☢️ レーザー3本・衝突: +1手 +3秒・⏱️ 90秒')+'<br>'+c.rules+'</div><div class="mrow"><button class="btn green" id="mReactorStart">'+c.start+'</button><button class="btn ghost" id="mReactorCancel">'+c.cancel+'</button></div>');
   bindTap('#mReactorStart',e=>{SFX.play();clearBonusMission();currentReactorPool=duelPoolFor($('#reactorLevelSelect').value);startReactorChallenge(randomReactorLevelFromPool(currentReactorPool),true);});
   bindTap('#mReactorCancel',e=>{SFX.back();openBonusLab();});
 }
@@ -6200,7 +6349,7 @@ function bindOnlineQuickMessageButtons(root=document){root.querySelectorAll('.on
 function stopOnlineFactRotation(){if(onlineDuelSession&&onlineDuelSession.factTimer){clearInterval(onlineDuelSession.factTimer);onlineDuelSession.factTimer=null;}}
 function updateOnlineFact(){const box=$('#onlineFactText'),cat=$('#onlineFactCat');if(!box||!cat||!onlineDuelSession)return;onlineDuelSession.factIndex=((onlineDuelSession.factIndex||0)+1)%ONLINE_SCIENCE_FACTS.length;const f=ONLINE_SCIENCE_FACTS[onlineDuelSession.factIndex];cat.textContent=dyn6(f.catTr,f.catEn);box.textContent=dyn6(f.tr,f.en);}
 function startOnlineFactRotation(seed){if(!onlineDuelSession)return;stopOnlineFactRotation();onlineDuelSession.factIndex=Math.abs(Number(seed)||Math.floor(Math.random()*ONLINE_SCIENCE_FACTS.length))%ONLINE_SCIENCE_FACTS.length-1;updateOnlineFact();onlineDuelSession.factTimer=setInterval(updateOnlineFact,6200);}
-function onlineFactCardHtml(){const o=onlineDuelCopy();return '<div class="onlineFactCard"><img id="storyHeroArt" src="assets/images/story/chapter-scene-1.webp" alt="Dr. E story scene"><div><b>'+o.factTitle+' · <span id="onlineFactCat"></span></b><p id="onlineFactText"></p></div></div>';}
+function onlineFactCardHtml(){const o=onlineDuelCopy();return '<div class="onlineFactCard"><img id="storyHeroArt" src="assets/images/einstein.webp" alt="Dr. E"><div><b>'+o.factTitle+' · <span id="onlineFactCat"></span></b><p id="onlineFactText"></p></div></div>';}
 function onlineLiveBoardHtml(){const o=onlineDuelCopy();return '<div class="onlineSpectatorStage"><div class="onlineLiveHead"><b>⚛️ '+o.liveTitle+'</b><span id="onlineLiveMoves">'+o.liveWaiting+'</span></div><div class="onlineSpectatorCanvasWrap"><canvas id="onlineLiveBoard" width="360" height="450" aria-label="'+o.liveTitle+'"></canvas><div id="onlineMoveDirection" class="onlineMoveDirection"></div></div></div>';}
 function onlineLiveAtomColor(symbol){const row=EL&&EL[symbol];return row&&row.c?row.c:'#64d8ff';}
 function onlineSpectatorLevel(room){const rounds=Array.isArray(room&&room.rounds)?room.rounds:[],round=rounds[Number(room&&room.round)||0]||{},levelIndex=Math.max(0,Math.min(LEVELS.length-1,Number(round.level)||0));return {round,levelIndex,level:LEVELS[levelIndex]};}
@@ -6604,8 +6753,13 @@ function storyWorldForEpisode(episode){
   return STORY_UNIVERSE.worlds.find(world=>world&&world.id===episode.world)||null;
 }
 function storyChapterArt(chapterNumber){
+  // Final R45: legacy monochrome chapter art was removed. If the standalone
+  // story data cannot load, fall back to the matching full-colour world art.
   const n=Math.max(1,Math.min(21,Number(chapterNumber)||1));
-  return 'assets/images/story/chapter-scene-'+n+'.webp';
+  if(n<=5)return 'assets/images/worlds/world-quantum-lab-r40.webp';
+  if(n<=10)return 'assets/images/worlds/world-element-island-r40.webp';
+  if(n<=15)return 'assets/images/worlds/world-crystal-cave-r40.webp';
+  return 'assets/images/worlds/world-orbital-station-r40.webp';
 }
 function storyPagesFor(level,index){
   const episode=storyEpisodeForIndex(index);
@@ -6864,6 +7018,7 @@ function goToLevelWithStory(index,expectedKey=''){
 let moxyBlinkTimer=0,moxyDrEInteractionBusy=false;
 function ensureMoxyGameCompanion(){return null;}
 function hideMoxyGameCompanion(){}
+function refreshMoxyGameCompanion(){}
 function moxyPose(){}
 function moxyReact(){}
 function moxyGameEvent(){}
@@ -7278,7 +7433,7 @@ function installGameFeelPolish(){
     #goalCard.mxGoalBreath{animation:mxGoalBreath 2.8s ease-in-out infinite;transform-origin:center}
     #goalCard.mxGoalSuccess{animation:mxGoalSuccess .72s cubic-bezier(.2,.8,.2,1)}
     #goalCard.mxGoalNear{animation:mxGoalNear .72s ease-in-out infinite;transform-origin:center}
-    #btnHammer.mxToolReady,#btnPrecision.mxToolReady,#btnHint.mxToolReady{animation:mxToolReady 1.55s ease-in-out infinite}
+    #btnHammer.mxToolReady,#btnPrecision.mxToolReady,#btnBarrier.mxToolReady,#btnHint.mxToolReady{animation:mxToolReady 1.55s ease-in-out infinite}
     .mxBadgeFlash{animation:mxBadgeFlash .9s cubic-bezier(.2,.8,.2,1)}
     #mxToolFx{position:fixed;z-index:9999;pointer-events:none;transform:translate(-50%,-50%);font-size:46px;filter:drop-shadow(0 5px 8px rgba(0,0,0,.45))}
     #mxToolFx.hammer{animation:mxHammerStrike .48s cubic-bezier(.2,.85,.2,1) both}
@@ -7333,6 +7488,51 @@ function gameFeelWallContact(i,d){
   }
   P({k:'ring',x:cx,y:cy,r:3,vr2:42,c:'#9eeaff',life:.22});
 }
+// POLISH 3 · Premium landing/contact language. This changes presentation only;
+// grid rules, move counts, solution logs and certified campaign routes stay untouched.
+function landingContactMeta(i,d){
+  const a=atoms[i];if(!a)return{kind:'free',other:-1};
+  const [dx,dy]=DIRS[d]||[0,0],nx=a.x+dx,ny=a.y+dy;
+  const other=atoms.findIndex((b,j)=>j!==i&&b.x===nx&&b.y===ny);
+  if(other>=0)return{kind:'atom',other,nx,ny};
+  if(reactorActive()){const gate=reactorGates.find(g=>g.x===nx&&g.y===ny&&reactorGateActive(g));if(gate)return{kind:'laser',other:-1,nx,ny};}
+  if((grid[ny]&&grid[ny][nx])||temporaryBarriers.has(barrierKey(nx,ny))||!oneWayAllows(a.x,a.y,nx,ny,d))return{kind:'wall',other:-1,nx,ny};
+  return{kind:'free',other:-1,nx,ny};
+}
+function gameFeelLandingContact(i,d,dist,bonded){
+  const a=atoms[i];if(!a)return;
+  const meta=landingContactMeta(i,d),other=meta.other>=0?atoms[meta.other]:null;
+  SFX.atomLand&&SFX.atomLand(dist,bonded,a.e,other&&other.e,meta.kind==='laser'?'wall':meta.kind);
+  if(!effectsAllowed())return;
+  const br=board.getBoundingClientRect(),cellW=br.width/Math.max(1,W),cellH=br.height/Math.max(1,H);
+  const [dx,dy]=DIRS[d]||[0,0],ax=br.left+(a.x+.5)*cellW,ay=br.top+(a.y+.5)*cellH;
+  const ec1=EL[a.e]||{c:'#8fe9ff',hi:'#ffffff'},quality=mxFxQuality();
+  const reduced=motionReduced()||performanceLow();
+  let cx=ax+dx*cellW*.39,cy=ay+dy*cellH*.39,cols=[ec1.c,ec1.hi,'#ffffff'];
+  if(other){
+    const bx=br.left+(other.x+.5)*cellW,by=br.top+(other.y+.5)*cellH,ec2=EL[other.e]||{c:'#b68cff',hi:'#ffffff'};
+    cx=(ax+bx)*.5;cy=(ay+by)*.5;cols=[ec1.c,ec1.hi,ec2.c,ec2.hi,'#ffffff'];
+    if(bonded){
+      // A short energy transfer across the actual new contact reads as a bond,
+      // not as generic confetti. Two passes give a polished "lock" without clutter.
+      P({k:'bond',x1:ax,y1:ay,x2:bx,y2:by,c:ec1.c,c2:'#ffffff',w:Math.max(1.8,T*.035),life:.28,pulse:1.05});
+      if(!reduced)P({k:'bond',x1:bx,y1:by,x2:ax,y2:ay,c:ec2.c,c2:ec1.hi,w:Math.max(1.2,T*.024),life:.34,d:.055,pulse:.8});
+      P({k:'ring',x:cx,y:cy,r:Math.max(4,T*.07),vr2:Math.max(62,T*.9),c:'#ffffff',life:.28});
+    }
+  }
+  const base=meta.kind==='atom'?(bonded?7:5):(meta.kind==='free'?3:4);
+  const count=reduced?Math.max(2,base-2):(quality==='high'?base+2:base);
+  const tangentX=-dy,tangentY=dx;
+  for(let q=0;q<count;q++){
+    const side=(q-(count-1)/2)/Math.max(1,count-1),kick=.45+Math.random()*(bonded?1.35:.8);
+    const along=(Math.random()-.5)*.3;
+    P({k:q%3===0?'spark':'glit',x:cx+(Math.random()-.5)*5,y:cy+(Math.random()-.5)*5,
+      vx:tangentX*side*kick-dx*(.22+Math.random()*.26)+along,vy:tangentY*side*kick-dy*(.22+Math.random()*.26)+along,
+      r:1.1+Math.random()*(bonded?1.8:1.2),c:rnd(cols),life:bonded?.42:.27,d:q*.006});
+  }
+  if(meta.kind==='wall'||meta.kind==='laser')P({k:'ring',x:cx,y:cy,r:2.5,vr2:38+(Math.min(7,dist)||1)*3,c:meta.kind==='laser'?'#ff826e':'#9eeaff',life:.20});
+  if(!won&&dist>=5&&!motionReduced())shake=Math.max(shake,.055);
+}
 function gameFeelAtomTrail(atom,dist){
   if(!effectsAllowed()||!atom)return;
   const br=board.getBoundingClientRect(),cellW=br.width/Math.max(1,W),cellH=br.height/Math.max(1,H),cx=br.left+(atom.x+.5)*cellW,cy=br.top+(atom.y+.5)*cellH;
@@ -7346,31 +7546,40 @@ function gameFeelAtomTrail(atom,dist){
   for(let q=0;q<count;q++)P({k:'glit',x:cx+(Math.random()-.5)*cellW*.18,y:cy+(Math.random()-.5)*cellH*.18,vx:(Math.random()-.5)*1.25,vy:(Math.random()-.5)*1.25,r:1.2+Math.random()*2,c:rnd(cols),life:.42+Math.random()*.28,d:q*.012});
 }
 let mxTrailStamp=0;
-function gameFeelMovingTrail(atom,screenX,screenY,t){
-  if(!effectsAllowed()||motionReduced()||!atom||t-mxTrailStamp<38)return;
+function gameFeelMovingTrail(atom,screenX,screenY,t,d){
+  if(!effectsAllowed()||motionReduced()||!atom||t-mxTrailStamp<42)return;
   mxTrailStamp=t;
   const ec=EL[atom.e]||{c:'#8fe9ff',hi:'#ffffff'};
   let cols=[ec.c,ec.hi,'#ffffff'];
   if(atom.fire)cols=['#ff7a32','#ffd36a','#fff0b0'];
   else if(atom.lightning)cols=['#8ff4ff','#fff59a','#ffffff'];
   else if(atom.frozen)cols=['#bff7ff','#eaffff','#79d9ff'];
-  for(let q=0;q<2;q++)P({k:'glit',x:screenX+(Math.random()-.5)*8,y:screenY+(Math.random()-.5)*8,vx:(Math.random()-.5)*.45,vy:(Math.random()-.5)*.45,r:1.2+Math.random()*1.7,c:rnd(cols),life:.32+Math.random()*.18,d:q*.012});
+  const [dx,dy]=DIRS[d]||[0,0],q=mxFxQuality(),low=performanceLow()||q==='low';
+  // One tapered streak carries speed; one tiny glint keeps the chemistry color alive.
+  // This reads cleaner than a cloud of particles and is cheap on mobile GPUs.
+  P({k:'streak',x:screenX-dx*3,y:screenY-dy*3,vx:-dx*(1.3+(low?.15:.45)),vy:-dy*(1.3+(low?.15:.45)),len:low?10:15,w:low?1.4:1.8,c:cols[0],c2:cols[1]||'#ffffff',life:low?.20:.25});
+  P({k:'glit',x:screenX+(Math.random()-.5)*5,y:screenY+(Math.random()-.5)*5,vx:-dx*.18+(Math.random()-.5)*.20,vy:-dy*.18+(Math.random()-.5)*.20,r:1.0+Math.random()*1.25,c:rnd(cols),life:.25+Math.random()*.10});
 }
 function gameFeelToolFx(kind,gx,gy){
   if(motionReduced())return;
   const r=board.getBoundingClientRect(),x=r.left+(gx+.5)*(r.width/W),y=r.top+(gy+.5)*(r.height/H);
   const old=document.getElementById('mxToolFx');if(old)old.remove();
   const el=document.createElement('div');el.id='mxToolFx';el.className=kind;
-  if(kind==='hammer')el.innerHTML='<svg class="mxStrikeHammer" viewBox="0 0 96 96" fill="none" aria-hidden="true"><defs><linearGradient id="mxStrikeMetal" x1="18" y1="14" x2="72" y2="60" gradientUnits="userSpaceOnUse"><stop stop-color="#F3FDFF"/><stop offset=".42" stop-color="#79D9EF"/><stop offset="1" stop-color="#214F6B"/></linearGradient><radialGradient id="mxStrikeCore"><stop stop-color="#FFFDE0"/><stop offset=".45" stop-color="#FFD258"/><stop offset="1" stop-color="#FF8B27"/></radialGradient></defs><path d="M18 18 36 8l38 13 4 23-18 12-38-13-4-25Z" fill="url(#mxStrikeMetal)" stroke="#DFF9FF" stroke-width="3"/><path d="m31 26 31 10" stroke="#153B50" stroke-width="5" stroke-linecap="round" opacity=".72"/><rect x="39" y="40" width="15" height="48" rx="6" transform="rotate(-18 39 40)" fill="#142F40" stroke="#8CEBFF" stroke-width="3"/><circle cx="48" cy="32" r="10" fill="url(#mxStrikeCore)" stroke="#FFFAD2" stroke-width="2.5"/><path d="m44 27 8 5-8 5" stroke="#754000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-  else if(kind==='barrier')el.innerHTML='<svg class="mxBuildBarrier" viewBox="0 0 80 80" fill="none" aria-hidden="true"><path d="M15 10h50l5 10v40L60 70H20L10 60V20l5-10Z" fill="#082D42" stroke="#8EF3FF" stroke-width="4"/><path d="M20 18h40l3 6v31l-8 8H25l-8-8V24l3-6Z" fill="#31DDF4" fill-opacity=".25" stroke="#D7FCFF" stroke-width="2"/><path d="M23 29h34M23 40h34M23 51h34M29 23v34M40 23v34M51 23v34" stroke="#C9FAFF" stroke-width="1.5" opacity=".55"/><path d="m40 25 10 15-10 15-10-15 10-15Z" fill="#66EEFF" fill-opacity=".55" stroke="#F0FFFF" stroke-width="2"/><circle cx="40" cy="40" r="4" fill="#FFF59A"/></svg>';
+  if(kind==='hammer')el.innerHTML='<i class="mxHammerImpactHalo"></i><i class="mxHammerImpactFlash"></i><svg class="mxStrikeHammer" viewBox="0 0 96 96" fill="none" aria-hidden="true"><defs><linearGradient id="mxStrikeMetal" x1="18" y1="14" x2="72" y2="60" gradientUnits="userSpaceOnUse"><stop stop-color="#F3FDFF"/><stop offset=".42" stop-color="#79D9EF"/><stop offset="1" stop-color="#214F6B"/></linearGradient><radialGradient id="mxStrikeCore"><stop stop-color="#FFFDE0"/><stop offset=".45" stop-color="#FFD258"/><stop offset="1" stop-color="#FF8B27"/></radialGradient></defs><path d="M18 18 36 8l38 13 4 23-18 12-38-13-4-25Z" fill="url(#mxStrikeMetal)" stroke="#DFF9FF" stroke-width="3"/><path d="m31 26 31 10" stroke="#153B50" stroke-width="5" stroke-linecap="round" opacity=".72"/><rect x="39" y="40" width="15" height="48" rx="6" transform="rotate(-18 39 40)" fill="#142F40" stroke="#8CEBFF" stroke-width="3"/><circle cx="48" cy="32" r="10" fill="url(#mxStrikeCore)" stroke="#FFFAD2" stroke-width="2.5"/><path d="m44 27 8 5-8 5" stroke="#754000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  else if(kind==='barrier')el.innerHTML='<i class="mxBarrierBuildRing a"></i><i class="mxBarrierBuildRing b"></i><svg class="mxBuildBarrier" viewBox="0 0 80 80" fill="none" aria-hidden="true"><path d="M15 10h50l5 10v40L60 70H20L10 60V20l5-10Z" fill="#082D42" stroke="#8EF3FF" stroke-width="4"/><path d="M20 18h40l3 6v31l-8 8H25l-8-8V24l3-6Z" fill="#31DDF4" fill-opacity=".25" stroke="#D7FCFF" stroke-width="2"/><path d="M23 29h34M23 40h34M23 51h34M29 23v34M40 23v34M51 23v34" stroke="#C9FAFF" stroke-width="1.5" opacity=".55"/><path d="m40 25 10 15-10 15-10-15 10-15Z" fill="#66EEFF" fill-opacity=".55" stroke="#F0FFFF" stroke-width="2"/><circle cx="40" cy="40" r="4" fill="#FFF59A"/></svg>';
   else el.textContent='◎';el.style.left=x+'px';el.style.top=y+'px';document.body.appendChild(el);
   setTimeout(()=>el.remove(),720);
 }
 function gameFeelBarrierConstruct(gx,gy){
   gameFeelToolFx('barrier',gx,gy);
   if(!effectsAllowed())return;
-  const r=board.getBoundingClientRect(),cx=r.left+(gx+.5)*(r.width/W),cy=r.top+(gy+.5)*(r.height/H);
-  for(let q=0;q<24;q++){const side=q%4,off=(Math.random()-.5)*T*.62;let x=cx,y=cy,vx=0,vy=0;if(side===0){x+=off;y+=T*.32;vy=-1.2}else if(side===1){x+=T*.32;y+=off;vx=-1.2}else if(side===2){x+=off;y-=T*.32;vy=1.2}else{x-=T*.32;y+=off;vx=1.2}P({k:'glit',x,y,vx:vx+(Math.random()-.5)*.35,vy:vy+(Math.random()-.5)*.35,r:1.4+Math.random()*2,c:q%3?'#72e8ff':'#ffffff',life:.6,d:q*.012});}
+  const r=board.getBoundingClientRect(),cx=r.left+(gx+.5)*(r.width/W),cy=r.top+(gy+.5)*(r.height/H),reduced=motionReduced()||performanceLow();
+  // Energy pulls inward from all four frame sides before the shield locks.
+  const count=reduced?12:28;
+  for(let q=0;q<count;q++){const side=q%4,off=(Math.random()-.5)*T*.62;let x=cx,y=cy,vx=0,vy=0;if(side===0){x+=off;y+=T*.34;vy=-1.35}else if(side===1){x+=T*.34;y+=off;vx=-1.35}else if(side===2){x+=off;y-=T*.34;vy=1.35}else{x-=T*.34;y+=off;vx=1.35}P({k:q%4===0?'streak':'glit',x,y,vx:vx+(Math.random()-.5)*.30,vy:vy+(Math.random()-.5)*.30,len:q%4===0?9:0,w:1.3,r:1.3+Math.random()*2,c:q%3?'#72e8ff':'#ffffff',c2:'#dfffff',life:.54,d:q*.010});}
+  P({k:'ring',x:cx,y:cy,r:Math.max(5,T*.09),vr2:Math.max(72,T*1.02),c:'#86f2ff',life:.46});
+  if(!reduced)P({k:'ring',x:cx,y:cy,r:Math.max(9,T*.17),vr2:Math.max(42,T*.62),c:'#ffffff',life:.34,d:.07});
+  mxSpecialCellPulse&&mxSpecialCellPulse(cx,cy,'barrierBuild',1.02);
 }
 function gameFeelPrecisionPulse(i){
   const a=atoms[i];if(!a)return;gameFeelToolFx('precision',a.x,a.y);
@@ -7425,14 +7634,18 @@ function gameFeelToolState(){
   if(br)br.classList.toggle('mxToolReady',!br.hidden&&!br.disabled&&boosterCount('barrier')>0);
   if(hi)hi.classList.toggle('mxToolReady',!hi.disabled&&!won);
 }
-function gameFeelWinBurst(){
+function gameFeelWinBurst(delay=0){
   installGameFeelPolish();
   const goal=$('#goalCard');if(goal){goal.classList.remove('mxGoalBreath','mxGoalNear','mxGoalSuccess');void goal.offsetWidth;goal.classList.add('mxGoalSuccess');}
   if(!effectsAllowed())return;
-  const r=board.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;
-  const cols=['#fff4a8','#ffd23f','#8fe9ff','#ffffff','#c88cff'];
-  for(let q=0;q<42;q++){const a=Math.random()*Math.PI*2,sp=1.2+Math.random()*3.5;P({k:'glit',x:cx,y:cy,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-1.1,r:1.6+Math.random()*3,c:rnd(cols),life:.9+Math.random()*.45,d:q*.008});}
-  gameFeelImpact('medium');
+  const burst=()=>{
+    const r=board.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;
+    const cols=['#fff4a8','#ffd23f','#8fe9ff','#ffffff','#c88cff'];
+    const quality=mxFxQuality(),count=quality==='low'?22:quality==='mid'?30:38;
+    for(let q=0;q<count;q++){const a=Math.random()*Math.PI*2,sp=1.2+Math.random()*3.5;P({k:'glit',x:cx,y:cy,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-1.1,r:1.6+Math.random()*3,c:rnd(cols),life:.9+Math.random()*.45,d:q*.008});}
+    gameFeelImpact('medium');
+  };
+  if(delay>0)setTimeout(burst,delay);else burst();
 }
 setTimeout(()=>{installGameFeelPolish();gameFeelToolState();},0);
 
@@ -7501,7 +7714,7 @@ function move(i,d){
   let reactorPartial=false;
   const barrierHit=normalPlan&&normalPlan.barrierHit;
   if(!dest&&barrierHit){
-    hist.push({fullAtoms:atoms.map(a=>({...a})),movesBefore:moves,moveLogLen:moveLog.length,stickyPairsState:stickyPairs.map(pair=>pair.slice()),barrierState:[...temporaryBarriers.values()].map(b=>({...b})),movingWallState:movingWallSnapshot()});
+    hist.push({fullAtoms:atoms.map(a=>({...a})),movesBefore:moves,moveLogLen:moveLog.length,reactorHitsBefore:reactorHits,stickyPairsState:stickyPairs.map(pair=>pair.slice()),barrierState:[...temporaryBarriers.values()].map(b=>({...b})),movingWallState:movingWallSnapshot()});
     moves++;moveLog.push({i,d,barrier:true});breakTemporaryBarrier(barrierHit);updateHUD();gameFeelToolState();resetIdle();return;
   }
   if(!dest){
@@ -7527,7 +7740,7 @@ function move(i,d){
   }
   if(!chainAutoExecuting){
     const needsFullSnapshot=chainOn||atoms.some(a=>a.fragile)||linkedPairs.length>0||atoms.some(a=>a.sticky)||stickyPairs.length>0||temporaryBarriers.size>0;
-    hist.push(needsFullSnapshot?{fullAtoms:atoms.map(a=>({...a})),movesBefore:moves,moveLogLen:moveLog.length,chainState:chainOn?{currentStep:chainCurrentStep,maxCombo:chainMaxCombo,reactions:chainReactions,autoMoves:chainAutoMoves}:null,stickyPairsState:stickyPairs.map(pair=>pair.slice()),barrierState:[...temporaryBarriers.values()].map(b=>({...b})),crystalState:crystalOn?crystals.map(c=>!!c.collected):null,movingWallState:movingWallSnapshot()}:{i,x:atoms[i].x,y:atoms[i].y,crystalState:crystalOn?crystals.map(c=>!!c.collected):null,movingWallState:movingWallSnapshot()});
+    hist.push(needsFullSnapshot?{fullAtoms:atoms.map(a=>({...a})),movesBefore:moves,moveLogLen:moveLog.length,reactorHitsBefore:reactorHits,chainState:chainOn?{currentStep:chainCurrentStep,maxCombo:chainMaxCombo,reactions:chainReactions,autoMoves:chainAutoMoves}:null,stickyPairsState:stickyPairs.map(pair=>pair.slice()),barrierState:[...temporaryBarriers.values()].map(b=>({...b})),crystalState:crystalOn?crystals.map(c=>!!c.collected):null,movingWallState:movingWallSnapshot()}:{i,x:atoms[i].x,y:atoms[i].y,movesBefore:moves,moveLogLen:moveLog.length,reactorHitsBefore:reactorHits,crystalState:crystalOn?crystals.map(c=>!!c.collected):null,movingWallState:movingWallSnapshot()});
     moves++;moveLog.push({i,d,precision:!!precisionExecuting,reactorPartial});
   }else if(campaignFeature==='chain'){
     moves++;moveLog.push({i,d,reactorPartial});
@@ -7692,7 +7905,7 @@ function checkFragileImpact(movedIdx){
   const r=board.getBoundingClientRect(),cx=r.left+(a.x+.5)*T,cy=r.top+(a.y+.5)*T;
   if(a.fragileHits<a.fragileMax){
     if(effectsAllowed())for(let q=0;q<8+3*a.fragileHits;q++){const ang=Math.random()*Math.PI*2;P({k:'glit',x:cx,y:cy,vx:Math.cos(ang)*(0.7+Math.random()),vy:Math.sin(ang)*(0.7+Math.random()),r:1.4+Math.random()*1.7,c:rnd(['#ffffff','#bcecff','#8bd5ff']),life:.55,d:q*.012});}
-    SFX.thunk&&SFX.thunk();mxHaptic(a.fragileHits===2?'medium':'light');
+    SFX.thunk&&SFX.thunk();mxHaptic(a.fragileHits===2?'medium':'light');if(a.fragileHits>=2)drEGameEvent('fragile');
     say(ml('Kırılgan atom çatladı: '+a.fragileHits+'/'+a.fragileMax+' darbe.',
 'Fragile atom cracked: '+a.fragileHits+'/'+a.fragileMax+' impacts.',
 'Zerbrechliches Atom gerissen: '+a.fragileHits+'/'+a.fragileMax+' Treffer.',
@@ -7720,7 +7933,7 @@ function afterMove(movedIdx){
   const moleculeReady=curMol.key===atoms.map(a=>a.e+','+(a.x-Math.min(...atoms.map(b=>b.x)))+','+(a.y-Math.min(...atoms.map(b=>b.y)))).sort().join('|');
   const objectiveReady=!crystalActive()||crystalCollectedCount()>=CRYSTAL_COUNT;
   if(moleculeReady&&objectiveReady){
-    winSeq();
+    winSeq(movedIdx);
     return;
   }
   if(moleculeReady&&crystalActive()&&!objectiveReady&&!crystalGoalWarned){
@@ -7746,7 +7959,11 @@ function undo(){
   if(h.movingWallState)restoreMovingWalls(h.movingWallState);
   setDrEPose('clipboard',3900,3);
   updatePressureDoors(false);
-  if(h.movesBefore!==undefined){moves=h.movesBefore;moveLog.length=Math.max(0,h.moveLogLen||0);}else{moveLog.pop();moves=Math.max(0,moves-1);}
+  if(h.movesBefore!==undefined){
+    const impactDebt=(reactorActive()&&h.reactorHitsBefore!==undefined)?Math.max(0,reactorHits-Math.max(0,Number(h.reactorHitsBefore)||0)):0;
+    moves=Math.max(0,Math.floor(Number(h.movesBefore)||0)+impactDebt);
+    moveLog.length=Math.max(0,h.moveLogLen||0);
+  }else{moveLog.pop();moves=Math.max(0,moves-1);}
   sel=h.i!==undefined?h.i:0;crystalGoalWarned=false;if(chainActive())chainRefreshStep();SFX.undo();updateHUD();updateIntensity();if(onlineDuelMode)queueOnlineLiveState(true);resetIdle();
 }
 function showSpecificHint(){
@@ -8074,11 +8291,11 @@ function performanceResultHtml(perf){
 }
 
 
-/* V8.5.42 — distinct completion choreography for every campaign level.
+/* FINAL R45 FX POLISH — distinct completion choreography for every campaign level.
    Each of the 301 campaign levels owns an explicit deterministic recipe.
-   The molecule's chemistry family remains the base layer; the level recipe
-   controls bond order, particle trajectory, camera motion, banner entrance,
-   and a quiet three-note laboratory signature. */
+   The molecule's chemistry family reads first; the level signature follows,
+   then the molecule banner and laboratory celebration. This keeps the finish
+   energetic without stacking every visual layer on the same frame. */
 function mxLevelFxRecipe(levelIndex){
   const list=window.MX_LEVEL_FX_RECIPES;
   if(Array.isArray(list)&&list[levelIndex])return list[levelIndex];
@@ -8161,16 +8378,29 @@ function mxSpawnRecipeParticles(recipe,x,y,cols){
   for(let i=0;i<ringCount;i++)P({k:'ring',x,y,r:8+i*4,vr2:86+i*31+(recipe.seed%23),life:.62+i*.08,c:palette[i%palette.length]||'#fff',d:i*.035});
 }
 function spawnLevelSignatureFx(levelIndex,mol,x,y,cols,boardRect){
-  const recipe=mxLevelFxRecipe(levelIndex);
+  // Clone the explicit recipe so runtime timing metadata never mutates the
+  // canonical 301-recipe table.
+  const recipe={...mxLevelFxRecipe(levelIndex)};
   const palette=(Array.isArray(cols)&&cols.length?cols:['#ffffff','#7ee8ff','#ffd76a']);
-  // Chemistry remains recognizable.
-  spawnWinFx(mol&&mol.fx||'glit',x,y,palette);
-  // The level identity makes repeated molecules and all 301 campaign clears distinct.
-  mxLevelBondFx(recipe,boardRect,palette);
-  mxSpawnRecipeParticles(recipe,x,y,palette);
-  mxApplyLevelWinMotion(recipe);
-  mxLevelSignatureTone(recipe);
-  recipe.victoryDelay=540+(recipe.seed%241);
+  // Beat 0 is the final-atom micro snap. Give it a short readable hold before
+  // the molecule chemistry expands. This is presentation-only; game flow timing stays fixed.
+  setTimeout(()=>spawnWinFx(mol&&mol.fx||'glit',x,y,palette),90);
+  // Beat 2 · structure: bonds illuminate just after the chemical reaction.
+  setTimeout(()=>mxLevelBondFx(recipe,boardRect,palette),185);
+  // Beat 3 · level identity: deterministic particles, board motion and the
+  // quiet three-note signature arrive together, not on the impact frame.
+  setTimeout(()=>{
+    mxSpawnRecipeParticles(recipe,x,y,palette);
+    mxApplyLevelWinMotion(recipe);
+    mxLevelSignatureTone(recipe);
+  },330);
+  // Slight deterministic timing variation keeps all 301 clears from feeling
+  // mechanically identical while retaining a controlled cinematic rhythm.
+  recipe.bannerDelay=640+(recipe.seed%121);      // 640–760 ms
+  recipe.victoryDelay=1120+(recipe.seed%261);   // 1120–1380 ms
+  // The last two campaign clears deliberately breathe a little longer.
+  if(recipe.level===300){recipe.bannerDelay=720;recipe.victoryDelay=1380;}
+  if(recipe.level===301){recipe.bannerDelay=760;recipe.victoryDelay=1480;}
   return recipe;
 }
 function mxSigPoint(p,q){
@@ -8219,7 +8449,22 @@ function mxDrawSigShape(ctx,p,x,y,q){
 
 const MOLECULE_INFO_HOLD_MS=3000,MOLECULE_INFO_FADE_MS=340,RESULT_MODAL_DELAY_MS=3650;
 let completionResultTimer=null;
-function winSeq(){
+function gameFeelCompletionSnap(lastIdx){
+  if(motionReduced()||!effectsAllowed()||!atoms||!atoms.length)return;
+  const idx=(Number.isInteger(lastIdx)&&atoms[lastIdx])?lastIdx:((Number.isInteger(sel)&&atoms[sel])?sel:0);
+  const a=atoms[idx],ec=EL[a.e]||{c:'#7ee8ff',hi:'#ffffff'},r=board.getBoundingClientRect();
+  const x=r.left+(a.x+.5)*T,y=r.top+(a.y+.5)*T;
+  const old=document.getElementById('mxCompletionSnap');if(old)old.remove();
+  const el=document.createElement('div');el.id='mxCompletionSnap';el.style.left=x+'px';el.style.top=y+'px';el.style.setProperty('--mx-snap',ec.c);el.style.setProperty('--mx-snap-hi',ec.hi||'#ffffff');
+  el.innerHTML='<i class="ring a"></i><i class="ring b"></i><i class="flare h"></i><i class="flare v"></i>';
+  document.body.appendChild(el);setTimeout(()=>el.remove(),680);
+  // A tiny pre-reaction pulse creates the perceived 100 ms "hold" before the larger chemistry FX.
+  const bf=$('#boardFrame');if(bf){bf.classList.remove('mxCompletionHold');void bf.offsetWidth;bf.classList.add('mxCompletionHold');setTimeout(()=>bf.classList.remove('mxCompletionHold'),210);}
+  P({k:'ring',x,y,r:Math.max(4,T*.08),vr2:Math.max(58,T*.82),c:ec.c,life:.24});
+  const count=performanceLow()?5:9;
+  for(let q=0;q<count;q++){const ang=q/count*Math.PI*2,sp=.45+Math.random()*.7;P({k:'glit',x,y,vx:Math.cos(ang)*sp,vy:Math.sin(ang)*sp,r:1+Math.random()*1.2,c:q%3?ec.c:'#ffffff',life:.28,d:q*.005});}
+}
+function winSeq(lastMovedIdx){
   mxTrack('level_completed',{level:Number(lv)+1,mode:duelMode?'duel':dailyMode?'daily':'campaign',moves:Number(moves)||0});
   if(onlineDuelConnectionPaused())return;
   const duelWinNow=performance.now();
@@ -8229,7 +8474,8 @@ function winSeq(){
   if(reactorMode&&!duelMode&&reactorElapsedSeconds(duelWinNow)>=REACTOR_TIME_LIMIT){finishReactorTimeout();return;}
   const elapsedSeconds=solveClockModeEligible()?stopSolveClock(duelWinNow):Math.max(0,(duelWinNow-levelStartT)/1000);
   won=true;winT=duelWinNow;lastSolveSeconds=elapsedSeconds;shake=(motionReduced()||save.duelEffects===false)?0:.28;mxHaptic('success');hintMark=null;
-  gameFeelWinBurst();
+  gameFeelCompletionSnap(lastMovedIdx);
+  gameFeelWinBurst(240);
   const zeroStarLimit=Math.ceil(LV.p*2.3);
   const stars=moves<=LV.p?3:(moves<=t2?2:(moves<=zeroStarLimit?1:0));
   previousSpeedRecord=(!dailyMode&&save.speedRuns)?Math.max(0,Number(save.speedRuns[lv])||0):0;
@@ -8251,20 +8497,21 @@ function winSeq(){
   const levelFxRecipe=spawnLevelSignatureFx(lv,curMol,cx,cy,curMol.c,r);
   const firstDiscoveryNow=!dailyMode&&!duelMode&&!crystalMode&&!chainMode&&!reactorMode&&!save.disc[mid];
   const premiumClear=stars===3||firstDiscoveryNow||lv===NOBEL_LEVEL_INDEX;
-  if(premiumClear)setTimeout(()=>spawnConf(cx,cy),420);
+  const bannerAt=Math.max(600,Number(levelFxRecipe.bannerDelay)||700);
+  if(premiumClear)setTimeout(()=>spawnConf(cx,cy),bannerAt+90);
   atoms.forEach(a=>{
     const ax=r.left+(a.x+0.5)*T,ay=r.top+(a.y+0.5)*T;
     const ec=EL[a.e];
-    setTimeout(()=>sparkleBurst(ax,ay,ec?[ec.c,ec.hi,'#ffffff']:undefined),80+Math.random()*140);
+    setTimeout(()=>sparkleBurst(ax,ay,ec?[ec.c,ec.hi,'#ffffff']:undefined),120+Math.random()*150);
   });
   const lr=$('#lightRays');lr.classList.remove('on');
-  setTimeout(()=>{void lr.offsetWidth;lr.classList.add('on');},170);
-  setTimeout(()=>lr.classList.remove('on'),1470);
-  // Keep the molecule's own sound readable, then bring in the broad victory sweep.
-  setTimeout(()=>{SFX.whoosh();SFX.moleculeComplete();setTimeout(()=>SFX.rewardSeal(typeof stars==='number'?stars:3),430);},390);
+  setTimeout(()=>{void lr.offsetWidth;lr.classList.add('on');},300);
+  setTimeout(()=>lr.classList.remove('on'),1580);
+  // Keep the chemical impact and level signature readable before the broad sweep.
+  setTimeout(()=>{SFX.whoosh();SFX.moleculeComplete();setTimeout(()=>SFX.rewardSeal(typeof stars==='number'?stars:3),430);},520);
   if(!duelMode&&!dailyMode){
     const evt=(lv===NOBEL_LEVEL_INDEX)?'nobel':(stars===3?'perfect':((save.stars&&save.stars[lv])?'success':'discovery'));
-    setTimeout(()=>playCharacterVoice('drE',evt,{force:true,duck:.28,cooldown:0}),520);
+    setTimeout(()=>playCharacterVoice('drE',evt,{force:true,duck:.28,cooldown:0}),Math.max(720,bannerAt));
   }
   const completionVerb=(curMol.fx==='crys')
     ?(ml("KRİSTALLEŞTİ","CRYSTALLIZED","KRISTALLISIERT","CRISTALIZADA","CRISTALIZADA","結晶化"))
@@ -8279,11 +8526,14 @@ function winSeq(){
   bw.dataset.levelFx=String(levelFxRecipe.level||Number(lv)+1);
   bw.classList.remove('leaving');bw.classList.toggle('longName',String(curMol.n||'').length>18);
   const bannerDiscover=$('#bannerDiscover');if(bannerDiscover){bannerDiscover.hidden=true;bannerDiscover.textContent=ml("📘 DAHA FAZLASI → MOLECULOPEDIA","📘 DISCOVER MORE → MOLECULOPEDIA","📘 MEHR ENTDECKEN → MOLECULOPEDIA","📘 DESCUBRIR MÁS → MOLECULOPEDIA","📘 DESCOBRIR MAIS → MOLECULOPEDIA","📘 もっと知る → MOLECULOPEDIA");bannerDiscover.onpointerdown=null;}
-  bw.classList.add('on');
-  showMoleculeCompletionFx();
-  // The existing laboratory victory animation is preserved, but sequenced after
-  // the molecule-specific reaction so the screen no longer fires everything at once.
-  setTimeout(()=>showVictoryLabFx('full'),Math.max(820,levelFxRecipe.victoryDelay||820));
+  // Molecule orbit/bond cinematic follows the chemistry beat; the information
+  // banner then arrives as its own readable beat instead of covering the impact.
+  setTimeout(()=>showMoleculeCompletionFx(),120);
+  setTimeout(()=>{if(won)bw.classList.add('on');},bannerAt);
+  // First discoveries / perfect clears / Nobel receive the full lab celebration.
+  // Replays get the lighter variant, preserving hierarchy and reducing clutter.
+  setTimeout(()=>showVictoryLabFx(premiumClear?'full':'mini'),Math.max(1080,Number(levelFxRecipe.victoryDelay)||1220));
+  // Keep the total pre-result timing unchanged so this polish cannot slow game flow.
   setTimeout(()=>bw.classList.add('leaving'),MOLECULE_INFO_HOLD_MS);
   setTimeout(()=>{bw.classList.remove('on','longName','leaving');delete bw.dataset.fx;delete bw.dataset.motion;delete bw.dataset.levelFx;},MOLECULE_INFO_HOLD_MS+MOLECULE_INFO_FADE_MS);
   let previousBestMove=0,isNewMoveBest=false;
@@ -9767,7 +10017,7 @@ function mechanicTutorialDemo(id){
     precision:{cells:['H','🎯','→','1 □'],action:ml("1 KARE TAŞI","MOVE 1 SQUARE","1 FELD BEWEGEN","MOVER 1 CASILLA","MOVER 1 CASA","1マス動かす"),result:ml("Bu isteğe bağlı araç atomu yalnızca bir kare ilerletir ve envanter harcar.","This optional tool moves an atom exactly one tile and consumes inventory.","Dieses optionale Werkzeug bewegt ein Atom genau ein Feld und verbraucht Inventar.","Esta herramienta opcional mueve un átomo exactamente una casilla y consume inventario.","Esta ferramenta opcional move um átomo exatamente uma casa e consome inventário.","この任意ツールは原子をちょうど1マス動かし、アイテムを消費します。")},
     classicCatalyst:{cells:[labComponentTrainingToken('catalyst'),labComponentTrainingToken('energy'),labComponentTrainingToken('stabilizer'),'→','⚛️'],action:ml("ÜÇÜNÜ TOPLA","COLLECT ALL THREE","ALLE DREI SAMMELN","RECOGE LOS TRES","COLETE OS TRÊS","3つすべて集める"),result:ml("Önce üç laboratuvar bileşenini topla, sonra molekülü tamamla.","Collect all three lab components first, then complete the molecule.","Sammle zuerst alle drei Laborkomponenten und vervollständige dann das Molekül.","Recoge primero los tres componentes del laboratorio y luego completa la molécula.","Colete primeiro os três componentes do laboratório e depois complete a molécula.","先にラボ要素3つをすべて集め、その後分子を完成させます。")},
     classicChain:{cells:['✨','→','⚡','→','⚡'],action:ml("PARLAYAN HAMLEYİ YAP","MAKE THE GLOWING MOVE","LEUCHTENDEN ZUG MACHEN","HAZ EL MOVIMIENTO BRILLANTE","FAÇA O MOVIMENTO BRILHANTE","光る手を実行"),result:ml("Doğru hamle otomatik zincir reaksiyonunu başlatır.","The correct move starts the automatic chain reaction.","Der richtige Zug startet die automatische Kettenreaktion.","El movimiento correcto inicia la reacción en cadena automática.","O movimento correto inicia a reação em cadeia automática.","正しい手で自動連鎖反応が始まります。")},
-    classicReactor:{cells:['H','☢️','▥','→'],action:ml("GÜVENLİ ANI BEKLE","WAIT FOR THE SAFE PHASE","SICHERE PHASE ABWARTEN","ESPERA LA FASE SEGURA","ESPERE A FASE SEGURA","安全なタイミングを待つ"),result:ml("Lazer aktifken temas Darbe sayacını artırır. Reaktör Kaçışında ayrıca +3 saniye ceza verir.","Contact while the laser is active increases the Impact counter. Reactor Escape also adds a 3-second penalty.","Kontakt bei aktivem Laser erhöht den Trefferzähler. Reaktor-Flucht gibt zusätzlich 3 Sekunden Strafe.","El contacto con el láser activo aumenta el contador de impactos. Escape del Reactor añade además 3 segundos.","O contato com laser ativo aumenta o contador de impactos. Fuga do Reator também adiciona 3 segundos.","レーザー作動中の接触は被弾数を増やします。リアクター脱出ではさらに3秒ペナルティ。")}
+    classicReactor:{cells:['H','☢️','▥','→'],action:ml("GÜVENLİ ANI BEKLE","WAIT FOR THE SAFE PHASE","SICHERE PHASE ABWARTEN","ESPERA LA FASE SEGURA","ESPERE A FASE SEGURA","安全なタイミングを待つ"),result:ml("Aktif lazere temas 1 hamle sayılır ve Darbe sayacını artırır. Reaktör Kaçışında ayrıca +3 saniye ceza verir.","Contact with an active laser counts as one move and increases the Impact counter. Reactor Escape also adds a 3-second penalty.","Kontakt mit einem aktiven Laser zählt als ein Zug und erhöht den Trefferzähler. Reaktor-Flucht gibt zusätzlich 3 Sekunden Strafe.","Tocar un láser activo cuenta como un movimiento y aumenta el contador de impactos. Escape del Reactor añade además 3 segundos.","Tocar um laser ativo conta como uma jogada e aumenta o contador de impactos. Fuga do Reator também adiciona 3 segundos.","作動中レーザーへの接触は1手として数えられ、衝突カウンターも増えます。リアクター脱出ではさらに3秒ペナルティ。")}
   };
   const demo=demos[id]||{cells:['⚛️','→','✅'],action:ml("DENE","TRY IT","AUSPROBIEREN","PRUÉBALO","TENTE","試す"),result:ml("Mekaniği gözlemle ve ardından gerçek bölüme geç.","Observe the mechanic, then continue to the real level.","Beobachte die Mechanik und fahre dann mit dem echten Level fort.","Observa la mecánica y luego continúa al nivel real.","Observe a mecânica e depois continue para a fase real.","メカニックを確認してから実際のレベルへ進みます。")};
   // The bespoke mini-animation remains the same, but non-TR/EN players now
@@ -9874,7 +10124,8 @@ function moleculopediaModal(tab){
 
 function trainingCenterModal(){
   const pr=trainingProgress();
-  openModal('<h3>🎓 '+ml('Eğitim Merkezi','Training Center','Trainingszentrum','Centro de práctica','Centro de treino','トレーニングセンター')+'</h3><div class="msub">'+ml('İstediğin eğitimi yeniden aç. Eğitim denemelerinde MoleCoin veya envanter harcanmaz.','Replay any lesson. Training examples never consume MoleCoins or inventory.','Wiederhole jede Lektion. Trainingsbeispiele verbrauchen weder MoleCoins noch Inventar.','Repite cualquier lección. Los ejemplos no consumen MoleCoins ni inventario.','Repita qualquer lição. Os exemplos não consomem MoleCoins nem inventário.','好きなレッスンを再実行できます。練習ではMoleCoinや所持品を消費しません。')+'</div><div style="margin:12px 0;padding:12px;border-radius:16px;background:rgba(120,231,255,.08);border:1px solid rgba(120,231,255,.25)"><div style="display:flex;justify-content:space-between;gap:10px;font-weight:900"><span>🏅 '+ml('Eğitim İlerlemesi','Training Progress','Trainingsfortschritt','Progreso de práctica','Progresso do treino','練習の進行')+'</span><span>'+pr.done+'/'+pr.total+' · %'+pr.pct+'</span></div><div style="height:8px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden;margin-top:9px"><i style="display:block;height:100%;width:'+pr.pct+'%;background:linear-gradient(90deg,#78e7ff,#ffd36e);border-radius:99px"></i></div></div><div class="settingsScroll" style="display:grid;gap:9px;margin-top:12px"><button class="btn ghost" id="tcBasic">🧭 '+ml('Temel hareket eğitimi','Basic movement tutorial','Grundbewegungen','Movimientos básicos','Movimentos básicos','基本操作')+'</button><button class="btn ghost" id="tcMechanics">⚡ '+ml('Özel atomlar ve mekanikler','Special atoms and mechanics','Spezialatome und Mechaniken','Átomos y mecánicas especiales','Átomos e mecânicas especiais','特殊原子と仕組み')+'</button><button class="btn ghost" id="tcSupports">🧰 '+ml('Oyuncu destekleri','Player supports','Spielerhilfen','Ayudas del jugador','Suportes do jogador','プレイヤーサポート')+'</button><button class="btn ghost" id="tcLab">🧪 '+ml('Laboratuvar cihazları','Laboratory equipment','Laborgeräte','Equipos de laboratorio','Equipamentos de laboratório','ラボ装置')+'</button></div><div class="mrow"><button class="btn" id="tcClose">'+t('close')+'</button></div>');
+  openModal('<div class="trainingCenterHead"><h3>🎓 '+ml('Eğitim Merkezi','Training Center','Trainingszentrum','Centro de práctica','Centro de treino','トレーニングセンター')+'</h3><div class="msub">'+ml('İstediğin eğitimi yeniden aç. Eğitim denemelerinde MoleCoin veya envanter harcanmaz.','Replay any lesson. Training examples never consume MoleCoins or inventory.','Wiederhole jede Lektion. Trainingsbeispiele verbrauchen weder MoleCoins noch Inventar.','Repite cualquier lección. Los ejemplos no consumen MoleCoins ni inventario.','Repita qualquer lição. Os exemplos não consomem MoleCoins nem inventário.','好きなレッスンを再実行できます。練習ではMoleCoinや所持品を消費しません。')+'</div></div><div class="trainingProgressCard"><div class="trainingProgressTop"><span>🏅 '+ml('Eğitim İlerlemesi','Training Progress','Trainingsfortschritt','Progreso de práctica','Progresso do treino','練習の進行')+'</span><strong>'+pr.done+'/'+pr.total+' · %'+pr.pct+'</strong></div><div class="trainingProgressTrack"><i style="width:'+pr.pct+'%"></i></div></div><div class="trainingChoiceList"><button class="btn ghost trainingChoice" id="tcBasic"><span class="trainingChoiceIcon">🧭</span><span>'+ml('Temel hareket eğitimi','Basic movement tutorial','Grundbewegungen','Movimientos básicos','Movimentos básicos','基本操作')+'</span><b>›</b></button><button class="btn ghost trainingChoice" id="tcMechanics"><span class="trainingChoiceIcon">⚡</span><span>'+ml('Özel atomlar ve mekanikler','Special atoms and mechanics','Spezialatome und Mechaniken','Átomos y mecánicas especiales','Átomos e mecânicas especiais','特殊原子と仕組み')+'</span><b>›</b></button><button class="btn ghost trainingChoice" id="tcSupports"><span class="trainingChoiceIcon">🧰</span><span>'+ml('Oyuncu destekleri','Player supports','Spielerhilfen','Ayudas del jugador','Suportes do jogador','プレイヤーサポート')+'</span><b>›</b></button><button class="btn ghost trainingChoice" id="tcLab"><span class="trainingChoiceIcon">🧪</span><span>'+ml('Laboratuvar cihazları','Laboratory equipment','Laborgeräte','Equipos de laboratorio','Equipamentos de laboratório','ラボ装置')+'</span><b>›</b></button></div><button class="btn trainingCenterClose" id="tcClose">'+t('close')+'</button>');
+  $('#modalBox').classList.add('trainingCenterModal');
   bindTap('#tcBasic',()=>{closeModal();startTutorial();});
   bindTap('#tcMechanics',mechanicsGuideModal);
   bindTap('#tcSupports',showAllSupportGuide);
@@ -10206,11 +10457,37 @@ function drawStone(x,y,gx,gy){
   bctx.beginPath();bctx.moveTo(x+p+3,y+p+s-2);bctx.lineTo(x+p+s-2,y+p+s-2);bctx.lineTo(x+p+s-2,y+p+3);bctx.stroke();
 }
 function drawNanoBarrier(gx,gy,t){
-  const x=gx*T,y=gy*T,p=.5+.5*Math.sin(t/210);bctx.save();
-  const g=bctx.createLinearGradient(x,y,x+T,y+T);g.addColorStop(0,'rgba(126,235,255,.92)');g.addColorStop(1,'rgba(76,112,255,.82)');
-  bctx.fillStyle=g;bctx.shadowColor='#72e8ff';bctx.shadowBlur=8+5*p;bctx.fillRect(x+T*.16,y+T*.16,T*.68,T*.68);
-  bctx.strokeStyle='rgba(255,255,255,.9)';bctx.lineWidth=Math.max(1.5,T*.04);bctx.strokeRect(x+T*.2,y+T*.2,T*.6,T*.6);
-  bctx.strokeStyle='rgba(255,255,255,.55)';bctx.beginPath();bctx.moveTo(x+T*.28,y+T*.5);bctx.lineTo(x+T*.72,y+T*.5);bctx.moveTo(x+T*.5,y+T*.28);bctx.lineTo(x+T*.5,y+T*.72);bctx.stroke();bctx.restore();
+  const x=gx*T,y=gy*T,cx=x+T*.5,cy=y+T*.5,p=.5+.5*Math.sin(t/210),spin=t/900+(gx+gy)*.4;
+  bctx.save();bctx.translate(cx,cy);
+  // Soft floor pool grounds the barrier so it feels built into the board.
+  bctx.globalAlpha=.20+.06*p;bctx.fillStyle='#44dfff';bctx.shadowColor='#56eaff';bctx.shadowBlur=14;
+  bctx.beginPath();bctx.ellipse(0,T*.24,T*.34,T*.13,0,0,7);bctx.fill();
+  // Outer armored frame.
+  const frame=bctx.createLinearGradient(-T*.34,-T*.34,T*.34,T*.34);frame.addColorStop(0,'#eaffff');frame.addColorStop(.28,'#72ebff');frame.addColorStop(.68,'#318fd0');frame.addColorStop(1,'#163c70');
+  bctx.globalAlpha=.96;bctx.strokeStyle=frame;bctx.lineWidth=Math.max(2,T*.05);bctx.shadowColor='#5be8ff';bctx.shadowBlur=9+6*p;
+  rrect(bctx,-T*.335,-T*.335,T*.67,T*.67,Math.max(5,T*.11));bctx.stroke();
+  // Translucent energy membrane.
+  const core=bctx.createRadialGradient(-T*.08,-T*.10,T*.02,0,0,T*.34);core.addColorStop(0,'rgba(242,255,255,.56)');core.addColorStop(.28,'rgba(98,238,255,.28)');core.addColorStop(.72,'rgba(42,139,238,.18)');core.addColorStop(1,'rgba(17,48,108,.30)');
+  bctx.fillStyle=core;bctx.globalAlpha=.94;rrect(bctx,-T*.285,-T*.285,T*.57,T*.57,Math.max(4,T*.085));bctx.fill();
+  // Thin hex-field lines and scanning plane.
+  bctx.globalAlpha=.34;bctx.strokeStyle='#c9fbff';bctx.lineWidth=Math.max(1,T*.016);for(let k=-1;k<=1;k++){
+    bctx.beginPath();bctx.moveTo(-T*.24,k*T*.11);bctx.lineTo(T*.24,k*T*.11);bctx.stroke();
+    bctx.beginPath();bctx.moveTo(k*T*.11,-T*.24);bctx.lineTo(k*T*.11,T*.24);bctx.stroke();
+  }
+  if(!motionReduced()){
+    const scan=-T*.22+(((t/720)+(gx*.13+gy*.09))%1)*T*.44;
+    bctx.globalAlpha=.30+.18*p;bctx.strokeStyle='#ffffff';bctx.lineWidth=Math.max(1,T*.018);bctx.shadowColor='#a8fbff';bctx.shadowBlur=6;bctx.beginPath();bctx.moveTo(-T*.23,scan);bctx.lineTo(T*.23,scan);bctx.stroke();
+  }
+  // Four powered corner nodes.
+  for(const [ox,oy] of [[-.29,-.29],[.29,-.29],[-.29,.29],[.29,.29]]){
+    bctx.globalAlpha=.98;bctx.fillStyle='#102b49';bctx.shadowColor='#6beeff';bctx.shadowBlur=5;bctx.beginPath();bctx.arc(ox*T,oy*T,Math.max(2,T*.05),0,7);bctx.fill();
+    bctx.fillStyle='#dfffff';bctx.beginPath();bctx.arc(ox*T,oy*T,Math.max(1,T*.021),0,7);bctx.fill();
+  }
+  // Central stabilizer diamond and two orbiting motes.
+  bctx.globalAlpha=.72+.2*p;bctx.save();bctx.rotate(Math.sin(t/1200)*.04);bctx.fillStyle='rgba(92,239,255,.32)';bctx.strokeStyle='#efffff';bctx.lineWidth=Math.max(1,T*.025);bctx.beginPath();bctx.moveTo(0,-T*.16);bctx.lineTo(T*.12,0);bctx.lineTo(0,T*.16);bctx.lineTo(-T*.12,0);bctx.closePath();bctx.fill();bctx.stroke();bctx.restore();
+  if(!motionReduced())for(let q=0;q<2;q++){const a=spin+q*Math.PI,r=T*.205;bctx.globalAlpha=.85;bctx.fillStyle=q?'#ffffff':'#8ff5ff';bctx.shadowColor='#65eaff';bctx.shadowBlur=7;bctx.beginPath();bctx.arc(Math.cos(a)*r,Math.sin(a)*r,Math.max(1.3,T*.027),0,7);bctx.fill();}
+  bctx.globalAlpha=.98;bctx.fillStyle='#fff7a4';bctx.shadowColor='#fff4a0';bctx.shadowBlur=9;bctx.beginPath();bctx.arc(0,0,Math.max(1.8,T*.045),0,7);bctx.fill();
+  bctx.restore();
 }
 function drawBreakableStone(x,y,gx,gy,t){
   drawStone(x,y,gx,gy);
@@ -10241,8 +10518,19 @@ function drawAtom(x,y,e,r,selRing,t,ctx){
   g.addColorStop(0,col.hi);g.addColorStop(0.55,col.c);g.addColorStop(1,shade(col.c,-30));
   ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.fill();
   ctx.strokeStyle='rgba(0,0,0,.35)';ctx.lineWidth=1.5;ctx.stroke();
-  ctx.fillStyle='rgba(255,255,255,.55)';
+  // POLISH 3: restrained Fresnel rim + two-stage reflection. Keeps the existing
+  // atom identity while making the sphere read as a premium physical object.
+  ctx.save();ctx.strokeStyle=col.hi;ctx.globalAlpha=.34;ctx.lineWidth=Math.max(1,r*.055);ctx.shadowColor=col.hi;ctx.shadowBlur=Math.max(2,r*.12);ctx.beginPath();ctx.arc(x,y,r*.91,-2.72,-.58);ctx.stroke();ctx.restore();
+  ctx.fillStyle='rgba(255,255,255,.58)';
   ctx.beginPath();ctx.ellipse(x-r*0.3,y-r*0.45,r*0.32,r*0.18,-0.6,0,7);ctx.fill();
+  ctx.fillStyle='rgba(255,255,255,.28)';ctx.beginPath();ctx.arc(x-r*.48,y-r*.18,Math.max(1,r*.065),0,7);ctx.fill();
+  // PREMIUM MICRO-FX · a very slow travelling laboratory reflection keeps idle atoms alive
+  // without turning the board into neon. Reduced Motion keeps the static highlights only.
+  if(!motionReduced()){
+    const sweep=((t/2600)+(x+y)*.0007)%1,ang=-2.72+sweep*1.65;
+    ctx.save();ctx.globalAlpha=.10+.06*Math.sin(sweep*Math.PI);ctx.strokeStyle='#ffffff';ctx.lineWidth=Math.max(1,r*.035);ctx.shadowColor=col.hi;ctx.shadowBlur=Math.max(1,r*.08);
+    ctx.beginPath();ctx.arc(x,y,r*.78,ang,ang+.38);ctx.stroke();ctx.restore();
+  }
   ctx.fillStyle=col.t;
   ctx.font='900 '+Math.round(r*0.85)+'px -apple-system,system-ui,sans-serif';
   ctx.textAlign='center';ctx.textBaseline='middle';
@@ -10308,15 +10596,9 @@ function renderBoard(t){
         if(finishedAnim.portalTransit){portalBurst(a.x,a.y,portalPairs.get(portalKey(a.x,a.y))?.id||'B','exit');SFX.portalExit&&SFX.portalExit();}
         const beforeLandingBonds=Number(finishedAnim.prevBonds)||0;
         afterMove(i);
-        const afterLandingBonds=bondsMatched();
-        SFX.atomLand&&SFX.atomLand(landDist,afterLandingBonds>beforeLandingBonds);
-        if(effectsAllowed()){
-          const br=board.getBoundingClientRect(),cellW=br.width/Math.max(1,W),cellH=br.height/Math.max(1,H),cx=br.left+(a.x+.5)*cellW,cy=br.top+(a.y+.5)*cellH;
-          const bonded=afterLandingBonds>beforeLandingBonds;
-          const count=bonded?14:6,cols=bonded?['#ffffff','#72f4ff','#b68cff']:['#d9f7ff','#7fdcff'];
-          for(let q=0;q<count;q++){const ang=q/count*Math.PI*2;P({k:'glit',x:cx,y:cy,vx:Math.cos(ang)*(bonded?1.5:.75),vy:Math.sin(ang)*(bonded?1.5:.75),r:bonded?2.2:1.4,c:rnd(cols),life:bonded?.72:.34,d:q*.008});}
-          if(bonded){P({k:'ring',x:cx,y:cy,r:5,vr2:74,c:'#9ff5ff',life:.32});mxHaptic('medium');SFX.link&&SFX.link();moxyReact('pop',false);}
-        }
+        const afterLandingBonds=bondsMatched(),bonded=afterLandingBonds>beforeLandingBonds;
+        gameFeelLandingContact(i,finishedAnim.d,landDist,bonded);
+        if(bonded){mxHaptic('medium');moxyReact('pop',false);}
         if(chainActive()&&!won){if(finishedAnim.chainTrigger)beginChainReaction(finishedAnim.chainTrigger);else if(finishedAnim.chainAutoStep)setTimeout(runNextChainAuto,75);}
         if(!won&&!motionReduced())shake=Math.max(shake,Math.min(0.16,0.035+landDist*0.018));
       }
@@ -10328,7 +10610,7 @@ function renderBoard(t){
       else{const[dx,dy]=DIRS[nudge.d];const k=Math.sin(q*Math.PI)*0.14;rx+=dx*k;ry+=dy*k;}
     }
     const bob=(anim&&anim.i===i)?0:Math.sin(t/520+a.ph)*0.035;
-    if(anim&&anim.i===i){const br=board.getBoundingClientRect();gameFeelMovingTrail(a,br.left+(rx+.5)*(br.width/W),br.top+(ry+.5)*(br.height/H),t);}
+    if(anim&&anim.i===i){const br=board.getBoundingClientRect();gameFeelMovingTrail(a,br.left+(rx+.5)*(br.width/W),br.top+(ry+.5)*(br.height/H),t,anim.d);}
     return[(rx+0.5)*T,(ry+0.5+bob)*T];
   });
   // Organic sticky bond — a soft gel bridge, visually distinct from linked/frozen mechanics.
@@ -10386,21 +10668,33 @@ function renderBoard(t){
     bctx.strokeStyle='rgba(255,210,63,.9)';bctx.lineWidth=3;bctx.shadowColor='#ffd23f';bctx.shadowBlur=10;
     bctx.beginPath();bctx.arc(hx,hy,T*0.52,0,7);bctx.stroke();bctx.shadowBlur=0;
   }
-  // motion trail for long slides
+  // PREMIUM MICRO-FX · tapered element-colored motion ribbon + restrained afterimages.
   if(anim){
     const dist=Math.abs(anim.tx-anim.fx)+Math.abs(anim.ty-anim.fy);
-    if(dist>=3){
-      const p0=(t-anim.t0)/anim.dur;
-      const atomEl=atoms[anim.i].e,col=EL[atomEl];
-      for(let g=1;g<=4;g++){
-        const pg=p0-g*0.05-g*g*0.012;
-        if(pg<=0||pg>=1)continue;
-        const eg=ease(pg);
-        const gx=(anim.fx+(anim.tx-anim.fx)*eg+0.5)*T,gy=(anim.fy+(anim.ty-anim.fy)*eg+0.5)*T;
-        bctx.globalAlpha=0.34*(1-g/5);
-        bctx.beginPath();bctx.arc(gx,gy,T*0.4*(0.8-g*0.08),0,6.3);
-        bctx.fillStyle=col?col.c:'#fff';bctx.fill();
-        bctx.globalAlpha=1;
+    if(dist>=2&&!motionReduced()){
+      const p0=Math.max(0,Math.min(1,(t-anim.t0)/anim.dur));
+      const atomEl=atoms[anim.i].e,col=EL[atomEl]||{c:'#8fe9ff',hi:'#ffffff'};
+      const tailP=Math.max(0,p0-(dist>=5?.16:.11));
+      if(p0>0&&tailP<p0){
+        const ec=ease(p0),et=ease(tailP);
+        const hx=(anim.fx+(anim.tx-anim.fx)*ec+0.5)*T,hy=(anim.fy+(anim.ty-anim.fy)*ec+0.5)*T;
+        const tx=(anim.fx+(anim.tx-anim.fx)*et+0.5)*T,ty=(anim.fy+(anim.ty-anim.fy)*et+0.5)*T;
+        bctx.save();bctx.globalCompositeOperation='lighter';
+        const lg=bctx.createLinearGradient(tx,ty,hx,hy);lg.addColorStop(0,'rgba(255,255,255,0)');lg.addColorStop(.42,col.c);lg.addColorStop(1,col.hi||'#ffffff');
+        bctx.globalAlpha=performanceLow()?.13:.21;bctx.strokeStyle=lg;bctx.lineCap='round';bctx.lineWidth=Math.max(2,T*(dist>=5?.12:.085));bctx.shadowColor=col.c;bctx.shadowBlur=performanceLow()?3:8;
+        bctx.beginPath();bctx.moveTo(tx,ty);bctx.lineTo(hx,hy);bctx.stroke();bctx.restore();
+      }
+      if(dist>=3){
+        const ghosts=performanceLow()?2:4;
+        for(let g=1;g<=ghosts;g++){
+          const pg=p0-g*0.05-g*g*0.012;
+          if(pg<=0||pg>=1)continue;
+          const eg=ease(pg);
+          const gx=(anim.fx+(anim.tx-anim.fx)*eg+0.5)*T,gy=(anim.fy+(anim.ty-anim.fy)*eg+0.5)*T;
+          bctx.globalAlpha=(performanceLow()?.16:.27)*(1-g/(ghosts+1));
+          bctx.beginPath();bctx.arc(gx,gy,T*0.4*(0.76-g*0.07),0,6.3);
+          bctx.fillStyle=col.c;bctx.fill();bctx.globalAlpha=1;
+        }
       }
     }
   }
@@ -10423,6 +10717,14 @@ function renderBoard(t){
     const reduce=motionReduced();
     bctx.save();
     bctx.textAlign='center';bctx.textBaseline='middle';
+    // POLISH 7 · shared premium aura. Each special mechanic keeps its own silhouette,
+    // but gets a soft breathing shell so the board communicates "special atom" instantly.
+    const breathe=reduce?1:(.92+.08*Math.sin(t/240+x*.02+y*.015));
+    bctx.globalCompositeOperation='lighter';
+    const aura=bctx.createRadialGradient(x,y,r*.72,x,y,(r+10)*breathe);
+    aura.addColorStop(0,'rgba(255,255,255,0)');aura.addColorStop(.64,'rgba(255,255,255,0)');aura.addColorStop(1,m.stroke+'55');
+    bctx.globalAlpha=reduce?.34:.48;bctx.fillStyle=aura;bctx.beginPath();bctx.arc(x,y,(r+10)*breathe,0,7);bctx.fill();
+    bctx.globalCompositeOperation='source-over';bctx.globalAlpha=1;
     // Distinct non-color shapes for accessibility.
     bctx.strokeStyle=m.stroke;bctx.lineWidth=Math.max(2,T*.035);bctx.shadowColor=m.stroke;bctx.shadowBlur=reduce?0:9;
     if(type==='frozen'){
@@ -10444,6 +10746,21 @@ function renderBoard(t){
       bctx.beginPath();for(let k=0;k<16;k++){const a=k*Math.PI/8,rr=k%2?r+4:r+8;const px=x+Math.cos(a)*rr,py=y+Math.sin(a)*rr;k?bctx.lineTo(px,py):bctx.moveTo(px,py);}bctx.closePath();bctx.stroke();
       bctx.fillStyle='rgba(255,196,45,.7)';bctx.beginPath();bctx.ellipse(x-r*.2,y+r*.36,r*.28,r*.14,0,0,7);bctx.fill();
     }
+    // Type-specific ambient material cues: low density, no gameplay obstruction.
+    if(!reduce){
+      if(type==='frozen'){
+        bctx.fillStyle='rgba(236,253,255,.78)';for(let k=0;k<3;k++){const a=t/900+k*2.1,rr=r*(.72+.08*k);bctx.globalAlpha=.22+.18*Math.sin(a+k);bctx.beginPath();bctx.arc(x+Math.cos(a)*rr,y+Math.sin(a)*rr,Math.max(1,T*.018),0,7);bctx.fill();}
+      }else if(type==='fire'){
+        bctx.strokeStyle='rgba(255,218,116,.58)';bctx.lineWidth=Math.max(1,T*.014);for(let k=0;k<2;k++){const ox=(k?1:-1)*r*.28,phase=t/360+k; bctx.globalAlpha=.35+.15*Math.sin(phase);bctx.beginPath();bctx.moveTo(x+ox,y-r*.68);bctx.quadraticCurveTo(x+ox+Math.sin(phase)*5,y-r*1.02,x+ox*.5,y-r*1.25);bctx.stroke();}
+      }else if(type==='lightning'){
+        bctx.fillStyle='#ffffff';for(let k=0;k<2;k++){const a=t/250+k*Math.PI,rr=r*1.05;bctx.globalAlpha=.35+.35*Math.sin(a*1.7);bctx.beginPath();bctx.arc(x+Math.cos(a)*rr,y+Math.sin(a)*rr,Math.max(1.2,T*.02),0,7);bctx.fill();}
+      }else if(type==='zombie'){
+        bctx.fillStyle='rgba(126,255,101,.34)';for(let k=0;k<3;k++){const a=t/700+k*2.05,rr=r*(.86+.08*k);bctx.globalAlpha=.18+.12*Math.sin(a);bctx.beginPath();bctx.arc(x+Math.cos(a)*rr,y-r*.35+Math.sin(a*.7)*r*.5,Math.max(2,T*.032),0,7);bctx.fill();}
+      }else if(type==='sticky'){
+        bctx.fillStyle='rgba(255,239,151,.82)';for(let k=0;k<2;k++){const a=t/760+k*3.1,rr=r*.72;bctx.globalAlpha=.35+.2*Math.sin(a);bctx.beginPath();bctx.arc(x+Math.cos(a)*rr,y+Math.sin(a)*rr,Math.max(1.5,T*.025),0,7);bctx.fill();}
+      }
+      bctx.globalAlpha=1;
+    }
     bctx.shadowBlur=0;
     bctx.font='900 '+Math.round(r*.56)+'px system-ui';bctx.lineWidth=3;bctx.strokeStyle='rgba(8,18,30,.9)';bctx.strokeText(m.icon,x+r*.78,y-r*.78);bctx.fillText(m.icon,x+r*.78,y-r*.78);
     // AAA polish: identity is carried by silhouette, icon and motion; no permanent text tag.
@@ -10460,6 +10777,8 @@ function renderBoard(t){
       const sq=Math.min(1,(t-selT0)/120);
       sc=1+0.06*ease(sq);
     }
+    const pressed=(i===atomPressIdx&&!won);
+    if(pressed){const q=Math.min(1,Math.max(0,(t-atomPressAt)/90));sc*=1-(.045*ease(q));}
     const impactBounce=bounce&&bounce.i===i?bounce:null;
     if(impactBounce&&!motionReduced()){
       const q=Math.min(1,(t-impactBounce.t0)/190),wave=Math.sin(q*Math.PI);
@@ -10471,6 +10790,11 @@ function renderBoard(t){
     }else{
       drawAtom(pos[i][0],pos[i][1],atoms[i].e,T*0.4*sc,i===sel&&!won,t);
       drawFragileAtomOverlay(pos[i][0],pos[i][1],T*0.4*sc,atoms[i],t);
+    }
+    if(pressed){
+      const ec=EL[atoms[i].e]||{c:'#8fe9ff',hi:'#ffffff'},q=motionReduced()?1:(.72+.28*Math.sin(t/80));
+      bctx.save();bctx.globalAlpha=.42*q;bctx.strokeStyle=ec.hi||'#ffffff';bctx.lineWidth=Math.max(1.5,T*.025);bctx.shadowColor=ec.c;bctx.shadowBlur=8;
+      bctx.beginPath();bctx.arc(pos[i][0],pos[i][1],T*.455,0,7);bctx.stroke();bctx.restore();
     }
     if(atoms[i].linked){bctx.save();bctx.font='900 '+Math.round(T*.20)+'px system-ui';bctx.textAlign='center';bctx.textBaseline='middle';bctx.fillStyle='#e8fbff';bctx.strokeStyle='#123a52';bctx.lineWidth=3;bctx.strokeText('🔗',pos[i][0]+T*.27,pos[i][1]-T*.28);bctx.fillText('🔗',pos[i][0]+T*.27,pos[i][1]-T*.28);bctx.restore();}
     if(atoms[i].stickyBonded&&!atoms[i].sticky){bctx.save();bctx.font='900 '+Math.round(T*.18)+'px system-ui';bctx.textAlign='center';bctx.textBaseline='middle';bctx.fillStyle='#fff4b8';bctx.strokeStyle='#5f3b00';bctx.lineWidth=3;bctx.strokeText('🍯',pos[i][0]+T*.28,pos[i][1]-T*.28);bctx.fillText('🍯',pos[i][0]+T*.28,pos[i][1]-T*.28);bctx.restore();}
@@ -10591,6 +10915,9 @@ function renderFx(t,dt){
       case 'spark':{const ox=p.x,oy=p.y;p.vy+=0.3*dts;p.x+=p.vx*dts;p.y+=p.vy*dts;
         fctx.strokeStyle=p.c;fctx.lineWidth=2;
         fctx.beginPath();fctx.moveTo(ox,oy);fctx.lineTo(p.x,p.y);fctx.stroke();break;}
+      case 'streak':{const ox=p.x,oy=p.y;p.x+=p.vx*dts;p.y+=p.vy*dts;const mag=Math.hypot(p.vx,p.vy)||1,nx=p.vx/mag,ny=p.vy/mag,len=(p.len||12)*(1-q*.45);
+        fctx.save();fctx.globalCompositeOperation='lighter';fctx.strokeStyle=p.c2||p.c;fctx.lineWidth=(p.w||1.6)*(1-q*.35);fctx.shadowColor=p.c;fctx.shadowBlur=5*(1-q);
+        fctx.beginPath();fctx.moveTo(p.x-nx*len,p.y-ny*len);fctx.lineTo(p.x,p.y);fctx.stroke();fctx.restore();break;}
       case 'bond':{
         const local=Math.max(0,Math.min(1,(p.t-(p.d||0))/Math.max(.05,(p.life||1)-(p.d||0))));
         const e=1-Math.pow(1-local,3),xe=p.x1+(p.x2-p.x1)*e,ye=p.y1+(p.y2-p.y1)*e;
@@ -10785,9 +11112,11 @@ board.addEventListener('pointerdown',e=>{
   e.preventDefault();
   try{board.setPointerCapture(e.pointerId);}catch(_){}
   pd={x:e.clientX,y:e.clientY,ai:nearestTouchableAtom(e.clientX,e.clientY),id:e.pointerId,pointerType:e.pointerType||'touch'};
+  atomPressIdx=pd.ai;atomPressAt=performance.now();
 },{passive:false});
 board.addEventListener('pointerup',e=>{
   if(!pd||pd.id!==e.pointerId)return;
+  atomPressIdx=-1;
   const dx=e.clientX-pd.x,dy=e.clientY-pd.y;
   const dist=Math.max(Math.abs(dx),Math.abs(dy));
   const tapTol=atomTouchTapTolerance(pd.pointerType);
@@ -10799,8 +11128,10 @@ board.addEventListener('pointerup',e=>{
       if(tutorialActive&&tutorialWaitTap!=null&&pd.ai!==tutorialWaitTap){pd=null;return;}
       sel=pd.ai;selT0=performance.now();SFX.select();mxHaptic('light');
       if(effectsAllowed()){
-        const br=board.getBoundingClientRect(),cellW=br.width/Math.max(1,W),cellH=br.height/Math.max(1,H),a=atoms[sel];
-        for(let q=0;q<7;q++)P({k:'glit',x:br.left+(a.x+.5)*cellW,y:br.top+(a.y+.5)*cellH,vx:Math.cos(q/7*Math.PI*2)*.65,vy:Math.sin(q/7*Math.PI*2)*.65,r:1.6,c:'#ffffff',life:.42,d:q*.018});
+        const br=board.getBoundingClientRect(),cellW=br.width/Math.max(1,W),cellH=br.height/Math.max(1,H),a=atoms[sel],ec=EL[a.e]||{c:'#8fe9ff',hi:'#ffffff'};
+        const cx=br.left+(a.x+.5)*cellW,cy=br.top+(a.y+.5)*cellH;
+        for(let q=0;q<8;q++)P({k:'glit',x:cx,y:cy,vx:Math.cos(q/8*Math.PI*2)*(.48+Math.random()*.32),vy:Math.sin(q/8*Math.PI*2)*(.48+Math.random()*.32),r:1.2+Math.random()*.8,c:q%3?ec.c:(ec.hi||'#ffffff'),life:.34,d:q*.012});
+        P({k:'ring',x:cx,y:cy,r:Math.max(3,T*.055),vr2:Math.max(34,T*.48),c:ec.hi||'#ffffff',life:.18});
       }
       resetIdle();
       if(tut===0){tut=1;say(t('tutSlideMsg'),'happy',4200);}
@@ -10828,7 +11159,7 @@ board.addEventListener('pointerup',e=>{
   }
   pd=null;
 },{passive:false});
-board.addEventListener('pointercancel',e=>{if(pd&&pd.id===e.pointerId)pd=null;},{passive:true});
+board.addEventListener('pointercancel',e=>{if(pd&&pd.id===e.pointerId){pd=null;atomPressIdx=-1;}},{passive:true});
 [['#dU',0],['#dR',1],['#dD',2],['#dL',3]].forEach(([id,d])=>{
   $(id).addEventListener('pointerdown',e=>{e.preventDefault();
     if(tutorialActive&&tutorialWaitTap!=null)return;
@@ -10882,12 +11213,12 @@ function whatsNewContent(){
       'Seu RP de Carreira é preservado. As competições semanal e mensal usam o Experimento Diário UTC compartilhado. Vincule uma conta permanente.',
       'キャリアRPは保持されます。週間・月間競争は共通UTC「今日の実験」を使用します。恒久アカウントを連携してください。'),
     html:ml(
-      '<section class="release latest"><h4>R38 — Final QA</h4><ul><li>6 dilde kalan eski İngilizce geri dönüşleri temizlendi.</li><li>Atom dokunma hassasiyeti mobil ekran ölçeğine göre düzeltildi.</li><li>Dr. E–Moxy etkileşimleri, portal ve özel atom efektleri cilalandı.</li><li>Hikâye görselleri ve sesler optimize edildi.</li><li>Müzik artık konuşma veya başarı anlarında otomatik kısılmaz.</li></ul></section>',
-      '<section class="release latest"><h4>R38 — Final QA</h4><ul><li>Legacy English fallbacks were removed across all six languages.</li><li>Atom touch sensitivity now follows real mobile display scaling.</li><li>Dr. E–Moxy interactions, portals, and special-atom feedback were polished.</li><li>Story images and audio were optimized.</li><li>Music no longer ducks automatically during speech or victory moments.</li></ul></section>',
-      '<section class="release latest"><h4>R38 — Final QA</h4><ul><li>Verbliebene englische Fallbacks wurden in allen sechs Sprachen entfernt.</li><li>Die Atom-Berührung nutzt jetzt die echte mobile Skalierung.</li><li>Dr. E–Moxy, Portale und Spezialatome wurden verfeinert.</li><li>Storybilder und Audio wurden optimiert.</li><li>Musik wird bei Sprache oder Sieg nicht mehr automatisch leiser.</li></ul></section>',
-      '<section class="release latest"><h4>R38 — QA Final</h4><ul><li>Se eliminaron los textos antiguos que caían al inglés en los seis idiomas.</li><li>La sensibilidad táctil usa la escala real del móvil.</li><li>Se pulieron Dr. E–Moxy, portales y átomos especiales.</li><li>Imágenes de historia y audio fueron optimizados.</li><li>La música ya no baja automáticamente durante diálogos o victorias.</li></ul></section>',
-      '<section class="release latest"><h4>R38 — QA Final</h4><ul><li>Os antigos textos que caíam para inglês foram removidos nos seis idiomas.</li><li>A sensibilidade de toque usa a escala real da tela móvel.</li><li>Dr. E–Moxy, portais e átomos especiais foram refinados.</li><li>Imagens da história e áudio foram otimizados.</li><li>A música não abaixa automaticamente durante falas ou vitórias.</li></ul></section>',
-      '<section class="release latest"><h4>R38 — 最終QA</h4><ul><li>6言語で残っていた英語フォールバックを削除しました。</li><li>原子のタッチ判定を実際のモバイル表示倍率に合わせました。</li><li>Dr. E–Moxy、ポータル、特殊原子を改善しました。</li><li>ストーリー画像と音声を最適化しました。</li><li>会話や勝利時に音楽が自動で小さくならなくなりました。</li></ul></section>')
+      '<section class="release latest"><h4>R45 — Final Release</h4><ul><li>6 dilde kalan eski İngilizce geri dönüşleri temizlendi.</li><li>Atom dokunma hassasiyeti mobil ekran ölçeğine göre düzeltildi.</li><li>Dr. E–Moxy etkileşimleri, portal ve özel atom efektleri cilalandı.</li><li>Hikâye görselleri ve sesler optimize edildi.</li><li>Impact/Reaktör darbeleri artık +1 hamle sayılır; soundtrack mastering dengesi ve Dr. E konuşmalarında müzik ducking cilalandı.</li></ul></section>',
+      '<section class="release latest"><h4>R45 — Final Release</h4><ul><li>Legacy English fallbacks were removed across all six languages.</li><li>Atom touch sensitivity now follows real mobile display scaling.</li><li>Dr. E–Moxy interactions, portals, and special-atom feedback were polished.</li><li>Story images and audio were optimized.</li><li>Impact/Reactor hits now count as +1 move; soundtrack mastering and music ducking under Dr. E speech were polished.</li></ul></section>',
+      '<section class="release latest"><h4>R45 — Final Release</h4><ul><li>Verbliebene englische Fallbacks wurden in allen sechs Sprachen entfernt.</li><li>Die Atom-Berührung nutzt jetzt die echte mobile Skalierung.</li><li>Dr. E–Moxy, Portale und Spezialatome wurden verfeinert.</li><li>Storybilder und Audio wurden optimiert.</li><li>Impact/Reaktor-Treffer zählen jetzt als +1 Zug; Soundtrack-Mastering und Musikabsenkung unter Dr. E wurden verfeinert.</li></ul></section>',
+      '<section class="release latest"><h4>R45 — Final</h4><ul><li>Se eliminaron los textos antiguos que caían al inglés en los seis idiomas.</li><li>La sensibilidad táctil usa la escala real del móvil.</li><li>Se pulieron Dr. E–Moxy, portales y átomos especiales.</li><li>Imágenes de historia y audio fueron optimizados.</li><li>Los impactos del reactor cuentan ahora como +1 movimiento; se pulieron el mastering de la banda sonora y la reducción de música durante Dr. E.</li></ul></section>',
+      '<section class="release latest"><h4>R45 — Final</h4><ul><li>Os antigos textos que caíam para inglês foram removidos nos seis idiomas.</li><li>A sensibilidade de toque usa a escala real da tela móvel.</li><li>Dr. E–Moxy, portais e átomos especiais foram refinados.</li><li>Imagens da história e áudio foram otimizados.</li><li>Impactos do reator agora contam como +1 jogada; o mastering da trilha e a redução da música durante Dr. E foram refinados.</li></ul></section>',
+      '<section class="release latest"><h4>R45 — 最終版</h4><ul><li>6言語で残っていた英語フォールバックを削除しました。</li><li>原子のタッチ判定を実際のモバイル表示倍率に合わせました。</li><li>Dr. E–Moxy、ポータル、特殊原子を改善しました。</li><li>ストーリー画像と音声を最適化しました。</li><li>リアクター衝突は+1手として数えられ、BGMのマスタリングとDr. E音声中の音楽ダッキングも調整しました。</li></ul></section>')
   };
 }
 function guideContent(){
@@ -11130,7 +11461,7 @@ const MX_SHOW_APPLE_BTN=MX_IOS_NATIVE&&MX_APPLE_NATIVE_READY;
 // this check is skipped there (redundant, and in-app WebView UA strings
 // can be less reliable to sniff).
 const MX_APPLE_DEVICE=MX_IOS_NATIVE||/Mac|iPhone|iPad|iPod/.test(String(navigator.platform||''))||/Mac|iPhone|iPad|iPod/.test(String(navigator.userAgent||''));
-const MX_SHOW_APPLE_BTN_WEB=false; // iOS build: Apple button appears only when the native Firebase auth plugin is ready
+const MX_SHOW_APPLE_BTN_WEB=false; // iOS native build: Apple button appears only when the native Firebase auth plugin is ready
 // Added 2026-07-30: push-notification registration for streak/return reminders.
 // Follows the exact same defensive pattern as MX_APPLE_NATIVE_READY above: this
 // checks for the @capacitor/push-notifications plugin at runtime and is a total
@@ -11241,13 +11572,39 @@ requestAnimationFrame(loop);
   const reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let studioStarted=false,logoReady=false,startRequested=false;
 
+  function introCopy(){
+    const map={
+      tr:['BAŞLAMAK İÇİN DOKUN','SES AÇIK','DOKUN VE BAŞLA'],
+      en:['TAP TO START','SOUND ON','TAP THE SCREEN'],
+      de:['ZUM STARTEN TIPPEN','TON AN','ZUM STARTEN TIPPEN'],
+      es:['TOCA PARA EMPEZAR','SONIDO ACTIVO','TOCA LA PANTALLA'],
+      pt:['TOQUE PARA COMEÇAR','SOM ATIVO','TOQUE NA TELA'],
+      ja:['タップしてスタート','サウンド ON','画面をタップ']
+    };
+    return map[LANG]||map.en;
+  }
+  const cp=introCopy();
+  if(tap){const b=tap.querySelector('b'),sm=tap.querySelector('small');if(b)b.textContent=cp[0];if(sm){const dot=sm.querySelector('i');sm.textContent='';if(dot)sm.appendChild(dot);sm.appendChild(document.createTextNode(cp[1]));}tap.setAttribute('aria-label',cp[0]);}
+  const bootPrompt=$('#btnBootPlay');if(bootPrompt)bootPrompt.textContent=cp[2];
+
   function beginBootIntro(){
     studio.classList.remove('on');
     boot.classList.add('on','bootSequence');
     bootIntroStartedAt=performance.now();
     const scrim=$('#bootDarkScrim'),bulb=$('#bootBulbGlow'),playBtn=$('#btnBootPlay');
-    let done=false,playShown=false;
-    function finishVisuals(){if(done)return;done=true;scrim.classList.add('reveal');bulb.classList.add('on');boot.classList.add('bootFinished');showPlay();}
+    let done=false,playShown=false,revealed=false;
+    function revealScene(){
+      if(revealed)return;revealed=true;
+      boot.classList.add('mxBootChem','mxBootAtoms','mxBootReveal');
+      scrim.classList.add('reveal');
+    }
+    function finishVisuals(){
+      if(done)return;done=true;
+      bulb.classList.remove('preflash','preflash2');
+      bulb.classList.add('on');
+      boot.classList.add('mxBootPower','mxBootChem','mxBootAtoms','mxBootScan','mxBootReveal','bootFinished');
+      revealScene();showPlay();
+    }
     function playLabCue(){
       if(startupCuePlayed||!audioGestureSeen)return;
       startStartupAudio().then(ok=>{if(!ok&&AC&&AC.state==='running'&&!startupCuePlayed){startupCuePlayed=true;SFX.labIntro();}});
@@ -11256,10 +11613,17 @@ requestAnimationFrame(loop);
     if(audioGestureSeen)playLabCue();
     if(reduced){finishVisuals();}
     else{
-      setTimeout(()=>{boot.classList.add('mxBootPower');bulb.classList.add('on');if(AC&&AC.state==='running')SFX.bulbOn();},520);
-      setTimeout(()=>{boot.classList.add('mxBootScan');},1180);
-      setTimeout(()=>{boot.classList.add('mxBootReveal');},1720);
-      setTimeout(finishVisuals,2520);
+      // Relay attempt 1: a tiny tungsten flash, then darkness again.
+      setTimeout(()=>{bulb.classList.remove('preflash2','on');void bulb.offsetWidth;bulb.classList.add('preflash');if(AC&&AC.state==='running')SFX.bulbTick(false);},240);
+      // Relay attempt 2: slightly stronger, still not fully latched.
+      setTimeout(()=>{bulb.classList.remove('preflash');void bulb.offsetWidth;bulb.classList.add('preflash2');if(AC&&AC.state==='running')SFX.bulbTick(true);},505);
+      // Power latches. From here the lab wakes from left to right.
+      setTimeout(()=>{bulb.classList.remove('preflash','preflash2');boot.classList.add('mxBootPower');bulb.classList.add('on');if(AC&&AC.state==='running')SFX.bulbOn();},705);
+      setTimeout(()=>{boot.classList.add('mxBootChem');},970);
+      setTimeout(()=>{boot.classList.add('mxBootAtoms');},1160);
+      setTimeout(()=>{boot.classList.add('mxBootScan');},1400);
+      setTimeout(revealScene,1580);
+      setTimeout(finishVisuals,2580);
     }
     let bootScrTapAt=0;
     const enterFromBoot=()=>{
@@ -11267,12 +11631,8 @@ requestAnimationFrame(loop);
       try{SFX.play();}catch(_e){}
       bootPlay();
     };
-    // 2026-07-28: removed SKIP entirely (button, function, and its global) along
-    // with the PLAY button's own click listener. Neither ever needed to exist as
-    // a separate control: tapping the screen while the animation is running
-    // already finished the reveal on its own (that's the line below), and once
-    // PLAY is showing, tapping anywhere enters the game. One tap target, no
-    // per-element hit-testing history to fight.
+    // The whole boot screen is the tap target. A tap during the reveal finishes
+    // the choreography; a later tap enters the game. No fragile per-button hitbox.
     boot.addEventListener('click',e=>{
       const now=Date.now();
       if(now-bootScrTapAt<350)return;
@@ -11295,8 +11655,10 @@ requestAnimationFrame(loop);
     studio.classList.remove('ready');
     studio.classList.add('started');
     if(tap)tap.setAttribute('aria-hidden','true');
-    setTimeout(()=>studio.classList.add('fadeOut'),4400);
-    setTimeout(beginBootIntro,5000);
+    if(AC&&AC.state==='running')SFX.studioIdent();
+    // Studio ident is deliberately short. The game identity gets the cinematic beat.
+    setTimeout(()=>studio.classList.add('fadeOut'),1840);
+    setTimeout(beginBootIntro,2300);
   }
   function markLogoReady(){
     if(logoReady)return;
@@ -11305,7 +11667,7 @@ requestAnimationFrame(loop);
   }
 
   if(logo&&logo.complete&&logo.naturalWidth>0)markLogoReady();
-  else if(logo){logo.addEventListener('load',markLogoReady,{once:true});logo.addEventListener('error',markLogoReady,{once:true});setTimeout(markLogoReady,1500);}
+  else if(logo){logo.addEventListener('load',markLogoReady,{once:true});logo.addEventListener('error',markLogoReady,{once:true});setTimeout(markLogoReady,1200);}
   else markLogoReady();
 
   studio.addEventListener('pointerdown',async e=>{

@@ -1,4 +1,4 @@
-/* Moleculox V5.26 FINAL — cross-platform web/PWA styles */
+/* Moleculox v8.5.78 · FINAL R45 POLISH 3 — cross-platform web/PWA styles */
 
 :root{
   --ink:#0e0c26;
@@ -8532,23 +8532,655 @@ body.mxPerfLow .mxDrEPoseGhost{
   filter:none!important;
 }
 
-/* R44 — micro nudge: only the central CTA stack, +3px right. */
-#splash #splashBtns{
-  transform:translateX(3px)!important;
+/* FINAL menu alignment — central CTA stack optical balance. */
+#splash #splashBtns{transform:translateX(3px)!important}
+
+
+/* =====================================================================
+   FINAL R45 POLISH · MENU / TAB CONSISTENCY + OVERFLOW SAFETY
+   Conservative release pass: no gameplay geometry or mechanics changed.
+   ===================================================================== */
+:root{
+  --mx-tab-bg:rgba(255,255,255,.065);
+  --mx-tab-border:rgba(157,123,255,.34);
+  --mx-tab-text:#c4c8e8;
+  --mx-tab-active-a:#765cff;
+  --mx-tab-active-b:#4c35c9;
+  --mx-tab-active-border:rgba(197,184,255,.72);
+  --mx-tab-cyan:rgba(79,216,255,.18);
 }
 
-
-
-#splash #btnCollection span,
-#splash #btnMolecules span,
-#splash #btnMyMolecules span{
-  position:relative!important;
-  left:-2px!important;
+/* Every release screen owns its width; child content may scroll vertically,
+   never push the app sideways. */
+#levelsScr,#collectScr,#labScr,#hofScr,#profileScr,#gameScr,#splash{
+  min-width:0!important;
+  max-width:100%!important;
+  overflow-x:hidden!important;
+}
+#levelsScr .scrollArea,#collectScr .scrollArea,#labScr .scrollArea,#hofScr .scrollArea{
+  min-width:0!important;
+  width:100%!important;
+  max-width:100%!important;
+  box-sizing:border-box!important;
 }
 
+/* Header controls retain fixed tap targets while titles absorb narrow-screen
+   pressure without causing horizontal shift. */
+.listHead{
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  box-sizing:border-box!important;
+}
+.listHead>*{min-width:0}
+.listHead h2{
+  min-width:0!important;
+  max-width:100%!important;
+  font-size:clamp(14px,4.6vw,20px)!important;
+  line-height:1.06!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+}
 
-/* R45 — My Molecules text optical centering only; button itself does not move. */
+/* One visual language for the four main tab families. */
+#collectionTabs,#labTabs,#hofTopTabs,#hofSubTabs,#duelRankTabs{
+  min-width:0!important;
+  width:100%!important;
+  max-width:100%!important;
+  box-sizing:border-box!important;
+}
+.collectionTab,.labTab,.hofTopTab,.hofSubTab,.duelRankTab{
+  min-width:0!important;
+  max-width:100%!important;
+  color:var(--mx-tab-text)!important;
+  background:var(--mx-tab-bg)!important;
+  border-color:var(--mx-tab-border)!important;
+  box-sizing:border-box!important;
+  overflow:hidden!important;
+  text-align:center!important;
+  line-height:1.08!important;
+}
+.collectionTab.on,.labTab.on,.hofTopTab.on,.duelRankTab.on{
+  color:#fff!important;
+  background:linear-gradient(180deg,var(--mx-tab-active-a),var(--mx-tab-active-b))!important;
+  border-color:var(--mx-tab-active-border)!important;
+  box-shadow:0 4px 0 rgba(49,31,142,.78),0 7px 18px rgba(0,0,0,.30),0 0 15px rgba(157,123,255,.20)!important;
+}
+.hofSubTab.on{
+  color:#b8f2ff!important;
+  background:var(--mx-tab-cyan)!important;
+  border-color:rgba(79,216,255,.55)!important;
+  box-shadow:inset 0 0 0 1px rgba(79,216,255,.18)!important;
+}
+.collectionTab span,.labTab span{
+  min-width:0!important;
+  max-width:100%!important;
+  white-space:normal!important;
+  overflow-wrap:anywhere!important;
+}
+.hofTopTab,.hofSubTab,.duelRankTab{
+  white-space:normal!important;
+  overflow-wrap:anywhere!important;
+}
+
+/* Preserve Moleculox hierarchy: green = continue/confirm, amber = daily/reward,
+   purple = navigation, cyan = information/secondary science state. */
+.btn.green{color:#f4fff8!important}
+.btn.amber{color:#3a2200!important}
+.btn.blue{color:#f4fbff!important}
+.btn.ghost{color:var(--txt)!important}
+
+/* Generic release safety for localized labels and dynamically generated rows. */
+.btn,.chip,.card,.profileRow,.hofWorldRow,.hofChampRow,.hofSpotlight,
+.labShopCard,.bonusMissionCard,.duelChoice,.duelStat{
+  max-width:100%;
+  box-sizing:border-box;
+}
+.btn{overflow-wrap:anywhere}
+.chip{min-width:0}
+
+/* Small phones: reduce gaps before reducing text below comfortable size. */
+@media(max-width:390px){
+  #collectionTabs,#labTabs,#hofTopTabs{gap:5px!important;padding-left:8px!important;padding-right:8px!important}
+  #hofSubTabs,#duelRankTabs{gap:5px!important}
+  .collectionTab,.labTab,.hofTopTab{padding-left:4px!important;padding-right:4px!important;font-size:clamp(8.6px,2.5vw,10px)!important}
+  .hofSubTab,.duelRankTab{padding-left:3px!important;padding-right:3px!important;font-size:clamp(8.4px,2.45vw,9.8px)!important}
+}
+@media(max-width:340px){
+  .listHead{gap:5px!important;padding-left:7px!important;padding-right:7px!important}
+  .listHead h2{font-size:clamp(13px,4.5vw,16px)!important;letter-spacing:.2px!important}
+  #collectionTabs,#labTabs,#hofTopTabs{gap:4px!important;padding-left:6px!important;padding-right:6px!important}
+  .collectionTab,.labTab,.hofTopTab{min-height:39px!important;padding-top:5px!important;padding-bottom:5px!important}
+}
+
+/* Release cleanup: only the current My Molecules optical correction remains. */
 #splash #btnCollect > span[data-i18n="myMolsLabel"]{
   position:relative!important;
   left:-3px!important;
+}
+
+/* =====================================================================
+   FINAL R45 POLISH 3 · RELEASE READABILITY / ACCESSIBILITY / SAFE LAYOUT
+   Small, low-risk refinements only: no board geometry or art direction changes.
+   ===================================================================== */
+html{
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+}
+button,input,select,textarea{font-family:inherit}
+
+/* Keyboard/web focus is visible without changing the touch presentation. */
+:where(button,.btn,.collectionTab,.labTab,.hofTopTab,.hofSubTab,.duelRankTab,.profileBtn,.profileDel,[role="button"]):focus-visible{
+  outline:3px solid rgba(143,224,255,.96)!important;
+  outline-offset:3px!important;
+  box-shadow:0 0 0 2px rgba(12,9,40,.92),0 0 0 5px rgba(79,216,255,.35)!important;
+}
+
+/* Localization hardening: translated labels may wrap, but can never widen a
+   screen/modal beyond the mobile viewport. */
+#modalBox,#modalBox *,.listHead,.listHead *,#splashBtns,#splashBtns *,
+.collectionTab,.labTab,.hofTopTab,.hofSubTab,.duelRankTab,
+.profileRow,.profileRow *,.labShopCard,.labShopCard *,
+.hofWorldRow,.hofWorldRow *,.hofChampRow,.hofChampRow *{
+  min-width:0;
+}
+#modalBox h3,#modalBox h4,#modalBox .msub,#modalBox p,#modalBox li,
+.btn,.collectionTab,.labTab,.hofTopTab,.hofSubTab,.duelRankTab,
+.profileRow b,.profileRow small,.hofWorldRow,.hofChampRow{
+  overflow-wrap:anywhere;
+  word-break:normal;
+}
+#modalBox,#modalBox .modalScroll,#modalBox .settingsScroll,#modalBox .guideScroll,
+#levelsScr,#collectScr,#labScr,#hofScr,#profileScr,#splash,#gameScr{
+  overflow-x:clip!important;
+}
+
+/* Primary tab families keep a reliable touch target on normal phones. Short
+   displays retain the compact geometry already defined by earlier rules. */
+@media(min-height:651px){
+  .collectionTab,.labTab,.hofTopTab,.hofSubTab,.duelRankTab{min-height:42px}
+}
+
+/* Active tabs get the same crisp text treatment used by main CTA buttons. */
+.collectionTab.on,.labTab.on,.hofTopTab.on,.hofSubTab.on,.duelRankTab.on{
+  text-shadow:0 1px 2px rgba(0,0,0,.5);
+}
+
+/* Disabled controls should read as unavailable, not broken or hidden. */
+.btn:disabled,
+.collectionTab[aria-disabled="true"],.labTab[aria-disabled="true"],
+.hofTopTab[aria-disabled="true"],.hofSubTab[aria-disabled="true"],.duelRankTab[aria-disabled="true"]{
+  opacity:.62;
+  filter:saturate(.55) brightness(.72)!important;
+}
+
+/* Prevent the HUD counters from reflowing when values change (moves, coins,
+   timer, impacts) — a small but noticeable premium-game detail. */
+#movePill,#reactorCounter,#chainCounter,#crystalCounter,#duelTimer,
+.coinVal,#lvCoins,#labCoins,#hofCoins{
+  font-variant-numeric:tabular-nums;
+}
+
+/* Impact feedback is intentionally brief but more legible after the +1-move
+   rule: counter flashes without changing layout. */
+#reactorCounter.hit{
+  transform-origin:center;
+  animation:mxImpactCounterHit .34s cubic-bezier(.2,.85,.25,1) both!important;
+}
+@keyframes mxImpactCounterHit{
+  0%{transform:scale(1);filter:brightness(1)}
+  42%{transform:scale(1.09);filter:brightness(1.55)}
+  100%{transform:scale(1);filter:brightness(1)}
+}
+@media(prefers-reduced-motion:reduce){#reactorCounter.hit{animation:none!important}}
+body.mxReduceMotion #reactorCounter.hit{animation:none!important}
+
+
+/* =====================================================================
+   FINAL R45 POLISH 4 · LABORATORY + TRAINING CENTER MOBILE COMPOSITION
+   Fixes the two release screens reported from iPhone/itch. Layout only.
+   ===================================================================== */
+
+/* Laboratory header: fixed tap targets + a title column that can actually fit
+   Turkish/German without creating the orphaned last-letter line. */
+#labScr .labHead{
+  display:grid!important;
+  grid-template-columns:48px minmax(0,1fr) auto 48px!important;
+  align-items:center!important;
+  gap:8px!important;
+  padding-left:10px!important;
+  padding-right:10px!important;
+}
+#labScr .labHead #labBack,#labScr .labHead #labHome{
+  width:48px!important;height:48px!important;min-width:48px!important;
+  padding:7px 3px!important;
+}
+#labScr .labHead #labTitle{
+  width:100%!important;max-width:none!important;min-width:0!important;
+  margin:0!important;padding:0 2px!important;
+  font-size:clamp(14px,4.05vw,18px)!important;
+  line-height:1!important;letter-spacing:.018em!important;
+  white-space:nowrap!important;word-break:keep-all!important;
+  overflow-wrap:normal!important;text-wrap:nowrap!important;
+  overflow:hidden!important;text-overflow:ellipsis!important;
+}
+#labScr .labCoinBtn{
+  min-width:72px!important;max-width:86px!important;height:44px!important;
+  padding:7px 9px!important;gap:6px!important;font-size:12px!important;
+  white-space:nowrap!important;
+}
+
+/* Four tabs stay in one deliberate row. Labels no longer wrap at random
+   places; the icon/text proportions are identical across all four tabs. */
+#labTabs{
+  display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:6px!important;padding:2px 10px 10px!important;
+}
+#labTabs .labTab{
+  width:100%!important;min-width:0!important;height:48px!important;
+  padding:7px 3px!important;border-radius:13px!important;
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  gap:4px!important;font-size:12px!important;line-height:1!important;
+}
+#labTabs .labTab span{
+  display:block!important;min-width:0!important;
+  font-size:clamp(7.7px,2.08vw,9.5px)!important;
+  line-height:1!important;letter-spacing:.01em!important;
+  white-space:nowrap!important;word-break:keep-all!important;
+  overflow-wrap:normal!important;text-overflow:ellipsis!important;overflow:hidden!important;
+}
+
+/* The lab room was visually much taller than its actual content on iPhone.
+   Compact it while preserving all owned-item placement slots. */
+#labOverviewPane .labRoom{height:214px!important;margin-bottom:10px!important}
+#labOverviewPane .labRoomGlow{top:10px!important;height:70px!important}
+#labOverviewPane .labShelf{top:18px!important}
+#labOverviewPane .labWindow{top:18px!important}
+
+/* Career numbers are too cramped as four narrow tiles on 393/430px phones.
+   Two clean columns read more like a dashboard and stop label fragmentation. */
+@media(max-width:480px){
+  #labCareerStrip{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
+  .labMetric{min-height:76px!important;padding:10px 6px!important;display:flex!important;flex-direction:column!important;justify-content:center!important}
+  .labMetric>span{font-size:20px!important}.labMetric b{font-size:15px!important}.labMetric small{font-size:8.6px!important;line-height:1.15!important}
+}
+@media(max-width:360px){
+  #labScr .labHead{grid-template-columns:44px minmax(0,1fr) 66px 44px!important;gap:6px!important;padding-left:7px!important;padding-right:7px!important}
+  #labScr .labHead #labBack,#labScr .labHead #labHome{width:44px!important;height:44px!important;min-width:44px!important}
+  #labScr .labHead #labTitle{font-size:clamp(12.5px,4vw,14px)!important;letter-spacing:0!important}
+  #labScr .labCoinBtn{min-width:66px!important;max-width:66px!important;padding-left:6px!important;padding-right:6px!important;font-size:10.5px!important}
+  #labTabs{gap:4px!important;padding-left:7px!important;padding-right:7px!important}
+  #labTabs .labTab{height:45px!important;padding-left:2px!important;padding-right:2px!important;gap:2px!important}
+  #labTabs .labTab span{font-size:7.2px!important;letter-spacing:0!important}
+  #labOverviewPane .labRoom{height:198px!important}
+}
+
+/* Training Center: one vertical rhythm, equal-width choices, aligned icons and
+   a single full-width close action. No floating uneven button widths. */
+#modalBox.trainingCenterModal{
+  width:min(91vw,390px)!important;
+  max-height:calc(100dvh - max(18px,var(--sat)) - max(18px,var(--sab)))!important;
+  padding:20px 18px 16px!important;text-align:left!important;
+  overflow-y:auto!important;
+}
+#modalBox.trainingCenterModal .trainingCenterHead{text-align:center!important}
+#modalBox.trainingCenterModal .trainingCenterHead h3{margin:0 0 8px!important}
+#modalBox.trainingCenterModal .trainingCenterHead .msub{margin:0!important;max-width:330px!important;margin-inline:auto!important}
+#modalBox.trainingCenterModal .trainingProgressCard{
+  margin:16px 0 14px!important;padding:13px 14px!important;border-radius:17px!important;
+  background:rgba(120,231,255,.075)!important;border:1px solid rgba(120,231,255,.28)!important;
+}
+#modalBox.trainingCenterModal .trainingProgressTop{
+  display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;align-items:center!important;gap:10px!important;
+  font-weight:900!important;
+}
+#modalBox.trainingCenterModal .trainingProgressTop span{font-size:13px!important;line-height:1.2!important}
+#modalBox.trainingCenterModal .trainingProgressTop strong{font-size:13px!important;white-space:nowrap!important;text-align:right!important}
+#modalBox.trainingCenterModal .trainingProgressTrack{height:8px!important;border-radius:999px!important;background:rgba(255,255,255,.1)!important;overflow:hidden!important;margin-top:10px!important}
+#modalBox.trainingCenterModal .trainingProgressTrack i{display:block!important;height:100%!important;background:linear-gradient(90deg,#78e7ff,#ffd36e)!important;border-radius:999px!important}
+#modalBox.trainingCenterModal .trainingChoiceList{display:grid!important;gap:9px!important;margin:0!important;padding:0!important}
+#modalBox.trainingCenterModal .trainingChoice{
+  width:100%!important;min-height:52px!important;margin:0!important;padding:10px 12px!important;
+  border-radius:14px!important;display:grid!important;grid-template-columns:30px minmax(0,1fr) 18px!important;
+  align-items:center!important;gap:9px!important;text-align:left!important;
+  box-shadow:inset 0 0 0 1px rgba(157,123,255,.38)!important;
+  background:rgba(255,255,255,.07)!important;
+}
+#modalBox.trainingCenterModal .trainingChoice .trainingChoiceIcon{width:30px!important;text-align:center!important;font-size:19px!important;line-height:1!important}
+#modalBox.trainingCenterModal .trainingChoice>span:nth-child(2){font-size:14px!important;line-height:1.2!important;font-weight:850!important;overflow-wrap:normal!important}
+#modalBox.trainingCenterModal .trainingChoice>b{font-size:22px!important;line-height:1!important;color:#b8aaff!important;text-align:right!important}
+#modalBox.trainingCenterModal .trainingCenterClose{
+  width:100%!important;min-height:48px!important;margin-top:13px!important;padding:11px 12px!important;
+  border-radius:14px!important;text-align:center!important;
+}
+@media(max-width:360px),(max-height:650px){
+  #modalBox.trainingCenterModal{width:94vw!important;padding:14px 13px 12px!important}
+  #modalBox.trainingCenterModal .trainingCenterHead h3{font-size:18px!important;margin-bottom:6px!important}
+  #modalBox.trainingCenterModal .trainingCenterHead .msub{font-size:12px!important;line-height:1.3!important}
+  #modalBox.trainingCenterModal .trainingProgressCard{margin:11px 0!important;padding:10px 11px!important}
+  #modalBox.trainingCenterModal .trainingChoiceList{gap:7px!important}
+  #modalBox.trainingCenterModal .trainingChoice{min-height:47px!important;padding:8px 10px!important;grid-template-columns:27px minmax(0,1fr) 16px!important;gap:7px!important}
+  #modalBox.trainingCenterModal .trainingChoice .trainingChoiceIcon{width:27px!important;font-size:17px!important}
+  #modalBox.trainingCenterModal .trainingChoice>span:nth-child(2){font-size:12.5px!important}
+  #modalBox.trainingCenterModal .trainingCenterClose{min-height:44px!important;margin-top:10px!important}
+}
+
+
+/* =====================================================================
+   FINAL R45 POLISH 5 · FULL MOBILE UI SAFETY PASS
+   Targeted release fixes after multi-language / short-phone audit.
+   No gameplay rules, board geometry, progression, story or FX recipes changed.
+   ===================================================================== */
+
+/* Lab tabs: preserve the one-row composition on normal phones, but give the
+   text a little more readable size. On 320/340px devices the icon stacks over
+   the label so long German/Spanish/Portuguese labels fit without ellipsis. */
+#labTabs .labTab span{
+  font-size:clamp(8.2px,2.25vw,9.5px)!important;
+}
+@media(max-width:480px){
+  #labTabs .labTab{
+    height:52px!important;
+    flex-direction:column!important;
+    gap:2px!important;
+    padding:4px 2px!important;
+  }
+  #labTabs .labTab span{
+    width:100%!important;
+    max-width:100%!important;
+    font-size:8.2px!important;
+    line-height:1.05!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+    text-overflow:clip!important;
+  }
+}
+
+/* Collection filters: do not hide the last localized filter off-screen.
+   Mobile uses a clean 2×2 control grid rather than a horizontal scroller. */
+@media(max-width:430px){
+  .collectionTools{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:7px!important;
+    overflow:visible!important;
+    padding:2px 1px 10px!important;
+  }
+  .collectionFilter{
+    width:100%!important;
+    min-width:0!important;
+    padding:7px 8px!important;
+    font-size:10.2px!important;
+    letter-spacing:.25px!important;
+    text-align:center!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+    white-space:nowrap!important;
+  }
+}
+
+/* Settings: very long localized picker names get the whole line on narrow
+   phones; the current value moves underneath instead of squeezing the title. */
+@media(max-width:340px){
+  #modalBox.settingsModal .settingsPickerRow{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr)!important;
+    align-items:start!important;
+    gap:7px!important;
+  }
+  #modalBox.settingsModal .settingsPickerLabel{
+    width:100%!important;
+    max-width:100%!important;
+  }
+  #modalBox.settingsModal .settingsPickerValue{
+    width:100%!important;
+    justify-content:space-between!important;
+  }
+}
+
+/* Splash mascot remains visually edge-aligned, but its interactive box never
+   extends outside the viewport/safe area. */
+@media(max-width:480px){
+  #splash #einBoxS{
+    right:max(5px,var(--sar))!important;
+  }
+}
+
+/* Gameplay action column: a normal level can show Undo, Hint, Hammer,
+   One-Square, Barrier and Restart at the same time. On short phones keep all
+   six genuine 44px+ touch targets above the bottom navigation instead of
+   letting the column overlap it. */
+@media(max-height:720px){
+  #gameScr #actionCol{gap:5px!important;transform:none!important}
+  #gameScr #actionCol .btn.iconBadge{
+    width:52px!important;height:50px!important;
+    min-width:52px!important;min-height:50px!important;
+    padding:4px 3px!important;
+  }
+  #gameScr #actionCol .btn.iconBadge .badgeIcon{
+    width:22px!important;height:22px!important;padding:2px!important;
+  }
+  #gameScr #actionCol .btn.iconBadge small{
+    display:block!important;max-width:46px!important;
+    font-size:6.8px!important;line-height:1!important;letter-spacing:.15px!important;
+    white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;
+  }
+}
+@media(max-height:620px){
+  #gameScr #actionCol{gap:4px!important}
+  #gameScr #actionCol .btn.iconBadge{
+    width:48px!important;height:44px!important;
+    min-width:48px!important;min-height:44px!important;
+    padding:3px 2px!important;
+  }
+  #gameScr #actionCol .btn.iconBadge .badgeIcon{
+    width:19px!important;height:19px!important;padding:1px!important;
+  }
+  #gameScr #actionCol .btn.iconBadge small{
+    max-width:44px!important;font-size:6.2px!important;letter-spacing:0!important;
+  }
+}
+
+
+/* FINAL R45 POLISH 6 · premium atom micro-FX (presentation only) */
+#mxCompletionSnap{
+  position:fixed;z-index:91;pointer-events:none;width:74px;height:74px;
+  transform:translate(-50%,-50%);filter:drop-shadow(0 0 8px var(--mx-snap,#7ee8ff));
+}
+#mxCompletionSnap .ring{position:absolute;left:50%;top:50%;border-radius:50%;transform:translate(-50%,-50%) scale(.2);opacity:0}
+#mxCompletionSnap .ring.a{width:28px;height:28px;border:2px solid var(--mx-snap-hi,#fff);box-shadow:0 0 12px var(--mx-snap,#7ee8ff);animation:mxCompletionRingA .48s cubic-bezier(.15,.8,.2,1) both}
+#mxCompletionSnap .ring.b{width:42px;height:42px;border:1.5px solid var(--mx-snap,#7ee8ff);animation:mxCompletionRingB .58s .045s cubic-bezier(.15,.8,.2,1) both}
+#mxCompletionSnap .flare{position:absolute;left:50%;top:50%;background:linear-gradient(90deg,transparent,var(--mx-snap-hi,#fff),transparent);opacity:0;transform:translate(-50%,-50%) scaleX(.25)}
+#mxCompletionSnap .flare.h{width:68px;height:2px;animation:mxCompletionFlareH .42s .035s ease-out both}
+#mxCompletionSnap .flare.v{width:54px;height:1.5px;transform:translate(-50%,-50%) rotate(90deg) scaleX(.25);animation:mxCompletionFlareV .42s .055s ease-out both}
+#boardFrame.mxCompletionHold{animation:mxCompletionHold .20s ease-out both}
+@keyframes mxCompletionRingA{0%{opacity:0;transform:translate(-50%,-50%) scale(.18)}24%{opacity:1}72%{opacity:.82;transform:translate(-50%,-50%) scale(1.18)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.52)}}
+@keyframes mxCompletionRingB{0%{opacity:0;transform:translate(-50%,-50%) scale(.3)}28%{opacity:.74}100%{opacity:0;transform:translate(-50%,-50%) scale(1.62)}}
+@keyframes mxCompletionFlareH{0%{opacity:0;transform:translate(-50%,-50%) scaleX(.15)}35%{opacity:.9}100%{opacity:0;transform:translate(-50%,-50%) scaleX(1)}}
+@keyframes mxCompletionFlareV{0%{opacity:0;transform:translate(-50%,-50%) rotate(90deg) scaleX(.15)}35%{opacity:.72}100%{opacity:0;transform:translate(-50%,-50%) rotate(90deg) scaleX(1)}}
+@keyframes mxCompletionHold{0%{filter:brightness(1)}45%{filter:brightness(1.075)}100%{filter:brightness(1)}}
+@media(prefers-reduced-motion:reduce){#mxCompletionSnap{display:none!important}#boardFrame.mxCompletionHold{animation:none!important}}
+
+
+/* =====================================================================
+   FINAL R45 POLISH 8 · DR. E SCENE COMPOSITING + PREMIUM TOOLS
+   Presentation-only integration. Existing Dr. E assets and gameplay remain intact.
+   ===================================================================== */
+
+/* Main-menu Dr. E is now composited into the laboratory instead of reading as
+   a hard-cut transparent PNG. The bottom haze deliberately hides the crop edge. */
+#splash #einBoxS{
+  isolation:isolate!important;
+  overflow:visible!important;
+  animation:mxDrEMenuScene 6.4s ease-in-out infinite!important;
+}
+#splash #einBoxS::before{
+  content:"";position:absolute;pointer-events:none;z-index:1;
+  left:10%;right:-4%;top:10%;bottom:2%;border-radius:48% 42% 18% 34%;
+  background:
+    radial-gradient(ellipse at 58% 61%,rgba(84,219,255,.15),rgba(92,89,218,.055) 46%,transparent 72%),
+    radial-gradient(ellipse at 64% 96%,rgba(99,223,255,.14),transparent 54%);
+  filter:blur(3px);opacity:.9;
+}
+#splash #einBoxS .einImg{
+  position:relative!important;z-index:4!important;
+  filter:drop-shadow(-5px -1px 9px rgba(88,224,255,.16)) drop-shadow(7px 7px 16px rgba(3,8,26,.60)) saturate(1.035) contrast(1.015)!important;
+  -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 94%,rgba(0,0,0,.94) 96%,rgba(0,0,0,.55) 98.5%,transparent 100%);
+  mask-image:linear-gradient(to bottom,#000 0%,#000 94%,rgba(0,0,0,.94) 96%,rgba(0,0,0,.55) 98.5%,transparent 100%);
+}
+#splash #einBoxS::after{
+  content:"";position:absolute;pointer-events:none;z-index:9;
+  left:1%;right:-5%;bottom:-1%;height:13%;border-radius:55% 48% 0 0/78% 72% 0 0;
+  background:
+    linear-gradient(180deg,transparent 0%,rgba(58,187,226,.09) 24%,rgba(9,23,49,.54) 63%,rgba(5,13,31,.93) 100%),
+    radial-gradient(ellipse at 58% 12%,rgba(116,236,255,.26),transparent 52%);
+  border-top:1px solid rgba(140,239,255,.18);
+  box-shadow:0 -7px 18px rgba(45,180,224,.08),inset 0 1px rgba(255,255,255,.05);
+}
+@keyframes mxDrEMenuScene{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.8px)}}
+
+/* In-game Dr. E: less cut-out, more embedded laboratory companion. */
+#einBoxG{isolation:isolate!important}
+#einBoxG::before{
+  content:"";position:absolute;pointer-events:none;z-index:0;
+  inset:14% 7% 4% 10%;border-radius:50%;
+  background:radial-gradient(ellipse at 58% 62%,rgba(86,219,255,.115),rgba(119,96,236,.04) 48%,transparent 72%);
+  filter:blur(3px);opacity:.82;
+}
+#einBoxG{filter:drop-shadow(-3px 0 6px rgba(85,223,255,.13)) drop-shadow(5px 6px 11px rgba(3,8,25,.58))}
+#einBoxG .einImg{
+  -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 95%,rgba(0,0,0,.88) 98%,transparent 100%);
+  mask-image:linear-gradient(to bottom,#000 0%,#000 95%,rgba(0,0,0,.88) 98%,transparent 100%);
+}
+#gameScr #einBoxG .einFx::after{
+  content:"";position:absolute;pointer-events:none;z-index:45;
+  left:8%;right:-5%;bottom:-2%;height:11%;border-radius:50% 42% 0 0;
+  background:linear-gradient(180deg,transparent,rgba(39,164,208,.08) 28%,rgba(7,20,43,.72) 82%,rgba(5,13,30,.92));
+  border-top:1px solid rgba(125,232,255,.13);
+}
+
+/* Premium hammer strike: the SVG remains the approved icon; these are only
+   transient contact cues. */
+#mxToolFx.hammer,#mxToolFx.barrier{isolation:isolate}
+#mxToolFx .mxStrikeHammer,#mxToolFx .mxBuildBarrier{position:relative;z-index:3}
+#mxToolFx .mxHammerImpactHalo,
+#mxToolFx .mxHammerImpactFlash,
+#mxToolFx .mxBarrierBuildRing{position:absolute;left:50%;top:58%;pointer-events:none;z-index:1;border-radius:50%}
+#mxToolFx .mxHammerImpactHalo{width:42px;height:42px;border:2px solid rgba(255,239,165,.92);box-shadow:0 0 14px rgba(255,184,64,.72);animation:mxHammerHalo .40s .18s ease-out both}
+#mxToolFx .mxHammerImpactFlash{width:58px;height:3px;background:linear-gradient(90deg,transparent,#fff7c4,transparent);box-shadow:0 0 9px rgba(120,232,255,.72);animation:mxHammerFlash .28s .19s ease-out both}
+#mxToolFx .mxBarrierBuildRing{top:50%;border:1.5px solid rgba(156,247,255,.92);box-shadow:0 0 12px rgba(76,226,255,.55);opacity:0}
+#mxToolFx .mxBarrierBuildRing.a{width:34px;height:34px;animation:mxBarrierRingLock .54s .06s ease-out both}
+#mxToolFx .mxBarrierBuildRing.b{width:52px;height:52px;animation:mxBarrierRingLock .60s .12s ease-out both}
+@keyframes mxHammerHalo{0%{opacity:0;transform:translate(-50%,-50%) scale(.2)}32%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(1.65)}}
+@keyframes mxHammerFlash{0%{opacity:0;transform:translate(-50%,-50%) rotate(-12deg) scaleX(.2)}35%{opacity:.95}100%{opacity:0;transform:translate(-50%,-50%) rotate(-12deg) scaleX(1.25)}}
+@keyframes mxBarrierRingLock{0%{opacity:0;transform:translate(-50%,-50%) scale(1.55)}42%{opacity:.9}100%{opacity:0;transform:translate(-50%,-50%) scale(.58)}}
+
+/* Active booster buttons feel like tools, not generic menu tiles. */
+#btnHammer.on{box-shadow:0 0 0 2px rgba(255,218,112,.34),0 0 20px rgba(255,173,59,.42),inset 0 1px 0 rgba(255,255,255,.22)!important}
+#btnBarrier.on{box-shadow:0 0 0 2px rgba(108,235,255,.32),0 0 22px rgba(63,217,255,.44),inset 0 1px 0 rgba(255,255,255,.22)!important}
+
+@media(prefers-reduced-motion:reduce){
+  #splash #einBoxS{animation:none!important;transform:none!important}
+  #mxToolFx .mxHammerImpactHalo,#mxToolFx .mxHammerImpactFlash,#mxToolFx .mxBarrierBuildRing{display:none!important}
+}
+body.mxReduceMotion #splash #einBoxS{animation:none!important;transform:none!important}
+body.mxReduceMotion #mxToolFx .mxHammerImpactHalo,
+body.mxReduceMotion #mxToolFx .mxHammerImpactFlash,
+body.mxReduceMotion #mxToolFx .mxBarrierBuildRing{display:none!important}
+
+
+/* ================= POLISH 8 INTRO — STUDIO IDENT + LAB CHOREOGRAPHY =================
+   Existing artwork is preserved. This layer only changes timing, compositing and
+   motion so the two identities feel intentional rather than like static splash art. */
+#studioScr{transition:opacity .46s ease,transform .46s cubic-bezier(.2,.72,.2,1)!important}
+#studioScr.fadeOut{opacity:0!important;transform:scale(1.009)!important}
+#studioLogo{animation:studioLogoIn .72s ease-out both!important;will-change:filter,transform,opacity}
+#studioEnergyCore{
+  position:absolute;left:50%;top:41.2%;width:min(43vw,260px);aspect-ratio:1;z-index:2;
+  transform:translate(-50%,-50%) scale(.56);border-radius:50%;pointer-events:none;opacity:0;
+  background:radial-gradient(circle,rgba(226,249,255,.9) 0 4%,rgba(64,188,255,.44) 18%,rgba(31,133,255,.20) 40%,rgba(35,112,255,0) 72%);
+  mix-blend-mode:screen;filter:blur(2px)
+}
+#studioEnergySweep{
+  position:absolute;left:11%;right:11%;top:61.8%;height:2px;z-index:2;pointer-events:none;opacity:0;overflow:visible;
+  background:linear-gradient(90deg,transparent,rgba(60,177,255,.12) 20%,rgba(110,218,255,.8) 50%,rgba(60,177,255,.12) 80%,transparent);
+  box-shadow:0 0 10px rgba(75,188,255,.28);transform:scaleX(.08);transform-origin:center
+}
+#studioScr.started #studioLogo{animation:mxStudioImageSettle 2.05s cubic-bezier(.2,.72,.2,1) both!important}
+#studioScr.started #studioEnergyCore{animation:mxStudioCore 1.42s cubic-bezier(.18,.82,.2,1) .08s both}
+#studioScr.started #studioEnergySweep{animation:mxStudioSweep .72s cubic-bezier(.18,.72,.2,1) .72s both}
+@keyframes mxStudioImageSettle{
+  0%{filter:brightness(.96) saturate(.94);transform:scale(1)}
+  28%{filter:brightness(1.10) saturate(1.12);transform:scale(1.002)}
+  62%{filter:brightness(1.035) saturate(1.04);transform:scale(.999)}
+  100%{filter:brightness(1) saturate(1);transform:scale(1)}
+}
+@keyframes mxStudioCore{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.48);filter:blur(7px)}
+  18%{opacity:.48}
+  42%{opacity:.88;transform:translate(-50%,-50%) scale(1.08);filter:blur(1px)}
+  66%{opacity:.30;transform:translate(-50%,-50%) scale(.96);filter:blur(2px)}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(1.12);filter:blur(5px)}
+}
+@keyframes mxStudioSweep{
+  0%{opacity:0;transform:scaleX(.08)}
+  18%{opacity:.9}
+  60%{opacity:.72;transform:scaleX(1)}
+  100%{opacity:0;transform:scaleX(1.04)}
+}
+#studioTap{min-width:176px!important;padding:10px 17px 9px!important;gap:0!important;flex-direction:column!important;line-height:1.05!important}
+#studioTap b{font-size:12px;font-weight:1000;letter-spacing:.72px;color:#353153}
+#studioTap small{position:static!important;margin-top:5px!important;display:flex;align-items:center;justify-content:center;gap:5px;color:#686188!important;font-size:8.5px!important;line-height:1!important;letter-spacing:.55px!important;text-shadow:none!important}
+#studioTap small i{display:inline-block;width:5px;height:5px;border-radius:50%;background:#38aef7;box-shadow:0 0 7px rgba(56,174,247,.66)}
+#studioScr.started #studioTap{opacity:0!important;pointer-events:none!important;animation:none!important}
+
+/* Two relay attempts before the lamp settles on. */
+#bootBulbGlow.preflash{animation:mxBulbPreflash .20s ease-out both!important}
+#bootBulbGlow.preflash2{animation:mxBulbPreflash2 .22s ease-out both!important}
+@keyframes mxBulbPreflash{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.52)}
+  36%{opacity:.48;transform:translate(-50%,-50%) scale(.86)}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(.66)}
+}
+@keyframes mxBulbPreflash2{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.60)}
+  34%{opacity:.72;transform:translate(-50%,-50%) scale(1.02)}
+  100%{opacity:.05;transform:translate(-50%,-50%) scale(.76)}
+}
+
+/* Keep chemistry dormant until the lamp actually powers the lab. */
+#bootScr.bootSequence #bootLogoHalo{opacity:0!important;animation:none!important}
+#bootScr.bootSequence .bootBub{opacity:0;transition:opacity .42s ease}
+#bootScr.bootSequence .bootAtomGlow{opacity:0!important;animation:none!important}
+#bootScr.bootSequence .bootBondSpark{opacity:0;transition:opacity .32s ease}
+#bootScr.mxBootChem #bootBubTopLeft{opacity:1;transition-delay:.02s}
+#bootScr.mxBootChem #bootBubRightTube{opacity:1;transition-delay:.16s}
+#bootScr.mxBootChem #bootBubFlask{opacity:1;transition-delay:.28s}
+#bootScr.mxBootChem #bootBubTube1{opacity:1;transition-delay:.34s}
+#bootScr.mxBootChem #bootBubTube2{opacity:1;transition-delay:.41s}
+#bootScr.mxBootChem #bootBubTube3{opacity:1;transition-delay:.48s}
+#bootScr.mxBootChem #bootBubTube4{opacity:1;transition-delay:.55s}
+#bootScr.mxBootAtoms #bootGlowH{animation:mxBootAtomWake .62s ease-out .00s both!important,atomGlowPulse 2.9s ease-in-out .62s infinite!important}
+#bootScr.mxBootAtoms #bootGlowO{animation:mxBootAtomWake .62s ease-out .17s both!important,atomGlowPulse 2.9s ease-in-out .79s infinite!important}
+#bootScr.mxBootAtoms #bootGlowC{animation:mxBootAtomWake .62s ease-out .34s both!important,atomGlowPulse 2.9s ease-in-out .96s infinite!important}
+#bootScr.mxBootAtoms .bootBondSpark{opacity:.86;transition-delay:.42s}
+#bootScr.mxBootReveal #bootLogoHalo{opacity:1!important;animation:mxBootHaloProfessional 1.22s ease-out both!important}
+#bootScr.bootFinished #bootLogoHalo{opacity:.52!important;animation:logoHaloPulse 3.8s ease-in-out infinite!important}
+#bootScr.bootFinished .bootAtomGlow{opacity:.72!important}
+#bootScr.bootFinished .bootBondSpark{opacity:.86}
+#bootScr.bootFinished .bootBub{opacity:1}
+#bootScr.bootFinished #bootBulbGlow{opacity:.9}
+
+/* Waiting-for-tap state stays alive without becoming noisy. */
+#bootScr.bootFinished #btnBootPlay.on{animation:mxBootTapPulse 2.15s ease-in-out infinite!important}
+#bootScr.bootFinished #bootShine::after{animation:titleShine 1.75s ease-in-out .65s infinite}
+
+@media(prefers-reduced-motion:reduce){
+  #studioScr.started #studioLogo,#studioScr.started #studioEnergyCore,#studioScr.started #studioEnergySweep,
+  #bootBulbGlow.preflash,#bootBulbGlow.preflash2,#bootScr.mxBootAtoms .bootAtomGlow{animation:none!important}
+  #studioEnergyCore,#studioEnergySweep{display:none!important}
+  #bootScr.bootSequence .bootBub,#bootScr.bootSequence .bootBondSpark{opacity:1!important}
+  #bootScr.bootSequence .bootAtomGlow{opacity:.72!important}
+  #bootScr.bootSequence #bootLogoHalo{opacity:.52!important}
 }

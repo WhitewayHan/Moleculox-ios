@@ -1,7 +1,7 @@
 {
   "name": "Moleculox — Dr. E's Lab",
   "short_name": "Moleculox",
-  "description": "Moleculox v8.5.78 — R38 Native Cache Identity Fix, retaining the R37 cross-account sync protections by wHiTeWaY studio.",
+  "description": "Moleculox v8.5.78 — FINAL R45 web release by Whiteway Studio.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

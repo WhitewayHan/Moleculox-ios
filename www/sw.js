@@ -1,7 +1,7 @@
-// Moleculox V8.5.78 R38 Science Info 1 service worker.
+// Moleculox v8.5.78 — FINAL R45 MASTER service worker.
 // Core code is precached; large audio/story assets are cached only after use.
 // Firebase and Google traffic is never intercepted.
-const CACHE_NAME = 'moleculox-final-r45-ios';
+const CACHE_NAME = 'moleculox-8.5.78-r45-final-master';
 const CACHE_PREFIX = 'moleculox-';
 const CORE_SHELL = [
   './index.html','./css/app.css','./js/sync-core.js','./js/daily-levels.js',
@@ -13,7 +13,11 @@ const CORE_SHELL = [
   './assets/images/bg-default.webp','./assets/images/boot-splash.webp',
   './assets/images/whiteway-studio-intro.png','./assets/images/button-doodle-left.svg',
   './assets/images/button-doodle-right.svg','./assets/images/einstein.webp',
-  './assets/images/professor-null.webp','./assets/images/tier-bg-1.webp',
+  './assets/images/characters/dr-null-canon-r40.webp','./assets/images/characters/null-cat-canon-r40.webp',
+  './assets/images/characters/moxy-canon-r40.webp',
+  './assets/images/worlds/world-quantum-lab-r40.webp','./assets/images/worlds/world-element-island-r40.webp',
+  './assets/images/worlds/world-crystal-cave-r40.webp','./assets/images/worlds/world-orbital-station-r40.webp',
+  './assets/images/tier-bg-1.webp',
   './assets/images/tier-bg-2.webp','./assets/images/tier-bg-3.webp','./assets/images/tier-bg-4.webp',
   './assets/images/dr-e-poses/thinking.png','./assets/images/dr-e-poses/celebrate.png',
   './assets/images/dr-e-poses/clap.png','./assets/images/dr-e-poses/surprised.png',

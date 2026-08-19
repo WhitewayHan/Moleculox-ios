@@ -1,0 +1,10 @@
+MOLECULOX iOS R45 FINAL MASTER — CODEMAGIC READY
+Date: 2026-08-19
+
+- Native iOS/Codemagic/Firebase/App Store wrapper preserved.
+- www/ replaced with Moleculox FINAL R45 MASTER payload.
+- Build identity: 8.5.78-r45-final-master.
+- Native Sign in with Apple restored/enabled only when the iOS Firebase auth plugin is ready.
+- Apple entitlement, GoogleService-Info.plist and nonce/Firebase bridge preserved.
+- iPhone-only App Store target preserved.
+- Ready for Codemagic workflow: moleculox-ios-app-store.

@@ -1,4 +1,4 @@
-/* Moleculox R38 Story Final — schema 8. Narration/dialogue separated; user-approved canon characters and supplied story art. */
+/* Moleculox FINAL R45 Story Canon — schema 9. Narration/dialogue separated; approved canon characters and supplied color story art. */
 (function(root){
   'use strict';
   const universe={
