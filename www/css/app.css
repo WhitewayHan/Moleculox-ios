@@ -9095,7 +9095,7 @@ body.mxReduceMotion #mxToolFx .mxBarrierBuildRing{display:none!important}
    motion so the two identities feel intentional rather than like static splash art. */
 #studioScr{transition:opacity .46s ease,transform .46s cubic-bezier(.2,.72,.2,1)!important}
 #studioScr.fadeOut{opacity:0!important;transform:scale(1.009)!important}
-#studioLogo{animation:studioLogoIn .72s ease-out both!important;will-change:filter,transform,opacity}
+#studioLogo{background:transparent!important;animation:studioLogoIn .72s ease-out both!important;will-change:transform,opacity}
 #studioEnergyCore{
   position:absolute;left:50%;top:41.2%;width:min(43vw,260px);aspect-ratio:1;z-index:2;
   transform:translate(-50%,-50%) scale(.56);border-radius:50%;pointer-events:none;opacity:0;
@@ -9111,10 +9111,12 @@ body.mxReduceMotion #mxToolFx .mxBarrierBuildRing{display:none!important}
 #studioScr.started #studioEnergyCore{animation:mxStudioCore 1.42s cubic-bezier(.18,.82,.2,1) .08s both}
 #studioScr.started #studioEnergySweep{animation:mxStudioSweep .72s cubic-bezier(.18,.72,.2,1) .72s both}
 @keyframes mxStudioImageSettle{
-  0%{filter:brightness(.96) saturate(.94);transform:scale(1)}
-  28%{filter:brightness(1.10) saturate(1.12);transform:scale(1.002)}
-  62%{filter:brightness(1.035) saturate(1.04);transform:scale(.999)}
-  100%{filter:brightness(1) saturate(1);transform:scale(1)}
+  /* Keep the PNG's pure-white canvas identical to the full-screen white stage.
+     Filtering the whole image darkened its white canvas and exposed a rectangular frame. */
+  0%{filter:none;transform:scale(1)}
+  28%{filter:none;transform:scale(1.002)}
+  62%{filter:none;transform:scale(.999)}
+  100%{filter:none;transform:scale(1)}
 }
 @keyframes mxStudioCore{
   0%{opacity:0;transform:translate(-50%,-50%) scale(.48);filter:blur(7px)}
