@@ -9186,3 +9186,495 @@ body.mxReduceMotion #mxToolFx .mxBarrierBuildRing{display:none!important}
   #bootScr.bootSequence .bootAtomGlow{opacity:.72!important}
   #bootScr.bootSequence #bootLogoHalo{opacity:.52!important}
 }
+
+/* =====================================================================
+   FINAL R45 AAA BUTTON / LABEL POLISH
+   Release-blocking control pass: optical centering, predictable wrapping,
+   language-safe labels and consistent touch geometry. No gameplay rules.
+   ===================================================================== */
+:root{
+  --mx-aa-btn-h:46px;
+  --mx-aa-btn-r:15px;
+  --mx-aa-btn-font:clamp(12px,3.25vw,15px);
+  --mx-aa-btn-line:1.13;
+}
+
+/* The native button element itself must never become wider than its card/screen. */
+button,a.btn{
+  max-width:100%;
+  box-sizing:border-box;
+  font-family:inherit;
+}
+
+/* Standard action buttons: center the complete label block horizontally and
+   vertically. Long localized copy may use two lines instead of clipping. */
+.btn:not(.iconBadge):not(.mt):not(.profileBtn){
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+  min-width:0!important;
+  white-space:normal!important;
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+  hyphens:auto;
+  text-wrap:balance;
+  line-height:var(--mx-aa-btn-line)!important;
+}
+.btn:not(.iconBadge):not(.mt):not(.profileBtn)>span,
+.btn:not(.iconBadge):not(.mt):not(.profileBtn)>b,
+.btn:not(.iconBadge):not(.mt):not(.profileBtn)>small{
+  min-width:0;
+  max-width:100%;
+}
+
+/* Main menu: remove historical optical nudges. The CTA column and every label
+   now use the same mathematical center. */
+#splash #splashBtns{
+  transform:none!important;
+  align-items:stretch!important;
+}
+#splashBtns .btn:not(.iconBadge){
+  width:100%!important;
+  min-height:46px!important;
+  padding:9px clamp(18px,5.4vw,30px)!important;
+  font-size:clamp(13px,3.75vw,16px)!important;
+  line-height:1.12!important;
+  letter-spacing:.22px!important;
+  text-align:center!important;
+}
+#splash #btnCollect > span[data-i18n="myMolsLabel"]{
+  position:static!important;
+  left:auto!important;
+  transform:none!important;
+}
+
+/* Shared modal action system. Auto-fit columns collapse to one column when a
+   translated pair would become too narrow, instead of squeezing or clipping. */
+#modalBox .mrow{
+  display:grid!important;
+  grid-template-columns:repeat(auto-fit,minmax(min(142px,100%),1fr))!important;
+  align-items:stretch!important;
+  justify-content:center!important;
+  gap:10px!important;
+  width:100%!important;
+}
+#modalBox .mrow>.btn{
+  width:100%!important;
+  min-width:0!important;
+  min-height:44px!important;
+  margin:0!important;
+  padding:9px 12px!important;
+  font-size:clamp(11.5px,3.15vw,14.5px)!important;
+  line-height:1.14!important;
+  text-align:center!important;
+  white-space:normal!important;
+  overflow:visible!important;
+}
+#modalBox .mrow>.btn.green,
+#modalBox .mrow>.btn.amber,
+#modalBox .mxFirstUseActions .btn,
+#modalBox .modalFixedClose .btn{
+  min-height:46px!important;
+}
+#modalBox .accountActions .btn,
+#modalBox .settingsActions .btn,
+#modalBox .aboutActions .btn,
+#modalBox .mtclose,
+#modalBox .trainingCenterClose,
+#modalBox .languageSheetCancel{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+  width:100%!important;
+  min-width:0!important;
+  min-height:44px!important;
+  padding:9px 12px!important;
+  font-size:clamp(11.5px,3.15vw,14.5px)!important;
+  line-height:1.14!important;
+  white-space:normal!important;
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+  text-wrap:balance;
+}
+
+/* Confirmation dialogs with verbose German/Portuguese/Japanese copy become a
+   deliberate vertical stack on the smallest phones. */
+@media(max-width:360px){
+  #modalBox .mrow{grid-template-columns:1fr!important}
+  #modalBox .mrow>.btn{min-height:44px!important;font-size:clamp(11px,3.7vw,13.5px)!important}
+}
+
+/* Result actions are short and frequent; retain the two-column rhythm on
+   normal phones, but permit a safe single-column fallback on very narrow UI. */
+#modalBox.winResultModal>.mrow{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:8px!important;
+}
+#modalBox.winResultModal>.mrow>.btn{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+  white-space:normal!important;
+  min-width:0!important;
+}
+@media(max-width:335px){
+  #modalBox.winResultModal>.mrow{grid-template-columns:1fr!important}
+}
+
+/* Top-level tab families. No ellipsis and no one-line clipping: translated
+   labels receive a centered two-line lane with a stable tap target. */
+.collectionTab,.labTab,.hofTopTab,.hofSubTab,.duelRankTab{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+  min-width:0!important;
+  white-space:normal!important;
+  overflow:visible!important;
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+  hyphens:auto;
+  text-wrap:balance;
+  line-height:1.08!important;
+}
+#collectionTabs .collectionTab{
+  min-height:48px!important;
+  padding:6px 3px!important;
+  gap:3px!important;
+  flex-direction:column!important;
+  font-size:clamp(8.6px,2.45vw,10.5px)!important;
+}
+#collectionTabs .collectionTab span{
+  display:block!important;
+  width:100%!important;
+  white-space:normal!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+  line-height:1.05!important;
+}
+#labTabs .labTab{
+  min-height:54px!important;
+  height:auto!important;
+  padding:5px 2px!important;
+  flex-direction:column!important;
+  gap:2px!important;
+}
+#labTabs .labTab span{
+  display:block!important;
+  width:100%!important;
+  max-width:100%!important;
+  white-space:normal!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+  word-break:normal!important;
+  overflow-wrap:normal!important;
+  line-height:1.05!important;
+  font-size:clamp(7.6px,2.15vw,9.3px)!important;
+  text-align:center!important;
+}
+#hofTopTabs .hofTopTab{
+  min-height:46px!important;
+  padding:7px 5px!important;
+  font-size:clamp(9px,2.6vw,11.5px)!important;
+}
+#hofSubTabs .hofSubTab,#duelRankTabs .duelRankTab{
+  min-height:40px!important;
+  padding:6px 3px!important;
+  font-size:clamp(8.2px,2.35vw,10px)!important;
+}
+
+/* Collection filter row: previous ellipsis could hide a translated filter.
+   A compact two-line button is preferable to truncated copy. */
+.collectionFilter{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+  min-width:0!important;
+  min-height:38px!important;
+  padding:6px 8px!important;
+  line-height:1.08!important;
+  white-space:normal!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+  text-wrap:balance;
+}
+@media(max-width:430px){
+  .collectionFilter{font-size:clamp(9px,2.7vw,10.5px)!important}
+}
+
+/* In-game action tower and bottom navigation. Compact labels are always
+   centered under their icon and can wrap to two very short lines. */
+#actionCol .act,#navBtns .navB{
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+}
+#actionCol .act small{
+  display:block!important;
+  width:100%!important;
+  max-width:52px!important;
+  margin:0 auto!important;
+  font-size:clamp(7.2px,1.95vw,8.3px)!important;
+  line-height:1.02!important;
+  letter-spacing:.12px!important;
+  white-space:normal!important;
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+  text-align:center!important;
+}
+#navBtns .navB small{
+  display:block!important;
+  width:100%!important;
+  max-width:48px!important;
+  margin:0 auto!important;
+  font-size:clamp(6.7px,1.8vw,7.5px)!important;
+  line-height:1.02!important;
+  letter-spacing:.08px!important;
+  white-space:normal!important;
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+  text-align:center!important;
+}
+
+/* Simple secondary buttons that are not .btn. */
+.languageSheetCancel,.onlineQuickMsgBtn,.onlineQuickTrayClose,
+.onlineSpectatorLeave,.hofRefreshBtn,.storySkipText{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+  min-width:0!important;
+  max-width:100%!important;
+  white-space:normal!important;
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+  line-height:1.12!important;
+}
+.onlineQuickMsgBtn{padding:8px 9px!important;font-size:clamp(10px,2.8vw,12px)!important}
+
+/* Rich card-buttons keep their intentional icon/copy layout, but their label
+   cells are protected from overflow. */
+.trainingChoice,.duelChoice,.bonusModeCard,.bonusMissionCard,.moleculoCard,
+.mechanicGuideRow,.languageSheetChoice,.settingsPickerRow,.languageSettingRow{
+  max-width:100%!important;
+  box-sizing:border-box!important;
+}
+.trainingChoice>span:nth-child(2),
+.duelChoice>b,.duelChoice>small,
+.bonusModeCard b,.bonusModeCard small,
+.bonusMissionCard b,.bonusMissionCard span,.bonusMissionCard em,.bonusMissionCard small,
+.moleculoCard b,.moleculoCard small,
+.mechanicGuideRow b,.mechanicGuideRow small{
+  min-width:0!important;
+  max-width:100%!important;
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+  white-space:normal!important;
+}
+
+/* Laboratory purchase/equip/reward actions use the same polished CTA lane. */
+.labBuy,.labEquip,.missionClaim,.rewardSpotBtn{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+  width:100%!important;
+  min-width:0!important;
+  min-height:40px!important;
+  padding:7px 8px!important;
+  font-size:clamp(9px,2.55vw,11px)!important;
+  line-height:1.08!important;
+  white-space:normal!important;
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+  text-wrap:balance;
+}
+
+/* Profile rows are information-rich list controls, not centered CTAs. Keep the
+   identity layout but guarantee that the right-side delete control is centered. */
+#profileScr .profileDel,.accountCloseX,.dbtn,.mtplay,.tog,.iconbtn{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+}
+
+/* Long-language safety: preserve readable type before shrinking below 10px. */
+html[lang="de"] #modalBox .mrow>.btn,
+html[lang="pt"] #modalBox .mrow>.btn,
+html[lang="es"] #modalBox .mrow>.btn{
+  letter-spacing:0!important;
+}
+html[lang="ja"] button,
+html[lang="ja"] .btn{
+  letter-spacing:0!important;
+  word-break:keep-all!important;
+}
+
+/* Short phones: spacing is reduced before typography, maintaining touch size. */
+@media(max-height:680px){
+  #splashBtns .btn:not(.iconBadge){min-height:42px!important;padding-top:7px!important;padding-bottom:7px!important}
+  #labTabs .labTab{min-height:48px!important}
+  #collectionTabs .collectionTab{min-height:44px!important}
+  #modalBox .mrow>.btn{min-height:42px!important;padding-top:8px!important;padding-bottom:8px!important}
+}
+
+/* Text buttons without the shared .btn class still follow the same release rules. */
+#bannerDiscover,#tutorialSkip{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+  max-width:min(92vw,360px)!important;
+  white-space:normal!important;
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+  line-height:1.1!important;
+  text-wrap:balance;
+}
+#bannerDiscover{min-height:34px!important}
+#tutorialSkip{min-height:36px!important;padding:7px 11px!important}
+#btnAbout,#hofNameEdit,#storySkip{
+  display:grid!important;
+  place-items:center!important;
+  text-align:center!important;
+}
+/* Remaining icon/value buttons found by the full button-tag coverage scan. */
+#labCoinChip,.molFav{display:flex!important;align-items:center!important;justify-content:center!important;text-align:center!important}
+
+/* Main-menu dock labels keep their designed two-line hierarchy but are never
+   optically left/right biased after localization. */
+.learningDockMain,.learningDockMini,.guideDockMain,.guideDockMini,
+.labDockMain,.labDockMini,.duelMini,.duelVs,.trophyMini{
+  max-width:100%!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  text-align:center!important;
+  white-space:normal!important;
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+  line-height:1.02!important;
+}
+
+/* ========================================================================
+   R45 FINAL — proportional CTA + compact dock polish
+   Real-device follow-up from itch.io iPhone QA.
+   Goals: readable compact bottom labels, proportional training CTAs,
+   unclipped green/guided buttons, and more usable account/player actions.
+   ======================================================================== */
+
+/* Bottom in-game navigation: keep the 52px touch target, but make long
+   localized labels live inside it instead of looking squeezed outside. */
+#navBtns .navB{
+  width:52px!important;
+  height:64px!important;
+  min-width:52px!important;
+  box-sizing:border-box!important;
+  padding-left:3px!important;
+  padding-right:3px!important;
+  overflow:visible!important;
+}
+#navBtns .navB small{
+  max-width:100%!important;
+  padding:0!important;
+  font-size:7px!important;
+  line-height:1!important;
+  letter-spacing:-.10px!important;
+  white-space:nowrap!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+  transform:none!important;
+}
+/* Turkish MOLEKÜLLER is the longest dock label in the current release. */
+html[lang="tr"] #btnMols small{font-size:6.35px!important;letter-spacing:-.22px!important}
+html[lang="de"] #btnMols small{font-size:6.55px!important;letter-spacing:-.18px!important}
+html[lang="pt"] #btnMols small,html[lang="es"] #btnMols small{font-size:6.45px!important;letter-spacing:-.18px!important}
+
+/* Training experiment CTAs: both actions belong to the same visual scale.
+   They are intentionally a touch smaller than the previous release. */
+#modalBox #mMechanicTry,
+#modalBox #mMechanicNext,
+#modalBox #mMechanicRepeat,
+#modalBox #mMechanicContinue{
+  width:min(82%,310px)!important;
+  min-width:0!important;
+  min-height:43px!important;
+  height:auto!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  padding:9px 14px!important;
+  border-radius:15px!important;
+  font-size:clamp(12.5px,3.45vw,14.5px)!important;
+  line-height:1.08!important;
+  letter-spacing:.12px!important;
+  box-sizing:border-box!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+  white-space:normal!important;
+  text-wrap:balance!important;
+  overflow:visible!important;
+}
+#modalBox:has(#mMechanicTry) .mrow,
+#modalBox:has(#mMechanicContinue) .mrow{
+  width:100%!important;
+  gap:9px!important;
+  padding:0 8px 5px!important;
+  overflow:visible!important;
+  box-sizing:border-box!important;
+}
+
+/* Green / guided modal CTAs need real breathing room around their glow.
+   The previous broad rule could visually clip the left halo on iPhone. */
+#modalBox .btn.green,
+#modalBox .mxGuidedTarget.btn{
+  max-width:calc(100% - 24px)!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  box-sizing:border-box!important;
+  overflow:visible!important;
+  background-clip:padding-box!important;
+}
+#modalBox .mrow{overflow:visible!important}
+
+/* Account & Players: prior compact-phone overrides made these actions feel
+   undersized relative to the rest of the game. Raise them one tier without
+   turning them into oversized primary CTAs. */
+#modalBox.accountModal .accountActions{
+  gap:7px!important;
+}
+#modalBox.accountModal .accountActions .btn{
+  min-height:44px!important;
+  padding:9px 10px!important;
+  border-radius:14px!important;
+  font-size:clamp(12.2px,3.35vw,13.6px)!important;
+  line-height:1.12!important;
+  letter-spacing:.08px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+  white-space:normal!important;
+}
+#modalBox.accountModal .accountActions .btn.google::before{
+  width:21px!important;height:21px!important;font-size:14px!important;flex:0 0 21px!important;
+}
+
+@media(max-width:370px){
+  #navBtns .navB small{font-size:6.7px!important}
+  html[lang="tr"] #btnMols small{font-size:6.05px!important}
+  #modalBox #mMechanicTry,#modalBox #mMechanicNext,#modalBox #mMechanicRepeat,#modalBox #mMechanicContinue{
+    width:min(84%,290px)!important;font-size:12.4px!important;padding-left:10px!important;padding-right:10px!important;
+  }
+}
+@media(max-height:650px){
+  #modalBox.accountModal .accountActions .btn{min-height:41px!important;padding-top:7px!important;padding-bottom:7px!important}
+}

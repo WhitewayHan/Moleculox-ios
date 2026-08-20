@@ -1,7 +1,7 @@
 // Moleculox v8.5.78 — FINAL R45 MASTER service worker.
 // Core code is precached; large audio/story assets are cached only after use.
 // Firebase and Google traffic is never intercepted.
-const CACHE_NAME = 'moleculox-8.5.78-r45-final-ios-whiteway-native-fullscreen';
+const CACHE_NAME = 'moleculox-8.5.78-r45-ui-proportion-final-ios';
 const CACHE_PREFIX = 'moleculox-';
 const CORE_SHELL = [
   './index.html','./css/app.css','./js/sync-core.js','./js/daily-levels.js',
