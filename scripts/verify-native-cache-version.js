@@ -9,7 +9,7 @@ const must = (condition, message) => {
 
 const version = '8.5.78';
 const buildId = '8.5.78-r45-final-master';
-const uiToken = '8.5.78-r45-final-master';
+const cssToken = '8.5.78-r45-final-ios-whiteway-native-fullscreen';
 
 const index = read('www/index.html');
 const game = read('www/js/game.js');
@@ -20,12 +20,12 @@ const codemagic = read('codemagic.yaml');
 const patchIos = read('scripts/patch-ios.py');
 
 const expected = {
-  'css/app.css': uiToken,
+  'css/app.css': cssToken,
   'js/sync-core.js': buildId,
   'js/daily-levels.js': buildId,
   'js/campaign-levels.js': buildId,
   'js/level-fx-recipes.js': buildId,
-  'js/game.js': uiToken,
+  'js/game.js': buildId,
   'js/firebase.js': buildId,
   'js/story-universe.js': buildId,
 };
@@ -40,6 +40,6 @@ must(pkg.version === version, 'package.json version does not match FINAL R45');
 must(manifest.version === version, 'manifest version does not match FINAL R45');
 must(codemagic.includes(`CFBundleShortVersionString ${version}`), 'Codemagic TestFlight version does not match FINAL R45');
 must(patchIos.includes(`'MARKETING_VERSION':'${version}'`), 'Generated Xcode marketing version does not match FINAL R45');
-must(sw.includes(`const CACHE_NAME = 'moleculox-8.5.78-r45-final-master';`), 'Service-worker cache does not match FINAL R45 MASTER');
+must(sw.includes(`const CACHE_NAME = 'moleculox-8.5.78-r45-final-ios-whiteway-native-fullscreen';`), 'Service-worker cache does not match iOS Whiteway fullscreen build');
 
 console.log('FINAL R45 native asset cache/version checks passed.');
