@@ -4602,7 +4602,7 @@ body.mxReduceMotion #board.mxLevelWin,body.mxReduceMotion #bannerWrap.on[data-mo
 /* Native WKWebView uses the full device viewport, unlike Safari's shorter visual
    viewport. These final overrides preserve the web proportions while accounting
    for that extra native height. */
-body.mxNative #studioLogo{width:88%!important;height:88%!important;object-fit:contain!important;object-position:center!important}
+body.mxNative #studioLogo{width:100%!important;height:100%!important;object-fit:contain!important;object-position:center!important;background:#fff!important}
 body.mxNative #logoWrap{transform:scale(.92);transform-origin:center top}
 body.mxNative #logoTitle{font-size:clamp(40px,11.7vw,56px)!important;letter-spacing:.5px!important}
 body.mxNative #logoTop{font-size:14px!important;letter-spacing:4.4px!important}
