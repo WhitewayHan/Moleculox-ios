@@ -1,5 +1,5 @@
 import {initializeApp} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
-import {initializeAppCheck, ReCaptchaV3Provider} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app-check.js";
+import {initializeAppCheck, ReCaptchaV3Provider, CustomProvider} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app-check.js";
 import {
   getAuth, initializeAuth, setPersistence, indexedDBLocalPersistence, browserLocalPersistence,
   signInAnonymously, onAuthStateChanged,
@@ -26,7 +26,8 @@ const firebaseConfig = {
   measurementId: "G-XTL1FWK41K",
 };
 
-// App Check stays optional until a real reCAPTCHA v3 site key is registered.
+// Native builds use Play Integrity/App Attest through the Capacitor plugin.
+// Web App Check stays optional until a real reCAPTCHA v3 site key is registered.
 const RECAPTCHA_V3_SITE_KEY = "REPLACE_WITH_YOUR_RECAPTCHA_V3_SITE_KEY";
 const SECURE_BACKEND_ENABLED = false;
 const CLOUD_FUNCTIONS_ENABLED = false;
@@ -36,6 +37,7 @@ let db = null;
 let analytics = null;
 let auth = null;
 let fx = null;
+let appCheckConfigured = false;
 let uid = null;
 let currentUser = null;
 // R36: every Firebase UID transition advances a generation counter. Any
@@ -58,7 +60,8 @@ const authListeners = new Set();
 // iframe or flaky network stalls a Firestore request. The underlying SDK may
 // still complete later, but the caller always receives a deterministic result.
 const CLOUD_OPERATION_TIMEOUT_MS = 15000;
-const MX_NATIVE_AUTH_HOST = /^(capacitor|ionic):$/i.test(location.protocol) || (location.hostname === "localhost" && /iPhone|iPad|iPod/i.test(navigator.userAgent || ""));
+const MX_NATIVE_PLATFORM = !!(window.Capacitor && typeof window.Capacitor.isNativePlatform === "function" && window.Capacitor.isNativePlatform()) || /^(capacitor|ionic):$/i.test(location.protocol);
+const MX_NATIVE_AUTH_HOST = MX_NATIVE_PLATFORM || (location.hostname === "localhost" && /iPhone|iPad|iPod/i.test(navigator.userAgent || ""));
 function withBootstrapTimeout(promise, timeoutMs = 6500) {
   let timer = null;
   const timeout = new Promise((resolve) => { timer = setTimeout(resolve, Math.max(1000, Number(timeoutMs) || 6500)); });
@@ -74,6 +77,42 @@ function withCloudTimeout(promise, label, timeoutMs = CLOUD_OPERATION_TIMEOUT_MS
     }, Math.max(1000, Number(timeoutMs) || CLOUD_OPERATION_TIMEOUT_MS));
   });
   return Promise.race([Promise.resolve(promise), timeout]).finally(() => clearTimeout(timer));
+}
+
+function nativeFirebaseAppCheckPlugin() {
+  try {
+    const cap = window.Capacitor;
+    if (!cap || !MX_NATIVE_PLATFORM) return null;
+    if (cap.Plugins && cap.Plugins.FirebaseAppCheck) return cap.Plugins.FirebaseAppCheck;
+    if (typeof cap.registerPlugin === "function") {
+      if (!window.__MXFirebaseAppCheckPlugin) window.__MXFirebaseAppCheckPlugin = cap.registerPlugin("FirebaseAppCheck");
+      return window.__MXFirebaseAppCheckPlugin;
+    }
+  } catch (e) {}
+  return null;
+}
+async function configureAppCheck(app) {
+  try {
+    const nativePlugin = nativeFirebaseAppCheckPlugin();
+    if (nativePlugin && typeof nativePlugin.initialize === "function" && typeof nativePlugin.getToken === "function") {
+      await withCloudTimeout(nativePlugin.initialize({isTokenAutoRefreshEnabled: true}), "app-check/native-init-timeout", 6500);
+      const provider = new CustomProvider({getToken: () => nativePlugin.getToken({forceRefresh: false})});
+      initializeAppCheck(app, {provider, isTokenAutoRefreshEnabled: true});
+      appCheckConfigured = true;
+      return true;
+    }
+    if (!MX_NATIVE_PLATFORM && RECAPTCHA_V3_SITE_KEY && RECAPTCHA_V3_SITE_KEY.indexOf("REPLACE_WITH") !== 0) {
+      initializeAppCheck(app, {
+        provider: new ReCaptchaV3Provider(RECAPTCHA_V3_SITE_KEY),
+        isTokenAutoRefreshEnabled: true,
+      });
+      appCheckConfigured = true;
+      return true;
+    }
+  } catch (e) {
+    console.warn("[MXCloud] App Check not initialized:", e && (e.code || e.message));
+  }
+  return false;
 }
 
 function cloneCloudSnapshot(value) {
@@ -256,16 +295,9 @@ try {
     auth = getAuth(app);
   }
   fx = getFunctions(app, FUNCTIONS_REGION);
-  try {
-    if (RECAPTCHA_V3_SITE_KEY && RECAPTCHA_V3_SITE_KEY.indexOf("REPLACE_WITH") !== 0) {
-      initializeAppCheck(app, {
-        provider: new ReCaptchaV3Provider(RECAPTCHA_V3_SITE_KEY),
-        isTokenAutoRefreshEnabled: true,
-      });
-    }
-  } catch (e) {
-    console.warn("[MXCloud] App Check not initialized:", e && e.message);
-  }
+  // Native attestation is initialized through the Capacitor plugin and bridged
+  // into the Firebase JS SDK. Failure is non-fatal until console enforcement is enabled.
+  await configureAppCheck(app);
   // R36 native reliability: iOS already has a synchronous UID-scoped local
   // progress vault and a persistent retry checkpoint. Do not layer Firestore's
   // IndexedDB multi-tab cache on top of WKWebView as well. Web keeps the
@@ -701,6 +733,16 @@ async function deleteAccountAndData() {
     removals.push(deleteDoc(item.ref));
     if (profileId) { removals.push(deleteDoc(doc(db, "leaderboard", user.uid + "_" + profileId))); removals.push(deleteDoc(doc(db, "duelLeaderboard", user.uid + "_" + profileId))); }
   });
+  // Reports authored by this account are user data too. Remove them while the
+  // owner is still authenticated and the owner-scoped Firestore rule applies.
+  try {
+    const reports = await getDocs(query(collection(db, "playerNameReports"), where("reporterUid", "==", user.uid)));
+    reports.forEach((item) => removals.push(deleteDoc(item.ref)));
+  } catch (e) {
+    // Keep account deletion available on projects that have not deployed the
+    // R46 moderation rule yet; the release checklist covers backend retention.
+    console.warn("[MXCloud] report cleanup skipped:", e && e.code);
+  }
   // Never delete the Authentication account after a partial cloud cleanup.
   // Promise.all surfaces the failure so the UI can ask the player to retry.
   await Promise.all(removals);
@@ -709,8 +751,23 @@ async function deleteAccountAndData() {
   return true;
 }
 
+function normalizedPublicNameKey(value) {
+  return String(value || "")
+    .normalize("NFKD").replace(/[\u0300-\u036f]/g, "")
+    .toLocaleLowerCase("en-US")
+    .replace(/[@4]/g, "a").replace(/3/g, "e").replace(/[1!|]/g, "i").replace(/0/g, "o").replace(/[5$]/g, "s")
+    .replace(/[^a-z0-9]/g, "");
+}
+function isAllowedPublicName(value) {
+  const key = normalizedPublicNameKey(value);
+  if (!key) return !!String(value || "").trim();
+  const exact = new Set(["fuck", "shit", "cunt", "nazi", "hitler", "amk", "pic", "porn"]);
+  const severe = ["motherfucker", "faggot", "nigger", "nigga", "orospu", "siktir", "yarrak"];
+  return !exact.has(key) && !severe.some((part) => key.includes(part));
+}
 function cleanName(v) {
-  return String(v || "Player").replace(/[<>]/g, "").trim().slice(0, 18) || "Player";
+  const name = String(v || "Player").replace(/[\u0000-\u001f\u007f<>]/g, "").replace(/\s+/g, " ").trim().slice(0, 18) || "Player";
+  return isAllowedPublicName(name) ? name : "Player";
 }
 
 // R5 — keep legacy/default placeholder profiles out of every public ranking.
@@ -1420,13 +1477,35 @@ async function deleteCloudProfile(profileId) {
   }
 }
 
-async function reportPlayerName(targetBoardId, reason) {
+async function reportPlayerName(targetBoardId, reason, details = {}) {
   try {
     await readyPromise;
-    if (!CLOUD_FUNCTIONS_ENABLED || !fx || !uid) return {ok: false, reason: "disabled"};
-    const call = httpsCallable(fx, "reportPlayerName");
-    await call({targetBoardId, reason});
-    return {ok: true};
+    if (!db || !uid || !currentUser || currentUser.isAnonymous) return {ok: false, reason: "account-required"};
+    const cleanBoardId = String(targetBoardId || "").replace(/[^A-Za-z0-9_-]/g, "").slice(0, 180);
+    if (!cleanBoardId || cleanBoardId === uid || cleanBoardId.startsWith(uid + "_")) return {ok: false, reason: "invalid-target"};
+    const payload = {
+      reporterUid: uid,
+      targetBoardId: cleanBoardId,
+      targetUid: String(details.targetUid || "").replace(/[^A-Za-z0-9_-]/g, "").slice(0, 128),
+      targetProfileId: safeProfileId(details.targetProfileId),
+      targetName: cleanName(details.targetName),
+      source: String(details.source || "ranking").replace(/[^a-z-]/g, "").slice(0, 32) || "ranking",
+      reason: reason === "inappropriate_name" ? reason : "inappropriate_name",
+      status: "open",
+      clientBuild: String(window.__MX_BUILD_ID__ || "unknown").slice(0, 100),
+      expiresAt: new Date(Date.now() + 180 * 24 * 60 * 60 * 1000),
+      updatedAt: serverTimestamp(),
+    };
+    if (CLOUD_FUNCTIONS_ENABLED && fx) {
+      const call = httpsCallable(fx, "reportPlayerName");
+      await call(payload);
+      return {ok: true, via: "function"};
+    }
+    const reportId = (uid + "_" + cleanBoardId).slice(0, 360);
+    const reportRef = doc(db, "playerNameReports", reportId);
+    const existingReport = await getDoc(reportRef);
+    await setDoc(reportRef, existingReport.exists() ? payload : Object.assign({createdAt: serverTimestamp()}, payload), {merge: true});
+    return {ok: true, via: "firestore"};
   } catch (e) {
     console.warn("[MXCloud] reportPlayerName failed:", e && e.code, e && e.message);
     return {ok: false, reason: (e && e.code) || "error"};
@@ -1523,7 +1602,7 @@ function leaderboardRowsFromSnapshot(snap, n, mapper) {
   const rows = [];
   snap.forEach((d) => {
     let row = Object.assign({id: d.id}, d.data() || {});
-    if (isPlaceholderPlayerName(row.playerName)) return;
+    if (isPlaceholderPlayerName(row.playerName) || !isAllowedPublicName(row.playerName)) return;
     if (typeof mapper === "function") row = mapper(row);
     if (row) rows.push(row);
   });
@@ -1631,7 +1710,7 @@ async function getChampions(n) {
     if (!db) return null;
     const snap = await getDocs(query(collection(db, "champions"), orderBy("archivedAt", "desc"), limit(n || 50)));
     const rows = [];
-    snap.forEach((d) => { const row=d.data()||{}; if(!isPlaceholderPlayerName(row.playerName||row.name)) rows.push(row); });
+    snap.forEach((d) => { const row=d.data()||{}; if(!isPlaceholderPlayerName(row.playerName||row.name)&&isAllowedPublicName(row.playerName||row.name)) rows.push(row); });
     cachedChamps = rows; cachedChampsT = Date.now();
     return rows;
   } catch (e) {
@@ -1667,8 +1746,8 @@ function loadDuelClientId() {
 const duelClientId = loadDuelClientId();
 
 function cleanDuelName(value, fallback) {
-  const name = String(value || "").replace(/[<>]/g, "").trim().slice(0, 14);
-  return name || fallback || "Player";
+  const name = String(value || "").replace(/[\u0000-\u001f\u007f<>]/g, "").replace(/\s+/g, " ").trim().slice(0, 14);
+  return name && isAllowedPublicName(name) ? name : (fallback || "Player");
 }
 function normalizeDuelCode(value) {
   return String(value || "").replace(/\D/g, "").slice(0, 6);
@@ -2661,7 +2740,7 @@ window.MXCloud = {
   get security() {
     return {
       secureBackendEnabled: SECURE_BACKEND_ENABLED,
-      appCheckConfigured: !!(RECAPTCHA_V3_SITE_KEY && RECAPTCHA_V3_SITE_KEY.indexOf("REPLACE_WITH") !== 0),
+      appCheckConfigured,
       region: FUNCTIONS_REGION,
     };
   },

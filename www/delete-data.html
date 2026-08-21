@@ -12,7 +12,7 @@
 </head>
 <body>
 <h1>Moleculox — Delete Your Data</h1>
-<p class="updated">Last updated: 21 July 2026.</p>
+<p class="updated">Last updated: 21 August 2026.</p>
 <p>You can permanently delete either one cloud profile or your complete Moleculox sign-in account and associated game data directly from the game.</p>
 
 <h2>Delete one cloud profile</h2>
@@ -32,12 +32,15 @@
 <h2>What gets deleted</h2>
 <ul>
 <li><strong>DELETE CLOUD DATA:</strong> the cloud backup for the selected player profile.</li>
-<li><strong>DELETE ACCOUNT &amp; ALL DATA:</strong> all cloud player profiles under the account, associated World Ranking entries, the Firebase sign-in account, and Moleculox progress stored on the current device.</li>
+<li><strong>DELETE ACCOUNT &amp; ALL DATA:</strong> all cloud player profiles under the account, associated Career and Duel ranking entries, player-name safety reports authored by the account, the Firebase sign-in account, and Moleculox progress stored on the current device.</li>
 </ul>
 <p>The complete-account flow stops and shows an error if a required cloud deletion fails; it does not intentionally delete the sign-in account after only a partial cleanup.</p>
 
 <h2>Temporary online Duel records</h2>
 <p>Room, move, preset-message, presence and Quick Match records are temporary and carry an <code>expiresAt</code> time. With the required Firebase TTL policies enabled, Duel rooms expire approximately six hours after creation and queue tickets approximately two minutes after creation. Firebase may take additional time to perform the physical deletion.</p>
+
+<h2>Player-name safety reports</h2>
+<p>Reports are scheduled to expire approximately 180 days after creation when the required Firebase TTL policy is enabled. Reports authored by your account are also removed by the complete-account deletion flow when the deployed Firestore rules permit owner cleanup.</p>
 
 <h2>What is not affected by deleting one cloud profile</h2>
 <ul><li>Local campaign progress remains on the device until you delete that local player or use complete account deletion.</li></ul>

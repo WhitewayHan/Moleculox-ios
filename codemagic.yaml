@@ -1,6 +1,6 @@
 workflows:
   moleculox-ios-app-store:
-    name: Moleculox FINAL R45 v8.5.78 iOS
+    name: Moleculox RELEASE R46 v8.5.79 iOS
     instance_type: mac_mini_m2
     max_build_duration: 120
     integrations:
@@ -21,7 +21,11 @@ workflows:
       - name: Install Python icon library
         script: pip3 install --user Pillow
       - name: Validate game JavaScript
-        script: npm run check
+        script: |
+          npm run check
+          grep -Fq 'FirebaseAppCheck' www/js/firebase.js
+          grep -Fq '"@capacitor-firebase/app-check": "7.3.1"' package.json
+          test -d node_modules/@capacitor-firebase/app-check
       - name: Generate and prepare iOS project
         script: npm run ios:prepare
       - name: Verify generated App Store icon
@@ -32,7 +36,7 @@ workflows:
         script: |
           BUILD_NUMBER="$(date +%s)"
           /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD_NUMBER" ios/App/App/Info.plist
-          /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString 8.5.78" ios/App/App/Info.plist
+          /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString 8.5.79" ios/App/App/Info.plist
           cd ios/App
           agvtool new-version -all "$BUILD_NUMBER"
       - name: Apply App Store signing profiles

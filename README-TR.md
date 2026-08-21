@@ -1,3 +1,18 @@
+# Moleculox iOS v8.5.79 R46 — App Store Yayın Paketi
+
+- Bundle ID: `com.whitewayhan.moleculox`
+- Workflow: `moleculox-ios-app-store`
+- Apple, Google ve e-posta girişi korunmuştur.
+- Portal çizim hatası ve sonuç ekranı CSS paketleme hatası düzeltilmiştir.
+- Genel sıralamalarda ad filtresi, raporlama ve cihazda engelleme vardır.
+- Native Firebase App Check hazırlığı iOS 14+ için App Attest kullanır.
+
+ZIP içeriğini depo köküne yükleyip Codemagic workflow'unu çalıştırın. Firebase,
+TestFlight ve App Store Connect tarafındaki son adımlar için
+`RELEASE-R46-CHECKLIST-TR.md` dosyasını tamamlayın.
+
+## Önceki doğrulama notları
+
 # Moleculox iOS V8.5.78 R38 — Yerel Web Dosyası Önbellek Kimliği Düzeltmesi
 
 R38, TestFlight güncellemesinde `index.html` dosyasının yeni R37 kaynaklarını hâlâ R24/R25 sorgu kimlikleriyle istemesi nedeniyle iPhone WKWebView'in eski JavaScript'i çalıştırabilmesini düzeltir.

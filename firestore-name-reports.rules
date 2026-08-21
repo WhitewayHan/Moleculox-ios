@@ -1,0 +1,59 @@
+// R46 SNIPPET — merge this match block inside the existing
+// service cloud.firestore { match /databases/{database}/documents { ... } }
+// deployment. Do not deploy this file by itself as a replacement for the full
+// production ruleset.
+
+match /playerNameReports/{reportId} {
+  allow read: if request.auth != null
+    && resource.data.reporterUid == request.auth.uid;
+
+  allow create: if request.auth != null
+    && request.resource.data.keys().hasOnly([
+      'reporterUid', 'targetBoardId', 'targetUid', 'targetProfileId',
+      'targetName', 'source', 'reason', 'status', 'clientBuild',
+      'createdAt', 'updatedAt', 'expiresAt'
+    ])
+    && request.resource.data.reporterUid == request.auth.uid
+    && request.resource.data.targetUid is string
+    && request.resource.data.targetUid != request.auth.uid
+    && request.resource.data.targetBoardId is string
+    && request.resource.data.targetBoardId.size() > 2
+    && request.resource.data.targetBoardId.size() <= 180
+    && request.resource.data.targetProfileId is string
+    && request.resource.data.targetProfileId.size() <= 80
+    && request.resource.data.targetName is string
+    && request.resource.data.targetName.size() <= 18
+    && request.resource.data.source in ['career', 'duel', 'ranking']
+    && request.resource.data.reason == 'inappropriate_name'
+    && request.resource.data.status == 'open'
+    && request.resource.data.clientBuild is string
+    && request.resource.data.clientBuild.size() <= 100
+    && request.resource.data.createdAt == request.time
+    && request.resource.data.updatedAt == request.time
+    && request.resource.data.expiresAt is timestamp;
+
+  allow update: if request.auth != null
+    && resource.data.reporterUid == request.auth.uid
+    && request.resource.data.keys().hasOnly([
+      'reporterUid', 'targetBoardId', 'targetUid', 'targetProfileId',
+      'targetName', 'source', 'reason', 'status', 'clientBuild',
+      'createdAt', 'updatedAt', 'expiresAt'
+    ])
+    && request.resource.data.reporterUid == resource.data.reporterUid
+    && request.resource.data.targetBoardId == resource.data.targetBoardId
+    && request.resource.data.targetUid == resource.data.targetUid
+    && request.resource.data.targetProfileId == resource.data.targetProfileId
+    && request.resource.data.createdAt == resource.data.createdAt
+    && request.resource.data.reason == 'inappropriate_name'
+    && request.resource.data.status == 'open'
+    && request.resource.data.targetName is string
+    && request.resource.data.targetName.size() <= 18
+    && request.resource.data.source in ['career', 'duel', 'ranking']
+    && request.resource.data.clientBuild is string
+    && request.resource.data.clientBuild.size() <= 100
+    && request.resource.data.expiresAt is timestamp
+    && request.resource.data.updatedAt == request.time;
+
+  allow delete: if request.auth != null
+    && resource.data.reporterUid == request.auth.uid;
+}

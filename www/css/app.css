@@ -5173,7 +5173,23 @@ body.mxIOSNative #moxyGameCompanion{right:clamp(184px,43vw,274px);width:clamp(70
 @media(max-width:390px){#boardFrame>#moxyGameCompanion{left:4px!important;top:-35px!important;width:50px!important}}
 @media(max-height:700px){#boardFrame>#moxyGameCompanion{top:-31px!important;width:46px!important}}
 body.mxReduceMotion #boardFrame>#moxyGameCompanion img{animation:none!important}
-\n\n/* ================= RESULT CLEANUP + FX POLISH 3 ================= */\n/* Moleculopedia remains available from the collection navigation; the result card focuses on flow. */\n#modalBox.winResultModal>#mDiscoverMolecule{display:none!important}\n#modalBox.winResultModal .mrow{margin-top:7px!important;gap:7px!important}\n#modalBox.winResultModal #mNext{\n  width:88%!important;min-height:42px!important;justify-self:center!important;\n  font-size:clamp(11.5px,3.2vw,13.5px)!important;letter-spacing:.02em!important;\n}\n#modalBox.winResultModal #mRetry,#modalBox.winResultModal #mLab{\n  min-height:35px!important;font-size:clamp(9.8px,2.7vw,11.4px)!important;\n}\n/* Nudge Moxy slightly down while keeping it on the non-playable board rim. */\n#boardFrame>#moxyGameCompanion{top:clamp(-36px,-4.35vw,-24px)!important}\n@media(max-width:390px){#boardFrame>#moxyGameCompanion{top:-28px!important}}\n@media(max-height:700px){#boardFrame>#moxyGameCompanion{top:-24px!important}}\n
+
+/* ================= RESULT CLEANUP + FX POLISH 3 ================= */
+/* Moleculopedia remains available from the collection navigation; the result card focuses on flow. */
+#modalBox.winResultModal>#mDiscoverMolecule{display:none!important}
+#modalBox.winResultModal .mrow{margin-top:7px!important;gap:7px!important}
+#modalBox.winResultModal #mNext{
+  width:88%!important;min-height:42px!important;justify-self:center!important;
+  font-size:clamp(11.5px,3.2vw,13.5px)!important;letter-spacing:.02em!important;
+}
+#modalBox.winResultModal #mRetry,#modalBox.winResultModal #mLab{
+  min-height:35px!important;font-size:clamp(9.8px,2.7vw,11.4px)!important;
+}
+/* Nudge Moxy slightly down while keeping it on the non-playable board rim. */
+#boardFrame>#moxyGameCompanion{top:clamp(-36px,-4.35vw,-24px)!important}
+@media(max-width:390px){#boardFrame>#moxyGameCompanion{top:-28px!important}}
+@media(max-height:700px){#boardFrame>#moxyGameCompanion{top:-24px!important}}
+
 /* ================= CHARACTER LIFE PASS 1 =================
    Moxy: organic wordless idle reactions. Dr. E: subtle idle life only.
    No gameplay geometry is affected. */
@@ -9677,4 +9693,96 @@ html[lang="pt"] #btnMols small,html[lang="es"] #btnMols small{font-size:6.45px!i
 }
 @media(max-height:650px){
   #modalBox.accountModal .accountActions .btn{min-height:41px!important;padding-top:7px!important;padding-bottom:7px!important}
+}
+
+/* R46 ranking safety: one unobtrusive, accessible action per public row. */
+.hofWorldRow{grid-template-columns:28px minmax(0,1fr) auto 44px}
+.duelRankRow{grid-template-columns:38px minmax(0,1fr) auto 44px}
+.rankingSafetyBtn{
+  width:44px;height:44px;min-width:44px;min-height:44px;padding:0;border-radius:12px;
+  border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.055);color:#b9bdd6;
+  display:grid;place-items:center;font:900 21px/1 system-ui,sans-serif;touch-action:manipulation;cursor:pointer;
+}
+.rankingSafetyBtn:active{transform:scale(.94);background:rgba(157,123,255,.18);color:#fff}
+#modalBox.rankingSafetyModal{width:min(91vw,390px)}
+#modalBox.rankingSafetyModal .mrow{display:grid!important;grid-template-columns:1fr!important;gap:8px!important}
+#modalBox.rankingSafetyModal .mrow .btn{width:100%!important;max-width:100%!important;margin:0!important}
+@media(max-width:390px){
+  .hofWorldRow{grid-template-columns:25px minmax(0,1fr) 44px}
+  .hofWorldRow .sc{grid-column:2;text-align:left}
+  .hofWorldRow .rankingSafetyBtn{grid-column:3;grid-row:1 / span 2}
+  .duelRankRow{grid-template-columns:34px minmax(0,1fr) 44px}
+  .duelRankScore{grid-column:2;text-align:left}
+  .duelRankRow .rankingSafetyBtn{grid-column:3;grid-row:1 / span 2}
+}
+
+
+/* =====================================================================
+   R46 MOBILE · COMPLETE SHORT-ACTION CENTERING PASS
+   Position only: existing widths, colors, radii, shadows and animations stay
+   unchanged. This final cascade guard also covers dynamically-created modals.
+   ===================================================================== */
+
+/* Grid-based modal actions: a deliberately short button sits in the centre of
+   its own action lane. Full-width and paired controls are visually unchanged. */
+#modalBox .mrow{
+  justify-items:center!important;
+}
+#modalBox .mrow>.btn,
+#modalBox .mrow>a.btn{
+  justify-self:center!important;
+}
+
+/* A one-action row always belongs to the centre of the dialog, regardless of
+   older modal-specific margin resets. */
+#modalBox .mrow:has(>.btn:only-child)>.btn,
+#modalBox .mrow:has(>a.btn:only-child)>a.btn{
+  margin-left:auto!important;
+  margin-right:auto!important;
+  align-self:center!important;
+  justify-self:center!important;
+}
+
+/* Account/cloud actions are a vertical flex stack. The primary green action is
+   intentionally narrower for hierarchy; centre it instead of leaving it on
+   the left edge. Other 100%-wide account buttons keep their exact dimensions. */
+#modalBox.accountModal .accountActions{
+  align-items:center!important;
+}
+#modalBox.accountModal .accountActions>.btn,
+#modalBox.accountModal .accountActions>a.btn{
+  align-self:center!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+#modalBox.accountModal .accountActions>.accountUtilityRow,
+#modalBox.accountModal .accountActions>.accountDivider{
+  align-self:stretch!important;
+  width:100%!important;
+}
+#modalBox.accountModal.cloudStatusModal .accountActions>#cloudSyncNow{
+  width:calc(100% - 24px)!important;
+  max-width:calc(100% - 24px)!important;
+  align-self:center!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+
+/* Remaining vertical action families use the same centre contract. These rules
+   do not assign a new width, so each screen keeps its established proportions. */
+#modalBox :is(.mxFirstUseActions,.mxDeleteActions,.aboutActions,.nobelShareActions)>.btn,
+#modalBox :is(.mxFirstUseActions,.mxDeleteActions,.aboutActions,.nobelShareActions)>a.btn,
+#modalBox .modalFixedClose>.btn,
+#modalBox .modalFixedClose>a.btn{
+  align-self:center!important;
+  justify-self:center!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+
+/* Non-modal short text action retained by the game UI. */
+#profileScr #profileBack{
+  align-self:center!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
 }

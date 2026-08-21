@@ -1,17 +1,18 @@
 {
   "name": "moleculox-ios",
-  "version": "8.5.78",
+  "version": "8.5.79",
   "private": true,
-  "description": "Moleculox iOS FINAL R45 / v8.5.78 App Store build with Sign in with Apple enabled.",
+  "description": "Moleculox iOS RELEASE R46 / v8.5.79 App Store build with Sign in with Apple, ranking safety, and native App Check preparation.",
   "scripts": {
     "ios:prepare": "bash scripts/prepare-ios.sh",
     "ios:sync": "npx cap sync ios",
     "ios:open": "npx cap open ios",
-    "check": "node --check www/js/game.js && node --check www/js/firebase.js && node --check www/js/sync-core.js && node --check www/js/campaign-levels.js && node --check www/js/daily-levels.js && node --check www/js/level-fx-recipes.js && node scripts/verify-progress-save-race.js && node scripts/verify-sync-debounce.js && node scripts/verify-account-progress-vault.js && node scripts/verify-cloud-context-race.js && node scripts/verify-sync-truth.js && node scripts/verify-root-sync-runtime.js && node scripts/verify-native-cache-version.js && node scripts/verify-ui-localization.js"
+    "check": "node --check www/js/game.js && node --check www/js/firebase.js && node --check www/js/sync-core.js && node --check www/js/campaign-levels.js && node --check www/js/daily-levels.js && node --check www/js/level-fx-recipes.js && node scripts/verify-progress-save-race.js && node scripts/verify-sync-debounce.js && node scripts/verify-account-progress-vault.js && node scripts/verify-cloud-context-race.js && node scripts/verify-sync-truth.js && node scripts/verify-root-sync-runtime.js && node scripts/verify-native-cache-version.js && node scripts/verify-button-centering.js && node scripts/verify-ui-localization.js && node scripts/verify-r46-release.js"
   },
   "dependencies": {
     "@capacitor/core": "7.4.2",
     "@capacitor/ios": "7.4.2",
+    "@capacitor-firebase/app-check": "7.3.1",
     "@capacitor-firebase/authentication": "7.3.1",
     "firebase": "11.10.0"
   },
