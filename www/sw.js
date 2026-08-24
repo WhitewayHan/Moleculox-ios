@@ -1,11 +1,12 @@
-// Moleculox v8.5.79 — R46 release service worker.
+// Moleculox v8.7.19 — R77: friend-room Firestore join fix + R76 duel guide.
 // Core code is precached; large audio/story assets are cached only after use.
 // Firebase and Google traffic is never intercepted.
-const CACHE_NAME = 'moleculox-8.5.79-r46-ui-centered-ios';
+const CACHE_NAME = 'moleculox-8.7.19-r77-native-ios';
 const CACHE_PREFIX = 'moleculox-';
 const CORE_SHELL = [
   './index.html','./css/app.css','./js/sync-core.js','./js/daily-levels.js',
-  './js/campaign-levels.js','./js/level-fx-recipes.js','./js/story-universe.js','./js/game.js','./js/firebase.js',
+  './js/campaign-levels.js','./js/level-fx-recipes.js','./js/story-universe.js',
+  './js/v2-locales-generated.js','./js/v2-story-quality.js','./js/voice-locales-generated.js','./js/game.js','./js/firebase.js',
   './manifest.webmanifest','./privacy-policy.html','./terms-of-use.html',
   './player-name-rules.html','./delete-data.html',
   './assets/icons/icon-192.png','./assets/icons/icon-512.png',
@@ -25,7 +26,11 @@ const CORE_SHELL = [
   './assets/images/dr-e-poses/medal.png','./assets/images/dr-e-poses/experiment.png',
   './assets/images/dr-e-poses/clipboard.png','./assets/images/dr-e-poses/magnifier.png',
   './assets/images/dr-e-poses/molecule.png',
-  './assets/audio/voices/dre-voice-sprite.wav'
+  './assets/audio/voices/dre-voice-sprite-en.mp3',
+  './assets/audio/voices/dre-voice-sprite-fr.mp3','./assets/audio/voices/dre-voice-sprite-es.mp3',
+  './assets/audio/voices/dre-voice-sprite-de.mp3','./assets/audio/voices/dre-voice-sprite-tr.mp3',
+  './assets/audio/voices/dre-voice-sprite-ja.mp3','./assets/audio/voices/dre-voice-sprite-zh.mp3',
+  './assets/audio/voices/dre-voice-sprite-pt.mp3'
 ];
 
 self.addEventListener('install', event => {

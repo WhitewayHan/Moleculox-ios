@@ -4,7 +4,7 @@
 
   const MAX_LEVELS=301;
   const MAX_DAILY_SCORES=130;
-  const SUPPORTED_LANGS=['en','tr','de','es','pt','ja'];
+  const SUPPORTED_LANGS=['en','tr','de','es','pt','ja','fr','zh'];
   function cleanLang(v){v=String(v||'');return SUPPORTED_LANGS.includes(v)?v:'en';}
 
   function obj(v){return v&&typeof v==='object'&&!Array.isArray(v)?v:{};}

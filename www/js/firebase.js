@@ -528,7 +528,8 @@ function appleProvider() {
   const provider = new OAuthProvider("apple.com");
   provider.addScope("email");
   provider.addScope("name");
-  provider.setCustomParameters({locale: (document.documentElement.lang || "en").toLowerCase().startsWith("tr") ? "tr_TR" : "en_US"});
+  const lang=(document.documentElement.lang||"en").toLowerCase().split(/[-_]/)[0];
+  provider.setCustomParameters({locale: ({tr:"tr_TR",de:"de_DE",es:"es_ES",pt:"pt_BR",ja:"ja_JP",fr:"fr_FR",zh:"zh_CN"})[lang]||"en_US"});
   return provider;
 }
 
@@ -691,7 +692,7 @@ async function signInEmail(email, password) {
 }
 async function resetPassword(email, language) {
   if (!auth) throw new Error("auth/unavailable");
-  auth.languageCode = language === "tr" ? "tr" : "en";
+  auth.languageCode = ["en","tr","de","es","pt","ja","fr","zh"].includes(language) ? language : "en";
   await sendPasswordResetEmail(auth, String(email || "").trim().toLowerCase());
   return true;
 }
@@ -1117,8 +1118,8 @@ function profilePayload(save, profileId, includeFullProgress, includeResearch = 
     totalHints: Math.max(0, Math.floor(Number(save.totalHints) || 0)),
     dailyDate: String(save.dailyDate || ""),
     streak3: Math.max(0, Math.floor(Number(save.streak3) || 0)),
-    // Keep the legacy cloud profile field server-compatible (en/tr). Full six-language UI preference is device-local.
-    lang: save.lang === "tr" ? "tr" : "en",
+    // Store the complete supported UI language so a linked profile keeps its preference across devices.
+    lang: ["en","tr","de","es","pt","ja","fr","zh"].includes(save.lang) ? save.lang : "en",
     volM: Number(save.volM), volMu: Number(save.volMu), volS: Number(save.volS), volV: Number(save.volV),
     muM: !!save.muM, muMu: !!save.muMu, muS: !!save.muS, muV: !!save.muV, externalMusic: !!save.externalMusic, dpad: !!save.dpad,
     reduceMotion: !!save.reduceMotion, duelMessages: save.duelMessages !== false, duelEffects: save.duelEffects !== false,
@@ -1720,11 +1721,12 @@ async function getChampions(n) {
 }
 
 
-// ---- Online Atom Duel rooms (live spectator board + preset messages) ----
+// ---- Online Atom Duel rooms (simultaneous hidden rounds + preset messages) ----
 const DUEL_ROOM_COLLECTION = "duelRooms";
 const DUEL_MATCH_COLLECTION = "duelMatchQueue";
 const DUEL_ROOM_TTL_MS = 6 * 60 * 60 * 1000;
 const DUEL_MATCH_TTL_MS = 2 * 60 * 1000;
+const DUEL_FRIEND_INVITE_TTL_MS = 15 * 60 * 1000;
 const DUEL_PRESENCE_STALE_MS = 10 * 1000;
 const DUEL_RECONNECT_GRACE_MS = 30 * 1000;
 function createDuelClientId() {
@@ -1768,10 +1770,21 @@ function randomDuelCode() {
   }
   return String(100000 + Math.floor(Math.random() * 900000));
 }
+function friendHostTicketId(codeValue) {
+  const code = normalizeDuelCode(codeValue);
+  return code.length === 6 ? "mq_f_" + code : "";
+}
+function friendGuestTicketId() {
+  if (globalThis.crypto && typeof globalThis.crypto.randomUUID === "function") return "mq_g_" + globalThis.crypto.randomUUID();
+  return "mq_g_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2, 14);
+}
+function isFriendTicketId(value) {
+  return /^mq_[fg]_/.test(String(value || ""));
+}
 function cloneDuelRounds(rounds) {
   const raw = JSON.parse(JSON.stringify(Array.isArray(rounds) ? rounds.slice(0, 3) : []));
   return raw.map((round) => ({
-    level: Math.max(0, Math.min(205, Math.floor(Number(round && round.level) || 0))),
+    level: Math.max(0, Math.min(300, Math.floor(Number(round && round.level) || 0))),
     gameType: ["classic", "crystal", "chain", "reactor"].includes(round && round.gameType) ? round.gameType : "classic",
     crystals: Array.isArray(round && round.crystals) ? round.crystals.slice(0, 3) : null,
     chainPlan: Array.isArray(round && round.chainPlan) ? round.chainPlan.slice(0, 80) : null,
@@ -1836,61 +1849,85 @@ async function prepareDuelCloud() {
   if (!auth || !auth.currentUser) await ensureAnonymous();
   if (!db || !uid) throw new Error("duel/offline");
 }
+function duelFriendConfigIndex(gameKind, poolKind) {
+  const games = ["classic", "crystal", "chain", "reactor", "mixed"];
+  const pools = ["mixed", "medium", "hard"];
+  const gi = Math.max(0, games.indexOf(String(gameKind || "classic")));
+  const pi = Math.max(0, pools.indexOf(String(poolKind || "mixed")));
+  return gi * pools.length + pi;
+}
+function randomFriendDuelCode(gameKind, poolKind) {
+  const prefix = 10 + duelFriendConfigIndex(gameKind, poolKind); // 10..24
+  let tail = 0;
+  if (globalThis.crypto && typeof globalThis.crypto.getRandomValues === "function") {
+    const numbers = new Uint32Array(1); globalThis.crypto.getRandomValues(numbers); tail = numbers[0] % 10000;
+  } else tail = Math.floor(Math.random() * 10000);
+  return String(prefix) + String(tail).padStart(4, "0");
+}
+function decodeFriendDuelCode(codeValue) {
+  const code = normalizeDuelCode(codeValue);
+  if (code.length !== 6) return null;
+  const index = Number(code.slice(0, 2)) - 10;
+  if (!Number.isInteger(index) || index < 0 || index >= 15) return null;
+  const games = ["classic", "crystal", "chain", "reactor", "mixed"];
+  const pools = ["mixed", "medium", "hard"];
+  return {code, gameKind: games[Math.floor(index / 3)] || "classic", poolKind: pools[index % 3] || "mixed"};
+}
 async function createDuelRoom(config) {
+  // R77: friend rooms use the native friend-room Firestore schema again.
+  // The currently deployed rules explicitly allow a host-owned waiting room,
+  // so no queue-ticket compatibility bridge is needed here.
   try {
     await prepareDuelCloud();
+    const hostName = cleanDuelName(config && config.hostName, "Player 1");
+    const poolKind = config && config.pool && ["mixed", "medium", "hard"].includes(config.pool.kind) ? config.pool.kind : "mixed";
+    const gameKind = ["classic", "crystal", "chain", "reactor", "mixed"].includes(config && config.gameKind) ? config.gameKind : "classic";
     const rounds = cloneDuelRounds(config && config.rounds);
     if (rounds.length !== 3) return {ok: false, reason: "invalid-rounds"};
-    const hostName = cleanDuelName(config && config.hostName, "Player 1");
-    const pool = config && config.pool && ["mixed", "medium", "hard"].includes(config.pool.kind) ? {
-      kind: config.pool.kind,
-      min: Math.max(0, Math.min(205, Math.floor(Number(config.pool.min) || 0))),
-      max: Math.max(0, Math.min(205, Math.floor(Number(config.pool.max) || 205))),
-    } : {kind: "mixed", min: 40, max: 205};
-    const gameKind = ["classic", "crystal", "chain", "reactor", "mixed"].includes(config && config.gameKind) ? config.gameKind : "classic";
     for (let attempt = 0; attempt < 8; attempt++) {
-      const code = randomDuelCode();
+      const code = randomFriendDuelCode(gameKind, poolKind);
       const ref = duelRoomRef(code);
       try {
-        const room = {
-          version: 4,
-          code,
-          matchType: "friend",
-          queueTickets: [],
-          status: "waiting",
-          hostUid: uid,
-          hostClientId: duelClientId,
-          guestUid: null,
-          guestClientId: null,
-          playerNames: [hostName, ""],
-          playerStyles: [normalizeDuelStyle(config && config.playerStyle), null],
-          matchNo: 1,
-          pool,
-          gameKind,
-          round: 0,
-          turn: 0,
-          wins: [0, 0],
-          rounds,
-          createdAt: serverTimestamp(),
-          updatedAt: serverTimestamp(),
-          expiresAt: new Date(Date.now() + DUEL_ROOM_TTL_MS),
-          abandonedBy: null,
-          liveState: null,
-          liveMove: null,
-          lastQuickMessage: null,
-          hostPresenceAt: serverTimestamp(),
-          guestPresenceAt: null,
-          disconnectState: null,
-          finishReason: null,
-          forfeitWinner: null,
-          forfeitBy: null,
-        };
         await runTransaction(db, async (transaction) => {
           const snap = await transaction.get(ref);
           if (snap.exists()) throw new Error("duel/code-collision");
-          transaction.set(ref, room);
+          transaction.set(ref, {
+            version: 4,
+            code,
+            matchType: "friend",
+            queueTickets: [],
+            status: "waiting",
+            hostUid: uid,
+            hostClientId: duelClientId,
+            guestUid: null,
+            guestClientId: null,
+            playerNames: [hostName, ""],
+            playerStyles: [normalizeDuelStyle(config && config.playerStyle), null],
+            matchNo: 1,
+            pool: {kind: poolKind, min: poolKind === "hard" ? 120 : 40, max: poolKind === "medium" ? 99 : 300},
+            gameKind,
+            round: 0,
+            turn: 0,
+            wins: [0, 0],
+            rounds,
+            createdAt: serverTimestamp(),
+            updatedAt: serverTimestamp(),
+            expiresAt: new Date(Date.now() + DUEL_FRIEND_INVITE_TTL_MS),
+            abandonedBy: null,
+            liveState: null,
+            liveMove: null,
+            lastQuickMessage: null,
+            hostPresenceAt: serverTimestamp(),
+            guestPresenceAt: null,
+            disconnectState: null,
+            finishReason: null,
+            forfeitWinner: null,
+            forfeitBy: null,
+          });
         });
-        return {ok: true, code, playerIndex: 0, room: Object.assign({}, room, {createdAt: null, updatedAt: null})};
+        const created = await getDoc(ref);
+        if (!created.exists()) throw new Error("duel/not-found");
+        return {ok: true, code, playerIndex: 0, room: created.data()};
       } catch (e) {
         if (String(e && e.message) === "duel/code-collision") continue;
         throw e;
@@ -1902,44 +1939,48 @@ async function createDuelRoom(config) {
     return {ok: false, reason: (e && (e.code || e.message)) || "error"};
   }
 }
-async function joinDuelRoom(codeValue, guestNameValue, guestStyleValue) {
-  const code = normalizeDuelCode(codeValue);
-  if (code.length !== 6) return {ok: false, reason: "invalid-code"};
+async function joinDuelRoom(codeValue, guestNameValue, guestStyleValue, roundsValue) {
+  const invite = decodeFriendDuelCode(codeValue);
+  if (!invite) return {ok: false, reason: "invalid-code"};
   try {
     await prepareDuelCloud();
-    const ref = duelRoomRef(code);
-    let result = null;
+    const ref = duelRoomRef(invite.code);
+    const initial = await getDoc(ref);
+    if (!initial.exists()) throw new Error("duel/not-found");
+    const firstRoom = initial.data() || {};
+    if (firstRoom.matchType !== "friend") throw new Error("duel/full");
+    if (firstRoom.status !== "waiting" || firstRoom.guestUid != null) throw new Error("duel/full");
+    if (timestampMillis(firstRoom.expiresAt) && timestampMillis(firstRoom.expiresAt) < Date.now()) throw new Error("duel/expired");
+    if (firstRoom.hostUid === uid || firstRoom.hostClientId === duelClientId) throw new Error("duel/same-account");
+
+    const guestName = cleanDuelName(guestNameValue, "Player 2");
     await runTransaction(db, async (transaction) => {
       const snap = await transaction.get(ref);
       if (!snap.exists()) throw new Error("duel/not-found");
-      const room = snap.data();
-      if (room.hostUid === uid && room.hostClientId === duelClientId) {
-        result = {playerIndex: 0, room};
-        return;
-      }
-      if (room.guestUid === uid && room.guestClientId === duelClientId) {
-        result = {playerIndex: 1, room};
-        return;
-      }
-      if (room.status !== "waiting" || room.guestUid) throw new Error("duel/full");
-      if (room.expiresAt && typeof room.expiresAt.toMillis === "function" && room.expiresAt.toMillis() < Date.now()) throw new Error("duel/expired");
-      const guestName = cleanDuelName(guestNameValue, "Player 2");
-      const nextNames = [cleanDuelName(room.playerNames && room.playerNames[0], "Player 1"), guestName];
-      const nextStyles = [normalizeDuelStyle(room.playerStyles && room.playerStyles[0]), normalizeDuelStyle(guestStyleValue)];
+      const room = snap.data() || {};
+      if (room.matchType !== "friend") throw new Error("duel/full");
+      if (room.status !== "waiting" || room.guestUid != null) throw new Error("duel/full");
+      if (timestampMillis(room.expiresAt) && timestampMillis(room.expiresAt) < Date.now()) throw new Error("duel/expired");
+      if (room.hostUid === uid || room.hostClientId === duelClientId) throw new Error("duel/same-account");
+      const names = Array.isArray(room.playerNames) ? room.playerNames.slice(0, 2) : ["Player 1", ""];
+      const styles = Array.isArray(room.playerStyles) ? room.playerStyles.slice(0, 2) : [null, null];
+      names[1] = guestName;
+      styles[1] = normalizeDuelStyle(guestStyleValue);
       transaction.update(ref, {
         guestUid: uid,
         guestClientId: duelClientId,
-        playerNames: nextNames,
-        playerStyles: nextStyles,
+        playerNames: names,
+        playerStyles: styles,
         status: "playing",
-        turn: 0,
+        hostPresenceAt: serverTimestamp(),
         guestPresenceAt: serverTimestamp(),
         disconnectState: null,
         updatedAt: serverTimestamp(),
       });
-      result = {playerIndex: 1, room: Object.assign({}, room, {guestUid: uid, guestClientId: duelClientId, playerNames: nextNames, playerStyles: nextStyles, status: "playing", turn: 0})};
     });
-    return {ok: true, code, playerIndex: result.playerIndex, room: result.room};
+    const joined = await getDoc(ref);
+    if (!joined.exists()) throw new Error("duel/not-found");
+    return {ok: true, code: invite.code, inviteCode: invite.code, playerIndex: 1, room: joined.data()};
   } catch (e) {
     console.warn("[MXCloud] joinDuelRoom failed:", e && (e.code || e.message));
     return {ok: false, reason: (e && (e.code || e.message)) || "error"};
@@ -1949,21 +1990,40 @@ function subscribeDuelRoom(codeValue, onData, onError) {
   const code = normalizeDuelCode(codeValue);
   let stopped = false;
   let unsubscribe = () => {};
-  prepareDuelCloud().then(() => {
+  const fail = (err) => { console.warn("[MXCloud] duel listener failed:", err && (err.code || err.message)); if (typeof onError === "function") onError(err); };
+  const attachRoom = (roomCode) => {
     if (stopped) return;
-    unsubscribe = onSnapshot(duelRoomRef(code), (snap) => {
-      if (typeof onData === "function") onData(snap.exists() ? Object.assign({id: snap.id}, snap.data()) : null);
-    }, (err) => {
-      console.warn("[MXCloud] duel listener failed:", err && err.code);
-      if (typeof onError === "function") onError(err);
-    });
-  }).catch((err) => {
-    if (typeof onError === "function") onError(err);
-  });
-  return () => {
-    stopped = true;
     try { unsubscribe(); } catch (e) {}
+    unsubscribe = onSnapshot(duelRoomRef(roomCode), (snap) => {
+      if (typeof onData === "function") onData(snap.exists() ? Object.assign({id: snap.id}, snap.data()) : null);
+    }, fail);
   };
+  const attachInvite = (inviteCode) => {
+    const ticketId = friendHostTicketId(inviteCode);
+    if (!ticketId) { if (typeof onData === "function") onData(null); return; }
+    try { unsubscribe(); } catch (e) {}
+    unsubscribe = onSnapshot(duelMatchRef(ticketId), (snap) => {
+      if (!snap.exists()) { if (typeof onData === "function") onData(null); return; }
+      const ticket = snap.data() || {};
+      if (ticket.status === "matched" && normalizeDuelCode(ticket.roomCode).length === 6) {
+        const finalCode = ticket.roomCode;
+        attachRoom(finalCode);
+        if (ticket.uid === uid && ticket.clientId === duelClientId) deleteDoc(duelMatchRef(ticketId)).catch(() => {});
+      }
+    }, fail);
+  };
+  prepareDuelCloud().then(async () => {
+    if (stopped) return;
+    try {
+      const roomSnap = await getDoc(duelRoomRef(code));
+      if (stopped) return;
+      if (roomSnap.exists()) { attachRoom(code); return; }
+      const invite = decodeFriendDuelCode(code);
+      if (invite) { attachInvite(code); return; }
+      if (typeof onData === "function") onData(null);
+    } catch (err) { fail(err); }
+  }).catch(fail);
+  return () => { stopped = true; try { unsubscribe(); } catch (e) {} };
 }
 
 async function createQuickMatchTicket(playerNameValue, playerStyleValue) {
@@ -2030,7 +2090,7 @@ async function tryQuickMatch(ticketIdValue, roundsValue) {
     ));
     const candidates = [];
     candidatesSnap.forEach((snap) => {
-      if (snap.id === ticketId) return;
+      if (snap.id === ticketId || isFriendTicketId(snap.id)) return;
       const data = snap.data();
       if (!data || data.clientId === duelClientId || data.uid === uid) return;
       if (timestampMillis(data.expiresAt) && timestampMillis(data.expiresAt) < Date.now()) {
@@ -2084,10 +2144,10 @@ async function tryQuickMatch(ticketIdValue, roundsValue) {
               playerNames: [cleanDuelName(freshOwn.playerName, "Player 1"), cleanDuelName(freshCandidate.playerName, "Player 2")],
               playerStyles: [normalizeDuelStyle(freshOwn.playerStyle), normalizeDuelStyle(freshCandidate.playerStyle)],
               matchNo: 1,
-              pool: {kind: "mixed", min: 40, max: 205},
+              pool: {kind: "mixed", min: 40, max: 300},
               gameKind: "mixed",
               round: 0,
-              turn: 0,
+              turn: 0, // legacy compatibility only; online rounds are simultaneous
               wins: [0, 0],
               rounds,
               createdAt: serverTimestamp(),
@@ -2188,7 +2248,11 @@ async function removeQuickMatchTicket(ticketIdValue) {
 }
 
 
-const DUEL_QUICK_MESSAGE_KEYS = ["hello", "good_luck", "nice_move", "good_game", "rematch", "thanks"];
+// R74: all 11 preset Duel messages are accepted directly by the published Firestore rules and client.
+const DUEL_QUICK_MESSAGE_KEYS = [
+  "hello", "good_luck", "nice_move", "great_reaction", "almost_there",
+  "brilliant", "oops", "well_played", "good_game", "rematch", "thanks"
+];
 function normalizeDuelLiveState(value) {
   const atoms = Array.isArray(value && value.atoms) ? value.atoms.slice(0, 16).map((atom) => ({
     x: Math.max(0, Math.min(7, Math.floor(Number(atom && atom.x) || 0))),
@@ -2208,7 +2272,7 @@ function normalizeDuelLiveState(value) {
   return {
     seq: Math.max(0, Math.min(100000, Math.floor(Number(value && value.seq) || 0))),
     moves: Math.max(0, Math.min(9999, Math.floor(Number(value && value.moves) || 0))),
-    level: Math.max(0, Math.min(205, Math.floor(Number(value && value.level) || 0))),
+    level: Math.max(0, Math.min(300, Math.floor(Number(value && value.level) || 0))),
     gameType: ["classic", "crystal", "chain", "reactor"].includes(value && value.gameType) ? value.gameType : "classic",
     atoms,
     crystals,
@@ -2341,71 +2405,13 @@ async function resolveDuelDisconnect(codeValue) {
   }
 }
 
-async function publishDuelMoveEvent(codeValue, expectedRound, expectedTurn, moveValue) {
-  const code = normalizeDuelCode(codeValue);
-  try {
-    await prepareDuelCloud();
-    const ref = duelRoomRef(code);
-    const move = normalizeDuelMoveEvent(moveValue);
-    await runTransaction(db, async (transaction) => {
-      const snap = await transaction.get(ref);
-      if (!snap.exists()) throw new Error("duel/not-found");
-      const room = snap.data();
-      const playerIndex = room.hostUid === uid && room.hostClientId === duelClientId ? 0 :
-        (room.guestUid === uid && room.guestClientId === duelClientId ? 1 : -1);
-      if (playerIndex < 0) throw new Error("duel/not-player");
-      if (room.status !== "playing" || room.round !== expectedRound || room.turn !== expectedTurn || playerIndex !== expectedTurn) {
-        throw new Error("duel/not-your-turn");
-      }
-      transaction.update(ref, {
-        liveMove: Object.assign({}, move, {
-          round: expectedRound,
-          turn: expectedTurn,
-          playerIndex,
-          sentAt: serverTimestamp(),
-        }),
-        updatedAt: serverTimestamp(),
-      });
-    });
-    return {ok: true};
-  } catch (e) {
-    const reason = (e && (e.code || e.message)) || "error";
-    if (!String(reason).includes("not-your-turn")) console.warn("[MXCloud] publishDuelMoveEvent failed:", reason);
-    return {ok: false, reason};
-  }
+async function publishDuelMoveEvent() {
+  // R48 fairness: opponent board/moves are deliberately never written to Firestore.
+  return {ok: false, reason: "duel/live-hidden"};
 }
-async function publishDuelLiveState(codeValue, expectedRound, expectedTurn, stateValue) {
-  const code = normalizeDuelCode(codeValue);
-  try {
-    await prepareDuelCloud();
-    const ref = duelRoomRef(code);
-    const state = normalizeDuelLiveState(stateValue);
-    await runTransaction(db, async (transaction) => {
-      const snap = await transaction.get(ref);
-      if (!snap.exists()) throw new Error("duel/not-found");
-      const room = snap.data();
-      const playerIndex = room.hostUid === uid && room.hostClientId === duelClientId ? 0 :
-        (room.guestUid === uid && room.guestClientId === duelClientId ? 1 : -1);
-      if (playerIndex < 0) throw new Error("duel/not-player");
-      if (room.status !== "playing" || room.round !== expectedRound || room.turn !== expectedTurn || playerIndex !== expectedTurn) {
-        throw new Error("duel/not-your-turn");
-      }
-      transaction.update(ref, {
-        liveState: Object.assign({}, state, {
-          round: expectedRound,
-          turn: expectedTurn,
-          playerIndex,
-          sentAt: serverTimestamp(),
-        }),
-        updatedAt: serverTimestamp(),
-      });
-    });
-    return {ok: true};
-  } catch (e) {
-    const reason = (e && (e.code || e.message)) || "error";
-    if (!String(reason).includes("not-your-turn")) console.warn("[MXCloud] publishDuelLiveState failed:", reason);
-    return {ok: false, reason};
-  }
+async function publishDuelLiveState() {
+  // R48 fairness: opponent board/progress is deliberately never written to Firestore.
+  return {ok: false, reason: "duel/live-hidden"};
 }
 async function sendDuelQuickMessage(codeValue, messageKeyValue) {
   const code = normalizeDuelCode(codeValue);
@@ -2447,33 +2453,35 @@ async function submitDuelTurn(codeValue, expectedRound, expectedTurn, resultValu
       const playerIndex = room.hostUid === uid && room.hostClientId === duelClientId ? 0 :
         (room.guestUid === uid && room.guestClientId === duelClientId ? 1 : -1);
       if (playerIndex < 0) throw new Error("duel/not-player");
+      if (room.status !== "playing") throw new Error("duel/not-playing");
+      if (room.round !== expectedRound || playerIndex !== expectedTurn) throw new Error("duel/round-mismatch");
       const rounds = JSON.parse(JSON.stringify(room.rounds || []));
       const wins = Array.isArray(room.wins) ? room.wins.slice(0, 2).map((v) => Math.max(0, Math.floor(Number(v) || 0))) : [0, 0];
       const round = rounds[expectedRound];
       if (!round) throw new Error("duel/invalid-round");
       round.results = Array.isArray(round.results) ? round.results.slice(0, 2) : [null, null];
       if (round.results[playerIndex]) {
-        outcome = {status: room.status, idempotent: true};
+        outcome = {status: room.status, idempotent: true, wins, winner: round.winner};
         return;
       }
-      if (room.status !== "playing") throw new Error("duel/not-playing");
-      if (room.round !== expectedRound || room.turn !== expectedTurn || playerIndex !== expectedTurn) throw new Error("duel/not-your-turn");
+
+      // Both players solve the same round independently. The first result is locked
+      // in the UI; the winner is calculated only after the second result arrives.
       round.results[playerIndex] = result;
+      const bothFinished = !!(round.results[0] && round.results[1]);
       let status = "playing";
-      let nextTurn = 1;
-      if (playerIndex === 1) {
+      if (bothFinished) {
         const winner = onlineDuelRoundWinner(round.results[0], round.results[1], round.gameType);
         round.winner = winner;
         if (winner >= 0) wins[winner] += 1;
         const matchOver = wins[0] >= 2 || wins[1] >= 2 || expectedRound >= 2;
         status = matchOver ? "finished" : "round_result";
-        nextTurn = 1;
       }
       transaction.update(ref, {
         rounds,
         wins,
         status,
-        turn: nextTurn,
+        turn: 0,
         liveState: null,
         liveMove: null,
         disconnectState: null,
@@ -2482,7 +2490,7 @@ async function submitDuelTurn(codeValue, expectedRound, expectedTurn, resultValu
         forfeitBy: null,
         updatedAt: serverTimestamp(),
       });
-      outcome = {status, wins, winner: round.winner};
+      outcome = {status, wins, waitingForOpponent: !bothFinished, winner: round.winner};
     });
     return {ok: true, data: outcome};
   } catch (e) {
@@ -2495,13 +2503,20 @@ async function advanceDuelRound(codeValue, expectedRound) {
   try {
     await prepareDuelCloud();
     const ref = duelRoomRef(code);
+    let outcome = {advanced: false, waiting: false};
     await runTransaction(db, async (transaction) => {
       const snap = await transaction.get(ref);
       if (!snap.exists()) throw new Error("duel/not-found");
       const room = snap.data();
-      if (duelPlayerIndexForRoom(room) < 0) throw new Error("duel/not-player");
-      if (room.status !== "round_result") return;
-      if (room.round !== expectedRound) return;
+      const playerIndex = duelPlayerIndexForRoom(room);
+      if (playerIndex < 0) throw new Error("duel/not-player");
+      if (room.status !== "round_result" || room.round !== expectedRound) return;
+      // Backward-compatible schema: the host advances the shared room.
+      // The guest simply waits for the room snapshot to switch to the next round.
+      if (playerIndex !== 0) {
+        outcome = {advanced: false, waiting: true};
+        return;
+      }
       transaction.update(ref, {
         round: expectedRound + 1,
         turn: 0,
@@ -2514,8 +2529,9 @@ async function advanceDuelRound(codeValue, expectedRound) {
         forfeitBy: null,
         updatedAt: serverTimestamp(),
       });
+      outcome = {advanced: true, waiting: false};
     });
-    return {ok: true};
+    return {ok: true, data: outcome};
   } catch (e) {
     return {ok: false, reason: (e && (e.code || e.message)) || "error"};
   }
@@ -2561,6 +2577,24 @@ async function leaveDuelRoom(codeValue) {
   const code = normalizeDuelCode(codeValue);
   try {
     await prepareDuelCloud();
+    // Backward cleanup for queue-backed friend invites from older builds.
+    const invite = decodeFriendDuelCode(code);
+    if (invite) {
+      const ticketId = friendHostTicketId(code);
+      if (ticketId) {
+        const ticketRef = duelMatchRef(ticketId);
+        try {
+          const ticketSnap = await getDoc(ticketRef);
+          if (ticketSnap.exists()) {
+            const ticket = ticketSnap.data() || {};
+            if (ticket.uid === uid && ticket.clientId === duelClientId && ticket.status === "waiting") {
+              await deleteDoc(ticketRef);
+              return {ok: true};
+            }
+          }
+        } catch (e) {}
+      }
+    }
     const ref = duelRoomRef(code);
     await runTransaction(db, async (transaction) => {
       const snap = await transaction.get(ref);
@@ -2568,7 +2602,21 @@ async function leaveDuelRoom(codeValue) {
       const room = snap.data();
       const playerIndex = duelPlayerIndexForRoom(room);
       if (playerIndex < 0) return;
-      transaction.update(ref, {status: "abandoned", abandonedBy: uid, abandonedClientId: duelClientId, abandonedPlayerIndex: playerIndex, disconnectState: null, finishReason: "left", updatedAt: serverTimestamp()});
+      // A waiting friend room can be deleted cleanly by its host under the
+      // deployed rules. Active rooms are marked abandoned using schema keys only.
+      if (room.status === "waiting" && playerIndex === 0) {
+        transaction.delete(ref);
+        return;
+      }
+      transaction.update(ref, {
+        status: "abandoned",
+        abandonedBy: uid,
+        disconnectState: null,
+        finishReason: "left",
+        liveState: null,
+        liveMove: null,
+        updatedAt: serverTimestamp(),
+      });
     });
     return {ok: true};
   } catch (e) {
@@ -2662,7 +2710,7 @@ window.addEventListener("pagehide", () => { stopPresence(); });
 // kept (not overwritten). Written by mxInitPush() in game.js once the native
 // Capacitor Push Notifications plugin successfully registers. `lang` is
 // stored top-level on the doc (not per-token) so the reminder Cloud Function
-// can pick the right one of the 6 supported languages. Requires a matching
+// can pick the right one of the 8 supported languages. Requires a matching
 // Firestore rule allowing the signed-in uid to write only its own
 // pushTokens/{uid} document — see the release notes for the exact rule text.
 async function savePushToken(token, platform, lang) {
@@ -2671,7 +2719,7 @@ async function savePushToken(token, platform, lang) {
   try {
     await setDoc(
       doc(db, "pushTokens", uid),
-      { lang: ["en","tr","de","es","pt","ja"].includes(lang) ? lang : "en",
+      { lang: ["en","tr","de","es","pt","ja","fr","zh"].includes(lang) ? lang : "en",
         tokens: { [token]: { platform: platform || "unknown", updatedAt: serverTimestamp() } } },
       { merge: true }
     );
@@ -2683,7 +2731,7 @@ async function savePushToken(token, platform, lang) {
 }
 async function updatePushLang(lang) {
   await readyPromise;
-  if (!db || !uid || !["en","tr","de","es","pt","ja"].includes(lang)) return { ok: false };
+  if (!db || !uid || !["en","tr","de","es","pt","ja","fr","zh"].includes(lang)) return { ok: false };
   try {
     await setDoc(doc(db, "pushTokens", uid), { lang }, { merge: true });
     return { ok: true };
@@ -2754,7 +2802,7 @@ window.MXCloud = {
   deleteCloudProfile, cleanupOrphanRankingRows, cleanupPlaceholderRankingRows, reportPlayerName,
   getLeaderboard, getWeeklyLeaderboard, getMonthlyLeaderboard, getMyRankingStatus, clearLeaderboardCache: clearLeaderboardCaches, getChampions,
   syncDuelLeaderboard, getDuelLeaderboard,
-  createDuelRoom, joinDuelRoom, subscribeDuelRoom, heartbeatDuelRoom, startDuelDisconnectCountdown, resolveDuelDisconnect, publishDuelLiveState, publishDuelMoveEvent, sendDuelQuickMessage, submitDuelTurn, advanceDuelRound, rematchDuelRoom, leaveDuelRoom,
+  createDuelRoom, joinDuelRoom, decodeFriendDuelCode, subscribeDuelRoom, heartbeatDuelRoom, startDuelDisconnectCountdown, resolveDuelDisconnect, publishDuelLiveState, publishDuelMoveEvent, sendDuelQuickMessage, submitDuelTurn, advanceDuelRound, rematchDuelRoom, leaveDuelRoom,
   createQuickMatchTicket, tryQuickMatch, subscribeQuickMatchTicket, cancelQuickMatch, removeQuickMatchTicket,
   startPresence, getOnlinePlayerCount, stopPresence,
 };

@@ -160,6 +160,7 @@ body{
 /* ---------- splash ---------- */
 #splash{align-items:center;justify-content:flex-start;padding-top:calc(var(--sat) + 8vh);z-index:12}
 #splashGear{position:absolute;top:calc(var(--sat) + 12px);right:14px}
+#splashCoinChip{position:absolute;top:calc(var(--sat) + 16px);right:72px;z-index:2;min-width:58px;justify-content:center;padding:6px 10px;font-size:13px;box-shadow:0 8px 20px rgba(0,0,0,.24)}
 #btnSwitchProfile{position:absolute;top:calc(var(--sat) + 12px);left:14px;z-index:2}
 #profileWrap{width:min(86vw,340px);margin:auto;text-align:center;display:flex;flex-direction:column;gap:14px;max-height:80vh;padding-top:calc(var(--sat) + 6vh)}
 #profileTop{font-size:14px;font-weight:800;letter-spacing:4px;color:var(--cyan);text-shadow:0 0 14px rgba(79,216,255,.7)}
@@ -1671,6 +1672,7 @@ body.bonusTier5 #logoSub{color:#ffe18a;text-shadow:0 0 14px rgba(255,208,80,.55)
 .labShopText b{font-size:12px;line-height:1.28;padding-right:4px}
 .labShopText small{font-size:9.4px;line-height:1.45}
 .labBuy,.labEquip{font-size:10px;font-weight:900;letter-spacing:.2px}
+.moleCoinBuyBtn{display:inline-flex!important;align-items:center;justify-content:center;gap:6px}.moleCoinBuyBtn .coinIcon{width:17px;height:17px;flex:0 0 17px}.moleCoinBuyBtn .coinIcon::after{width:12px;height:5px}
 .labModalAsset{position:relative;border-radius:18px;margin:8px 0 6px;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.06);box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
 .labModalAsset::after{content:'';position:absolute;width:110px;height:110px;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:50%;filter:blur(20px);pointer-events:none;opacity:.6}
 .labModalAsset.item-gold_scope::after{background:radial-gradient(circle,#ffd86a,transparent 70%)}
@@ -1874,6 +1876,10 @@ body.bonusTier5 #logoSub{color:#ffe18a;text-shadow:0 0 14px rgba(255,208,80,.55)
 .onlineFactCard{display:grid;grid-template-columns:54px 1fr;align-items:center;gap:9px;margin:0;padding:8px;border-radius:13px;background:linear-gradient(135deg,rgba(157,123,255,.14),rgba(79,216,255,.08));border:1px solid rgba(178,160,255,.28);text-align:left}.onlineFactCard img{width:52px;height:52px;object-fit:contain;filter:drop-shadow(0 5px 8px rgba(0,0,0,.3))}.onlineFactCard b{display:block;font-size:8.5px;letter-spacing:.5px;color:#dcd5ff}.onlineFactCard b span{color:#78e8ff}.onlineFactCard p{margin:4px 0 0;font-size:9.6px;line-height:1.35;color:#f1f4ff;font-weight:750}
 .onlineQuickMessages{margin:0;padding:8px;border-radius:12px;background:rgba(0,0,0,.20);border:1px solid rgba(255,255,255,.11);text-align:left}.onlineQuickMessages>b{display:block;margin-bottom:6px;font-size:8.5px;letter-spacing:.5px;color:#cfefff}.onlineQuickMessages>div{display:flex;flex-wrap:wrap;gap:5px}.onlineQuickMsgBtn{appearance:none;border:1px solid rgba(79,216,255,.28);border-radius:999px;padding:6px 8px;background:rgba(35,116,220,.16);color:#eefaff;font:850 9px inherit}.onlineQuickMsgBtn:active{transform:scale(.94)}
 .onlineSpectatorLeave{width:100%;padding:8px!important;font-size:9px!important}
+#modalBox.onlineHiddenWaitModal{width:min(92vw,430px);text-align:center}.onlineHiddenWait{display:flex;flex-direction:column;gap:10px}.onlineHiddenWait h3{margin:0}.onlineHiddenLock{width:62px;height:62px;margin:2px auto 0;display:grid;place-items:center;border-radius:20px;background:linear-gradient(145deg,rgba(79,216,255,.18),rgba(157,123,255,.2));border:1px solid rgba(117,230,255,.36);font-size:29px;box-shadow:0 10px 28px rgba(0,0,0,.3),inset 0 0 18px rgba(79,216,255,.08)}
+#modalBox.onlineCountdownModal{width:min(88vw,360px);overflow:hidden}.onlineCountdownCard{display:flex;min-height:270px;flex-direction:column;align-items:center;justify-content:center;gap:13px;text-align:center}.onlineCountdownCard small{font-size:11px;font-weight:1000;letter-spacing:1.6px;color:#90eaff}.onlineCountdownCard b{font-size:92px;line-height:.9;font-weight:1000;color:#fff;text-shadow:0 0 18px rgba(79,216,255,.85),0 0 42px rgba(157,123,255,.6)}.onlineCountdownCard b.pop{animation:onlineCountdownPop .48s ease both}.onlineCountdownCard span{max-width:280px;color:var(--dim);font-size:11px;line-height:1.45;font-weight:800}@keyframes onlineCountdownPop{0%{transform:scale(.7);opacity:.2}35%{transform:scale(1.08);opacity:1}100%{transform:scale(1);opacity:1}}
+#onlineMessageToast.error{border-color:rgba(255,110,125,.62)!important;background:rgba(80,16,29,.96)!important;color:#fff0f2!important}
+
 #onlineMessageToast{position:fixed;left:50%;top:calc(max(12px,var(--sat)) + 58px);z-index:99999;max-width:min(86vw,360px);transform:translate(-50%,-18px);padding:10px 14px;border-radius:999px;background:rgba(10,20,42,.96);border:1px solid rgba(79,216,255,.55);box-shadow:0 10px 28px rgba(0,0,0,.42),0 0 18px rgba(79,216,255,.16);color:#fff;font-size:12px;font-weight:900;opacity:0;pointer-events:none;transition:.2s ease}#onlineMessageToast.on{opacity:1;transform:translate(-50%,0)}
 #onlineQuickChatBtn{display:none;position:absolute;right:14px;bottom:calc(var(--sab) + 112px);z-index:90;width:45px;height:45px;border:none;border-radius:50%;background:linear-gradient(180deg,#4fd8ff,#2374dc);color:#fff;font-size:20px;box-shadow:0 5px 0 #174f9a,0 8px 20px rgba(0,0,0,.34)}#onlineQuickChatBtn.on{display:block}#onlineQuickChatBtn:active{transform:scale(.9)}
 #onlineQuickTray{position:absolute;right:10px;bottom:calc(var(--sab) + 164px);z-index:91;width:min(82vw,300px);padding:11px;border-radius:16px;background:rgba(9,16,35,.97);border:1px solid rgba(79,216,255,.38);box-shadow:0 14px 34px rgba(0,0,0,.52)}#onlineQuickTray .onlineQuickMessages{margin:0;padding:0;border:0;background:transparent}#onlineQuickTray .onlineQuickTrayClose{position:absolute;right:7px;top:5px;width:27px;height:27px;border:none;border-radius:50%;background:rgba(255,255,255,.11);color:#fff;font-size:18px}#onlineQuickTray .onlineQuickMessages>b{padding-right:30px}
@@ -4602,7 +4608,7 @@ body.mxReduceMotion #board.mxLevelWin,body.mxReduceMotion #bannerWrap.on[data-mo
 /* Native WKWebView uses the full device viewport, unlike Safari's shorter visual
    viewport. These final overrides preserve the web proportions while accounting
    for that extra native height. */
-body.mxNative #studioLogo{width:100%!important;height:100%!important;object-fit:contain!important;object-position:center!important;background:#fff!important}
+body.mxNative #studioLogo{width:88%!important;height:88%!important;object-fit:contain!important;object-position:center!important}
 body.mxNative #logoWrap{transform:scale(.92);transform-origin:center top}
 body.mxNative #logoTitle{font-size:clamp(40px,11.7vw,56px)!important;letter-spacing:.5px!important}
 body.mxNative #logoTop{font-size:14px!important;letter-spacing:4.4px!important}
@@ -8222,11 +8228,15 @@ button,
 /* Japanese / German / Portuguese can need slightly tighter tracking */
 html[lang="ja"] #modalBox .btn,
 html[lang="ja"] .listHead h2,
-html[lang="ja"] #profileTitle{
+html[lang="ja"] #profileTitle,
+html[lang="zh"] #modalBox .btn,
+html[lang="zh"] .listHead h2,
+html[lang="zh"] #profileTitle{
   letter-spacing:0!important;
 }
 html[lang="de"] #modalBox .btn,
-html[lang="pt"] #modalBox .btn{
+html[lang="pt"] #modalBox .btn,
+html[lang="fr"] #modalBox .btn{
   letter-spacing:.01em!important;
 }
 
@@ -9525,14 +9535,19 @@ button,a.btn{
 /* Long-language safety: preserve readable type before shrinking below 10px. */
 html[lang="de"] #modalBox .mrow>.btn,
 html[lang="pt"] #modalBox .mrow>.btn,
-html[lang="es"] #modalBox .mrow>.btn{
+html[lang="es"] #modalBox .mrow>.btn,
+html[lang="fr"] #modalBox .mrow>.btn{
   letter-spacing:0!important;
 }
-html[lang="ja"] button,
-html[lang="ja"] .btn{
+html[lang="ja"] button,html[lang="ja"] .btn,
+html[lang="zh"] button,html[lang="zh"] .btn{
   letter-spacing:0!important;
   word-break:keep-all!important;
 }
+html[lang="zh"] body{line-break:strict}
+html[lang="zh"] #modalBox .msub,
+html[lang="zh"] .storyNarration,
+html[lang="zh"] .speechBubble{overflow-wrap:anywhere;word-break:normal}
 
 /* Short phones: spacing is reduced before typography, maintaining touch size. */
 @media(max-height:680px){
@@ -9716,9 +9731,8 @@ html[lang="pt"] #btnMols small,html[lang="es"] #btnMols small{font-size:6.45px!i
   .duelRankRow .rankingSafetyBtn{grid-column:3;grid-row:1 / span 2}
 }
 
-
 /* =====================================================================
-   R46 MOBILE · COMPLETE SHORT-ACTION CENTERING PASS
+   R46 WEB · COMPLETE SHORT-ACTION CENTERING PASS
    Position only: existing widths, colors, radii, shadows and animations stay
    unchanged. This final cascade guard also covers dynamically-created modals.
    ===================================================================== */
@@ -9786,3 +9800,468 @@ html[lang="pt"] #btnMols small,html[lang="es"] #btnMols small{font-size:6.45px!i
   margin-left:auto!important;
   margin-right:auto!important;
 }
+
+/* =====================================================================
+   R50 · STRICT MULTI-LANGUAGE LAYOUT / OVERFLOW SAFETY
+   Responsive polish only. No gameplay, board geometry, progression, story,
+   online rules, economy, audio or art assets are changed here.
+   ===================================================================== */
+
+/* Every localized UI surface must remain inside the viewport. */
+#modalBox,
+#modalBox * ,
+#splashBtns,#splashBtns *,
+.listHead,.listHead *,
+#collectionTabs,#collectionTabs *,
+#labTabs,#labTabs *,
+#hofTopTabs,#hofTopTabs *,
+#hofSubTabs,#hofSubTabs *,
+#duelRankTabs,#duelRankTabs *{
+  box-sizing:border-box;
+  min-width:0;
+}
+
+#modalBox{
+  max-width:calc(100vw - max(14px,var(--sal)) - max(14px,var(--sar)))!important;
+}
+
+/* Long translations are allowed to wrap rather than disappear or push a
+   neighboring control off-screen. */
+#modalBox h3,#modalBox h4,#modalBox .msub,
+#modalBox button,#modalBox .btn,
+#splashBtns .btn,
+.collectionTab,.labTab,.hofTopTab,.hofSubTab,.duelRankTab,
+.collectionFilter,.trainingChoice,.duelChoice,.languageSheetChoice,
+.settingsPickerRow,.languageSettingRow{
+  max-width:100%!important;
+  overflow-wrap:anywhere!important;
+  word-break:normal!important;
+}
+
+html[lang="de"] :is(#modalBox button,#modalBox .btn,#splashBtns .btn,.collectionTab,.labTab,.hofTopTab,.hofSubTab,.duelRankTab,.trainingChoice,.duelChoice),
+html[lang="fr"] :is(#modalBox button,#modalBox .btn,#splashBtns .btn,.collectionTab,.labTab,.hofTopTab,.hofSubTab,.duelRankTab,.trainingChoice,.duelChoice),
+html[lang="es"] :is(#modalBox button,#modalBox .btn,#splashBtns .btn,.collectionTab,.labTab,.hofTopTab,.hofSubTab,.duelRankTab,.trainingChoice,.duelChoice),
+html[lang="pt"] :is(#modalBox button,#modalBox .btn,#splashBtns .btn,.collectionTab,.labTab,.hofTopTab,.hofSubTab,.duelRankTab,.trainingChoice,.duelChoice){
+  hyphens:auto;
+}
+
+/* Main menu: primary buttons can become two lines on narrow devices without
+   changing their visual hierarchy. */
+#splashBtns .btn:not(.iconBadge){
+  height:auto!important;
+  min-height:48px!important;
+  white-space:normal!important;
+  line-height:1.08!important;
+  text-align:center!important;
+  text-wrap:balance;
+}
+#splashBtns .btn:not(.iconBadge)>span{
+  min-width:0!important;
+  max-width:100%!important;
+  white-space:normal!important;
+  overflow-wrap:anywhere!important;
+}
+
+/* Header titles may use two compact lines instead of an ellipsis in a language
+   with a longer title. */
+.listHead h2{
+  white-space:normal!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+  line-height:1.02!important;
+  text-wrap:balance;
+}
+
+/* Laboratory tabs: R49 still had a nowrap/clip rule. That could visibly cut
+   German/French/Portuguese labels. R50 keeps the row but lets labels use two
+   centered lines. */
+#labTabs .labTab{
+  height:auto!important;
+  min-height:52px!important;
+}
+#labTabs .labTab span{
+  white-space:normal!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+  overflow-wrap:anywhere!important;
+  word-break:normal!important;
+  line-height:1.02!important;
+  text-align:center!important;
+  text-wrap:balance;
+}
+
+/* Collection filters previously used ellipsis. Full localized labels now stay
+   readable instead of being silently shortened. */
+.collectionFilter{
+  min-height:42px!important;
+  white-space:normal!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+  line-height:1.08!important;
+  overflow-wrap:anywhere!important;
+  text-align:center!important;
+}
+
+/* Settings/account rows: give the label flexible space and never let the
+   current value crush it. */
+#modalBox.settingsModal .languageSettingRow,
+#modalBox.settingsModal .settingsPickerRow{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) auto!important;
+  align-items:center!important;
+  gap:10px!important;
+}
+#modalBox.settingsModal .languageSettingLabel,
+#modalBox.settingsModal .settingsPickerLabel,
+#modalBox.settingsModal .togRow>span{
+  min-width:0!important;
+  max-width:100%!important;
+}
+#modalBox.settingsModal .languageSettingLabel b,
+#modalBox.settingsModal .languageSettingLabel small,
+#modalBox.settingsModal .settingsPickerLabel b,
+#modalBox.settingsModal .settingsPickerLabel small,
+#modalBox.settingsModal .togRow>span>b,
+#modalBox.settingsModal .togRow>span>small{
+  max-width:100%!important;
+  white-space:normal!important;
+  overflow-wrap:anywhere!important;
+  word-break:normal!important;
+}
+#modalBox.settingsModal .languageSettingValue,
+#modalBox.settingsModal .settingsPickerValue{
+  min-width:0!important;
+  max-width:min(42vw,170px)!important;
+}
+#modalBox.settingsModal .languageSettingValue strong,
+#modalBox.settingsModal .settingsPickerValue strong{
+  min-width:0!important;
+  max-width:100%!important;
+  white-space:normal!important;
+  overflow-wrap:anywhere!important;
+  text-align:right!important;
+  line-height:1.1!important;
+}
+#modalBox.settingsModal .togRow{
+  align-items:center!important;
+}
+#modalBox.settingsModal .togRow>.tog{
+  flex:0 0 auto!important;
+}
+
+/* Training Center / Moleculopedia / How to Play content: no card title or
+   explanation is clipped by a fixed text box. */
+#modalBox.trainingCenterModal .trainingChoice>span:nth-child(2),
+#modalBox.moleculopediaModal .mechanicGuideRow b,
+#modalBox.moleculopediaModal .mechanicGuideRow small,
+#modalBox.guideModal .guideSection h4,
+#modalBox.guideModal .guideSection p,
+#modalBox.guideModal .guideSection li,
+#modalBox.guideModal .guideGrid b,
+#modalBox.guideModal .guideGrid span{
+  white-space:normal!important;
+  overflow-wrap:anywhere!important;
+  word-break:normal!important;
+  max-width:100%!important;
+}
+#modalBox.moleculopediaModal .moleculoTab{
+  white-space:normal!important;
+  line-height:1.08!important;
+  text-wrap:balance;
+}
+
+/* Duel cards and preset messages use the full localized copy. */
+.duelChoice>b,.duelChoice>small,.onlineQuickMsgBtn{
+  white-space:normal!important;
+  overflow-wrap:anywhere!important;
+  word-break:normal!important;
+  max-width:100%!important;
+}
+.onlineQuickMessages>div{align-items:stretch!important}
+.onlineQuickMsgBtn{height:auto!important;min-height:40px!important}
+
+/* Dr. E text should always remain readable without pushing the character or
+   board. Vertical scrolling is only used as a last resort for very long copy. */
+.speechBubble,.einSpeech,#einBoxG .speech,#einBoxS .speech{
+  max-width:100%!important;
+  white-space:normal!important;
+  overflow-wrap:anywhere!important;
+  word-break:normal!important;
+}
+
+/* Bottom/action controls: text may use two compact lines; it must not escape
+   the button rectangle or be replaced by ellipsis. */
+#gameScr #actionCol .btn.iconBadge small,
+#gameScr #actionCol .act small,
+#gameScr #navBtns .navB small{
+  white-space:normal!important;
+  overflow:hidden!important;
+  text-overflow:clip!important;
+  overflow-wrap:anywhere!important;
+  word-break:normal!important;
+  line-height:1.0!important;
+}
+
+@media(max-width:430px){
+  #labTabs{gap:4px!important;padding-left:7px!important;padding-right:7px!important}
+  #labTabs .labTab{min-height:56px!important;padding:5px 2px!important;gap:2px!important}
+  #labTabs .labTab span{font-size:clamp(7.1px,2.15vw,8.4px)!important}
+
+  #collectionTabs{grid-auto-rows:minmax(44px,auto)!important}
+  .collectionTab{height:auto!important;min-height:44px!important;padding-top:6px!important;padding-bottom:6px!important}
+  .collectionTab span{line-height:1.05!important;text-wrap:balance}
+
+  #modalBox.settingsModal .languageSettingRow,
+  #modalBox.settingsModal .settingsPickerRow{padding-left:10px!important;padding-right:10px!important}
+
+  #modalBox.trainingCenterModal .trainingProgressTop{
+    grid-template-columns:minmax(0,1fr) auto!important;
+    gap:7px!important;
+  }
+  #modalBox.trainingCenterModal .trainingProgressTop span{
+    white-space:normal!important;overflow-wrap:anywhere!important;
+  }
+}
+
+@media(max-width:370px){
+  /* On the narrowest supported phones, setting values move below their label
+     instead of forcing either side outside the card. */
+  #modalBox.settingsModal .languageSettingRow,
+  #modalBox.settingsModal .settingsPickerRow{
+    grid-template-columns:minmax(0,1fr)!important;
+    align-items:start!important;
+    gap:6px!important;
+  }
+  #modalBox.settingsModal .languageSettingValue,
+  #modalBox.settingsModal .settingsPickerValue{
+    width:100%!important;
+    max-width:100%!important;
+    justify-content:space-between!important;
+  }
+  #modalBox.settingsModal .languageSettingValue strong,
+  #modalBox.settingsModal .settingsPickerValue strong{text-align:left!important}
+
+  #modalBox.trainingCenterModal .trainingProgressTop{
+    grid-template-columns:minmax(0,1fr)!important;
+    gap:4px!important;
+  }
+  #modalBox.trainingCenterModal .trainingProgressTop strong{text-align:left!important}
+
+  #labTabs .labTab{min-height:58px!important}
+  #labTabs .labTab span{font-size:7px!important}
+}
+
+@media(max-width:335px){
+  #splashBtns .btn:not(.iconBadge){font-size:clamp(11.5px,3.8vw,13px)!important;padding-left:8px!important;padding-right:8px!important}
+  #modalBox{max-width:calc(100vw - 10px)!important}
+  #modalBox.trainingCenterModal,#modalBox.accountModal,#modalBox.settingsModal{width:calc(100vw - 10px)!important}
+}
+
+/* ================= R51 — mobile/iPhone compositor + viewport jitter guard =================
+   Keep the approved visuals intact while preventing Safari/WebKit from repeatedly
+   re-rasterizing full-screen fixed layers during dynamic-toolbar / ProMotion resizes. */
+@supports (-webkit-touch-callout:none){
+  body.mxIOSWebKit{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  body.mxIOSWebKit #bgA,
+  body.mxIOSWebKit #bgB,
+  body.mxIOSWebKit #bgVignette,
+  body.mxIOSWebKit #bgParticles,
+  body.mxIOSWebKit #fx{
+    -webkit-transform:translate3d(0,0,0);
+    transform:translate3d(0,0,0);
+    -webkit-backface-visibility:hidden;
+    backface-visibility:hidden;
+  }
+  body.mxIOSWebKit #bgA,body.mxIOSWebKit #bgB{will-change:opacity}
+  body.mxIOSWebKit .screen{
+    -webkit-backface-visibility:hidden;
+    backface-visibility:hidden;
+    -webkit-transform:translate3d(0,0,0) scale(1.02);
+    transform:translate3d(0,0,0) scale(1.02);
+  }
+  body.mxIOSWebKit .screen.on{
+    -webkit-transform:translate3d(0,0,0) scale(1);
+    transform:translate3d(0,0,0) scale(1);
+  }
+  body.mxIOSWebKit canvas,
+  body.mxIOSWebKit .einBox,
+  body.mxIOSWebKit #boardFrame{
+    -webkit-backface-visibility:hidden;
+    backface-visibility:hidden;
+  }
+}
+
+
+/* ================= R53 — full localization edge-case polish =================
+   Language-length safety only. No visual redesign or gameplay layout change. */
+#modalBox.onlineDuelModal :is(.onlineDuelSection,.duelLevelLabel,.quickMatchRules,.onlineDuelNotice,.msub),
+#modalBox.accountModal :is(.accountCloudStatus,.authMessage,.authTiny,.profileName,.accountMilestoneInvite span,.accountMilestoneInvite b),
+#modalBox.trainingCenterModal .trainingChoice>span:nth-child(2),
+#modalBox.moleculopediaModal :is(.mechanicGuideRow b,.mechanicGuideRow small),
+#modalBox.guideModal :is(.guideIntro,.guideSection,.guideSection li){
+  min-width:0!important;
+  max-width:100%!important;
+  white-space:normal!important;
+  overflow-wrap:anywhere!important;
+  word-break:normal!important;
+}
+#modalBox.onlineDuelModal .mrow,
+#modalBox.accountModal .mrow,
+#modalBox.accountModal .accountActions,
+#modalBox.accountModal .accountUtilityRow{
+  min-width:0!important;
+  max-width:100%!important;
+  flex-wrap:wrap!important;
+}
+#modalBox.onlineDuelModal .mrow>.btn,
+#modalBox.accountModal .mrow>.btn,
+#modalBox.accountModal .accountActions>.btn,
+#modalBox.accountModal .accountUtilityRow>.btn{
+  min-width:0!important;
+  height:auto!important;
+  min-height:44px!important;
+  white-space:normal!important;
+  line-height:1.08!important;
+  overflow-wrap:anywhere!important;
+  text-wrap:balance;
+}
+#modalBox.onlineDuelModal :is(input,select),
+#modalBox.accountModal :is(input,select){
+  min-width:0!important;
+  max-width:100%!important;
+}
+html[lang="ja"] :is(#modalBox,.screen),
+html[lang="zh"] :is(#modalBox,.screen){line-break:strict}
+html[lang="ja"] :is(button,.btn,.msub,small,p,li),
+html[lang="zh"] :is(button,.btn,.msub,small,p,li){word-break:normal;overflow-wrap:anywhere}
+
+@media(max-width:370px){
+  #modalBox.onlineDuelModal .mrow>.btn,
+  #modalBox.accountModal .mrow>.btn,
+  #modalBox.accountModal .accountActions>.btn,
+  #modalBox.accountModal .accountUtilityRow>.btn{
+    flex:1 1 100%!important;
+    width:100%!important;
+  }
+  #modalBox.onlineDuelModal .duelChoice,
+  #modalBox.trainingCenterModal .trainingChoice{
+    height:auto!important;
+    min-height:54px!important;
+  }
+}
+
+
+/* ================= R59 — cross-phone anti-flicker hardening =================
+   Target WebKit/120 Hz devices that intermittently re-rasterize transformed or
+   backdrop-filtered UI text. Keep the approved visual design; remove only the
+   compositing paths known to cause text/button shimmer on iPhone Safari/WKWebView. */
+@supports (-webkit-touch-callout:none){
+  body.mxIOSWebKit .screen,
+  body.mxIOSWebKit .screen.on{
+    -webkit-transform:none!important;
+    transform:none!important;
+  }
+  body.mxIOSWebKit .screen{transition:opacity .20s ease!important}
+
+  body.mxIOSWebKit :is(button,.btn,.pill,.chip,.tab,.labTab,.hofTopTab,.hofSubTab,.duelTurnBadge,#goalCard,#lvPill,#movePill,#duelTimer){
+    -webkit-font-smoothing:antialiased;
+    -webkit-backface-visibility:hidden;
+    backface-visibility:hidden;
+  }
+
+  /* WebKit blur + animated descendants can intermittently flash their glyph
+     texture. Use the same translucent surface without live blur on buttons. */
+  body.mxIOSWebKit .btn.ghost{
+    -webkit-backdrop-filter:none!important;
+    backdrop-filter:none!important;
+    background:rgba(30,27,57,.88)!important;
+  }
+
+  /* The intentional CTA breathing animation can look like display flicker on
+     high-refresh iPhones. Keep it on other platforms, make iOS CTA steady. */
+  body.mxIOSWebKit .breathe{animation:none!important}
+}
+
+/* Respect devices/users that ask for reduced motion; this also protects older
+   phones where repeated glow/transform rasterization can flash UI layers. */
+@media (prefers-reduced-motion:reduce){
+  .screen{transition:opacity .12s linear!important;transform:none!important}
+  .breathe,.syncDot.sync-syncing{animation:none!important}
+}
+/* R62 online duel escape control */
+.onlineCountdownCard .onlineCountdownLeave{margin-top:18px;min-width:180px;max-width:88%;align-self:center;white-space:normal;line-height:1.15}
+@media(max-width:390px){.onlineCountdownCard .onlineCountdownLeave{min-width:150px;font-size:13px;padding:10px 14px}}
+
+/* ================= R66 — iPhone sustained-FPS + post-level menu stability =================
+   iOS WebKit can accumulate expensive blur/filter/continuous animation layers across
+   repeated puzzle -> menu transitions. The automatic iPhone profile preserves layout,
+   color and interaction while replacing only the costly continuously-rasterized effects. */
+@supports (-webkit-touch-callout:none){
+  body:is(.mxIOSSafePerf,.mxAndroidSafePerf) #bgParticles{display:none!important}
+  body:is(.mxIOSSafePerf,.mxAndroidSafePerf) #fx{filter:none!important}
+  body:is(.mxIOSSafePerf,.mxAndroidSafePerf) :is(#goalCard.mxGoalBreath,#goalCard.mxGoalNear,#splash #einBoxS,#einBoxG.mx-life-breathe .einImg,#einBoxG.mx-life-focus .einImg,#einBoxG.mx-life-think .einImg){animation:none!important}
+  body:is(.mxIOSSafePerf,.mxAndroidSafePerf) :is(.mxNextMolVeil,#modal,#levelTransition){-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+  body:is(.mxIOSSafePerf,.mxAndroidSafePerf) :is(#bgA,#bgB,#bgVignette,#boardFrame,#goalCard,.btn,.pill,.chip){filter:none}
+  body:is(.mxIOSSafePerf,.mxAndroidSafePerf) #bgA,body:is(.mxIOSSafePerf,.mxAndroidSafePerf) #bgB{will-change:auto!important}
+  body:is(.mxIOSSafePerf,.mxAndroidSafePerf) .screen{transition:opacity .14s linear!important}
+  body:is(.mxIOSSafePerf,.mxAndroidSafePerf) .mxFlyingCoin,
+  body:is(.mxIOSSafePerf,.mxAndroidSafePerf) #mxMoleculeFinishFx .mxOrbit,
+  body:is(.mxIOSSafePerf,.mxAndroidSafePerf) #mxMoleculeFinishFx .mxEnergyRing{display:none!important}
+}
+
+
+/* ================= R69 — duel variety + final-30-second tension ================= */
+#gameScr.duelTimeWarning #duelTimer{
+  background:linear-gradient(180deg,#f2c94c,#9a6a05)!important;
+  border-color:rgba(255,236,155,.92)!important;
+  color:#fff!important;
+  box-shadow:0 0 12px rgba(242,201,76,.38);
+}
+#gameScr.duelTimeDanger #duelTimer{
+  background:linear-gradient(180deg,#ff9a3d,#b6460b)!important;
+  border-color:rgba(255,211,170,.95)!important;
+  color:#fff!important;
+  box-shadow:0 0 15px rgba(255,122,47,.46);
+}
+#gameScr.duelTimeCritical #duelTimer{
+  background:linear-gradient(180deg,#ff5968,#a70f24)!important;
+  border-color:#ffd5da!important;
+  color:#fff!important;
+  box-shadow:0 0 20px rgba(255,62,82,.68);
+}
+#gameScr.duelTimeCritical #boardFrame{
+  border-color:rgba(255,66,82,.95)!important;
+  box-shadow:0 0 0 2px rgba(255,66,82,.38),0 0 22px rgba(255,40,63,.48)!important;
+  animation:mxDuelFinalBorder .72s ease-in-out infinite alternate;
+}
+@keyframes mxDuelFinalBorder{
+  from{box-shadow:0 0 0 1px rgba(255,66,82,.22),0 0 10px rgba(255,40,63,.24)}
+  to{box-shadow:0 0 0 3px rgba(255,90,104,.62),0 0 28px rgba(255,40,63,.72)}
+}
+/* Avoid adding compositor pressure to devices already in reduced-motion mode. */
+@media (prefers-reduced-motion:reduce){#gameScr.duelTimeCritical #boardFrame{animation:none!important}}
+body.mxPerfLow #gameScr.duelTimeCritical #boardFrame{animation:none!important}
+
+/* R75 online duel polish: reconnect clarity + post-reveal round recap */
+.onlineDisconnectPlayer{display:inline-flex;margin:11px auto 0;padding:6px 11px;border-radius:999px;background:rgba(87,214,255,.10);border:1px solid rgba(87,214,255,.24);font-size:11px;font-weight:900;color:#e8faff;max-width:88%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.onlineDisconnectProgressTrack{height:6px;margin:11px 18px 2px;border-radius:999px;background:rgba(255,255,255,.09);overflow:hidden;border:1px solid rgba(255,255,255,.08)}
+.onlineDisconnectProgressTrack i{display:block;height:100%;width:100%;border-radius:inherit;background:linear-gradient(90deg,#ffd54f,#66e6ff);transition:width .24s linear}
+.onlineReconnectProtection{display:inline-block;margin-top:13px;padding:7px 10px;border-radius:10px;background:rgba(96,224,180,.10);border:1px solid rgba(96,224,180,.25);color:#bff6df;font-size:10px;font-weight:850;line-height:1.35}
+.duelFinalRoundStats{margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,.10)}
+.duelFinalRoundStats>strong{display:block;margin-bottom:7px;font-size:9px;letter-spacing:.75px;color:rgba(229,239,255,.72)}
+.duelFinalStatRow{display:grid;grid-template-columns:minmax(58px,.7fr) minmax(0,1fr) minmax(0,1fr);gap:6px;align-items:center;padding:6px 3px;border-top:1px solid rgba(255,255,255,.055);font-size:9px;font-variant-numeric:tabular-nums}
+.duelFinalStatRow:first-of-type{border-top:0}.duelFinalStatRow b{color:#f5f8ff;text-align:left}.duelFinalStatRow span{min-width:0;white-space:nowrap;text-align:center;font-weight:850}.duelFinalStatRow .red{color:#ffb6bf}.duelFinalStatRow .blue{color:#a9e4ff}
+@media(max-width:380px){.duelFinalStatRow{grid-template-columns:50px 1fr 1fr;font-size:8px;gap:3px}.duelFinalRoundStats{margin-top:9px;padding-top:8px}}
+
+/* R76 How-to-Play: compact ranked Atom Duel explanation */
+.guideSection.guideDuelSection{border-color:rgba(255,196,74,.38);background:linear-gradient(145deg,rgba(75,43,114,.28),rgba(19,74,105,.25));box-shadow:inset 0 1px rgba(255,255,255,.035)}
+.guideDuelSection>p{margin-bottom:9px!important}
+.guideDuelScoreRow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:9px 0 10px}
+.guideDuelScoreRow span{min-width:0;padding:9px 5px 8px;border-radius:11px;text-align:center;border:1px solid rgba(255,255,255,.12);background:rgba(8,17,34,.36)}
+.guideDuelScoreRow span small{display:block;font-size:9.5px;line-height:1.2;letter-spacing:.055em;font-weight:900;opacity:.82;overflow-wrap:anywhere}
+.guideDuelScoreRow span b{display:block;margin-top:4px;font-size:15px;line-height:1.1;white-space:nowrap}
+.guideDuelScoreRow .win{border-color:rgba(92,231,143,.34)}.guideDuelScoreRow .win b{color:#70f0a6}
+.guideDuelScoreRow .draw{border-color:rgba(104,215,255,.34)}.guideDuelScoreRow .draw b{color:#7de4ff}
+.guideDuelScoreRow .loss{border-color:rgba(255,117,129,.34)}.guideDuelScoreRow .loss b{color:#ff8e98}
+.guideDuelNote{margin-top:9px;padding:9px 10px;border-radius:10px;background:rgba(255,205,80,.075);border:1px solid rgba(255,205,80,.2);font-size:11.5px;line-height:1.42;color:#f5f1df}
+@media(max-width:360px){.guideDuelScoreRow{gap:5px}.guideDuelScoreRow span{padding:8px 3px}.guideDuelScoreRow span small{font-size:8.5px}.guideDuelScoreRow span b{font-size:13.5px}.guideDuelNote{font-size:11px}}

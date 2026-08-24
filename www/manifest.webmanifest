@@ -1,7 +1,7 @@
 {
   "name": "Moleculox — Dr. E's Lab",
   "short_name": "Moleculox",
-  "description": "Moleculox v8.5.79 — R46 release by Whiteway Studio.",
+  "description": "Moleculox v8.7.19 — R77 fixes friend-room joining against the published Firestore rules while preserving the 8-language Atom Duel guide and R75 online polish.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
@@ -34,5 +34,5 @@
     "games",
     "education"
   ],
-  "version": "8.5.79"
+  "version": "8.7.19"
 }

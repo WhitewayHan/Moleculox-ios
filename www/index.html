@@ -25,7 +25,7 @@
 </script>
 <title>Moleculox — Dr. E's Lab</title>
 <script>
-window.__MX_BUILD_ID__='8.5.79-r46-ui-centered-ios';
+window.__MX_BUILD_ID__='8.7.19-r77-native-ios';
 window.__MX_NATIVE_SHELL__=!!(window.Capacitor&&window.Capacitor.isNativePlatform&&window.Capacitor.isNativePlatform())||/^(capacitor|ionic):$/i.test(location.protocol)||(location.hostname==='localhost'&&/iPhone|iPad|iPod/i.test(navigator.userAgent||''));
 </script>
 <script>
@@ -56,7 +56,7 @@ if(!window.__MX_NATIVE_SHELL__&&'serviceWorker' in navigator){
   });
 }
 </script>
-<link rel="stylesheet" href="css/app.css?v=8.5.79-r46-ui-centered-ios">
+<link rel="stylesheet" href="css/app.css?v=8.7.19-r77-native-ios">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
 
@@ -159,6 +159,7 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
 <div id="splash" class="screen">
   <div id="splashIntro"><div id="splashIntroBulb"></div></div>
   <button id="btnSwitchProfile" class="btn iconBadge tint-purple" title="Hesap ve oyuncular"><span class="badgeIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c1.3-3.8 4.2-5.8 7.5-5.8s6.6 2 7.5 5.8"/></svg></span><span id="accountDot" class="accountDot guest" aria-hidden="true"></span></button>
+  <div id="splashCoinChip" class="chip" aria-label="MoleCoin"><span class="coinIcon" aria-hidden="true"></span><span>0</span></div>
   <button id="splashGear" class="btn iconBadge tint-silver"><span class="badgeIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 13.5a7.6 7.6 0 0 0 0-3l2-1.5-2-3.4-2.3.9a7.6 7.6 0 0 0-2.6-1.5L14 2h-4l-.5 2.4a7.6 7.6 0 0 0-2.6 1.5l-2.3-.9-2 3.4 2 1.5a7.6 7.6 0 0 0 0 3l-2 1.6 2 3.4 2.3-.9c.75.65 1.63 1.16 2.6 1.5L10 22h4l.4-2.4a7.6 7.6 0 0 0 2.6-1.5l2.3.9 2-3.4-2-1.6z"/></svg></span><span id="syncDot" class="syncDot" title="Cloud sync status"></span></button>
   <div id="logoWrap">
     <div id="logoTop">DR. E's LAB</div>
@@ -504,15 +505,18 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
 <div id="levelTransition"></div>
 <canvas id="fx"></canvas>
 
-<script src="js/sync-core.js?v=8.5.79-r46-ui-centered-ios" defer></script>
-<script src="js/daily-levels.js?v=8.5.79-r46-ui-centered-ios" defer></script>
-<script src="js/campaign-levels.js?v=8.5.79-r46-ui-centered-ios" defer></script>
-<script src="js/level-fx-recipes.js?v=8.5.79-r46-ui-centered-ios" defer></script>
-<script src="js/story-universe.js?v=8.5.79-r46-ui-centered-ios" defer></script>
-<script src="js/game.js?v=8.5.79-r46-ui-centered-ios" defer></script>
+<script src="js/sync-core.js?v=8.7.19-r77-native-ios" defer></script>
+<script src="js/daily-levels.js?v=8.7.19-r77-native-ios" defer></script>
+<script src="js/campaign-levels.js?v=8.7.19-r77-native-ios" defer></script>
+<script src="js/level-fx-recipes.js?v=8.7.19-r77-native-ios" defer></script>
+<script src="js/story-universe.js?v=8.7.19-r77-native-ios" defer></script>
+<script src="js/v2-locales-generated.js?v=8.7.19-r77-native-ios" defer></script>
+<script src="js/v2-story-quality.js?v=8.7.19-r77-native-ios" defer></script>
+<script src="js/voice-locales-generated.js?v=8.7.19-r77-native-ios" defer></script>
+<script src="js/game.js?v=8.7.19-r77-native-ios" defer></script>
 
 <!-- ================= FIREBASE (cloud save + world leaderboard) ================= -->
-<script type="module" src="js/firebase.js?v=8.5.79-r46-ui-centered-ios"></script>
+<script type="module" src="js/firebase.js?v=8.7.19-r77-native-ios"></script>
 
 <script>
 /* V8.5.17: convert functional UI emoji glyphs to one cross-platform SVG family.

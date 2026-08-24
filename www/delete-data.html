@@ -37,7 +37,7 @@
 <p>The complete-account flow stops and shows an error if a required cloud deletion fails; it does not intentionally delete the sign-in account after only a partial cleanup.</p>
 
 <h2>Temporary online Duel records</h2>
-<p>Room, move, preset-message, presence and Quick Match records are temporary and carry an <code>expiresAt</code> time. With the required Firebase TTL policies enabled, Duel rooms expire approximately six hours after creation and queue tickets approximately two minutes after creation. Firebase may take additional time to perform the physical deletion.</p>
+<p>Room, move, preset-message, presence and Quick Match records are temporary and carry an <code>expiresAt</code> time. With the required Firebase TTL policies enabled, Duel rooms expire approximately six hours after creation and Quick Match queue tickets approximately two minutes after creation and friend invite tickets approximately fifteen minutes after creation. Firebase may take additional time to perform the physical deletion.</p>
 
 <h2>Player-name safety reports</h2>
 <p>Reports are scheduled to expire approximately 180 days after creation when the required Firebase TTL policy is enabled. Reports authored by your account are also removed by the complete-account deletion flow when the deployed Firestore rules permit owner cleanup.</p>

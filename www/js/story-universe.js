@@ -1,4 +1,4 @@
-/* Moleculox FINAL R45 Story Canon — schema 9. Narration/dialogue separated; approved canon characters and supplied color story art. */
+/* Moleculox FINAL R52 Story Canon — schema 9. French and Simplified Chinese story copy baked into the canon source; runtime polish remains idempotent. */
 (function(root){
   'use strict';
   const universe={
@@ -10,7 +10,9 @@
     "de",
     "es",
     "pt",
-    "ja"
+    "ja",
+    "fr",
+    "zh"
   ],
   "characters": {
     "drE": {
@@ -31,7 +33,9 @@
         "de": "DR. NULLS KATZE",
         "es": "EL GATO DE DR. NULL",
         "pt": "O GATO DO DR. NULL",
-        "ja": "DR. NULLのネコ"
+        "ja": "DR. NULLのネコ",
+        "fr": "LE CHAT DE DR. NULL",
+        "zh": "DR. NULL的猫"
       },
       "asset": "assets/images/characters/null-cat-canon-r40.webp"
     },
@@ -54,7 +58,9 @@
         "de": "QUANTENLABOR",
         "es": "LABORATORIO CUÁNTICO",
         "pt": "LABORATÓRIO QUÂNTICO",
-        "ja": "量子研究所"
+        "ja": "量子研究所",
+        "fr": "LABORATOIRE QUANTIQUE",
+        "zh": "量子实验室"
       },
       "tagline": {
         "tr": "X-Bağı ilk kez burada titreşti.",
@@ -62,7 +68,9 @@
         "de": "Hier pulsierte die X-Bindung zum ersten Mal.",
         "es": "Aquí pulsó por primera vez el Enlace X.",
         "pt": "A Ligação X pulsou aqui pela primeira vez.",
-        "ja": "X結合が初めて脈動した場所。"
+        "ja": "X結合が初めて脈動した場所。",
+        "fr": "C’est ici que la liaison X a émis sa première pulsation.",
+        "zh": "X键第一次在这里脉动。"
       },
       "art": "assets/images/worlds/world-quantum-lab-r40.webp",
       "colors": {
@@ -84,7 +92,9 @@
         "de": "ELEMENTINSEL",
         "es": "ISLA ELEMENTO",
         "pt": "ILHA DOS ELEMENTOS",
-        "ja": "元素島"
+        "ja": "元素島",
+        "fr": "ÎLE DES ÉLÉMENTS",
+        "zh": "元素岛"
       },
       "tagline": {
         "tr": "Doğa, atomların dilini saklıyor.",
@@ -92,7 +102,9 @@
         "de": "Die Natur verbirgt die Sprache der Atome.",
         "es": "La naturaleza esconde el lenguaje de los átomos.",
         "pt": "A natureza esconde a linguagem dos átomos.",
-        "ja": "自然は原子の言葉を隠している。"
+        "ja": "自然は原子の言葉を隠している。",
+        "fr": "La nature dissimule le langage des atomes.",
+        "zh": "大自然隐藏着原子的语言。"
       },
       "art": "assets/images/worlds/world-element-island-r40.webp",
       "colors": {
@@ -114,7 +126,9 @@
         "de": "KRISTALLHÖHLE",
         "es": "CUEVA DE CRISTAL",
         "pt": "CAVERNA DE CRISTAL",
-        "ja": "クリスタル洞窟"
+        "ja": "クリスタル洞窟",
+        "fr": "GROTTE DE CRISTAL",
+        "zh": "晶体洞窟"
       },
       "tagline": {
         "tr": "Kırılan her kristal bir anıyı uyandırıyor.",
@@ -122,7 +136,9 @@
         "de": "Jeder Kristallsplitter weckt eine Erinnerung.",
         "es": "Cada fragmento de cristal despierta un recuerdo.",
         "pt": "Cada fragmento de cristal desperta uma memória.",
-        "ja": "砕けたクリスタルの一片一片が記憶を呼び覚ます。"
+        "ja": "砕けたクリスタルの一片一片が記憶を呼び覚ます。",
+        "fr": "Chaque fragment de cristal réveille un souvenir.",
+        "zh": "每一块晶体碎片都会唤醒一段记忆。"
       },
       "art": "assets/images/worlds/world-crystal-cave-r40.webp",
       "colors": {
@@ -144,7 +160,9 @@
         "de": "ORBITALSTATION",
         "es": "ESTACIÓN ORBITAL",
         "pt": "ESTAÇÃO ORBITAL",
-        "ja": "軌道ステーション"
+        "ja": "軌道ステーション",
+        "fr": "STATION ORBITALE",
+        "zh": "轨道空间站"
       },
       "tagline": {
         "tr": "Son bağ Dünya’nın üzerinde kurulacak.",
@@ -152,7 +170,9 @@
         "de": "Die letzte Bindung wird über der Erde entstehen.",
         "es": "El enlace final se formará sobre la Tierra.",
         "pt": "A ligação final será formada acima da Terra.",
-        "ja": "最後の結合は地球の上空で形成される。"
+        "ja": "最後の結合は地球の上空で形成される。",
+        "fr": "La liaison finale se formera au-dessus de la Terre.",
+        "zh": "最终的化学键将在地球上空形成。"
       },
       "art": "assets/images/worlds/world-orbital-station-r40.webp",
       "colors": {
@@ -177,7 +197,9 @@
         "de": "DIE FEHLENDE FORMEL",
         "es": "LA FÓRMULA PERDIDA",
         "pt": "A FÓRMULA DESAPARECIDA",
-        "ja": "消えた数式"
+        "ja": "消えた数式",
+        "fr": "LA FORMULE MANQUANTE",
+        "zh": "缺失的公式"
       },
       "pages": [
         {
@@ -189,7 +211,9 @@
             "de": "Um Mitternacht erreichte eine versiegelte Nobel-Einladung das Labor. Doch die letzte Seite von Dr. Es Formel war aus der Akte gerissen worden.",
             "es": "A medianoche llegó al laboratorio una invitación sellada del Nobel. Pero la última página de la fórmula de Dr. E había sido arrancada del expediente.",
             "pt": "À meia-noite, um convite selado do Nobel chegou ao laboratório. Mas a última página da fórmula do Dr. E tinha sido arrancada do arquivo.",
-            "ja": "真夜中、封印されたノーベル賞の招待状が研究所に届いた。だがDr. Eの数式の最後のページはファイルから引き抜かれていた。"
+            "ja": "真夜中、封印されたノーベル賞の招待状が研究所に届いた。だがDr. Eの数式の最後のページはファイルから引き抜かれていた。",
+            "fr": "À minuit, une invitation Nobel scellée est arrivée au laboratoire. Mais la dernière page de la formule Dr. E avait été arrachée du dossier.",
+            "zh": "在午夜，一个封闭的诺贝尔邀请到达实验室。但Dr. E公式的最后页面已经从文件中被撕裂了。"
           },
           "caption": {
             "tr": "Bir ödül çağrısı, kayıp bir kanıt ve 301 deney.",
@@ -197,7 +221,9 @@
             "de": "Eine Einladung zur Auszeichnung, ein fehlender Beweis und 301 Experimente.",
             "es": "Una convocatoria a un premio, una prueba perdida y 301 experimentos.",
             "pt": "Uma convocação para um prêmio, uma prova desaparecida e 301 experimentos.",
-            "ja": "賞への招集、消えた証拠、そして301の実験。"
+            "ja": "賞への招集、消えた証拠、そして301の実験。",
+            "fr": "Un appel à la récompense, des preuves manquantes et des expériences 301.",
+            "zh": "报名，缺失证据，以及301次实验。"
           },
           "cast": [
             "drE"
@@ -210,7 +236,9 @@
             "de": "Um Mitternacht erreichte eine versiegelte Nobel-Einladung das Labor. Doch die letzte Seite von Dr. Es Formel war aus der Akte gerissen worden.",
             "es": "A medianoche llegó al laboratorio una invitación sellada del Nobel. Pero la última página de la fórmula de Dr. E había sido arrancada del expediente.",
             "pt": "À meia-noite, um convite selado do Nobel chegou ao laboratório. Mas a última página da fórmula do Dr. E tinha sido arrancada do arquivo.",
-            "ja": "真夜中、封印されたノーベル賞の招待状が研究所に届いた。だがDr. Eの数式の最後のページはファイルから引き抜かれていた。"
+            "ja": "真夜中、封印されたノーベル賞の招待状が研究所に届いた。だがDr. Eの数式の最後のページはファイルから引き抜かれていた。",
+            "fr": "À minuit, une invitation Nobel scellée est arrivée au laboratoire. Mais la dernière page de la formule Dr. E avait été arrachée du dossier.",
+            "zh": "在午夜，一个封闭的诺贝尔邀请到达实验室。但Dr. E公式的最后页面已经从文件中被撕裂了。"
           },
           "dialogue": {
             "tr": "",
@@ -218,7 +246,9 @@
             "de": "",
             "es": "",
             "pt": "",
-            "ja": ""
+            "ja": "",
+            "fr": "",
+            "zh": ""
           }
         },
         {
@@ -230,7 +260,9 @@
             "de": "Der Scanner fand eine Resonanzspur, die Dr. E seit Jahren nicht mehr gesehen hatte: die alte X-Bindungs-Signatur. Dieselbe Signatur sendete wieder vom ersten Experimentierfeld.",
             "es": "El escáner encontró una huella de resonancia que Dr. E no veía desde hacía años: la antigua firma del Enlace X. La misma firma volvía a emitir desde el primer tablero experimental.",
             "pt": "O scanner encontrou um rastro de ressonância que o Dr. E não via havia anos: a antiga assinatura da Ligação X. A mesma assinatura voltava a emitir a partir do primeiro quadro experimental.",
-            "ja": "スキャナーは、Dr. Eが何年も見ていなかった共鳴痕跡を検出した。かつてのX結合のシグネチャだ。同じ反応が最初の実験ボードから再び発信されていた。"
+            "ja": "スキャナーは、Dr. Eが何年も見ていなかった共鳴痕跡を検出した。かつてのX結合のシグネチャだ。同じ反応が最初の実験ボードから再び発信されていた。",
+            "fr": "Le scanner a trouvé une trace de résonance Dr. E qu'il n'avait pas vue depuis des années: l'ancienne signature liaison X. La même signature était à nouveau transmise depuis la première planche d'expérience.",
+            "zh": "扫描仪发现了共振痕迹 Dr. E 几年来没见过:旧的X键签名。从第一次实验板上发出了同样的签名。"
           },
           "caption": {
             "tr": "Unutulmuş bir deney yeniden uyanıyor.",
@@ -238,7 +270,9 @@
             "de": "Ein vergessenes Experiment erwacht erneut.",
             "es": "Un experimento olvidado vuelve a despertar.",
             "pt": "Um experimento esquecido está despertando outra vez.",
-            "ja": "忘れられた実験が、再び目を覚ます。"
+            "ja": "忘れられた実験が、再び目を覚ます。",
+            "fr": "Une expérience oubliée se réveille à nouveau.",
+            "zh": "一个被遗忘的实验再次醒来。"
           },
           "cast": [
             "drE"
@@ -251,7 +285,9 @@
             "de": "Der Scanner fand eine Resonanzspur, die Dr. E seit Jahren nicht mehr gesehen hatte: die alte X-Bindungs-Signatur. Dieselbe Signatur sendete wieder vom ersten Experimentierfeld.",
             "es": "El escáner encontró una huella de resonancia que Dr. E no veía desde hacía años: la antigua firma del Enlace X. La misma firma volvía a emitir desde el primer tablero experimental.",
             "pt": "O scanner encontrou um rastro de ressonância que o Dr. E não via havia anos: a antiga assinatura da Ligação X. A mesma assinatura voltava a emitir a partir do primeiro quadro experimental.",
-            "ja": "スキャナーは、Dr. Eが何年も見ていなかった共鳴痕跡を検出した。かつてのX結合のシグネチャだ。同じ反応が最初の実験ボードから再び発信されていた。"
+            "ja": "スキャナーは、Dr. Eが何年も見ていなかった共鳴痕跡を検出した。かつてのX結合のシグネチャだ。同じ反応が最初の実験ボードから再び発信されていた。",
+            "fr": "Le scanner a trouvé une trace de résonance Dr. E qu'il n'avait pas vue depuis des années: l'ancienne signature liaison X. La même signature était à nouveau transmise depuis la première planche d'expérience.",
+            "zh": "扫描仪发现了共振痕迹 Dr. E 几年来没见过:旧的X键签名。从第一次实验板上发出了同样的签名。"
           },
           "dialogue": {
             "tr": "",
@@ -259,7 +295,9 @@
             "de": "",
             "es": "",
             "pt": "",
-            "ja": ""
+            "ja": "",
+            "fr": "",
+            "zh": ""
           }
         },
         {
@@ -271,7 +309,9 @@
             "de": "Dr. Null erschien an der Tür. “Ich habe sie nicht genommen, E. Am Rand gibt es keinen normalen Riss; die X-Bindung scheint die Seite herausgezogen zu haben. Wir müssen herausfinden, wohin sie gelangt ist.”",
             "es": "Dr. Null apareció en la puerta. “Yo no la tomé, E. No hay un desgarro normal en el borde; parece que el Enlace X arrancó la página. Tenemos que averiguar adónde fue.”",
             "pt": "Dr. Null apareceu à porta. “Eu não peguei a página, E. Não há um rasgo normal na borda; parece que a Ligação X puxou a página para fora. Precisamos descobrir para onde ela foi.”",
-            "ja": "Dr. Nullが入口に現れた。 “私が取ったんじゃない、E。端に普通の破れ方がない。X結合がページを引き抜いたようだ。どこへ行ったのか突き止めよう。”"
+            "ja": "Dr. Nullが入口に現れた。 “私が取ったんじゃない、E。端に普通の破れ方がない。X結合がページを引き抜いたようだ。どこへ行ったのか突き止めよう。”",
+            "fr": "Le Dr Null est apparu à la porte. « Je ne l'ai pas pris, E. Cette trace appartient au travail X que nous avons fermé il y a des années. Rien d'ordinaire n'a déchiré cette page; la résonance l'a enlevée. On doit trouver où il est allé. »",
+            "zh": "Null博士出现在门口。“我没有接受，E. 这个痕迹属于我们几年前关闭的X工作。没有什么普通的东西撕裂了那张页面；我们需要找到它去哪里。”"
           },
           "caption": {
             "tr": "Dr. E ve Dr. Null bu izi ilk kez görmüyor.",
@@ -279,7 +319,9 @@
             "de": "Dr. E und Dr. Null kennen diese Signatur bereits.",
             "es": "Dr. E y Dr. Null ya han visto esta firma antes.",
             "pt": "Dr. E e Dr. Null já viram essa assinatura antes.",
-            "ja": "Dr. EとDr. Nullは、このシグネチャを以前にも見ている。"
+            "ja": "Dr. EとDr. Nullは、このシグネチャを以前にも見ている。",
+            "fr": "Dr. E et le Dr Null ont vu cette signature avant.",
+            "zh": "Dr. E和Null博士以前见过这个签名。"
           },
           "cast": [
             "drE",
@@ -293,7 +335,9 @@
             "de": "Dr. Null erschien an der Tür.",
             "es": "Dr. Null apareció en la puerta.",
             "pt": "Dr. Null apareceu à porta.",
-            "ja": "Dr. Nullが入口に現れた。"
+            "ja": "Dr. Nullが入口に現れた。",
+            "fr": "Le Dr Null est apparu à la porte.",
+            "zh": "Null博士出现在门口。"
           },
           "dialogue": {
             "tr": "Ben almadım, E. Bu iz yıllar önce kapattığımız X çalışmasına ait. Sayfayı normal bir şey yırtmamış; rezonans onu çekip götürmüş. Nereye gittiğini bulmalıyız.",
@@ -301,7 +345,9 @@
             "de": "Ich habe sie nicht genommen, E. Diese Spur gehört zu der X-Arbeit, die wir vor Jahren eingestellt haben. Nichts Gewöhnliches hat die Seite herausgerissen; die Resonanz hat sie fortgezogen. Wir müssen herausfinden, wohin.",
             "es": "Yo no la tomé, E. Esta huella pertenece al trabajo X que cerramos hace años. Nada normal arrancó esa página; la resonancia se la llevó. Tenemos que averiguar adónde.",
             "pt": "Eu não peguei a página, E. Esse rastro pertence ao trabalho X que encerramos anos atrás. Nada comum arrancou a página; a ressonância a puxou para longe. Precisamos descobrir para onde.",
-            "ja": "私が取ったんじゃない、E。この痕跡は、何年も前に封印したX研究のものだ。普通の力で破られたんじゃない。共鳴がページを引き抜いた。行き先を突き止めよう。"
+            "ja": "私が取ったんじゃない、E。この痕跡は、何年も前に封印したX研究のものだ。普通の力で破られたんじゃない。共鳴がページを引き抜いた。行き先を突き止めよう。",
+            "fr": "Je ne l'ai pas pris, E. Cette trace appartient au travail X que nous avons fermé il y a des années. Rien d'ordinaire n'a déchiré cette page; la résonance l'a enlevée. On doit trouver où il est allé.",
+            "zh": "我没有接受，E. 这个痕迹属于我们几年前关闭的X工作。没有什么普通的东西撕裂了那张页面；我们需要找到它去哪里。"
           }
         }
       ]
@@ -319,7 +365,9 @@
         "de": "DAS X-SIGNAL",
         "es": "LA SEÑAL X",
         "pt": "O SINAL X",
-        "ja": "Xシグナル"
+        "ja": "Xシグナル",
+        "fr": "LE SIGNAL X",
+        "zh": "X信号"
       },
       "pages": [
         {
@@ -331,7 +379,9 @@
             "de": "Als fünfzehn Moleküle fertig waren, lief ein blauer Impuls durch die Laborwände. Das X-Signal wurde stärker.",
             "es": "Cuando se completaron quince moléculas, un pulso azul recorrió las paredes del laboratorio. La Señal X se estaba haciendo más fuerte.",
             "pt": "Quando quinze moléculas foram concluídas, um pulso azul percorreu as paredes do laboratório. O Sinal X estava ficando mais forte.",
-            "ja": "15個の分子が完成すると、青い脈動が研究所の壁を走った。Xシグナルはさらに強くなっていた。"
+            "ja": "15個の分子が完成すると、青い脈動が研究所の壁を走った。Xシグナルはさらに強くなっていた。",
+            "fr": "Quand quinze molécules ont été complétées, une impulsion bleue a traversé les murs du laboratoire. Le signal X était de plus en plus fort.",
+            "zh": "当15个分子完成时，一个蓝色脉冲穿过实验室的墙壁。X信号变得越来越强大。"
           },
           "caption": {
             "tr": "Sinyal, kurulmuş bağlardan enerji topluyor.",
@@ -339,7 +389,9 @@
             "de": "Das Signal zieht Energie aus bereits gebildeten Bindungen.",
             "es": "La señal está extrayendo energía de los enlaces ya formados.",
             "pt": "O sinal está retirando energia das ligações concluídas.",
-            "ja": "信号は完成した結合からエネルギーを吸い上げている。"
+            "ja": "信号は完成した結合からエネルギーを吸い上げている。",
+            "fr": "Le signal tire de l'énergie des liaisons terminées.",
+            "zh": "信号正在从完成的化学键中吸收能量。"
           },
           "cast": [
             "drE"
@@ -352,7 +404,9 @@
             "de": "Als fünfzehn Moleküle fertig waren, lief ein blauer Impuls durch die Laborwände. Das X-Signal wurde stärker.",
             "es": "Cuando se completaron quince moléculas, un pulso azul recorrió las paredes del laboratorio. La Señal X se estaba haciendo más fuerte.",
             "pt": "Quando quinze moléculas foram concluídas, um pulso azul percorreu as paredes do laboratório. O Sinal X estava ficando mais forte.",
-            "ja": "15個の分子が完成すると、青い脈動が研究所の壁を走った。Xシグナルはさらに強くなっていた。"
+            "ja": "15個の分子が完成すると、青い脈動が研究所の壁を走った。Xシグナルはさらに強くなっていた。",
+            "fr": "Quand quinze molécules ont été complétées, une impulsion bleue a traversé les murs du laboratoire. Le signal X était de plus en plus fort.",
+            "zh": "当15个分子完成时，一个蓝色脉冲穿过实验室的墙壁。X信号变得越来越强大。"
           },
           "dialogue": {
             "tr": "",
@@ -360,7 +414,9 @@
             "de": "",
             "es": "",
             "pt": "",
-            "ja": ""
+            "ja": "",
+            "fr": "",
+            "zh": ""
           }
         },
         {
@@ -372,7 +428,9 @@
             "de": "Dr. Null verglich die Messwerte. “Das ist keine Sabotage. Das Signal hat sich an die X-Bindung in der Formel geheftet, die Seite irgendwohin getragen und lernt nun, wie Bindungen entstehen.”",
             "es": "Dr. Null comparó las lecturas. “Esto no es sabotaje. La señal se aferró al Enlace X de la fórmula, llevó la página a algún lugar y ahora está aprendiendo cómo se forman los enlaces.”",
             "pt": "Dr. Null comparou as leituras. “Isto não é sabotagem. O sinal se prendeu à Ligação X da fórmula, levou a página para algum lugar e agora está aprendendo como as ligações se formam.”",
-            "ja": "Dr. Nullは測定値を比較した。 “これは妨害ではない。信号は数式のX結合に取りつき、ページをどこかへ運び、今は結合がどう作られるか学んでいる。”"
+            "ja": "Dr. Nullは測定値を比較した。 “これは妨害ではない。信号は数式のX結合に取りつき、ページをどこかへ運び、今は結合がどう作られるか学んでいる。”",
+            "fr": "Le Dr Null a comparé les lectures. « Ce n'est pas un sabotage. Le signal s'est attaché à la liaison X de la formule, a transporté la page quelque part, et apprend maintenant comment se forment les liaisons. »",
+            "zh": "Null博士比较了这些数据。“这不是破坏。信号锁在公式中的X键上，把页面带到某个地方，现在正在学习如何形成链接。”"
           },
           "caption": {
             "tr": "Null’un kuru sesi ilk kez endişeliydi.",
@@ -380,7 +438,9 @@
             "de": "Zum ersten Mal klang Nulls trockene Stimme besorgt.",
             "es": "Por primera vez, la voz seca de Null sonaba preocupada.",
             "pt": "Pela primeira vez, a voz seca de Null demonstrou preocupação.",
-            "ja": "いつも冷静なNullの声に、初めて不安が混じった。"
+            "ja": "いつも冷静なNullの声に、初めて不安が混じった。",
+            "fr": "Pour la première fois, la voix sèche de Null portait l'inquiétude.",
+            "zh": "一次，Null的干燥的声音引起了关注。"
           },
           "cast": [
             "null"
@@ -393,7 +453,9 @@
             "de": "Dr. Null verglich die Messwerte.",
             "es": "Dr. Null comparó las lecturas.",
             "pt": "Dr. Null comparou as leituras.",
-            "ja": "Dr. Nullは測定値を比較した。"
+            "ja": "Dr. Nullは測定値を比較した。",
+            "fr": "Le Dr Null a comparé les lectures.",
+            "zh": "Null博士比较了这些数据。"
           },
           "dialogue": {
             "tr": "Bu sabotaj değil. Sinyal formüldeki X-Bağına tutunmuş; sayfayı bir yere taşımış ve şimdi bağ kurmayı öğreniyor.",
@@ -401,7 +463,9 @@
             "de": "Das ist keine Sabotage. Das Signal hat sich an die X-Bindung in der Formel geheftet, die Seite irgendwohin getragen und lernt nun, wie Bindungen entstehen.",
             "es": "Esto no es sabotaje. La señal se aferró al Enlace X de la fórmula, llevó la página a algún lugar y ahora está aprendiendo cómo se forman los enlaces.",
             "pt": "Isto não é sabotagem. O sinal se prendeu à Ligação X da fórmula, levou a página para algum lugar e agora está aprendendo como as ligações se formam.",
-            "ja": "これは妨害ではない。信号は数式のX結合に取りつき、ページをどこかへ運び、今は結合がどう作られるか学んでいる。"
+            "ja": "これは妨害ではない。信号は数式のX結合に取りつき、ページをどこかへ運び、今は結合がどう作られるか学んでいる。",
+            "fr": "Ce n'est pas un sabotage. Le signal s'est attaché à la liaison X de la formule, a transporté la page quelque part, et apprend maintenant comment se forment les liaisons.",
+            "zh": "这不是破坏。信号锁在公式中的X键上，把页面带到某个地方，现在正在学习如何形成链接。"
           }
         },
         {
@@ -413,7 +477,9 @@
             "de": "Nulls grau-weiße Katze hielt ihren Atom-Anhänger mit einer Pfote fest. Vor Jahren hatte Dr. Null einen kleinen Resonanzkristall aus dem eingestellten X-Experiment als sicheren Sensor in den Anhänger eingesetzt. Nun leuchtete er genau im Rhythmus des X-Signals.",
             "es": "El gato gris y blanco de Null sujetó su colgante atómico con una pata. Años atrás, Dr. Null había sellado en el colgante un pequeño cristal de resonancia del experimento X cancelado para usarlo como detector seguro. Ahora brillaba exactamente al ritmo de la Señal X.",
             "pt": "O gato cinza e branco de Null segurou o pingente de átomo com a pata. Anos atrás, o Dr. Null havia selado no pingente um pequeno cristal de ressonância restante do experimento X encerrado, usando-o como detector seguro. Agora ele brilhava exatamente no ritmo do Sinal X.",
-            "ja": "Nullの灰白色のネコは、前足で原子ペンダントを押さえた。数年前、Dr. Nullは中止されたX実験に残った小さな共鳴結晶を、安全な検出器としてこのペンダントに封じていた。その結晶が今、Xシグナルとまったく同じリズムで光っている。"
+            "ja": "Nullの灰白色のネコは、前足で原子ペンダントを押さえた。数年前、Dr. Nullは中止されたX実験に残った小さな共鳴結晶を、安全な検出器としてこのペンダントに封じていた。その結晶が今、Xシグナルとまったく同じリズムで光っている。",
+            "fr": "Le chat gris-blanc de Null tenait son pendentif à l'atome avec une patte. Il y a des années, le Dr Null avait scellé un minuscule cristal de résonance resté de l'expérience X interrompu à l'intérieur du pendentif comme un détecteur de sécurité. Il brillait dans le rythme exact du signal X.",
+            "zh": "Null的灰白猫用一只腿拿着原子吊坠。几年前，Null博士封闭了在吊坠内停产的X实验中剩下的微小的共振晶体作为安全探测器。现在它在X信号的精确节奏中发光。"
           },
           "caption": {
             "tr": "Kolye bir süs değil; eski X rezonansını algılayan küçük bir sensör.",
@@ -421,7 +487,9 @@
             "de": "Der Anhänger ist kein Schmuck, sondern ein kleiner Sensor für die alte X-Resonanz.",
             "es": "El colgante no es un adorno: es un pequeño sensor de la antigua resonancia X.",
             "pt": "O pingente não é enfeite: é um pequeno sensor da antiga ressonância X.",
-            "ja": "このペンダントは飾りではない。かつてのX共鳴を検出する小型センサーだ。"
+            "ja": "このペンダントは飾りではない。かつてのX共鳴を検出する小型センサーだ。",
+            "fr": "Le pendentif n'est pas une décoration; c'est un minuscule capteur pour l'ancienne résonance X.",
+            "zh": "吊坠不是装饰，它是旧X共振的微小传感器。"
           },
           "cast": [
             "null",
@@ -435,7 +503,9 @@
             "de": "Nulls grau-weiße Katze hielt ihren Atom-Anhänger mit einer Pfote fest. Vor Jahren hatte Dr. Null einen kleinen Resonanzkristall aus dem eingestellten X-Experiment als sicheren Sensor in den Anhänger eingesetzt. Nun leuchtete er genau im Rhythmus des X-Signals.",
             "es": "El gato gris y blanco de Null sujetó su colgante atómico con una pata. Años atrás, Dr. Null había sellado en el colgante un pequeño cristal de resonancia del experimento X cancelado para usarlo como detector seguro. Ahora brillaba exactamente al ritmo de la Señal X.",
             "pt": "O gato cinza e branco de Null segurou o pingente de átomo com a pata. Anos atrás, o Dr. Null havia selado no pingente um pequeno cristal de ressonância restante do experimento X encerrado, usando-o como detector seguro. Agora ele brilhava exatamente no ritmo do Sinal X.",
-            "ja": "Nullの灰白色のネコは、前足で原子ペンダントを押さえた。数年前、Dr. Nullは中止されたX実験に残った小さな共鳴結晶を、安全な検出器としてこのペンダントに封じていた。その結晶が今、Xシグナルとまったく同じリズムで光っている。"
+            "ja": "Nullの灰白色のネコは、前足で原子ペンダントを押さえた。数年前、Dr. Nullは中止されたX実験に残った小さな共鳴結晶を、安全な検出器としてこのペンダントに封じていた。その結晶が今、Xシグナルとまったく同じリズムで光っている。",
+            "fr": "Le chat gris-blanc de Null tenait son pendentif à l'atome avec une patte. Il y a des années, le Dr Null avait scellé un minuscule cristal de résonance resté de l'expérience X interrompu à l'intérieur du pendentif comme un détecteur de sécurité. Il brillait dans le rythme exact du signal X.",
+            "zh": "Null的灰白猫用一只腿拿着原子吊坠。几年前，Null博士封闭了在吊坠内停产的X实验中剩下的微小的共振晶体作为安全探测器。现在它在X信号的精确节奏中发光。"
           },
           "dialogue": {
             "tr": "",
@@ -443,7 +513,9 @@
             "de": "",
             "es": "",
             "pt": "",
-            "ja": ""
+            "ja": "",
+            "fr": "",
+            "zh": ""
           }
         }
       ]
@@ -461,7 +533,9 @@
         "de": "KÄLTEPROTOKOLL",
         "es": "PROTOCOLO DE FRÍO",
         "pt": "PROTOCOLO FRIO",
-        "ja": "冷却プロトコル"
+        "ja": "冷却プロトコル",
+        "fr": "PROTOCOLE DU FROID",
+        "zh": "冷冻协议"
       },
       "pages": [
         {
@@ -473,7 +547,9 @@
             "de": "Das X-Signal kehrte das Kühlsystem um. Gefrorene Atome blockierten die Korridore.",
             "es": "La Señal X invirtió el sistema de refrigeración. Los átomos congelados bloquearon los pasillos.",
             "pt": "O Sinal X inverteu o sistema de resfriamento. Átomos congelados bloquearam os corredores.",
-            "ja": "Xシグナルが冷却装置を逆転させた。凍った原子が通路を塞いだ。"
+            "ja": "Xシグナルが冷却装置を逆転させた。凍った原子が通路を塞いだ。",
+            "fr": "Le signal X a inversé le système de refroidissement. Des atomes gelés ont fermé les couloirs.",
+            "zh": "\"X信号\"扭转了冷却系统。冻结原子锁定了走廊。"
           },
           "caption": {
             "tr": "Buz çözülmeden kanıta ulaşılamaz.",
@@ -481,7 +557,9 @@
             "de": "Der Beweis ist erst erreichbar, wenn das Eis schmilzt.",
             "es": "No se puede llegar a la prueba hasta que el hielo se derrita.",
             "pt": "Não é possível alcançar a prova até que o gelo derreta.",
-            "ja": "氷が溶けるまで証拠にはたどり着けない。"
+            "ja": "氷が溶けるまで証拠にはたどり着けない。",
+            "fr": "Les preuves ne peuvent pas être atteintes tant que la glace ne fond pas.",
+            "zh": "在冰融化之前，我们无法找到证据。"
           },
           "cast": [
             "drE"
@@ -494,7 +572,9 @@
             "de": "Das X-Signal kehrte das Kühlsystem um. Gefrorene Atome blockierten die Korridore.",
             "es": "La Señal X invirtió el sistema de refrigeración. Los átomos congelados bloquearon los pasillos.",
             "pt": "O Sinal X inverteu o sistema de resfriamento. Átomos congelados bloquearam os corredores.",
-            "ja": "Xシグナルが冷却装置を逆転させた。凍った原子が通路を塞いだ。"
+            "ja": "Xシグナルが冷却装置を逆転させた。凍った原子が通路を塞いだ。",
+            "fr": "Le signal X a inversé le système de refroidissement. Des atomes gelés ont fermé les couloirs.",
+            "zh": "\"X信号\"扭转了冷却系统。冻结原子锁定了走廊。"
           },
           "dialogue": {
             "tr": "",
@@ -502,7 +582,9 @@
             "de": "",
             "es": "",
             "pt": "",
-            "ja": ""
+            "ja": "",
+            "fr": "",
+            "zh": ""
           }
         },
         {
@@ -514,7 +596,9 @@
             "de": "Dr. Null entwickelte kontrollierte Wärmeimpulse. “Keine Gewalt. Erhitze das richtige Atom im richtigen Moment.”",
             "es": "Dr. Null diseñó pulsos de calor controlados. “No uses la fuerza. Calienta el átomo correcto en el momento correcto.”",
             "pt": "Dr. Null projetou pulsos de calor controlados. “Não use força. Aqueça o átomo certo no momento certo.”",
-            "ja": "Dr. Nullは制御された熱パルスを設計した。 “力任せにするな。正しい原子を、正しい瞬間に温めるんだ。”"
+            "ja": "Dr. Nullは制御された熱パルスを設計した。 “力任せにするな。正しい原子を、正しい瞬間に温めるんだ。”",
+            "fr": "Le Dr Null a conçu des impulsions de chaleur contrôlées. « N'utilisez pas la force. Chauffez le bon atome au bon moment. »",
+            "zh": "Null博士设计了控制热脉冲。“不要使用武力。在正确的时刻加热正确的原子。”"
           },
           "caption": {
             "tr": "Hassasiyet, ham güçten daha değerlidir.",
@@ -522,7 +606,9 @@
             "de": "Präzision ist mehr wert als rohe Kraft.",
             "es": "La precisión vale más que la fuerza bruta.",
             "pt": "Precisão vale mais do que força bruta.",
-            "ja": "力より精密さがものを言う。"
+            "ja": "力より精密さがものを言う。",
+            "fr": "La précision vaut plus que la force brute.",
+            "zh": "精确性比粗暴力更值得。"
           },
           "cast": [
             "null"
@@ -535,7 +621,9 @@
             "de": "Dr. Null entwickelte kontrollierte Wärmeimpulse.",
             "es": "Dr. Null diseñó pulsos de calor controlados.",
             "pt": "Dr. Null projetou pulsos de calor controlados.",
-            "ja": "Dr. Nullは制御された熱パルスを設計した。"
+            "ja": "Dr. Nullは制御された熱パルスを設計した。",
+            "fr": "Le Dr Null a conçu des impulsions de chaleur contrôlées.",
+            "zh": "Null博士设计了控制热脉冲。"
           },
           "dialogue": {
             "tr": "Güç kullanma. Doğru atomu doğru anda ısıt.",
@@ -543,7 +631,9 @@
             "de": "Keine Gewalt. Erhitze das richtige Atom im richtigen Moment.",
             "es": "No uses la fuerza. Calienta el átomo correcto en el momento correcto.",
             "pt": "Não use força. Aqueça o átomo certo no momento certo.",
-            "ja": "力任せにするな。正しい原子を、正しい瞬間に温めるんだ。"
+            "ja": "力任せにするな。正しい原子を、正しい瞬間に温めるんだ。",
+            "fr": "N'utilisez pas la force. Chauffez le bon atome au bon moment.",
+            "zh": "不要使用武力。在正确的时刻加热正确的原子。"
           }
         },
         {
@@ -555,7 +645,9 @@
             "de": "Die Katze fand ein unter dem Eis verborgenes X-Zeichen. Es wies auf Experiment 50.",
             "es": "El gato encontró una marca X oculta bajo el hielo. Apuntaba al Experimento 50.",
             "pt": "O gato encontrou uma marca X escondida sob o gelo. Ela apontava para o Experimento 50.",
-            "ja": "ネコは氷の下に隠れたX印を見つけた。それは実験50を示していた。"
+            "ja": "ネコは氷の下に隠れたX印を見つけた。それは実験50を示していた。",
+            "fr": "Le chat a trouvé une marque X cachée sous la glace. Il indiquait l'expérience 50.",
+            "zh": "猫在冰下发现了一个X痕迹。它指向了50号实验。"
           },
           "caption": {
             "tr": "Bir sonraki ipucu bir sayı olarak yazılmıştı.",
@@ -563,7 +655,9 @@
             "de": "Der nächste Hinweis war als Zahl geschrieben.",
             "es": "La siguiente pista estaba escrita como un número.",
             "pt": "A próxima pista estava escrita como um número.",
-            "ja": "次の手がかりは数字で記されていた。"
+            "ja": "次の手がかりは数字で記されていた。",
+            "fr": "La piste suivante a été écrite comme un nombre.",
+            "zh": "下一个线索被写成一个数字。"
           },
           "cast": [
             "drE",
@@ -578,7 +672,9 @@
             "de": "Die Katze fand ein unter dem Eis verborgenes X-Zeichen. Es wies auf Experiment 50.",
             "es": "El gato encontró una marca X oculta bajo el hielo. Apuntaba al Experimento 50.",
             "pt": "O gato encontrou uma marca X escondida sob o gelo. Ela apontava para o Experimento 50.",
-            "ja": "ネコは氷の下に隠れたX印を見つけた。それは実験50を示していた。"
+            "ja": "ネコは氷の下に隠れたX印を見つけた。それは実験50を示していた。",
+            "fr": "Le chat a trouvé une marque X cachée sous la glace. Il indiquait l'expérience 50.",
+            "zh": "猫在冰下发现了一个X痕迹。它指向了50号实验。"
           },
           "dialogue": {
             "tr": "",
@@ -586,7 +682,9 @@
             "de": "",
             "es": "",
             "pt": "",
-            "ja": ""
+            "ja": "",
+            "fr": "",
+            "zh": ""
           }
         }
       ]
@@ -604,7 +702,9 @@
         "de": "EXPERIMENT FÜNFZIG",
         "es": "EXPERIMENTO CINCUENTA",
         "pt": "EXPERIMENTO CINQUENTA",
-        "ja": "実験50"
+        "ja": "実験50",
+        "fr": "EXPÉRIENCE 50",
+        "zh": "第50号实验"
       },
       "pages": [
         {
@@ -616,7 +716,9 @@
             "de": "Dr. E bereitete Experiment 50 vor, um die X-Bindung in einem stabilen Molekül zu beobachten.",
             "es": "Dr. E preparó el Experimento 50 para observar el Enlace X dentro de una molécula estable.",
             "pt": "Dr. E preparou o Experimento 50 para observar a Ligação X dentro de uma molécula estável.",
-            "ja": "Dr. Eは、安定した分子の中でX結合を観測するため実験50を準備した。"
+            "ja": "Dr. Eは、安定した分子の中でX結合を観測するため実験50を準備した。",
+            "fr": "Dr. E a préparé l'expérience 50 pour observer le liaison X à l'intérieur d'une molécule stable.",
+            "zh": "Dr. E 准备了实验50来观察一个稳定的分子内部的X键。"
           },
           "caption": {
             "tr": "Katalizör, enerji hücresi ve stabilizatör hazır.",
@@ -624,7 +726,9 @@
             "de": "Katalysator, Energiezelle und Stabilisator sind bereit.",
             "es": "Catalizador, célula de energía y estabilizador listos.",
             "pt": "Catalisador, célula de energia e estabilizador estão prontos.",
-            "ja": "触媒、エネルギーセル、安定化装置――準備完了。"
+            "ja": "触媒、エネルギーセル、安定化装置――準備完了。",
+            "fr": "Le catalyseur, la cellule énergétique et le stabilisateur sont prêts.",
+            "zh": "催化剂，能量细胞和稳定剂准备好了。"
           },
           "cast": [
             "drE"
@@ -637,7 +741,9 @@
             "de": "Dr. E bereitete Experiment 50 vor, um die X-Bindung in einem stabilen Molekül zu beobachten.",
             "es": "Dr. E preparó el Experimento 50 para observar el Enlace X dentro de una molécula estable.",
             "pt": "Dr. E preparou o Experimento 50 para observar a Ligação X dentro de uma molécula estável.",
-            "ja": "Dr. Eは、安定した分子の中でX結合を観測するため実験50を準備した。"
+            "ja": "Dr. Eは、安定した分子の中でX結合を観測するため実験50を準備した。",
+            "fr": "Dr. E a préparé l'expérience 50 pour observer le liaison X à l'intérieur d'une molécule stable.",
+            "zh": "Dr. E 准备了实验50来观察一个稳定的分子内部的X键。"
           },
           "dialogue": {
             "tr": "",
@@ -645,7 +751,9 @@
             "de": "",
             "es": "",
             "pt": "",
-            "ja": ""
+            "ja": "",
+            "fr": "",
+            "zh": ""
           }
         },
         {
@@ -657,7 +765,9 @@
             "de": "Dr. Null zeigte auf die Anzeige. Die Resonanz überschritt die Sicherheitsgrenze, doch Dr. E blieb am Bedienpult. “Die Resonanz steigt. Wir können dieses Experiment stoppen.”",
             "es": "Dr. Null señaló la pantalla. La resonancia estaba superando el límite seguro, pero Dr. E permaneció en la consola. “La resonancia está subiendo. Podemos detener este experimento.”",
             "pt": "Dr. Null apontou para o visor. A ressonância ultrapassava o limite seguro, mas Dr. E permaneceu no console. “A ressonância está aumentando. Podemos interromper este experimento.”",
-            "ja": "Dr. Nullが表示を指さした。共鳴は安全限界を越えつつあったが、Dr. Eはコンソールを離れなかった。 “共鳴が上がっている。この実験は止められる。”"
+            "ja": "Dr. Nullが表示を指さした。共鳴は安全限界を越えつつあったが、Dr. Eはコンソールを離れなかった。 “共鳴が上がっている。この実験は止められる。”",
+            "fr": "Le Dr Null a montré l'affichage. La résonance dépassait la limite de sécurité, mais Dr. E est restée sur la console. « La résonance augmente. On peut arrêter cette expérience. »",
+            "zh": "Null博士指着显示器。共振超过了安全极限，但Dr. E留在控制台上。“共振正在上升。我们可以阻止这个实验。”"
           },
           "caption": {
             "tr": "Dr. E deneyi durdurmadı; gerçeği görmek istiyordu.",
@@ -665,7 +775,9 @@
             "de": "Dr. E stoppte das Experiment nicht; er wollte die Wahrheit sehen.",
             "es": "Dr. E no detuvo el experimento; quería conocer la verdad.",
             "pt": "Dr. E não interrompeu o experimento; queria descobrir a verdade.",
-            "ja": "Dr. Eは実験を止めなかった。真実を見届けようとしていた。"
+            "ja": "Dr. Eは実験を止めなかった。真実を見届けようとしていた。",
+            "fr": "Dr. E n'a pas arrêté l'expérience; il voulait voir la vérité.",
+            "zh": "Dr. E没有阻止实验；他想知道真相。"
           },
           "cast": [
             "drE",
@@ -679,7 +791,9 @@
             "de": "Dr. Null zeigte auf die Anzeige. Die Resonanz überschritt die Sicherheitsgrenze, doch Dr. E blieb am Bedienpult.",
             "es": "Dr. Null señaló la pantalla. La resonancia estaba superando el límite seguro, pero Dr. E permaneció en la consola.",
             "pt": "Dr. Null apontou para o visor. A ressonância ultrapassava o limite seguro, mas Dr. E permaneceu no console.",
-            "ja": "Dr. Nullが表示を指さした。共鳴は安全限界を越えつつあったが、Dr. Eはコンソールを離れなかった。"
+            "ja": "Dr. Nullが表示を指さした。共鳴は安全限界を越えつつあったが、Dr. Eはコンソールを離れなかった。",
+            "fr": "Le Dr Null a montré l'affichage. La résonance dépassait la limite de sécurité, mais Dr. E est restée sur la console.",
+            "zh": "Null博士指着显示器。共振超过了安全极限，但Dr. E留在控制台上。"
           },
           "dialogue": {
             "tr": "Rezonans yükseliyor. Bu deneyi durdurabiliriz.",
@@ -687,7 +801,9 @@
             "de": "Die Resonanz steigt. Wir können dieses Experiment stoppen.",
             "es": "La resonancia está subiendo. Podemos detener este experimento.",
             "pt": "A ressonância está aumentando. Podemos interromper este experimento.",
-            "ja": "共鳴が上がっている。この実験は止められる。"
+            "ja": "共鳴が上がっている。この実験は止められる。",
+            "fr": "La résonance augmente. On peut arrêter cette expérience.",
+            "zh": "共振正在上升。我们可以阻止这个实验。"
           }
         },
         {
@@ -699,7 +815,9 @@
             "de": "Dr. E schüttelte den Kopf und startete Experiment 50. Im selben Moment sträubte sich das Fell der Katze und ihr Atom-Anhänger blinkte im Takt des Reaktors. “Oder wir erfahren die Wahrheit.”",
             "es": "Dr. E negó con la cabeza y puso en marcha el Experimento 50. Al mismo tiempo, el pelo del gato se erizó y su colgante atómico parpadeó al ritmo del reactor. “O descubrimos la verdad.”",
             "pt": "Dr. E balançou a cabeça e iniciou o Experimento 50. No mesmo instante, o pelo do gato se arrepiou e seu pingente de átomo piscou junto com o reator. “Ou descobrimos a verdade.”",
-            "ja": "Dr. Eは首を振り、実験50を開始した。同時にネコの毛が逆立ち、原子のペンダントがリアクターと同時に光った。 “それとも、真実を知るかだ。”"
+            "ja": "Dr. Eは首を振り、実験50を開始した。同時にネコの毛が逆立ち、原子のペンダントがリアクターと同時に光った。 “それとも、真実を知るかだ。”",
+            "fr": "Dr. E a secoué la tête et a commencé l'expérience 50. Au même moment, la fourrure du chat s'est levée et son pendentif atomique a flashé avec le réacteur. « Ou on apprend la vérité. »",
+            "zh": "Dr. E摇了头，开始了50号实验。在同一时刻，猫的皮站在端上，它的原子吊坠闪着反应堆。“或者我们学会了真相。”"
           },
           "caption": {
             "tr": "Geri sayım başladı. Beş deney sonra hiçbir şey aynı olmayacak.",
@@ -707,7 +825,9 @@
             "de": "Der Countdown begann. In fünf Experimenten würde nichts mehr so sein wie zuvor.",
             "es": "Comenzó la cuenta atrás. En cinco experimentos nada volvería a ser igual.",
             "pt": "A contagem regressiva começou. Em cinco experimentos, nada seria igual.",
-            "ja": "カウントダウンが始まった。あと5つの実験で、すべてが変わる。"
+            "ja": "カウントダウンが始まった。あと5つの実験で、すべてが変わる。",
+            "fr": "Le compte à rebours a commencé. Dans cinq expériences, rien ne serait le même.",
+            "zh": "倒计开始。在五次实验中，一切都不会是一样的。"
           },
           "cast": [
             "cat",
@@ -722,7 +842,9 @@
             "de": "Dr. E schüttelte den Kopf und startete Experiment 50. Im selben Moment sträubte sich das Fell der Katze und ihr Atom-Anhänger blinkte im Takt des Reaktors.",
             "es": "Dr. E negó con la cabeza y puso en marcha el Experimento 50. Al mismo tiempo, el pelo del gato se erizó y su colgante atómico parpadeó al ritmo del reactor.",
             "pt": "Dr. E balançou a cabeça e iniciou o Experimento 50. No mesmo instante, o pelo do gato se arrepiou e seu pingente de átomo piscou junto com o reator.",
-            "ja": "Dr. Eは首を振り、実験50を開始した。同時にネコの毛が逆立ち、原子のペンダントがリアクターと同時に光った。"
+            "ja": "Dr. Eは首を振り、実験50を開始した。同時にネコの毛が逆立ち、原子のペンダントがリアクターと同時に光った。",
+            "fr": "Dr. E a secoué la tête et a commencé l'expérience 50. Au même moment, la fourrure du chat s'est levée et son pendentif atomique a flashé avec le réacteur.",
+            "zh": "Dr. E摇了头，开始了50号实验。在同一时刻，猫的皮站在端上，它的原子吊坠闪着反应堆。"
           },
           "dialogue": {
             "tr": "Ya da gerçeği öğreniriz.",
@@ -730,7 +852,9 @@
             "de": "Oder wir erfahren die Wahrheit.",
             "es": "O descubrimos la verdad.",
             "pt": "Ou descobrimos a verdade.",
-            "ja": "それとも、真実を知るかだ。"
+            "ja": "それとも、真実を知るかだ。",
+            "fr": "Ou on apprend la vérité.",
+            "zh": "或者我们学会了真相。"
           }
         }
       ]
@@ -749,7 +873,9 @@
         "de": "MOXY ERWACHT",
         "es": "MOXY DESPIERTA",
         "pt": "MOXY DESPERTA",
-        "ja": "MOXY、目覚める"
+        "ja": "MOXY、目覚める",
+        "fr": "L’ÉVEIL DE MOXY",
+        "zh": "Moxy苏醒"
       },
       "pages": [
         {
@@ -761,7 +887,9 @@
             "de": "Experiment 50 war abgeschlossen. Die X-Bindung wirkte im Kern von Dr. Es Molekül stabil.",
             "es": "El Experimento 50 había terminado. El Enlace X parecía estable en el corazón de la molécula de Dr. E.",
             "pt": "O Experimento 50 foi concluído. A Ligação X parecia estável no centro da molécula do Dr. E.",
-            "ja": "実験50が完了した。X結合はDr. Eの分子の中心で安定しているように見えた。"
+            "ja": "実験50が完了した。X結合はDr. Eの分子の中心で安定しているように見えた。",
+            "fr": "L’expérience 50 était terminée. La liaison X semblait stable au cœur de la molécule de Dr. E.",
+            "zh": "第50号实验完成了。X键在Dr. E的分子核心中看起来很稳定。"
           },
           "caption": {
             "tr": "Bir saniyeliğine her şey kusursuzdu.",
@@ -769,7 +897,9 @@
             "de": "Für eine Sekunde war alles perfekt.",
             "es": "Durante un segundo, todo fue perfecto.",
             "pt": "Por um segundo, tudo estava perfeito.",
-            "ja": "ほんの一秒、すべてが完璧だった。"
+            "ja": "ほんの一秒、すべてが完璧だった。",
+            "fr": "Pendant une seconde, tout était parfait.",
+            "zh": "一秒钟，一切都很完美。"
           },
           "cast": [
             "drE",
@@ -783,7 +913,9 @@
             "de": "Experiment 50 war abgeschlossen. Die X-Bindung wirkte im Kern von Dr. Es Molekül stabil.",
             "es": "El Experimento 50 había terminado. El Enlace X parecía estable en el corazón de la molécula de Dr. E.",
             "pt": "O Experimento 50 foi concluído. A Ligação X parecia estável no centro da molécula do Dr. E.",
-            "ja": "実験50が完了した。X結合はDr. Eの分子の中心で安定しているように見えた。"
+            "ja": "実験50が完了した。X結合はDr. Eの分子の中心で安定しているように見えた。",
+            "fr": "L’expérience 50 était terminée. La liaison X semblait stable au cœur de la molécule de Dr. E.",
+            "zh": "第50号实验完成了。X键在Dr. E的分子核心中看起来很稳定。"
           },
           "dialogue": {
             "tr": "",
@@ -791,7 +923,9 @@
             "de": "",
             "es": "",
             "pt": "",
-            "ja": ""
+            "ja": "",
+            "fr": "",
+            "zh": ""
           }
         },
         {
@@ -803,7 +937,9 @@
             "de": "Plötzlich kehrte sich der Energiefluss um. Null legte den Hauptschalter um, doch das X-Signal baute seinen eigenen Stromkreis.",
             "es": "La energía se invirtió de repente. Null bajó el interruptor principal, pero la Señal X construyó su propio circuito.",
             "pt": "A energia de repente inverteu o fluxo. Null puxou a chave geral, mas o Sinal X criou seu próprio circuito.",
-            "ja": "突然エネルギーが逆流した。Nullが主電源を落としたが、Xシグナルは自分自身の回路を作り始めた。"
+            "ja": "突然エネルギーが逆流した。Nullが主電源を落としたが、Xシグナルは自分自身の回路を作り始めた。",
+            "fr": "L’énergie s’inversa soudainement. Null tira l’interrupteur principal, mais le Signal X créa son propre circuit.",
+            "zh": "能量突然反转。Null拉下了主开关，但X信号自行构成了一条回路。"
           },
           "caption": {
             "tr": "Laboratuvar artık deneyi değil, deney laboratuvarı yönetiyordu.",
@@ -811,7 +947,9 @@
             "de": "Nun steuerte das Experiment das Labor.",
             "es": "Ahora el experimento controlaba el laboratorio.",
             "pt": "Agora era o experimento que controlava o laboratório.",
-            "ja": "もはや研究所が実験を動かしているのではない。実験が研究所を動かしていた。"
+            "ja": "もはや研究所が実験を動かしているのではない。実験が研究所を動かしていた。",
+            "fr": "L'expérience dirigeait maintenant le laboratoire.",
+            "zh": "现在实验室正在进行实验。"
           },
           "cast": [
             "null",
@@ -825,7 +963,9 @@
             "de": "Plötzlich kehrte sich der Energiefluss um. Null legte den Hauptschalter um, doch das X-Signal baute seinen eigenen Stromkreis.",
             "es": "La energía se invirtió de repente. Null bajó el interruptor principal, pero la Señal X construyó su propio circuito.",
             "pt": "A energia de repente inverteu o fluxo. Null puxou a chave geral, mas o Sinal X criou seu próprio circuito.",
-            "ja": "突然エネルギーが逆流した。Nullが主電源を落としたが、Xシグナルは自分自身の回路を作り始めた。"
+            "ja": "突然エネルギーが逆流した。Nullが主電源を落としたが、Xシグナルは自分自身の回路を作り始めた。",
+            "fr": "L’énergie s’inversa soudainement. Null tira l’interrupteur principal, mais le Signal X créa son propre circuit.",
+            "zh": "能量突然反转。Null拉下了主开关，但X信号自行构成了一条回路。"
           },
           "dialogue": {
             "tr": "",
@@ -833,7 +973,9 @@
             "de": "",
             "es": "",
             "pt": "",
-            "ja": ""
+            "ja": "",
+            "fr": "",
+            "zh": ""
           }
         },
         {
@@ -845,7 +987,9 @@
             "de": "Die Katze sprang vom Bedienpult. Der Reaktor füllte sich mit weißem Licht.",
             "es": "El gato saltó de la consola. El reactor se llenó de luz blanca.",
             "pt": "O gato saltou do console. O reator se encheu de luz branca.",
-            "ja": "ネコがコンソールから飛び降りた。リアクターは白い光で満たされた。"
+            "ja": "ネコがコンソールから飛び降りた。リアクターは白い光で満たされた。",
+            "fr": "Le chat bondit de la console. Le réacteur se remplit de lumière blanche.",
+            "zh": "猫从控制台上一跃而起。反应堆里充满了白光。"
           },
           "caption": {
             "tr": "Bir nefeslik sessizlik…",
@@ -853,7 +997,9 @@
             "de": "Ein Atemzug Stille …",
             "es": "Un instante de silencio…",
             "pt": "Um instante de silêncio…",
-            "ja": "一呼吸ぶんの静寂…"
+            "ja": "一呼吸ぶんの静寂…",
+            "fr": "Un souffle de silence...",
+            "zh": "一个沉默的呼吸..."
           },
           "cast": [
             "cat"
@@ -866,7 +1012,9 @@
             "de": "Die Katze sprang vom Bedienpult. Der Reaktor füllte sich mit weißem Licht.",
             "es": "El gato saltó de la consola. El reactor se llenó de luz blanca.",
             "pt": "O gato saltou do console. O reator se encheu de luz branca.",
-            "ja": "ネコがコンソールから飛び降りた。リアクターは白い光で満たされた。"
+            "ja": "ネコがコンソールから飛び降りた。リアクターは白い光で満たされた。",
+            "fr": "Le chat bondit de la console. Le réacteur se remplit de lumière blanche.",
+            "zh": "猫从控制台上一跃而起。反应堆里充满了白光。"
           },
           "dialogue": {
             "tr": "",
@@ -874,7 +1022,9 @@
             "de": "",
             "es": "",
             "pt": "",
-            "ja": ""
+            "ja": "",
+            "fr": "",
+            "zh": ""
           }
         },
         {
@@ -886,7 +1036,9 @@
             "de": "Die Explosion füllte das Labor mit gelben und blauen Partikeln. Im Rauch öffneten sich zwei riesige Augen. “Ist das … ein Molekül?”",
             "es": "La explosión llenó el laboratorio de partículas amarillas y azules. Dos enormes ojos se abrieron entre el humo. “¿Eso es… una molécula?”",
             "pt": "A explosão encheu o laboratório de partículas amarelas e azuis. Dois olhos enormes se abriram dentro da fumaça. “Isso é… uma molécula?”",
-            "ja": "爆発で研究所は黄色と青の粒子に包まれた。煙の中で二つの大きな目が開いた。 “あれは…分子なのか？”"
+            "ja": "爆発で研究所は黄色と青の粒子に包まれた。煙の中で二つの大きな目が開いた。 “あれは…分子なのか？”",
+            "fr": "L’explosion emplit le laboratoire de particules jaunes et bleues. Deux yeux immenses s’ouvrirent dans la fumée. « C’est… une molécule ? »",
+            "zh": "爆炸让实验室充满了黄蓝两色的粒子。烟雾中睁开了两只巨大的眼睛。“那是……一个分子吗？”"
           },
           "caption": {
             "tr": "X-Bağı, ilk kez canlı ve kararlı bir forma dönüşmüştü.",
@@ -894,7 +1046,9 @@
             "de": "Zum ersten Mal war die X-Bindung zu einer lebenden, stabilen Form geworden.",
             "es": "Por primera vez, el Enlace X se había convertido en una forma viva y estable.",
             "pt": "Pela primeira vez, a Ligação X havia se tornado uma forma viva e estável.",
-            "ja": "X結合は初めて、生きた安定形態になった。"
+            "ja": "X結合は初めて、生きた安定形態になった。",
+            "fr": "Pour la première fois, le liaison X était devenu une forme vivante et stable.",
+            "zh": "第一次，X键成为一个活着的，稳定的形式。"
           },
           "cast": [
             "drE",
@@ -910,7 +1064,9 @@
             "de": "Die Explosion füllte das Labor mit gelben und blauen Partikeln. Im Rauch öffneten sich zwei riesige Augen.",
             "es": "La explosión llenó el laboratorio de partículas amarillas y azules. Dos enormes ojos se abrieron entre el humo.",
             "pt": "A explosão encheu o laboratório de partículas amarelas e azuis. Dois olhos enormes se abriram dentro da fumaça.",
-            "ja": "爆発で研究所は黄色と青の粒子に包まれた。煙の中で二つの大きな目が開いた。"
+            "ja": "爆発で研究所は黄色と青の粒子に包まれた。煙の中で二つの大きな目が開いた。",
+            "fr": "L’explosion emplit le laboratoire de particules jaunes et bleues. Deux yeux immenses s’ouvrirent dans la fumée.",
+            "zh": "爆炸让实验室充满了黄蓝两色的粒子。烟雾中睁开了两只巨大的眼睛。"
           },
           "dialogue": {
             "tr": "Bu… bir molekül mü?",
@@ -918,7 +1074,9 @@
             "de": "Ist das … ein Molekül?",
             "es": "¿Eso es… una molécula?",
             "pt": "Isso é… uma molécula?",
-            "ja": "あれは…分子なのか？"
+            "ja": "あれは…分子なのか？",
+            "fr": "C’est… une molécule ?",
+            "zh": "那是……一个分子吗？"
           }
         },
         {
@@ -930,7 +1088,9 @@
             "de": "Moxy drehte zwei kleine Kreise in der Luft. Dr. E lächelte; Dr. Null ließ vor Überraschung sein Notizbuch fallen. “Bwoop-bwoop!”",
             "es": "Moxy dio dos pequeñas vueltas en el aire. Dr. E sonrió; Dr. Null dejó caer su libreta de la sorpresa. “¡Bwoop-bwoop!”",
             "pt": "Moxy deu duas pequenas voltas no ar. Dr. E sorriu; Dr. Null deixou o caderno cair de surpresa. “Bwoop-bwoop!”",
-            "ja": "Moxyは空中で小さく二回転した。Dr. Eは笑顔になり、Dr. Nullは驚いてノートを落とした。 “Bwoop-bwoop!”"
+            "ja": "Moxyは空中で小さく二回転した。Dr. Eは笑顔になり、Dr. Nullは驚いてノートを落とした。 “Bwoop-bwoop!”",
+            "fr": "Moxy décrivit deux petits cercles dans les airs. Dr. E sourit ; Dr. Null laissa tomber son carnet de surprise. « Bwoop-bwoop! »",
+            "zh": "Moxy在空中转了两个小圈。Dr. E笑了；Dr. Null惊讶得掉下了笔记本。“Bwoop-bwoop!”"
           },
           "caption": {
             "tr": "Moxy artık ekibin sözsüz ama çok canlı yeni üyesiydi.",
@@ -938,7 +1098,9 @@
             "de": "Moxy war nun das lebhafte, wortlose neue Mitglied des Teams.",
             "es": "Moxy era ahora el nuevo miembro vivaz y sin palabras del equipo.",
             "pt": "Moxy agora era o novo integrante animado e sem palavras da equipe.",
-            "ja": "Moxyは、元気いっぱいで言葉を話さない新しい仲間になった。"
+            "ja": "Moxyは、元気いっぱいで言葉を話さない新しい仲間になった。",
+            "fr": "Moxy était maintenant le nouveau membre de l'équipe.",
+            "zh": "Moxy现在是团队的活，无言的新成员。"
           },
           "cast": [
             "drE",
@@ -954,7 +1116,9 @@
             "de": "Moxy drehte zwei kleine Kreise in der Luft. Dr. E lächelte; Dr. Null ließ vor Überraschung sein Notizbuch fallen.",
             "es": "Moxy dio dos pequeñas vueltas en el aire. Dr. E sonrió; Dr. Null dejó caer su libreta de la sorpresa.",
             "pt": "Moxy deu duas pequenas voltas no ar. Dr. E sorriu; Dr. Null deixou o caderno cair de surpresa.",
-            "ja": "Moxyは空中で小さく二回転した。Dr. Eは笑顔になり、Dr. Nullは驚いてノートを落とした。"
+            "ja": "Moxyは空中で小さく二回転した。Dr. Eは笑顔になり、Dr. Nullは驚いてノートを落とした。",
+            "fr": "Moxy décrivit deux petits cercles dans les airs. Dr. E sourit ; Dr. Null laissa tomber son carnet de surprise.",
+            "zh": "Moxy在空中转了两个小圈。Dr. E笑了；Dr. Null惊讶得掉下了笔记本。"
           },
           "dialogue": {
             "tr": "Bwoop-bwoop!",
@@ -962,7 +1126,9 @@
             "de": "Bwoop-bwoop!",
             "es": "¡Bwoop-bwoop!",
             "pt": "Bwoop-bwoop!",
-            "ja": "Bwoop-bwoop!"
+            "ja": "Bwoop-bwoop!",
+            "fr": "Bwoop-bwoop!",
+            "zh": "Bwoop-bwoop!"
           }
         }
       ]
@@ -980,7 +1146,9 @@
         "de": "ELEMENTINSEL",
         "es": "ISLA DE LOS ELEMENTOS",
         "pt": "ILHA DOS ELEMENTOS",
-        "ja": "元素島"
+        "ja": "元素島",
+        "fr": "L’ÎLE DES ÉLÉMENTS",
+        "zh": "元素岛"
       },
       "pages": [
         {
@@ -992,7 +1160,9 @@
             "de": "Moxy spürte, dass sich das X-Signal über das Labor hinaus erstreckte. Die Spur führte zur Elementinsel im Ozean.",
             "es": "Moxy sintió que la Señal X se extendía más allá del laboratorio. El rastro conducía a la Isla Elemento, en medio del océano.",
             "pt": "Moxy sentiu o Sinal X se estender para além do laboratório. O rastro levava à Ilha dos Elementos, no oceano.",
-            "ja": "MoxyはXシグナルが研究所の外へ伸びているのを感じ取った。その痕跡は海に浮かぶ元素島へ続いていた。"
+            "ja": "MoxyはXシグナルが研究所の外へ伸びているのを感じ取った。その痕跡は海に浮かぶ元素島へ続いていた。",
+            "fr": "Moxy a senti le signal X s'étendre au-delà du laboratoire. Le sentier conduit à l'île Element dans l'océan.",
+            "zh": "Moxy感觉到X信号超越了实验室。这条小径导致海洋中的元素岛。"
           },
           "caption": {
             "tr": "İlk dünya tamamlandı; keşif dışarı taşındı.",
@@ -1000,7 +1170,9 @@
             "de": "Die erste Welt ist abgeschlossen; die Expedition geht nach draußen.",
             "es": "El primer mundo está completo; la expedición sale al exterior.",
             "pt": "O primeiro mundo está concluído; a expedição segue para fora do laboratório.",
-            "ja": "最初の世界は完了。探索は研究所の外へ進む。"
+            "ja": "最初の世界は完了。探索は研究所の外へ進む。",
+            "fr": "Le premier monde est terminé; l'expédition se déplace à l'extérieur.",
+            "zh": "第一个世界已经完成；探险队出发。"
           },
           "cast": [
             "drE",
@@ -1014,7 +1186,9 @@
             "de": "Moxy spürte, dass sich das X-Signal über das Labor hinaus erstreckte. Die Spur führte zur Elementinsel im Ozean.",
             "es": "Moxy sintió que la Señal X se extendía más allá del laboratorio. El rastro conducía a la Isla Elemento, en medio del océano.",
             "pt": "Moxy sentiu o Sinal X se estender para além do laboratório. O rastro levava à Ilha dos Elementos, no oceano.",
-            "ja": "MoxyはXシグナルが研究所の外へ伸びているのを感じ取った。その痕跡は海に浮かぶ元素島へ続いていた。"
+            "ja": "MoxyはXシグナルが研究所の外へ伸びているのを感じ取った。その痕跡は海に浮かぶ元素島へ続いていた。",
+            "fr": "Moxy a senti le signal X s'étendre au-delà du laboratoire. Le sentier conduit à l'île Element dans l'océan.",
+            "zh": "Moxy感觉到X信号超越了实验室。这条小径导致海洋中的元素岛。"
           },
           "dialogue": {
             "tr": "",
@@ -1022,7 +1196,9 @@
             "de": "",
             "es": "",
             "pt": "",
-            "ja": ""
+            "ja": "",
+            "fr": "",
+            "zh": ""
           }
         },
         {
@@ -1034,7 +1210,9 @@
             "de": "Nulls tragbares Portal setzte das Team an der Küste ab. “Mehr oder weniger genau dort, wo ich hinwollte.”",
             "es": "El portal portátil de Null dejó al equipo en la costa. “Más o menos exactamente donde apuntaba.”",
             "pt": "O portal portátil de Null deixou a equipe na praia. “Mais ou menos exatamente onde eu mirei.”",
-            "ja": "Nullの携帯ポータルは一行を海岸へ放り出した。 “だいたい、狙った場所そのものだ。”"
+            "ja": "Nullの携帯ポータルは一行を海岸へ放り出した。 “だいたい、狙った場所そのものだ。”",
+            "fr": "Le portable de Null a laissé tomber l'équipe sur le rivage. « C'est plus ou moins exactement là où j'ai visé. »",
+            "zh": "Null的便携式传送门让团队落在岸边。“差不多是我指向的地方。”"
           },
           "caption": {
             "tr": "Manyetik kum, her adımı başka yöne çekiyor.",
@@ -1042,7 +1220,9 @@
             "de": "Magnetischer Sand zieht jeden Schritt in eine neue Richtung.",
             "es": "La arena magnética tira de cada paso en una dirección distinta.",
             "pt": "A areia magnética puxa cada passo para uma direção diferente.",
-            "ja": "磁気を帯びた砂が、一歩ごとに違う方向へ引っ張る。"
+            "ja": "磁気を帯びた砂が、一歩ごとに違う方向へ引っ張る。",
+            "fr": "Le sable magnétique tire chaque pas dans une nouvelle direction.",
+            "zh": "磁砂将每一步都推向一个新的方向。"
           },
           "cast": [
             "drE",
@@ -1058,7 +1238,9 @@
             "de": "Nulls tragbares Portal setzte das Team an der Küste ab.",
             "es": "El portal portátil de Null dejó al equipo en la costa.",
             "pt": "O portal portátil de Null deixou a equipe na praia.",
-            "ja": "Nullの携帯ポータルは一行を海岸へ放り出した。"
+            "ja": "Nullの携帯ポータルは一行を海岸へ放り出した。",
+            "fr": "Le portable de Null a laissé tomber l'équipe sur le rivage.",
+            "zh": "Null的便携式传送门让团队落在岸边。"
           },
           "dialogue": {
             "tr": "Tam olarak hedeflediğim yer… sayılır.",
@@ -1066,7 +1248,9 @@
             "de": "Mehr oder weniger genau dort, wo ich hinwollte.",
             "es": "Más o menos exactamente donde apuntaba.",
             "pt": "Mais ou menos exatamente onde eu mirei.",
-            "ja": "だいたい、狙った場所そのものだ。"
+            "ja": "だいたい、狙った場所そのものだ。",
+            "fr": "C'est plus ou moins exactement là où j'ai visé.",
+            "zh": "差不多是我指向的地方。"
           }
         },
         {
@@ -1078,7 +1262,9 @@
             "de": "Die Katze jagte einer leuchtenden Atomspur in den Dschungel nach. Moxy markierte den Weg aus der Luft.",
             "es": "El gato persiguió un rastro atómico brillante hasta la selva. Moxy marcó la ruta desde el aire.",
             "pt": "O gato perseguiu um rastro atômico brilhante até a selva. Moxy marcou o caminho do alto.",
-            "ja": "ネコは光る原子の痕跡を追ってジャングルへ走った。Moxyは上空から道を示した。"
+            "ja": "ネコは光る原子の痕跡を追ってジャングルへ走った。Moxyは上空から道を示した。",
+            "fr": "Le chat a poursuivi une trace atomique brillante dans la jungle. Moxy a marqué la route depuis le haut.",
+            "zh": "猫追着烂的原子轨迹进入林。Moxy从上方标记了路线。"
           },
           "caption": {
             "tr": "Doğa, laboratuvardan daha büyük bir bulmaca.",
@@ -1086,7 +1272,9 @@
             "de": "Die Natur ist ein größeres Rätsel als jedes Labor.",
             "es": "La naturaleza es un rompecabezas más grande que cualquier laboratorio.",
             "pt": "A natureza é um quebra-cabeça maior do que qualquer laboratório.",
-            "ja": "自然はどんな研究所よりも大きなパズルだ。"
+            "ja": "自然はどんな研究所よりも大きなパズルだ。",
+            "fr": "La nature est un plus grand puzzle que n'importe quel laboratoire.",
+            "zh": "自然是一个比任何实验室更大的题。"
           },
           "cast": [
             "cat",
@@ -1100,7 +1288,9 @@
             "de": "Die Katze jagte einer leuchtenden Atomspur in den Dschungel nach. Moxy markierte den Weg aus der Luft.",
             "es": "El gato persiguió un rastro atómico brillante hasta la selva. Moxy marcó la ruta desde el aire.",
             "pt": "O gato perseguiu um rastro atômico brilhante até a selva. Moxy marcou o caminho do alto.",
-            "ja": "ネコは光る原子の痕跡を追ってジャングルへ走った。Moxyは上空から道を示した。"
+            "ja": "ネコは光る原子の痕跡を追ってジャングルへ走った。Moxyは上空から道を示した。",
+            "fr": "Le chat a poursuivi une trace atomique brillante dans la jungle. Moxy a marqué la route depuis le haut.",
+            "zh": "猫追着烂的原子轨迹进入林。Moxy从上方标记了路线。"
           },
           "dialogue": {
             "tr": "",
@@ -1108,7 +1298,9 @@
             "de": "",
             "es": "",
             "pt": "",
-            "ja": ""
+            "ja": "",
+            "fr": "",
+            "zh": ""
           }
         }
       ]
@@ -1126,7 +1318,9 @@
         "de": "MAGNETISCHE KÜSTE",
         "es": "COSTA MAGNÉTICA",
         "pt": "COSTA MAGNÉTICA",
-        "ja": "磁気の海岸"
+        "ja": "磁気の海岸",
+        "fr": "LA CÔTE MAGNÉTIQUE",
+        "zh": "磁力海岸"
       },
       "pages": [
         {
@@ -1138,7 +1332,9 @@
             "de": "Moxys schwebende Hände konnten unsichtbare Magnetfeldlinien spüren.",
             "es": "Las manos flotantes de Moxy podían sentir líneas magnéticas invisibles.",
             "pt": "As mãos flutuantes de Moxy conseguiam sentir linhas magnéticas invisíveis.",
-            "ja": "Moxyの浮かぶ手は、目に見えない磁力線を感じ取れた。"
+            "ja": "Moxyの浮かぶ手は、目に見えない磁力線を感じ取れた。",
+            "fr": "Les mains flottantes de Moxy pouvaient sentir des lignes magnétiques invisibles.",
+            "zh": "Moxy的浮动手可以感觉到无形的磁线。"
           },
           "caption": {
             "tr": "Moxy ilk kez yalnızca rehber değil, çözümün parçası.",
@@ -1146,7 +1342,9 @@
             "de": "Zum ersten Mal ist Moxy Teil der Lösung und nicht nur ein Wegweiser.",
             "es": "Por primera vez, Moxy forma parte de la solución y no es solo un guía.",
             "pt": "Pela primeira vez, Moxy faz parte da solução, não é apenas um guia.",
-            "ja": "Moxyは初めて、案内役ではなく解決そのものの一部になる。"
+            "ja": "Moxyは初めて、案内役ではなく解決そのものの一部になる。",
+            "fr": "Pour la première fois, Moxy fait partie de la solution, pas seulement un guide.",
+            "zh": "第一次，Moxy是解决方案的一部分，而不仅仅是指南。"
           },
           "cast": [
             "moxy"
@@ -1159,7 +1357,9 @@
             "de": "Moxys schwebende Hände konnten unsichtbare Magnetfeldlinien spüren.",
             "es": "Las manos flotantes de Moxy podían sentir líneas magnéticas invisibles.",
             "pt": "As mãos flutuantes de Moxy conseguiam sentir linhas magnéticas invisíveis.",
-            "ja": "Moxyの浮かぶ手は、目に見えない磁力線を感じ取れた。"
+            "ja": "Moxyの浮かぶ手は、目に見えない磁力線を感じ取れた。",
+            "fr": "Les mains flottantes de Moxy pouvaient sentir des lignes magnétiques invisibles.",
+            "zh": "Moxy的浮动手可以感觉到无形的磁线。"
           },
           "dialogue": {
             "tr": "",
@@ -1167,7 +1367,9 @@
             "de": "",
             "es": "",
             "pt": "",
-            "ja": ""
+            "ja": "",
+            "fr": "",
+            "zh": ""
           }
         },
         {
@@ -1179,7 +1381,9 @@
             "de": "Dr. E richtete die Atome entlang der Feldlinien aus. Jede richtige Bindung öffnete das zentrale Tor der Insel ein Stück weiter.",
             "es": "Dr. E alineó los átomos siguiendo las líneas de campo. Cada enlace correcto abría un poco más la puerta central de la isla.",
             "pt": "Dr. E alinhou os átomos ao longo das linhas de campo. Cada ligação correta abria um pouco mais o portão central da ilha.",
-            "ja": "Dr. Eは磁力線に沿って原子を並べた。正しい結合ができるたび、島の中央ゲートが少しずつ開いた。"
+            "ja": "Dr. Eは磁力線に沿って原子を並べた。正しい結合ができるたび、島の中央ゲートが少しずつ開いた。",
+            "fr": "Dr. E alignés des atomes le long des lignes de champ. Chaque liaison correct ouvrait un peu plus loin la porte centrale de l'île.",
+            "zh": "Dr. E 在场线上排列原子。每个正确的化学键打开了岛屿的中心门。"
           },
           "caption": {
             "tr": "Manyetizma yeni bir yol dili oluşturuyor.",
@@ -1187,7 +1391,9 @@
             "de": "Magnetismus schafft eine neue Sprache der Wege.",
             "es": "El magnetismo crea un nuevo lenguaje de rutas.",
             "pt": "O magnetismo cria uma nova linguagem de caminhos.",
-            "ja": "磁力が新しい道の言語を作り出す。"
+            "ja": "磁力が新しい道の言語を作り出す。",
+            "fr": "Le magnétisme crée un nouveau langage des itinéraires.",
+            "zh": "磁力学创造了新的路线语言。"
           },
           "cast": [
             "drE",
@@ -1201,7 +1407,9 @@
             "de": "Dr. E richtete die Atome entlang der Feldlinien aus. Jede richtige Bindung öffnete das zentrale Tor der Insel ein Stück weiter.",
             "es": "Dr. E alineó los átomos siguiendo las líneas de campo. Cada enlace correcto abría un poco más la puerta central de la isla.",
             "pt": "Dr. E alinhou os átomos ao longo das linhas de campo. Cada ligação correta abria um pouco mais o portão central da ilha.",
-            "ja": "Dr. Eは磁力線に沿って原子を並べた。正しい結合ができるたび、島の中央ゲートが少しずつ開いた。"
+            "ja": "Dr. Eは磁力線に沿って原子を並べた。正しい結合ができるたび、島の中央ゲートが少しずつ開いた。",
+            "fr": "Dr. E alignés des atomes le long des lignes de champ. Chaque liaison correct ouvrait un peu plus loin la porte centrale de l'île.",
+            "zh": "Dr. E 在场线上排列原子。每个正确的化学键打开了岛屿的中心门。"
           },
           "dialogue": {
             "tr": "",
@@ -1209,7 +1417,9 @@
             "de": "",
             "es": "",
             "pt": "",
-            "ja": ""
+            "ja": "",
+            "fr": "",
+            "zh": ""
           }
         },
         {
@@ -1221,7 +1431,9 @@
             "de": "Null las die in die Steine geritzten X-Symbole. “Diese Zeichen sind nicht neu. Jemand hat dieses Signal schon vor Jahren gesehen.”",
             "es": "Null leyó los símbolos X grabados en las piedras. “Esto no es nuevo. Alguien vio esta señal hace años.”",
             "pt": "Null leu os símbolos X gravados nas pedras. “Isto não é novo. Alguém viu este sinal anos atrás.”",
-            "ja": "Nullは石に刻まれたXの記号を読み取った。 “これは新しいものじゃない。何年も前に誰かがこの信号を見ている。”"
+            "ja": "Nullは石に刻まれたXの記号を読み取った。 “これは新しいものじゃない。何年も前に誰かがこの信号を見ている。”",
+            "fr": "Null a lu les symboles X gravés dans les pierres. « Ce n'est pas nouveau. Quelqu'un a vu ce signal il y a des années. »",
+            "zh": "Null读到雕刻在石头上的X符号。“这些不是新鲜的。几年前有人看到这个信号。”"
           },
           "caption": {
             "tr": "Gizem laboratuvardan daha eski.",
@@ -1229,7 +1441,9 @@
             "de": "Das Rätsel ist älter als das Labor.",
             "es": "El misterio es más antiguo que el laboratorio.",
             "pt": "O mistério é mais antigo do que o laboratório.",
-            "ja": "謎は研究所よりも古い。"
+            "ja": "謎は研究所よりも古い。",
+            "fr": "Le mystère est plus ancien que le laboratoire.",
+            "zh": "这个团比实验室更古老。"
           },
           "cast": [
             "null",
@@ -1243,7 +1457,9 @@
             "de": "Null las die in die Steine geritzten X-Symbole.",
             "es": "Null leyó los símbolos X grabados en las piedras.",
             "pt": "Null leu os símbolos X gravados nas pedras.",
-            "ja": "Nullは石に刻まれたXの記号を読み取った。"
+            "ja": "Nullは石に刻まれたXの記号を読み取った。",
+            "fr": "Null a lu les symboles X gravés dans les pierres.",
+            "zh": "Null读到雕刻在石头上的X符号。"
           },
           "dialogue": {
             "tr": "Bunlar yeni değil. Birisi bu sinyali yıllar önce de görmüş.",
@@ -1251,7 +1467,9 @@
             "de": "Diese Zeichen sind nicht neu. Jemand hat dieses Signal schon vor Jahren gesehen.",
             "es": "Esto no es nuevo. Alguien vio esta señal hace años.",
             "pt": "Isto não é novo. Alguém viu este sinal anos atrás.",
-            "ja": "これは新しいものじゃない。何年も前に誰かがこの信号を見ている。"
+            "ja": "これは新しいものじゃない。何年も前に誰かがこの信号を見ている。",
+            "fr": "Ce n'est pas nouveau. Quelqu'un a vu ce signal il y a des années.",
+            "zh": "这些不是新鲜的。几年前有人看到这个信号。"
           }
         }
       ]
@@ -1269,7 +1487,9 @@
         "de": "DER ZERBRECHLICHE HAIN",
         "es": "LA ARBOLEDA FRÁGIL",
         "pt": "O BOSQUE FRÁGIL",
-        "ja": "壊れやすい森"
+        "ja": "壊れやすい森",
+        "fr": "LE BOSQUET FRAGILE",
+        "zh": "易碎树林"
       },
       "pages": [
         {
@@ -1281,7 +1501,9 @@
             "de": "Hauchdünne Elementhüllen schützten das erste Stück des Nobel-Beweises.",
             "es": "Capas elementales finas como el vidrio protegían la primera pieza de la prueba del Nobel.",
             "pt": "Cascas elementares finas como vidro protegiam a primeira parte da prova do Nobel.",
-            "ja": "ガラスのように薄い元素の殻が、ノーベル証拠の最初の断片を守っていた。"
+            "ja": "ガラスのように薄い元素の殻が、ノーベル証拠の最初の断片を守っていた。",
+            "fr": "Des coquilles élémentaires minces en verre protégeaient la première pièce de la preuve Nobel.",
+            "zh": "玻璃薄的元素保护了诺贝尔证据的第一部分。"
           },
           "caption": {
             "tr": "Bir sert çarpışma bütün izi yok edebilir.",
@@ -1289,7 +1511,9 @@
             "de": "Ein harter Zusammenstoß könnte die gesamte Spur auslöschen.",
             "es": "Un choque fuerte podría borrar todo el rastro.",
             "pt": "Uma colisão forte poderia apagar todo o rastro.",
-            "ja": "一度の激しい衝突で、痕跡すべてが消えるかもしれない。"
+            "ja": "一度の激しい衝突で、痕跡すべてが消えるかもしれない。",
+            "fr": "Une collision dure pourrait effacer toute la piste.",
+            "zh": "一场强烈的碰撞可能会抹去整个踪迹。"
           },
           "cast": [
             "drE"
@@ -1302,7 +1526,9 @@
             "de": "Hauchdünne Elementhüllen schützten das erste Stück des Nobel-Beweises.",
             "es": "Capas elementales finas como el vidrio protegían la primera pieza de la prueba del Nobel.",
             "pt": "Cascas elementares finas como vidro protegiam a primeira parte da prova do Nobel.",
-            "ja": "ガラスのように薄い元素の殻が、ノーベル証拠の最初の断片を守っていた。"
+            "ja": "ガラスのように薄い元素の殻が、ノーベル証拠の最初の断片を守っていた。",
+            "fr": "Des coquilles élémentaires minces en verre protégeaient la première pièce de la preuve Nobel.",
+            "zh": "玻璃薄的元素保护了诺贝尔证据的第一部分。"
           },
           "dialogue": {
             "tr": "",
@@ -1310,7 +1536,9 @@
             "de": "",
             "es": "",
             "pt": "",
-            "ja": ""
+            "ja": "",
+            "fr": "",
+            "zh": ""
           }
         },
         {
@@ -1322,15 +1550,19 @@
             "de": "Moxy dämpfte die Bindungsenergie, führte die Atome auf eine sichere Route und gab einen beruhigenden kleinen Laut von sich. “plop.”",
             "es": "Moxy suavizó la energía del enlace, guio los átomos por una ruta segura y emitió un pequeño sonido tranquilizador. “plop.”",
             "pt": "Moxy suavizou a energia das ligações, guiou os átomos por uma rota segura e soltou um pequeno som tranquilizador. “plop.”",
-            "ja": "Moxyは結合エネルギーを和らげ、原子を安全な経路へ導き、安心させるような小さな音を出した。 “plop.”"
+            "ja": "Moxyは結合エネルギーを和らげ、原子を安全な経路へ導き、安心させるような小さな音を出した。 “plop.”",
+            "fr": "Moxy atténua l’énergie de la liaison, guida les atomes vers un passage sûr et poussa un petit gazouillis rassurant. « plop. »",
+            "zh": "Moxy减弱了键能，引导原子进入安全路线，并发出一声让人安心的轻鸣。“plop.”"
           },
           "caption": {
-            "tr": "Moxy’nin kısa ipuçları oyuna giriyor.",
-            "en": "Moxy’s quick hints join the gameplay.",
-            "de": "Moxys kurze Hinweise kommen ins Spiel.",
-            "es": "Las pistas rápidas de Moxy entran en el juego.",
-            "pt": "As rápidas dicas de Moxy passam a fazer parte do jogo.",
-            "ja": "Moxyの短いヒントがゲームに加わる。"
+            "tr": "Moxy’nin kısa sinyalleri ekibe yol gösteriyor.",
+            "en": "Moxy’s quick signals guide the team.",
+            "de": "Moxys kurze Signale weisen dem Team den Weg.",
+            "es": "Las breves señales de Moxy guían al equipo.",
+            "pt": "Os sinais breves de Moxy orientam a equipe.",
+            "ja": "Moxyの短い合図がチームを導く。",
+            "fr": "Les signaux brefs de Moxy guident l’équipe.",
+            "zh": "Moxy的简短信号为团队指引方向。"
           },
           "cast": [
             "moxy",
@@ -1344,7 +1576,9 @@
             "de": "Moxy dämpfte die Bindungsenergie, führte die Atome auf eine sichere Route und gab einen beruhigenden kleinen Laut von sich.",
             "es": "Moxy suavizó la energía del enlace, guio los átomos por una ruta segura y emitió un pequeño sonido tranquilizador.",
             "pt": "Moxy suavizou a energia das ligações, guiou os átomos por uma rota segura e soltou um pequeno som tranquilizador.",
-            "ja": "Moxyは結合エネルギーを和らげ、原子を安全な経路へ導き、安心させるような小さな音を出した。"
+            "ja": "Moxyは結合エネルギーを和らげ、原子を安全な経路へ導き、安心させるような小さな音を出した。",
+            "fr": "Moxy atténua l’énergie de la liaison, guida les atomes vers un passage sûr et poussa un petit gazouillis rassurant.",
+            "zh": "Moxy减弱了键能，引导原子进入安全路线，并发出一声让人安心的轻鸣。"
           },
           "dialogue": {
             "tr": "plop",
@@ -1352,7 +1586,9 @@
             "de": "plop.",
             "es": "plop.",
             "pt": "plop.",
-            "ja": "plop."
+            "ja": "plop.",
+            "fr": "plop.",
+            "zh": "plop."
           }
         },
         {
@@ -1364,7 +1600,9 @@
             "de": "Die Katze rollte sich um das Beweisfragment. Auf ihrem Atom-Anhänger erschien die Hälfte des Datums der Großen Entkopplung.",
             "es": "El gato se acurrucó alrededor del fragmento de prueba. En su colgante atómico apareció la mitad de la fecha de la Gran Desvinculación.",
             "pt": "O gato se enrolou ao redor do fragmento da prova. Metade da data da Grande Separação apareceu em seu pingente de átomo.",
-            "ja": "ネコは証拠の断片を抱くように丸くなった。原子のペンダントに「大解離」が起きた日付の半分が浮かんだ。"
+            "ja": "ネコは証拠の断片を抱くように丸くなった。原子のペンダントに「大解離」が起きた日付の半分が浮かんだ。",
+            "fr": "Le chat s'est enroulé autour du fragment de preuves. La moitié de la date de la Grande Déliaison apparaît sur son pendentif atomique.",
+            "zh": "猫绕着证据片段。在原子吊坠上出现了大解约的一半日期。"
           },
           "caption": {
             "tr": "Dosya yalnızca Nobel için değil.",
@@ -1372,7 +1610,9 @@
             "de": "In der Akte geht es um mehr als nur einen Nobelpreis.",
             "es": "El expediente trata de algo más que de un Premio Nobel.",
             "pt": "O arquivo trata de algo maior do que um Prêmio Nobel.",
-            "ja": "このファイルが示すものは、ノーベル賞だけではない。"
+            "ja": "このファイルが示すものは、ノーベル賞だけではない。",
+            "fr": "Le dossier est plus qu'un prix Nobel.",
+            "zh": "这份文件不仅仅是诺贝尔奖。"
           },
           "cast": [
             "cat",
@@ -1386,7 +1626,9 @@
             "de": "Die Katze rollte sich um das Beweisfragment. Auf ihrem Atom-Anhänger erschien die Hälfte des Datums der Großen Entkopplung.",
             "es": "El gato se acurrucó alrededor del fragmento de prueba. En su colgante atómico apareció la mitad de la fecha de la Gran Desvinculación.",
             "pt": "O gato se enrolou ao redor do fragmento da prova. Metade da data da Grande Separação apareceu em seu pingente de átomo.",
-            "ja": "ネコは証拠の断片を抱くように丸くなった。原子のペンダントに「大解離」が起きた日付の半分が浮かんだ。"
+            "ja": "ネコは証拠の断片を抱くように丸くなった。原子のペンダントに「大解離」が起きた日付の半分が浮かんだ。",
+            "fr": "Le chat s'est enroulé autour du fragment de preuves. La moitié de la date de la Grande Déliaison apparaît sur son pendentif atomique.",
+            "zh": "猫绕着证据片段。在原子吊坠上出现了大解约的一半日期。"
           },
           "dialogue": {
             "tr": "",
@@ -1394,7 +1636,9 @@
             "de": "",
             "es": "",
             "pt": "",
-            "ja": ""
+            "ja": "",
+            "fr": "",
+            "zh": ""
           }
         }
       ]
@@ -1412,7 +1656,9 @@
         "de": "DIE SPUR DER KATZE",
         "es": "EL RASTRO DEL GATO",
         "pt": "O RASTRO DO GATO",
-        "ja": "ネコの痕跡"
+        "ja": "ネコの痕跡",
+        "fr": "LA PISTE DU CHAT",
+        "zh": "猫的踪迹"
       },
       "pages": [
         {
@@ -1424,7 +1670,9 @@
             "de": "Die X-Spur erreichte das alte Portallabor der Insel. Dieselbe Energie fror einige Atome wie Kristall ein und trieb andere schnell aufeinander zu. “Das Signal trennt Bindungen und leitet sie neu um.”",
             "es": "El rastro X llegó al antiguo laboratorio de portales de la isla. La misma energía congelaba algunos átomos como cristal y empujaba a otros rápidamente unos contra otros. “La señal está separando enlaces y redirigiéndolos.”",
             "pt": "O rastro X chegou ao antigo laboratório de portais da ilha. A mesma energia congelava alguns átomos como cristal enquanto empurrava outros rapidamente uns contra os outros. “O sinal está separando as ligações e redirecionando-as.”",
-            "ja": "Xの痕跡は島の古いポータル研究所へ続いた。同じエネルギーが一部の原子を結晶のように凍らせ、別の原子を激しく衝突させていた。 “この信号は結合を切り離し、別の方向へつなぎ直している。”"
+            "ja": "Xの痕跡は島の古いポータル研究所へ続いた。同じエネルギーが一部の原子を結晶のように凍らせ、別の原子を激しく衝突させていた。 “この信号は結合を切り離し、別の方向へつなぎ直している。”",
+            "fr": "La piste X atteignit l’ancien laboratoire de portails de l’île. La même énergie figea certains atomes comme du cristal tout en en propulsant rapidement d’autres les uns vers les autres. « Le signal sépare les liaisons et les redirige. »",
+            "zh": "X的踪迹延伸到了岛上的旧传送门实验室。同一种能量把一些原子冻结得如同晶体，同时又让另一些原子迅速靠拢。“信号正在拆分化学键，并重新引导它们。”"
           },
           "caption": {
             "tr": "İzin devamı portal düzeneğinin içinde.",
@@ -1432,7 +1680,9 @@
             "de": "Die Spur setzt sich im Portalsystem fort.",
             "es": "El rastro continúa dentro del sistema de portales.",
             "pt": "O rastro continua dentro do sistema do portal.",
-            "ja": "痕跡はポータル装置の内部へ続いている。"
+            "ja": "痕跡はポータル装置の内部へ続いている。",
+            "fr": "La piste se poursuit à l’intérieur du système de portails.",
+            "zh": "踪迹延伸到了传送门系统内部。"
           },
           "cast": [
             "cat"
@@ -1445,7 +1695,9 @@
             "de": "Die X-Spur erreichte das alte Portallabor der Insel. Dieselbe Energie fror einige Atome wie Kristall ein und trieb andere schnell aufeinander zu.",
             "es": "El rastro X llegó al antiguo laboratorio de portales de la isla. La misma energía congelaba algunos átomos como cristal y empujaba a otros rápidamente unos contra otros.",
             "pt": "O rastro X chegou ao antigo laboratório de portais da ilha. A mesma energia congelava alguns átomos como cristal enquanto empurrava outros rapidamente uns contra os outros.",
-            "ja": "Xの痕跡は島の古いポータル研究所へ続いた。同じエネルギーが一部の原子を結晶のように凍らせ、別の原子を激しく衝突させていた。"
+            "ja": "Xの痕跡は島の古いポータル研究所へ続いた。同じエネルギーが一部の原子を結晶のように凍らせ、別の原子を激しく衝突させていた。",
+            "fr": "La piste X atteignit l’ancien laboratoire de portails de l’île. La même énergie figea certains atomes comme du cristal tout en en propulsant rapidement d’autres les uns vers les autres.",
+            "zh": "X的踪迹延伸到了岛上的旧传送门实验室。同一种能量把一些原子冻结得如同晶体，同时又让另一些原子迅速靠拢。"
           },
           "dialogue": {
             "tr": "Bu sinyal bağları ayırıp yeniden yönlendiriyor.",
@@ -1453,7 +1705,9 @@
             "de": "Das Signal trennt Bindungen und leitet sie neu um.",
             "es": "La señal está separando enlaces y redirigiéndolos.",
             "pt": "O sinal está separando as ligações e redirecionando-as.",
-            "ja": "この信号は結合を切り離し、別の方向へつなぎ直している。"
+            "ja": "この信号は結合を切り離し、別の方向へつなぎ直している。",
+            "fr": "Le signal sépare les liaisons et les redirige.",
+            "zh": "信号正在拆分化学键，并重新引导它们。"
           }
         },
         {
@@ -1465,7 +1719,9 @@
             "de": "Dr. Null koppelte die Portalphase an das X-Signal. Der Ausgang würde sich nur im richtigen Moment öffnen. “Aktiviere die rote Steuerung erst, wenn ich es sage.”",
             "es": "Dr. Null fijó la fase del portal a la Señal X. La salida solo se abriría en el momento correcto. “No actives el control rojo hasta que yo lo diga.”",
             "pt": "Dr. Null travou a fase do portal no Sinal X. A saída só abriria no momento correto. “Não ative o controle vermelho até eu mandar.”",
-            "ja": "Dr. Nullはポータルの位相をXシグナルに固定した。出口が開くのは正しい瞬間だけだ。 “私が言うまで赤い操作部には触るな。”"
+            "ja": "Dr. Nullはポータルの位相をXシグナルに固定した。出口が開くのは正しい瞬間だけだ。 “私が言うまで赤い操作部には触るな。”",
+            "fr": "Dr. Null verrouilla la phase du portail sur le Signal X. La sortie ne s’ouvrirait qu’au moment exact. « N’activez pas la commande rouge avant mon signal. »",
+            "zh": "Dr. Null把传送门相位锁定在X信号上。出口只会在正确的时刻开启。“在我开口之前，不要启动红色控制器。”"
           },
           "caption": {
             "tr": "Kedi, doğal olarak, düğmeye bakıyordu.",
@@ -1473,7 +1729,9 @@
             "de": "Die Katze starrte natürlich auf den Knopf.",
             "es": "El gato, naturalmente, estaba mirando el botón.",
             "pt": "O gato estava, naturalmente, olhando fixamente para o botão.",
-            "ja": "もちろん、ネコはそのボタンをじっと見ていた。"
+            "ja": "もちろん、ネコはそのボタンをじっと見ていた。",
+            "fr": "Le chat fixait naturellement le bouton.",
+            "zh": "猫自然正盯着那个按钮。"
           },
           "cast": [
             "null",
@@ -1487,7 +1745,9 @@
             "de": "Dr. Null koppelte die Portalphase an das X-Signal. Der Ausgang würde sich nur im richtigen Moment öffnen.",
             "es": "Dr. Null fijó la fase del portal a la Señal X. La salida solo se abriría en el momento correcto.",
             "pt": "Dr. Null travou a fase do portal no Sinal X. A saída só abriria no momento correto.",
-            "ja": "Dr. Nullはポータルの位相をXシグナルに固定した。出口が開くのは正しい瞬間だけだ。"
+            "ja": "Dr. Nullはポータルの位相をXシグナルに固定した。出口が開くのは正しい瞬間だけだ。",
+            "fr": "Dr. Null verrouilla la phase du portail sur le Signal X. La sortie ne s’ouvrirait qu’au moment exact.",
+            "zh": "Dr. Null把传送门相位锁定在X信号上。出口只会在正确的时刻开启。"
           },
           "dialogue": {
             "tr": "Kırmızı kontrolü ben söylemeden sakın etkinleştirme.",
@@ -1495,7 +1755,9 @@
             "de": "Aktiviere die rote Steuerung erst, wenn ich es sage.",
             "es": "No actives el control rojo hasta que yo lo diga.",
             "pt": "Não ative o controle vermelho até eu mandar.",
-            "ja": "私が言うまで赤い操作部には触るな。"
+            "ja": "私が言うまで赤い操作部には触るな。",
+            "fr": "N’activez pas la commande rouge avant mon signal.",
+            "zh": "在我开口之前，不要启动红色控制器。"
           }
         },
         {
@@ -1507,7 +1769,9 @@
             "de": "Die Katze aktivierte die rote Steuerung mit einer Pfote. Das Portal öffnete sich; Moxy folgte dem Puls des Anhängers und fand den verborgenen Ausgang. “Bwoop!”",
             "es": "El gato activó el control rojo con una pata. El portal se abrió; Moxy siguió el pulso del colgante y encontró la salida oculta. “¡Bwoop!”",
             "pt": "O gato ativou o controle vermelho com uma pata. O portal se abriu; Moxy seguiu o pulso do pingente e encontrou a rota de saída escondida. “Bwoop!”",
-            "ja": "ネコが前足で赤い操作部を作動させた。ポータルが開き、Moxyはペンダントの脈動を追って隠された出口を見つけた。 “Bwoop!”"
+            "ja": "ネコが前足で赤い操作部を作動させた。ポータルが開き、Moxyはペンダントの脈動を追って隠された出口を見つけた。 “Bwoop!”",
+            "fr": "Le chat activa la commande rouge d’une patte. Le portail s’ouvrit ; Moxy suivit les pulsations du pendentif et trouva la sortie cachée. « Bwoop! »",
+            "zh": "猫用一只爪子启动了红色控制器。传送门开启；Moxy循着吊坠的脉冲找到了隐藏出口。“Bwoop!”"
           },
           "caption": {
             "tr": "Kedi ve Moxy ilk ortak keşiflerini yaptı.",
@@ -1515,7 +1779,9 @@
             "de": "Die Katze und Moxy machten gemeinsam ihre erste Entdeckung.",
             "es": "El gato y Moxy hicieron juntos su primer descubrimiento.",
             "pt": "O gato e Moxy fizeram sua primeira descoberta juntos.",
-            "ja": "ネコとMoxyは初めて一緒に発見を成し遂げた。"
+            "ja": "ネコとMoxyは初めて一緒に発見を成し遂げた。",
+            "fr": "Le chat et Moxy firent leur première découverte ensemble.",
+            "zh": "猫和Moxy第一次共同完成了发现。"
           },
           "cast": [
             "cat",
@@ -1531,7 +1797,9 @@
             "de": "Die Katze aktivierte die rote Steuerung mit einer Pfote. Das Portal öffnete sich; Moxy folgte dem Puls des Anhängers und fand den verborgenen Ausgang.",
             "es": "El gato activó el control rojo con una pata. El portal se abrió; Moxy siguió el pulso del colgante y encontró la salida oculta.",
             "pt": "O gato ativou o controle vermelho com uma pata. O portal se abriu; Moxy seguiu o pulso do pingente e encontrou a rota de saída escondida.",
-            "ja": "ネコが前足で赤い操作部を作動させた。ポータルが開き、Moxyはペンダントの脈動を追って隠された出口を見つけた。"
+            "ja": "ネコが前足で赤い操作部を作動させた。ポータルが開き、Moxyはペンダントの脈動を追って隠された出口を見つけた。",
+            "fr": "Le chat activa la commande rouge d’une patte. Le portail s’ouvrit ; Moxy suivit les pulsations du pendentif et trouva la sortie cachée.",
+            "zh": "猫用一只爪子启动了红色控制器。传送门开启；Moxy循着吊坠的脉冲找到了隐藏出口。"
           },
           "dialogue": {
             "tr": "Bwoop!",
@@ -1539,7 +1807,9 @@
             "de": "Bwoop!",
             "es": "¡Bwoop!",
             "pt": "Bwoop!",
-            "ja": "Bwoop!"
+            "ja": "Bwoop!",
+            "fr": "Bwoop!",
+            "zh": "Bwoop!"
           }
         }
       ]
@@ -1557,7 +1827,9 @@
         "de": "DER INSELKERN",
         "es": "EL NÚCLEO DE LA ISLA",
         "pt": "O NÚCLEO DA ILHA",
-        "ja": "島のコア"
+        "ja": "島のコア",
+        "fr": "LE CŒUR DE L’ÎLE",
+        "zh": "岛屿核心"
       },
       "pages": [
         {
@@ -1569,7 +1841,9 @@
             "de": "Unter der Insel pulsierte ein gewaltiger natürlicher Reaktor. Das X-Signal versuchte, ihn auseinanderzureißen.",
             "es": "Un enorme reactor natural latía bajo la isla. La Señal X intentaba desarmarlo.",
             "pt": "Um enorme reator natural pulsava sob a ilha. O Sinal X tentava separá-lo.",
-            "ja": "島の地下で巨大な天然リアクターが脈動していた。Xシグナルはそれを引き裂こうとしていた。"
+            "ja": "島の地下で巨大な天然リアクターが脈動していた。Xシグナルはそれを引き裂こうとしていた。",
+            "fr": "Un immense réacteur naturel pulsait sous l’île. Le Signal X tentait de le désassembler.",
+            "zh": "一座巨大的天然反应堆在岛屿下方脉动。X信号正试图把它拆散。"
           },
           "caption": {
             "tr": "Büyük Ayrışma yeniden başlamak üzere.",
@@ -1577,7 +1851,9 @@
             "de": "Die Große Entkopplung droht erneut zu beginnen.",
             "es": "La Gran Desvinculación está a punto de comenzar de nuevo.",
             "pt": "A Grande Separação está prestes a começar novamente.",
-            "ja": "大解離が再び始まろうとしている。"
+            "ja": "大解離が再び始まろうとしている。",
+            "fr": "La Grande Déliaison est sur le point de recommencer.",
+            "zh": "大断键事件即将再次发生。"
           },
           "cast": [
             "drE",
@@ -1591,7 +1867,9 @@
             "de": "Unter der Insel pulsierte ein gewaltiger natürlicher Reaktor. Das X-Signal versuchte, ihn auseinanderzureißen.",
             "es": "Un enorme reactor natural latía bajo la isla. La Señal X intentaba desarmarlo.",
             "pt": "Um enorme reator natural pulsava sob a ilha. O Sinal X tentava separá-lo.",
-            "ja": "島の地下で巨大な天然リアクターが脈動していた。Xシグナルはそれを引き裂こうとしていた。"
+            "ja": "島の地下で巨大な天然リアクターが脈動していた。Xシグナルはそれを引き裂こうとしていた。",
+            "fr": "Un immense réacteur naturel pulsait sous l’île. Le Signal X tentait de le désassembler.",
+            "zh": "一座巨大的天然反应堆在岛屿下方脉动。X信号正试图把它拆散。"
           },
           "dialogue": {
             "tr": "",
@@ -1599,7 +1877,9 @@
             "de": "",
             "es": "",
             "pt": "",
-            "ja": ""
+            "ja": "",
+            "fr": "",
+            "zh": ""
           }
         },
         {
@@ -1611,7 +1891,9 @@
             "de": "Null verband seine eigene Maschine mit dem Kern. “Ich habe diese Anlage gebaut, um das Signal einzudämmen, nicht um es zu stehlen.”",
             "es": "Null conectó su propia máquina al núcleo. “Construí este equipo para contener la señal, no para robarla.”",
             "pt": "Null conectou sua própria máquina ao núcleo. “Eu construí este equipamento para conter o sinal, não para roubá-lo.”",
-            "ja": "Nullは自分の装置をコアへ接続した。 “この装置は信号を封じ込めるために作った。奪うためじゃない。”"
+            "ja": "Nullは自分の装置をコアへ接続した。 “この装置は信号を封じ込めるために作った。奪うためじゃない。”",
+            "fr": "Null connecta sa propre machine au cœur. « J’ai construit cet appareil pour contenir le signal, pas pour le voler. »",
+            "zh": "Null把自己的装置连接到核心。“我制造这台装置是为了控制信号，不是为了窃取它。”"
           },
           "caption": {
             "tr": "Şüphe yerini zor bir güvene bırakıyor.",
@@ -1619,7 +1901,9 @@
             "de": "Misstrauen weicht mühsamem Vertrauen.",
             "es": "La sospecha da paso a una confianza difícil.",
             "pt": "A suspeita dá lugar a uma confiança difícil.",
-            "ja": "疑いは、苦しい信頼へと変わっていく。"
+            "ja": "疑いは、苦しい信頼へと変わっていく。",
+            "fr": "La méfiance cède la place à une confiance difficile.",
+            "zh": "猜疑逐渐让位于来之不易的信任。"
           },
           "cast": [
             "null",
@@ -1633,7 +1917,9 @@
             "de": "Null verband seine eigene Maschine mit dem Kern.",
             "es": "Null conectó su propia máquina al núcleo.",
             "pt": "Null conectou sua própria máquina ao núcleo.",
-            "ja": "Nullは自分の装置をコアへ接続した。"
+            "ja": "Nullは自分の装置をコアへ接続した。",
+            "fr": "Null connecta sa propre machine au cœur.",
+            "zh": "Null把自己的装置连接到核心。"
           },
           "dialogue": {
             "tr": "Bu düzeneği çalmak için değil, sinyali hapsetmek için yaptım.",
@@ -1641,7 +1927,9 @@
             "de": "Ich habe diese Anlage gebaut, um das Signal einzudämmen, nicht um es zu stehlen.",
             "es": "Construí este equipo para contener la señal, no para robarla.",
             "pt": "Eu construí este equipamento para conter o sinal, não para roubá-lo.",
-            "ja": "この装置は信号を封じ込めるために作った。奪うためじゃない。"
+            "ja": "この装置は信号を封じ込めるために作った。奪うためじゃない。",
+            "fr": "J’ai construit cet appareil pour contenir le signal, pas pour le voler.",
+            "zh": "我制造这台装置是为了控制信号，不是为了窃取它。"
           }
         },
         {
@@ -1653,7 +1941,9 @@
             "de": "Moxy stabilisierte die Bindungsenergie. Der Kern beruhigte sich und schickte einen violetten Strahl in den Himmel.",
             "es": "Moxy equilibró la energía de los enlaces. El núcleo se calmó y lanzó un rayo violeta hacia el cielo.",
             "pt": "Moxy equilibrou a energia das ligações. O núcleo se acalmou e lançou um feixe violeta para o céu.",
-            "ja": "Moxyが結合エネルギーを整えると、コアは静まり、紫色の光線を空へ放った。"
+            "ja": "Moxyが結合エネルギーを整えると、コアは静まり、紫色の光線を空へ放った。",
+            "fr": "Moxy équilibra l’énergie des liaisons. Le cœur s’apaisa et projeta un rayon violet dans le ciel.",
+            "zh": "Moxy平衡了键能。核心恢复平静，并向天空射出一道紫色光束。"
           },
           "caption": {
             "tr": "Işın, Kristal Mağara’nın koordinatlarını gösteriyor.",
@@ -1661,7 +1951,9 @@
             "de": "Der Strahl enthüllt die Koordinaten der Kristallhöhle.",
             "es": "El rayo revela las coordenadas de la Cueva de Cristal.",
             "pt": "O feixe revela as coordenadas da Caverna de Cristal.",
-            "ja": "光線がクリスタル洞窟の座標を示す。"
+            "ja": "光線がクリスタル洞窟の座標を示す。",
+            "fr": "Le rayon révèle les coordonnées de la Grotte de Cristal.",
+            "zh": "光束显现出了晶体洞窟的坐标。"
           },
           "cast": [
             "moxy",
@@ -1675,7 +1967,9 @@
             "de": "Moxy stabilisierte die Bindungsenergie. Der Kern beruhigte sich und schickte einen violetten Strahl in den Himmel.",
             "es": "Moxy equilibró la energía de los enlaces. El núcleo se calmó y lanzó un rayo violeta hacia el cielo.",
             "pt": "Moxy equilibrou a energia das ligações. O núcleo se acalmou e lançou um feixe violeta para o céu.",
-            "ja": "Moxyが結合エネルギーを整えると、コアは静まり、紫色の光線を空へ放った。"
+            "ja": "Moxyが結合エネルギーを整えると、コアは静まり、紫色の光線を空へ放った。",
+            "fr": "Moxy équilibra l’énergie des liaisons. Le cœur s’apaisa et projeta un rayon violet dans le ciel.",
+            "zh": "Moxy平衡了键能。核心恢复平静，并向天空射出一道紫色光束。"
           },
           "dialogue": {
             "tr": "",
@@ -1683,7 +1977,9 @@
             "de": "",
             "es": "",
             "pt": "",
-            "ja": ""
+            "ja": "",
+            "fr": "",
+            "zh": ""
           }
         }
       ]
@@ -1701,7 +1997,9 @@
         "de": "DIE KRISTALLSCHWELLE",
         "es": "EL UMBRAL DE CRISTAL",
         "pt": "O LIMIAR DE CRISTAL",
-        "ja": "クリスタルの境界"
+        "ja": "クリスタルの境界",
+        "fr": "LE SEUIL DE CRISTAL",
+        "zh": "晶体门槛"
       },
       "pages": [
         {
@@ -1713,7 +2011,9 @@
             "de": "Die Kristallhöhle wechselte die Farbe, als Moxy sich näherte. Ihre Wände klangen mit derselben Frequenz wie bei seiner Geburt.",
             "es": "La Cueva de Cristal cambió de color cuando Moxy se acercó. Sus paredes resonaron con la misma frecuencia de su nacimiento.",
             "pt": "A Caverna de Cristal mudou de cor quando Moxy se aproximou. As paredes ressoavam na mesma frequência de seu nascimento.",
-            "ja": "Moxyが近づくとクリスタル洞窟は色を変えた。壁は彼が生まれた時と同じ周波数で鳴っていた。"
+            "ja": "Moxyが近づくとクリスタル洞窟は色を変えた。壁は彼が生まれた時と同じ周波数で鳴っていた。",
+            "fr": "Crystal Cave a changé de couleur à l'approche de Moxy. Ses murs sonnaient à la même fréquence que sa naissance.",
+            "zh": "当Moxy接近时，水晶洞穴的颜色改变了。它的墙壁与他的出生相同的频率。"
           },
           "caption": {
             "tr": "Moxy’nin geçmişi taşların içinde saklı.",
@@ -1721,7 +2021,9 @@
             "de": "Moxys Vergangenheit ist im Stein verborgen.",
             "es": "El pasado de Moxy está oculto en la piedra.",
             "pt": "O passado de Moxy está escondido na pedra.",
-            "ja": "Moxyの過去は石の中に隠されている。"
+            "ja": "Moxyの過去は石の中に隠されている。",
+            "fr": "Le passé de Moxy est caché dans la pierre.",
+            "zh": "Moxy的过去隐藏在石头里。"
           },
           "cast": [
             "moxy",
@@ -1735,7 +2037,9 @@
             "de": "Die Kristallhöhle wechselte die Farbe, als Moxy sich näherte. Ihre Wände klangen mit derselben Frequenz wie bei seiner Geburt.",
             "es": "La Cueva de Cristal cambió de color cuando Moxy se acercó. Sus paredes resonaron con la misma frecuencia de su nacimiento.",
             "pt": "A Caverna de Cristal mudou de cor quando Moxy se aproximou. As paredes ressoavam na mesma frequência de seu nascimento.",
-            "ja": "Moxyが近づくとクリスタル洞窟は色を変えた。壁は彼が生まれた時と同じ周波数で鳴っていた。"
+            "ja": "Moxyが近づくとクリスタル洞窟は色を変えた。壁は彼が生まれた時と同じ周波数で鳴っていた。",
+            "fr": "Crystal Cave a changé de couleur à l'approche de Moxy. Ses murs sonnaient à la même fréquence que sa naissance.",
+            "zh": "当Moxy接近时，水晶洞穴的颜色改变了。它的墙壁与他的出生相同的频率。"
           },
           "dialogue": {
             "tr": "",
@@ -1743,7 +2047,9 @@
             "de": "",
             "es": "",
             "pt": "",
-            "ja": ""
+            "ja": "",
+            "fr": "",
+            "zh": ""
           }
         },
         {
@@ -1755,7 +2061,9 @@
             "de": "Dr. E scannte die Kristalle. Darin waren eingefrorene molekulare Erinnerungen eingeschlossen.",
             "es": "Dr. E escaneó los cristales. Dentro había recuerdos moleculares congelados.",
             "pt": "Dr. E escaneou os cristais. Memórias moleculares congeladas estavam presas lá dentro.",
-            "ja": "Dr. Eがクリスタルをスキャンした。内部には凍結した分子の記憶が閉じ込められていた。"
+            "ja": "Dr. Eがクリスタルをスキャンした。内部には凍結した分子の記憶が閉じ込められていた。",
+            "fr": "Dr. E a scanné les cristaux. Des souvenirs moléculaires gelés étaient piégés à l'intérieur.",
+            "zh": "Dr. E扫描了晶体。冰冷的分子记忆被困在里面。"
           },
           "caption": {
             "tr": "Her bulmaca aynı zamanda bir kayıt.",
@@ -1763,7 +2071,9 @@
             "de": "Jedes Rätsel ist zugleich eine Aufzeichnung.",
             "es": "Cada rompecabezas es también un registro.",
             "pt": "Cada quebra-cabeça também é um registro.",
-            "ja": "すべてのパズルは記録でもある。"
+            "ja": "すべてのパズルは記録でもある。",
+            "fr": "Chaque puzzle est aussi un disque.",
+            "zh": "每个拼图也是一个记录。"
           },
           "cast": [
             "drE"
@@ -1776,7 +2086,9 @@
             "de": "Dr. E scannte die Kristalle. Darin waren eingefrorene molekulare Erinnerungen eingeschlossen.",
             "es": "Dr. E escaneó los cristales. Dentro había recuerdos moleculares congelados.",
             "pt": "Dr. E escaneou os cristais. Memórias moleculares congeladas estavam presas lá dentro.",
-            "ja": "Dr. Eがクリスタルをスキャンした。内部には凍結した分子の記憶が閉じ込められていた。"
+            "ja": "Dr. Eがクリスタルをスキャンした。内部には凍結した分子の記憶が閉じ込められていた。",
+            "fr": "Dr. E a scanné les cristaux. Des souvenirs moléculaires gelés étaient piégés à l'intérieur.",
+            "zh": "Dr. E扫描了晶体。冰冷的分子记忆被困在里面。"
           },
           "dialogue": {
             "tr": "",
@@ -1784,7 +2096,9 @@
             "de": "",
             "es": "",
             "pt": "",
-            "ja": ""
+            "ja": "",
+            "fr": "",
+            "zh": ""
           }
         },
         {
@@ -1796,7 +2110,9 @@
             "de": "Null zeigte auf die Risse. “Eine falsche Bindung wird das gesamte Archiv zerschmettern.”",
             "es": "Null señaló las grietas. “Un enlace equivocado hará añicos todo el archivo.”",
             "pt": "Null apontou para as rachaduras. “Uma ligação errada vai destruir todo o arquivo.”",
-            "ja": "Nullは亀裂を指さした。 “一つでも結合を間違えれば、アーカイブ全体が砕ける。”"
+            "ja": "Nullは亀裂を指さした。 “一つでも結合を間違えれば、アーカイブ全体が砕ける。”",
+            "fr": "Null a montré les fractures. « Une mauvaise liaison va briser l'ensemble de l'archive. »",
+            "zh": "Null指出了裂缝。“一个错误的化学键会破碎整个档案。”"
           },
           "caption": {
             "tr": "Mağara güçten çok sabır istiyor.",
@@ -1804,7 +2120,9 @@
             "de": "Die Höhle verlangt mehr Geduld als Kraft.",
             "es": "La cueva exige más paciencia que fuerza.",
             "pt": "A caverna exige mais paciência do que força.",
-            "ja": "この洞窟が求めるのは力より忍耐だ。"
+            "ja": "この洞窟が求めるのは力より忍耐だ。",
+            "fr": "La grotte exige plus de patience que de force.",
+            "zh": "洞穴需要耐心，而不是武力。"
           },
           "cast": [
             "null",
@@ -1819,7 +2137,9 @@
             "de": "Null zeigte auf die Risse.",
             "es": "Null señaló las grietas.",
             "pt": "Null apontou para as rachaduras.",
-            "ja": "Nullは亀裂を指さした。"
+            "ja": "Nullは亀裂を指さした。",
+            "fr": "Null a montré les fractures.",
+            "zh": "Null指出了裂缝。"
           },
           "dialogue": {
             "tr": "Yanlış bağ, bütün arşivi kırar.",
@@ -1827,7 +2147,9 @@
             "de": "Eine falsche Bindung wird das gesamte Archiv zerschmettern.",
             "es": "Un enlace equivocado hará añicos todo el archivo.",
             "pt": "Uma ligação errada vai destruir todo o arquivo.",
-            "ja": "一つでも結合を間違えれば、アーカイブ全体が砕ける。"
+            "ja": "一つでも結合を間違えれば、アーカイブ全体が砕ける。",
+            "fr": "Une mauvaise liaison va briser l'ensemble de l'archive.",
+            "zh": "一个错误的化学键会破碎整个档案。"
           }
         }
       ]
@@ -1845,7 +2167,9 @@
         "de": "DAS ZERBROCHENE ARCHIV",
         "es": "EL ARCHIVO ROTO",
         "pt": "O ARQUIVO QUEBRADO",
-        "ja": "壊れたアーカイブ"
+        "ja": "壊れたアーカイブ",
+        "fr": "LES ARCHIVES BRISÉES",
+        "zh": "破碎的档案"
       },
       "pages": [
         {
@@ -1857,7 +2181,9 @@
             "de": "Die Katze berührte einen losen Kristall. Die Wand projizierte das erste Bild der Großen Entkopplung.",
             "es": "El gato tocó un cristal suelto. La pared proyectó la primera imagen de la Gran Desvinculación.",
             "pt": "O gato tocou um cristal solto. A parede projetou a primeira imagem da Grande Separação.",
-            "ja": "ネコがゆるんだクリスタルに触れた。壁に大解離の最初の映像が映し出された。"
+            "ja": "ネコがゆるんだクリスタルに触れた。壁に大解離の最初の映像が映し出された。",
+            "fr": "Le chat a touché un cristal lâche. Le mur projettait la première image de la Grande Déliaison.",
+            "zh": "猫碰到了一个松散的水晶。墙上投射了大断键事件的第一幅图像。"
           },
           "caption": {
             "tr": "Yıllar önce binlerce bağ aynı anda kopmuştu.",
@@ -1865,7 +2191,9 @@
             "de": "Vor Jahren brachen Tausende Bindungen gleichzeitig.",
             "es": "Años atrás, miles de enlaces se rompieron al mismo tiempo.",
             "pt": "Anos atrás, milhares de ligações se romperam ao mesmo tempo.",
-            "ja": "何年も前、何千もの結合が一斉に切れた。"
+            "ja": "何年も前、何千もの結合が一斉に切れた。",
+            "fr": "Il y a des années, des milliers d'obligations se sont cassées à la fois.",
+            "zh": "几年前，成千上万的化学键突然破产。"
           },
           "cast": [
             "cat",
@@ -1879,7 +2207,9 @@
             "de": "Die Katze berührte einen losen Kristall. Die Wand projizierte das erste Bild der Großen Entkopplung.",
             "es": "El gato tocó un cristal suelto. La pared proyectó la primera imagen de la Gran Desvinculación.",
             "pt": "O gato tocou um cristal solto. A parede projetou a primeira imagem da Grande Separação.",
-            "ja": "ネコがゆるんだクリスタルに触れた。壁に大解離の最初の映像が映し出された。"
+            "ja": "ネコがゆるんだクリスタルに触れた。壁に大解離の最初の映像が映し出された。",
+            "fr": "Le chat a touché un cristal lâche. Le mur projettait la première image de la Grande Déliaison.",
+            "zh": "猫碰到了一个松散的水晶。墙上投射了大断键事件的第一幅图像。"
           },
           "dialogue": {
             "tr": "",
@@ -1887,7 +2217,9 @@
             "de": "",
             "es": "",
             "pt": "",
-            "ja": ""
+            "ja": "",
+            "fr": "",
+            "zh": ""
           }
         },
         {
@@ -1899,7 +2231,9 @@
             "de": "Die Aufzeichnung zeigte ein fehlgeschlagenes Experiment des jüngeren Dr. E und Dr. Null. Beide hatten die Wahrheit jahrelang verborgen.",
             "es": "El registro mostró un experimento fallido del joven Dr. E y Dr. Null. Ambos habían ocultado la verdad durante años.",
             "pt": "O registro mostrou um experimento fracassado dos jovens Dr. E e Dr. Null. Os dois esconderam a verdade por anos.",
-            "ja": "若きDr. EとDr. Nullの失敗した実験が記録に現れた。二人は何年も真実を隠していた。"
+            "ja": "若きDr. EとDr. Nullの失敗した実験が記録に現れた。二人は何年も真実を隠していた。",
+            "fr": "Une expérience ratée par le plus jeune Dr. E et le Dr Null est apparue dans l'enregistrement. Ils avaient tous deux caché la vérité pendant des années.",
+            "zh": "一个失败的实验由年轻人Dr. E和Null博士在记录中出现。他们都隐藏了真理多年来。"
           },
           "caption": {
             "tr": "Rakipliğin altında ortak bir hata yatıyor.",
@@ -1907,7 +2241,9 @@
             "de": "Unter ihrer Rivalität liegt ein gemeinsamer Fehler.",
             "es": "Bajo su rivalidad hay un error compartido.",
             "pt": "Por trás da rivalidade existe um erro compartilhado.",
-            "ja": "二人の対立の奥には、共有された過ちがあった。"
+            "ja": "二人の対立の奥には、共有された過ちがあった。",
+            "fr": "Une erreur commune est sous-jacente à leur rivalité.",
+            "zh": "它们的竞争背后存在一个共同的错误。"
           },
           "cast": [
             "drE",
@@ -1921,7 +2257,9 @@
             "de": "Die Aufzeichnung zeigte ein fehlgeschlagenes Experiment des jüngeren Dr. E und Dr. Null. Beide hatten die Wahrheit jahrelang verborgen.",
             "es": "El registro mostró un experimento fallido del joven Dr. E y Dr. Null. Ambos habían ocultado la verdad durante años.",
             "pt": "O registro mostrou um experimento fracassado dos jovens Dr. E e Dr. Null. Os dois esconderam a verdade por anos.",
-            "ja": "若きDr. EとDr. Nullの失敗した実験が記録に現れた。二人は何年も真実を隠していた。"
+            "ja": "若きDr. EとDr. Nullの失敗した実験が記録に現れた。二人は何年も真実を隠していた。",
+            "fr": "Une expérience ratée par le plus jeune Dr. E et le Dr Null est apparue dans l'enregistrement. Ils avaient tous deux caché la vérité pendant des années.",
+            "zh": "一个失败的实验由年轻人Dr. E和Null博士在记录中出现。他们都隐藏了真理多年来。"
           },
           "dialogue": {
             "tr": "",
@@ -1929,7 +2267,9 @@
             "de": "",
             "es": "",
             "pt": "",
-            "ja": ""
+            "ja": "",
+            "fr": "",
+            "zh": ""
           }
         },
         {
@@ -1941,7 +2281,9 @@
             "de": "Als Moxy das Bild berührte, pulsierte die X-Bindung wie ein Herz. Seine Augen wurden groß, und aus seinem Körper kam ein tiefer, erschrockener Laut. “vum…”",
             "es": "Cuando Moxy tocó la imagen, el Enlace X palpitó como un corazón. Abrió mucho los ojos y de su cuerpo salió un sonido profundo y sorprendido. “vum…”",
             "pt": "Quando Moxy tocou a imagem, a Ligação X pulsou como um coração. Seus olhos se arregalaram, e um som profundo de surpresa saiu de seu corpo. “vum…”",
-            "ja": "Moxyが映像に触れると、X結合は心臓のように脈打った。目を大きく見開き、体から深く驚いた音が漏れた。 “vum…”"
+            "ja": "Moxyが映像に触れると、X結合は心臓のように脈打った。目を大きく見開き、体から深く驚いた音が漏れた。 “vum…”",
+            "fr": "Quand Moxy a touché l'image, le liaison X a poussé comme un cœur. Ses yeux s'ouvrirent, et un son profond, effrayé sortit de son corps. « vum… »",
+            "zh": "当Moxy触及图像时，X键像心脏一样跳动。他的眼睛扩大了，他的身体从一个深深的，惊的声音出来。“vum…”"
           },
           "caption": {
             "tr": "Moxy tesadüfen doğmadı.",
@@ -1949,7 +2291,9 @@
             "de": "Moxy wurde nicht zufällig geboren.",
             "es": "Moxy no nació por accidente.",
             "pt": "Moxy não nasceu por acaso.",
-            "ja": "Moxyは偶然生まれたのではない。"
+            "ja": "Moxyは偶然生まれたのではない。",
+            "fr": "Moxy n'est pas né par hasard.",
+            "zh": "Moxy并不是偶然出生的。"
           },
           "cast": [
             "moxy"
@@ -1962,7 +2306,9 @@
             "de": "Als Moxy das Bild berührte, pulsierte die X-Bindung wie ein Herz. Seine Augen wurden groß, und aus seinem Körper kam ein tiefer, erschrockener Laut.",
             "es": "Cuando Moxy tocó la imagen, el Enlace X palpitó como un corazón. Abrió mucho los ojos y de su cuerpo salió un sonido profundo y sorprendido.",
             "pt": "Quando Moxy tocou a imagem, a Ligação X pulsou como um coração. Seus olhos se arregalaram, e um som profundo de surpresa saiu de seu corpo.",
-            "ja": "Moxyが映像に触れると、X結合は心臓のように脈打った。目を大きく見開き、体から深く驚いた音が漏れた。"
+            "ja": "Moxyが映像に触れると、X結合は心臓のように脈打った。目を大きく見開き、体から深く驚いた音が漏れた。",
+            "fr": "Quand Moxy a touché l'image, le liaison X a poussé comme un cœur. Ses yeux s'ouvrirent, et un son profond, effrayé sortit de son corps.",
+            "zh": "当Moxy触及图像时，X键像心脏一样跳动。他的眼睛扩大了，他的身体从一个深深的，惊的声音出来。"
           },
           "dialogue": {
             "tr": "vum…",
@@ -1970,7 +2316,9 @@
             "de": "vum…",
             "es": "vum…",
             "pt": "vum…",
-            "ja": "vum…"
+            "ja": "vum…",
+            "fr": "vum…",
+            "zh": "vum…"
           }
         }
       ]
@@ -1988,7 +2336,9 @@
         "de": "DIE GROSSE ENTKOPPLUNG",
         "es": "LA GRAN DESVINCULACIÓN",
         "pt": "A GRANDE SEPARAÇÃO",
-        "ja": "大解離"
+        "ja": "大解離",
+        "fr": "LA GRANDE DÉLIAISON",
+        "zh": "大断键"
       },
       "pages": [
         {
@@ -2000,7 +2350,9 @@
             "de": "Das Kristallarchiv rekonstruierte die Große Entkopplung als lebende Simulation. Als der Haupthebel gezogen wurde, geriet die Energie außer Kontrolle und eine bindungsbrechende Welle raste durch das Labor. “Die X-Bindung sollte Atome für immer stabil halten. Stattdessen erzeugten wir eine Welle, die jede Bindung brach.”",
             "es": "El archivo de cristal reconstruyó la Gran Desvinculación como una simulación viva. En cuanto se bajó la palanca principal, la energía escapó de control y una onda que rompía enlaces recorrió el laboratorio. “El Enlace X debía mantener los átomos estables para siempre. En cambio, creamos una onda que rompió todos los enlaces.”",
             "pt": "O arquivo de cristal reconstruiu a Grande Separação como uma simulação viva. No instante em que a alavanca principal foi puxada, a energia saiu do controle e uma onda que rompia ligações atravessou o laboratório. “A Ligação X deveria manter os átomos estáveis para sempre. Em vez disso, criamos uma onda que rompeu todas as ligações.”",
-            "ja": "クリスタル・アーカイブは大解離を生きたシミュレーションとして再現した。主レバーが引かれた瞬間、エネルギーは制御を失い、結合を断ち切る波が研究所を駆け抜けた。 “X結合は原子を永遠に安定させるはずだった。だが私たちは、すべての結合を切る波を生み出してしまった。”"
+            "ja": "クリスタル・アーカイブは大解離を生きたシミュレーションとして再現した。主レバーが引かれた瞬間、エネルギーは制御を失い、結合を断ち切る波が研究所を駆け抜けた。 “X結合は原子を永遠に安定させるはずだった。だが私たちは、すべての結合を切る波を生み出してしまった。”",
+            "fr": "Les archives de cristal reconstituèrent la Grande Déliaison sous forme de simulation vivante. Dès que le levier principal fut abaissé, l’énergie échappa à tout contrôle et une onde de rupture des liaisons balaya le laboratoire. « La liaison X devait maintenir les atomes stables pour toujours. Au lieu de cela, nous avons créé une onde qui a rompu toutes les liaisons. »",
+            "zh": "晶体档案把“大断键事件”重现为一场活体模拟。主控制杆被拉下的瞬间，能量失去控制，一道断键冲击波横扫了整个实验室。“X键原本应该让原子永远保持稳定。可我们却制造出了一道会破坏所有化学键的冲击波。”"
           },
           "caption": {
             "tr": "Dr. E ve Dr. Null yıllardır sakladıkları hatayla yeniden yüzleşti.",
@@ -2008,7 +2360,9 @@
             "de": "Dr. E und Dr. Null stellten sich dem Fehler, den sie jahrelang verborgen hatten.",
             "es": "Dr. E y Dr. Null se enfrentaron al error que habían ocultado durante años.",
             "pt": "Dr. E e Dr. Null encararam o erro que haviam escondido por anos.",
-            "ja": "Dr. EとDr. Nullは、何年も隠してきた過ちと向き合った。"
+            "ja": "Dr. EとDr. Nullは、何年も隠してきた過ちと向き合った。",
+            "fr": "Dr. E et Dr. Null affrontent l’erreur qu’ils ont cachée pendant des années.",
+            "zh": "Dr. E和Dr. Null直面了他们隐瞒多年的错误。"
           },
           "cast": [
             "null",
@@ -2022,7 +2376,9 @@
             "de": "Das Kristallarchiv rekonstruierte die Große Entkopplung als lebende Simulation. Als der Haupthebel gezogen wurde, geriet die Energie außer Kontrolle und eine bindungsbrechende Welle raste durch das Labor.",
             "es": "El archivo de cristal reconstruyó la Gran Desvinculación como una simulación viva. En cuanto se bajó la palanca principal, la energía escapó de control y una onda que rompía enlaces recorrió el laboratorio.",
             "pt": "O arquivo de cristal reconstruiu a Grande Separação como uma simulação viva. No instante em que a alavanca principal foi puxada, a energia saiu do controle e uma onda que rompia ligações atravessou o laboratório.",
-            "ja": "クリスタル・アーカイブは大解離を生きたシミュレーションとして再現した。主レバーが引かれた瞬間、エネルギーは制御を失い、結合を断ち切る波が研究所を駆け抜けた。"
+            "ja": "クリスタル・アーカイブは大解離を生きたシミュレーションとして再現した。主レバーが引かれた瞬間、エネルギーは制御を失い、結合を断ち切る波が研究所を駆け抜けた。",
+            "fr": "Les archives de cristal reconstituèrent la Grande Déliaison sous forme de simulation vivante. Dès que le levier principal fut abaissé, l’énergie échappa à tout contrôle et une onde de rupture des liaisons balaya le laboratoire.",
+            "zh": "晶体档案把“大断键事件”重现为一场活体模拟。主控制杆被拉下的瞬间，能量失去控制，一道断键冲击波横扫了整个实验室。"
           },
           "dialogue": {
             "tr": "X-Bağı atomları sonsuza dek kararlı tutacaktı. Onun yerine bütün bağları koparan bir dalga ürettik.",
@@ -2030,7 +2386,9 @@
             "de": "Die X-Bindung sollte Atome für immer stabil halten. Stattdessen erzeugten wir eine Welle, die jede Bindung brach.",
             "es": "El Enlace X debía mantener los átomos estables para siempre. En cambio, creamos una onda que rompió todos los enlaces.",
             "pt": "A Ligação X deveria manter os átomos estáveis para sempre. Em vez disso, criamos uma onda que rompeu todas as ligações.",
-            "ja": "X結合は原子を永遠に安定させるはずだった。だが私たちは、すべての結合を切る波を生み出してしまった。"
+            "ja": "X結合は原子を永遠に安定させるはずだった。だが私たちは、すべての結合を切る波を生み出してしまった。",
+            "fr": "La liaison X devait maintenir les atomes stables pour toujours. Au lieu de cela, nous avons créé une onde qui a rompu toutes les liaisons.",
+            "zh": "X键原本应该让原子永远保持稳定。可我们却制造出了一道会破坏所有化学键的冲击波。"
           }
         },
         {
@@ -2042,7 +2400,9 @@
             "de": "Dr. E gab zu, dass er die Nobel-Akte nicht vorbereitet hatte, um einen Preis zu gewinnen, sondern um den Fehler, den er und Dr. Null vor Jahren gemeinsam gemacht hatten, offen zu dokumentieren und zu beheben. Dr. Null bestätigte, dass beide die Verantwortung trugen.",
             "es": "Dr. E admitió que había preparado el expediente del Nobel no para ganar un premio, sino para documentar con transparencia y reparar el error que él y Dr. Null cometieron juntos años atrás. Dr. Null confirmó que la responsabilidad era de ambos.",
             "pt": "Dr. E admitiu que preparou o arquivo do Nobel não para ganhar um prêmio, mas para documentar abertamente e corrigir o erro que ele e Dr. Null cometeram juntos anos atrás. Dr. Null confirmou que a responsabilidade era dos dois.",
-            "ja": "Dr. Eは、ノーベル賞の資料を賞のためではなく、何年も前にDr. Nullと二人で起こした過ちを公に記録し、修復するために準備したのだと認めた。Dr. Nullも責任は二人にあると認めた。"
+            "ja": "Dr. Eは、ノーベル賞の資料を賞のためではなく、何年も前にDr. Nullと二人で起こした過ちを公に記録し、修復するために準備したのだと認めた。Dr. Nullも責任は二人にあると認めた。",
+            "fr": "Dr. E avoua qu’il avait préparé le dossier du Nobel non pour remporter un prix, mais pour documenter et réparer l’erreur que Dr. Null et lui avaient commise ensemble des années plus tôt. Dr. Null reconnut que la responsabilité leur appartenait à tous les deux.",
+            "zh": "Dr. E承认，他准备诺贝尔档案并不是为了获奖，而是为了记录并修复多年前他与Dr. Null共同犯下的错误。Dr. Null也承认，他们两人都负有责任。"
           },
           "caption": {
             "tr": "Rakiplik bitti; ikisi de aynı hatayı birlikte düzeltmeye karar verdi.",
@@ -2050,7 +2410,9 @@
             "de": "Die Rivalität endet; beide beschließen, denselben Fehler gemeinsam zu beheben.",
             "es": "La rivalidad termina; ambos deciden reparar juntos el mismo error.",
             "pt": "A rivalidade termina; os dois decidem corrigir juntos o mesmo erro.",
-            "ja": "ライバル関係は終わる。二人は同じ過ちを共に修復すると決めた。"
+            "ja": "ライバル関係は終わる。二人は同じ過ちを共に修復すると決めた。",
+            "fr": "La rivalité prend fin ; tous deux choisissent de réparer ensemble la même erreur.",
+            "zh": "竞争就此结束；两人选择共同弥补同一个错误。"
           },
           "cast": [
             "drE"
@@ -2063,7 +2425,9 @@
             "de": "Dr. E gab zu, dass er die Nobel-Akte nicht vorbereitet hatte, um einen Preis zu gewinnen, sondern um den Fehler, den er und Dr. Null vor Jahren gemeinsam gemacht hatten, offen zu dokumentieren und zu beheben. Dr. Null bestätigte, dass beide die Verantwortung trugen.",
             "es": "Dr. E admitió que había preparado el expediente del Nobel no para ganar un premio, sino para documentar con transparencia y reparar el error que él y Dr. Null cometieron juntos años atrás. Dr. Null confirmó que la responsabilidad era de ambos.",
             "pt": "Dr. E admitiu que preparou o arquivo do Nobel não para ganhar um prêmio, mas para documentar abertamente e corrigir o erro que ele e Dr. Null cometeram juntos anos atrás. Dr. Null confirmou que a responsabilidade era dos dois.",
-            "ja": "Dr. Eは、ノーベル賞の資料を賞のためではなく、何年も前にDr. Nullと二人で起こした過ちを公に記録し、修復するために準備したのだと認めた。Dr. Nullも責任は二人にあると認めた。"
+            "ja": "Dr. Eは、ノーベル賞の資料を賞のためではなく、何年も前にDr. Nullと二人で起こした過ちを公に記録し、修復するために準備したのだと認めた。Dr. Nullも責任は二人にあると認めた。",
+            "fr": "Dr. E avoua qu’il avait préparé le dossier du Nobel non pour remporter un prix, mais pour documenter et réparer l’erreur que Dr. Null et lui avaient commise ensemble des années plus tôt. Dr. Null reconnut que la responsabilité leur appartenait à tous les deux.",
+            "zh": "Dr. E承认，他准备诺贝尔档案并不是为了获奖，而是为了记录并修复多年前他与Dr. Null共同犯下的错误。Dr. Null也承认，他们两人都负有责任。"
           },
           "dialogue": {
             "tr": "",
@@ -2071,7 +2435,9 @@
             "de": "",
             "es": "",
             "pt": "",
-            "ja": ""
+            "ja": "",
+            "fr": "",
+            "zh": ""
           }
         },
         {
@@ -2083,7 +2449,9 @@
             "de": "Moxy schwebte zwischen den beiden Wissenschaftlern, verband mit seinen runden schwebenden Händen zwei unterbrochene Energielinien und gab einen leisen Laut von sich. “bwoop.”",
             "es": "Moxy flotó entre los dos científicos, unió dos líneas de energía rotas con sus manos redondas flotantes y emitió un sonido suave. “bwoop.”",
             "pt": "Moxy flutuou entre os dois cientistas, uniu duas linhas de energia rompidas com suas mãos redondas e flutuantes e soltou um som suave. “bwoop.”",
-            "ja": "Moxyは二人の科学者の間に浮かび、丸い浮遊する手で切れた二本のエネルギー線をつなぎ、柔らかな音を出した。 “bwoop.”"
+            "ja": "Moxyは二人の科学者の間に浮かび、丸い浮遊する手で切れた二本のエネルギー線をつなぎ、柔らかな音を出した。 “bwoop.”",
+            "fr": "Moxy flotta entre les deux scientifiques, relia de ses petites mains rondes deux lignes d’énergie brisées et émit un son léger. « bwoop. »",
+            "zh": "Moxy漂浮在两位科学家之间，用圆圆的小手连接起两条断裂的能量线，并发出一声轻响。“bwoop.”"
           },
           "caption": {
             "tr": "Ekibin gerçek bağı ilk kez kuruluyor.",
@@ -2091,7 +2459,9 @@
             "de": "Das Team bildet seine erste echte Bindung.",
             "es": "El equipo forma su primer enlace verdadero.",
             "pt": "A equipe forma sua primeira ligação verdadeira.",
-            "ja": "チームに初めて本当の結合が生まれる。"
+            "ja": "チームに初めて本当の結合が生まれる。",
+            "fr": "L’équipe forme sa première véritable liaison.",
+            "zh": "团队第一次形成了真正的联结。"
           },
           "cast": [
             "drE",
@@ -2107,7 +2477,9 @@
             "de": "Moxy schwebte zwischen den beiden Wissenschaftlern, verband mit seinen runden schwebenden Händen zwei unterbrochene Energielinien und gab einen leisen Laut von sich.",
             "es": "Moxy flotó entre los dos científicos, unió dos líneas de energía rotas con sus manos redondas flotantes y emitió un sonido suave.",
             "pt": "Moxy flutuou entre os dois cientistas, uniu duas linhas de energia rompidas com suas mãos redondas e flutuantes e soltou um som suave.",
-            "ja": "Moxyは二人の科学者の間に浮かび、丸い浮遊する手で切れた二本のエネルギー線をつなぎ、柔らかな音を出した。"
+            "ja": "Moxyは二人の科学者の間に浮かび、丸い浮遊する手で切れた二本のエネルギー線をつなぎ、柔らかな音を出した。",
+            "fr": "Moxy flotta entre les deux scientifiques, relia de ses petites mains rondes deux lignes d’énergie brisées et émit un son léger.",
+            "zh": "Moxy漂浮在两位科学家之间，用圆圆的小手连接起两条断裂的能量线，并发出一声轻响。"
           },
           "dialogue": {
             "tr": "bwoop",
@@ -2115,7 +2487,9 @@
             "de": "bwoop.",
             "es": "bwoop.",
             "pt": "bwoop.",
-            "ja": "bwoop."
+            "ja": "bwoop.",
+            "fr": "bwoop.",
+            "zh": "bwoop."
           }
         }
       ]
@@ -2133,7 +2507,9 @@
         "de": "MOXYS ERINNERUNG",
         "es": "EL RECUERDO DE MOXY",
         "pt": "A MEMÓRIA DE MOXY",
-        "ja": "MOXYの記憶"
+        "ja": "MOXYの記憶",
+        "fr": "LA MÉMOIRE DE MOXY",
+        "zh": "Moxy的记忆"
       },
       "pages": [
         {
@@ -2145,7 +2521,9 @@
             "de": "Die Kristalle zeigten Moxy eine Erinnerung aus der Zeit vor seiner Geburt: Das X-Signal hatte jahrelang nach einem lebenden Gleichgewicht gesucht, das eine sichere Bindung bilden konnte. Moxys Leuchten pulsierte zweimal. “vum-vum.”",
             "es": "Los cristales mostraron a Moxy un recuerdo de antes de su nacimiento: la Señal X había buscado durante años un equilibrio vivo capaz de crear un enlace seguro. El brillo de Moxy pulsó dos veces. “vum-vum.”",
             "pt": "Os cristais mostraram a Moxy uma memória anterior ao seu nascimento: por anos, o Sinal X procurou um equilíbrio vivo capaz de formar uma ligação segura. O brilho de Moxy pulsou duas vezes. “vum-vum.”",
-            "ja": "クリスタルはMoxyに、生まれる前の記憶を見せた。Xシグナルは何年もの間、安全な結合を作れる「生きた均衡」を探していた。Moxyの光が二度脈打った。 “vum-vum.”"
+            "ja": "クリスタルはMoxyに、生まれる前の記憶を見せた。Xシグナルは何年もの間、安全な結合を作れる「生きた均衡」を探していた。Moxyの光が二度脈打った。 “vum-vum.”",
+            "fr": "Les cristaux montrèrent à Moxy un souvenir d’avant sa naissance : le Signal X avait cherché pendant des années un équilibre vivant capable de créer une liaison sûre. La lueur de Moxy pulsa deux fois. « vum-vum. »",
+            "zh": "晶体向Moxy展示了他诞生前的一段记忆：X信号多年来一直在寻找一种能够形成安全化学键的生命平衡体。Moxy的光芒脉动了两次。“vum-vum.”"
           },
           "caption": {
             "tr": "Moxy tehdidin parçası değil; olası çözümü.",
@@ -2153,7 +2531,9 @@
             "de": "Moxy ist nicht Teil der Bedrohung; vielleicht ist er die Lösung.",
             "es": "Moxy no forma parte de la amenaza; quizá sea la solución.",
             "pt": "Moxy não faz parte da ameaça; talvez seja a solução.",
-            "ja": "Moxyは脅威の一部ではない。解決策なのかもしれない。"
+            "ja": "Moxyは脅威の一部ではない。解決策なのかもしれない。",
+            "fr": "Moxy ne fait pas partie de la menace; il peut être la solution.",
+            "zh": "Moxy不是威胁的一部分；他可能是解决方案。"
           },
           "cast": [
             "moxy"
@@ -2166,7 +2546,9 @@
             "de": "Die Kristalle zeigten Moxy eine Erinnerung aus der Zeit vor seiner Geburt: Das X-Signal hatte jahrelang nach einem lebenden Gleichgewicht gesucht, das eine sichere Bindung bilden konnte. Moxys Leuchten pulsierte zweimal.",
             "es": "Los cristales mostraron a Moxy un recuerdo de antes de su nacimiento: la Señal X había buscado durante años un equilibrio vivo capaz de crear un enlace seguro. El brillo de Moxy pulsó dos veces.",
             "pt": "Os cristais mostraram a Moxy uma memória anterior ao seu nascimento: por anos, o Sinal X procurou um equilíbrio vivo capaz de formar uma ligação segura. O brilho de Moxy pulsou duas vezes.",
-            "ja": "クリスタルはMoxyに、生まれる前の記憶を見せた。Xシグナルは何年もの間、安全な結合を作れる「生きた均衡」を探していた。Moxyの光が二度脈打った。"
+            "ja": "クリスタルはMoxyに、生まれる前の記憶を見せた。Xシグナルは何年もの間、安全な結合を作れる「生きた均衡」を探していた。Moxyの光が二度脈打った。",
+            "fr": "Les cristaux montrèrent à Moxy un souvenir d’avant sa naissance : le Signal X avait cherché pendant des années un équilibre vivant capable de créer une liaison sûre. La lueur de Moxy pulsa deux fois.",
+            "zh": "晶体向Moxy展示了他诞生前的一段记忆：X信号多年来一直在寻找一种能够形成安全化学键的生命平衡体。Moxy的光芒脉动了两次。"
           },
           "dialogue": {
             "tr": "vum-vum",
@@ -2174,7 +2556,9 @@
             "de": "vum-vum.",
             "es": "vum-vum.",
             "pt": "vum-vum.",
-            "ja": "vum-vum."
+            "ja": "vum-vum.",
+            "fr": "vum-vum.",
+            "zh": "vum-vum."
           }
         },
         {
@@ -2186,7 +2570,9 @@
             "de": "Null wandelte Moxys Frequenz in einen Stabilisator um. “Ich werde dich nicht zu einem Werkzeug machen. Du entscheidest.”",
             "es": "Null convirtió la frecuencia de Moxy en un estabilizador. “No voy a convertirte en una herramienta. La decisión es tuya.”",
             "pt": "Null converteu a frequência de Moxy em um estabilizador. “Eu não vou transformar você em uma ferramenta. A escolha é sua.”",
-            "ja": "NullはMoxyの周波数を安定化装置へ変換した。 “君を道具にはしない。選ぶのは君だ。”"
+            "ja": "NullはMoxyの周波数を安定化装置へ変換した。 “君を道具にはしない。選ぶのは君だ。”",
+            "fr": "Null transforma la fréquence de Moxy en stabilisateur. « Je ne ferai pas de toi un outil. Le choix t’appartient. »",
+            "zh": "Null把Moxy的频率转换成了稳定器。“我不会把你变成工具。选择权在你。”"
           },
           "caption": {
             "tr": "Null’un amacı kontrol değil, sorumluluk.",
@@ -2194,7 +2580,9 @@
             "de": "Null entscheidet sich für Verantwortung statt Kontrolle.",
             "es": "Null elige la responsabilidad en lugar del control.",
             "pt": "Null escolhe responsabilidade em vez de controle.",
-            "ja": "Nullは支配ではなく責任を選ぶ。"
+            "ja": "Nullは支配ではなく責任を選ぶ。",
+            "fr": "Null choisit la responsabilité plutôt que le contrôle.",
+            "zh": "Null选择了责任而不是控制。"
           },
           "cast": [
             "null",
@@ -2208,7 +2596,9 @@
             "de": "Null wandelte Moxys Frequenz in einen Stabilisator um.",
             "es": "Null convirtió la frecuencia de Moxy en un estabilizador.",
             "pt": "Null converteu a frequência de Moxy em um estabilizador.",
-            "ja": "NullはMoxyの周波数を安定化装置へ変換した。"
+            "ja": "NullはMoxyの周波数を安定化装置へ変換した。",
+            "fr": "Null transforma la fréquence de Moxy en stabilisateur.",
+            "zh": "Null把Moxy的频率转换成了稳定器。"
           },
           "dialogue": {
             "tr": "Seni bir araç yapmayacağım. Kararı sen vereceksin.",
@@ -2216,7 +2606,9 @@
             "de": "Ich werde dich nicht zu einem Werkzeug machen. Du entscheidest.",
             "es": "No voy a convertirte en una herramienta. La decisión es tuya.",
             "pt": "Eu não vou transformar você em uma ferramenta. A escolha é sua.",
-            "ja": "君を道具にはしない。選ぶのは君だ。"
+            "ja": "君を道具にはしない。選ぶのは君だ。",
+            "fr": "Je ne ferai pas de toi un outil. Le choix t’appartient.",
+            "zh": "我不会把你变成工具。选择权在你。"
           }
         },
         {
@@ -2228,7 +2620,9 @@
             "de": "Moxy lächelte, hüpfte zweimal in der Luft und rückte an die Seite des Teams. Seine wortlose Entscheidung war klar: Gemeinsam weitermachen. “pip-pip!”",
             "es": "Moxy sonrió, rebotó dos veces en el aire y se acercó al equipo. Su decisión sin palabras estaba clara: seguir juntos. “¡pip-pip!”",
             "pt": "Moxy sorriu, saltou duas vezes no ar e se acomodou ao lado da equipe. Sua decisão sem palavras era clara: continuar juntos. “pip-pip!”",
-            "ja": "Moxyは笑顔を見せ、空中で二度跳ね、チームのそばに寄り添った。言葉はなくても決意は明らかだった――一緒に進む。 “pip-pip!”"
+            "ja": "Moxyは笑顔を見せ、空中で二度跳ね、チームのそばに寄り添った。言葉はなくても決意は明らかだった――一緒に進む。 “pip-pip!”",
+            "fr": "Moxy sourit, rebondit deux fois dans les airs et se blottit près de l’équipe. Sa décision silencieuse était claire : continuer ensemble. « pip-pip! »",
+            "zh": "Moxy笑了，在空中弹跳两下，然后依偎到队伍旁边。他无声的决定很明确：继续并肩前进。“pip-pip!”"
           },
           "caption": {
             "tr": "Korku yerini karara bırakıyor.",
@@ -2236,7 +2630,9 @@
             "de": "Angst weicht Entschlossenheit.",
             "es": "El miedo da paso a la determinación.",
             "pt": "O medo dá lugar à determinação.",
-            "ja": "恐れは決意へ変わる。"
+            "ja": "恐れは決意へ変わる。",
+            "fr": "La peur laisse place à la résolution.",
+            "zh": "恐惧可以解决。"
           },
           "cast": [
             "drE",
@@ -2252,7 +2648,9 @@
             "de": "Moxy lächelte, hüpfte zweimal in der Luft und rückte an die Seite des Teams. Seine wortlose Entscheidung war klar: Gemeinsam weitermachen.",
             "es": "Moxy sonrió, rebotó dos veces en el aire y se acercó al equipo. Su decisión sin palabras estaba clara: seguir juntos.",
             "pt": "Moxy sorriu, saltou duas vezes no ar e se acomodou ao lado da equipe. Sua decisão sem palavras era clara: continuar juntos.",
-            "ja": "Moxyは笑顔を見せ、空中で二度跳ね、チームのそばに寄り添った。言葉はなくても決意は明らかだった――一緒に進む。"
+            "ja": "Moxyは笑顔を見せ、空中で二度跳ね、チームのそばに寄り添った。言葉はなくても決意は明らかだった――一緒に進む。",
+            "fr": "Moxy sourit, rebondit deux fois dans les airs et se blottit près de l’équipe. Sa décision silencieuse était claire : continuer ensemble.",
+            "zh": "Moxy笑了，在空中弹跳两下，然后依偎到队伍旁边。他无声的决定很明确：继续并肩前进。"
           },
           "dialogue": {
             "tr": "pip-pip!",
@@ -2260,7 +2658,9 @@
             "de": "pip-pip!",
             "es": "¡pip-pip!",
             "pt": "pip-pip!",
-            "ja": "pip-pip!"
+            "ja": "pip-pip!",
+            "fr": "pip-pip!",
+            "zh": "pip-pip!"
           }
         }
       ]
@@ -2278,7 +2678,9 @@
         "de": "DIE WAHRHEIT IM KRISTALL",
         "es": "LA VERDAD EN EL CRISTAL",
         "pt": "A VERDADE NO CRISTAL",
-        "ja": "クリスタルの真実"
+        "ja": "クリスタルの真実",
+        "fr": "LA VÉRITÉ DANS LE CRISTAL",
+        "zh": "晶体中的真相"
       },
       "pages": [
         {
@@ -2290,7 +2692,9 @@
             "de": "Der letzte Kristall teilte das X-Signal in einen blauen und einen goldenen Energiepol. Als Moxy den Kristallschlüssel dazwischen setzte, öffnete sich der verborgene Archivmechanismus. “Vum!”",
             "es": "El cristal final dividió la Señal X en polos de energía azul y dorado. Cuando Moxy colocó la llave de cristal entre ellos, se abrió el mecanismo oculto del archivo. “¡Vum!”",
             "pt": "O último cristal dividiu o Sinal X em polos de energia azul e dourado. Quando Moxy colocou a chave de cristal entre eles, o mecanismo secreto do arquivo se abriu. “Vum!”",
-            "ja": "最後のクリスタルがXシグナルを青と金の二つのエネルギー極に分けた。Moxyがその間にクリスタル・キーを置くと、隠されたアーカイブ機構が開いた。 “Vum!”"
+            "ja": "最後のクリスタルがXシグナルを青と金の二つのエネルギー極に分けた。Moxyがその間にクリスタル・キーを置くと、隠されたアーカイブ機構が開いた。 “Vum!”",
+            "fr": "Le cristal final a divisé le signal X en pôles d'énergie bleus et dorés. Quand Moxy a placé la clé de cristal entre eux, le mécanisme d'archivage caché s'est ouvert. « Vum! »",
+            "zh": "最后的晶体将X信号分为蓝色和金色的能量杆。当Moxy把晶钥匙放在两者之间时，隐藏的档案机制就打开了。“Vum!”"
           },
           "caption": {
             "tr": "Kayıp sayfanın saklandığı bölme sonunda açılıyor.",
@@ -2298,7 +2702,9 @@
             "de": "Das Fach mit der fehlenden Seite öffnet sich endlich.",
             "es": "El compartimento que oculta la página perdida por fin se está abriendo.",
             "pt": "O compartimento que esconde a página desaparecida finalmente está se abrindo.",
-            "ja": "消えたページを隠している区画が、ついに開き始める。"
+            "ja": "消えたページを隠している区画が、ついに開き始める。",
+            "fr": "Le compartiment qui cache la page manquante s'ouvre enfin.",
+            "zh": "隐藏失踪页面的隔间终于打开了。"
           },
           "cast": [
             "drE",
@@ -2312,7 +2718,9 @@
             "de": "Der letzte Kristall teilte das X-Signal in einen blauen und einen goldenen Energiepol. Als Moxy den Kristallschlüssel dazwischen setzte, öffnete sich der verborgene Archivmechanismus.",
             "es": "El cristal final dividió la Señal X en polos de energía azul y dorado. Cuando Moxy colocó la llave de cristal entre ellos, se abrió el mecanismo oculto del archivo.",
             "pt": "O último cristal dividiu o Sinal X em polos de energia azul e dourado. Quando Moxy colocou a chave de cristal entre eles, o mecanismo secreto do arquivo se abriu.",
-            "ja": "最後のクリスタルがXシグナルを青と金の二つのエネルギー極に分けた。Moxyがその間にクリスタル・キーを置くと、隠されたアーカイブ機構が開いた。"
+            "ja": "最後のクリスタルがXシグナルを青と金の二つのエネルギー極に分けた。Moxyがその間にクリスタル・キーを置くと、隠されたアーカイブ機構が開いた。",
+            "fr": "Le cristal final a divisé le signal X en pôles d'énergie bleus et dorés. Quand Moxy a placé la clé de cristal entre eux, le mécanisme d'archivage caché s'est ouvert.",
+            "zh": "最后的晶体将X信号分为蓝色和金色的能量杆。当Moxy把晶钥匙放在两者之间时，隐藏的档案机制就打开了。"
           },
           "dialogue": {
             "tr": "Vum!",
@@ -2320,7 +2728,9 @@
             "de": "Vum!",
             "es": "¡Vum!",
             "pt": "Vum!",
-            "ja": "Vum!"
+            "ja": "Vum!",
+            "fr": "Vum!",
+            "zh": "Vum!"
           }
         },
         {
@@ -2332,7 +2742,9 @@
             "de": "Die Katze berührte mit ihrem Atom-Anhänger die Buchse des Archivs. Der alte X-Resonanzkristall darin passte zum Sicherheitsschloss des Archivs und öffnete ein verborgenes Fach. Die fehlende Nobel-Seite glitt heraus; ihre letzte Zeile enthielt die Koordinaten von Station Null in der Erdumlaufbahn.",
             "es": "El gato tocó el receptáculo del archivo con su colgante atómico. El antiguo cristal de resonancia X del interior coincidió con el cierre de seguridad del archivo y abrió un compartimento oculto. La página perdida del Nobel salió de él; la última línea contenía las coordenadas de la Estación Cero en la órbita terrestre.",
             "pt": "O gato encostou o pingente de átomo no encaixe do arquivo. O antigo cristal de ressonância X dentro dele correspondeu à trava de segurança do arquivo e abriu um compartimento oculto. A página desaparecida do Nobel deslizou para fora; a última linha trazia as coordenadas da Estação Zero, na órbita da Terra.",
-            "ja": "ネコが原子ペンダントをアーカイブのソケットに触れさせた。内部の古いX共鳴結晶がアーカイブのセキュリティロックと一致し、隠し区画が開いた。失われたノーベル資料のページが滑り出し、最後の行には地球軌道上のステーション・ゼロの座標が記されていた。"
+            "ja": "ネコが原子ペンダントをアーカイブのソケットに触れさせた。内部の古いX共鳴結晶がアーカイブのセキュリティロックと一致し、隠し区画が開いた。失われたノーベル資料のページが滑り出し、最後の行には地球軌道上のステーション・ゼロの座標が記されていた。",
+            "fr": "Le chat a touché son pendentif à l'archive. Le vieux cristal de résonance X à l'intérieur correspondait à la serrure de sécurité des archives et ouvrit un compartiment caché. La page Nobel manquante a glissé; sa dernière ligne portait les coordonnées de la Station Zéro en orbite terrestre. « Mrrp! »",
+            "zh": "猫把原子挂在档案插座上。内部的旧X共振晶体与档案安全锁相匹配，打开了一个隐藏的隔间。缺失的诺贝尔页面滑出；它的最后一行载有地球轨道中零站的坐标。“Mrrp!”"
           },
           "caption": {
             "tr": "Yıllar önce saklanan sensör, bugün kayıp sayfanın anahtarı oldu.",
@@ -2340,7 +2752,9 @@
             "de": "Ein vor Jahren bewahrter Sensor ist nun der Schlüssel zur fehlenden Seite.",
             "es": "Un sensor conservado durante años se ha convertido en la llave de la página perdida.",
             "pt": "Um sensor preservado por anos tornou-se a chave para a página desaparecida.",
-            "ja": "何年も前に残されたセンサーが、失われたページを開く鍵になった。"
+            "ja": "何年も前に残されたセンサーが、失われたページを開く鍵になった。",
+            "fr": "Un capteur préservé il y a des années est devenu la clé de la page manquante.",
+            "zh": "一个多年前保存的传感器成为缺失页面的关键。"
           },
           "cast": [
             "cat",
@@ -2354,7 +2768,9 @@
             "de": "Die Katze berührte mit ihrem Atom-Anhänger die Buchse des Archivs. Der alte X-Resonanzkristall darin passte zum Sicherheitsschloss des Archivs und öffnete ein verborgenes Fach. Die fehlende Nobel-Seite glitt heraus; ihre letzte Zeile enthielt die Koordinaten von Station Null in der Erdumlaufbahn.",
             "es": "El gato tocó el receptáculo del archivo con su colgante atómico. El antiguo cristal de resonancia X del interior coincidió con el cierre de seguridad del archivo y abrió un compartimento oculto. La página perdida del Nobel salió de él; la última línea contenía las coordenadas de la Estación Cero en la órbita terrestre.",
             "pt": "O gato encostou o pingente de átomo no encaixe do arquivo. O antigo cristal de ressonância X dentro dele correspondeu à trava de segurança do arquivo e abriu um compartimento oculto. A página desaparecida do Nobel deslizou para fora; a última linha trazia as coordenadas da Estação Zero, na órbita da Terra.",
-            "ja": "ネコが原子ペンダントをアーカイブのソケットに触れさせた。内部の古いX共鳴結晶がアーカイブのセキュリティロックと一致し、隠し区画が開いた。失われたノーベル資料のページが滑り出し、最後の行には地球軌道上のステーション・ゼロの座標が記されていた。"
+            "ja": "ネコが原子ペンダントをアーカイブのソケットに触れさせた。内部の古いX共鳴結晶がアーカイブのセキュリティロックと一致し、隠し区画が開いた。失われたノーベル資料のページが滑り出し、最後の行には地球軌道上のステーション・ゼロの座標が記されていた。",
+            "fr": "Le chat a touché son pendentif à l'archive. Le vieux cristal de résonance X à l'intérieur correspondait à la serrure de sécurité des archives et ouvrit un compartiment caché. La page Nobel manquante a glissé; sa dernière ligne portait les coordonnées de la Station Zéro en orbite terrestre.",
+            "zh": "猫把原子挂在档案插座上。内部的旧X共振晶体与档案安全锁相匹配，打开了一个隐藏的隔间。缺失的诺贝尔页面滑出；它的最后一行载有地球轨道中零站的坐标。"
           },
           "dialogue": {
             "tr": "Mrrp!",
@@ -2362,7 +2778,9 @@
             "de": "Mrrp!",
             "es": "¡Mrrp!",
             "pt": "Mrrp!",
-            "ja": "Mrrp!"
+            "ja": "Mrrp!",
+            "fr": "Mrrp!",
+            "zh": "Mrrp!"
           }
         },
         {
@@ -2374,7 +2792,9 @@
             "de": "Dr. Null baute den Portalmotor zu einem System um, das einen Sprung in die Umlaufbahn erlaubte. “Diesmal kenne ich das Ziel zu hundert Prozent. Ungefähr.”",
             "es": "Dr. Null reconstruyó el motor del portal para convertirlo en un sistema capaz de realizar un salto orbital. “Esta vez conozco el objetivo al cien por cien. Aproximadamente.”",
             "pt": "Dr. Null reconstruiu o motor do portal e o transformou em um sistema capaz de realizar um salto orbital. “Desta vez eu sei o alvo com cem por cento de certeza. Aproximadamente.”",
-            "ja": "Dr. Nullはポータルエンジンを、軌道ジャンプが可能なシステムへ作り直した。 “今度こそ目標地点は100パーセント分かっている。だいたい。”"
+            "ja": "Dr. Nullはポータルエンジンを、軌道ジャンプが可能なシステムへ作り直した。 “今度こそ目標地点は100パーセント分かっている。だいたい。”",
+            "fr": "Le Dr Null a reconstruit le moteur du portail en un système capable d'un saut orbital. « Cette fois, je connais la cible à 100%. C'est à peu près ça. »",
+            "zh": "Null博士重新构建了传送门发动机成为一个能够飞行轨道的系统。“这一次我知道目标百分之百。大概是这样。”"
           },
           "caption": {
             "tr": "Kristal Mağara tamamlandı; sıra İstasyon Sıfır’da.",
@@ -2382,7 +2802,9 @@
             "de": "Die Kristallhöhle ist abgeschlossen; als Nächstes kommt Station Null.",
             "es": "La Cueva de Cristal está completa; la siguiente parada es la Estación Cero.",
             "pt": "A Caverna de Cristal está concluída; a próxima parada é a Estação Zero.",
-            "ja": "クリスタル洞窟は完了。次はステーション・ゼロだ。"
+            "ja": "クリスタル洞窟は完了。次はステーション・ゼロだ。",
+            "fr": "La grotte de cristal est terminée, la station Zéro est la prochaine.",
+            "zh": "结晶洞穴完成，零站接下来。"
           },
           "cast": [
             "drE",
@@ -2398,7 +2820,9 @@
             "de": "Dr. Null baute den Portalmotor zu einem System um, das einen Sprung in die Umlaufbahn erlaubte.",
             "es": "Dr. Null reconstruyó el motor del portal para convertirlo en un sistema capaz de realizar un salto orbital.",
             "pt": "Dr. Null reconstruiu o motor do portal e o transformou em um sistema capaz de realizar um salto orbital.",
-            "ja": "Dr. Nullはポータルエンジンを、軌道ジャンプが可能なシステムへ作り直した。"
+            "ja": "Dr. Nullはポータルエンジンを、軌道ジャンプが可能なシステムへ作り直した。",
+            "fr": "Le Dr Null a reconstruit le moteur du portail en un système capable d'un saut orbital.",
+            "zh": "Null博士重新构建了传送门发动机成为一个能够飞行轨道的系统。"
           },
           "dialogue": {
             "tr": "Bu kez hedefi yüzde yüz biliyorum. Yaklaşık.",
@@ -2406,7 +2830,9 @@
             "de": "Diesmal kenne ich das Ziel zu hundert Prozent. Ungefähr.",
             "es": "Esta vez conozco el objetivo al cien por cien. Aproximadamente.",
             "pt": "Desta vez eu sei o alvo com cem por cento de certeza. Aproximadamente.",
-            "ja": "今度こそ目標地点は100パーセント分かっている。だいたい。"
+            "ja": "今度こそ目標地点は100パーセント分かっている。だいたい。",
+            "fr": "Cette fois, je connais la cible à 100%. C'est à peu près ça.",
+            "zh": "这一次我知道目标百分之百。大概是这样。"
           }
         }
       ]
@@ -2424,7 +2850,9 @@
         "de": "START IN DIE UMLAUFBAHN",
         "es": "LANZAMIENTO A ÓRBITA",
         "pt": "LANÇAMENTO PARA A ÓRBITA",
-        "ja": "軌道へ"
+        "ja": "軌道へ",
+        "fr": "DÉPART POUR L’ORBITE",
+        "zh": "进入轨道"
       },
       "pages": [
         {
@@ -2436,7 +2864,9 @@
             "de": "Vor dem Sprung in die Umlaufbahn versammelte sich das Team für die letzten Kontrollen im Labor. Als sich das X-Zeichen auf der Anzeige stabilisierte, begann sich das Sternentor zu öffnen. “Jetzt, wo der Tee ausgetrunken ist, können wir ins All.”",
             "es": "Antes del salto orbital, el equipo se reunió en el laboratorio para las últimas comprobaciones. Cuando la marca X se estabilizó en la pantalla, la puerta estelar comenzó a abrirse. “Ahora que se acabó el té, podemos ir al espacio.”",
             "pt": "Antes do salto orbital, a equipe se reuniu no laboratório para as verificações finais. Quando a marca X se estabilizou no visor, o portal estelar começou a se abrir. “Agora que o chá acabou, podemos ir para o espaço.”",
-            "ja": "軌道ジャンプの前に、チームは最終確認のため研究所に集まった。表示上のX印が安定すると、スターゲートが開き始めた。 “お茶も飲み終わったし、宇宙へ行けるな。”"
+            "ja": "軌道ジャンプの前に、チームは最終確認のため研究所に集まった。表示上のX印が安定すると、スターゲートが開き始めた。 “お茶も飲み終わったし、宇宙へ行けるな。”",
+            "fr": "Avant le saut orbital, l’équipe se réunit au laboratoire pour les dernières vérifications. Lorsque le repère X se stabilisa sur l’écran, la porte des étoiles commença à s’ouvrir. « Maintenant que le thé est terminé, nous pouvons partir dans l’espace. »",
+            "zh": "轨道跃迁前，团队在实验室集合，进行最后检查。当显示屏上的X标记稳定下来时，星门开始开启。“茶喝完了，现在我们可以去太空了。”"
           },
           "caption": {
             "tr": "İstasyon Sıfır’a giden kapı açıldı.",
@@ -2444,7 +2874,9 @@
             "de": "Das Tor zu Station Null ist offen.",
             "es": "La puerta a la Estación Cero está abierta.",
             "pt": "O portal para a Estação Zero está aberto.",
-            "ja": "ステーション・ゼロへのゲートが開いた。"
+            "ja": "ステーション・ゼロへのゲートが開いた。",
+            "fr": "La porte vers Station Zéro est ouverte.",
+            "zh": "通往零号空间站的大门已经开启。"
           },
           "cast": [
             "drE",
@@ -2460,7 +2892,9 @@
             "de": "Vor dem Sprung in die Umlaufbahn versammelte sich das Team für die letzten Kontrollen im Labor. Als sich das X-Zeichen auf der Anzeige stabilisierte, begann sich das Sternentor zu öffnen.",
             "es": "Antes del salto orbital, el equipo se reunió en el laboratorio para las últimas comprobaciones. Cuando la marca X se estabilizó en la pantalla, la puerta estelar comenzó a abrirse.",
             "pt": "Antes do salto orbital, a equipe se reuniu no laboratório para as verificações finais. Quando a marca X se estabilizou no visor, o portal estelar começou a se abrir.",
-            "ja": "軌道ジャンプの前に、チームは最終確認のため研究所に集まった。表示上のX印が安定すると、スターゲートが開き始めた。"
+            "ja": "軌道ジャンプの前に、チームは最終確認のため研究所に集まった。表示上のX印が安定すると、スターゲートが開き始めた。",
+            "fr": "Avant le saut orbital, l’équipe se réunit au laboratoire pour les dernières vérifications. Lorsque le repère X se stabilisa sur l’écran, la porte des étoiles commença à s’ouvrir.",
+            "zh": "轨道跃迁前，团队在实验室集合，进行最后检查。当显示屏上的X标记稳定下来时，星门开始开启。"
           },
           "dialogue": {
             "tr": "Çay bittiğine göre uzaya gidebiliriz.",
@@ -2468,7 +2902,9 @@
             "de": "Jetzt, wo der Tee ausgetrunken ist, können wir ins All.",
             "es": "Ahora que se acabó el té, podemos ir al espacio.",
             "pt": "Agora que o chá acabou, podemos ir para o espaço.",
-            "ja": "お茶も飲み終わったし、宇宙へ行けるな。"
+            "ja": "お茶も飲み終わったし、宇宙へ行けるな。",
+            "fr": "Maintenant que le thé est terminé, nous pouvons partir dans l’espace.",
+            "zh": "茶喝完了，现在我们可以去太空了。"
           }
         },
         {
@@ -2480,7 +2916,9 @@
             "de": "Moxy schlug in der Schwerelosigkeit einen Salto nach dem anderen. Bei jeder Drehung zwitscherte er vor Freude, und die Katze versuchte, ihn zu fangen. “viiuuu!”",
             "es": "Moxy dio una serie de volteretas en gravedad cero. En cada giro soltaba un chirrido de alegría y el gato intentaba atraparlo. “¡viiuuu!”",
             "pt": "Moxy girou em gravidade zero numa sequência de cambalhotas. A cada volta, soltava um som de alegria, e o gato tentava pegá-lo. “viiuuu!”",
-            "ja": "Moxyは無重力の中で連続宙返りをした。回るたび楽しそうな声を上げ、ネコは彼を捕まえようとした。 “viiuuu!”"
+            "ja": "Moxyは無重力の中で連続宙返りをした。回るたび楽しそうな声を上げ、ネコは彼を捕まえようとした。 “viiuuu!”",
+            "fr": "Moxy enchaîna les culbutes en apesanteur. Il poussait un cri joyeux à chaque tour, tandis que le chat essayait de l’attraper. « viiuuu! »",
+            "zh": "Moxy在失重环境中连续翻滚。每转一圈，他都会开心地轻鸣一声，猫则试着抓住他。“viiuuu!”"
           },
           "caption": {
             "tr": "Kısa bir gülüş, büyük finalden önce nefes.",
@@ -2488,7 +2926,9 @@
             "de": "Ein kurzes Lachen vor dem großen Finale.",
             "es": "Una risa rápida antes del gran final.",
             "pt": "Uma risada rápida antes do grande final.",
-            "ja": "大きなフィナーレの前に、ひと笑い。"
+            "ja": "大きなフィナーレの前に、ひと笑い。",
+            "fr": "Un rire rapide avant le grand final.",
+            "zh": "大结局前的一阵轻松笑声。"
           },
           "cast": [
             "moxy",
@@ -2502,7 +2942,9 @@
             "de": "Moxy schlug in der Schwerelosigkeit einen Salto nach dem anderen. Bei jeder Drehung zwitscherte er vor Freude, und die Katze versuchte, ihn zu fangen.",
             "es": "Moxy dio una serie de volteretas en gravedad cero. En cada giro soltaba un chirrido de alegría y el gato intentaba atraparlo.",
             "pt": "Moxy girou em gravidade zero numa sequência de cambalhotas. A cada volta, soltava um som de alegria, e o gato tentava pegá-lo.",
-            "ja": "Moxyは無重力の中で連続宙返りをした。回るたび楽しそうな声を上げ、ネコは彼を捕まえようとした。"
+            "ja": "Moxyは無重力の中で連続宙返りをした。回るたび楽しそうな声を上げ、ネコは彼を捕まえようとした。",
+            "fr": "Moxy enchaîna les culbutes en apesanteur. Il poussait un cri joyeux à chaque tour, tandis que le chat essayait de l’attraper.",
+            "zh": "Moxy在失重环境中连续翻滚。每转一圈，他都会开心地轻鸣一声，猫则试着抓住他。"
           },
           "dialogue": {
             "tr": "viiuuu!",
@@ -2510,7 +2952,9 @@
             "de": "viiuuu!",
             "es": "¡viiuuu!",
             "pt": "viiuuu!",
-            "ja": "viiuuu!"
+            "ja": "viiuuu!",
+            "fr": "viiuuu!",
+            "zh": "viiuuu!"
           }
         },
         {
@@ -2522,7 +2966,9 @@
             "de": "Die Station antwortete nicht. Ihre Türen waren verriegelt, und das X-Signal zog die gesamte Energie ab.",
             "es": "La estación no respondió. Sus puertas estaban bloqueadas y la Señal X estaba drenando toda la energía.",
             "pt": "A estação não respondeu. As portas estavam trancadas e o Sinal X drenava toda a energia.",
-            "ja": "ステーションから応答はなかった。扉はロックされ、Xシグナルが全電力を吸い取っていた。"
+            "ja": "ステーションから応答はなかった。扉はロックされ、Xシグナルが全電力を吸い取っていた。",
+            "fr": "La station ne répondit pas. Ses portes étaient verrouillées et le Signal X absorbait toute son énergie.",
+            "zh": "空间站没有回应。所有舱门都已锁死，X信号正在抽走全部能源。"
           },
           "caption": {
             "tr": "İstasyon terk edilmiş değil; bekliyor.",
@@ -2530,7 +2976,9 @@
             "de": "Die Station ist nicht verlassen. Sie wartet.",
             "es": "La estación no está abandonada. Está esperando.",
             "pt": "A estação não está abandonada. Ela está esperando.",
-            "ja": "ステーションは放棄されたのではない。待っている。"
+            "ja": "ステーションは放棄されたのではない。待っている。",
+            "fr": "La station n’est pas abandonnée. Elle attend.",
+            "zh": "空间站并未被遗弃。它正在等待。"
           },
           "cast": [
             "null",
@@ -2544,7 +2992,9 @@
             "de": "Die Station antwortete nicht. Ihre Türen waren verriegelt, und das X-Signal zog die gesamte Energie ab.",
             "es": "La estación no respondió. Sus puertas estaban bloqueadas y la Señal X estaba drenando toda la energía.",
             "pt": "A estação não respondeu. As portas estavam trancadas e o Sinal X drenava toda a energia.",
-            "ja": "ステーションから応答はなかった。扉はロックされ、Xシグナルが全電力を吸い取っていた。"
+            "ja": "ステーションから応答はなかった。扉はロックされ、Xシグナルが全電力を吸い取っていた。",
+            "fr": "La station ne répondit pas. Ses portes étaient verrouillées et le Signal X absorbait toute son énergie.",
+            "zh": "空间站没有回应。所有舱门都已锁死，X信号正在抽走全部能源。"
           },
           "dialogue": {
             "tr": "",
@@ -2552,7 +3002,9 @@
             "de": "",
             "es": "",
             "pt": "",
-            "ja": ""
+            "ja": "",
+            "fr": "",
+            "zh": ""
           }
         }
       ]
@@ -2570,7 +3022,9 @@
         "de": "STATION NULL",
         "es": "ESTACIÓN CERO",
         "pt": "ESTAÇÃO ZERO",
-        "ja": "ステーション・ゼロ"
+        "ja": "ステーション・ゼロ",
+        "fr": "STATION ZÉRO",
+        "zh": "零号空间站"
       },
       "pages": [
         {
@@ -2582,7 +3036,9 @@
             "de": "Als sie die Station betraten, entzündete sich in der zentralen Kuppel ein riesiges X-Signal. Gleichzeitig formten sich die Korridore mit beweglichen Wänden und Energietoren neu.",
             "es": "Al entrar en la estación, una gigantesca Señal X se encendió en la cúpula central. Al mismo tiempo, los pasillos se reconfiguraron con paredes móviles y puertas de energía.",
             "pt": "Ao entrarem na estação, um enorme Sinal X se acendeu na cúpula central. Ao mesmo tempo, os corredores se reorganizaram com paredes móveis e portões de energia.",
-            "ja": "ステーションへ入ると、中央ドームに巨大なXシグナルが点灯した。同時に通路は動く壁とエネルギーゲートで形を変え始めた。"
+            "ja": "ステーションへ入ると、中央ドームに巨大なXシグナルが点灯した。同時に通路は動く壁とエネルギーゲートで形を変え始めた。",
+            "fr": "En entrant dans la station, un signal X géant s'est allumé dans le dôme central. En même temps, les couloirs se sont remodelés avec des murs en mouvement et des portes d'énergie.",
+            "zh": "当他们进入站时，一个巨大的X信号在中央顶中点燃了。在同一时刻，走廊以移动的墙壁和能量门重新塑造。"
           },
           "caption": {
             "tr": "Bütün mekanikler tek sistemde birleşiyor.",
@@ -2590,7 +3046,9 @@
             "de": "Alle Mechaniken verschmelzen zu einem System.",
             "es": "Todas las mecánicas se están fusionando en un solo sistema.",
             "pt": "Todas as mecânicas estão se fundindo em um único sistema.",
-            "ja": "すべての仕組みが一つのシステムへ統合されていく。"
+            "ja": "すべての仕組みが一つのシステムへ統合されていく。",
+            "fr": "Chaque mécanicien fusionne dans un seul système.",
+            "zh": "每个机械师都会融入一个系统。"
           },
           "cast": [
             "drE",
@@ -2604,7 +3062,9 @@
             "de": "Als sie die Station betraten, entzündete sich in der zentralen Kuppel ein riesiges X-Signal. Gleichzeitig formten sich die Korridore mit beweglichen Wänden und Energietoren neu.",
             "es": "Al entrar en la estación, una gigantesca Señal X se encendió en la cúpula central. Al mismo tiempo, los pasillos se reconfiguraron con paredes móviles y puertas de energía.",
             "pt": "Ao entrarem na estação, um enorme Sinal X se acendeu na cúpula central. Ao mesmo tempo, os corredores se reorganizaram com paredes móveis e portões de energia.",
-            "ja": "ステーションへ入ると、中央ドームに巨大なXシグナルが点灯した。同時に通路は動く壁とエネルギーゲートで形を変え始めた。"
+            "ja": "ステーションへ入ると、中央ドームに巨大なXシグナルが点灯した。同時に通路は動く壁とエネルギーゲートで形を変え始めた。",
+            "fr": "En entrant dans la station, un signal X géant s'est allumé dans le dôme central. En même temps, les couloirs se sont remodelés avec des murs en mouvement et des portes d'énergie.",
+            "zh": "当他们进入站时，一个巨大的X信号在中央顶中点燃了。在同一时刻，走廊以移动的墙壁和能量门重新塑造。"
           },
           "dialogue": {
             "tr": "",
@@ -2612,7 +3072,9 @@
             "de": "",
             "es": "",
             "pt": "",
-            "ja": ""
+            "ja": "",
+            "fr": "",
+            "zh": ""
           }
         },
         {
@@ -2624,7 +3086,9 @@
             "de": "Null öffnete den Zentralcomputer. Das Nobelkomitee überwachte das X-Bindungs-Experiment aus der Ferne.",
             "es": "Null abrió el ordenador central. El Comité Nobel estaba supervisando a distancia el experimento del Enlace X.",
             "pt": "Null abriu o computador central. O Comitê Nobel acompanhava remotamente o experimento da Ligação X.",
-            "ja": "Nullが中央コンピューターを開いた。ノーベル委員会はX結合の実験を遠隔で監視していた。"
+            "ja": "Nullが中央コンピューターを開いた。ノーベル委員会はX結合の実験を遠隔で監視していた。",
+            "fr": "Null a ouvert l'ordinateur central. Le Comité Nobel surveillait à distance l'expérience liaison X.",
+            "zh": "Null打开了中央电脑。诺贝尔委员会远程监测X键实验。"
           },
           "caption": {
             "tr": "Final yalnızca kazanılmayacak; kanıtlanacak.",
@@ -2632,7 +3096,9 @@
             "de": "Das Finale muss bewiesen und nicht nur gewonnen werden.",
             "es": "El final debe demostrarse, no solo ganarse.",
             "pt": "O final precisa ser provado, não apenas vencido.",
-            "ja": "フィナーレは勝つだけでは足りない。証明しなければならない。"
+            "ja": "フィナーレは勝つだけでは足りない。証明しなければならない。",
+            "fr": "La finale doit être prouvée, pas seulement gagnée.",
+            "zh": "决赛必须被证明，而不仅仅是获胜。"
           },
           "cast": [
             "null"
@@ -2645,7 +3111,9 @@
             "de": "Null öffnete den Zentralcomputer. Das Nobelkomitee überwachte das X-Bindungs-Experiment aus der Ferne.",
             "es": "Null abrió el ordenador central. El Comité Nobel estaba supervisando a distancia el experimento del Enlace X.",
             "pt": "Null abriu o computador central. O Comitê Nobel acompanhava remotamente o experimento da Ligação X.",
-            "ja": "Nullが中央コンピューターを開いた。ノーベル委員会はX結合の実験を遠隔で監視していた。"
+            "ja": "Nullが中央コンピューターを開いた。ノーベル委員会はX結合の実験を遠隔で監視していた。",
+            "fr": "Null a ouvert l'ordinateur central. Le Comité Nobel surveillait à distance l'expérience liaison X.",
+            "zh": "Null打开了中央电脑。诺贝尔委员会远程监测X键实验。"
           },
           "dialogue": {
             "tr": "",
@@ -2653,7 +3121,9 @@
             "de": "",
             "es": "",
             "pt": "",
-            "ja": ""
+            "ja": "",
+            "fr": "",
+            "zh": ""
           }
         },
         {
@@ -2665,7 +3135,9 @@
             "de": "Moxy blickte zum Herzen der Station. Als er die Bindungsenergie spürte, leuchtete sein Körper auf; mit Licht zeigte er die richtige Richtung. “bwoop!”",
             "es": "Moxy miró hacia el corazón de la estación. Al sentir la energía de los enlaces, su cuerpo se iluminó y señaló la dirección correcta con luz. “¡bwoop!”",
             "pt": "Moxy olhou para o coração da estação. Ao sentir a energia das ligações, seu corpo se iluminou; ele apontou a direção correta com a luz. “bwoop!”",
-            "ja": "Moxyはステーションの中心を見つめた。結合エネルギーを感じると体が光り、光で正しい方向を示した。 “bwoop!”"
+            "ja": "Moxyはステーションの中心を見つめた。結合エネルギーを感じると体が光り、光で正しい方向を示した。 “bwoop!”",
+            "fr": "Moxy regarda vers le cœur de la gare. Sentant l'énergie de la liaison, son corps s'illumine; il indiqua la bonne direction avec la lumière. « bwoop! »",
+            "zh": "Moxy看到了空间站的中心。他感觉到这种化学键的能量，他的身体照亮了；他用光指向正确的方向。“bwoop!”"
           },
           "caption": {
             "tr": "Oyuncu ve Moxy aynı göreve bağlanıyor.",
@@ -2673,7 +3145,9 @@
             "de": "Der Spieler und Moxy verbinden sich in derselben Mission.",
             "es": "El jugador y Moxy se unen en la misma misión.",
             "pt": "O jogador e Moxy entram na mesma missão.",
-            "ja": "プレイヤーとMoxyが同じ任務でつながる。"
+            "ja": "プレイヤーとMoxyが同じ任務でつながる。",
+            "fr": "Le joueur et Moxy rejoignent la même mission.",
+            "zh": "玩家和Moxy加入同一个任务。"
           },
           "cast": [
             "moxy",
@@ -2689,7 +3163,9 @@
             "de": "Moxy blickte zum Herzen der Station. Als er die Bindungsenergie spürte, leuchtete sein Körper auf; mit Licht zeigte er die richtige Richtung.",
             "es": "Moxy miró hacia el corazón de la estación. Al sentir la energía de los enlaces, su cuerpo se iluminó y señaló la dirección correcta con luz.",
             "pt": "Moxy olhou para o coração da estação. Ao sentir a energia das ligações, seu corpo se iluminou; ele apontou a direção correta com a luz.",
-            "ja": "Moxyはステーションの中心を見つめた。結合エネルギーを感じると体が光り、光で正しい方向を示した。"
+            "ja": "Moxyはステーションの中心を見つめた。結合エネルギーを感じると体が光り、光で正しい方向を示した。",
+            "fr": "Moxy regarda vers le cœur de la gare. Sentant l'énergie de la liaison, son corps s'illumine; il indiqua la bonne direction avec la lumière.",
+            "zh": "Moxy看到了空间站的中心。他感觉到这种化学键的能量，他的身体照亮了；他用光指向正确的方向。"
           },
           "dialogue": {
             "tr": "bwoop!",
@@ -2697,7 +3173,9 @@
             "de": "bwoop!",
             "es": "¡bwoop!",
             "pt": "bwoop!",
-            "ja": "bwoop!"
+            "ja": "bwoop!",
+            "fr": "bwoop!",
+            "zh": "bwoop!"
           }
         }
       ]
@@ -2715,7 +3193,9 @@
         "de": "DIE PRÜFUNG DES KOMITEES",
         "es": "LA PRUEBA DEL COMITÉ",
         "pt": "O JULGAMENTO DO COMITÊ",
-        "ja": "委員会の試練"
+        "ja": "委員会の試練",
+        "fr": "L’ÉPREUVE DU COMITÉ",
+        "zh": "委员会考验"
       },
       "pages": [
         {
@@ -2727,7 +3207,9 @@
             "de": "Das Nobelkomitee schaltete sich in die Übertragung ein. Dr. E schilderte den alten Fehlschlag, ohne etwas zu verbergen.",
             "es": "El Comité Nobel se conectó a la transmisión. Dr. E describió el antiguo fracaso sin ocultarlo.",
             "pt": "O Comitê Nobel entrou na transmissão. Dr. E descreveu o antigo fracasso sem escondê-lo.",
-            "ja": "ノーベル委員会が通信に参加した。Dr. Eは昔の失敗を隠さず説明した。"
+            "ja": "ノーベル委員会が通信に参加した。Dr. Eは昔の失敗を隠さず説明した。",
+            "fr": "Le Comité Nobel rejoignit la transmission. Dr. E décrivit l’ancien échec sans rien dissimuler.",
+            "zh": "诺贝尔委员会接入了传输。Dr. E毫不隐瞒地讲述了过去的失败。"
           },
           "caption": {
             "tr": "Gerçek bilim, hatayı da kanıtın parçası yapar.",
@@ -2735,7 +3217,9 @@
             "de": "Echte Wissenschaft macht auch Fehler zu einem Teil der Beweise.",
             "es": "La ciencia de verdad convierte el fracaso en parte de la evidencia.",
             "pt": "A verdadeira ciência transforma o fracasso em parte da evidência.",
-            "ja": "本当の科学は、失敗も証拠の一部にする。"
+            "ja": "本当の科学は、失敗も証拠の一部にする。",
+            "fr": "La vraie science intègre l’échec aux preuves.",
+            "zh": "真正的科学会把失败也纳入证据。"
           },
           "cast": [
             "drE"
@@ -2748,7 +3232,9 @@
             "de": "Das Nobelkomitee schaltete sich in die Übertragung ein. Dr. E schilderte den alten Fehlschlag, ohne etwas zu verbergen.",
             "es": "El Comité Nobel se conectó a la transmisión. Dr. E describió el antiguo fracaso sin ocultarlo.",
             "pt": "O Comitê Nobel entrou na transmissão. Dr. E descreveu o antigo fracasso sem escondê-lo.",
-            "ja": "ノーベル委員会が通信に参加した。Dr. Eは昔の失敗を隠さず説明した。"
+            "ja": "ノーベル委員会が通信に参加した。Dr. Eは昔の失敗を隠さず説明した。",
+            "fr": "Le Comité Nobel rejoignit la transmission. Dr. E décrivit l’ancien échec sans rien dissimuler.",
+            "zh": "诺贝尔委员会接入了传输。Dr. E毫不隐瞒地讲述了过去的失败。"
           },
           "dialogue": {
             "tr": "",
@@ -2756,7 +3242,9 @@
             "de": "",
             "es": "",
             "pt": "",
-            "ja": ""
+            "ja": "",
+            "fr": "",
+            "zh": ""
           }
         },
         {
@@ -2768,7 +3256,9 @@
             "de": "Null öffnete die Aufzeichnungen und übernahm seinen Teil der Verantwortung. “Er mag mein Rivale sein. Er ist nicht mein Komplize; er ist mein Partner in der Wissenschaft.”",
             "es": "Null abrió los registros y asumió su parte de la responsabilidad. “Puede ser mi rival. No es mi cómplice; es mi compañero en la ciencia.”",
             "pt": "Null abriu os registros e assumiu sua parte da responsabilidade. “Ele pode ser meu rival. Não é meu cúmplice; é meu parceiro na ciência.”",
-            "ja": "Nullは記録を公開し、自分の責任も引き受けた。 “彼は私のライバルかもしれない。共犯者ではない。科学のパートナーだ。”"
+            "ja": "Nullは記録を公開し、自分の責任も引き受けた。 “彼は私のライバルかもしれない。共犯者ではない。科学のパートナーだ。”",
+            "fr": "Null ouvrit les dossiers et assuma sa part de responsabilité. « C’est peut-être mon rival. Ce n’est pas mon complice ; c’est mon partenaire scientifique. »",
+            "zh": "Null打开记录，并承担了自己的责任。“他也许是我的对手，但不是我的同谋；他是我的科学伙伴。”"
           },
           "caption": {
             "tr": "Rekabet işbirliğine dönüşüyor.",
@@ -2776,7 +3266,9 @@
             "de": "Rivalität wird zu Zusammenarbeit.",
             "es": "La rivalidad se convierte en colaboración.",
             "pt": "A rivalidade se transforma em colaboração.",
-            "ja": "対立が協力へ変わる。"
+            "ja": "対立が協力へ変わる。",
+            "fr": "La rivalité devient collaboration.",
+            "zh": "竞争转变成了合作。"
           },
           "cast": [
             "null",
@@ -2790,7 +3282,9 @@
             "de": "Null öffnete die Aufzeichnungen und übernahm seinen Teil der Verantwortung.",
             "es": "Null abrió los registros y asumió su parte de la responsabilidad.",
             "pt": "Null abriu os registros e assumiu sua parte da responsabilidade.",
-            "ja": "Nullは記録を公開し、自分の責任も引き受けた。"
+            "ja": "Nullは記録を公開し、自分の責任も引き受けた。",
+            "fr": "Null ouvrit les dossiers et assuma sa part de responsabilité.",
+            "zh": "Null打开记录，并承担了自己的责任。"
           },
           "dialogue": {
             "tr": "Rakibim olabilir. Suç ortağım değil; bilim ortağım.",
@@ -2798,7 +3292,9 @@
             "de": "Er mag mein Rivale sein. Er ist nicht mein Komplize; er ist mein Partner in der Wissenschaft.",
             "es": "Puede ser mi rival. No es mi cómplice; es mi compañero en la ciencia.",
             "pt": "Ele pode ser meu rival. Não é meu cúmplice; é meu parceiro na ciência.",
-            "ja": "彼は私のライバルかもしれない。共犯者ではない。科学のパートナーだ。"
+            "ja": "彼は私のライバルかもしれない。共犯者ではない。科学のパートナーだ。",
+            "fr": "C’est peut-être mon rival. Ce n’est pas mon complice ; c’est mon partenaire scientifique.",
+            "zh": "他也许是我的对手，但不是我的同谋；他是我的科学伙伴。"
           }
         },
         {
@@ -2810,7 +3306,9 @@
             "de": "Moxy schwebte viel zu nah an die Kamera und füllte das gesamte Bild. Dann gab er einen komischen Laut von sich. Das Komitee lachte zum ersten Mal und genehmigte anschließend die Fortsetzung des Experiments. “blup!”",
             "es": "Moxy flotó demasiado cerca de la cámara y llenó toda la imagen. Después emitió un sonido cómico. El comité se rio por primera vez y aprobó continuar con el experimento. “¡blup!”",
             "pt": "Moxy flutuou perto demais da câmera, ocupou toda a lente e soltou um som engraçado. O comitê riu pela primeira vez e então aprovou a continuação do experimento. “blup!”",
-            "ja": "Moxyはカメラに近づきすぎてレンズいっぱいに映り、コミカルな音を出した。委員会は初めて笑い、その後、実験の続行を承認した。 “blup!”"
+            "ja": "Moxyはカメラに近づきすぎてレンズいっぱいに映り、コミカルな音を出した。委員会は初めて笑い、その後、実験の続行を承認した。 “blup!”",
+            "fr": "Moxy flotta beaucoup trop près de la caméra, remplit tout l’objectif et produisit un son comique. Le comité rit pour la première fois, puis autorisa la poursuite de l’expérience. « blup! »",
+            "zh": "Moxy漂得离镜头太近，整个画面都被他占满，还发出一声滑稽的轻响。委员会第一次笑了，随后批准继续实验。“blup!”"
           },
           "caption": {
             "tr": "Komite oybirliğiyle deneye devam dedi.",
@@ -2818,7 +3316,9 @@
             "de": "Das Komitee genehmigte einstimmig die Fortsetzung des Experiments.",
             "es": "El comité aprobó por unanimidad continuar con el experimento.",
             "pt": "O comitê aprovou por unanimidade a continuação do experimento.",
-            "ja": "委員会は全会一致で実験続行を承認した。"
+            "ja": "委員会は全会一致で実験続行を承認した。",
+            "fr": "Le comité autorise à l’unanimité la poursuite de l’expérience.",
+            "zh": "委员会一致批准继续实验。"
           },
           "cast": [
             "moxy",
@@ -2832,7 +3332,9 @@
             "de": "Moxy schwebte viel zu nah an die Kamera und füllte das gesamte Bild. Dann gab er einen komischen Laut von sich. Das Komitee lachte zum ersten Mal und genehmigte anschließend die Fortsetzung des Experiments.",
             "es": "Moxy flotó demasiado cerca de la cámara y llenó toda la imagen. Después emitió un sonido cómico. El comité se rio por primera vez y aprobó continuar con el experimento.",
             "pt": "Moxy flutuou perto demais da câmera, ocupou toda a lente e soltou um som engraçado. O comitê riu pela primeira vez e então aprovou a continuação do experimento.",
-            "ja": "Moxyはカメラに近づきすぎてレンズいっぱいに映り、コミカルな音を出した。委員会は初めて笑い、その後、実験の続行を承認した。"
+            "ja": "Moxyはカメラに近づきすぎてレンズいっぱいに映り、コミカルな音を出した。委員会は初めて笑い、その後、実験の続行を承認した。",
+            "fr": "Moxy flotta beaucoup trop près de la caméra, remplit tout l’objectif et produisit un son comique. Le comité rit pour la première fois, puis autorisa la poursuite de l’expérience.",
+            "zh": "Moxy漂得离镜头太近，整个画面都被他占满，还发出一声滑稽的轻响。委员会第一次笑了，随后批准继续实验。"
           },
           "dialogue": {
             "tr": "blup!",
@@ -2840,7 +3342,9 @@
             "de": "blup!",
             "es": "¡blup!",
             "pt": "blup!",
-            "ja": "blup!"
+            "ja": "blup!",
+            "fr": "blup!",
+            "zh": "blup!"
           }
         }
       ]
@@ -2858,7 +3362,9 @@
         "de": "DER ZUG DER KATZE",
         "es": "LA JUGADA DEL GATO",
         "pt": "A JOGADA DO GATO",
-        "ja": "ネコの一手"
+        "ja": "ネコの一手",
+        "fr": "LE COUP DU CHAT",
+        "zh": "猫的一步"
       },
       "pages": [
         {
@@ -2870,7 +3376,9 @@
             "de": "Ein Energiestoß verriegelte den Stabilisator der Station. Der Notfall-Ausgleichsknopf lag jenseits des wachsenden Feldes; nur die Katze war klein genug, um das Bedienpult zu erreichen. “Miau!”",
             "es": "Una descarga de energía bloqueó el estabilizador de la estación. El botón de equilibrio de emergencia quedó al otro lado del campo creciente; el gato era el único lo bastante pequeño para llegar a la consola. “¡Miau!”",
             "pt": "Um surto de energia travou o estabilizador da estação. O botão de equilíbrio de emergência ficou além do campo crescente; o gato era o único pequeno o bastante para alcançar o console. “Miau!”",
-            "ja": "エネルギーの急上昇でステーションの安定化装置がロックされた。緊急バランスボタンは広がるフィールドの向こう側。コンソールへ届くほど小さいのはネコだけだった。 “ニャー！”"
+            "ja": "エネルギーの急上昇でステーションの安定化装置がロックされた。緊急バランスボタンは広がるフィールドの向こう側。コンソールへ届くほど小さいのはネコだけだった。 “ニャー！”",
+            "fr": "Une surtension verrouilla le stabilisateur de la station. Le bouton d’équilibrage d’urgence se retrouva au-delà du champ grandissant ; seul le chat était assez petit pour atteindre la console. « Meow! »",
+            "zh": "能量激增锁死了空间站稳定器。紧急平衡按钮被隔在不断扩张的能量场另一侧；只有猫足够小，能够抵达控制台。“Meow!”"
           },
           "caption": {
             "tr": "Final deney artık dört patiyle devam ediyor.",
@@ -2878,7 +3386,9 @@
             "de": "Das Finalexperiment hängt jetzt von vier Pfoten ab.",
             "es": "El experimento final ahora depende de cuatro patas.",
             "pt": "O experimento final agora depende de quatro patas.",
-            "ja": "最後の実験は、四本の足に託された。"
+            "ja": "最後の実験は、四本の足に託された。",
+            "fr": "L’expérience finale dépend maintenant de quatre petites pattes.",
+            "zh": "最终实验现在取决于四只小爪子。"
           },
           "cast": [
             "cat"
@@ -2891,7 +3401,9 @@
             "de": "Ein Energiestoß verriegelte den Stabilisator der Station. Der Notfall-Ausgleichsknopf lag jenseits des wachsenden Feldes; nur die Katze war klein genug, um das Bedienpult zu erreichen.",
             "es": "Una descarga de energía bloqueó el estabilizador de la estación. El botón de equilibrio de emergencia quedó al otro lado del campo creciente; el gato era el único lo bastante pequeño para llegar a la consola.",
             "pt": "Um surto de energia travou o estabilizador da estação. O botão de equilíbrio de emergência ficou além do campo crescente; o gato era o único pequeno o bastante para alcançar o console.",
-            "ja": "エネルギーの急上昇でステーションの安定化装置がロックされた。緊急バランスボタンは広がるフィールドの向こう側。コンソールへ届くほど小さいのはネコだけだった。"
+            "ja": "エネルギーの急上昇でステーションの安定化装置がロックされた。緊急バランスボタンは広がるフィールドの向こう側。コンソールへ届くほど小さいのはネコだけだった。",
+            "fr": "Une surtension verrouilla le stabilisateur de la station. Le bouton d’équilibrage d’urgence se retrouva au-delà du champ grandissant ; seul le chat était assez petit pour atteindre la console.",
+            "zh": "能量激增锁死了空间站稳定器。紧急平衡按钮被隔在不断扩张的能量场另一侧；只有猫足够小，能够抵达控制台。"
           },
           "dialogue": {
             "tr": "Miyav!",
@@ -2899,7 +3411,9 @@
             "de": "Miau!",
             "es": "¡Miau!",
             "pt": "Miau!",
-            "ja": "ニャー！"
+            "ja": "ニャー！",
+            "fr": "Meow!",
+            "zh": "Meow!"
           }
         },
         {
@@ -2911,7 +3425,9 @@
             "de": "Dr. Null hielt den sicheren Weg für die Katze sichtbar, während Dr. E die Energie noch einige Sekunden stabil hielt. “Der rote Knopf. Los, kleiner Partner.”",
             "es": "Dr. Null mantuvo visible la ruta segura para el gato mientras Dr. E estabilizaba la energía durante unos segundos más. “El botón rojo. Vamos, pequeño compañero.”",
             "pt": "Dr. Null manteve a rota segura visível para o gato enquanto Dr. E segurava a energia estável por mais alguns segundos. “O botão vermelho. Vamos, pequeno parceiro.”",
-            "ja": "Dr. Nullがネコの安全な経路を表示し続ける間、Dr. Eはあと数秒だけエネルギーを安定させた。 “赤いボタンだ。頼むぞ、小さな相棒。”"
+            "ja": "Dr. Nullがネコの安全な経路を表示し続ける間、Dr. Eはあと数秒だけエネルギーを安定させた。 “赤いボタンだ。頼むぞ、小さな相棒。”",
+            "fr": "Dr. Null maintint la voie sûre visible pour le chat, tandis que Dr. E stabilisait l’énergie quelques secondes de plus. « Le bouton rouge. Allez, petit partenaire. »",
+            "zh": "Dr. Null为猫保持安全路线可见，Dr. E则又将能量稳定了几秒。“红色按钮。加油，小伙伴。”"
           },
           "caption": {
             "tr": "Bir saniye daha gecikirse istasyon yeniden kapanacak.",
@@ -2919,7 +3435,9 @@
             "de": "Noch eine Sekunde, und die Station fährt wieder herunter.",
             "es": "Un segundo más y la estación volverá a apagarse.",
             "pt": "Mais um segundo e a estação vai desligar novamente.",
-            "ja": "あと一秒遅れれば、ステーションは再び停止する。"
+            "ja": "あと一秒遅れれば、ステーションは再び停止する。",
+            "fr": "Encore une seconde et la station s’arrêtera de nouveau.",
+            "zh": "再过一秒，空间站就会再次关闭。"
           },
           "cast": [
             "null",
@@ -2933,7 +3451,9 @@
             "de": "Dr. Null hielt den sicheren Weg für die Katze sichtbar, während Dr. E die Energie noch einige Sekunden stabil hielt.",
             "es": "Dr. Null mantuvo visible la ruta segura para el gato mientras Dr. E estabilizaba la energía durante unos segundos más.",
             "pt": "Dr. Null manteve a rota segura visível para o gato enquanto Dr. E segurava a energia estável por mais alguns segundos.",
-            "ja": "Dr. Nullがネコの安全な経路を表示し続ける間、Dr. Eはあと数秒だけエネルギーを安定させた。"
+            "ja": "Dr. Nullがネコの安全な経路を表示し続ける間、Dr. Eはあと数秒だけエネルギーを安定させた。",
+            "fr": "Dr. Null maintint la voie sûre visible pour le chat, tandis que Dr. E stabilisait l’énergie quelques secondes de plus.",
+            "zh": "Dr. Null为猫保持安全路线可见，Dr. E则又将能量稳定了几秒。"
           },
           "dialogue": {
             "tr": "Kırmızı düğme. Hadi, küçük ortak.",
@@ -2941,7 +3461,9 @@
             "de": "Der rote Knopf. Los, kleiner Partner.",
             "es": "El botón rojo. Vamos, pequeño compañero.",
             "pt": "O botão vermelho. Vamos, pequeno parceiro.",
-            "ja": "赤いボタンだ。頼むぞ、小さな相棒。"
+            "ja": "赤いボタンだ。頼むぞ、小さな相棒。",
+            "fr": "Le bouton rouge. Allez, petit partenaire.",
+            "zh": "红色按钮。加油，小伙伴。"
           }
         },
         {
@@ -2953,7 +3475,9 @@
             "de": "Die Katze drückte den roten Ausgleichsknopf. Der Stabilisator ging wieder online; die violette Energie brach zusammen und Moxys Licht kehrte in die ganze Station zurück. “Mrrrp!”",
             "es": "El gato pulsó el botón rojo de equilibrio. El estabilizador volvió a funcionar; la energía violeta colapsó y la luz de Moxy regresó por toda la estación. “¡Mrrrp!”",
             "pt": "O gato pressionou o botão vermelho de equilíbrio. O estabilizador voltou a funcionar; a energia roxa colapsou e a luz de Moxy retornou por toda a estação. “Mrrrp!”",
-            "ja": "ネコが赤いバランスボタンを押した。安定化装置が復旧し、紫のエネルギーは消え、Moxyの光がステーション全体に戻った。 “Mrrrp!”"
+            "ja": "ネコが赤いバランスボタンを押した。安定化装置が復旧し、紫のエネルギーは消え、Moxyの光がステーション全体に戻った。 “Mrrrp!”",
+            "fr": "Le chat appuya sur le bouton d’équilibrage rouge. Le stabilisateur revint en ligne ; l’énergie violette se dissipa et la lumière de Moxy se répandit de nouveau dans toute la station. « Mrrrp! »",
+            "zh": "猫按下红色平衡按钮。稳定器重新上线；紫色能量随之消散，Moxy的光芒再次照亮整座空间站。“Mrrrp!”"
           },
           "caption": {
             "tr": "En küçük hamle bütün sistemi kurtardı.",
@@ -2961,7 +3485,9 @@
             "de": "Der kleinste Zug rettete das gesamte System.",
             "es": "La jugada más pequeña salvó todo el sistema.",
             "pt": "O menor movimento salvou todo o sistema.",
-            "ja": "最も小さな一手が、システム全体を救った。"
+            "ja": "最も小さな一手が、システム全体を救った。",
+            "fr": "Le plus petit geste a sauvé tout le système.",
+            "zh": "最小的一步拯救了整个系统。"
           },
           "cast": [
             "cat",
@@ -2976,7 +3502,9 @@
             "de": "Die Katze drückte den roten Ausgleichsknopf. Der Stabilisator ging wieder online; die violette Energie brach zusammen und Moxys Licht kehrte in die ganze Station zurück.",
             "es": "El gato pulsó el botón rojo de equilibrio. El estabilizador volvió a funcionar; la energía violeta colapsó y la luz de Moxy regresó por toda la estación.",
             "pt": "O gato pressionou o botão vermelho de equilíbrio. O estabilizador voltou a funcionar; a energia roxa colapsou e a luz de Moxy retornou por toda a estação.",
-            "ja": "ネコが赤いバランスボタンを押した。安定化装置が復旧し、紫のエネルギーは消え、Moxyの光がステーション全体に戻った。"
+            "ja": "ネコが赤いバランスボタンを押した。安定化装置が復旧し、紫のエネルギーは消え、Moxyの光がステーション全体に戻った。",
+            "fr": "Le chat appuya sur le bouton d’équilibrage rouge. Le stabilisateur revint en ligne ; l’énergie violette se dissipa et la lumière de Moxy se répandit de nouveau dans toute la station.",
+            "zh": "猫按下红色平衡按钮。稳定器重新上线；紫色能量随之消散，Moxy的光芒再次照亮整座空间站。"
           },
           "dialogue": {
             "tr": "Mrrrp!",
@@ -2984,7 +3512,9 @@
             "de": "Mrrrp!",
             "es": "¡Mrrrp!",
             "pt": "Mrrrp!",
-            "ja": "Mrrrp!"
+            "ja": "Mrrrp!",
+            "fr": "Mrrrp!",
+            "zh": "Mrrrp!"
           }
         }
       ]
@@ -3002,7 +3532,9 @@
         "de": "DIE LETZTE BINDUNG",
         "es": "EL ENLACE FINAL",
         "pt": "A LIGAÇÃO FINAL",
-        "ja": "最後の結合"
+        "ja": "最後の結合",
+        "fr": "LA LIAISON FINALE",
+        "zh": "最终化学键"
       },
       "pages": [
         {
@@ -3014,7 +3546,9 @@
             "de": "Für die letzten fünfzehn Experimente führte Dr. E die Route, Null kontrollierte die Energiephasen und Moxy stabilisierte die Bindungen.",
             "es": "Durante los últimos quince experimentos, Dr. E guio la ruta, Null controló las fases de energía y Moxy equilibró los enlaces.",
             "pt": "Nos quinze experimentos finais, Dr. E guiou a rota, Null controlou as fases de energia e Moxy equilibrou as ligações.",
-            "ja": "最後の15実験では、Dr. Eが経路を導き、Nullがエネルギー位相を制御し、Moxyが結合の均衡を取った。"
+            "ja": "最後の15実験では、Dr. Eが経路を導き、Nullがエネルギー位相を制御し、Moxyが結合の均衡を取った。",
+            "fr": "Durant les quinze dernières expériences, Dr. E guida l’itinéraire, Null contrôla les phases d’énergie et Moxy équilibra les liaisons.",
+            "zh": "在最后十五次实验中，Dr. E负责引导路线，Null控制能量相位，Moxy平衡化学键。"
           },
           "caption": {
             "tr": "Üç bilim insanı, bir kedi ve sen.",
@@ -3022,7 +3556,9 @@
             "de": "Drei Wissenschaftler, eine Katze und du.",
             "es": "Tres científicos, un gato y tú.",
             "pt": "Três cientistas, um gato e você.",
-            "ja": "三人の科学者、一匹のネコ、そして君。"
+            "ja": "三人の科学者、一匹のネコ、そして君。",
+            "fr": "Trois scientifiques, un chat, et vous.",
+            "zh": "三位科学家，一个猫，还有你。"
           },
           "cast": [
             "drE",
@@ -3038,7 +3574,9 @@
             "de": "Für die letzten fünfzehn Experimente führte Dr. E die Route, Null kontrollierte die Energiephasen und Moxy stabilisierte die Bindungen.",
             "es": "Durante los últimos quince experimentos, Dr. E guio la ruta, Null controló las fases de energía y Moxy equilibró los enlaces.",
             "pt": "Nos quinze experimentos finais, Dr. E guiou a rota, Null controlou as fases de energia e Moxy equilibrou as ligações.",
-            "ja": "最後の15実験では、Dr. Eが経路を導き、Nullがエネルギー位相を制御し、Moxyが結合の均衡を取った。"
+            "ja": "最後の15実験では、Dr. Eが経路を導き、Nullがエネルギー位相を制御し、Moxyが結合の均衡を取った。",
+            "fr": "Durant les quinze dernières expériences, Dr. E guida l’itinéraire, Null contrôla les phases d’énergie et Moxy équilibra les liaisons.",
+            "zh": "在最后十五次实验中，Dr. E负责引导路线，Null控制能量相位，Moxy平衡化学键。"
           },
           "dialogue": {
             "tr": "",
@@ -3046,7 +3584,9 @@
             "de": "",
             "es": "",
             "pt": "",
-            "ja": ""
+            "ja": "",
+            "fr": "",
+            "zh": ""
           }
         },
         {
@@ -3058,7 +3598,9 @@
             "de": "Das X-Signal wirkte nicht mehr wie eine Bedrohung, sondern wie ein unfertiges Molekül. Moxy kreiste darum und markierte die fehlende Bindung mit einem einzelnen Impuls. “vum!”",
             "es": "La Señal X ya no parecía una amenaza, sino una molécula sin terminar. Moxy giró a su alrededor y marcó el enlace que faltaba con un solo pulso. “¡vum!”",
             "pt": "O Sinal X já não parecia uma ameaça, mas uma molécula incompleta. Moxy circulou ao redor dele e marcou a ligação que faltava com um único pulso. “vum!”",
-            "ja": "Xシグナルはもう脅威ではなく、未完成の分子のように見えた。Moxyはその周囲を回り、一度の脈動で欠けた結合を示した。 “vum!”"
+            "ja": "Xシグナルはもう脅威ではなく、未完成の分子のように見えた。Moxyはその周囲を回り、一度の脈動で欠けた結合を示した。 “vum!”",
+            "fr": "Le Signal X ne ressemblait plus à une menace, mais à une molécule inachevée. Moxy en fit le tour et signala la liaison manquante d’une seule impulsion. « vum! »",
+            "zh": "X信号不再像是威胁，而像一个尚未完成的分子。Moxy绕着它转了一圈，用一次脉冲标出了缺失的化学键。“vum!”"
           },
           "caption": {
             "tr": "Onu yok etmek değil, doğru bağlamak gerekiyor.",
@@ -3066,7 +3608,9 @@
             "de": "Es muss richtig gebunden, nicht zerstört werden.",
             "es": "Hay que enlazarla correctamente, no destruirla.",
             "pt": "Ele precisa ser ligado corretamente, não destruído.",
-            "ja": "壊すのではなく、正しく結合しなければならない。"
+            "ja": "壊すのではなく、正しく結合しなければならない。",
+            "fr": "Il doit être lié correctement, pas détruit.",
+            "zh": "它必须正确地结合，而不是被摧毁。"
           },
           "cast": [
             "moxy"
@@ -3079,7 +3623,9 @@
             "de": "Das X-Signal wirkte nicht mehr wie eine Bedrohung, sondern wie ein unfertiges Molekül. Moxy kreiste darum und markierte die fehlende Bindung mit einem einzelnen Impuls.",
             "es": "La Señal X ya no parecía una amenaza, sino una molécula sin terminar. Moxy giró a su alrededor y marcó el enlace que faltaba con un solo pulso.",
             "pt": "O Sinal X já não parecia uma ameaça, mas uma molécula incompleta. Moxy circulou ao redor dele e marcou a ligação que faltava com um único pulso.",
-            "ja": "Xシグナルはもう脅威ではなく、未完成の分子のように見えた。Moxyはその周囲を回り、一度の脈動で欠けた結合を示した。"
+            "ja": "Xシグナルはもう脅威ではなく、未完成の分子のように見えた。Moxyはその周囲を回り、一度の脈動で欠けた結合を示した。",
+            "fr": "Le Signal X ne ressemblait plus à une menace, mais à une molécule inachevée. Moxy en fit le tour et signala la liaison manquante d’une seule impulsion.",
+            "zh": "X信号不再像是威胁，而像一个尚未完成的分子。Moxy绕着它转了一圈，用一次脉冲标出了缺失的化学键。"
           },
           "dialogue": {
             "tr": "vum!",
@@ -3087,7 +3633,9 @@
             "de": "vum!",
             "es": "¡vum!",
             "pt": "vum!",
-            "ja": "vum!"
+            "ja": "vum!",
+            "fr": "vum!",
+            "zh": "vum!"
           }
         },
         {
@@ -3099,7 +3647,9 @@
             "de": "Dr. Null gab die Nummer des letzten Experiments ein. Dr. E legte die Hand auf das Bedienpult und wandte sich dem Spieler zu. “Du wirst die letzte Bindung bilden.”",
             "es": "Dr. Null introdujo el número del experimento final. Dr. E puso la mano sobre la consola y se volvió hacia el jugador. “Tú formarás el enlace final.”",
             "pt": "Dr. Null digitou o número do último experimento. Dr. E colocou a mão no console e se virou para o jogador. “Você vai formar a ligação final.”",
-            "ja": "Dr. Nullが最後の実験番号を入力した。Dr. Eはコンソールに手を置き、プレイヤーを振り返った。 “最後の結合を作るのは君だ。”"
+            "ja": "Dr. Nullが最後の実験番号を入力した。Dr. Eはコンソールに手を置き、プレイヤーを振り返った。 “最後の結合を作るのは君だ。”",
+            "fr": "Dr. Null saisit le numéro de la dernière expérience. Dr. E posa la main sur la console et se tourna vers le joueur. « C’est vous qui formerez la liaison finale. »",
+            "zh": "Dr. Null输入了最终实验的编号。Dr. E把手放在控制台上，转向玩家。“最终的化学键将由你来形成。”"
           },
           "caption": {
             "tr": "Nobel Finali hazır.",
@@ -3107,7 +3657,9 @@
             "de": "Das Nobel-Finale ist bereit.",
             "es": "El Final Nobel está listo.",
             "pt": "O Final Nobel está pronto.",
-            "ja": "ノーベル・フィナーレの準備が整った。"
+            "ja": "ノーベル・フィナーレの準備が整った。",
+            "fr": "La finale du Nobel est prête.",
+            "zh": "诺贝尔总决赛准备好了。"
           },
           "cast": [
             "drE",
@@ -3123,7 +3675,9 @@
             "de": "Dr. Null gab die Nummer des letzten Experiments ein. Dr. E legte die Hand auf das Bedienpult und wandte sich dem Spieler zu.",
             "es": "Dr. Null introdujo el número del experimento final. Dr. E puso la mano sobre la consola y se volvió hacia el jugador.",
             "pt": "Dr. Null digitou o número do último experimento. Dr. E colocou a mão no console e se virou para o jogador.",
-            "ja": "Dr. Nullが最後の実験番号を入力した。Dr. Eはコンソールに手を置き、プレイヤーを振り返った。"
+            "ja": "Dr. Nullが最後の実験番号を入力した。Dr. Eはコンソールに手を置き、プレイヤーを振り返った。",
+            "fr": "Dr. Null saisit le numéro de la dernière expérience. Dr. E posa la main sur la console et se tourna vers le joueur.",
+            "zh": "Dr. Null输入了最终实验的编号。Dr. E把手放在控制台上，转向玩家。"
           },
           "dialogue": {
             "tr": "Son bağı sen kuracaksın.",
@@ -3131,7 +3685,9 @@
             "de": "Du wirst die letzte Bindung bilden.",
             "es": "Tú formarás el enlace final.",
             "pt": "Você vai formar a ligação final.",
-            "ja": "最後の結合を作るのは君だ。"
+            "ja": "最後の結合を作るのは君だ。",
+            "fr": "C’est vous qui formerez la liaison finale.",
+            "zh": "最终的化学键将由你来形成。"
           }
         }
       ]
@@ -3150,7 +3706,9 @@
         "de": "DAS NOBEL-FINALE",
         "es": "EL FINAL NOBEL",
         "pt": "O FINAL NOBEL",
-        "ja": "ノーベル・フィナーレ"
+        "ja": "ノーベル・フィナーレ",
+        "fr": "LE FINAL DU NOBEL",
+        "zh": "诺贝尔终章"
       },
       "pages": [
         {
@@ -3162,7 +3720,9 @@
             "de": "Als Molekül 301 fertig war, trat Moxy in das Herz des X-Signals. Während sich die unterbrochenen Linien nacheinander wieder verbanden, erfüllte eine ansteigende Schwingung aus seinem Körper die Station. “vuuum”",
             "es": "Cuando se completó la Molécula 301, Moxy entró en el corazón de la Señal X. Mientras las líneas rotas se reconectaban una a una, una vibración creciente de su cuerpo llenó la estación. “vuuum”",
             "pt": "Quando a Molécula 301 foi concluída, Moxy entrou no coração do Sinal X. Enquanto as linhas rompidas se reconectavam uma a uma, uma vibração crescente de seu corpo encheu a estação. “vuuum”",
-            "ja": "分子301が完成すると、MoxyはXシグナルの中心へ入った。切れた線が一本ずつ再接続されるにつれ、彼の体から高まる振動がステーションを満たした。 “vuuum”"
+            "ja": "分子301が完成すると、MoxyはXシグナルの中心へ入った。切れた線が一本ずつ再接続されるにつれ、彼の体から高まる振動がステーションを満たした。 “vuuum”",
+            "fr": "Lorsque la molécule 301 fut achevée, Moxy entra au cœur du Signal X. Tandis que les lignes brisées se reconnectaient une à une, une vibration croissante émanant de son corps emplit la station. « vuuum »",
+            "zh": "第301号分子完成后，Moxy进入了X信号的核心。断裂的线路逐一重新连接时，他身体中不断增强的震动充满了空间站。“vuuum”"
           },
           "caption": {
             "tr": "Büyük Ayrışma durdu.",
@@ -3170,7 +3730,9 @@
             "de": "Die Große Entkopplung wurde gestoppt.",
             "es": "La Gran Desvinculación fue detenida.",
             "pt": "A Grande Separação foi interrompida.",
-            "ja": "大解離は止められた。"
+            "ja": "大解離は止められた。",
+            "fr": "La Grande Déliaison a été arrêtée.",
+            "zh": "这场战争被制止了。"
           },
           "cast": [
             "moxy",
@@ -3186,7 +3748,9 @@
             "de": "Als Molekül 301 fertig war, trat Moxy in das Herz des X-Signals. Während sich die unterbrochenen Linien nacheinander wieder verbanden, erfüllte eine ansteigende Schwingung aus seinem Körper die Station.",
             "es": "Cuando se completó la Molécula 301, Moxy entró en el corazón de la Señal X. Mientras las líneas rotas se reconectaban una a una, una vibración creciente de su cuerpo llenó la estación.",
             "pt": "Quando a Molécula 301 foi concluída, Moxy entrou no coração do Sinal X. Enquanto as linhas rompidas se reconectavam uma a uma, uma vibração crescente de seu corpo encheu a estação.",
-            "ja": "分子301が完成すると、MoxyはXシグナルの中心へ入った。切れた線が一本ずつ再接続されるにつれ、彼の体から高まる振動がステーションを満たした。"
+            "ja": "分子301が完成すると、MoxyはXシグナルの中心へ入った。切れた線が一本ずつ再接続されるにつれ、彼の体から高まる振動がステーションを満たした。",
+            "fr": "Lorsque la molécule 301 fut achevée, Moxy entra au cœur du Signal X. Tandis que les lignes brisées se reconnectaient une à une, une vibration croissante émanant de son corps emplit la station.",
+            "zh": "第301号分子完成后，Moxy进入了X信号的核心。断裂的线路逐一重新连接时，他身体中不断增强的震动充满了空间站。"
           },
           "dialogue": {
             "tr": "vuuum",
@@ -3194,7 +3758,9 @@
             "de": "vuuum",
             "es": "vuuum",
             "pt": "vuuum",
-            "ja": "vuuum"
+            "ja": "vuuum",
+            "fr": "vuuum",
+            "zh": "vuuum"
           }
         },
         {
@@ -3206,7 +3772,9 @@
             "de": "Das Nobelkomitee ehrte die Arbeit des Moleculox-Teams. Dr. E nahm die Medaille entgegen, während Dr. Null, Moxy und die Katze neben ihm standen; das Ergebnis war durch die letzte Bindung des Spielers vollendet worden. “Diese Auszeichnung gehört nicht einem einzigen Genie; sie gehört allen, die die richtige Bindung gebildet haben.”",
             "es": "El Comité Nobel reconoció el trabajo del equipo Moleculox. Dr. E recibió la medalla con Dr. Null, Moxy y el gato a su lado; el resultado se había completado gracias al enlace final del jugador. “Este premio no pertenece a un solo genio; pertenece a todos los que formaron el enlace correcto.”",
             "pt": "O Comitê Nobel homenageou o trabalho da equipe Moleculox. Dr. E recebeu a medalha com Dr. Null, Moxy e o gato ao seu lado; o resultado havia sido concluído pela ligação final do jogador. “Este prêmio não pertence a um único gênio; pertence a todos que formaram a ligação correta.”",
-            "ja": "ノーベル委員会はMoleculoxチームの研究を称えた。Dr. EはDr. Null、Moxy、ネコと並んでメダルを受け取り、その成果はプレイヤーが作った最後の結合によって完成した。 “この賞は一人の天才のものではない。正しい結合を作ったすべての人のものだ。”"
+            "ja": "ノーベル委員会はMoleculoxチームの研究を称えた。Dr. EはDr. Null、Moxy、ネコと並んでメダルを受け取り、その成果はプレイヤーが作った最後の結合によって完成した。 “この賞は一人の天才のものではない。正しい結合を作ったすべての人のものだ。”",
+            "fr": "Le Comité Nobel honora le travail de l’équipe Moleculox. Dr. E accepta la médaille aux côtés de Dr. Null, de Moxy et du chat ; le résultat avait été rendu possible par la liaison finale du joueur. « Cette récompense n’appartient pas à un seul génie ; elle appartient à tous ceux qui ont formé la bonne liaison. »",
+            "zh": "诺贝尔委员会表彰了Moleculox团队的成果。Dr. E与Dr. Null、Moxy和猫一起接受了奖章；最终成果由玩家形成的最后一条化学键完成。“这项荣誉不属于某一个天才；它属于每一个形成了正确化学键的人。”"
           },
           "caption": {
             "tr": "Zafer bir kişiye değil, birlikte kurulan bağlara ait.",
@@ -3214,7 +3782,9 @@
             "de": "Der Sieg gehört nicht einer Person, sondern den Bindungen, die gemeinsam entstanden sind.",
             "es": "La victoria no pertenece a una sola persona, sino a los enlaces formados juntos.",
             "pt": "A vitória não pertence a uma única pessoa, mas às ligações formadas em conjunto.",
-            "ja": "勝利は一人のものではない。共に作った結合のものだ。"
+            "ja": "勝利は一人のものではない。共に作った結合のものだ。",
+            "fr": "La victoire n'appartient pas à une seule personne, mais aux liaison formés ensemble.",
+            "zh": "胜利不属于一个人，而是建立在一起的化学键。"
           },
           "cast": [
             "drE",
@@ -3230,7 +3800,9 @@
             "de": "Das Nobelkomitee ehrte die Arbeit des Moleculox-Teams. Dr. E nahm die Medaille entgegen, während Dr. Null, Moxy und die Katze neben ihm standen; das Ergebnis war durch die letzte Bindung des Spielers vollendet worden.",
             "es": "El Comité Nobel reconoció el trabajo del equipo Moleculox. Dr. E recibió la medalla con Dr. Null, Moxy y el gato a su lado; el resultado se había completado gracias al enlace final del jugador.",
             "pt": "O Comitê Nobel homenageou o trabalho da equipe Moleculox. Dr. E recebeu a medalha com Dr. Null, Moxy e o gato ao seu lado; o resultado havia sido concluído pela ligação final do jogador.",
-            "ja": "ノーベル委員会はMoleculoxチームの研究を称えた。Dr. EはDr. Null、Moxy、ネコと並んでメダルを受け取り、その成果はプレイヤーが作った最後の結合によって完成した。"
+            "ja": "ノーベル委員会はMoleculoxチームの研究を称えた。Dr. EはDr. Null、Moxy、ネコと並んでメダルを受け取り、その成果はプレイヤーが作った最後の結合によって完成した。",
+            "fr": "Le Comité Nobel honora le travail de l’équipe Moleculox. Dr. E accepta la médaille aux côtés de Dr. Null, de Moxy et du chat ; le résultat avait été rendu possible par la liaison finale du joueur.",
+            "zh": "诺贝尔委员会表彰了Moleculox团队的成果。Dr. E与Dr. Null、Moxy和猫一起接受了奖章；最终成果由玩家形成的最后一条化学键完成。"
           },
           "dialogue": {
             "tr": "Bu ödül tek bir dehanın değil; doğru bağı kuran herkesin.",
@@ -3238,7 +3810,9 @@
             "de": "Diese Auszeichnung gehört nicht einem einzigen Genie; sie gehört allen, die die richtige Bindung gebildet haben.",
             "es": "Este premio no pertenece a un solo genio; pertenece a todos los que formaron el enlace correcto.",
             "pt": "Este prêmio não pertence a um único gênio; pertence a todos que formaram a ligação correta.",
-            "ja": "この賞は一人の天才のものではない。正しい結合を作ったすべての人のものだ。"
+            "ja": "この賞は一人の天才のものではない。正しい結合を作ったすべての人のものだ。",
+            "fr": "Cette récompense n’appartient pas à un seul génie ; elle appartient à tous ceux qui ont formé la bonne liaison.",
+            "zh": "这项荣誉不属于某一个天才；它属于每一个形成了正确化学键的人。"
           }
         },
         {
@@ -3250,7 +3824,9 @@
             "de": "Nach dem Nobel beschlossen Dr. E und Dr. Null, das Labor diesmal gemeinsam zu führen. Moxy wurde offiziell zum Feldbegleiter des Teams, während die Katze freiwillige Hüterin des X-Resonanzsensors blieb. Als die Feier endete, leuchtete der Anhänger erneut: Ein neues X-Signal kam aus viel größerer Entfernung.",
             "es": "Después del Nobel, Dr. E y Dr. Null decidieron dirigir juntos el laboratorio esta vez. Moxy se convirtió oficialmente en el compañero de campo del equipo, mientras el gato siguió siendo el guardián voluntario del sensor de resonancia X. Cuando terminó la celebración, el colgante volvió a brillar: llegaba una nueva Señal X desde mucho más lejos.",
             "pt": "Depois do Nobel, Dr. E e Dr. Null decidiram administrar o laboratório juntos desta vez. Moxy tornou-se oficialmente o companheiro de campo da equipe, enquanto o gato continuou como guardião voluntário do sensor de ressonância X. Quando a celebração terminou, o pingente voltou a brilhar: um novo Sinal X vinha de muito mais longe.",
-            "ja": "ノーベル賞の後、Dr. EとDr. Nullは今度こそ研究所を二人で運営することを決めた。Moxyは正式にチームのフィールド・コンパニオンとなり、ネコはX共鳴センサーの自称守護役として残った。祝賀が終わるころ、ペンダントが再び光る。はるか遠くから、新たなXシグナルが届いていた。"
+            "ja": "ノーベル賞の後、Dr. EとDr. Nullは今度こそ研究所を二人で運営することを決めた。Moxyは正式にチームのフィールド・コンパニオンとなり、ネコはX共鳴センサーの自称守護役として残った。祝賀が終わるころ、ペンダントが再び光る。はるか遠くから、新たなXシグナルが届いていた。",
+            "fr": "Après le Nobel, Dr. E et Dr. Null décidèrent cette fois de diriger ensemble le laboratoire. Moxy devint officiellement le compagnon de terrain de l’équipe, tandis que le chat resta le gardien volontaire du capteur de résonance X. À la fin des célébrations, le pendentif s’illumina de nouveau : un nouveau Signal X arrivait de bien plus loin.",
+            "zh": "诺贝尔奖颁发后，Dr. E和Dr. Null决定这一次共同经营实验室。Moxy正式成为团队的外勤伙伴，猫则继续自愿守护X共振传感器。庆祝结束时，吊坠再次亮起：一个新的X信号正从更加遥远的地方传来。"
           },
           "caption": {
             "tr": "Bir hikâye tamamlandı. Yeni sinyal, bir sonraki keşfi çağırıyor.",
@@ -3258,7 +3834,9 @@
             "de": "Eine Geschichte ist abgeschlossen. Ein neues Signal ruft zur nächsten Entdeckung.",
             "es": "Una historia ha terminado. Una nueva señal llama al próximo descubrimiento.",
             "pt": "Uma história terminou. Um novo sinal chama a próxima descoberta.",
-            "ja": "ひとつの物語が完結した。新しいシグナルが、次の発見を呼んでいる。"
+            "ja": "ひとつの物語が完結した。新しいシグナルが、次の発見を呼んでいる。",
+            "fr": "Une histoire est terminée. Un nouveau signal appelle la prochaine découverte.",
+            "zh": "一个故事已经完成了。一个新的信号叫下一个发现。"
           },
           "cast": [
             "cat",
@@ -3272,7 +3850,9 @@
             "de": "Nach dem Nobel beschlossen Dr. E und Dr. Null, das Labor diesmal gemeinsam zu führen. Moxy wurde offiziell zum Feldbegleiter des Teams, während die Katze freiwillige Hüterin des X-Resonanzsensors blieb. Als die Feier endete, leuchtete der Anhänger erneut: Ein neues X-Signal kam aus viel größerer Entfernung.",
             "es": "Después del Nobel, Dr. E y Dr. Null decidieron dirigir juntos el laboratorio esta vez. Moxy se convirtió oficialmente en el compañero de campo del equipo, mientras el gato siguió siendo el guardián voluntario del sensor de resonancia X. Cuando terminó la celebración, el colgante volvió a brillar: llegaba una nueva Señal X desde mucho más lejos.",
             "pt": "Depois do Nobel, Dr. E e Dr. Null decidiram administrar o laboratório juntos desta vez. Moxy tornou-se oficialmente o companheiro de campo da equipe, enquanto o gato continuou como guardião voluntário do sensor de ressonância X. Quando a celebração terminou, o pingente voltou a brilhar: um novo Sinal X vinha de muito mais longe.",
-            "ja": "ノーベル賞の後、Dr. EとDr. Nullは今度こそ研究所を二人で運営することを決めた。Moxyは正式にチームのフィールド・コンパニオンとなり、ネコはX共鳴センサーの自称守護役として残った。祝賀が終わるころ、ペンダントが再び光る。はるか遠くから、新たなXシグナルが届いていた。"
+            "ja": "ノーベル賞の後、Dr. EとDr. Nullは今度こそ研究所を二人で運営することを決めた。Moxyは正式にチームのフィールド・コンパニオンとなり、ネコはX共鳴センサーの自称守護役として残った。祝賀が終わるころ、ペンダントが再び光る。はるか遠くから、新たなXシグナルが届いていた。",
+            "fr": "Après le Nobel, Dr. E et Dr. Null décidèrent cette fois de diriger ensemble le laboratoire. Moxy devint officiellement le compagnon de terrain de l’équipe, tandis que le chat resta le gardien volontaire du capteur de résonance X. À la fin des célébrations, le pendentif s’illumina de nouveau : un nouveau Signal X arrivait de bien plus loin.",
+            "zh": "诺贝尔奖颁发后，Dr. E和Dr. Null决定这一次共同经营实验室。Moxy正式成为团队的外勤伙伴，猫则继续自愿守护X共振传感器。庆祝结束时，吊坠再次亮起：一个新的X信号正从更加遥远的地方传来。"
           },
           "dialogue": {
             "tr": "",
@@ -3280,7 +3860,9 @@
             "de": "",
             "es": "",
             "pt": "",
-            "ja": ""
+            "ja": "",
+            "fr": "",
+            "zh": ""
           }
         }
       ]

@@ -7,9 +7,9 @@ const must = (condition, message) => {
   if (!condition) throw new Error(message);
 };
 
-const version = '8.5.79';
-const buildId = '8.5.79-r46-ui-centered-ios';
-const cssToken = '8.5.79-r46-ui-centered-ios';
+const version = '8.7.19';
+const buildId = '8.7.19-r77-native-ios';
+const cssToken = '8.7.19-r77-native-ios';
 
 const index = read('www/index.html');
 const game = read('www/js/game.js');
@@ -28,18 +28,21 @@ const expected = {
   'js/game.js': buildId,
   'js/firebase.js': buildId,
   'js/story-universe.js': buildId,
+  'js/v2-locales-generated.js': buildId,
+  'js/v2-story-quality.js': buildId,
+  'js/voice-locales-generated.js': buildId,
 };
 
 for (const [asset, token] of Object.entries(expected)) {
-  must(index.includes(`${asset}?v=${token}`), `Missing R46 cache identity for ${asset}: expected ${token}`);
+  must(index.includes(`${asset}?v=${token}`), `Missing R77 cache identity for ${asset}: expected ${token}`);
 }
 
-must(index.includes(`window.__MX_BUILD_ID__='${buildId}'`), 'Native build identity does not match R46');
-must(game.includes(`const APP_VERSION="v${version}";`), 'Visible app version does not match R46');
-must(pkg.version === version, 'package.json version does not match R46');
-must(manifest.version === version, 'manifest version does not match R46');
-must(codemagic.includes(`CFBundleShortVersionString ${version}`), 'Codemagic TestFlight version does not match R46');
-must(patchIos.includes(`'MARKETING_VERSION':'${version}'`), 'Generated Xcode marketing version does not match R46');
-must(sw.includes(`const CACHE_NAME = 'moleculox-8.5.79-r46-ui-centered-ios';`), 'Service-worker cache does not match iOS R46 build');
+must(index.includes(`window.__MX_BUILD_ID__='${buildId}'`), 'Native build identity does not match R77');
+must(game.includes(`const APP_VERSION="v${version}";`), 'Visible app version does not match R77');
+must(pkg.version === version, 'package.json version does not match R77');
+must(manifest.version === version, 'manifest version does not match R77');
+must(codemagic.includes(`CFBundleShortVersionString ${version}`), 'Codemagic TestFlight version does not match R77');
+must(patchIos.includes(`'MARKETING_VERSION':'${version}'`), 'Generated Xcode marketing version does not match R77');
+must(sw.includes(`const CACHE_NAME = 'moleculox-8.7.19-r77-native-ios';`), 'Service-worker cache does not match iOS R77 build');
 
-console.log('R46 native asset cache/version checks passed.');
+console.log('R77 native asset cache/version checks passed.');
