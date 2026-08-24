@@ -1,4 +1,4 @@
-/* Moleculox v8.5.78 · FINAL R45 POLISH 3 — cross-platform web/PWA styles */
+/* Moleculox v8.7.19 · R77 FINAL — cross-platform native styles */
 
 :root{
   --ink:#0e0c26;
@@ -1629,14 +1629,6 @@ body.bonusTier5 #logoSub{color:#ffe18a;text-shadow:0 0 14px rgba(255,208,80,.55)
 #hofComingSoon{min-height:0!important;padding:12px 0!important;display:none;flex-direction:column!important;align-items:stretch!important;text-align:left!important}.hofSoonIcon{align-self:center}.hofSoonIcon,#hofSoonTitle,#hofSoonText{text-align:center}
 @media(max-width:390px){#labCareerStrip{grid-template-columns:1fr 1fr}#labPurposeGrid,#labShopGrid{grid-template-columns:1fr}.labShopCard{min-height:205px}.labRoom{height:225px}.labWindow{width:75px}.labScientistBadge small{max-width:125px}.nobelLeader{grid-template-columns:34px 1fr}.nobelLeader small{grid-column:2;grid-row:auto}}
 
-/* V4.0.0 — clearer campaign cards */
-.lvBtn{position:relative;overflow:hidden}
-.lvFormula{position:absolute;left:50%;top:49%;transform:translate(-50%,-50%);max-width:78%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10px;font-weight:900;letter-spacing:.2px;color:rgba(235,244,255,.88);text-shadow:0 1px 5px rgba(0,0,0,.75);pointer-events:none}
-.lvBtn.feature-crystal{box-shadow:inset 0 0 18px rgba(76,235,211,.07)}
-.lvBtn.feature-chain{box-shadow:inset 0 0 18px rgba(255,193,72,.08)}
-.lvBtn.feature-reactor{box-shadow:inset 0 0 18px rgba(255,80,112,.08)}
-.lvBtn.cur .lvFormula{color:#fff}
-.lvBtn.lock .lvFormula{display:none}
 
 /* V4.0.0 — clearer campaign cards */
 .lvBtn{position:relative;overflow:hidden}
@@ -2353,11 +2345,11 @@ button,.btn,[role="button"]{min-width:44px;min-height:44px}
 .boosterShop{grid-column:1/-1;border:1px solid rgba(124,231,255,.28);background:rgba(10,28,45,.72);border-radius:18px;padding:14px;margin-bottom:8px}.boosterHead{display:flex;flex-direction:column;gap:3px;margin-bottom:10px}.boosterHead b{font-size:14px}.boosterHead small{opacity:.78;font-size:11px;line-height:1.35}.boosterGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.boosterCard{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;padding:11px;border-radius:14px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.12)}.boosterIcon{font-size:28px}.boosterCard div{display:flex;flex-direction:column;gap:2px;min-width:0}.boosterCard small{font-size:10px;line-height:1.3;opacity:.8}.boosterCard em{font-style:normal;font-size:10px;color:#ffd76a;font-weight:800}.boosterCard .btn{min-width:72px;padding:9px 8px}@media(max-width:520px){.boosterGrid{grid-template-columns:1fr}.boosterCard{grid-template-columns:auto 1fr auto}}
 
 /* V5.9 breakable wall + hammer */
-#btnHammer{position:relative;overflow:visible}#btnHammer[hidden]{display:none!important}#btnHammer .badgeIcon{font-size:25px;line-height:1}#btnHammer .hammerCount{position:absolute;right:-5px;top:-6px;min-width:22px;height:22px;padding:0 5px;border-radius:999px;background:#ffcc48;color:#241400;border:2px solid rgba(255,255,255,.9);font:900 12px/18px system-ui;text-align:center;box-shadow:0 3px 9px rgba(0,0,0,.35)}#btnHammer.on{transform:translateY(-2px) scale(1.04);box-shadow:0 0 0 3px rgba(255,191,71,.42),0 0 24px rgba(255,166,51,.55)}#btnHammer.on .badgeIcon{animation:hammerReady .6s ease-in-out infinite alternate}#btnHammer.empty{opacity:.66}@keyframes hammerReady{from{transform:rotate(-12deg) scale(1)}to{transform:rotate(10deg) scale(1.12)}}body.reduce-motion #btnHammer.on .badgeIcon{animation:none}
+#btnHammer{position:relative;overflow:visible}#btnHammer[hidden]{display:none!important}#btnHammer .badgeIcon{font-size:25px;line-height:1}#btnHammer .hammerCount{position:absolute;right:-5px;top:-6px;min-width:22px;height:22px;padding:0 5px;border-radius:999px;background:#ffcc48;color:#241400;border:2px solid rgba(255,255,255,.9);font:900 12px/18px system-ui;text-align:center;box-shadow:0 3px 9px rgba(0,0,0,.35)}#btnHammer.on{transform:translateY(-2px) scale(1.04);box-shadow:0 0 0 3px rgba(255,191,71,.42),0 0 24px rgba(255,166,51,.55)}#btnHammer.on .badgeIcon{animation:hammerReady .6s ease-in-out infinite alternate}#btnHammer.empty{opacity:.66}@keyframes hammerReady{from{transform:rotate(-12deg) scale(1)}to{transform:rotate(10deg) scale(1.12)}}body.mxReduceMotion #btnHammer.on .badgeIcon{animation:none}
 
 
 /* V5.9 tactical hammer choice + one-square move */
-#btnPrecision{position:relative;overflow:visible}#btnPrecision[hidden]{display:none!important}#btnPrecision .badgeIcon{font-size:24px;line-height:1}#btnPrecision .precisionCount{position:absolute;right:-5px;top:-6px;min-width:22px;height:22px;padding:0 5px;border-radius:999px;background:#78e6ff;color:#06222a;border:2px solid rgba(255,255,255,.9);font:900 12px/18px system-ui;text-align:center;box-shadow:0 3px 9px rgba(0,0,0,.35)}#btnPrecision.on{transform:translateY(-2px) scale(1.04);box-shadow:0 0 0 3px rgba(92,224,255,.38),0 0 24px rgba(73,201,255,.5)}#btnPrecision.on .badgeIcon{animation:precisionReady .58s ease-in-out infinite alternate}#btnPrecision.empty{opacity:.66}@keyframes precisionReady{from{transform:translateX(-3px) scale(.98)}to{transform:translateX(3px) scale(1.1)}}body.reduce-motion #btnPrecision.on .badgeIcon{animation:none}
+#btnPrecision{position:relative;overflow:visible}#btnPrecision[hidden]{display:none!important}#btnPrecision .badgeIcon{font-size:24px;line-height:1}#btnPrecision .precisionCount{position:absolute;right:-5px;top:-6px;min-width:22px;height:22px;padding:0 5px;border-radius:999px;background:#78e6ff;color:#06222a;border:2px solid rgba(255,255,255,.9);font:900 12px/18px system-ui;text-align:center;box-shadow:0 3px 9px rgba(0,0,0,.35)}#btnPrecision.on{transform:translateY(-2px) scale(1.04);box-shadow:0 0 0 3px rgba(92,224,255,.38),0 0 24px rgba(73,201,255,.5)}#btnPrecision.on .badgeIcon{animation:precisionReady .58s ease-in-out infinite alternate}#btnPrecision.empty{opacity:.66}@keyframes precisionReady{from{transform:translateX(-3px) scale(.98)}to{transform:translateX(3px) scale(1.1)}}body.mxReduceMotion #btnPrecision.on .badgeIcon{animation:none}
 
 
 /* V5.25 — final visual/audio polish and endgame identity */
@@ -2395,7 +2387,7 @@ body.mxAppPaused *{animation-play-state:paused!important}
 #storyText{font-weight:900;font-size:clamp(15px,3vw,22px)}
 #storyHint{display:block;margin-top:7px;font-weight:800;opacity:.58}
 #storySkip{position:absolute;z-index:2;right:9px;top:7px;width:32px;height:32px;border:3px solid #17243a;border-radius:50%;background:#ffec42;color:#17243a;font-size:22px;font-weight:1000;line-height:24px;box-shadow:2px 3px 0 #17243a;cursor:pointer}
-body.reduceMotion #levelStoryPanel{transition:none}
+body.mxReduceMotion #levelStoryPanel{transition:none}
 @media(max-width:520px){#levelStoryPanel{grid-template-columns:78px 1fr;min-height:96px;padding:9px 36px 9px 8px;border-width:3px;box-shadow:0 6px 0 #17243a,0 13px 25px #0008}#levelStoryPanel img{width:76px;height:76px}#storyText{font-size:14px}#storyChapter{font-size:12px}#storyHint{font-size:10px;margin-top:4px}}
 
 
@@ -2771,22 +2763,6 @@ body.mxReduceMotion #einBoxS{animation:none!important}
 .currentMechanicCard b{color:#fff;font-size:12.5px}.currentMechanicCard span{color:#d6e4ed;font-size:11.5px;line-height:1.4}.currentMechanicCard em{font-style:normal;color:#ffd978;font-size:11px;line-height:1.35}
 @media(min-width:560px){.currentMechanicGrid{grid-template-columns:1fr 1fr}}
 
-/* Step 18 — reactive laboratory spectacle */
-#mxReactionCallout,#mxFinalWow{position:fixed;left:50%;z-index:120;pointer-events:none;opacity:0;text-align:center;transform:translate(-50%,-14px) scale(.72);filter:blur(5px);will-change:transform,opacity,filter}
-#mxReactionCallout{top:21%;min-width:210px;padding:8px 18px;border-radius:999px;border:1px solid rgba(143,233,255,.65);background:linear-gradient(90deg,rgba(4,19,37,.08),rgba(5,31,52,.92),rgba(4,19,37,.08));box-shadow:0 0 26px rgba(62,218,255,.38),inset 0 0 18px rgba(255,255,255,.08)}
-#mxReactionCallout b{display:block;font:900 clamp(17px,4vw,27px)/1 system-ui;letter-spacing:.08em;color:#eaffff;text-shadow:0 0 8px #65e7ff,0 0 20px rgba(65,216,255,.8)}
-#mxReactionCallout span{display:block;margin-top:4px;color:#a9f3ff;font-size:13px;letter-spacing:.35em}
-#mxReactionCallout.chain{border-color:rgba(255,218,83,.8);box-shadow:0 0 32px rgba(255,178,36,.52),inset 0 0 20px rgba(255,240,145,.12)}
-#mxReactionCallout.chain b{color:#fff4a8;text-shadow:0 0 8px #ffce45,0 0 23px #ff8a1f}
-#mxReactionCallout.perfect{border-color:rgba(209,140,255,.8);box-shadow:0 0 36px rgba(177,84,255,.55),inset 0 0 22px rgba(255,255,255,.15)}
-#mxReactionCallout.perfect b{color:#fff;text-shadow:0 0 8px #fff,0 0 18px #cf7cff,0 0 34px #46dfff}
-#mxReactionCallout.on{animation:mxReactionPop .92s cubic-bezier(.18,.9,.2,1) both}
-@keyframes mxReactionPop{0%{opacity:0;transform:translate(-50%,18px) scale(.55);filter:blur(8px)}18%{opacity:1;transform:translate(-50%,0) scale(1.12);filter:blur(0)}68%{opacity:1;transform:translate(-50%,0) scale(1);filter:blur(0)}100%{opacity:0;transform:translate(-50%,-18px) scale(.94);filter:blur(2px)}}
-#mxFinalWow{top:38%;width:min(92vw,660px);font:1000 clamp(25px,7vw,54px)/1 system-ui;letter-spacing:.06em;color:#fff;text-shadow:0 0 8px #fff,0 0 22px #78eaff,0 0 44px #b75cff}
-#mxFinalWow.nobel{color:#fff4a3;text-shadow:0 0 8px #fff,0 0 20px #ffd52e,0 0 46px #ff7a00}
-#mxFinalWow.on{animation:mxFinalWow 1.5s cubic-bezier(.12,.85,.18,1) both}
-@keyframes mxFinalWow{0%{opacity:0;transform:translate(-50%,25px) scale(.45);filter:blur(12px)}18%{opacity:1;transform:translate(-50%,0) scale(1.18);filter:blur(0)}55%{opacity:1;transform:translate(-50%,0) scale(1);filter:blur(0)}100%{opacity:0;transform:translate(-50%,-26px) scale(1.05);filter:blur(3px)}}
-@media(prefers-reduced-motion:reduce){#mxReactionCallout,#mxFinalWow{display:none!important}}
 
 /* Step 18 — reactive laboratory spectacle */
 #mxReactionCallout,#mxFinalWow{position:fixed;left:50%;z-index:120;pointer-events:none;opacity:0;text-align:center;transform:translate(-50%,-14px) scale(.72);filter:blur(5px);will-change:transform,opacity,filter}
@@ -6863,16 +6839,6 @@ body.mxReduceMotion #einBoxG .einImg{transition:none!important;animation:none!im
 }
 
 
-/* DIRECT NEXT LEVEL: result-screen advancement never depends on a transition overlay. */
-body.mxDirectNext #levelTransition,
-body.mxDirectNext #mxNextMoleculeTransition{
-  display:none!important;
-  pointer-events:none!important;
-}
-
-
-
-
 /* ================= OLD ICONS · UI SIZE RESTORE ================= */
 /* First-use rule card: keep the clean layout, use the original game icons. */
 #modal:has(.mxFirstUseHead) #modalBox{
@@ -10265,3 +10231,210 @@ body.mxPerfLow #gameScr.duelTimeCritical #boardFrame{animation:none!important}
 .guideDuelScoreRow .loss{border-color:rgba(255,117,129,.34)}.guideDuelScoreRow .loss b{color:#ff8e98}
 .guideDuelNote{margin-top:9px;padding:9px 10px;border-radius:10px;background:rgba(255,205,80,.075);border:1px solid rgba(255,205,80,.2);font-size:11.5px;line-height:1.42;color:#f5f1df}
 @media(max-width:360px){.guideDuelScoreRow{gap:5px}.guideDuelScoreRow span{padding:8px 3px}.guideDuelScoreRow span small{font-size:8.5px}.guideDuelScoreRow span b{font-size:13.5px}.guideDuelNote{font-size:11px}}
+
+/* ================= R77 PHONE-MATRIX RESPONSIVE HARDENING =================
+   Native WKWebView/Android WebView use the full device height, so historical
+   height-only dock rules can leave 58px left-rail controls beside a centered
+   CTA stack on narrow phones. Reserve a real left rail by WIDTH as well as
+   height. This keeps the approved artwork/order/colours while preventing
+   side-button overlap on iPhone and Android portrait phones. */
+@media (orientation:portrait) and (max-width:430px){
+  body.mxNative #splash #splashBtns{
+    transform:none!important;
+  }
+  body.mxNative #splash :is(
+    #btnTrainingDock.learningDockBtn,
+    #btnMoleculopediaDock.learningDockBtn,
+    #btnGuide.guideDockBtn,
+    #btnLabMenu.labDockBtn,
+    #btnDuel.duelBtn,
+    #btnHof.trophyBtn
+  ){
+    left:max(10px,calc(var(--sal) + 10px))!important;
+  }
+  /* Keep gameplay utility controls fully inside the physical display edge. */
+  body.mxNative #gameScr #actionCol{
+    right:max(6px,calc(var(--sar) + 4px))!important;
+  }
+  /* Safe-area aware list/tab chrome: no side clipping on narrow cutout phones. */
+  body.mxNative :is(#levelsScr,#collectScr,#labScr,#hofScr) .listHead{
+    padding-left:max(10px,calc(var(--sal) + 10px))!important;
+    padding-right:max(10px,calc(var(--sar) + 10px))!important;
+  }
+  body.mxNative :is(#collectionTabs,#labTabs){
+    padding-left:max(8px,calc(var(--sal) + 8px))!important;
+    padding-right:max(8px,calc(var(--sar) + 8px))!important;
+  }
+}
+
+/* Most current phones fall here, including iPhone 12/13/14/15 widths and the
+   common 360–412 CSS-pixel Android range. Use 48px dock targets (still above
+   the 44px touch minimum) so the main CTA column retains an actual gap. */
+@media (orientation:portrait) and (max-width:414px){
+  body.mxNative #splash #splashBtns{
+    width:min(68vw,278px)!important;
+  }
+  body.mxNative #splash :is(
+    #btnTrainingDock.learningDockBtn,
+    #btnMoleculopediaDock.learningDockBtn,
+    #btnGuide.guideDockBtn,
+    #btnLabMenu.labDockBtn,
+    #btnDuel.duelBtn,
+    #btnHof.trophyBtn
+  ){
+    left:max(8px,calc(var(--sal) + 8px))!important;
+    width:48px!important;
+    height:48px!important;
+    min-width:48px!important;
+    min-height:48px!important;
+  }
+  body.mxNative #splash :is(#btnTrainingDock.learningDockBtn,#btnMoleculopediaDock.learningDockBtn){border-radius:15px!important}
+  body.mxNative #splash #btnGuide.guideDockBtn{border-radius:15px!important}
+  body.mxNative #splash #btnLabMenu.labDockBtn{border-radius:15px!important}
+
+  body.mxNative #splash .learningDockIcon{width:24px!important;height:24px!important;padding:4px!important;margin:0 auto 1px!important}
+  body.mxNative #splash .learningDockMain{font-size:6.6px!important;letter-spacing:.18px!important}
+  body.mxNative #splash .learningDockMini{font-size:5.4px!important;letter-spacing:.2px!important}
+  body.mxNative #splash .guideDockIcon{width:20px!important;height:20px!important;font-size:14px!important}
+  body.mxNative #splash .guideDockMain{font-size:7.1px!important;letter-spacing:.45px!important}
+  body.mxNative #splash .guideDockMini{font-size:5.8px!important;letter-spacing:.55px!important}
+  body.mxNative #splash .labDockIcon{width:24px!important;height:24px!important;padding:4px!important;margin:0 auto 1px!important}
+  body.mxNative #splash .labDockMain{font-size:8.4px!important;letter-spacing:.7px!important}
+  body.mxNative #splash .labDockMini{font-size:5.9px!important;letter-spacing:.65px!important}
+  body.mxNative #splash .duelVs{font-size:18px!important}
+  body.mxNative #splash .duelMini{font-size:7.5px!important;letter-spacing:.8px!important}
+  body.mxNative #splash #btnHof .trophyIcon{width:32px!important;height:32px!important;padding:3px!important}
+  body.mxNative #splash #btnHof .trophyIcon svg{width:25px!important;height:25px!important}
+}
+
+/* Legacy 320–350px phones need a little more center-column breathing room.
+   Do not shrink the rail below a safe tap target; narrow the CTA stack instead. */
+@media (orientation:portrait) and (max-width:350px){
+  body.mxNative #splash #splashBtns{
+    width:min(64vw,218px)!important;
+  }
+  body.mxNative #splashBtns .btn:not(.iconBadge){
+    padding-left:8px!important;
+    padding-right:8px!important;
+  }
+}
+
+/* 415–430px large phones can keep slightly larger dock controls and still have
+   a clean gap from the 278px capped CTA stack. */
+@media (orientation:portrait) and (min-width:415px) and (max-width:430px){
+  body.mxNative #splash :is(
+    #btnTrainingDock.learningDockBtn,
+    #btnMoleculopediaDock.learningDockBtn,
+    #btnGuide.guideDockBtn,
+    #btnLabMenu.labDockBtn,
+    #btnDuel.duelBtn,
+    #btnHof.trophyBtn
+  ){
+    width:52px!important;
+    height:52px!important;
+    min-width:52px!important;
+    min-height:52px!important;
+  }
+}
+
+
+/* ================= R77.1 — native intro prompt no-wrap hardening =================
+   iPhone 13/14-family and narrow Android WebViews can apply larger text metrics
+   than desktop Safari. Keep the Whiteway studio/boot sound prompts as one-line
+   capsules without changing copy, order, artwork, or audio behavior. */
+@media (orientation:portrait) and (max-width:430px){
+  body.mxNative #studioTap,
+  body.mxNative #btnBootPlay{
+    box-sizing:border-box!important;
+    width:max-content!important;
+    max-width:calc(100vw - var(--sal) - var(--sar) - 28px)!important;
+    white-space:nowrap!important;
+  }
+  body.mxNative #studioTap b,
+  body.mxNative #studioTap small,
+  body.mxNative #btnBootPlay{
+    white-space:nowrap!important;
+    word-break:keep-all!important;
+    overflow-wrap:normal!important;
+    hyphens:none!important;
+  }
+  body.mxNative #studioTap b,
+  body.mxNative #btnBootPlay{
+    font-size:clamp(10px,3.05vw,12px)!important;
+    letter-spacing:clamp(.2px,.14vw,.55px)!important;
+  }
+  body.mxNative #studioTap small{
+    font-size:clamp(7.5px,2.25vw,9px)!important;
+    letter-spacing:clamp(.1px,.1vw,.35px)!important;
+  }
+}
+@media (orientation:portrait) and (max-width:350px){
+  body.mxNative #studioTap,
+  body.mxNative #btnBootPlay{
+    min-width:148px!important;
+    padding-left:11px!important;
+    padding-right:11px!important;
+  }
+}
+
+/* ================= R77.2 — RESTORE APPROVED MY MOLECULES COLOUR =================
+   The iOS anti-flicker fallback intentionally replaces generic ghost-button
+   blur with an opaque surface. That generic fallback must not override the
+   approved steel-blue MY MOLECULES artwork. Keep the button's original R77
+   colour/doodles on every phone while retaining the no-blur iOS protection. */
+#splash #btnCollect.btn.ghost{
+  background-color:transparent!important;
+  background-image:
+    url("../assets/images/button-doodle-left.svg"),
+    url("../assets/images/button-doodle-right.svg"),
+    linear-gradient(180deg,rgba(126,161,197,.62),rgba(87,119,157,.58))!important;
+  background-blend-mode:soft-light,soft-light,normal!important;
+  background-repeat:no-repeat,no-repeat,no-repeat!important;
+  background-position:left 8px center,right 8px center,center!important;
+  background-size:58px auto,58px auto,100% 100%!important;
+}
+@supports (-webkit-touch-callout:none){
+  body.mxIOSWebKit #splash #btnCollect.btn.ghost{
+    -webkit-backdrop-filter:none!important;
+    backdrop-filter:none!important;
+    background-color:transparent!important;
+    background-image:
+      url("../assets/images/button-doodle-left.svg"),
+      url("../assets/images/button-doodle-right.svg"),
+      linear-gradient(180deg,rgba(126,161,197,.62),rgba(87,119,157,.58))!important;
+  }
+}
+
+/* ================= R79 / R5 — ZERO-LOSS MOBILE PERFORMANCE PASS =================
+   Performance rule: automatic optimization may lower internal canvas pixel fill
+   and suspend work that is completely hidden, but it MUST NOT remove, hide,
+   disable, or reduce any authored Moleculox visual effect or animation while it
+   is visible. This keeps the R77 look intact on iPhone and Android. */
+
+/* Hidden screens used to remain fully live at opacity:0. Keep transition-out
+   frames intact, then let the engine skip layout/paint/animation work until the
+   screen is shown again. No visible content is changed. */
+body.mxNative .screen:not(.on):not(.mxLeaving){
+  visibility:hidden;
+  content-visibility:hidden;
+}
+body.mxNative .screen:not(.on):not(.mxLeaving) *{
+  animation-play-state:paused!important;
+}
+
+/* Stable compositor ownership for the layers that are actually visible. This
+   avoids repeated layer promotion/demotion during atom motion and screen FX. */
+body.mxNative :is(#board,#fx,#bgA,#bgB,#bgVignette,#bgParticles){
+  -webkit-backface-visibility:hidden;
+  backface-visibility:hidden;
+  -webkit-transform:translateZ(0);
+  transform:translateZ(0);
+}
+body.mxNative #boardFrame{contain:paint;}
+body.mxNative #fx{contain:strict;}
+
+/* Automatic pressure classes are intentionally visual no-ops. Their only job
+   is to let JS lower internal DPR / non-interactive refresh work. Do not add
+   display:none, animation:none, filter:none, opacity changes, particle-count
+   reductions, or feature suppression here. */
+body.mxPerfPressure,body.mxPerfSevere{--mx-perf-pressure:1;}

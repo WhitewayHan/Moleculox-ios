@@ -2629,9 +2629,12 @@ async function leaveDuelRoom(codeValue) {
 // A device is considered online when its heartbeat is newer than 90 seconds.
 const PRESENCE_TTL_MS = 90000;
 const PRESENCE_HEARTBEAT_MS = 30000;
+const PRESENCE_WRITE_COALESCE_MS = 25000;
 let presenceTimer = null;
 let presenceStarted = false;
 let presenceDocId = null;
+let presenceWritePromise = null;
+let lastPresenceWriteAt = 0;
 function safePresenceClientId() {
   try {
     const key = "mx_presence_client_v1";
@@ -2646,26 +2649,37 @@ function safePresenceClientId() {
   }
 }
 const presenceClientId = safePresenceClientId();
-async function writePresence() {
+async function writePresence(force = false) {
   if (!db) return false;
   await readyPromise;
   if (!uid) return false;
-  presenceDocId = (uid + "_" + presenceClientId).slice(0, 150);
-  await setDoc(doc(db, "onlinePresence", presenceDocId), {
-    uid,
-    clientId: presenceClientId,
-    lastSeen: serverTimestamp(),
-    // Optional Firestore TTL field. Configure onlinePresence/expiresAt in the
-    // Firebase console so abandoned device rows are removed automatically.
-    expiresAt: new Date(Date.now() + 5 * 60 * 1000),
-    platform: /iPhone|iPad|iPod/i.test(navigator.userAgent || "") ? "ios" : (/Android/i.test(navigator.userAgent || "") ? "android" : "web"),
-  }, {merge: true});
-  return true;
+  const now = Date.now();
+  if (!force && lastPresenceWriteAt && now - lastPresenceWriteAt < PRESENCE_WRITE_COALESCE_MS) return true;
+  if (presenceWritePromise) return presenceWritePromise;
+  const currentUid = uid;
+  const currentDocId = (currentUid + "_" + presenceClientId).slice(0, 150);
+  const task = (async () => {
+    await setDoc(doc(db, "onlinePresence", currentDocId), {
+      uid: currentUid,
+      clientId: presenceClientId,
+      lastSeen: serverTimestamp(),
+      // Optional Firestore TTL field. Configure onlinePresence/expiresAt in the
+      // Firebase console so abandoned device rows are removed automatically.
+      expiresAt: new Date(Date.now() + 5 * 60 * 1000),
+      platform: /iPhone|iPad|iPod/i.test(navigator.userAgent || "") ? "ios" : (/Android/i.test(navigator.userAgent || "") ? "android" : "web"),
+    }, {merge: true});
+    presenceDocId = currentDocId;
+    lastPresenceWriteAt = Date.now();
+    return true;
+  })();
+  presenceWritePromise = task;
+  try { return await task; }
+  finally { if (presenceWritePromise === task) presenceWritePromise = null; }
 }
 async function startPresence() {
   if (presenceStarted) return true;
   presenceStarted = true;
-  try { await writePresence(); } catch (e) { console.warn("[MXCloud] presence start failed:", e && e.code); }
+  try { await writePresence(true); } catch (e) { console.warn("[MXCloud] presence start failed:", e && e.code); }
   clearInterval(presenceTimer);
   presenceTimer = setInterval(() => {
     if (!document.hidden && navigator.onLine !== false) writePresence().catch(() => {});
@@ -2698,11 +2712,18 @@ function stopPresence() {
   clearInterval(presenceTimer);
   presenceTimer = null;
   presenceStarted = false;
-  if (db && presenceDocId) deleteDoc(doc(db, "onlinePresence", presenceDocId)).catch(() => {});
+  lastPresenceWriteAt = 0;
+  const stalePresenceDocId = presenceDocId;
+  presenceDocId = null;
+  if (db && stalePresenceDocId) deleteDoc(doc(db, "onlinePresence", stalePresenceDocId)).catch(() => {});
 }
-document.addEventListener("visibilitychange", () => {
-  if (!document.hidden && navigator.onLine !== false) writePresence().catch(() => {});
-});
+function resumePresenceAfterPageReturn() {
+  if (document.hidden || navigator.onLine === false) return;
+  const task = presenceStarted ? writePresence() : startPresence();
+  Promise.resolve(task).catch(() => {});
+}
+document.addEventListener("visibilitychange", resumePresenceAfterPageReturn);
+window.addEventListener("pageshow", resumePresenceAfterPageReturn);
 window.addEventListener("pagehide", () => { stopPresence(); });
 
 // Added 2026-07-30: stores one push-notification token per device under

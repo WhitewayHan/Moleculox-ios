@@ -36,6 +36,10 @@ rm -f ios/App/Podfile.lock
 # Native dependencies are already installed above; only refresh web assets/config.
 npx cap copy ios
 
+# Native WebViews must never ship the PWA service worker. Capacitor loads the
+# bundled files directly, so keeping sw.js only adds stale-cache risk and bytes.
+rm -f ios/App/App/public/sw.js
+
 python3 scripts/patch-ios.py
 
 echo "iOS project prepared successfully."

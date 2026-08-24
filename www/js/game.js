@@ -2817,7 +2817,20 @@ function jingle(stars){
 
 /* ================= V8.4.38 · MOLECULE COMPLETION CINEMATIC ================= */
 function mxFxQuality(){
-  const mem=Number(navigator.deviceMemory||4),cores=Number(navigator.hardwareConcurrency||4);
+  // Mobile auto mode prioritizes a stable 60 Hz gameplay loop over decorative
+  // overdraw. Short-lived celebration effects remain, but particle density is
+  // capped on phones and drops further only when the runtime governor detects
+  // sustained frame pressure.
+  const memRaw=Number(navigator.deviceMemory||0),cores=Math.max(1,Number(navigator.hardwareConcurrency||4));
+  const dynamicLow=document.body.classList.contains('mxPerfLow')||document.body.classList.contains('mxPerfSevere');
+  if(save.performanceMode==='low'||dynamicLow)return 'low';
+  if(save.performanceMode==='high')return 'high';
+  const mobile=document.body.classList.contains('mxNative')||/Android|iPhone|iPad|iPod/i.test(String(navigator.userAgent||''));
+  if(mobile){
+    if((memRaw>0&&memRaw<=3)||cores<=4)return 'low';
+    return 'mid';
+  }
+  const mem=memRaw||4;
   return (mem<=2||cores<=2)?'low':(mem<=4||cores<=4)?'mid':'high';
 }
 function clearMoleculeCompletionFx(){
@@ -3849,6 +3862,7 @@ function restoreTransientResourcesAfterResume(){
     fxResize();
     if(scr&&scr.game&&scr.game.classList.contains('on'))resize();
     if(audioGestureSeen&&AC&&AC.state==='suspended'){const r=AC.resume();if(r&&r.catch)r.catch(()=>{});}
+    if(typeof wakeMainLoop==='function')wakeMainLoop();
   }catch(e){console.warn('[stability] resume restore failed',e);}
 }
 
@@ -3995,13 +4009,14 @@ async function refreshOnlinePlayerCount(){
 function startOnlineCountLoop(){
   clearInterval(onlineCountTimer);
   refreshOnlinePlayerCount();
-  onlineCountTimer=setInterval(()=>{if(!document.hidden&&scr.splash.classList.contains('on'))refreshOnlinePlayerCount();},30000);
+  onlineCountTimer=setInterval(()=>{if(!document.hidden&&scr.splash.classList.contains('on'))refreshOnlinePlayerCount();},45000);
 }
 window.addEventListener('online',refreshOnlinePlayerCount);
 window.addEventListener('offline',refreshOnlinePlayerCount);
 
 let tutorialLaunchArmed=false;
 function enterGame(){
+  if(typeof wakeMainLoop==='function')wakeMainLoop();
   save=ensureResearchState(save);
   applyVol(); // re-sync gain/volume to this profile's real saved settings (bootPlay played music before this profile was loaded)
   document.body.classList.toggle('nodpad',!save.dpad);
@@ -6947,9 +6962,9 @@ function onlineReconnectStatusText(remaining){return ml('Rakip yeniden bağlanı
 function updateOnlineDisconnectCountdown(){const s=onlineDuelSession,el=$('#onlineDisconnectCountdown');if(!s||!el||!s.disconnectDeadline)return;const remaining=Math.max(0,Math.ceil((s.disconnectDeadline-Date.now())/1000));el.textContent=String(remaining);const status=$('#onlineDisconnectStatus');if(status)status.textContent=remaining>0?onlineReconnectStatusText(remaining):ml('Süre doldu, sonuç doğrulanıyor…','Reconnect window ended. Verifying result…','Zeit abgelaufen. Ergebnis wird geprüft…','Se agotó el tiempo. Verificando el resultado…','O tempo terminou. Verificando o resultado…','再接続時間終了。結果を確認中…','Délai écoulé. Vérification du résultat…','重连时间已结束，正在确认结果…');const bar=$('#onlineDisconnectProgress');if(bar)bar.style.width=Math.max(0,Math.min(100,(remaining/30)*100))+'%';if(remaining<=0&&!s.resolvingDisconnect&&window.MXCloud&&window.MXCloud.resolveDuelDisconnect){s.resolvingDisconnect=true;window.MXCloud.resolveDuelDisconnect(s.code).finally(()=>{if(onlineDuelSession===s)s.resolvingDisconnect=false;});}}
 function showOnlineDisconnectOverlay(kind,deadlineAt,pauseClock=true){const s=onlineDuelSession;if(!s)return;const o=onlineDuelCopy(),rankNote=onlineRoomIsRankedQuick(s.room)?o.ranked:o.unranked;s.connectionBlocked=true;if(pauseClock)pauseOnlineDuelClock();const deadline=onlineTimestampMs(deadlineAt);s.disconnectDeadline=deadline||0;let el=$('#onlineDisconnectOverlay');if(!el){el=document.createElement('div');el.id='onlineDisconnectOverlay';document.body.appendChild(el);}if(kind==='opponent'){const oppName=duelState&&duelState.players?duelEsc(duelState.players[1-s.playerIndex]||''):'';el.innerHTML='<div class="onlineDisconnectCard"><div class="onlineDisconnectIcon">📡</div><h3>'+o.opponentDisconnected+'</h3><p id="onlineDisconnectStatus">'+o.reconnectWait+'</p>'+(oppName?'<div class="onlineDisconnectPlayer">'+oppName+'</div>':'')+'<div class="onlineDisconnectClock"><b id="onlineDisconnectCountdown">30</b><span>'+o.seconds+'</span></div><div class="onlineDisconnectProgressTrack"><i id="onlineDisconnectProgress"></i></div><small>'+rankNote+'</small></div>';updateOnlineDisconnectCountdown();if(!s.disconnectUiTimer)s.disconnectUiTimer=setInterval(updateOnlineDisconnectCountdown,250);}else{el.innerHTML='<div class="onlineDisconnectCard"><div class="onlineDisconnectIcon">📶</div><h3>'+o.yourConnectionLost+'</h3><p>'+o.reconnecting+'</p><div class="onlineReconnectProtection">'+ml('Bağlantı koruması etkin · maçın korunuyor','Reconnect protection active · your match is protected','Verbindungsschutz aktiv · dein Match bleibt erhalten','Protección de reconexión activa · tu partida está protegida','Proteção de reconexão ativa · sua partida está protegida','再接続保護が有効です・試合は保持されます','Protection de reconnexion active · ton match est protégé','重连保护已启用 · 对局将被保留')+'</div><div class="onlineReconnectDots"><i></i><i></i><i></i></div></div>';if(s.disconnectUiTimer){clearInterval(s.disconnectUiTimer);s.disconnectUiTimer=null;}}el.classList.add('on');}
 function clearOnlineDisconnectBlock(showToast=false){const s=onlineDuelSession;if(!s)return;const was=s.connectionBlocked;s.connectionBlocked=false;s.disconnectDeadline=0;s.localOffline=false;removeOnlineDisconnectOverlay();resumeOnlineDuelClock();if(showToast&&was)showOnlineMessageToast(onlineDuelCopy().connectionRestored,true);}
-async function sendOnlineHeartbeat(){const s=onlineDuelSession;if(!s||s.heartbeatBusy||!navigator.onLine||!window.MXCloud||!window.MXCloud.heartbeatDuelRoom)return;s.heartbeatBusy=true;try{await window.MXCloud.heartbeatDuelRoom(s.code);}finally{if(onlineDuelSession===s)s.heartbeatBusy=false;}}
+async function sendOnlineHeartbeat(){const s=onlineDuelSession;if(!s||s.heartbeatBusy||document.hidden||navigator.onLine===false||!window.MXCloud||!window.MXCloud.heartbeatDuelRoom)return;s.heartbeatBusy=true;try{await window.MXCloud.heartbeatDuelRoom(s.code);}finally{if(onlineDuelSession===s)s.heartbeatBusy=false;}}
 function stopOnlinePresenceLoop(){const s=onlineDuelSession;if(!s)return;if(s.heartbeatTimer){clearInterval(s.heartbeatTimer);s.heartbeatTimer=null;}if(s.onlineHandler)window.removeEventListener('online',s.onlineHandler);if(s.offlineHandler)window.removeEventListener('offline',s.offlineHandler);if(s.visibilityHandler)document.removeEventListener('visibilitychange',s.visibilityHandler);s.onlineHandler=s.offlineHandler=s.visibilityHandler=null;removeOnlineDisconnectOverlay();resumeOnlineDuelClock();}
-function startOnlinePresenceLoop(){const s=onlineDuelSession;if(!s||s.presenceStarted)return;s.presenceStarted=true;s.onlineHandler=()=>{if(onlineDuelSession!==s)return;s.localOffline=false;const check=window.MXCloud&&window.MXCloud.resolveDuelDisconnect?window.MXCloud.resolveDuelDisconnect(s.code):Promise.resolve();Promise.resolve(check).finally(()=>{if(onlineDuelSession===s)sendOnlineHeartbeat();});};s.offlineHandler=()=>{if(onlineDuelSession!==s)return;s.localOffline=true;showOnlineDisconnectOverlay('self',null,false);};s.visibilityHandler=()=>{if(onlineDuelSession!==s)return;if(document.visibilityState==='visible'&&navigator.onLine)sendOnlineHeartbeat();};window.addEventListener('online',s.onlineHandler);window.addEventListener('offline',s.offlineHandler);document.addEventListener('visibilitychange',s.visibilityHandler);sendOnlineHeartbeat();s.heartbeatTimer=setInterval(sendOnlineHeartbeat,4500);if(!navigator.onLine)s.offlineHandler();}
+function startOnlinePresenceLoop(){const s=onlineDuelSession;if(!s||s.presenceStarted)return;s.presenceStarted=true;s.onlineHandler=()=>{if(onlineDuelSession!==s)return;s.localOffline=false;const check=window.MXCloud&&window.MXCloud.resolveDuelDisconnect?window.MXCloud.resolveDuelDisconnect(s.code):Promise.resolve();Promise.resolve(check).finally(()=>{if(onlineDuelSession===s)sendOnlineHeartbeat();});};s.offlineHandler=()=>{if(onlineDuelSession!==s)return;s.localOffline=true;showOnlineDisconnectOverlay('self',null,false);};s.visibilityHandler=()=>{if(onlineDuelSession!==s)return;if(document.visibilityState==='visible'&&navigator.onLine!==false)sendOnlineHeartbeat();};window.addEventListener('online',s.onlineHandler);window.addEventListener('offline',s.offlineHandler);document.addEventListener('visibilitychange',s.visibilityHandler);sendOnlineHeartbeat();s.heartbeatTimer=setInterval(sendOnlineHeartbeat,4500);if(navigator.onLine===false)s.offlineHandler();}
 function bootOnlinePresence(room){const s=onlineDuelSession;if(!s||s.presenceStarted||s.presenceBooting)return;s.presenceBooting=true;const deadline=onlineTimestampMs(room&&room.disconnectState&&room.disconnectState.deadlineAt);const shouldResolve=window.MXCloud&&window.MXCloud.resolveDuelDisconnect;const task=shouldResolve?window.MXCloud.resolveDuelDisconnect(s.code):Promise.resolve();Promise.resolve(task).finally(()=>{if(onlineDuelSession===s){s.presenceBooting=false;startOnlinePresenceLoop();}});}
 function applyOnlineRemotePause(disconnectState){const s=onlineDuelSession;if(!s||!disconnectState)return;const key=String(onlineTimestampMs(disconnectState.startedAt))+'-'+String(disconnectState.playerIndex);if(s.remotePauseKey===key)return;s.remotePauseKey=key;const started=onlineTimestampMs(disconnectState.startedAt);if(started&&scr.game.classList.contains('on'))levelStartT+=Math.max(0,Date.now()-started);}
 function handleOnlineDisconnectState(room){const s=onlineDuelSession;if(!s)return false;if(s.localOffline||!navigator.onLine){showOnlineDisconnectOverlay('self');return true;}if(!['playing','round_result'].includes(room.status)){clearOnlineDisconnectBlock(false);return false;}const idx=s.playerIndex,opp=1-idx,ds=room.disconnectState||null;if(ds){const target=Number(ds.playerIndex)===1?1:0;if(target===idx){applyOnlineRemotePause(ds);showOnlineDisconnectOverlay('self');if(!s.presenceBooting)sendOnlineHeartbeat();return true;}showOnlineDisconnectOverlay('opponent',ds.deadlineAt);return true;}clearOnlineDisconnectBlock(true);const opponentSeen=onlinePresenceMs(room,opp),ownSeen=onlinePresenceMs(room,idx),now=Date.now();const opponentStale=!opponentSeen||now-opponentSeen>=ONLINE_PRESENCE_STALE_MS;const ownFresh=!!ownSeen&&now-ownSeen<ONLINE_PRESENCE_STALE_MS*2;if(opponentStale&&ownFresh&&!s.requestingDisconnect&&window.MXCloud&&window.MXCloud.startDuelDisconnectCountdown){s.requestingDisconnect=true;window.MXCloud.startDuelDisconnectCountdown(s.code,opp).finally(()=>{if(onlineDuelSession===s)s.requestingDisconnect=false;});}return false;}
@@ -10411,20 +10426,37 @@ function musicListModal(){
 }
 function motionReduced(){return !!save.reduceMotion||!!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);}
 function effectsAllowed(){return save.effects!==false&&!motionReduced()&&save.effectLevel!=='low'&&!document.body.classList.contains('mxPerfLow');}
-function performanceLow(){return save.performanceMode==='low'||document.body.classList.contains('mxPerfLow')||document.body.classList.contains('mxIOSSafePerf')||document.body.classList.contains('mxAndroidSafePerf');}
+function performanceLow(){return save.performanceMode==='low';}
+function performancePressure(){return document.body.classList.contains('mxPerfPressure')||document.body.classList.contains('mxPerfSevere');}
 function effectiveDpr(){
-  const raw=window.devicePixelRatio||1;
-  if(save.performanceMode==='low')return Math.min(raw,1.5);
-  if(save.performanceMode==='high')return Math.min(raw,2.5);
-  // R66: iPhone Safari/WKWebView can become fill-rate bound after several levels,
-  // especially on 3x DPR / ProMotion devices. 1.65 keeps the puzzle board crisp
-  // while cutting the canvas pixel workload by roughly two thirds versus 3x.
-  if(typeof MX_IOS_WEBKIT!=='undefined'&&MX_IOS_WEBKIT)return Math.min(raw,1.65);
-  // R67: Android WebView/Chrome devices vary widely in GPU fill-rate and memory.
-  // In Automatic mode cap Android DPR before thermal/FPS degradation accumulates.
-  const androidDevice=(typeof MX_ANDROID_NATIVE!=='undefined'&&MX_ANDROID_NATIVE)||/Android/i.test(String(navigator.userAgent||''));
-  if(androidDevice)return Math.min(raw,1.75);
-  const mobile=Math.min(innerWidth||9999,innerHeight||9999)<760;return Math.min(raw,mobile?2:2.25);
+  const raw=Math.max(1,Number(window.devicePixelRatio||1));
+  const severe=document.body.classList.contains('mxPerfSevere');
+  const dynamicLow=document.body.classList.contains('mxPerfPressure');
+  const ios=typeof MX_IOS_WEBKIT!=='undefined'&&MX_IOS_WEBKIT;
+  const android=(typeof MX_ANDROID_NATIVE!=='undefined'&&MX_ANDROID_NATIVE)||/Android/i.test(String(navigator.userAgent||''));
+  const mobile=ios||android||Math.min(innerWidth||9999,innerHeight||9999)<760;
+  const cores=Math.max(1,Number(navigator.hardwareConcurrency||4));
+  const mem=Number(navigator.deviceMemory||0);
+  if(save.performanceMode==='low')return Math.min(raw,mobile?1.30:1.5);
+  if(save.performanceMode==='high')return Math.min(raw,mobile?2.15:2.5);
+  // Runtime pressure lowers pixel fill before it sacrifices gameplay cadence.
+  if(severe)return Math.min(raw,1.15);
+  if(dynamicLow)return Math.min(raw,mobile?1.32:1.55);
+  // Automatic cross-phone profile. iOS does not expose deviceMemory, so the
+  // profile combines platform, DPR and CPU concurrency and then lets the live
+  // governor correct for the real device/GPU/thermal state.
+  if(ios){
+    let cap=raw>=3?1.52:1.62;
+    if(cores<=4)cap=Math.min(cap,1.38);
+    return Math.min(raw,cap);
+  }
+  if(android){
+    let cap=raw>=3?1.58:1.70;
+    if((mem>0&&mem<=3)||cores<=4)cap=Math.min(cap,1.40);
+    else if(mem>=8&&cores>=8&&raw<3)cap=Math.min(1.78,raw);
+    return Math.min(raw,cap);
+  }
+  return Math.min(raw,mobile?1.85:2.25);
 }
 function mxHaptic(kind='light'){
   if(save.haptics===false||motionReduced()||!navigator.vibrate)return;
@@ -10437,12 +10469,10 @@ function applyMotionPrefs(){
   document.body.classList.toggle('mxHighEffects',save.effectLevel==='high');
   document.body.classList.toggle('mxPerfLow',save.performanceMode==='low');
   document.body.classList.toggle('mxPerfHigh',save.performanceMode==='high');
-  // Automatic iPhone safety profile: visual design stays intact, but expensive
-  // continuous compositor work is disabled unless the player explicitly asks
-  // for High quality. This also prevents post-level menu slowdowns.
-  document.body.classList.toggle('mxIOSSafePerf',typeof MX_IOS_WEBKIT!=='undefined'&&MX_IOS_WEBKIT&&save.performanceMode!=='high');
-  const androidSafe=((typeof MX_ANDROID_NATIVE!=='undefined'&&MX_ANDROID_NATIVE)||/Android/i.test(String(navigator.userAgent||'')))&&save.performanceMode!=='high';
-  document.body.classList.toggle('mxAndroidSafePerf',androidSafe);
+  // R5 zero-loss policy: legacy safe-perf classes disabled visible FX/animations.
+  // Never enable them automatically. Runtime pressure is handled by DPR/hidden-work
+  // optimization only, so the authored look remains intact.
+  document.body.classList.remove('mxIOSSafePerf','mxAndroidSafePerf');
   document.body.classList.toggle('mxDuelEffectsOff',save.duelEffects===false);
   document.body.classList.toggle('mxLargeText',!!save.largeText);
   document.body.classList.toggle('mxColorBlind',!!save.colorBlind);
@@ -11309,9 +11339,12 @@ function renderBoard(t){
   bctx.clearRect(0,0,T*W,T*H);
   bctx.save();
   if(shake>0){bctx.translate((Math.random()-0.5)*shake*9,(Math.random()-0.5)*shake*9);shake=Math.max(0,shake-0.045);}
-  // tiles
+  // tiles — index dynamic wall/door cells once per frame instead of scanning
+  // their arrays for every grid cell. Rendering is pixel-identical.
+  const movingWallCells=movingWalls.length?new Set(movingWalls.map(w=>w.x+','+w.y)):null;
+  const pressureDoorCells=pressureSystems.length?new Set(pressureSystems.map(s=>s.door.x+','+s.door.y)):null;
   for(let y=0;y<H;y++)for(let x=0;x<W;x++){
-    if(grid[y][x]){const mw=movingWalls.find(w=>w.x===x&&w.y===y),pd=pressureSystems.find(s=>s.door.x===x&&s.door.y===y);if(mw||pd){}else{const bw=breakableWalls.get(breakableKey(x,y));if(bw&&!bw.broken)drawBreakableStone(x*T,y*T,x,y,t);else drawStone(x*T,y*T,x,y);}}
+    if(grid[y][x]){const key=x+','+y,mw=movingWallCells&&movingWallCells.has(key),pd=pressureDoorCells&&pressureDoorCells.has(key);if(mw||pd){}else{const bw=breakableWalls.get(breakableKey(x,y));if(bw&&!bw.broken)drawBreakableStone(x*T,y*T,x,y,t);else drawStone(x*T,y*T,x,y);}}
     else{
       bctx.fillStyle=(x+y)%2?'rgba(255,255,255,.05)':'rgba(255,255,255,.028)';
       rrect(bctx,x*T+2,y*T+2,T-4,T-4,4);bctx.fill();
@@ -11560,7 +11593,7 @@ function renderBoard(t){
 
 /* ================= FX CANVAS (particles) ================= */
 const fxc=$('#fx'),fctx=fxc.getContext('2d');
-let PARTS=[],DUST=[],lastEmit=0;
+let PARTS=[],DUST=[],lastEmit=0,fxCanvasDirty=true,fxBufferKey='';
 function fxResize(){
   const w=Math.max(1,innerWidth||1),h=Math.max(1,innerHeight||1);
   const baseDpr=effectiveDpr();
@@ -11571,7 +11604,11 @@ function fxResize(){
   const budgetDpr=Math.sqrt(pixelBudget/Math.max(1,w*h));
   const fxDpr=Math.max(1,Math.min(baseDpr,budgetDpr));
   dpr=fxDpr;
-  fxc.width=Math.max(1,Math.round(w*fxDpr));fxc.height=Math.max(1,Math.round(h*fxDpr));
+  const pixelW=Math.max(1,Math.round(w*fxDpr)),pixelH=Math.max(1,Math.round(h*fxDpr));
+  const nextBufferKey=pixelW+'x'+pixelH+'@'+fxDpr.toFixed(3);
+  if(fxBufferKey===nextBufferKey&&fxc.width===pixelW&&fxc.height===pixelH)return;
+  fxBufferKey=nextBufferKey;fxCanvasDirty=true;
+  fxc.width=pixelW;fxc.height=pixelH;
   fxc.style.width=w+'px';fxc.style.height=h+'px';
   fctx.setTransform(fxDpr,0,0,fxDpr,0,0);
 }
@@ -11581,7 +11618,7 @@ function P(o){
   const quality=mxFxQuality();
   const base=performanceLow()?90:(quality==='low'?120:quality==='mid'?210:300);
   const cap=save.effectLevel==='high'?Math.round(base*1.22):base;
-  if(PARTS.length<cap)PARTS.push(Object.assign({t:0,a:1},o));
+  if(PARTS.length<cap){PARTS.push(Object.assign({t:0,a:1},o));fxCanvasDirty=true;if(typeof wakeMainLoop==='function')wakeMainLoop();}
 }
 function spawnConf(x,y){
   if(!effectsAllowed())return;
@@ -11623,16 +11660,22 @@ function spawnWinFx(fx,x,y,cols){
   }
 }
 function renderFx(t,dt){
+  const ambientFx=!document.hidden&&!performanceLow()&&!motionReduced()&&save.effects!==false;
+  if(!ambientFx&&!PARTS.length){
+    if(fxCanvasDirty){fctx.clearRect(0,0,innerWidth,innerHeight);fxCanvasDirty=false;}
+    return;
+  }
   fctx.clearRect(0,0,innerWidth,innerHeight);
+  fxCanvasDirty=true;
   // ambient dust
-  if(!document.hidden&&!performanceLow()&&!motionReduced()&&save.effects!==false)for(const d of DUST){
+  if(ambientFx)for(const d of DUST){
     d.y-=d.v*dt*0.06;if(d.y<-0.02)d.y=1.02;
     const a=0.08+0.07*Math.sin(t/900+d.ph);
     fctx.fillStyle='rgba(190,180,255,'+a+')';
     fctx.beginPath();fctx.arc(d.x*innerWidth+Math.sin(t/1400+d.ph)*8,d.y*innerHeight,d.s,0,7);fctx.fill();
   }
   // lab flask bubble emitters
-  if(!document.hidden&&!performanceLow()&&!motionReduced()&&save.effects!==false&&t-lastEmit>900){lastEmit=t;
+  if(ambientFx&&t-lastEmit>900){lastEmit=t;
     P({k:'bub',x:innerWidth*0.085,y:innerHeight*0.8,vx:(Math.random()-0.5)*0.4,vy:-0.9,r:1.5+Math.random()*2.5,c:'#a5f06a',life:2.4,amb:1});
     P({k:'bub',x:innerWidth*0.92,y:innerHeight*0.3,vx:(Math.random()-0.5)*0.4,vy:-0.8,r:1.5+Math.random()*2,c:'#7ef0c0',life:2.4,amb:1});
   }
@@ -11783,26 +11826,72 @@ function runTutorialDemo(){
   playStep();
 }
 
+/* R5 ZERO-LOSS PERFORMANCE: automatic governor preserves every visible effect/animation;
+   it may only reduce hidden work, internal canvas pixel fill, and non-interactive refresh cost. */
 /* ================= MAIN LOOP ================= */
-let lastT=performance.now(),perfWindowStart=lastT,perfFrames=0,perfSlowWindows=0;
+let lastT=performance.now(),perfWindowStart=lastT,perfFrames=0,perfSlowWindows=0,perfGoodWindows=0,perfSevereWindows=0,perfJankFrames=0,perfVeryJankFrames=0,perfSampleLastT=lastT;
+const perfGovernorWarmUntil=lastT+6500;
 let lastBoardFrame=0,lastGoalFrame=0,lastFxFrame=0;
+let mainLoopTimer=0,mainLoopRaf=0,mainLoopNextDue=0;
+function cadenceStamp(last,now,every){
+  if(!last||now-last>every*4)return now;
+  return last+every;
+}
+function scheduleMainLoop(cadence=1000/60){
+  if(mainLoopTimer||mainLoopRaf)return;
+  const now=performance.now(),step=Math.max(16,Number(cadence)||1000/60);
+  if(!mainLoopNextDue||mainLoopNextDue<now-step*2||mainLoopNextDue>now+step*2)mainLoopNextDue=now+step;
+  else while(mainLoopNextDue<=now+1)mainLoopNextDue+=step;
+  const launch=()=>{mainLoopTimer=0;mainLoopRaf=requestAnimationFrame(loop);};
+  const delay=Math.max(0,mainLoopNextDue-now-2);
+  if(delay>1)mainLoopTimer=setTimeout(launch,delay);else launch();
+}
+function wakeMainLoop(){
+  if(mainLoopTimer){clearTimeout(mainLoopTimer);mainLoopTimer=0;}
+  if(mainLoopRaf){cancelAnimationFrame(mainLoopRaf);mainLoopRaf=0;}
+  mainLoopNextDue=0;scheduleMainLoop(16.5);
+}
+function resetPerformanceSampling(t){
+  perfWindowStart=t;perfSampleLastT=t;perfFrames=perfJankFrames=perfVeryJankFrames=0;
+}
 function boardNeedsRealtime(){
   return !!(anim||bounce||nudge||shake>0||won||hintMark||movingWallAnimating||chainAutoActive||reactorActive());
 }
 function updatePerformanceGovernor(t){
   if(save.performanceMode!=='auto')return;
+  const gap=Math.max(0,t-perfSampleLastT);perfSampleLastT=t;
+  // Ignore cold-start parsing/font/image work; judge the device only after the
+  // first menu has settled. This prevents a permanent low-quality first run.
+  if(t<perfGovernorWarmUntil){perfWindowStart=t;perfFrames=perfJankFrames=perfVeryJankFrames=0;return;}
   perfFrames++;
+  if(gap>25)perfJankFrames++;
+  if(gap>42)perfVeryJankFrames++;
   const span=t-perfWindowStart;
-  if(span<3000)return;
-  const fps=perfFrames*1000/Math.max(1,span);
-  if(fps<45)perfSlowWindows=Math.min(4,perfSlowWindows+1);
-  else if(fps>54)perfSlowWindows=Math.max(0,perfSlowWindows-1);
-  const shouldLow=perfSlowWindows>=2;
-  if(document.body.classList.contains('mxPerfLow')!==shouldLow){
-    document.body.classList.toggle('mxPerfLow',shouldLow);
+  if(span<2200)return;
+  // A 90/120 Hz display is deliberately normalized to a 60 fps gameplay goal.
+  // This avoids wasting thermals while keeping touch/move animation fluid.
+  const fps=Math.min(60,perfFrames*1000/Math.max(1,span));
+  const jank=perfJankFrames/Math.max(1,perfFrames),veryJank=perfVeryJankFrames/Math.max(1,perfFrames);
+  const severe=fps<36||veryJank>.15;
+  const slow=fps<50||jank>.16;
+  const smooth=fps>56&&jank<.07&&veryJank<.025;
+  if(severe)perfSevereWindows=Math.min(5,perfSevereWindows+1);else perfSevereWindows=Math.max(0,perfSevereWindows-1);
+  if(slow)perfSlowWindows=Math.min(6,perfSlowWindows+1);else if(smooth)perfSlowWindows=Math.max(0,perfSlowWindows-1);
+  perfGoodWindows=smooth?Math.min(8,perfGoodWindows+1):0;
+  const hadLow=document.body.classList.contains('mxPerfPressure'),hadSevere=document.body.classList.contains('mxPerfSevere');
+  let nextSevere=hadSevere,nextLow=hadLow;
+  if(perfSevereWindows>=2){nextSevere=true;nextLow=true;}
+  else if(perfSlowWindows>=2)nextLow=true;
+  // Recovery is intentionally slower than degradation to prevent quality/FPS
+  // oscillation during level transitions or temporary thermal spikes.
+  if(hadSevere&&perfGoodWindows>=5){nextSevere=false;perfSevereWindows=0;}
+  if(hadLow&&!nextSevere&&perfGoodWindows>=6){nextLow=false;perfSlowWindows=0;}
+  if(hadLow!==nextLow||hadSevere!==nextSevere){
+    document.body.classList.toggle('mxPerfPressure',nextLow);
+    document.body.classList.toggle('mxPerfSevere',nextSevere);
     fxResize();if(scr.game.classList.contains('on'))resize();
   }
-  perfFrames=0;perfWindowStart=t;
+  perfFrames=perfJankFrames=perfVeryJankFrames=0;perfWindowStart=t;
 }
 let duelTensionStage='';
 function updateDuelTension(remaining){
@@ -11825,13 +11914,18 @@ function updateDuelTension(remaining){
   }
 }
 function loop(t){
-  if(document.hidden){lastT=t;requestAnimationFrame(loop);return;}
-  const dt=Math.min(50,t-lastT);lastT=t;updatePerformanceGovernor(t);
-  if(scr.game.classList.contains('on')){
-    const boardEvery=performanceLow()?33:(boardNeedsRealtime()?16:30);
-    if(t-lastBoardFrame>=boardEvery){lastBoardFrame=t;renderBoard(t);}
-    const goalEvery=performanceLow()?50:33;
-    if(curMol&&t-lastGoalFrame>=goalEvery){lastGoalFrame=t;drawMol($('#goalCv'),curMol,false,t);}
+  mainLoopRaf=0;
+  if(document.hidden){lastT=t;scheduleMainLoop(250);return;}
+  const dt=Math.min(50,t-lastT);lastT=t;
+  const gameVisible=scr.game.classList.contains('on');
+  if(gameVisible||PARTS.length)updatePerformanceGovernor(t);else resetPerformanceSampling(t);
+  if(gameVisible){
+    // Keep interactive puzzle motion at ~60 fps. Automatic pressure changes
+    // internal pixel fill / hidden work only; it does not drop visible FX.
+    const boardEvery=boardNeedsRealtime()?16.5:(performanceLow()?40:30);
+    if(t-lastBoardFrame>=boardEvery){lastBoardFrame=cadenceStamp(lastBoardFrame,t,boardEvery);renderBoard(t);}
+    const goalEvery=performanceLow()?66:(performancePressure()?50:33);
+    if(curMol&&t-lastGoalFrame>=goalEvery){lastGoalFrame=cadenceStamp(lastGoalFrame,t,goalEvery);drawMol($('#goalCv'),curMol,false,t);}
     if((duelMode||crystalMode||chainMode||reactorMode)&&!won&&(!duelMode||!duelState.turnFinished)&&!onlineDuelConnectionPaused()){
       const limit=duelMode?DUEL_TIME_LIMIT:(crystalMode?CRYSTAL_TIME_LIMIT:(chainMode?CHAIN_TIME_LIMIT:REACTOR_TIME_LIMIT));
       const elapsedForTimer=reactorMode?reactorElapsedSeconds(t):(t-levelStartT)/1000;
@@ -11848,9 +11942,9 @@ function loop(t){
       if(txt!==duelTimerText){duelTimerText=txt;const el=$('#duelTimer');if(el){el.textContent=txt;el.classList.remove('urgent');}}
     }
   }
-  const fxEvery=PARTS.length?(performanceLow()?33:16):(performanceLow()?80:40);
-  if(t-lastFxFrame>=fxEvery){const fxDt=Math.min(80,t-lastFxFrame||dt);lastFxFrame=t;renderFx(t,fxDt);}
-  requestAnimationFrame(loop);
+  const fxEvery=PARTS.length?(performanceLow()?33:16):(performanceLow()?90:(performancePressure()?60:45));
+  if(t-lastFxFrame>=fxEvery){const fxDt=Math.min(80,t-lastFxFrame||dt);lastFxFrame=cadenceStamp(lastFxFrame,t,fxEvery);renderFx(t,fxDt);}
+  scheduleMainLoop(gameVisible||PARTS.length?1000/60:fxEvery);
 }
 
 /* ================= INPUT ================= */
@@ -12288,7 +12382,7 @@ const viewportRoot=document.documentElement;
 let stableViewportWidth=Math.round(window.innerWidth||document.documentElement.clientWidth||360),stableViewportHeight=Math.round(window.innerHeight||document.documentElement.clientHeight||640);
 let stableViewportOrientation=stableViewportWidth>stableViewportHeight?'landscape':'portrait';
 let viewportRaf=0,viewportSettleTimer=0;
-function isTextEditing(){const a=document.activeElement;return !!(a&&a.matches&&a.matches('input,textarea,[contenteditable="true"]'));}
+function isTextEditing(){const a=document.activeElement;return !!(a&&a.matches&&a.matches('input,textarea,select,[contenteditable="true"]'));}
 function currentViewportSize(){
   return {
     w:Math.max(1,Math.round(window.innerWidth||document.documentElement.clientWidth||stableViewportWidth||360)),
@@ -12335,7 +12429,8 @@ applyStableViewport(true);
 window.addEventListener('resize',()=>scheduleStableViewport(false),{passive:true});
 window.addEventListener('orientationchange',()=>setTimeout(()=>scheduleStableViewport(true),360),{passive:true});
 if(window.visualViewport)window.visualViewport.addEventListener('resize',()=>{if(!isTextEditing())scheduleStableViewport(false);},{passive:true});
-document.addEventListener('focusout',e=>{if(e.target&&e.target.matches&&e.target.matches('input,textarea'))setTimeout(()=>scheduleStableViewport(true),360);},true);
+document.addEventListener('focusin',e=>{if(e.target&&e.target.matches&&e.target.matches('input,textarea,select,[contenteditable="true"]'))document.body.classList.add('keyboardOpen');},true);
+document.addEventListener('focusout',e=>{if(e.target&&e.target.matches&&e.target.matches('input,textarea,select,[contenteditable="true"]')){document.body.classList.remove('keyboardOpen');setTimeout(()=>scheduleStableViewport(true),360);}},true);
 
 
 /* V5.4 — unified touch feedback and accidental double-action protection */
@@ -12382,7 +12477,8 @@ applyMotionPrefs();
 fxResize();
 // Audio starts only after the player taps the studio logo (required by iPhone/Safari).
 initHofTabs();
-requestAnimationFrame(loop);
+scheduleMainLoop(0);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)wakeMainLoop();},{passive:true});
 (function studioThenBootSequence(){
   const studio=$('#studioScr'),boot=$('#bootScr'),logo=$('#studioLogo'),tap=$('#studioTap');
   const reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;

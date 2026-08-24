@@ -1,7 +1,0 @@
-MOLECULOX iOS V8.5.73 R33 — FALSE SYNC ERROR / ACCOUNT RECONCILE FIX
-
-- Preserves R31 Apple UID-scoped progress persistence.
-- Preserves R32 leaderboard-vs-core-cloud status separation.
-- Profile list/reconcile, startup cloud read, and connectivity metadata refresh failures no longer overwrite a confirmed progress save with a red Sync error.
-- Real progress write/checkpoint failures still report Sync error.
-- iOS minimum deployment target remains 15.0.

@@ -1,8 +1,0 @@
-MOLECULOX iOS V8.5.70 R28 — iPHONE-ONLY APP STORE FINAL
-
-- Preserves all R25 gameplay, timer, SVG, audio, cloud, account deletion and Apple Sign-In behavior.
-- Preserves the approved opaque 1024x1024 Moleculox App Store icon and R27 validator fix.
-- Sets every Moleculox app build configuration to TARGETED_DEVICE_FAMILY = 1 (iPhone only).
-- Removes stale iPad-only orientation metadata from the generated Info.plist.
-- Adds a Codemagic gate that stops the build unless every app configuration is strictly iPhone-only.
-- No campaign, daily experiment, hint, MoleCoin, RP, story, audio or visual gameplay asset was changed.

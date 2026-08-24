@@ -1,7 +1,0 @@
-MOLECULOX iOS V8.5.70 R27 — APP ICON VALIDATOR FIX
-
-- Preserves all R25/R26 gameplay and Apple settings.
-- Preserves approved opaque 1024x1024 Moleculox App Store icon.
-- Fixes false Codemagic failure when Capacitor/Xcode uses a universal iOS 1024x1024 AppIcon entry without a scale field.
-- Supports both modern universal single-slot and legacy size+scale AppIcon catalogs.
-- Build still fails if icon is missing, transparent, wrong-sized, or different from the approved master.

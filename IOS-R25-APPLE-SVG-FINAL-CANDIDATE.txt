@@ -1,8 +1,0 @@
-Moleculox iOS V8.5.70 — R25 Apple/SVG Final Candidate
-
-Changes from R24:
-- Replaced the new timer/result emoji glyphs with original inline laboratory SVG icons.
-- Added an SVG clock mask to the live count-up timer for consistent iPhone rendering.
-- Added a fresh Sign in with Apple reauthentication + native token revocation step before deleting an Apple-connected account.
-- Account deletion aborts safely if Apple authorization cannot be revoked.
-- Preserved R24 timer fairness, R23 content/daily rewards, R22 hint/performance fixes, and all iOS layout/audio behavior.
