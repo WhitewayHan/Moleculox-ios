@@ -1,8 +1,8 @@
 {
   "name": "moleculox-ios",
-  "version": "8.7.19",
+  "version": "8.7.20",
   "private": true,
-  "description": "Moleculox iOS R77 / v8.7.19 App Store source with Sign in with Apple + Google/email, R77 online duel fixes, and Codemagic release preparation.",
+  "description": "Moleculox iOS R77 / v8.7.20 App Store source with Sign in with Apple + Google/email, R77 online duel fixes, and Codemagic release preparation.",
   "scripts": {
     "ios:prepare": "bash scripts/prepare-ios.sh",
     "ios:sync": "npx cap sync ios",

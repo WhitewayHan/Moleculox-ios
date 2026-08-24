@@ -4,7 +4,7 @@
 
 - Platform: iPhone / App Store
 - Bundle kimliği: `com.whitewayhan.moleculox`
-- Korunan sürüm: `8.7.19`
+- App Store zorunlu yeni sürümü: `8.7.20` (oyun içeriği R77 olarak korunmuştur)
 - Hedef çıktı: Codemagic ile imzalı IPA
 
 ## Final düzeltmeleri

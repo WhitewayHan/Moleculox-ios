@@ -7,4 +7,4 @@
 5. GoogleService-Info.plist `ios-config/` içinden build'e alınır.
 6. Apple Sign-In entitlement aktiftir.
 7. Native Apple raw nonce patch, Google auth Pod'u ve Firebase App Check build sırasında doğrulanır.
-8. Sürüm: 8.7.19; build number benzersiz oluşturulur.
+8. Sürüm: 8.7.20; build number benzersiz oluşturulur.

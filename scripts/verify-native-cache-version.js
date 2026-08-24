@@ -7,9 +7,9 @@ const must = (condition, message) => {
   if (!condition) throw new Error(message);
 };
 
-const version = '8.7.19';
-const buildId = '8.7.19-r77-native-ios';
-const cssToken = '8.7.19-r77-native-ios';
+const version = '8.7.20';
+const buildId = '8.7.20-r77-native-ios';
+const cssToken = '8.7.20-r77-native-ios';
 
 const index = read('www/index.html');
 const game = read('www/js/game.js');
@@ -43,6 +43,6 @@ must(pkg.version === version, 'package.json version does not match R77');
 must(manifest.version === version, 'manifest version does not match R77');
 must(codemagic.includes(`CFBundleShortVersionString ${version}`), 'Codemagic TestFlight version does not match R77');
 must(patchIos.includes(`'MARKETING_VERSION':'${version}'`), 'Generated Xcode marketing version does not match R77');
-must(sw.includes(`const CACHE_NAME = 'moleculox-8.7.19-r77-native-ios';`), 'Service-worker cache does not match iOS R77 build');
+must(sw.includes(`const CACHE_NAME = 'moleculox-8.7.20-r77-native-ios';`), 'Service-worker cache does not match iOS R77 build');
 
 console.log('R77 native asset cache/version checks passed.');

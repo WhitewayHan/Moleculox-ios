@@ -1,4 +1,4 @@
-# Moleculox iOS R77 — v8.7.19
+# Moleculox iOS R77 — v8.7.20
 
 Bu paket App Store/TestFlight için Codemagic kaynak paketidir.
 
@@ -7,7 +7,7 @@ Bu paket App Store/TestFlight için Codemagic kaynak paketidir.
 - Sign in with Apple entitlement ve native nonce/Firebase bridge korunur.
 - R77 web oyun içeriği, online arkadaş odası düzeltmesi, 8 dil ve güncel Dr. E sesleri dahildir.
 - Codemagic workflow: `moleculox-ios-app-store`
-- App Store version: `8.7.19`
+- App Store version: `8.7.20`
 - Build number Codemagic sırasında benzersiz üretilir.
 
 ## Codemagic

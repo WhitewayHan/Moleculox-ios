@@ -1,7 +1,7 @@
-// Moleculox v8.7.19 — R77: friend-room Firestore join fix + R76 duel guide.
+// Moleculox v8.7.20 — R77: friend-room Firestore join fix + R76 duel guide.
 // Core code is precached; large audio/story assets are cached only after use.
 // Firebase and Google traffic is never intercepted.
-const CACHE_NAME = 'moleculox-8.7.19-r77-native-ios';
+const CACHE_NAME = 'moleculox-8.7.20-r77-native-ios';
 const CACHE_PREFIX = 'moleculox-';
 const CORE_SHELL = [
   './index.html','./css/app.css','./js/sync-core.js','./js/daily-levels.js',
