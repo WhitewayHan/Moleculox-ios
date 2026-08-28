@@ -209,7 +209,7 @@ const STRINGS={
     "Before moving, plan where the atom will stop.": "Avant de bouger, planifiez où l'atome s'arrêtera.",
     "Before the orbital jump, the team gathered in the laboratory for final checks. When the X mark stabilized on the display, the star gate began to open.": "Avant le saut orbital, l'équipe s'est rassemblée dans le laboratoire pour des vérifications finales. Lorsque la marque X s'est stabilisée sur l'écran, la porte étoile a commencé à s'ouvrir.",
     "Before the orbital jump, the team gathered in the laboratory for final checks. When the X mark stabilized on the display, the star gate began to open. “Now that the tea is finished, we can go to space.”": "Avant le saut orbital, l'équipe s'est rassemblée dans le laboratoire pour des vérifications finales. Lorsque la marque X s'est stabilisée sur l'écran, la porte étoile a commencé à s'ouvrir. Maintenant que le thé est fini, nous pouvons aller dans l'espace.",
-    "Best already claimed": "Le meilleur déjà réclamé",
+    "Best already claimed": "Meilleure récompense déjà obtenue",
     "Best Combo": "La meilleure combinaison",
     "Best Streak": "Meilleure série",
     "BEST STREAK": "LA MEILLEURE SÉRIE",
@@ -359,7 +359,7 @@ const STRINGS={
     "Complete the basic movement tutorial": "Compléter le tutoriel de mouvement de base",
     "Complete the Nobel bonus level": "Compléter le niveau de bonus Nobel",
     "Completed": "Completé",
-    "COMPLETED · REPLAY AVAILABLE": "· REPRISE DISPONIBLE",
+    "COMPLETED · REPLAY AVAILABLE": "TERMINÉ · REJOUABLE",
     "completed 301 scientific experiments and conquered the Moleculox Nobel Final.": "Il a réalisé 301 expériences scientifiques et a conquis Moleculox La finale du prix Nobel.",
     "Components": "Composants",
     "CONFIRM AND LINK": "CONFIRMER ET LIER",
@@ -1010,7 +1010,7 @@ const STRINGS={
     "Never spent on a normal wall. A selected cracked wall breaks even if it is the wrong strategic choice, and the booster is not refunded.": "Jamais dépensé sur un mur normal. Un mur fissuré sélectionné se casse même si c'est le mauvais choix stratégique, et le booster n'est pas remboursé.",
     "NEW BEST": "NOUVEAU MEILLEUR",
     "New best time!": "C'est le meilleur moment!",
-    "NEW BEST!": "LE MEILLEUR NOUVEAU!",
+    "NEW BEST!": "NOUVEAU RECORD !",
     "NEW BOARD": "NOUVELLE PLANCHE",
     "New discovery: normal reward": "Nouvelle découverte: récompense normale",
     "NEW GAME": "NOUVEAU JEU",
@@ -2135,7 +2135,7 @@ const STRINGS={
     "Before moving, plan where the atom will stop.": "在移动之前,计划原子将停留在哪里.",
     "Before the orbital jump, the team gathered in the laboratory for final checks. When the X mark stabilized on the display, the star gate began to open.": "在轨道跳跃之前,团队聚集在实验室进行最后检查. 当X标志在显示屏上稳定时,",
     "Before the orbital jump, the team gathered in the laboratory for final checks. When the X mark stabilized on the display, the star gate began to open. “Now that the tea is finished, we can go to space.”": "在轨道跳跃之前,团队聚集在实验室进行最后检查. 当X标志在显示屏上稳定时, 现在我们已经喝完茶了,我们可以去太空.",
-    "Best already claimed": "最好的已经声称",
+    "Best already claimed": "最佳奖励已领取",
     "Best Combo": "最好的组合",
     "Best Streak": "最好的曲",
     "BEST STREAK": "最好的系列",
@@ -2285,7 +2285,7 @@ const STRINGS={
     "Complete the basic movement tutorial": "完成基本运动教程",
     "Complete the Nobel bonus level": "完成诺贝尔奖金水平",
     "Completed": "完成",
-    "COMPLETED · REPLAY AVAILABLE": "完成了 · 复制可用",
+    "COMPLETED · REPLAY AVAILABLE": "已完成 · 可重玩",
     "completed 301 scientific experiments and conquered the Moleculox Nobel Final.": "完成了301项科学实验,并赢得了Moleculox诺贝尔决赛.",
     "Components": "组件",
     "CONFIRM AND LINK": "确认和链接",
@@ -2936,7 +2936,7 @@ const STRINGS={
     "Never spent on a normal wall. A selected cracked wall breaks even if it is the wrong strategic choice, and the booster is not refunded.": "我从来没有花在一个普通的墙上. 即使是错误的战略选择, 选择的破裂墙也会破裂,",
     "NEW BEST": "新的最佳",
     "New best time!": "新的最佳时间!",
-    "NEW BEST!": "新的最佳!",
+    "NEW BEST!": "新纪录！",
     "NEW BOARD": "新板",
     "New discovery: normal reward": "新发现:正常的奖励",
     "NEW GAME": "新的游戏",
@@ -2947,7 +2947,7 @@ const STRINGS={
     "New rule · quick guide": "新规则 · 快速指南",
     "NEXT EXPERIMENT": "下一个实验",
     "Next Frame: ": "下一个图片:",
-    "NEXT LEVEL ▶︎": "下一个级别 ▶︎",
+    "NEXT LEVEL ▶︎": "下一关 ▶︎",
     "NEXT ROUND": "下一轮",
     "NEXT TARGET": "下一个目标",
     "Next Title: ": "下一个标题:",
@@ -3922,7 +3922,7 @@ const TEMPLATE_MAP={
     "LOCKED · COMPLETE LEVEL {{MX0}}": "锁定 ·完整水平 {{MX0}}",
     "Locked level {{MX0}}{{MX1}}": "锁定级别 {{MX0}}{{MX1}}",
     "Our next target is Level {{MX0}}. Let’s begin, Professor!": "我们的下一个目标是水平. {{MX0}}. 让我们开始,教授!",
-    "PAR {{MX0}} · YOU {{MX1}}": "{{MX0}} ·你 {{MX1}}",
+    "PAR {{MX0}} · YOU {{MX1}}": "标准 {{MX0}} · 你 {{MX1}}",
     "Reach this league in {{MX0}} DP": "在 {{MX0}} DP 达成这个联盟",
     "REQUIRES LEVEL {{MX0}}": "要求水平 {{MX0}}",
     "This domain is not authorized for Firebase sign-in: {{MX0}}": "这个域名不允许 Firebase登录: {{MX0}}",
@@ -3933,12 +3933,89 @@ const TEMPLATE_MAP={
     "You completed Level {{MX0}}. Link an account so you do not lose your progress.": "你已经完成了水平. {{MX0}}. 链接一个帐户,这样你不会失去你的进步."
   }
 };
+
+
+// R77.2 language/completion quality hotfix 3.
+// Correct high-visibility machine-generated FR/ZH copy without changing gameplay.
+Object.assign(STRINGS.fr,{
+  "🔄 PLAY AGAIN":"🔄 REJOUER",
+  "🏆 ALL LEVELS COMPLETE! 🏆":"🏆 TOUS LES NIVEAUX TERMINÉS ! 🏆",
+  "Best already claimed":"Meilleure récompense déjà obtenue",
+  "NEXT LEVEL ▶︎":"NIVEAU SUIVANT ▶︎",
+  "COMPLETED · REPLAY AVAILABLE":"TERMINÉ · REJOUABLE",
+  "NEW BEST!":"NOUVEAU RECORD !",
+  "NEW BEST":"NOUVEAU RECORD",
+  "ASSISTED CLEAR · UNRANKED":"RÉUSSITE ASSISTÉE · NON CLASSÉE",
+  "GENIUS!":"GÉNIE !"
+});
+Object.assign(STRINGS.zh,{
+  "🔄 PLAY AGAIN":"🔄 再玩一次",
+  "🏆 ALL LEVELS COMPLETE! 🏆":"🏆 所有关卡已完成！🏆",
+  "Best already claimed":"最佳奖励已领取",
+  "NEXT LEVEL ▶︎":"下一关 ▶︎",
+  "COMPLETED · REPLAY AVAILABLE":"已完成 · 可重玩",
+  "NEW BEST!":"新纪录！",
+  "NEW BEST":"新纪录",
+  "ASSISTED CLEAR · UNRANKED":"辅助通关 · 不计排名",
+  "GENIUS!":"天才！"
+});
+Object.assign(TEMPLATE_MAP.fr,{
+  "{{MX0}} is this week’s fastest-rising scientist. The race is heating up!":"{{MX0}} est le scientifique qui progresse le plus vite cette semaine. La course s’intensifie !",
+  "{{MX0}} leads this month among Nobel Candidates. {{MX1}}, can you catch them?":"{{MX0}} est en tête ce mois-ci parmi les candidats au Nobel. {{MX1}}, pouvez-vous le rattraper ?",
+  "{{MX0}}, Nobel candidacy is close. The final experiments will be the hardest.":"{{MX0}}, la candidature au Nobel approche. Les dernières expériences seront les plus difficiles.",
+  "{{MX0}}, remember to connect an account from the profile icon to protect your progress.":"{{MX0}}, pensez à connecter un compte depuis l’icône de profil pour protéger votre progression.",
+  "{{MX0}}, you are in the World Top 10. The leader should be worried!":"{{MX0}}, vous êtes dans le Top 10 mondial. Le leader devrait s’inquiéter !",
+  "{{MX0}}, you are now a Nobel Candidate. Complete the 301st final experiment to win the prize!":"{{MX0}}, vous êtes maintenant candidat au Nobel. Terminez la 301e expérience finale pour remporter le prix !",
+  "{{MX0}}, you currently hold this month’s Nobel prize. The other candidates are chasing you!":"{{MX0}}, vous détenez actuellement le prix Nobel de ce mois. Les autres candidats vous talonnent !",
+  "{{MX0}}/{{MX1}} levels · Become a Nobel Candidate first.":"{{MX0}}/{{MX1}} niveaux · Devenez d’abord candidat au Nobel.",
+  "Bonus Lab · Medals {{MX0}}/15":"Laboratoire bonus · Médailles {{MX0}}/15",
+  "Leader gap: {{MX0}} RP":"Écart avec le leader : {{MX0}} RP",
+  "LOCKED · COMPLETE LEVEL {{MX0}}":"VERROUILLÉ · TERMINEZ LE NIVEAU {{MX0}}",
+  "Our next target is Level {{MX0}}. Let’s begin, Professor!":"Notre prochain objectif est le niveau {{MX0}}. Commençons, Professeur !",
+  "REQUIRES LEVEL {{MX0}}":"NIVEAU {{MX0}} REQUIS",
+  "Today’s Experiment has been renewed, {{MX0}}. The lab is waiting!":"L’Expérience du jour a été renouvelée, {{MX0}}. Le laboratoire vous attend !",
+  "Welcome, {{MX0}}! Where would you like to begin today?":"Bienvenue, {{MX0}} ! Par où souhaitez-vous commencer aujourd’hui ?"
+});
+Object.assign(TEMPLATE_MAP.zh,{
+  "{{MX0}} DP to {{MX1}}":"距离 {{MX1}} 还需 {{MX0}} DP",
+  "{{MX0}} is this week’s fastest-rising scientist. The race is heating up!":"{{MX0}} 是本周进步最快的科学家。竞争越来越激烈了！",
+  "{{MX0}} leads this month among Nobel Candidates. {{MX1}}, can you catch them?":"{{MX0}} 本月在诺贝尔候选人中领先。{{MX1}}，你能追上吗？",
+  "{{MX0}} PLAYERS ONLINE":"{{MX0}} 名玩家在线",
+  "{{MX0}}, Nobel candidacy is close. The final experiments will be the hardest.":"{{MX0}}，你离诺贝尔候选人又近了一步。最后的实验将最具挑战性。",
+  "{{MX0}}, remember to connect an account from the profile icon to protect your progress.":"{{MX0}}，请从个人资料图标绑定账户，以保护你的进度。",
+  "{{MX0}}, you are #{{MX1}} in this month’s Nobel race. A few perfect experiments could change everything!":"{{MX0}}，你目前在本月诺贝尔竞赛中排名第 {{MX1}}。再完成几次完美实验，一切都可能改变！",
+  "{{MX0}}, you are in the World Top 10. The leader should be worried!":"{{MX0}}，你已经进入世界前 10。榜首该紧张了！",
+  "{{MX0}}, you are now a Nobel Candidate. Complete the 301st final experiment to win the prize!":"{{MX0}}，你现在是诺贝尔候选人。完成第 301 个最终实验即可赢得大奖！",
+  "{{MX0}}, you currently hold this month’s Nobel prize. The other candidates are chasing you!":"{{MX0}}，你目前领跑本月诺贝尔竞赛。其他候选人正在追赶你！",
+  "{{MX0}}, your cloud save is connected. I am keeping the World Ranking current.":"{{MX0}}，你的云端存档已连接。我会持续更新世界排名。",
+  "{{MX0}}, your Level {{MX1}} bonus mission is ready. I left the reward in the lab.":"{{MX0}}，你的第 {{MX1}} 关奖励任务已准备好。我把奖励放在实验室里了。",
+  "{{MX0}}/{{MX1}} levels · Become a Nobel Candidate first.":"{{MX0}}/{{MX1}} 关 · 请先成为诺贝尔候选人。",
+  "{{MX0}}d {{MX1}}h {{MX2}}m":"{{MX0}}天 {{MX1}}小时 {{MX2}}分",
+  "Bonus Lab · Medals {{MX0}}/15":"奖励实验室 · 奖牌 {{MX0}}/15",
+  "Foundation Experiment {{MX0}}{{MX1}}":"基础实验 {{MX0}}{{MX1}}",
+  "Fragile atom cracked: {{MX0}}/{{MX1}} impacts.":"易碎原子裂纹：{{MX0}}/{{MX1}} 次碰撞。",
+  "Leader gap: {{MX0}} RP":"距榜首：{{MX0}} RP",
+  "Level {{MX0}}{{MX1}} · {{MX2}}":"关卡 {{MX0}}{{MX1}} · {{MX2}}",
+  "LOCKED · COMPLETE LEVEL {{MX0}}":"未解锁 · 完成第 {{MX0}} 关",
+  "Locked level {{MX0}}{{MX1}}":"未解锁关卡 {{MX0}}{{MX1}}",
+  "Our next target is Level {{MX0}}. Let’s begin, Professor!":"下一个目标是第 {{MX0}} 关。开始吧，教授！",
+  "PAR {{MX0}} · YOU {{MX1}}":"标准 {{MX0}} · 你 {{MX1}}",
+  "Reach this league in {{MX0}} DP":"达到该联赛需要 {{MX0}} DP",
+  "REQUIRES LEVEL {{MX0}}":"需要第 {{MX0}} 关",
+  "This domain is not authorized for Firebase sign-in: {{MX0}}":"此域名未获 Firebase 登录授权：{{MX0}}",
+  "Today’s Experiment has been renewed, {{MX0}}. The lab is waiting!":"今日实验已更新，{{MX0}}。实验室等着你！",
+  "Unlocks at level {{MX0}}":"第 {{MX0}} 关解锁",
+  "Welcome, {{MX0}}! Where would you like to begin today?":"欢迎，{{MX0}}！今天想从哪里开始？",
+  "You are doing great, {{MX0}}!":"做得很棒，{{MX0}}！",
+  "You completed Level {{MX0}}. Link an account so you do not lose your progress.":"你已完成第 {{MX0}} 关。请绑定账户，以免丢失进度。"
+});
+
 const compiled={};
 function escRe(value){return String(value).replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
 function compile(lang){
   if(compiled[lang])return compiled[lang];
   const rows=[];
-  for(const [source,target] of Object.entries(TEMPLATE_MAP[lang]||{})){
+  for(const [source,target] of Object.entries(TEMPLATE_MAP[lang]||{}).sort((a,b)=>b[0].length-a[0].length)){
     const order=[];let cursor=0,pattern='^';
     source.replace(/\{\{MX(\d+)\}\}/g,(match,index,at)=>{pattern+=escRe(source.slice(cursor,at))+'(.+?)';order.push(Number(index));cursor=at+match.length;return match;});
     pattern+=escRe(source.slice(cursor))+'$';rows.push({re:new RegExp(pattern),target,order});

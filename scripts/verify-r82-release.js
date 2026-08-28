@@ -7,7 +7,7 @@ const must = (condition, message) => { if (!condition) throw new Error(message);
 const pkg = JSON.parse(read('package.json'));
 const android = pkg.name.includes('google-play');
 const platform = android ? 'android' : 'ios';
-const buildId = `8.7.20-r77-native-${platform}`;
+const buildId = `8.7.25-r82-codemagic-final-${platform}`;
 const index = read('www/index.html');
 const game = read('www/js/game.js');
 const firebase = read('www/js/firebase.js');
@@ -15,13 +15,13 @@ const css = read('www/css/app.css');
 const capacitor = JSON.parse(read('capacitor.config.json'));
 const providers = capacitor.plugins?.FirebaseAuthentication?.providers || [];
 
-must(pkg.version === '8.7.20', 'package version must be 8.7.20');
+must(pkg.version === '8.7.25', 'package version must be 8.7.25');
 must(pkg.dependencies['@capacitor-firebase/app-check'] === '7.3.1', 'native App Check dependency missing');
 must(pkg.dependencies['@capacitor-firebase/authentication'] === '7.3.1', 'native authentication dependency mismatch');
 must(capacitor.webDir === 'www', 'Capacitor webDir must remain www');
 must(capacitor.plugins?.FirebaseAuthentication?.skipNativeAuth === true, 'Firebase native/web session bridge setting mismatch');
-must(index.includes(`window.__MX_BUILD_ID__='${buildId}'`), 'R77 build identity mismatch');
-must(game.includes('const APP_VERSION="v8.7.20";'), 'visible R77 version mismatch');
+must(index.includes(`window.__MX_BUILD_ID__='${buildId}'`), 'R82 build identity mismatch');
+must(game.includes('const APP_VERSION="v8.7.25";'), 'visible R82 version mismatch');
 must(game.includes('t/145+p.x*.7+p.y'), 'portal core must use portal coordinates');
 must(!game.includes('t/145+g.x*.7+g.y'), 'invalid CanvasGradient coordinate access remains');
 must(!css.includes('\\n'), 'literal backslash-n remains in CSS');
@@ -89,4 +89,4 @@ for (const match of css.matchAll(/(?:^|[;{])\s*animation(?:-name)?\s*:\s*([^;}]+
 }
 must(!missing.size, `undefined CSS animations: ${[...missing].join(', ')}`);
 
-console.log(`R77 ${platform} release checks passed: ${ids.length} HTML ids, ${defined.size} keyframes.`);
+console.log(`R82 ${platform} release checks passed: ${ids.length} HTML ids, ${defined.size} keyframes.`);

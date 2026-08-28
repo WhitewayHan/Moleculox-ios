@@ -3,6 +3,18 @@
 'use strict';
 const universe=root.MX_STORY_UNIVERSE;
 const campaign=root.MX_CAMPAIGN_LEVELS;
+const localization=(root.MX_V2_LOCALIZATION&&typeof root.MX_V2_LOCALIZATION.translate==='function')?root.MX_V2_LOCALIZATION:null;
+// Final R81: keep the legacy campaign-story fallback fully localized too.
+// The standalone story universe is the normal path, but if it ever fails to load,
+// FR/ZH must not fall back to the old English placeholders.
+if(Array.isArray(campaign)&&localization){
+  campaign.forEach(level=>{
+    const story=level&&level.story;
+    if(!story||typeof story!=='object'||typeof story.en!=='string'||!story.en.trim())return;
+    story.fr=localization.translate(story.en,'fr');
+    story.zh=localization.translate(story.en,'zh');
+  });
+}
 if(!universe)return;
 
 function polishChinesePunctuation(value){

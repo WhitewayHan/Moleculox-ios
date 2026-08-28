@@ -1,4 +1,4 @@
-/* Moleculox v8.7.20 · R77 FINAL — cross-platform native styles */
+/* Moleculox v8.7.25 · R82 CODEMAGIC FINAL — cross-platform native styles */
 
 :root{
   --ink:#0e0c26;
@@ -10405,7 +10405,7 @@ body.mxPerfLow #gameScr.duelTimeCritical #boardFrame{animation:none!important}
   }
 }
 
-/* ================= R79 / R5 — ZERO-LOSS MOBILE PERFORMANCE PASS =================
+/* ================= R81 / R5 — ZERO-LOSS MOBILE PERFORMANCE PASS =================
    Performance rule: automatic optimization may lower internal canvas pixel fill
    and suspend work that is completely hidden, but it MUST NOT remove, hide,
    disable, or reduce any authored Moleculox visual effect or animation while it
@@ -10438,3 +10438,243 @@ body.mxNative #fx{contain:strict;}
    display:none, animation:none, filter:none, opacity changes, particle-count
    reductions, or feature suppression here. */
 body.mxPerfPressure,body.mxPerfSevere{--mx-perf-pressure:1;}
+
+
+/* =====================================================================
+   R77.2 · LANGUAGE + COMPLETION PHONE MATRIX HOTFIX 3
+   Text-only responsive hardening. Existing victory effects/animations remain.
+   ===================================================================== */
+#performanceWrap{
+  box-sizing:border-box!important;
+  padding:max(16px,env(safe-area-inset-top)) 18px max(16px,env(safe-area-inset-bottom))!important;
+  overflow:hidden!important;
+}
+#performanceGrade{
+  max-width:calc(100vw - 36px)!important;
+  font-size:clamp(34px,12vw,64px)!important;
+  line-height:.98!important;
+  letter-spacing:clamp(.4px,.28vw,1.5px)!important;
+  white-space:nowrap!important;
+  overflow:visible!important;
+  text-wrap:nowrap!important;
+}
+html[lang="tr"] #performanceGrade,
+html[lang="de"] #performanceGrade,
+html[lang="es"] #performanceGrade,
+html[lang="pt"] #performanceGrade,
+html[lang="fr"] #performanceGrade{
+  font-size:clamp(32px,10.8vw,58px)!important;
+  letter-spacing:clamp(.2px,.18vw,1px)!important;
+}
+html[lang="ja"] #performanceGrade,
+html[lang="zh"] #performanceGrade{
+  font-size:clamp(36px,12.6vw,64px)!important;
+  letter-spacing:0!important;
+}
+#performanceMeta{
+  max-width:calc(100vw - 42px)!important;
+  box-sizing:border-box!important;
+  margin-top:clamp(7px,1.5vh,11px)!important;
+  padding:6px clamp(9px,2.8vw,13px)!important;
+  font-size:clamp(11px,3.25vw,14px)!important;
+  line-height:1.12!important;
+  letter-spacing:clamp(.2px,.2vw,1px)!important;
+  white-space:normal!important;
+  text-wrap:balance!important;
+}
+#performanceBest{
+  max-width:calc(100vw - 42px)!important;
+  min-height:18px!important;
+  margin-top:6px!important;
+  font-size:clamp(10.5px,3vw,13px)!important;
+  line-height:1.12!important;
+  letter-spacing:clamp(.2px,.18vw,.8px)!important;
+  white-space:normal!important;
+  text-wrap:balance!important;
+}
+
+/* Routine result screens stay one-screen on normal phones and gain native
+   emergency scrolling only on unusually short displays / enlarged text. */
+#modalBox.winResultModal{
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  overscroll-behavior:contain!important;
+  -webkit-overflow-scrolling:touch!important;
+  scrollbar-width:none!important;
+}
+#modalBox.winResultModal::-webkit-scrollbar{display:none!important}
+#modalBox.winResultModal .msub,
+#modalBox.winResultModal .mxResultHeadingName,
+#modalBox.winResultModal .performanceResult,
+#modalBox.winResultModal .mcoins,
+#modalBox.winResultModal>.mrow>.btn{
+  max-width:100%!important;
+  min-width:0!important;
+  overflow-wrap:anywhere!important;
+  word-break:normal!important;
+  text-wrap:balance!important;
+}
+#modalBox.winResultModal .msub{
+  padding-inline:2px!important;
+  font-size:clamp(10px,2.75vw,12px)!important;
+  line-height:1.15!important;
+}
+html[lang="de"] #modalBox.winResultModal .msub,
+html[lang="fr"] #modalBox.winResultModal .msub,
+html[lang="pt"] #modalBox.winResultModal .msub{
+  font-size:clamp(9.6px,2.6vw,11.5px)!important;
+}
+#modalBox.winResultModal .performanceResult{
+  column-gap:6px!important;
+  row-gap:3px!important;
+}
+#modalBox.winResultModal .performanceResult .assistedRun{
+  flex-basis:100%!important;
+  max-width:100%!important;
+  white-space:normal!important;
+  line-height:1.14!important;
+}
+
+/* Language-safe modal / tab guards. Long words may wrap; CJK stays natural. */
+html[lang="de"] #modalBox h3,
+html[lang="fr"] #modalBox h3,
+html[lang="pt"] #modalBox h3,
+html[lang="es"] #modalBox h3{
+  overflow-wrap:anywhere!important;
+  hyphens:auto!important;
+}
+html[lang="ja"] #modalBox h3,
+html[lang="zh"] #modalBox h3,
+html[lang="ja"] #modalBox .btn,
+html[lang="zh"] #modalBox .btn{
+  word-break:normal!important;
+  overflow-wrap:anywhere!important;
+  hyphens:none!important;
+}
+
+@media(max-width:360px){
+  #performanceWrap{padding-left:14px!important;padding-right:14px!important}
+  #performanceGrade{max-width:calc(100vw - 28px)!important;font-size:clamp(31px,10.6vw,42px)!important}
+  html[lang="tr"] #performanceGrade,
+  html[lang="de"] #performanceGrade,
+  html[lang="es"] #performanceGrade,
+  html[lang="pt"] #performanceGrade,
+  html[lang="fr"] #performanceGrade{font-size:clamp(29px,9.8vw,39px)!important}
+  html[lang="ja"] #performanceGrade,
+  html[lang="zh"] #performanceGrade{font-size:clamp(33px,11.3vw,44px)!important}
+  #performanceMeta{font-size:clamp(10.5px,3.05vw,12.5px)!important}
+  #modalBox.winResultModal{width:min(94vw,370px)!important;padding-left:9px!important;padding-right:9px!important}
+  #modalBox.winResultModal>.mrow{gap:5px!important}
+  #modalBox.winResultModal>.mrow>.btn{font-size:clamp(10px,3vw,12px)!important;padding-left:6px!important;padding-right:6px!important}
+}
+@media(max-height:640px){
+  #performanceGrade{font-size:clamp(30px,9.8vw,48px)!important}
+  #performanceMeta{margin-top:6px!important;padding-top:5px!important;padding-bottom:5px!important;font-size:clamp(10px,2.8vw,12px)!important}
+  #performanceBest{margin-top:4px!important;font-size:10.5px!important}
+  #modalBox.winResultModal{max-height:calc(100dvh - max(8px,var(--sat)) - max(8px,var(--sab)))!important;padding-top:7px!important;padding-bottom:7px!important}
+  #modalBox.winResultModal .mxResultMolecule{width:56px!important;height:56px!important}
+  #modalBox.winResultModal .mxResultOrbit{font-size:25px!important}
+  #modalBox.winResultModal .mstars{font-size:24px!important;min-height:26px!important}
+  #modalBox.winResultModal>.mrow>.btn{min-height:33px!important;padding-top:5px!important;padding-bottom:5px!important}
+}
+@media(max-height:570px){
+  #performanceGrade{font-size:clamp(28px,9vw,42px)!important}
+  #modalBox.winResultModal .mxResultMolecule{width:50px!important;height:50px!important}
+  #modalBox.winResultModal .mxResultOrbit{font-size:22px!important}
+  #modalBox.winResultModal .performanceResult,
+  #modalBox.winResultModal .mxSolveTimeResult{margin-top:2px!important;margin-bottom:2px!important}
+  #modalBox.winResultModal .mstars{font-size:21px!important;min-height:23px!important}
+}
+
+
+/* =====================================================================
+   R77.3 / HOTFIX 4 — HIGH-REFRESH THERMAL + COMPOSITOR HARDENING
+   Preserve every authored effect. Static full-screen overlays do not need a
+   forced GPU surface; avoiding those extra promoted layers reduces GPU memory
+   and bandwidth on high-DPR / 120 Hz phones without changing appearance.
+   ===================================================================== */
+body.mxNative #bgVignette,
+body.mxNative #bgParticles{
+  -webkit-transform:none!important;
+  transform:none!important;
+  -webkit-backface-visibility:visible!important;
+  backface-visibility:visible!important;
+}
+@supports (-webkit-touch-callout:none){
+  body.mxIOSWebKit #bgVignette,
+  body.mxIOSWebKit #bgParticles{
+    -webkit-transform:none!important;
+    transform:none!important;
+    -webkit-backface-visibility:visible!important;
+    backface-visibility:visible!important;
+  }
+}
+
+/* R82 / v8.7.25 — online final UX compactness + explicit ranked results */
+.duelModeChoice{grid-template-columns:1fr;gap:8px;margin:11px 0 9px}
+.duelChoice,.duelChoice.quick{grid-column:auto;min-height:68px;padding:9px 12px;display:grid;grid-template-columns:42px minmax(0,1fr);grid-template-rows:auto auto;column-gap:10px;row-gap:2px;justify-items:start;text-align:left}
+.duelChoice>span{grid-row:1/3;font-size:24px;align-self:center;justify-self:center}.duelChoice>b{align-self:end;font-size:12px}.duelChoice>small{align-self:start;font-size:9.5px;line-height:1.25}
+.onlineDuelTabs{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:10px 0 9px}.onlineDuelTabs button{appearance:none;min-height:39px;border-radius:11px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.055);color:#c9d9ed;font:900 10.5px inherit}.onlineDuelTabs button.on{color:#fff;border-color:rgba(79,216,255,.55);background:rgba(35,116,220,.22);box-shadow:0 0 15px rgba(79,216,255,.09)}
+#modalBox.onlineFriendRoomModal{overflow-y:auto}.onlineFriendRoomModal .onlineNameLabel{margin-top:2px}.onlineDuelSection.compact{margin:8px 0;padding:10px;gap:8px}.onlineDuelSection.compact .btn{min-height:43px;padding:10px}
+.onlineRoundActions{display:grid;grid-template-columns:1fr;gap:6px;margin-top:8px}.onlineRoundActions #mOnlineNext{min-height:48px}.onlineRoundActions .onlineRoundLeave{min-height:36px;padding:7px 10px;font-size:10px;opacity:.84}
+.duelQuitRule{margin:9px 0 12px;padding:10px 11px;border-radius:12px;font-size:11px;line-height:1.45;font-weight:800;color:#f5eaf0;background:rgba(255,96,108,.10);border:1px solid rgba(255,106,118,.28)}.duelQuitRule.ranked{border-color:rgba(255,179,72,.4);background:rgba(176,94,23,.12);color:#fff0d3}
+.duelFinalDetails{margin:5px 0 2px;border-top:1px solid rgba(255,255,255,.09);padding-top:4px}.duelFinalDetails summary{cursor:pointer;list-style:none;padding:5px 4px;color:#c9e9ff;font-size:9px;font-weight:900;letter-spacing:.35px}.duelFinalDetails summary::-webkit-details-marker{display:none}.duelFinalDetails[open] summary{color:#fff}
+.onlineQuickMessagesFold{padding:0!important;overflow:hidden}.onlineQuickMessagesFold summary{cursor:pointer;list-style:none;padding:8px 9px;font-size:9px;font-weight:900;color:#cfefff}.onlineQuickMessagesFold summary::-webkit-details-marker{display:none}.onlineQuickMessagesFold>div{padding:0 8px 8px}
+.duelRatedResult.neutral{border-color:rgba(111,206,219,.25);background:rgba(55,132,149,.12)}.duelRatedResult.neutral strong{font-size:13px;color:#c8f4f4}.duelRatedResult small{display:block;margin-top:3px;font-size:9px;color:#c5c8e8}.duelRatedResult b{font-size:10.5px;line-height:1.3}
+.duelRankRuleNote{margin-top:8px;padding:8px 9px;border-radius:11px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.09);font-size:9.5px;line-height:1.35;color:#bfc9e8;font-weight:750}
+.duelRankYouBar{position:sticky;top:0;z-index:3;display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 7px;padding:8px 10px;border-radius:12px;background:rgba(13,56,112,.96);border:1px solid rgba(89,210,255,.55);box-shadow:0 6px 16px rgba(0,0,0,.28);font-size:11px}.duelRankYouBar span{font-weight:1000;color:#dff9ff}.duelRankYouBar b{color:#ffd66f}
+.guideDuelComplete li{margin-bottom:6px}.guideDuelComplete li:last-child{margin-bottom:0}
+@media(max-height:720px){#modalBox.onlineDuelModal{padding-top:12px;padding-bottom:10px}.duelModeChoice{gap:6px;margin:8px 0}.duelChoice,.duelChoice.quick{min-height:60px;padding-top:7px;padding-bottom:7px}.onlineDuelTabs{margin:7px 0}.onlineDuelSection.compact{margin:6px 0;padding:8px}.onlineFriendRoomModal .onlineDuelNotice{margin:4px 0}.onlineFriendRoomModal>.mrow{margin-top:4px!important}}
+@media(max-width:360px){.duelChoice,.duelChoice.quick{grid-template-columns:36px minmax(0,1fr);min-height:62px;padding-left:9px;padding-right:9px}.duelChoice>span{font-size:21px}.onlineDuelTabs button{font-size:9.5px}.duelRatedResult{padding:8px 9px;gap:6px}.duelRatedResult strong{font-size:15px}}
+
+/* ================= R81 JOINFIX2 — mobile Chrome visible-viewport left rail =================
+   Web Chrome/Safari can expose a 701–760px visible viewport while browser bars are open.
+   In that band the learning docks were already 48px, but HOW TO PLAY still used the
+   58px/lower-menu offsets, allowing the Moleculopedia and How To Play controls to overlap.
+   Keep the approved six-button order/artwork and derive every web dock position from one
+   shared size/gap ladder so no pair can overlap at any short phone viewport. */
+@media (orientation:portrait) and (max-width:430px) and (max-height:760px){
+  body.mxWeb #splash{
+    --mx-web-dock-size:clamp(46px,6.8dvh,52px);
+    --mx-web-dock-gap:clamp(8px,1.35dvh,11px);
+    --mx-web-dock-b0:calc(var(--sab) + clamp(44px,6.5dvh,52px));
+    --mx-web-dock-b1:calc(var(--mx-web-dock-b0) + var(--mx-web-dock-size) + var(--mx-web-dock-gap));
+    --mx-web-dock-b2:calc(var(--mx-web-dock-b1) + var(--mx-web-dock-size) + var(--mx-web-dock-gap));
+    --mx-web-dock-b3:calc(var(--mx-web-dock-b2) + var(--mx-web-dock-size) + var(--mx-web-dock-gap));
+    --mx-web-dock-b4:calc(var(--mx-web-dock-b3) + var(--mx-web-dock-size) + var(--mx-web-dock-gap));
+    --mx-web-dock-b5:calc(var(--mx-web-dock-b4) + var(--mx-web-dock-size) + var(--mx-web-dock-gap));
+  }
+  body.mxWeb #splash :is(
+    #btnTrainingDock.learningDockBtn,
+    #btnMoleculopediaDock.learningDockBtn,
+    #btnGuide.guideDockBtn,
+    #btnLabMenu.labDockBtn,
+    #btnDuel.duelBtn,
+    #btnHof.trophyBtn
+  ){
+    left:max(8px,calc(var(--sal) + 8px))!important;
+    width:var(--mx-web-dock-size)!important;
+    height:var(--mx-web-dock-size)!important;
+    min-width:var(--mx-web-dock-size)!important;
+    min-height:var(--mx-web-dock-size)!important;
+  }
+  body.mxWeb #splash #btnHof.trophyBtn{bottom:var(--mx-web-dock-b0)!important}
+  body.mxWeb #splash #btnDuel.duelBtn{bottom:var(--mx-web-dock-b1)!important}
+  body.mxWeb #splash #btnLabMenu.labDockBtn{bottom:var(--mx-web-dock-b2)!important;border-radius:15px!important}
+  body.mxWeb #splash #btnGuide.guideDockBtn{bottom:var(--mx-web-dock-b3)!important;border-radius:15px!important}
+  body.mxWeb #splash #btnMoleculopediaDock.learningDockBtn{bottom:var(--mx-web-dock-b4)!important;border-radius:15px!important}
+  body.mxWeb #splash #btnTrainingDock.learningDockBtn{bottom:var(--mx-web-dock-b5)!important;border-radius:15px!important}
+  body.mxWeb #splash .learningDockIcon{font-size:17px!important}
+  body.mxWeb #splash .learningDockMain{font-size:6.5px!important}
+  body.mxWeb #splash .learningDockMini{font-size:5.4px!important}
+  body.mxWeb #splash .guideDockIcon{width:20px!important;height:20px!important;font-size:14px!important}
+  body.mxWeb #splash .guideDockMain{font-size:7.1px!important}
+  body.mxWeb #splash .guideDockMini{font-size:5.8px!important}
+  body.mxWeb #splash .labDockIcon{font-size:18px!important}
+  body.mxWeb #splash .labDockMain{font-size:9px!important}
+  body.mxWeb #splash .labDockMini{font-size:6.3px!important}
+  body.mxWeb #splash .duelVs{font-size:18px!important}
+  body.mxWeb #splash .duelMini{font-size:7.5px!important}
+  body.mxWeb #splash #btnHof .trophyIcon{width:32px!important;height:32px!important;padding:3px!important}
+  body.mxWeb #splash #btnHof .trophyIcon svg{width:25px!important;height:25px!important}
+}

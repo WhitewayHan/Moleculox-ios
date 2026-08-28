@@ -1,7 +1,7 @@
 {
   "name": "Moleculox — Dr. E's Lab",
   "short_name": "Moleculox",
-  "description": "Moleculox v8.7.20 — R77 fixes friend-room joining against the published Firestore rules while preserving the 8-language Atom Duel guide and R75 online polish.",
+  "description": "Moleculox v8.7.25 — R82 Codemagic final with portal/mechanics stabilization, 8-language responsive completion UI, high-refresh thermal/FPS optimization, and full release QA.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
@@ -22,7 +22,7 @@
       "purpose": "any"
     },
     {
-      "src": "assets/icons/icon-512-maskable.png",
+      "src": "assets/icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
@@ -34,5 +34,5 @@
     "games",
     "education"
   ],
-  "version": "8.7.20"
+  "version": "8.7.25"
 }

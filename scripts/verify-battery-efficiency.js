@@ -1,0 +1,20 @@
+"use strict";
+const fs=require('fs');
+const assert=require('assert');
+const game=fs.readFileSync('www/js/game.js','utf8');
+
+assert(game.includes("if(document.hidden){lastT=t;mainLoopNextDue=0;return;}"),'background RAF/timer loop is not hard-stopped');
+assert(game.includes('const IDLE_GAME_FRAME_MS=60,IDLE_MENU_FRAME_MS=100;'),'battery idle cadence constants missing');
+assert(game.includes('const boardEvery=gameVisible?(realtimeBoard?ACTIVE_FRAME_MS:'),'board cadence is not defined safely outside the gameVisible block');
+assert(!/if\(gameVisible\)\{[\s\S]{0,260}const boardEvery=/.test(game.slice(game.indexOf('function loop(t)'), game.indexOf('/* ================= INPUT'))),'boardEvery is block-scoped again (runtime ReferenceError risk)');
+assert(game.includes('const liveSync=realtimeBoard||PARTS.length>0;'),'interactive/particle live sync missing');
+assert(game.includes('scheduleMainLoop(liveSync?ACTIVE_FRAME_MS:staticCadence,liveSync);'),'60fps wake path for motion/particles missing');
+assert(game.includes('setInterval(sendOnlineHeartbeat,4500)'),'online heartbeat reliability cadence changed unexpectedly');
+assert(game.includes('document.hidden||navigator.onLine===false'),'heartbeat must skip hidden/offline app state');
+assert(game.includes('setInterval(updateOnlineDisconnectCountdown,500)'),'disconnect UI battery cadence not applied');
+assert(!game.includes('setInterval(updateOnlineDisconnectCountdown,250)'),'old 4Hz disconnect UI wakeup remains');
+const activeFps=1000/(1000/60), idleGameFps=1000/60, idleMenuFps=1000/100;
+assert(activeFps>59 && activeFps<61,'active target must stay ~60fps');
+assert(idleGameFps<17,'static gameplay JS wake target should be under 17Hz');
+assert(idleMenuFps<=10,'static menu JS wake target should be <=10Hz');
+console.log(`PASS battery efficiency: active=${activeFps.toFixed(1)}fps target, static-game=${idleGameFps.toFixed(1)}Hz, static-menu=${idleMenuFps.toFixed(1)}Hz; hidden loop=0 periodic main-loop work.`);

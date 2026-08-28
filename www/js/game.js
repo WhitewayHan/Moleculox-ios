@@ -1,5 +1,5 @@
 /* Moleculox V6.24.3 — professional story, UX and release polish */
-const APP_VERSION="v8.7.20";
+const APP_VERSION="v8.7.25";
 (()=>{'use strict';
 function isIOSStandaloneMode(){
   try{
@@ -898,7 +898,7 @@ const I18N={
     level:i=>'LEVEL '+i,
     allComplete:'🏆 ALL LEVELS COMPLETE! 🏆',
     levelDone:i=>'LEVEL '+i+' DONE!',
-    bestClaimed:'Best already claimed',
+    bestClaimed:'Best reward already claimed',
     nextLevel:'NEXT LEVEL ▶︎',playAgain:'🔄 PLAY AGAIN',
     dailyTitle:"🔬 TODAY'S EXPERIMENT",
     dailyAlready:'Today’s coin reward is claimed — replay to improve your RP!',
@@ -1037,7 +1037,7 @@ const I18N={
     stickyTitle:'🧲 Yapışkan atom',stickyDesc:'Ona ilk temas eden hareketli atomla iki atomlu sert bir çift oluşturur. Çift hareket etmeye devam eder; ancak iki atom birlikte kayar ve taraflardan biri engellenince ikisi de durur.',
     zombieTitle:'🧟‍♂️ Zombi atom',zombieDesc:'Temas ettiği atomlara en fazla iki kez bulaşır. Ateş atomu enfekte atomları normale döndürür.',
     oneWayTitle:'↪️ Tek yönlü kare',oneWayDesc:'Oka doğru kayan bir atom sadece o yönde devam edebilir — geldiği yöne asla geri dönemez.',
-    hammerTitle:'🧱 Kırılabilir duvar + 🔨 Çekiç',hammerDesc:'Bu duvar yolunu kapatır, ekranın altındaki ÇEKİÇ aracıyla kırana kadar. Her seviyede sınırlı sayıda çekiçin var, akıllıca kullan.',
+    hammerTitle:'🧱 Kırılabilir duvar + 🔨 Çekiç',hammerDesc:'Bu duvar yolunu kapatır, ekranın altındaki ÇEKİÇ aracıyla kırana kadar. Her seviyede sınırlı sayıda çekicin var, akıllıca kullan.',
     portalTitle:'🌀 Portal',portalDesc:'Bir atomu portala kaydır, anında tahtanın başka bir yerindeki eşleşen portaldan çıkar.',
     movingWallTitle:'🚧 Hareketli duvar',movingWallDesc:'Bu duvar hamlelerinle birlikte yeni bir konuma kayar. Desenini izle ve kaydırmanı ona göre zamanla.',
     pressureDoorTitle:'🔘 Basınç kapısı',pressureDoorDesc:'Parlayan düğmenin üzerine bir atom getir, tahtanın başka bir yerindeki bağlı kapı açılsın.',
@@ -1054,7 +1054,7 @@ const I18N={
     level:i=>'BÖLÜM '+i,
     allComplete:'🏆 TÜM BÖLÜMLER TAMAMLANDI! 🏆',
     levelDone:i=>'BÖLÜM '+i+' TAMAMLANDI!',
-    bestClaimed:'En iyi skor zaten alındı',
+    bestClaimed:'En iyi ödül zaten alındı',
     nextLevel:'SONRAKİ BÖLÜM ▶︎',playAgain:'🔄 TEKRAR OYNA',
     dailyTitle:'🔬 GÜNÜN DENEYİ',
     dailyAlready:'Bugünün jeton ödülü alındı — RP skorunu geliştirmek için tekrar oyna!',
@@ -1141,7 +1141,7 @@ I18N.de=Object.assign({},I18N.en,{
   stickMsg:'🍯 Verbunden! Diese beiden Atome bewegen sich jetzt als eine Einheit.',
   zombieIntro:'🧟‍♂️ Oh nein — ein infiziertes Atom! Alles, was es berührt, wird ebenfalls zum Zombie. Feuer kann die Infektion heilen!',
   oneWayTitle:'↪️ Einbahn-Feld',oneWayDesc:'Ein Atom, das in Pfeilrichtung darübergleitet, kann nur in dieser Richtung weitergehen — niemals zurück.',
-  hammerTitle:'🧱 Zerbrechliche Wand + 🔨 Hammer',hammerDesc:'Diese Wand blockiert den Weg, bis du sie mit dem HAMMER unten auf dem Bildschirm zerstörst. Die Anzahl der Hammer ist pro Level begrenzt.',
+  hammerTitle:'🧱 Zerbrechliche Wand + 🔨 Hammer',hammerDesc:'Diese Wand blockiert den Weg, bis du sie mit dem HAMMER unten auf dem Bildschirm zerstörst. Pro Level steht dir nur eine begrenzte Anzahl an Hämmern zur Verfügung.',
   portalTitle:'🌀 Portal',portalDesc:'Schiebe ein Atom in ein Portal; es erscheint sofort am passenden Portal an einer anderen Stelle des Spielfelds.',
   movingWallTitle:'🚧 Bewegliche Wand',movingWallDesc:'Diese Wand wechselt mit deinen Zügen ihre Position. Beobachte das Muster und passe den Zeitpunkt deines Zuges an.',
   pressureDoorTitle:'🔘 Druckschalter-Tür',pressureDoorDesc:'Bringe ein Atom auf den leuchtenden Schalter, damit sich die verbundene Tür an anderer Stelle öffnet.',
@@ -1151,7 +1151,7 @@ I18N.de=Object.assign({},I18N.en,{
   zombieMsg:'🧟‍♂️ Infiziert! Dieses Atom ist jetzt ein Zombie …',cureMsg:'🔥✨ Geheilt! Das Zombie-Atom ist wieder normal!',meltMsg:'🔥💧 Zisch! Das Eis ist geschmolzen — das Atom kann sich wieder bewegen!',
   undiscoveredFact:'Spiele weiter, um dieses Molekül zu entdecken!',undiscoveredName:'???',undo:'RÜCKGÄNGIG',hint:'HINWEIS',restart:'NEUSTART',lab:'LABOR',molecules:'MOLEKÜLE',
   moves:(m,p)=>'ZÜGE '+m+' · VORGABE '+p,level:i=>'LEVEL '+i,allComplete:'🏆 ALLE LEVEL ABGESCHLOSSEN! 🏆',levelDone:i=>'LEVEL '+i+' ABGESCHLOSSEN!',
-  bestClaimed:'Bestwert bereits erreicht',nextLevel:'NÄCHSTES LEVEL ▶︎',playAgain:'🔄 NOCH EINMAL',dailyTitle:'🔬 HEUTIGES EXPERIMENT',
+  bestClaimed:'Bestbelohnung bereits erhalten',nextLevel:'NÄCHSTES LEVEL ▶︎',playAgain:'🔄 NOCH EINMAL',dailyTitle:'🔬 HEUTIGES EXPERIMENT',
   dailyAlready:'Die heutige Münzbelohnung wurde bereits abgeholt — spiele erneut, um deine RP-Punktzahl zu verbessern!',dailySolved:'Gelöst! Verbessere deine heutige RP-Punktzahl oder komm morgen wieder.',
   dailyPractice:'Übungsrunde — kein Bonus',dailyOffline:'Offline — dies war eine Übung. Verbinde dich und versuche es erneut, um die heutige Belohnung zu erhalten.',dailyPracticeAgain:'🔄 NOCH EINMAL',mainMenu:'HAUPTMENÜ',
   newGameTitle:'NEUES SPIEL',newGameMsg:(cur,coins)=>'Du hast einen Spielstand ('+cur+' Level freigeschaltet, '+coins+' <span class="coinIcon"></span>).',
@@ -4012,6 +4012,7 @@ function startOnlineCountLoop(){
   onlineCountTimer=setInterval(()=>{if(!document.hidden&&scr.splash.classList.contains('on'))refreshOnlinePlayerCount();},45000);
 }
 window.addEventListener('online',refreshOnlinePlayerCount);
+window.addEventListener('online',()=>setTimeout(()=>maybeResumeOnlineDuelSession(),420),{passive:true});
 window.addEventListener('offline',refreshOnlinePlayerCount);
 
 let tutorialLaunchArmed=false;
@@ -4037,7 +4038,8 @@ function enterGame(){
   startOnlineCountLoop();
   maybePlaySplashIntro();
   scheduleMainMenuVoice('entry',760);
-  setTimeout(showGuestAccountToast,900);
+  setTimeout(()=>{if(!onlineDuelMode&&!quickMatchSearch)showGuestAccountToast();},900);
+  setTimeout(()=>maybeResumeOnlineDuelSession(),520);
   // R16: entering a player never performs a global account reconciliation.
   // Only this exact profileId is saved/loaded; stale async work cannot jump to
   // another (usually highest-progress) player while New Game/tutorial is open.
@@ -4490,13 +4492,11 @@ async function refreshHofWorldTabs(tab){
 }
 
 function setDuelRankMode(mode){if(!['world','week','month'].includes(mode))mode='world';duelRankMode=mode;document.querySelectorAll('.duelRankTab').forEach(b=>b.classList.toggle('on',b.dataset.dueltab===mode));refreshDuelRankings(mode);}
-function duelRankSummaryHtml(){ensureDuelRankState(save);const league=duelLeagueForRating(save.duelRating);return '<div class="duelRankHero"><div class="duelRankHeroTop"><b>'+league.icon+' '+duelLeagueName(league)+'</b><span>'+save.duelRating+' DP</span></div><div class="duelRankStats"><div><strong>'+save.duelWins+'</strong><small>'+(ml("GALİBİYET","WINS","SIEGE","VICTORIAS","VITÓRIAS","勝利"))+'</small></div><div><strong>'+save.duelLosses+'</strong><small>'+(ml("MAĞLUBİYET","LOSSES","NIEDERLAGEN","DERROTAS","DERROTAS","敗北"))+'</small></div><div><strong>'+save.duelBestStreak+'</strong><small>'+(ml("EN İYİ SERİ","BEST STREAK","BESTE SERIE","MEJOR RACHA","MELHOR SEQUÊNCIA","最高連勝"))+'</small></div><div><strong>'+save.duelPeakRating+'</strong><small>'+(ml("ZİRVE DP","PEAK DP","HÖCHSTE DP","DP MÁX.","PICO DE DP","最高DP"))+'</small></div></div></div>';}
+function duelRankSummaryHtml(){ensureDuelRankState(save);const league=duelLeagueForRating(save.duelRating);return '<div class="duelRankHero"><div class="duelRankHeroTop"><b>'+league.icon+' '+duelLeagueName(league)+'</b><span>'+save.duelRating+' DP</span></div><div class="duelRankStats"><div><strong>'+save.duelWins+'</strong><small>'+ml('GALİBİYET','WINS','SIEGE','VICTORIAS','VITÓRIAS','勝利','VICTOIRES','胜利')+'</small></div><div><strong>'+save.duelLosses+'</strong><small>'+ml('MAĞLUBİYET','LOSSES','NIEDERLAGEN','DERROTAS','DERROTAS','敗北','DÉFAITES','失败')+'</small></div><div><strong>'+save.duelBestStreak+'</strong><small>'+ml('EN İYİ SERİ','BEST STREAK','BESTE SERIE','MEJOR RACHA','MELHOR SEQUÊNCIA','最高連勝','MEILLEURE SÉRIE','最佳连胜')+'</small></div><div><strong>'+save.duelPeakRating+'</strong><small>'+ml('ZİRVE DP','PEAK DP','HÖCHSTE DP','DP MÁX.','PICO DE DP','最高DP','DP MAX.','最高DP')+'</small></div></div><div class="duelRankRuleNote">'+ml('Genel sıra DP ile değişir: +25 / +3 / −10. Hafta/Ay: +3 / +1 / 0; kayıpta puan düşmez ama başkaları seni geçebilir. MoleCoin: 0.','All‑Time moves with DP: +25 / +3 / −10. Week/Month: +3 / +1 / 0; a loss does not remove period points, but others can pass you. MoleCoin: 0.','Gesamt folgt DP: +25 / +3 / −10. Woche/Monat: +3 / +1 / 0; bei Niederlage keine Periodenpunkte weg, aber andere können vorbeiziehen. MoleCoin: 0.','Histórico cambia con DP: +25 / +3 / −10. Semana/Mes: +3 / +1 / 0; perder no resta puntos del periodo, pero otros pueden adelantarte. MoleCoin: 0.','Geral muda com DP: +25 / +3 / −10. Semana/Mês: +3 / +1 / 0; perder não tira pontos do período, mas outros podem ultrapassar. MoleCoin: 0.','全期間はDPで変動：+25 / +3 / −10。週間/月間：+3 / +1 / 0。敗北で期間ポイントは減らないが順位は下がる場合があります。MoleCoin: 0。','Général suit les DP : +25 / +3 / −10. Hebdo/Mensuel : +3 / +1 / 0 ; une défaite ne retire pas de points de période, mais d’autres peuvent te dépasser. MoleCoin : 0.','总榜随DP变化：+25 / +3 / −10。周/月榜：+3 / +1 / 0；失败不扣周期积分，但可能被别人超过。MoleCoin：0。')+'</div></div>';}
+
 function duelRankTitleLabel(id){const row=duelTitleRows().find(x=>x.id===id);return row?(dyn6(row.tr,row.en)):'';}
 function duelRankRowHtml(r,i,myUid,myProfileId,mode){const rank=i+1,isMe=r.uid===myUid&&r.profileId===myProfileId,medal=rank===1?'🥇':rank===2?'🥈':rank===3?'🥉':rank;const score=mode==='week'?r.periodPoints:mode==='month'?r.periodPoints:r.rating;const league=duelLeagueForRating(r.rating),title=duelRankTitleLabel(r.activeTitle),wl=ml(['G','M'],['W','L'],['S','N'],['V','D'],['V','D'],['勝','敗'],['V','D'],['胜','负']);return '<div class="duelRankRow '+(isMe?'me ':'')+(rank===1?'top1':'')+'"><span class="rk">'+medal+'</span><div class="duelRankIdentity"><b>'+(isMe?(ml("SEN · ","YOU · ","DU · ","TÚ · ","VOCÊ · ","あなた・")):'')+esc((r.playerName||'?').slice(0,18))+'</b><small>'+league.icon+' '+duelLeagueName(league)+' · '+Math.max(0,Number(r.wins)||0)+wl[0]+' / '+Math.max(0,Number(r.losses)||0)+wl[1]+(title?' · '+esc(title):'')+'</small></div><div class="duelRankScore"><b>'+Math.max(0,Number(score)||0)+(mode==='world'?' DP':' P')+'</b><small>'+Math.max(0,Number(r.periodWins!=null?r.periodWins:r.bestStreak)||0)+' '+(mode==='world'?(ml("SERİ","STREAK","SERIE","RACHA","SEQUÊNCIA","連勝")):(ml("GALİBİYET","WINS","SIEGE","VICTORIAS","VITÓRIAS","勝利")))+'</small></div>'+rankingSafetyButton(r,isMe,'duel')+'</div>'; }
-async function refreshDuelRankings(mode){ensureDuelRankState(save);const summary=$('#duelRankSummary'),grid=$('#duelRankGrid'),label=$('#duelRankPeriodLabel');if(!summary||!grid)return;summary.innerHTML=duelRankSummaryHtml();document.querySelectorAll('.duelRankTab').forEach((b,i)=>b.textContent=[
-ml('GENEL','ALL-TIME','GESAMT','HISTÓRICO','GERAL','全期間'),
-ml('BU HAFTA','THIS WEEK','DIESE WOCHE','ESTA SEMANA','ESTA SEMANA','今週'),
-ml('BU AY','THIS MONTH','DIESEN MONAT','ESTE MES','ESTE MÊS','今月')][i]);label.textContent=mode==='week'?utcWeekId():mode==='month'?utcMonthId():(ml("TÜM ZAMANLAR","ALL-TIME","GESAMT","HISTÓRICO","GERAL","全期間"));grid.innerHTML='<div class="duelRankNotice">'+(ml("Düello sıralaması yükleniyor…","Loading Duel ranking…","Duellrangliste wird geladen …","Cargando clasificación de Duelo…","Carregando ranking de Duelo…","デュエルランキングを読み込み中…"))+'</div>';if(!window.MXCloud||!window.MXCloud.getDuelLeaderboard){grid.innerHTML='<div class="duelRankNotice">'+t('worldOffline')+'</div>';return;}try{if(hasPermanentCloudAccount()&&window.MXCloud.syncDuelLeaderboard)await window.MXCloud.syncDuelLeaderboard(save,save.profileId,true);const res=await window.MXCloud.getDuelLeaderboard(mode,100,true);const rows=res&&res.rows||[];if(!rows.length){grid.innerHTML='<div class="duelRankNotice">'+(ml("Henüz dereceli Hızlı Eşleşme sonucu yok.","No ranked Quick Match results yet.","Noch keine Ranglisten-Ergebnisse im Schnellmatch.","Aún no hay resultados clasificatorios de Partida Rápida.","Ainda não há resultados ranqueados de Partida Rápida.","クイックマッチのランク結果はまだありません。"))+'</div>';return;}const rankingRows=rows.map((r,i)=>isRankingRowBlocked(r,window.MXCloud.uid,save.profileId)?'':duelRankRowHtml(r,i,window.MXCloud.uid,save.profileId,mode)).join('');grid.innerHTML=rankingRows||'<div class="duelRankNotice">'+ml('Engellediğin oyuncular gizlendi.','Blocked players are hidden.','Blockierte Spieler sind ausgeblendet.','Los jugadores bloqueados están ocultos.','Jogadores bloqueados estão ocultos.','ブロックしたプレイヤーは非表示です。')+'</div>';bindRankingSafetyControls(grid);}catch(e){grid.innerHTML='<div class="duelRankNotice">'+t('worldOffline')+'</div>';}}
+async function refreshDuelRankings(mode){ensureDuelRankState(save);const summary=$('#duelRankSummary'),grid=$('#duelRankGrid'),label=$('#duelRankPeriodLabel');if(!summary||!grid)return;summary.innerHTML=duelRankSummaryHtml();document.querySelectorAll('.duelRankTab').forEach((b,i)=>b.textContent=[ml('GENEL','ALL-TIME','GESAMT','HISTÓRICO','GERAL','全期間','GÉNÉRAL','总榜'),ml('BU HAFTA','THIS WEEK','DIESE WOCHE','ESTA SEMANA','ESTA SEMANA','今週','CETTE SEMAINE','本周'),ml('BU AY','THIS MONTH','DIESEN MONAT','ESTE MES','ESTE MÊS','今月','CE MOIS','本月')][i]);label.textContent=mode==='week'?utcWeekId():mode==='month'?utcMonthId():ml('TÜM ZAMANLAR','ALL-TIME','GESAMT','HISTÓRICO','GERAL','全期間','TOUS TEMPS','全部时间');grid.innerHTML='<div class="duelRankNotice">'+ml('Düello sıralaması yükleniyor…','Loading Duel ranking…','Duellrangliste wird geladen …','Cargando clasificación de Duelo…','Carregando ranking de Duelo…','デュエルランキングを読み込み中…','Chargement du classement…','正在加载对决排名…')+'</div>';if(!window.MXCloud||!window.MXCloud.getDuelLeaderboard){grid.innerHTML='<div class="duelRankNotice">'+t('worldOffline')+'</div>';return;}try{if(hasPermanentCloudAccount()&&window.MXCloud.syncDuelLeaderboard)await window.MXCloud.syncDuelLeaderboard(save,save.profileId,true);const res=await window.MXCloud.getDuelLeaderboard(mode,100,true);const rows=res&&res.rows||[];if(!rows.length){grid.innerHTML='<div class="duelRankNotice">'+ml('Henüz dereceli Hızlı Eşleşme sonucu yok.','No ranked Quick Match results yet.','Noch keine Ranglisten-Ergebnisse im Schnellmatch.','Aún no hay resultados clasificatorios de Partida Rápida.','Ainda não há resultados ranqueados de Partida Rápida.','クイックマッチのランク結果はまだありません。','Aucun résultat de Match rapide classé pour le moment.','暂无排位快速匹配结果。')+'</div>';return;}const myUid=window.MXCloud.uid,myProfile=save.profileId,myIndex=rows.findIndex(r=>r.uid===myUid&&r.profileId===myProfile),me=myIndex>=0?rows[myIndex]:null;const youBar=me?'<div class="duelRankYouBar"><span>'+ml('SEN','YOU','DU','TÚ','VOCÊ','あなた','TOI','你')+' · #'+(myIndex+1)+'</span><b>'+(mode==='world'?Math.max(0,Number(me.rating)||0)+' DP':Math.max(0,Number(me.periodPoints)||0)+' P')+'</b></div>':'';const rankingRows=rows.map((r,i)=>isRankingRowBlocked(r,myUid,myProfile)?'':duelRankRowHtml(r,i,myUid,myProfile,mode)).join('');grid.innerHTML=youBar+(rankingRows||'<div class="duelRankNotice">'+ml('Engellediğin oyuncular gizlendi.','Blocked players are hidden.','Blockierte Spieler sind ausgeblendet.','Los jugadores bloqueados están ocultos.','Jogadores bloqueados estão ocultos.','ブロックしたプレイヤーは非表示です。','Les joueurs bloqués sont masqués.','已隐藏你屏蔽的玩家。')+'</div>');bindRankingSafetyControls(grid);}catch(e){grid.innerHTML='<div class="duelRankNotice">'+t('worldOffline')+'</div>';}}
 async function refreshSpotlights(){
   if(!window.MXCloud){fillSpot('hofSpotWeek',null,true);fillSpot('hofSpotMonth',null,true);return;}
   try{
@@ -5398,6 +5398,12 @@ function resetIdle(){wake();schedIdle();}
 
 /* ================= GAME STATE ================= */
 const board=$('#board'),bctx=board.getContext('2d');
+// HOTFIX 4: cache the immutable grid layer. The old renderer rebuilt every
+// floor/stone gradient and path on every idle/animation frame. Dynamic cells,
+// atoms and mechanics are still drawn live, so the approved visuals stay intact.
+const boardStatic=document.createElement('canvas'),boardStaticCtx=boardStatic.getContext('2d');
+let boardStaticDirty=true,boardStaticKey='';
+function invalidateBoardStatic(){boardStaticDirty=true;}
 let lv=-1,LV=null,mid='',curMol=null,grid=[],atoms=[],sel=0,selT0=0,atomPressIdx=-1,atomPressAt=0,moves=0,t2=0,hist=[],levelStartT=0;
 
 /* R24 · fair count-up solve clock.
@@ -5636,6 +5642,7 @@ function updatePressureDoors(withFx=true){
       }
       SFX.thunk&&SFX.thunk();mxHaptic('light');
     }
+    if(sys.open!==nextOpen)invalidateBoardStatic();
     sys.open=nextOpen;
     if(grid[sys.door.y])grid[sys.door.y][sys.door.x]=!nextOpen;
   }
@@ -5667,7 +5674,7 @@ function restoreMovingWalls(state){
   if(!Array.isArray(state))return;
   for(const w of movingWalls){if(grid[w.y])grid[w.y][w.x]=false;}
   state.forEach((st,i)=>{const w=movingWalls[i];if(!w)return;w.x=+st.x;w.y=+st.y;w.index=+st.index||0;w.anim=null;if(grid[w.y])grid[w.y][w.x]=true;});
-  movingWallAnimating=false;
+  movingWallAnimating=false;invalidateBoardStatic();
 }
 function deriveMovingWalls(level,index,mode){
   if(mode!=='campaign'||dailyMode||duelMode||crystalMode||chainMode||reactorMode)return [];
@@ -5732,8 +5739,9 @@ function advanceMovingWalls(){
   if(!plans.length)return;
   movingWallAnimating=true;
   for(const p of plans){grid[p.from.y][p.from.x]=false;grid[p.to.y][p.to.x]=true;p.w.anim={fx:p.from.x,fy:p.from.y,tx:p.to.x,ty:p.to.y,t0:performance.now(),dur:motionReduced()?120:360};}
+  invalidateBoardStatic();
   (SFX.movingWall?SFX.movingWall():(SFX.thunk&&SFX.thunk()));mxHaptic('light');
-  setTimeout(()=>{for(const p of plans){p.w.x=p.to.x;p.w.y=p.to.y;p.w.index=p.ni;p.w.anim=null;}movingWallAnimating=false;},motionReduced()?130:375);
+  setTimeout(()=>{for(const p of plans){p.w.x=p.to.x;p.w.y=p.to.y;p.w.index=p.ni;p.w.anim=null;}movingWallAnimating=false;invalidateBoardStatic();},motionReduced()?130:375);
 }
 function portalKey(x,y){return x+','+y;}
 function oneWayKey(x,y){return x+','+y;}
@@ -5951,7 +5959,7 @@ function attemptHammerAt(x,y){
     const target=hammerPending;if(!target||target.broken){closeModal();cancelHammer();return;}
     if(!spendBooster('hammer',1)){closeModal();cancelHammer();return;}
     assistanceUsed=true;routeAssistUsed=true;
-    target.broken=true;grid[target.y][target.x]=false;closeModal();cancelHammer();mxHaptic('heavy');shake=motionReduced()?0:Math.max(shake,.30);
+    target.broken=true;grid[target.y][target.x]=false;invalidateBoardStatic();closeModal();cancelHammer();mxHaptic('heavy');shake=motionReduced()?0:Math.max(shake,.30);
     gameFeelToolFx('hammer',target.x,target.y);wallBreakDustFx(target.x,target.y);
     say(ml("Duvar kırıldı. Seçimin artık bölümün bir parçası!","Wall broken. Your choice is now part of the level!","Wand zerstört. Deine Wahl ist jetzt Teil des Levels!","Pared rota. ¡Tu elección ahora forma parte del nivel!","Parede quebrada. Sua escolha agora faz parte da fase!","壁を壊しました。あなたの選択がこのレベルの一部になりました！"),'happy',2600,'glow');
   });
@@ -5962,6 +5970,25 @@ let tutorialActive=false,tutorialStep=-1,tutorialGuideDir=null,tutorialWaitTap=n
 let dailyMode=false;
 let duelMode=false,duelState=null,duelTimerText='';
 let onlineDuelMode=false,onlineDuelSession=null,quickMatchSearch=null;
+const ONLINE_DUEL_RESUME_KEY='mx_online_duel_resume_v2';
+const ONLINE_DUEL_RESUME_MAX_AGE_MS=6*60*60*1000;
+const ONLINE_QUICK_MATCH_LOCAL_TTL_MS=118000;
+function onlinePromiseTimeout(promise,timeoutMs=10000,reason='cloud/timeout'){
+  let timer=null;
+  const timeout=new Promise(resolve=>{timer=setTimeout(()=>resolve({ok:false,reason}),Math.max(1000,Number(timeoutMs)||10000));});
+  return Promise.race([Promise.resolve(promise),timeout]).finally(()=>clearTimeout(timer));
+}
+function onlineRetryableReason(reason){const r=String(reason||'').toLowerCase();return !r||r.includes('offline')||r.includes('unavailable')||r.includes('network')||r.includes('timeout')||r.includes('deadline-exceeded')||r.includes('aborted')||r.includes('internal')||r.includes('cancelled');}
+function clearOnlineDuelResume(){try{localStorage.removeItem(ONLINE_DUEL_RESUME_KEY);}catch(e){}}
+function readOnlineDuelResume(){try{const raw=JSON.parse(localStorage.getItem(ONLINE_DUEL_RESUME_KEY)||'null');if(!raw||!/^[0-9]{6}$/.test(String(raw.code||'')))return null;const now=Date.now(),savedAt=Number(raw.savedAt)||0,expiresAt=Number(raw.expiresAt)||0;if(!savedAt||now-savedAt>ONLINE_DUEL_RESUME_MAX_AGE_MS||(expiresAt&&expiresAt<now)){clearOnlineDuelResume();return null;}return raw;}catch(e){clearOnlineDuelResume();return null;}}
+function persistOnlineDuelResume(room){const s=onlineDuelSession,cloud=window.MXCloud;if(!s||!cloud||!cloud.uid||!cloud.duelClientId)return;const roomExpiry=onlineTimestampMs(room&&room.expiresAt),waiting=!!(room&&room.status==='waiting');const data={code:String(s.code||''),playerIndex:Number(s.playerIndex)===1?1:0,uid:String(cloud.uid||''),clientId:String(cloud.duelClientId||''),savedAt:Date.now(),expiresAt:(waiting&&roomExpiry)?roomExpiry:Date.now()+ONLINE_DUEL_RESUME_MAX_AGE_MS};if(!/^[0-9]{6}$/.test(data.code))return;try{localStorage.setItem(ONLINE_DUEL_RESUME_KEY,JSON.stringify(data));}catch(e){}}
+function onlineDuelMembershipIndex(room){const cloud=window.MXCloud;if(!room||!cloud||!cloud.uid||!cloud.duelClientId)return -1;const u=String(cloud.uid),c=String(cloud.duelClientId);if(String(room.hostUid||'')===u&&String(room.hostClientId||'')===c)return 0;if(String(room.guestUid||'')===u&&String(room.guestClientId||'')===c)return 1;return -1;}
+let onlineDuelResumeProbeBusy=false;
+function probeOnlineDuelResumeRoom(saved,waitMs=8000){return new Promise(resolve=>{if(!saved||!window.MXCloud||!window.MXCloud.subscribeDuelRoom){resolve({ok:false,reason:'duel/offline'});return;}let done=false,unsub=null;const finish=result=>{if(done)return;done=true;if(timer)clearTimeout(timer);if(typeof unsub==='function'){try{unsub();}catch(e){}}resolve(result);};const timer=setTimeout(()=>finish({ok:false,reason:'duel/timeout',retryable:true}),Math.max(3000,Number(waitMs)||8000));try{unsub=window.MXCloud.subscribeDuelRoom(saved.code,room=>{if(done)return;if(!room){clearOnlineDuelResume();finish({ok:false,reason:'duel/not-found'});return;}const member=onlineDuelMembershipIndex(room);if(member<0){clearOnlineDuelResume();finish({ok:false,reason:'duel/not-player'});return;}const status=String(room.status||'');if(!['playing','round_result'].includes(status)){clearOnlineDuelResume();finish({ok:false,reason:'duel/not-active',status});return;}finish({ok:true,room,playerIndex:member});},err=>{const reason=String(err&&((err.code||err.message))||'duel/error');finish({ok:false,reason,retryable:onlineRetryableReason(reason)});});}catch(e){const reason=String(e&&((e.code||e.message))||'duel/error');finish({ok:false,reason,retryable:onlineRetryableReason(reason)});}});}
+async function maybeResumeOnlineDuelSession(){if(onlineDuelResumeProbeBusy||onlineDuelMode||onlineDuelSession||quickMatchSearch||duelMode||navigator.onLine===false||!window.MXCloud||!window.MXCloud.ready||!window.MXCloud.subscribeDuelRoom)return false;const saved=readOnlineDuelResume();if(!saved)return false;onlineDuelResumeProbeBusy=true;try{await onlinePromiseTimeout(window.MXCloud.ready,8000,'duel/auth-timeout');if(!window.MXCloud.uid||String(window.MXCloud.uid)!==String(saved.uid)||String(window.MXCloud.duelClientId||'')!==String(saved.clientId||'')){clearOnlineDuelResume();return false;}const probe=await probeOnlineDuelResumeRoom(saved,8000);if(!probe||!probe.ok)return false;beginOnlineDuelSession(saved.code,probe.playerIndex,probe.room,true);return true;}catch(e){return false;}finally{onlineDuelResumeProbeBusy=false;}}
+function recoverOnlineJoinedRoom(code,expectedIndex=1,waitMs=12000){return new Promise(resolve=>{if(!window.MXCloud||!window.MXCloud.subscribeDuelRoom){resolve({ok:false,reason:'duel/offline'});return;}let done=false,unsub=null;const finish=result=>{if(done)return;done=true;if(timer)clearTimeout(timer);if(typeof unsub==='function'){try{unsub();}catch(e){}}resolve(result);};const timer=setTimeout(()=>finish({ok:false,reason:'duel/timeout'}),Math.max(3000,Number(waitMs)||12000));try{unsub=window.MXCloud.subscribeDuelRoom(code,room=>{if(done||!room)return;const member=onlineDuelMembershipIndex(room);if(member===expectedIndex){finish({ok:true,room,playerIndex:member});return;}if(room.status&&room.status!=='waiting')finish({ok:false,reason:'duel/full'});},err=>{const reason=String(err&&((err.code||err.message))||'');if(!onlineRetryableReason(reason))finish({ok:false,reason:reason||'duel/error'});});}catch(e){finish({ok:false,reason:String(e&&((e.code||e.message))||'duel/error')});}});}
+
+
 let crystalMode=false,crystals=[],currentCrystalLayout=null,currentCrystalPool=null,crystalGoalWarned=false;
 let chainMode=false,currentChainPool=null,currentChainPlan=null,chainPlan=[],chainPathKeys=[],chainCurrentStep=0,chainMaxCombo=1,chainReactions=0,chainAutoMoves=0,chainCurrentCombo=1,chainAutoActive=false,chainAutoExecuting=false,chainAutoQueue=[];
 let reactorMode=false,currentReactorPool=null,currentReactorPlan=null,reactorGates=[],reactorHits=0,reactorPenalty=0,reactorLastHitAt=0;
@@ -6757,9 +6784,10 @@ function onlineDuelErrorText(reason){
   if(r.includes('full'))return c.full;
   if(r.includes('expired'))return c.expired;
   if(r.includes('invalid-code'))return c.invalidCode;
+  if(r.includes('not-player'))return ml('Bu cihaz artık bu düello odasının oyuncusu olarak doğrulanamıyor. Odaya yeniden katıl veya yeni bir eşleşme başlat.','This device can no longer be verified as a player in this duel room. Rejoin the room or start a new match.','Dieses Gerät kann nicht mehr als Spieler dieses Duellraums bestätigt werden. Tritt erneut bei oder starte ein neues Match.','Este dispositivo ya no puede verificarse como jugador de esta sala. Vuelve a unirte o inicia una nueva partida.','Este dispositivo não pode mais ser verificado como jogador desta sala. Entre novamente ou inicie uma nova partida.','この端末をこのデュエルルームのプレイヤーとして確認できません。再参加するか新しい対戦を開始してください。','Cet appareil ne peut plus être vérifié comme joueur de cette salle. Rejoins la salle ou lance un nouveau match.','此设备已无法验证为该对决房间的玩家。请重新加入或开始新的对局。');
   if(r.includes('same-account'))return ml('Bu oda aynı Moleculox hesabıyla açılmış. Diğer cihazda farklı bir hesap veya Misafir modu kullan.','This room was created with the same Moleculox account. Use a different account or Guest mode on the other device.','Dieser Raum wurde mit demselben Moleculox-Konto erstellt. Verwende auf dem anderen Gerät ein anderes Konto oder den Gastmodus.','Esta sala se creó con la misma cuenta de Moleculox. Usa otra cuenta o el modo Invitado en el otro dispositivo.','Esta sala foi criada com a mesma conta Moleculox. Use outra conta ou o modo Convidado no outro dispositivo.','このルームは同じMoleculoxアカウントで作成されています。もう一方の端末では別のアカウントまたはゲストモードを使用してください。','Cette salle a été créée avec le même compte Moleculox. Utilisez un autre compte ou le mode Invité sur l’autre appareil.','此房间由同一个 Moleculox 账户创建。请在另一台设备上使用其他账户或访客模式。');
   if(r.includes('permission-denied'))return ml('Odaya erişim Firebase tarafından reddedildi. Firestore Rules yayınını kontrol et ve tekrar dene.','Firebase denied access to the room. Check the published Firestore Rules and try again.','Firebase hat den Zugriff auf den Raum verweigert. Prüfe die veröffentlichten Firestore-Regeln und versuche es erneut.','Firebase rechazó el acceso a la sala. Comprueba las reglas de Firestore publicadas e inténtalo de nuevo.','O Firebase negou o acesso à sala. Verifique as regras do Firestore publicadas e tente novamente.','Firebaseがルームへのアクセスを拒否しました。公開済みのFirestoreルールを確認して再試行してください。','Firebase a refusé l’accès à la salle. Vérifiez les règles Firestore publiées puis réessayez.','Firebase 拒绝访问房间。请检查已发布的 Firestore Rules 后重试。');
-  if(r.includes('offline')||r.includes('unavailable'))return c.offline;
+  if(r.includes('offline')||r.includes('unavailable')||r.includes('timeout')||r.includes('network'))return c.offline;
   return c.error;
 }
 function preferredDuelName(){
@@ -6778,33 +6806,36 @@ function openDuelSetup(){
   bindTap('#mDuelQuick',()=>{SFX.play();openQuickMatchSetup();});
   bindTap('#mDuelHubCancel',()=>{SFX.back();closeModal();});
 }
-function openOnlineDuelMenu(){
+function openOnlineDuelMenu(mode='create'){
+  mode=mode==='join'?'join':'create';
   const c=duelCopy(),o=onlineDuelCopy(),name=duelEsc(preferredDuelName());
   if(!navigator.onLine){openModal('<h3>📡 '+o.title+'</h3><div class="onlineDuelNotice error">'+o.offline+'</div><div class="mrow"><button class="btn" id="mOnlineBack">'+c.cancel+'</button></div>');bindTap('#mOnlineBack',()=>openDuelSetup());return;}
   if(!window.MXCloud||!window.MXCloud.createDuelRoom){openModal('<h3>📡 '+o.title+'</h3><div class="onlineDuelNotice error">'+o.cloudMissing+'</div><div class="mrow"><button class="btn" id="mOnlineBack">'+c.cancel+'</button></div>');bindTap('#mOnlineBack',()=>openDuelSetup());return;}
   const opts='<option value="mixed">🎲 '+c.mixed+'</option><option value="medium">⚗️ '+c.medium+'</option><option value="hard">🔥 '+c.hard+'</option>';
   const gameOpts='<option value="classic">⚛️ '+c.classic+'</option><option value="crystal">🧪 '+c.crystal+'</option><option value="chain">⚡ '+c.chain+'</option><option value="reactor">☢️ '+c.reactor+'</option><option value="mixed">🎲 '+c.gameMixed+'</option>';
-  openModal('<h3>📡 '+o.title+'</h3><div class="msub">'+o.unranked+'</div>'+
-    '<label class="duelLevelLabel">'+o.name+'<input class="onlineDuelInput" id="onlineDuelName" maxlength="14" value="'+name+'"></label>'+
-    '<div class="onlineDuelSection"><b>1 · '+o.create+'</b><label class="duelLevelLabel">'+c.game+'<select id="onlineDuelGame">'+gameOpts+'</select></label><label class="duelLevelLabel">'+c.level+'<select id="onlineDuelLevel">'+opts+'</select></label><button class="btn green" id="mOnlineCreate">＋ '+o.create+'</button></div>'+
-    '<div class="onlineDuelOr">'+(ml("VEYA","OR","ODER","O","OU","または"))+'</div>'+
-    '<div class="onlineDuelSection"><b>2 · '+o.join+'</b><label class="duelLevelLabel">'+o.code+'<input class="onlineDuelInput code" id="onlineDuelCode" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="000000"></label><button class="btn" id="mOnlineJoin">→ '+o.join+'</button></div>'+
+  const tabs='<div class="onlineDuelTabs"><button class="'+(mode==='create'?'on':'')+'" id="mOnlineTabCreate">＋ '+o.create+'</button><button class="'+(mode==='join'?'on':'')+'" id="mOnlineTabJoin">→ '+o.join+'</button></div>';
+  const body=mode==='create'?
+    '<div class="onlineDuelSection compact"><label class="duelLevelLabel">'+c.game+'<select id="onlineDuelGame">'+gameOpts+'</select></label><label class="duelLevelLabel">'+c.level+'<select id="onlineDuelLevel">'+opts+'</select></label><button class="btn green" id="mOnlineCreate">＋ '+o.create+'</button></div>':
+    '<div class="onlineDuelSection compact"><label class="duelLevelLabel">'+o.code+'<input class="onlineDuelInput code" id="onlineDuelCode" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="000000"></label><button class="btn green" id="mOnlineJoin">→ '+o.join+'</button></div>';
+  openModal('<h3>📡 '+o.title+'</h3><div class="msub">'+o.unranked+'</div>'+tabs+
+    '<label class="duelLevelLabel onlineNameLabel">'+o.name+'<input class="onlineDuelInput" id="onlineDuelName" maxlength="14" value="'+name+'"></label>'+body+
     '<div id="onlineDuelError" class="onlineDuelNotice"></div><div class="mrow"><button class="btn ghost" id="mOnlineCancel">'+c.cancel+'</button></div>');
-  const modalBox=$('#modalBox');if(modalBox)modalBox.classList.add('onlineDuelModal');
+  const modalBox=$('#modalBox');if(modalBox)modalBox.classList.add('onlineDuelModal','onlineFriendRoomModal');
+  bindTap('#mOnlineTabCreate',()=>{SFX.click();openOnlineDuelMenu('create');});
+  bindTap('#mOnlineTabJoin',()=>{SFX.click();openOnlineDuelMenu('join');});
   const showErr=msg=>{const el=$('#onlineDuelError');if(el){el.textContent=msg||'';el.classList.toggle('error',!!msg);}};
   const working=(btn,on)=>{if(btn){btn.disabled=!!on;btn.classList.toggle('working',!!on);}};
-  $('#onlineDuelCode').addEventListener('input',e=>{e.target.value=e.target.value.replace(/\D/g,'').slice(0,6);});
-  $('#mOnlineCreate').addEventListener('pointerdown',async e=>{e.preventDefault();SFX.play();showErr('');const btn=e.currentTarget;working(btn,true);
+  const codeInput=$('#onlineDuelCode');if(codeInput)codeInput.addEventListener('input',e=>{e.target.value=e.target.value.replace(/\D/g,'').slice(0,6);});
+  const createBtn=$('#mOnlineCreate');if(createBtn)createBtn.addEventListener('pointerdown',async e=>{e.preventDefault();SFX.play();showErr('');const btn=e.currentTarget;working(btn,true);
     const checkedName=validatedPublicPlayerName($('#onlineDuelName').value||preferredDuelName(),14);if(!checkedName.ok){working(btn,false);showErr(publicPlayerNameError());return;}const hostName=checkedName.name;
-    const pool=duelPoolFor($('#onlineDuelLevel').value),gameKind=$('#onlineDuelGame').value;
-    const rounds=duelMakeRounds(duelBuildLevels(pool),gameKind,pool);
-    const res=await window.MXCloud.createDuelRoom({hostName,pool,gameKind,rounds,playerStyle:duelPublicStyle()});working(btn,false);
+    const pool=duelPoolFor($('#onlineDuelLevel').value),gameKind=$('#onlineDuelGame').value;const rounds=duelMakeRounds(duelBuildLevels(pool),gameKind,pool);
+    const res=await onlinePromiseTimeout(window.MXCloud.createDuelRoom({hostName,pool,gameKind,rounds,playerStyle:duelPublicStyle()}),15000,'duel/timeout');working(btn,false);
     if(!res||!res.ok){showErr(onlineDuelErrorText(res&&res.reason));return;}save.playerName=hostName;persist();beginOnlineDuelSession(res.code,res.playerIndex,res.room);
   },{passive:false});
-  $('#mOnlineJoin').addEventListener('pointerdown',async e=>{e.preventDefault();SFX.play();showErr('');const btn=e.currentTarget;const code=$('#onlineDuelCode').value.replace(/\D/g,'');if(code.length!==6){showErr(o.invalidCode);return;}working(btn,true);
+  const joinBtn=$('#mOnlineJoin');if(joinBtn)joinBtn.addEventListener('pointerdown',async e=>{e.preventDefault();SFX.play();showErr('');const btn=e.currentTarget;const code=$('#onlineDuelCode').value.replace(/\D/g,'');if(code.length!==6){showErr(o.invalidCode);return;}working(btn,true);
     const checkedName=validatedPublicPlayerName($('#onlineDuelName').value||preferredDuelName(),14);if(!checkedName.ok){working(btn,false);showErr(publicPlayerNameError());return;}const guestName=checkedName.name;
-    const invite=window.MXCloud.decodeFriendDuelCode?window.MXCloud.decodeFriendDuelCode(code):null;if(!invite){working(btn,false);showErr(o.invalidCode);return;}const joinPool=duelPoolFor(invite.poolKind||'mixed'),joinRounds=duelMakeRounds(duelBuildLevels(joinPool),invite.gameKind||'classic',joinPool);const res=await window.MXCloud.joinDuelRoom(code,guestName,duelPublicStyle(),joinRounds);working(btn,false);
-    if(!res||!res.ok){showErr(onlineDuelErrorText(res&&res.reason));return;}save.playerName=guestName;persist();beginOnlineDuelSession(res.code,res.playerIndex,res.room);
+    const invite=window.MXCloud.decodeFriendDuelCode?window.MXCloud.decodeFriendDuelCode(code):null;if(!invite){working(btn,false);showErr(o.invalidCode);return;}const joinPool=duelPoolFor(invite.poolKind||'mixed'),joinRounds=duelMakeRounds(duelBuildLevels(joinPool),invite.gameKind||'classic',joinPool);let res=await onlinePromiseTimeout(window.MXCloud.joinDuelRoom(code,guestName,duelPublicStyle(),joinRounds),15000,'duel/timeout');if(res&&!res.ok&&String(res.reason||'').includes('timeout')&&navigator.onLine!==false){showErr(ml('Bağlantı doğrulanıyor… Odaya katılımın korunuyor.','Verifying connection… Your room join is protected.','Verbindung wird geprüft… Dein Raumbeitritt bleibt erhalten.','Verificando conexión… Tu entrada a la sala está protegida.','Verificando conexão… Sua entrada na sala está protegida.','接続を確認中… ルーム参加を保護しています。','Vérification de la connexion… Ton accès à la salle est protégé.','正在确认连接… 你的房间加入操作将被保留。'));res=await recoverOnlineJoinedRoom(code,1,12000);}working(btn,false);
+    if(!res||!res.ok){showErr(onlineDuelErrorText(res&&res.reason));return;}save.playerName=guestName;persist();beginOnlineDuelSession(code,res.playerIndex,res.room);
   },{passive:false});
   bindTap('#mOnlineCancel',()=>{SFX.back();openDuelSetup();});
 }
@@ -6812,7 +6843,8 @@ function stopQuickMatchLocal(){
   if(!quickMatchSearch)return;
   if(typeof quickMatchSearch.unsubscribe==='function'){try{quickMatchSearch.unsubscribe();}catch(e){}}
   if(quickMatchSearch.timer)clearInterval(quickMatchSearch.timer);
-  quickMatchSearch.unsubscribe=null;quickMatchSearch.timer=null;
+  if(quickMatchSearch.expireTimer)clearTimeout(quickMatchSearch.expireTimer);
+  quickMatchSearch.unsubscribe=null;quickMatchSearch.timer=null;quickMatchSearch.expireTimer=null;
 }
 function finishQuickMatchFound(code,playerIndex,ticketId){
   if(!quickMatchSearch||quickMatchSearch.matched)return;
@@ -6821,25 +6853,31 @@ function finishQuickMatchFound(code,playerIndex,ticketId){
   if(window.MXCloud&&window.MXCloud.removeQuickMatchTicket)window.MXCloud.removeQuickMatchTicket(ticketId).catch(()=>{});
   setTimeout(()=>beginOnlineDuelSession(code,playerIndex,null),450);
 }
+function showQuickMatchExpired(){const o=onlineDuelCopy();openModal('<h3>🌐 '+o.quickTitle+'</h3><div class="onlineDuelNotice error">'+o.quickExpired+'</div><div class="mrow"><button class="btn" id="mQuickAgain">'+o.quickStart+'</button><button class="btn ghost" id="mQuickBack">'+duelCopy().cancel+'</button></div>');bindTap('#mQuickAgain',()=>openQuickMatchSetup());bindTap('#mQuickBack',()=>openDuelSetup());}
+async function expireQuickMatchSearch(q){if(!q||!quickMatchSearch||quickMatchSearch!==q||q.matched||q.expiring)return;q.expiring=true;stopQuickMatchLocal();let res=null;try{res=await onlinePromiseTimeout(window.MXCloud.cancelQuickMatch(q.ticketId),9000,'duel/timeout');}catch(e){}if(quickMatchSearch!==q)return;if(res&&res.matched&&res.code){q.expiring=false;finishQuickMatchFound(res.code,res.playerIndex,q.ticketId);return;}if(window.MXCloud&&window.MXCloud.removeQuickMatchTicket)window.MXCloud.removeQuickMatchTicket(q.ticketId).catch(()=>{});quickMatchSearch=null;showQuickMatchExpired();}
 async function attemptQuickMatch(){
-  const q=quickMatchSearch;if(!q||q.matched||q.busy)return;q.busy=true;
+  const q=quickMatchSearch;if(!q||q.matched||q.busy)return;if(Date.now()-(q.startedAt||0)>=ONLINE_QUICK_MATCH_LOCAL_TTL_MS){expireQuickMatchSearch(q);return;}q.busy=true;
   try{
-    const res=await window.MXCloud.tryQuickMatch(q.ticketId,q.rounds);
+    const res=await onlinePromiseTimeout(window.MXCloud.tryQuickMatch(q.ticketId,q.rounds),12000,'duel/timeout');
     if(!quickMatchSearch||quickMatchSearch!==q)return;
-    if(res&&res.ok&&res.status==='matched'&&res.code){finishQuickMatchFound(res.code,res.playerIndex,q.ticketId);return;}
-    if(!res||!res.ok){const reason=String(res&&res.reason||'');if(reason.includes('expired')||reason.includes('missing')){stopQuickMatchLocal();if(window.MXCloud&&window.MXCloud.removeQuickMatchTicket)window.MXCloud.removeQuickMatchTicket(q.ticketId).catch(()=>{});quickMatchSearch=null;const o=onlineDuelCopy();openModal('<h3>🌐 '+o.quickTitle+'</h3><div class="onlineDuelNotice error">'+o.quickExpired+'</div><div class="mrow"><button class="btn" id="mQuickAgain">'+o.quickStart+'</button><button class="btn ghost" id="mQuickBack">'+duelCopy().cancel+'</button></div>');bindTap('#mQuickAgain',()=>openQuickMatchSetup());bindTap('#mQuickBack',()=>openDuelSetup());}}
+    if(res&&res.ok){q.errorCount=0;const status=$('.onlineStatusPulse span');if(status)status.textContent=onlineDuelCopy().quickSearchingSub;if(res.status==='matched'&&res.code){finishQuickMatchFound(res.code,res.playerIndex,q.ticketId);return;}return;}
+    const reason=String(res&&res.reason||'');
+    if(reason.includes('expired')||reason.includes('missing')){stopQuickMatchLocal();if(window.MXCloud&&window.MXCloud.removeQuickMatchTicket)window.MXCloud.removeQuickMatchTicket(q.ticketId).catch(()=>{});quickMatchSearch=null;showQuickMatchExpired();return;}
+    q.errorCount=(q.errorCount||0)+1;
+    if(onlineRetryableReason(reason)){const status=$('.onlineStatusPulse span');if(status&&q.errorCount>=2)status.textContent=ml('Bağlantı yeniden kuruluyor… Arama korunuyor.','Reconnecting… Your search is protected.','Verbindung wird wiederhergestellt… Suche bleibt aktiv.','Reconectando… Tu búsqueda está protegida.','Reconectando… Sua busca está protegida.','再接続中… 検索は保持されています。','Reconnexion… Ta recherche est conservée.','正在重新连接… 搜索将继续保留。');return;}
+    stopQuickMatchLocal();if(window.MXCloud&&window.MXCloud.removeQuickMatchTicket)window.MXCloud.removeQuickMatchTicket(q.ticketId).catch(()=>{});quickMatchSearch=null;const o=onlineDuelCopy();openModal('<h3>🌐 '+o.quickTitle+'</h3><div class="onlineDuelNotice error">'+onlineDuelErrorText(reason)+'</div><div class="mrow"><button class="btn green" id="mQuickAgain">'+o.retry+'</button><button class="btn ghost" id="mQuickBack">'+duelCopy().cancel+'</button></div>');bindTap('#mQuickAgain',()=>openQuickMatchSetup());bindTap('#mQuickBack',()=>openDuelSetup());
   }finally{if(quickMatchSearch===q)q.busy=false;}
 }
 function showQuickMatchWaiting(){
   const o=onlineDuelCopy();openModal('<h3>🌐 '+o.quickSearching+'</h3><div class="onlineSyncSpinner"></div><div class="onlineStatusPulse"><i></i><span>'+o.quickSearchingSub+'</span></div><div class="quickMatchRules">'+o.quickRules+'</div><div class="msub">'+o.ranked+'</div><div class="mrow"><button class="btn ghost" id="mQuickCancel">'+o.quickCancel+'</button></div>');
   const modalBox=$('#modalBox');if(modalBox)modalBox.classList.add('onlineDuelModal');
-  const b=$('#mQuickCancel');if(b)b.addEventListener('pointerdown',async e=>{e.preventDefault();SFX.back();e.currentTarget.disabled=true;const q=quickMatchSearch;if(!q){openDuelSetup();return;}stopQuickMatchLocal();const res=await window.MXCloud.cancelQuickMatch(q.ticketId);if(res&&res.matched&&res.code){quickMatchSearch=q;finishQuickMatchFound(res.code,res.playerIndex,q.ticketId);return;}quickMatchSearch=null;openDuelSetup();},{passive:false});
+  const b=$('#mQuickCancel');if(b)b.addEventListener('pointerdown',async e=>{e.preventDefault();SFX.back();e.currentTarget.disabled=true;const q=quickMatchSearch;if(!q){openDuelSetup();return;}stopQuickMatchLocal();const res=await onlinePromiseTimeout(window.MXCloud.cancelQuickMatch(q.ticketId),9000,'duel/timeout');if(res&&res.matched&&res.code){quickMatchSearch=q;finishQuickMatchFound(res.code,res.playerIndex,q.ticketId);return;}quickMatchSearch=null;openDuelSetup();},{passive:false});
 }
 function beginQuickMatchSearch(ticketId,rounds){
-  stopQuickMatchLocal();quickMatchSearch={ticketId,rounds,unsubscribe:null,timer:null,busy:false,matched:false};showQuickMatchWaiting();
+  stopQuickMatchLocal();quickMatchSearch={ticketId,rounds,unsubscribe:null,timer:null,expireTimer:null,busy:false,matched:false,expiring:false,errorCount:0,startedAt:Date.now()};showQuickMatchWaiting();
   const q=quickMatchSearch;
-  q.unsubscribe=window.MXCloud.subscribeQuickMatchTicket(ticketId,data=>{if(!quickMatchSearch||quickMatchSearch!==q||q.matched)return;if(data&&data.status==='matched'&&data.roomCode)finishQuickMatchFound(data.roomCode,data.playerIndex,ticketId);},()=>{});
-  q.timer=setInterval(attemptQuickMatch,2400);attemptQuickMatch();
+  q.unsubscribe=window.MXCloud.subscribeQuickMatchTicket(ticketId,data=>{if(!quickMatchSearch||quickMatchSearch!==q||q.matched)return;q.errorCount=0;if(data&&data.status==='matched'&&data.roomCode)finishQuickMatchFound(data.roomCode,data.playerIndex,ticketId);},err=>{if(!quickMatchSearch||quickMatchSearch!==q||q.matched)return;q.errorCount=(q.errorCount||0)+1;const reason=String(err&&((err.code||err.message))||'');if(onlineRetryableReason(reason)){const status=$('.onlineStatusPulse span');if(status&&q.errorCount>=2)status.textContent=ml('Bağlantı yeniden kuruluyor… Arama korunuyor.','Reconnecting… Your search is protected.','Verbindung wird wiederhergestellt… Suche bleibt aktiv.','Reconectando… Tu búsqueda está protegida.','Reconectando… Sua busca está protegida.','再接続中… 検索は保持されています。','Reconnexion… Ta recherche est conservée.','正在重新连接… 搜索将继续保留。');}});
+  q.timer=setInterval(attemptQuickMatch,2400);q.expireTimer=setTimeout(()=>expireQuickMatchSearch(q),ONLINE_QUICK_MATCH_LOCAL_TTL_MS);attemptQuickMatch();
 }
 function openQuickMatchSetup(){
   const c=duelCopy(),o=onlineDuelCopy(),name=duelEsc(preferredDuelName());
@@ -6848,7 +6886,7 @@ function openQuickMatchSetup(){
   openModal('<h3>🌐 '+o.quickTitle+'</h3><div class="msub">'+o.quickSub+'</div><label class="duelLevelLabel">'+o.name+'<input class="onlineDuelInput" id="quickDuelName" maxlength="14" value="'+name+'"></label><div class="quickMatchRules">'+o.quickRules+'</div><div class="msub">'+o.ranked+'</div><div id="quickMatchError" class="onlineDuelNotice"></div><div class="mrow"><button class="btn green" id="mQuickStart">⚡ '+o.quickStart+'</button><button class="btn ghost" id="mQuickBack">'+c.cancel+'</button></div>');
   const modalBox=$('#modalBox');if(modalBox)modalBox.classList.add('onlineDuelModal');
   const showErr=msg=>{const el=$('#quickMatchError');if(el){el.textContent=msg||'';el.classList.toggle('error',!!msg);}};
-  $('#mQuickStart').addEventListener('pointerdown',async e=>{e.preventDefault();SFX.play();showErr('');const btn=e.currentTarget;btn.disabled=true;const checkedName=validatedPublicPlayerName($('#quickDuelName').value||preferredDuelName(),14);if(!checkedName.ok){btn.disabled=false;showErr(publicPlayerNameError());return;}const playerName=checkedName.name;const pool=duelPoolFor('mixed'),rounds=duelMakeRounds(duelBuildLevels(pool),'mixed',pool);const res=await window.MXCloud.createQuickMatchTicket(playerName,duelPublicStyle());if(!res||!res.ok){btn.disabled=false;showErr(onlineDuelErrorText(res&&res.reason));return;}save.playerName=playerName;persist();beginQuickMatchSearch(res.ticketId,rounds);},{passive:false});
+  $('#mQuickStart').addEventListener('pointerdown',async e=>{e.preventDefault();SFX.play();showErr('');const btn=e.currentTarget;btn.disabled=true;const checkedName=validatedPublicPlayerName($('#quickDuelName').value||preferredDuelName(),14);if(!checkedName.ok){btn.disabled=false;showErr(publicPlayerNameError());return;}const playerName=checkedName.name;const pool=duelPoolFor('mixed'),rounds=duelMakeRounds(duelBuildLevels(pool),'mixed',pool);const res=await onlinePromiseTimeout(window.MXCloud.createQuickMatchTicket(playerName,duelPublicStyle()),12000,'duel/timeout');if(!res||!res.ok){btn.disabled=false;showErr(onlineDuelErrorText(res&&res.reason));return;}save.playerName=playerName;persist();beginQuickMatchSearch(res.ticketId,rounds);},{passive:false});
   bindTap('#mQuickBack',()=>{SFX.back();openDuelSetup();});
 }
 
@@ -6905,9 +6943,9 @@ const ONLINE_SCIENCE_FACTS=[
   {catTr:'OYUN İPUCU',catEn:'GAME TIP',tr:'En kısa çözüm her zaman ilk görünen yol değildir.',en:'The shortest solution is not always the first route you notice.'}
 ];
 function onlineQuickMessageText(key){const row=ONLINE_QUICK_MESSAGES.find(x=>x.key===key);return row?(dyn6(row.tr,row.en)):'';}
-function onlineQuickMessageButtonsHtml(){const o=onlineDuelCopy();return '<div class="onlineQuickMessages"><b>💬 '+o.messages+'</b><div>'+ONLINE_QUICK_MESSAGES.map(x=>'<button type="button" class="onlineQuickMsgBtn" data-msg="'+x.key+'">'+duelEsc(dyn6(x.tr,x.en))+'</button>').join('')+'</div></div>';}
+function onlineQuickMessageButtonsHtml(collapsed=false){const o=onlineDuelCopy(),buttons='<div>'+ONLINE_QUICK_MESSAGES.map(x=>'<button type="button" class="onlineQuickMsgBtn" data-msg="'+x.key+'">'+duelEsc(dyn6(x.tr,x.en))+'</button>').join('')+'</div>';return collapsed?'<details class="onlineQuickMessages onlineQuickMessagesFold"><summary>💬 '+o.messages+'</summary>'+buttons+'</details>':'<div class="onlineQuickMessages"><b>💬 '+o.messages+'</b>'+buttons+'</div>';}
 function showOnlineMessageToast(text,own=false,error=false){if(save.duelMessages===false&&!own)return;let el=$('#onlineMessageToast');if(!el){el=document.createElement('div');el.id='onlineMessageToast';document.body.appendChild(el);}el.textContent=(error?'⚠ ':own?'✓ ':'💬 ')+text;el.classList.toggle('error',!!error);el.classList.add('on');clearTimeout(el._t);el._t=setTimeout(()=>{el.classList.remove('on','error');},2800);}
-async function sendOnlineQuickMessage(key){if(save.duelMessages===false)return;if(!onlineDuelSession||!window.MXCloud||!window.MXCloud.sendDuelQuickMessage)return;if(!ONLINE_QUICK_MESSAGES.some(x=>x.key===key))return;const now=Date.now();if(now-(onlineDuelSession.lastMessageSentAt||0)<1800)return;if(onlineDuelSession.lastMessageKey===key&&now-(onlineDuelSession.lastSameMessageAt||0)<6500)return;onlineDuelSession.lastMessageSentAt=now;onlineDuelSession.lastMessageKey=key;onlineDuelSession.lastSameMessageAt=now;const text=onlineQuickMessageText(key);const res=await window.MXCloud.sendDuelQuickMessage(onlineDuelSession.code,key);const ok=!!(res&&res.ok);if(ok)showOnlineMessageToast(text,true);else showOnlineMessageToast(ml('Mesaj gönderilemedi. Tekrar dene.','Message could not be sent. Try again.','Nachricht konnte nicht gesendet werden. Versuche es erneut.','No se pudo enviar el mensaje. Inténtalo de nuevo.','Não foi possível enviar a mensagem. Tente novamente.','メッセージを送信できませんでした。もう一度お試しください。','Le message n’a pas pu être envoyé. Réessaie.','消息发送失败，请重试。'),true,true);}
+async function sendOnlineQuickMessage(key){if(save.duelMessages===false)return;if(!onlineDuelSession||!window.MXCloud||!window.MXCloud.sendDuelQuickMessage)return;if(!ONLINE_QUICK_MESSAGES.some(x=>x.key===key))return;const now=Date.now();if(now-(onlineDuelSession.lastMessageSentAt||0)<1800)return;if(onlineDuelSession.lastMessageKey===key&&now-(onlineDuelSession.lastSameMessageAt||0)<6500)return;onlineDuelSession.lastMessageSentAt=now;onlineDuelSession.lastMessageKey=key;onlineDuelSession.lastSameMessageAt=now;const text=onlineQuickMessageText(key);const res=await onlinePromiseTimeout(window.MXCloud.sendDuelQuickMessage(onlineDuelSession.code,key),7000,'duel/timeout');const ok=!!(res&&res.ok);if(ok)showOnlineMessageToast(text,true);else showOnlineMessageToast(ml('Mesaj gönderilemedi. Tekrar dene.','Message could not be sent. Try again.','Nachricht konnte nicht gesendet werden. Versuche es erneut.','No se pudo enviar el mensaje. Inténtalo de nuevo.','Não foi possível enviar a mensagem. Tente novamente.','メッセージを送信できませんでした。もう一度お試しください。','Le message n’a pas pu être envoyé. Réessaie.','消息发送失败，请重试。'),true,true);}
 function bindOnlineQuickMessageButtons(root=document){root.querySelectorAll('.onlineQuickMsgBtn').forEach(btn=>{if(btn.dataset.bound)return;btn.dataset.bound='1';btn.addEventListener('pointerdown',e=>{e.preventDefault();SFX.click();sendOnlineQuickMessage(btn.dataset.msg);},{passive:false});});}
 function stopOnlineFactRotation(){if(onlineDuelSession&&onlineDuelSession.factTimer){clearInterval(onlineDuelSession.factTimer);onlineDuelSession.factTimer=null;}}
 function updateOnlineFact(){const box=$('#onlineFactText'),cat=$('#onlineFactCat');if(!box||!cat||!onlineDuelSession)return;onlineDuelSession.factIndex=((onlineDuelSession.factIndex||0)+1)%ONLINE_SCIENCE_FACTS.length;const f=ONLINE_SCIENCE_FACTS[onlineDuelSession.factIndex];cat.textContent=dyn6(f.catTr,f.catEn);box.textContent=dyn6(f.tr,f.en);}
@@ -6922,29 +6960,12 @@ function scheduleDrEScienceFact(first=false){
   drEScienceFactTimer=setTimeout(()=>{drEScienceFactTimer=null;if(lv!==levelToken||duelMode||dailyMode||tutorialActive||won||!scr.game.classList.contains('on'))return;if(!bub.classList.contains('on')&&!document.querySelector('#modal.on')){let pick=Math.floor(Math.random()*ONLINE_SCIENCE_FACTS.length);if(pick===drEScienceFactLast)pick=(pick+1)%ONLINE_SCIENCE_FACTS.length;drEScienceFactLast=pick;const f=ONLINE_SCIENCE_FACTS[pick];setDrEPose('thinking',9000,7,true);say('💡 <b>'+duelEsc(dyn6(f.catTr,f.catEn))+'</b><br>'+duelEsc(dyn6(f.tr,f.en)),'talk',0,'glow');}scheduleDrEScienceFact(false);},delay);
 }
 
-function onlineLiveBoardHtml(){const o=onlineDuelCopy();return '<div class="onlineSpectatorStage"><div class="onlineLiveHead"><b>⚛️ '+o.liveTitle+'</b><span id="onlineLiveMoves">'+o.liveWaiting+'</span></div><div class="onlineSpectatorCanvasWrap"><canvas id="onlineLiveBoard" width="360" height="450" aria-label="'+o.liveTitle+'"></canvas><div id="onlineMoveDirection" class="onlineMoveDirection"></div></div></div>';}
-function onlineLiveAtomColor(symbol){const row=EL&&EL[symbol];return row&&row.c?row.c:'#64d8ff';}
-function onlineSpectatorLevel(room){const rounds=Array.isArray(room&&room.rounds)?room.rounds:[],round=rounds[Number(room&&room.round)||0]||{},levelIndex=Math.max(0,Math.min(LEVELS.length-1,Number(round.level)||0));return {round,levelIndex,level:LEVELS[levelIndex]};}
-function onlineSpectatorBaseAtoms(room){const info=onlineSpectatorLevel(room),live=room&&room.liveState&&Number(room.liveState.round)===Number(room.round)&&Number(room.liveState.turn)===Number(room.turn)?room.liveState:null;return live&&Array.isArray(live.atoms)&&live.atoms.length?live.atoms.map(a=>({...a})):info.level.a.map(a=>({x:a[0],y:a[1],e:a[2],frozen:!!a[3],fire:!!a[4],sticky:!!a[5],zombie:!!a[6],lightning:!!a[7]}));}
-function stopOnlineSpectatorAnimation(){const s=onlineDuelSession;if(s&&s.spectatorRaf){cancelAnimationFrame(s.spectatorRaf);s.spectatorRaf=0;}if(s){s.spectatorAnim=null;s.spectatorRoom=null;s.spectatorAtoms=null;s.spectatorSelected=-1;}}
-function onlineSpectatorEase(p){return 1-Math.pow(1-Math.max(0,Math.min(1,p)),3);}
-function drawOnlineSpectatorArrow(ctx,cx,cy,scale,d,pulse){const dirs=[[0,-1],[1,0],[0,1],[-1,0]],v=dirs[Math.max(0,Math.min(3,Number(d)||0))],len=scale*(.66+.08*Math.sin(pulse/120));ctx.save();ctx.translate(cx+v[0]*len,cy+v[1]*len);ctx.rotate(Math.atan2(v[1],v[0]));ctx.fillStyle='#ffd23f';ctx.shadowColor='#ffd23f';ctx.shadowBlur=13;ctx.beginPath();ctx.moveTo(scale*.24,0);ctx.lineTo(-scale*.11,-scale*.16);ctx.lineTo(-scale*.11,scale*.16);ctx.closePath();ctx.fill();ctx.restore();}
-function drawOnlineSpectatorFrame(now){const s=onlineDuelSession,cv=$('#onlineLiveBoard');if(!s||!cv||!s.spectatorRoom)return;const room=s.spectatorRoom,ctx=cv.getContext('2d'),info=onlineSpectatorLevel(room),level=info.level;if(!level)return;let atomRows=(s.spectatorAtoms&&s.spectatorAtoms.length?s.spectatorAtoms:onlineSpectatorBaseAtoms(room)).map(a=>({...a}));const live=room.liveState&&Number(room.liveState.round)===Number(room.round)&&Number(room.liveState.turn)===Number(room.turn)?room.liveState:null;let selected=s.spectatorSelected|0,anim=s.spectatorAnim,moving=-1,progress=1;if(anim){progress=Math.max(0,Math.min(1,(now-anim.startedAt)/anim.duration));moving=anim.atomIndex;selected=moving;if(atomRows[moving]){const e=onlineSpectatorEase(progress);atomRows[moving].x=anim.fromX+(anim.toX-anim.fromX)*e;atomRows[moving].y=anim.fromY+(anim.toY-anim.fromY)*e;}if(progress>=1){if(s.spectatorAtoms&&s.spectatorAtoms[moving]){s.spectatorAtoms[moving].x=anim.toX;s.spectatorAtoms[moving].y=anim.toY;}s.spectatorAnim=null;anim=null;if(live&&Array.isArray(live.atoms)&&live.atoms.length)s.spectatorAtoms=live.atoms.map(a=>({...a}));setTimeout(()=>{if(onlineDuelSession===s&&!s.spectatorAnim)s.spectatorSelected=-1;},260);}}
-  const scale=Math.min(cv.width/W,cv.height/H),ox=(cv.width-W*scale)/2,oy=(cv.height-H*scale)/2;ctx.clearRect(0,0,cv.width,cv.height);const bg=ctx.createLinearGradient(0,0,0,cv.height);bg.addColorStop(0,'#07142b');bg.addColorStop(1,'#030914');ctx.fillStyle=bg;ctx.fillRect(0,0,cv.width,cv.height);
-  for(let y=0;y<H;y++)for(let x=0;x<W;x++){const wall=level.g[y]&&level.g[y][x]==='1';ctx.fillStyle=wall?'rgba(130,145,180,.72)':((x+y)%2?'rgba(255,255,255,.060)':'rgba(255,255,255,.028)');ctx.fillRect(ox+x*scale+1.5,oy+y*scale+1.5,scale-3,scale-3);if(wall){ctx.strokeStyle='rgba(255,255,255,.27)';ctx.lineWidth=1.5;ctx.strokeRect(ox+x*scale+2.5,oy+y*scale+2.5,scale-5,scale-5);}}
-  const crystalRows=live&&Array.isArray(live.crystals)?live.crystals:[];crystalRows.filter(c=>!c.collected).forEach(c=>{const cx=ox+(Number(c.x)+.5)*scale,cy=oy+(Number(c.y)+.5)*scale;ctx.save();ctx.fillStyle='rgba(255,220,92,.92)';ctx.shadowColor='#ffd85c';ctx.shadowBlur=14;ctx.beginPath();ctx.moveTo(cx,cy-scale*.18);ctx.lineTo(cx+scale*.15,cy);ctx.lineTo(cx,cy+scale*.18);ctx.lineTo(cx-scale*.15,cy);ctx.closePath();ctx.fill();ctx.restore();});
-  atomRows.forEach((a,i)=>{const cx=ox+(Number(a.x)+.5)*scale,cy=oy+(Number(a.y)+.5)*scale,r=scale*.34,col=onlineLiveAtomColor(a.e);if(i===selected){ctx.save();ctx.strokeStyle='#ffd23f';ctx.lineWidth=3;ctx.shadowColor='#ffd23f';ctx.shadowBlur=15;ctx.setLineDash([7,5]);ctx.beginPath();ctx.arc(cx,cy,r+scale*.11+Math.sin(now/130)*2,0,Math.PI*2);ctx.stroke();ctx.restore();if(anim&&i===moving)drawOnlineSpectatorArrow(ctx,cx,cy,scale,anim.direction,now);}ctx.save();ctx.shadowColor=col;ctx.shadowBlur=i===moving?18:10;ctx.fillStyle=col;ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fill();ctx.restore();ctx.strokeStyle=a.frozen?'#c9f5ff':(a.fire?'#ffb257':(a.lightning?'#8fefff':(a.zombie?'#8cff66':'rgba(255,255,255,.62)')));ctx.lineWidth=a.frozen||a.fire||a.lightning||a.zombie?3:1.6;ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.stroke();ctx.fillStyle='#fff';ctx.font='900 '+Math.max(14,Math.floor(scale*.36))+'px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(String(a.e||''),cx,cy+1);});
-  const mv=$('#onlineLiveMoves');if(mv){const moveCount=live?Number(live.moves||0):(room.liveMove?Number(room.liveMove.moves||0):0);mv.textContent=(ml("Hamle ","Move ","Zug ","Movimiento ","Jogada ","手数 "))+moveCount+(live&&live.gameType==='chain'?' · x'+Number(live.maxCombo||1):'')+(live&&live.gameType==='reactor'?' · '+reactorImpactLabel(false)+' '+Number(live.hits||0):'');}
-  const dir=$('#onlineMoveDirection');if(dir){if(anim){const names=[
-ml('YUKARI','UP','OBEN','ARRIBA','CIMA','上'),
-ml('SAĞ','RIGHT','RECHTS','DERECHA','DIREITA','右'),
-ml('AŞAĞI','DOWN','UNTEN','ABAJO','BAIXO','下'),
-ml('SOL','LEFT','LINKS','IZQUIERDA','ESQUERDA','左')];dir.textContent='⚡ '+String(atomRows[moving]&&atomRows[moving].e||'')+' · '+names[anim.direction];dir.classList.add('on');}else dir.classList.remove('on');}
-  if(s.spectatorAnim){s.spectatorRaf=requestAnimationFrame(drawOnlineSpectatorFrame);}else{s.spectatorRaf=0;}}
-function renderOnlineLiveBoard(room){const cv=$('#onlineLiveBoard'),s=onlineDuelSession;if(!cv||!room||!s)return;s.spectatorRoom=room;if(!s.spectatorAtoms||!s.spectatorAtoms.length)s.spectatorAtoms=onlineSpectatorBaseAtoms(room);const move=room.liveMove&&Number(room.liveMove.round)===Number(room.round)&&Number(room.liveMove.turn)===Number(room.turn)?room.liveMove:null;const seq=Math.max(0,Number(move&&move.seq)||0);if(move&&seq>(s.lastMoveSeq||0)){s.lastMoveSeq=seq;const atomIndex=Math.max(0,Math.min((s.spectatorAtoms.length||1)-1,Number(move.atomIndex)||0));if(s.spectatorAtoms[atomIndex]){s.spectatorAtoms[atomIndex].x=Number(move.fromX);s.spectatorAtoms[atomIndex].y=Number(move.fromY);}s.spectatorSelected=atomIndex;s.spectatorAnim={atomIndex,fromX:Number(move.fromX),fromY:Number(move.fromY),toX:Number(move.toX),toY:Number(move.toY),direction:Math.max(0,Math.min(3,Number(move.direction)||0)),duration:Math.max(120,Math.min(1200,Number(move.duration)||320)),startedAt:performance.now()};if(s.spectatorRaf)cancelAnimationFrame(s.spectatorRaf);s.spectatorRaf=requestAnimationFrame(drawOnlineSpectatorFrame);return;}if(!s.spectatorAnim){const incoming=onlineSpectatorBaseAtoms(room);s.spectatorAtoms=incoming.map(a=>({...a}));if(s.spectatorRaf)cancelAnimationFrame(s.spectatorRaf);s.spectatorRaf=requestAnimationFrame(drawOnlineSpectatorFrame);}}
-function onlineLivePayload(){if(!duelState||!onlineDuelSession)return null;const round=duelCurrentRound();return {seq:(onlineDuelSession.liveSeq||0)+1,moves,level:lv,gameType:round&&round.gameType||'classic',atoms:atoms.map(a=>({x:a.x,y:a.y,e:a.e,frozen:!!a.frozen,fire:!!a.fire,sticky:!!a.sticky,zombie:!!a.zombie,lightning:!!a.lightning})),crystals:crystalActive()?crystals.map(c=>({x:c.x,y:c.y,type:c.type||'catalyst',collected:!!c.collected})):[],maxCombo:chainActive()?chainMaxCombo:1,reactions:chainActive()?chainReactions:0,hits:reactorActive()?reactorHits:0};}
-async function publishOnlineMoveEvent(){return;}
-async function flushOnlineLiveState(){return;}
+// R81 fairness lock: online duel is simultaneous + hidden. Opponent board,
+// atoms, moves and progress are never rendered or published. Only the final
+// result slot for each player is synchronized through Firestore.
+function stopOnlineSpectatorAnimation(){const s=onlineDuelSession;if(!s)return;if(s.spectatorRaf){cancelAnimationFrame(s.spectatorRaf);s.spectatorRaf=0;}s.spectatorAnim=null;s.spectatorRoom=null;s.spectatorAtoms=null;s.spectatorSelected=-1;}
+async function publishOnlineMoveEvent(){return {ok:false,reason:'duel/live-hidden'};}
+async function flushOnlineLiveState(){return {ok:false,reason:'duel/live-hidden'};}
 function queueOnlineLiveState(){return;}
 function ensureOnlineQuickChatButton(){let btn=$('#onlineQuickChatBtn');if(!btn){btn=document.createElement('button');btn.type='button';btn.id='onlineQuickChatBtn';btn.textContent='💬';btn.setAttribute('aria-label',ml("Hazır mesajlar","Preset messages","Schnellnachrichten","Mensajes predefinidos","Mensagens rápidas","定型メッセージ"));scr.game.appendChild(btn);btn.addEventListener('pointerdown',e=>{e.preventDefault();SFX.click();toggleOnlineQuickTray();},{passive:false});}btn.classList.toggle('on',!!(onlineDuelMode&&scr.game.classList.contains('on')));}
 function toggleOnlineQuickTray(){let tray=$('#onlineQuickTray');if(tray){tray.remove();return;}tray=document.createElement('div');tray.id='onlineQuickTray';tray.innerHTML='<button type="button" class="onlineQuickTrayClose">×</button>'+onlineQuickMessageButtonsHtml();scr.game.appendChild(tray);tray.querySelector('.onlineQuickTrayClose').addEventListener('pointerdown',e=>{e.preventDefault();tray.remove();},{passive:false});bindOnlineQuickMessageButtons(tray);}
@@ -6959,29 +6980,34 @@ function pauseOnlineDuelClock(){const s=onlineDuelSession;if(!s||s.clockPauseSta
 function resumeOnlineDuelClock(){const s=onlineDuelSession;if(!s||!s.clockPauseStarted)return;levelStartT+=Math.max(0,performance.now()-s.clockPauseStarted);s.clockPauseStarted=0;}
 function removeOnlineDisconnectOverlay(){const el=$('#onlineDisconnectOverlay');if(el)el.remove();const s=onlineDuelSession;if(s&&s.disconnectUiTimer){clearInterval(s.disconnectUiTimer);s.disconnectUiTimer=null;}}
 function onlineReconnectStatusText(remaining){return ml('Rakip yeniden bağlanıyor… '+remaining+' sn','Opponent reconnecting… '+remaining+' sec','Gegner verbindet sich neu… '+remaining+' Sek.','El rival se está reconectando… '+remaining+' s','Adversário reconectando… '+remaining+' s','相手が再接続中… 残り'+remaining+'秒','L’adversaire se reconnecte… '+remaining+' s','对手正在重新连接… 剩余 '+remaining+' 秒');}
-function updateOnlineDisconnectCountdown(){const s=onlineDuelSession,el=$('#onlineDisconnectCountdown');if(!s||!el||!s.disconnectDeadline)return;const remaining=Math.max(0,Math.ceil((s.disconnectDeadline-Date.now())/1000));el.textContent=String(remaining);const status=$('#onlineDisconnectStatus');if(status)status.textContent=remaining>0?onlineReconnectStatusText(remaining):ml('Süre doldu, sonuç doğrulanıyor…','Reconnect window ended. Verifying result…','Zeit abgelaufen. Ergebnis wird geprüft…','Se agotó el tiempo. Verificando el resultado…','O tempo terminou. Verificando o resultado…','再接続時間終了。結果を確認中…','Délai écoulé. Vérification du résultat…','重连时间已结束，正在确认结果…');const bar=$('#onlineDisconnectProgress');if(bar)bar.style.width=Math.max(0,Math.min(100,(remaining/30)*100))+'%';if(remaining<=0&&!s.resolvingDisconnect&&window.MXCloud&&window.MXCloud.resolveDuelDisconnect){s.resolvingDisconnect=true;window.MXCloud.resolveDuelDisconnect(s.code).finally(()=>{if(onlineDuelSession===s)s.resolvingDisconnect=false;});}}
-function showOnlineDisconnectOverlay(kind,deadlineAt,pauseClock=true){const s=onlineDuelSession;if(!s)return;const o=onlineDuelCopy(),rankNote=onlineRoomIsRankedQuick(s.room)?o.ranked:o.unranked;s.connectionBlocked=true;if(pauseClock)pauseOnlineDuelClock();const deadline=onlineTimestampMs(deadlineAt);s.disconnectDeadline=deadline||0;let el=$('#onlineDisconnectOverlay');if(!el){el=document.createElement('div');el.id='onlineDisconnectOverlay';document.body.appendChild(el);}if(kind==='opponent'){const oppName=duelState&&duelState.players?duelEsc(duelState.players[1-s.playerIndex]||''):'';el.innerHTML='<div class="onlineDisconnectCard"><div class="onlineDisconnectIcon">📡</div><h3>'+o.opponentDisconnected+'</h3><p id="onlineDisconnectStatus">'+o.reconnectWait+'</p>'+(oppName?'<div class="onlineDisconnectPlayer">'+oppName+'</div>':'')+'<div class="onlineDisconnectClock"><b id="onlineDisconnectCountdown">30</b><span>'+o.seconds+'</span></div><div class="onlineDisconnectProgressTrack"><i id="onlineDisconnectProgress"></i></div><small>'+rankNote+'</small></div>';updateOnlineDisconnectCountdown();if(!s.disconnectUiTimer)s.disconnectUiTimer=setInterval(updateOnlineDisconnectCountdown,250);}else{el.innerHTML='<div class="onlineDisconnectCard"><div class="onlineDisconnectIcon">📶</div><h3>'+o.yourConnectionLost+'</h3><p>'+o.reconnecting+'</p><div class="onlineReconnectProtection">'+ml('Bağlantı koruması etkin · maçın korunuyor','Reconnect protection active · your match is protected','Verbindungsschutz aktiv · dein Match bleibt erhalten','Protección de reconexión activa · tu partida está protegida','Proteção de reconexão ativa · sua partida está protegida','再接続保護が有効です・試合は保持されます','Protection de reconnexion active · ton match est protégé','重连保护已启用 · 对局将被保留')+'</div><div class="onlineReconnectDots"><i></i><i></i><i></i></div></div>';if(s.disconnectUiTimer){clearInterval(s.disconnectUiTimer);s.disconnectUiTimer=null;}}el.classList.add('on');}
+function updateOnlineDisconnectCountdown(){const s=onlineDuelSession,el=$('#onlineDisconnectCountdown');if(!s||!el||!s.disconnectDeadline)return;const remaining=Math.max(0,Math.ceil((s.disconnectDeadline-Date.now())/1000));el.textContent=String(remaining);const status=$('#onlineDisconnectStatus');if(status)status.textContent=remaining>0?onlineReconnectStatusText(remaining):ml('Süre doldu, sonuç doğrulanıyor…','Reconnect window ended. Verifying result…','Zeit abgelaufen. Ergebnis wird geprüft…','Se agotó el tiempo. Verificando el resultado…','O tempo terminou. Verificando o resultado…','再接続時間終了。結果を確認中…','Délai écoulé. Vérification du résultat…','重连时间已结束，正在确认结果…');const bar=$('#onlineDisconnectProgress');if(bar)bar.style.width=Math.max(0,Math.min(100,(remaining/30)*100))+'%';if(remaining<=0&&!s.resolvingDisconnect&&window.MXCloud&&window.MXCloud.resolveDuelDisconnect){s.resolvingDisconnect=true;onlinePromiseTimeout(window.MXCloud.resolveDuelDisconnect(s.code),9000,'duel/timeout').finally(()=>{if(onlineDuelSession===s)s.resolvingDisconnect=false;});}}
+function showOnlineDisconnectOverlay(kind,deadlineAt,pauseClock=true){const s=onlineDuelSession;if(!s)return;const o=onlineDuelCopy(),rankNote=onlineRoomIsRankedQuick(s.room)?o.ranked:o.unranked;s.connectionBlocked=true;if(pauseClock)pauseOnlineDuelClock();const deadline=onlineTimestampMs(deadlineAt);s.disconnectDeadline=deadline||0;let el=$('#onlineDisconnectOverlay');if(!el){el=document.createElement('div');el.id='onlineDisconnectOverlay';document.body.appendChild(el);}if(kind==='opponent'){const oppName=duelState&&duelState.players?duelEsc(duelState.players[1-s.playerIndex]||''):'';el.innerHTML='<div class="onlineDisconnectCard"><div class="onlineDisconnectIcon">📡</div><h3>'+o.opponentDisconnected+'</h3><p id="onlineDisconnectStatus">'+o.reconnectWait+'</p>'+(oppName?'<div class="onlineDisconnectPlayer">'+oppName+'</div>':'')+'<div class="onlineDisconnectClock"><b id="onlineDisconnectCountdown">30</b><span>'+o.seconds+'</span></div><div class="onlineDisconnectProgressTrack"><i id="onlineDisconnectProgress"></i></div><small>'+rankNote+'</small></div>';updateOnlineDisconnectCountdown();if(!s.disconnectUiTimer)s.disconnectUiTimer=setInterval(updateOnlineDisconnectCountdown,500);}else{el.innerHTML='<div class="onlineDisconnectCard"><div class="onlineDisconnectIcon">📶</div><h3>'+o.yourConnectionLost+'</h3><p>'+o.reconnecting+'</p><div class="onlineReconnectProtection">'+ml('Bağlantı koruması etkin · maçın korunuyor','Reconnect protection active · your match is protected','Verbindungsschutz aktiv · dein Match bleibt erhalten','Protección de reconexión activa · tu partida está protegida','Proteção de reconexão ativa · sua partida está protegida','再接続保護が有効です・試合は保持されます','Protection de reconnexion active · ton match est protégé','重连保护已启用 · 对局将被保留')+'</div><div class="onlineReconnectDots"><i></i><i></i><i></i></div></div>';if(s.disconnectUiTimer){clearInterval(s.disconnectUiTimer);s.disconnectUiTimer=null;}}el.classList.add('on');}
 function clearOnlineDisconnectBlock(showToast=false){const s=onlineDuelSession;if(!s)return;const was=s.connectionBlocked;s.connectionBlocked=false;s.disconnectDeadline=0;s.localOffline=false;removeOnlineDisconnectOverlay();resumeOnlineDuelClock();if(showToast&&was)showOnlineMessageToast(onlineDuelCopy().connectionRestored,true);}
-async function sendOnlineHeartbeat(){const s=onlineDuelSession;if(!s||s.heartbeatBusy||document.hidden||navigator.onLine===false||!window.MXCloud||!window.MXCloud.heartbeatDuelRoom)return;s.heartbeatBusy=true;try{await window.MXCloud.heartbeatDuelRoom(s.code);}finally{if(onlineDuelSession===s)s.heartbeatBusy=false;}}
+async function sendOnlineHeartbeat(){const s=onlineDuelSession;if(!s||s.heartbeatBusy||document.hidden||navigator.onLine===false||!window.MXCloud||!window.MXCloud.heartbeatDuelRoom)return false;s.heartbeatBusy=true;try{const res=await onlinePromiseTimeout(window.MXCloud.heartbeatDuelRoom(s.code),7000,'duel/heartbeat-timeout');if(onlineDuelSession!==s)return false;if(res&&res.ok){s.heartbeatFailures=0;s.cloudDisconnected=false;return true;}s.heartbeatFailures=(s.heartbeatFailures||0)+1;if(s.heartbeatFailures>=2){s.cloudDisconnected=true;showOnlineDisconnectOverlay('self');scheduleOnlineDuelListenerRetry(s,res&&res.reason);}return false;}catch(e){if(onlineDuelSession===s){s.heartbeatFailures=(s.heartbeatFailures||0)+1;if(s.heartbeatFailures>=2){s.cloudDisconnected=true;showOnlineDisconnectOverlay('self');scheduleOnlineDuelListenerRetry(s,e&&((e.code||e.message)));}}return false;}finally{if(onlineDuelSession===s)s.heartbeatBusy=false;}}
 function stopOnlinePresenceLoop(){const s=onlineDuelSession;if(!s)return;if(s.heartbeatTimer){clearInterval(s.heartbeatTimer);s.heartbeatTimer=null;}if(s.onlineHandler)window.removeEventListener('online',s.onlineHandler);if(s.offlineHandler)window.removeEventListener('offline',s.offlineHandler);if(s.visibilityHandler)document.removeEventListener('visibilitychange',s.visibilityHandler);s.onlineHandler=s.offlineHandler=s.visibilityHandler=null;removeOnlineDisconnectOverlay();resumeOnlineDuelClock();}
-function startOnlinePresenceLoop(){const s=onlineDuelSession;if(!s||s.presenceStarted)return;s.presenceStarted=true;s.onlineHandler=()=>{if(onlineDuelSession!==s)return;s.localOffline=false;const check=window.MXCloud&&window.MXCloud.resolveDuelDisconnect?window.MXCloud.resolveDuelDisconnect(s.code):Promise.resolve();Promise.resolve(check).finally(()=>{if(onlineDuelSession===s)sendOnlineHeartbeat();});};s.offlineHandler=()=>{if(onlineDuelSession!==s)return;s.localOffline=true;showOnlineDisconnectOverlay('self',null,false);};s.visibilityHandler=()=>{if(onlineDuelSession!==s)return;if(document.visibilityState==='visible'&&navigator.onLine!==false)sendOnlineHeartbeat();};window.addEventListener('online',s.onlineHandler);window.addEventListener('offline',s.offlineHandler);document.addEventListener('visibilitychange',s.visibilityHandler);sendOnlineHeartbeat();s.heartbeatTimer=setInterval(sendOnlineHeartbeat,4500);if(navigator.onLine===false)s.offlineHandler();}
-function bootOnlinePresence(room){const s=onlineDuelSession;if(!s||s.presenceStarted||s.presenceBooting)return;s.presenceBooting=true;const deadline=onlineTimestampMs(room&&room.disconnectState&&room.disconnectState.deadlineAt);const shouldResolve=window.MXCloud&&window.MXCloud.resolveDuelDisconnect;const task=shouldResolve?window.MXCloud.resolveDuelDisconnect(s.code):Promise.resolve();Promise.resolve(task).finally(()=>{if(onlineDuelSession===s){s.presenceBooting=false;startOnlinePresenceLoop();}});}
-function applyOnlineRemotePause(disconnectState){const s=onlineDuelSession;if(!s||!disconnectState)return;const key=String(onlineTimestampMs(disconnectState.startedAt))+'-'+String(disconnectState.playerIndex);if(s.remotePauseKey===key)return;s.remotePauseKey=key;const started=onlineTimestampMs(disconnectState.startedAt);if(started&&scr.game.classList.contains('on'))levelStartT+=Math.max(0,Date.now()-started);}
-function handleOnlineDisconnectState(room){const s=onlineDuelSession;if(!s)return false;if(s.localOffline||!navigator.onLine){showOnlineDisconnectOverlay('self');return true;}if(!['playing','round_result'].includes(room.status)){clearOnlineDisconnectBlock(false);return false;}const idx=s.playerIndex,opp=1-idx,ds=room.disconnectState||null;if(ds){const target=Number(ds.playerIndex)===1?1:0;if(target===idx){applyOnlineRemotePause(ds);showOnlineDisconnectOverlay('self');if(!s.presenceBooting)sendOnlineHeartbeat();return true;}showOnlineDisconnectOverlay('opponent',ds.deadlineAt);return true;}clearOnlineDisconnectBlock(true);const opponentSeen=onlinePresenceMs(room,opp),ownSeen=onlinePresenceMs(room,idx),now=Date.now();const opponentStale=!opponentSeen||now-opponentSeen>=ONLINE_PRESENCE_STALE_MS;const ownFresh=!!ownSeen&&now-ownSeen<ONLINE_PRESENCE_STALE_MS*2;if(opponentStale&&ownFresh&&!s.requestingDisconnect&&window.MXCloud&&window.MXCloud.startDuelDisconnectCountdown){s.requestingDisconnect=true;window.MXCloud.startDuelDisconnectCountdown(s.code,opp).finally(()=>{if(onlineDuelSession===s)s.requestingDisconnect=false;});}return false;}
+function startOnlinePresenceLoop(){const s=onlineDuelSession;if(!s||s.presenceStarted)return;s.presenceStarted=true;s.onlineHandler=()=>{if(onlineDuelSession!==s)return;s.localOffline=false;sendOnlineHeartbeat().then(ok=>{if(!ok||onlineDuelSession!==s||!window.MXCloud||!window.MXCloud.resolveDuelDisconnect)return;return onlinePromiseTimeout(window.MXCloud.resolveDuelDisconnect(s.code),9000,'duel/timeout');}).catch(()=>{});};s.offlineHandler=()=>{if(onlineDuelSession!==s)return;s.localOffline=true;showOnlineDisconnectOverlay('self');};s.visibilityHandler=()=>{if(onlineDuelSession!==s)return;if(document.visibilityState==='visible'&&navigator.onLine!==false)sendOnlineHeartbeat();};window.addEventListener('online',s.onlineHandler);window.addEventListener('offline',s.offlineHandler);document.addEventListener('visibilitychange',s.visibilityHandler);s.heartbeatTimer=setInterval(sendOnlineHeartbeat,4500);if(navigator.onLine===false)s.offlineHandler();}
+async function bootOnlinePresence(room){const s=onlineDuelSession;if(!s||s.presenceStarted||s.presenceBooting)return;s.presenceBooting=true;startOnlinePresenceLoop();try{const ok=await sendOnlineHeartbeat();if(ok&&onlineDuelSession===s&&window.MXCloud&&window.MXCloud.resolveDuelDisconnect)await onlinePromiseTimeout(window.MXCloud.resolveDuelDisconnect(s.code),9000,'duel/timeout');}catch(e){}finally{if(onlineDuelSession===s)s.presenceBooting=false;}}
+function applyOnlineRemotePause(disconnectState){const s=onlineDuelSession;if(!s||!disconnectState||s.clockPauseStarted)return;const key=String(onlineTimestampMs(disconnectState.startedAt))+'-'+String(disconnectState.playerIndex);if(s.remotePauseKey===key)return;s.remotePauseKey=key;const started=onlineTimestampMs(disconnectState.startedAt);if(started&&scr.game.classList.contains('on'))levelStartT+=Math.max(0,Date.now()-started);}
+function handleOnlineDisconnectState(room){const s=onlineDuelSession;if(!s)return false;if(s.localOffline||s.cloudDisconnected||!navigator.onLine){showOnlineDisconnectOverlay('self');return true;}if(!['playing','round_result'].includes(room.status)){clearOnlineDisconnectBlock(false);return false;}const idx=s.playerIndex,opp=1-idx,ds=room.disconnectState||null;if(ds){const target=Number(ds.playerIndex)===1?1:0;if(target===idx){applyOnlineRemotePause(ds);showOnlineDisconnectOverlay('self');if(!s.presenceBooting)sendOnlineHeartbeat();return true;}showOnlineDisconnectOverlay('opponent',ds.deadlineAt);return true;}clearOnlineDisconnectBlock(true);const opponentSeen=onlinePresenceMs(room,opp),ownSeen=onlinePresenceMs(room,idx),now=Date.now();const opponentStale=!opponentSeen||now-opponentSeen>=ONLINE_PRESENCE_STALE_MS;const ownFresh=!!ownSeen&&now-ownSeen<ONLINE_PRESENCE_STALE_MS*2;if(opponentStale&&ownFresh&&!s.requestingDisconnect&&window.MXCloud&&window.MXCloud.startDuelDisconnectCountdown){s.requestingDisconnect=true;onlinePromiseTimeout(window.MXCloud.startDuelDisconnectCountdown(s.code,opp),9000,'duel/timeout').finally(()=>{if(onlineDuelSession===s)s.requestingDisconnect=false;});}return false;}
 
 function onlineRoomToDuelState(room){
-  const c=duelCopy();
-  return {players:Array.isArray(room.playerNames)?room.playerNames.slice(0,2):[c.p1,c.p2],playerStyles:Array.isArray(room.playerStyles)?room.playerStyles.slice(0,2):[null,null],pool:room.pool||duelPoolFor('mixed'),gameKind:room.gameKind||'classic',round:Number(room.round)||0,turn:Number(room.turn)||0,wins:Array.isArray(room.wins)?room.wins.slice(0,2):[0,0],turnFinished:false,rounds:JSON.parse(JSON.stringify(room.rounds||[]))};
+  const c=duelCopy(),localIndex=onlineDuelSession?(Number(onlineDuelSession.playerIndex)===1?1:0):0;
+  // R81 invariant: online duel is NEVER turn-based. Each device owns its own
+  // player slot and solves the same round independently. room.turn is a legacy
+  // schema field only and must never decide who can enter or move.
+  return {players:Array.isArray(room.playerNames)?room.playerNames.slice(0,2):[c.p1,c.p2],playerStyles:Array.isArray(room.playerStyles)?room.playerStyles.slice(0,2):[null,null],pool:room.pool||duelPoolFor('mixed'),gameKind:room.gameKind||'classic',round:Number(room.round)||0,turn:localIndex,wins:Array.isArray(room.wins)?room.wins.slice(0,2):[0,0],turnFinished:false,rounds:JSON.parse(JSON.stringify(room.rounds||[]))};
 }
 function stopOnlineDuelListener(){
-  clearOnlineMessageProtocol();stopOnlinePresenceLoop();stopOnlineFactRotation();stopOnlineSpectatorAnimation();removeOnlineQuickChat();if(onlineDuelSession&&onlineDuelSession.countdownTimer){clearInterval(onlineDuelSession.countdownTimer);onlineDuelSession.countdownTimer=null;}if(onlineDuelSession&&onlineDuelSession.liveFlushTimer){clearTimeout(onlineDuelSession.liveFlushTimer);onlineDuelSession.liveFlushTimer=null;}
+  clearOnlineMessageProtocol();stopOnlinePresenceLoop();stopOnlineFactRotation();stopOnlineSpectatorAnimation();removeOnlineQuickChat();if(onlineDuelSession&&onlineDuelSession.countdownTimer){clearInterval(onlineDuelSession.countdownTimer);onlineDuelSession.countdownTimer=null;}if(onlineDuelSession&&onlineDuelSession.countdownFallbackTimer){clearTimeout(onlineDuelSession.countdownFallbackTimer);onlineDuelSession.countdownFallbackTimer=null;}if(onlineDuelSession&&onlineDuelSession.liveFlushTimer){clearTimeout(onlineDuelSession.liveFlushTimer);onlineDuelSession.liveFlushTimer=null;}if(onlineDuelSession&&onlineDuelSession.listenerRetryTimer){clearTimeout(onlineDuelSession.listenerRetryTimer);onlineDuelSession.listenerRetryTimer=null;}
   if(onlineDuelSession&&typeof onlineDuelSession.unsubscribe==='function'){try{onlineDuelSession.unsubscribe();}catch(e){}}
   if(onlineDuelSession)onlineDuelSession.unsubscribe=null;
 }
-function beginOnlineDuelSession(code,playerIndex,initialRoom){
+function scheduleOnlineDuelListenerRetry(s,reason){if(!s||onlineDuelSession!==s||s.listenerRetryTimer)return;const r=String(reason||'').toLowerCase();if(r.includes('permission-denied')||r.includes('unauthenticated')||r.includes('not-player')){showOnlineDuelConnectionError(reason);return;}s.listenerFailures=(s.listenerFailures||0)+1;s.cloudDisconnected=true;if(s.room&&['playing','round_result'].includes(s.room.status))showOnlineDisconnectOverlay('self');const delay=Math.min(10000,900*Math.pow(2,Math.min(4,s.listenerFailures-1)));s.listenerRetryTimer=setTimeout(()=>{if(onlineDuelSession!==s)return;s.listenerRetryTimer=null;if(navigator.onLine===false){scheduleOnlineDuelListenerRetry(s,'offline');return;}attachOnlineDuelListener(s);},delay);}
+function attachOnlineDuelListener(s){if(!s||onlineDuelSession!==s||!window.MXCloud||!window.MXCloud.subscribeDuelRoom)return;if(typeof s.unsubscribe==='function'){try{s.unsubscribe();}catch(e){}}s.unsubscribe=window.MXCloud.subscribeDuelRoom(s.code,room=>{if(onlineDuelSession!==s)return;s.listenerFailures=0;s.lastSnapshotAt=Date.now();syncOnlineDuelRoom(room);},err=>{if(onlineDuelSession!==s)return;s.unsubscribe=null;scheduleOnlineDuelListenerRetry(s,err&&((err.code||err.message)));});}
+function beginOnlineDuelSession(code,playerIndex,initialRoom,resumed=false){
   stopQuickMatchLocal();quickMatchSearch=null;stopOnlineDuelListener();onlineDuelMode=true;duelMode=false;
-  onlineDuelSession={code:String(code),playerIndex:Number(playerIndex)||0,room:null,unsubscribe:null,lastUiKey:'',activeTurnKey:'',activeRoundKey:'',countdownKey:'',countdownTimer:null,countdownFallbackTimer:null,countdownRoundId:'',countdownDeadline:0,countdownServerEventAt:0,roundServerStartAt:0,pendingResult:false,pendingPayload:null,factTimer:null,factIndex:0,lastSeenMessageSeq:0,lastMessageSentAt:0,messageProtocolPrefix:null,messageProtocolTimer:null,liveSeq:0,moveSeq:0,lastMoveSeq:0,liveWriteBusy:false,liveQueued:null,liveFlushTimer:null,lastLiveWriteAt:0,lastLiveSignature:'',spectatorRoom:null,spectatorAtoms:null,spectatorAnim:null,spectatorRaf:0,spectatorSelected:-1,presenceStarted:false,presenceBooting:false,heartbeatTimer:null,heartbeatBusy:false,requestingDisconnect:false,resolvingDisconnect:false,connectionBlocked:false,localOffline:false,disconnectDeadline:0,disconnectUiTimer:null,clockPauseStarted:0,onlineHandler:null,offlineHandler:null,visibilityHandler:null,remotePauseKey:''};
-  onlineDuelSession.unsubscribe=window.MXCloud.subscribeDuelRoom(code,syncOnlineDuelRoom,()=>showOnlineDuelConnectionError());
+  onlineDuelSession={code:String(code),playerIndex:Number(playerIndex)===1?1:0,room:null,unsubscribe:null,lastUiKey:'',activeTurnKey:'',activeRoundKey:'',countdownKey:'',countdownTimer:null,countdownFallbackTimer:null,countdownRoundId:'',countdownDeadline:0,countdownServerEventAt:0,roundServerStartAt:0,pendingResult:false,pendingPayload:null,factTimer:null,factIndex:0,lastSeenMessageSeq:0,lastMessageSentAt:0,messageProtocolPrefix:null,messageProtocolTimer:null,liveSeq:0,moveSeq:0,lastMoveSeq:0,liveWriteBusy:false,liveQueued:null,liveFlushTimer:null,lastLiveWriteAt:0,lastLiveSignature:'',spectatorRoom:null,spectatorAtoms:null,spectatorAnim:null,spectatorRaf:0,spectatorSelected:-1,presenceStarted:false,presenceBooting:false,heartbeatTimer:null,heartbeatBusy:false,heartbeatFailures:0,requestingDisconnect:false,resolvingDisconnect:false,connectionBlocked:false,localOffline:false,cloudDisconnected:false,disconnectDeadline:0,disconnectUiTimer:null,clockPauseStarted:0,onlineHandler:null,offlineHandler:null,visibilityHandler:null,remotePauseKey:'',listenerRetryTimer:null,listenerFailures:0,lastSnapshotAt:0,resumed:!!resumed};
+  persistOnlineDuelResume(initialRoom);attachOnlineDuelListener(onlineDuelSession);
   if(initialRoom)syncOnlineDuelRoom(Object.assign({id:String(code)},initialRoom));
 }
 function onlineRoomCodeHtml(code){return '<div class="onlineRoomCode" aria-label="'+ml('Oda kodu','Room code','Raumcode','Código de sala','Código da sala','ルームコード')+'">'+String(code||'').split('').map(x=>'<span>'+x+'</span>').join('')+'</div>';}
@@ -7038,7 +7064,7 @@ function showOnlineRoundCountdown(room){
   if(!startAt){const preparing=ml('Düello sunucuyla eşitleniyor…','Synchronizing duel start…','Duellstart wird synchronisiert…','Sincronizando el inicio del duelo…','Sincronizando o início do duelo…','デュエル開始を同期中…','Synchronisation du départ…','正在同步对决开始时间…');openModal('<div class="onlineCountdownCard"><small>'+ml('HAZIR OL','GET READY','BEREIT MACHEN','PREPÁRATE','PREPARE-SE','準備','PRÉPARE-TOI','准备')+'</small><div class="onlineSyncSpinner"></div><span>'+preparing+'</span><button class="btn ghost onlineCountdownLeave" id="mOnlineCountdownLeave">← '+ml('Düellodan Çık','Leave Duel','Duell verlassen','Salir del duelo','Sair do duelo','デュエルを退出','Quitter le duel','退出对决')+'</button></div>');const waitingBox=$('#modalBox');if(waitingBox)waitingBox.classList.add('onlineDuelModal','onlineCountdownModal');bindOnlineLeaveButton('#mOnlineCountdownLeave',true);return;}if(startAt<=Date.now()+80){startOnlineRoundNow(room);return;}
   if(s.countdownKey===key&&s.countdownTimer)return;if(s.countdownTimer){clearInterval(s.countdownTimer);s.countdownTimer=null;}if(s.countdownFallbackTimer){clearTimeout(s.countdownFallbackTimer);s.countdownFallbackTimer=null;}s.countdownKey=key;s.activeRoundKey='';removeOnlineQuickChat();
   const roundLabel=ml('RAUND '+(Number(room.round)+1),'ROUND '+(Number(room.round)+1),'RUNDE '+(Number(room.round)+1),'RONDA '+(Number(room.round)+1),'RODADA '+(Number(room.round)+1),'ラウンド '+(Number(room.round)+1),'MANCHE '+(Number(room.round)+1),'第 '+(Number(room.round)+1)+' 回合');
-  const fairness=ml('Aynı bölüm. Aynı anda. Rakip ekranı gizli.','Same level. Same start. Opponent board hidden.','Gleiches Level. Gleicher Start. Gegnerbrett verborgen.','Mismo nivel. Mismo inicio. Tablero rival oculto.','Mesma fase. Mesmo início. Tabuleiro rival oculto.','同じレベル・同時スタート・相手盤面は非表示','Même niveau. Même départ. Plateau adverse masqué.','同一关卡，同时开始，对手棋盘隐藏。');
+  const fairness=ml('Aynı bölüm. Aynı anda oyuna girersiniz. Rakip ekranı gizlidir.','Same level. Both enter together. Opponent board hidden.','Gleiches Level. Gleicher Start. Gegnerbrett verborgen.','Mismo nivel. Mismo inicio. Tablero rival oculto.','Mesma fase. Mesmo início. Tabuleiro rival oculto.','同じレベル・同時スタート・相手盤面は非表示','Même niveau. Même départ. Plateau adverse masqué.','同一关卡，同时开始，对手棋盘隐藏。');
   const leaveText=ml('Düellodan Çık','Leave Duel','Duell verlassen','Salir del duelo','Sair do duelo','デュエルを退出','Quitter le duel','退出对决');
   openModal('<div class="onlineCountdownCard"><small>'+roundLabel+'</small><b id="onlineCountdownNumber">3</b><span>'+fairness+'</span><button class="btn ghost onlineCountdownLeave" id="mOnlineCountdownLeave">← '+leaveText+'</button></div>');const box=$('#modalBox');if(box)box.classList.add('onlineDuelModal','onlineCountdownModal');bindOnlineLeaveButton('#mOnlineCountdownLeave',true);
   const tick=()=>{if(!onlineDuelSession||onlineDuelSession!==s)return;const left=startAt-Date.now();if(left<=0){clearOnlineRoundCountdown();startOnlineRoundNow(room);return;}const n=Math.max(1,Math.min(3,Math.ceil(left/1000))),el=$('#onlineCountdownNumber');if(el&&el.textContent!==String(n)){el.textContent=String(n);el.classList.remove('pop');void el.offsetWidth;el.classList.add('pop');}};
@@ -7061,9 +7087,11 @@ function showOnlineRoundResult(room){
   const c=duelCopy(),o=onlineDuelCopy(),round=duelCurrentRound(),a=round&&round.results[0],b=round&&round.results[1],winner=round?round.winner:-1;
   const headline=winner<0?c.roundDraw:'🏆 '+duelEsc(duelState.players[winner])+' '+c.roundWinner;
   openModal('<h3>'+o.roundReady+' · '+c.round+' '+(duelState.round+1)+'</h3><div class="duelWinner">'+headline+'</div>'+duelScoreHtml()+
-    '<div class="duelStats"><div class="duelStat red"><b>🔴 '+duelEsc(duelState.players[0])+'</b><span>'+duelResultText(a,c,round.gameType)+'</span></div><div class="duelStat blue"><b>🔵 '+duelEsc(duelState.players[1])+'</b><span>'+duelResultText(b,c,round.gameType)+'</span></div></div>'+ 
-    onlineQuickMessageButtonsHtml()+'<div class="mrow"><button class="btn green" id="mOnlineNext">'+o.next+'</button><button class="btn ghost" id="mOnlineLeave">'+o.leave+'</button></div>');
-  $('#mOnlineNext').addEventListener('pointerdown',async e=>{e.preventDefault();SFX.play();const btn=e.currentTarget;btn.disabled=true;const res=await window.MXCloud.advanceDuelRound(onlineDuelSession.code,duelState.round);if(!res||!res.ok){btn.disabled=false;return;}if(res.data&&res.data.waiting)btn.textContent='⏳ '+ml('RAKİP HAZIRLANIYOR…','WAITING FOR OPPONENT…','WARTE AUF GEGNER…','ESPERANDO AL RIVAL…','AGUARDANDO ADVERSÁRIO…','相手を待っています…','EN ATTENTE DE L’ADVERSAIRE…','等待对手…');},{passive:false});
+    '<div class="duelStats"><div class="duelStat red"><b>🔴 '+duelEsc(duelState.players[0])+'</b><span>'+duelResultText(a,c,round.gameType)+'</span></div>'+ 
+    '<div class="duelStat blue"><b>🔵 '+duelEsc(duelState.players[1])+'</b><span>'+duelResultText(b,c,round.gameType)+'</span></div></div>'+ 
+    onlineQuickMessageButtonsHtml(true)+'<div class="onlineRoundActions"><button class="btn green" id="mOnlineNext">'+o.next+'</button><button class="btn ghost onlineRoundLeave" id="mOnlineLeave">'+o.leave+'</button></div>');
+  const box=$('#modalBox');if(box)box.classList.add('onlineDuelModal','onlineRoundResultModal');
+  $('#mOnlineNext').addEventListener('pointerdown',async e=>{e.preventDefault();SFX.play();const btn=e.currentTarget;btn.disabled=true;const res=await onlinePromiseTimeout(window.MXCloud.advanceDuelRound(onlineDuelSession.code,duelState.round),12000,'duel/timeout');if(!res||!res.ok){btn.disabled=false;return;}if(res.data&&res.data.waiting)btn.textContent='⏳ '+ml('RAKİP HAZIRLANIYOR…','WAITING FOR OPPONENT…','WARTE AUF GEGNER…','ESPERANDO AL RIVAL…','AGUARDANDO ADVERSÁRIO…','相手を待っています…','EN ATTENTE DE L’ADVERSAIRE…','等待对手…');},{passive:false});
   bindOnlineQuickMessageButtons($('#modalBox'));bindOnlineLeaveButton('#mOnlineLeave',true);
 }
 function duelFinalConfettiHtml(){
@@ -7101,12 +7129,13 @@ function duelFinalResultScreenHtml(winner,viewerIndex,opts={}){
   const emblem=kind==='loss'?'<div class="duelDefeatCoin"><span>⚛</span><i></i></div>':(kind==='draw'?'<div class="duelDrawEmblem"><span>⚛</span><b>＝</b></div>':'<div class="duelVictoryCup"><span>🏆</span><b>⚛</b></div>');
   const confetti=(kind==='win'||kind==='local')?duelFinalConfettiHtml():'';
   const scientistClass=(kind==='loss'?'support':(kind==='draw'?'draw':'cheer'));
-  const scoreLabel=ml("MAÇ SKORU · SONUÇ","MATCH SCORE · RESULT","MATCHSTAND · ERGEBNIS","MARCADOR · RESULTADO","PLACAR · RESULTADO","試合スコア・結果");
+  const scoreLabel=ml('MAÇ SKORU · SONUÇ','MATCH SCORE · RESULT','MATCHSTAND · ERGEBNIS','MARCADOR · RESULTADO','PLACAR · RESULTADO','試合スコア・結果','SCORE · RÉSULTAT','比分 · 结果');
+  const detailsLabel=ml('Maç Detayları','Match Details','Matchdetails','Detalles de la partida','Detalhes da partida','試合詳細','Détails du match','对局详情');
   const forfeitBadge=opts.forfeit?'<div class="duelForfeitBadge">'+duelEsc(onlineDuelCopy().forfeitLabel)+'</div>':'';
   return '<div class="duelFinalScene '+kind+'">'+confetti+
     '<div class="duelFinalBrand"><span>⚛</span> MOLECULOX</div>'+forfeitBadge+
     '<div class="duelFinalHeadline">'+duelEsc(cp.title)+'</div>'+emblem+
-    '<div class="duelFinalScoreCard"><div class="duelFinalScoreLabel">'+scoreLabel+'</div>'+duelScoreHtml()+duelRoundHistoryHtml()+duelFinalRoundStatsHtml()+'</div>'+ 
+    '<div class="duelFinalScoreCard"><div class="duelFinalScoreLabel">'+scoreLabel+'</div>'+duelScoreHtml()+'<details class="duelFinalDetails"><summary>'+detailsLabel+' ▾</summary>'+duelRoundHistoryHtml()+duelFinalRoundStatsHtml()+'</details></div>'+ 
     '<div class="duelFinalScientist '+scientistClass+'"><img src="assets/images/einstein.webp" alt="Dr. E"><div class="duelFinalBubble"><b>'+duelEsc(cp.message)+'</b><span>'+duelEsc(cp.badge)+'</span></div></div>'+ 
     (opts.subtext?'<div class="duelFinalSubtext">'+duelEsc(opts.subtext)+'</div>':'')+
   '</div>';
@@ -7124,64 +7153,92 @@ function processOnlineDuelRank(room,winner){
   if(!onlineRoomIsRankedQuick(room)||!onlineDuelSession)return null;ensureDuelRankState(save);const matchNo=Math.max(1,Math.floor(Number(room.matchNo)||1)),roomEpoch=duelRoomEpochSeconds(room),key=String(room.code||onlineDuelSession.code)+'_'+roomEpoch+'_'+matchNo;if(save.duelRatedMatches[key])return onlineDuelSession.lastRankResult&&onlineDuelSession.lastRankResult.key===key?onlineDuelSession.lastRankResult:null;
   const me=onlineDuelSession.playerIndex,outcome=winner<0?3:(winner===me?1:2),old=save.duelRating,oldRewards=new Set(Object.keys(save.duelRewards||{}));save.duelRatedMatches[key]=roomEpoch*10+outcome;ensureDuelRankState(save);const result={key,outcome,old,rating:save.duelRating,delta:save.duelRating-old,league:duelLeagueForRating(save.duelRating),newRewards:Object.keys(save.duelRewards||{}).filter(k=>!oldRewards.has(k))};onlineDuelSession.lastRankResult=result;persist();try{const acc=window.MXCloud&&window.MXCloud.account;if(acc&&!acc.isAnonymous&&window.MXCloud.syncDuelLeaderboard)window.MXCloud.syncDuelLeaderboard(save,save.profileId,true);}catch(e){}return result;
 }
-function duelRankResultHtml(r){if(!r)return '';const sign=r.delta>0?'+':'',cls=r.delta<0?'loss':'gain';return '<div class="duelRatedResult"><div><b>⚔️ '+(ml("DERECELİ DÜELLO","RANKED DUEL","GEWERTETES DUELL","DUELO CLASIFICATORIO","DUELO RANQUEADO","ランクデュエル"))+'</b><small>'+r.league.icon+' '+duelLeagueName(r.league)+(r.newRewards&&r.newRewards.length?' · 🎁 '+(ml("Yeni ödül","New reward","Neue Belohnung","Nueva recompensa","Nova recompensa","新しい報酬")):'')+'</small></div><strong class="'+cls+'">'+sign+r.delta+' · '+r.rating+' DP</strong></div>';}
+function duelRankResultHtml(r,ranked=true){
+  if(!ranked)return '<div class="duelRatedResult neutral"><div><b>🤝 '+ml('DOSTLUK MAÇI','FRIENDLY MATCH','FREUNDSCHAFTSSPIEL','PARTIDA AMISTOSA','PARTIDA AMISTOSA','フレンドマッチ','MATCH AMICAL','好友对局')+'</b><small>'+ml('Sıralama değişmez','Ranking unchanged','Rangliste unverändert','La clasificación no cambia','Ranking não muda','ランキング変動なし','Classement inchangé','排名不变')+'</small></div><strong>DP 0 · 🪙 0</strong></div>';
+  if(!r)return '';
+  const sign=r.delta>0?'+':'',cls=r.delta<0?'loss':'gain';
+  const resultLabel=r.outcome===1?ml('KAZANDIN','YOU WON','GEWONNEN','GANASTE','VOCÊ VENCEU','勝利','VICTOIRE','胜利'):r.outcome===2?ml('KAYBETTİN','YOU LOST','VERLOREN','PERDISTE','VOCÊ PERDEU','敗北','DÉFAITE','失败'):ml('BERABERE','DRAW','UNENTSCHIEDEN','EMPATE','EMPATE','引き分け','ÉGALITÉ','平局');
+  return '<div class="duelRatedResult" data-old-dp="'+r.old+'" data-new-dp="'+r.rating+'"><div><b>⚔️ '+resultLabel+' · '+sign+r.delta+' DP · 🪙 0</b><small>'+r.league.icon+' '+duelLeagueName(r.league)+(r.newRewards&&r.newRewards.length?' · 🎁 '+ml('Yeni ödül','New reward','Neue Belohnung','Nueva recompensa','Nova recompensa','新しい報酬','Nouvelle récompense','新奖励'):'')+'</small></div><strong class="'+cls+'"><span class="duelDpOld">'+r.old+'</span> → <span class="duelDpNow">'+r.rating+'</span> DP</strong></div>';
+}
+function animateDuelRankResult(){const el=document.querySelector('.duelRatedResult[data-old-dp]'),node=el&&el.querySelector('.duelDpNow');if(!el||!node)return;const from=Number(el.dataset.oldDp)||0,to=Number(el.dataset.newDp)||from,start=performance.now(),dur=650;const tick=now=>{const p=Math.min(1,(now-start)/dur),e=1-Math.pow(1-p,3);node.textContent=String(Math.round(from+(to-from)*e));if(p<1)requestAnimationFrame(tick);};requestAnimationFrame(tick);}
 function showOnlineFinalResult(room){
-  if(!onlineDuelSession)return;const key='finished-'+(Array.isArray(room.wins)?room.wins.join('-'):'0-0')+'-'+String(room.finishReason||'normal');if(onlineDuelSession.lastUiKey===key)return;onlineDuelSession.lastUiKey=key;
+  if(!onlineDuelSession)return;
+  const s=onlineDuelSession,key='finished-'+(Array.isArray(room.wins)?room.wins.join('-'):'0-0')+'-'+String(room.finishReason||'normal');
+  const leaveForfeit=room.finishReason==='left'&&Number.isInteger(Number(room.forfeitWinner));
+  if(leaveForfeit&&Number(room.forfeitWinner)===s.playerIndex&&!s.leaveTransitionShown){s.leaveTransitionShown=true;showOnlineMessageToast(ml('Rakip düellodan ayrıldı.','Opponent left the duel.','Der Gegner hat das Duell verlassen.','El rival abandonó el duelo.','O adversário saiu do duelo.','相手がデュエルを退出しました。','L’adversaire a quitté le duel.','对手已退出对决。'),false);setTimeout(()=>{if(onlineDuelSession===s){s.lastUiKey='';showOnlineFinalResult(room);}},520);return;}
+  if(s.lastUiKey===key)return;s.lastUiKey=key;
   const c=duelCopy(),o=onlineDuelCopy();let winner=-1;if(duelState.wins[0]>duelState.wins[1])winner=0;else if(duelState.wins[1]>duelState.wins[0])winner=1;
-  const forfeit=room.finishReason==='disconnect'&&Number.isInteger(Number(room.forfeitWinner));if(forfeit)winner=Number(room.forfeitWinner);const host=onlineDuelSession.playerIndex===0;
-  const kind=winner<0?'draw':(onlineDuelSession.playerIndex===winner?'win':'loss');
-  const rankResult=processOnlineDuelRank(room,winner);
-  const subtext=forfeit?(onlineDuelSession.playerIndex===winner?o.forfeitWin:o.forfeitLoss):(onlineRoomIsRankedQuick(room)?(ml("Dereceli Hızlı Eşleşme tamamlandı.","Ranked Quick Match completed.","Gewertetes Schnellmatch beendet.","Partida Rápida clasificatoria completada.","Partida Rápida ranqueada concluída.","ランク・クイックマッチ完了。")):(host?o.unranked:o.guestRematch));
+  const forfeit=(room.finishReason==='disconnect'||leaveForfeit)&&Number.isInteger(Number(room.forfeitWinner));if(forfeit)winner=Number(room.forfeitWinner);const host=s.playerIndex===0;
+  const kind=winner<0?'draw':(s.playerIndex===winner?'win':'loss');
+  const ranked=onlineRoomIsRankedQuick(room),rankResult=processOnlineDuelRank(room,winner);
+  let subtext='';
+  if(leaveForfeit)subtext=s.playerIndex===winner?ml('Rakibin düellodan ayrıldı. Hükmen kazandın.','Your opponent left the duel. You win by forfeit.','Dein Gegner hat das Duell verlassen. Du gewinnst durch Aufgabe.','Tu rival abandonó el duelo. Ganas por abandono.','Seu adversário saiu do duelo. Você vence por desistência.','相手が退出したため不戦勝です。','Ton adversaire a quitté le duel. Tu gagnes par forfait.','对手退出，你判胜。'):ml('Düellodan ayrıldın. Hükmen mağlup sayıldın.','You left the duel and lose by forfeit.','Du hast das Duell verlassen und verlierst durch Aufgabe.','Abandonaste el duelo y pierdes por abandono.','Você saiu do duelo e perde por desistência.','デュエルを退出したため不戦敗です。','Tu as quitté le duel et perds par forfait.','你退出了对决，判负。');
+  else if(forfeit)subtext=s.playerIndex===winner?o.forfeitWin:o.forfeitLoss;
+  else subtext=ranked?ml('Dereceli Hızlı Eşleşme tamamlandı.','Ranked Quick Match completed.','Gewertetes Schnellmatch beendet.','Partida Rápida clasificatoria completada.','Partida Rápida ranqueada concluída.','ランク・クイックマッチ完了。','Match rapide classé terminé.','排位快速匹配已完成。'):(host?o.unranked:o.guestRematch);
   const actionHtml='<div class="mrow duelFinalActions '+(host?'':'guest')+'">'+
     (host?'<button class="btn blue" id="mOnlineRematch">↻ '+o.hostRematch+'</button>':'<button class="btn blue" id="mOnlineRematchRequest">💬 '+c.rematch+'</button>')+
     '<button class="btn green" id="mOnlineMenu">⌂ '+c.menu+'</button></div>';
-  openModal(duelFinalResultScreenHtml(winner,onlineDuelSession.playerIndex,{forfeit,subtext})+duelRankResultHtml(rankResult)+onlineQuickMessageButtonsHtml()+actionHtml);
-  activateDuelFinalPresentation(kind);
-  const rematch=$('#mOnlineRematch');if(rematch)rematch.addEventListener('pointerdown',async e=>{e.preventDefault();SFX.play();e.currentTarget.disabled=true;const pool=duelState.pool||duelPoolFor('mixed'),rounds=duelMakeRounds(duelBuildLevels(pool),duelState.gameKind||'classic',pool);const res=await window.MXCloud.rematchDuelRoom(onlineDuelSession.code,rounds);if(!res||!res.ok)e.currentTarget.disabled=false;},{passive:false});
+  openModal(duelFinalResultScreenHtml(winner,s.playerIndex,{forfeit,subtext})+duelRankResultHtml(rankResult,ranked)+onlineQuickMessageButtonsHtml(true)+actionHtml);
+  activateDuelFinalPresentation(kind);animateDuelRankResult();
+  const rematch=$('#mOnlineRematch');if(rematch)rematch.addEventListener('pointerdown',async e=>{e.preventDefault();SFX.play();e.currentTarget.disabled=true;const pool=duelState.pool||duelPoolFor('mixed'),rounds=duelMakeRounds(duelBuildLevels(pool),duelState.gameKind||'classic',pool);const res=await onlinePromiseTimeout(window.MXCloud.rematchDuelRoom(s.code,rounds),12000,'duel/timeout');if(!res||!res.ok)e.currentTarget.disabled=false;},{passive:false});
   const request=$('#mOnlineRematchRequest');if(request)request.addEventListener('pointerdown',e=>{e.preventDefault();SFX.click();sendOnlineQuickMessage('rematch');e.currentTarget.disabled=true;setTimeout(()=>{if(e.currentTarget)e.currentTarget.disabled=false;},1800);},{passive:false});
   bindOnlineQuickMessageButtons($('#modalBox'));bindTap('#mOnlineMenu',()=>{SFX.click();exitOnlineDuel(false);});
 }
-function showOnlineDuelConnectionError(){
-  if(!onlineDuelSession)return;const o=onlineDuelCopy();openModal('<h3>📡 '+o.title+'</h3><div class="onlineDuelNotice error">'+o.error+'</div><div class="mrow"><button class="btn ghost" id="mOnlineLeave">'+o.leave+'</button></div>');bindOnlineLeaveButton('#mOnlineLeave',false);
+function showOnlineDuelConnectionError(reason){
+  if(!onlineDuelSession)return;const o=onlineDuelCopy(),msg=reason?onlineDuelErrorText(reason):o.error;openModal('<h3>📡 '+o.title+'</h3><div class="onlineDuelNotice error">'+msg+'</div><div class="mrow"><button class="btn green" id="mOnlineRetryConnection">'+o.retry+'</button><button class="btn ghost" id="mOnlineLeave">'+o.leave+'</button></div>');const retry=$('#mOnlineRetryConnection');if(retry)retry.addEventListener('pointerdown',e=>{e.preventDefault();SFX.play();const s=onlineDuelSession;if(!s)return;e.currentTarget.disabled=true;s.listenerFailures=0;s.cloudDisconnected=false;attachOnlineDuelListener(s);sendOnlineHeartbeat();},{passive:false});bindOnlineLeaveButton('#mOnlineLeave',false);
 }
 function syncOnlineDuelRoom(room){
   if(!onlineDuelMode||!onlineDuelSession)return;
+  if(room){const member=onlineDuelMembershipIndex(room);if(member<0){clearOnlineDuelResume();const o=onlineDuelCopy();stopOnlineDuelListener();onlineDuelMode=false;onlineDuelSession=null;resetDuelUi();openModal('<h3>📡 '+o.title+'</h3><div class="onlineDuelNotice error">'+onlineDuelErrorText('duel/not-player')+'</div><div class="mrow"><button class="btn" id="mMembershipOk">OK</button></div>');bindTap('#mMembershipOk',()=>{closeModal();show('splash');});return;}onlineDuelSession.playerIndex=member;persistOnlineDuelResume(room);}
   if(room&&room.code&&String(room.code)!==String(onlineDuelSession.code)){
     // Backward compatibility for older queue-backed friend-room builds.
     // R77 direct friend rooms keep the same code from waiting room to match.
     onlineDuelSession.code=String(room.code);
   }
-  if(!room){const o=onlineDuelCopy();stopOnlineDuelListener();onlineDuelMode=false;onlineDuelSession=null;resetDuelUi();openModal('<h3>📡 '+o.closed+'</h3><div class="mrow"><button class="btn" id="mClosedOk">OK</button></div>');bindTap('#mClosedOk',()=>{closeModal();show('splash');});return;}
+  if(!room){clearOnlineDuelResume();const o=onlineDuelCopy();stopOnlineDuelListener();onlineDuelMode=false;onlineDuelSession=null;resetDuelUi();openModal('<h3>📡 '+o.closed+'</h3><div class="mrow"><button class="btn" id="mClosedOk">OK</button></div>');bindTap('#mClosedOk',()=>{closeModal();show('splash');});return;}
   const incoming=room.lastQuickMessage||null,seq=Math.max(0,Number(incoming&&incoming.seq)||0);if(!onlineDuelSession.room){onlineDuelSession.lastSeenMessageSeq=seq;}else if(seq>onlineDuelSession.lastSeenMessageSeq){onlineDuelSession.lastSeenMessageSeq=seq;if(incoming&&Number(incoming.playerIndex)!==onlineDuelSession.playerIndex)handleIncomingOnlineQuickMessage(incoming,room);}
   onlineDuelSession.room=room;duelState=onlineRoomToDuelState(room);onlineDuelMode=true;if(room.status!=='waiting'||room.guestUid)bootOnlinePresence(room);
   if(room.status==='waiting'){clearOnlineRoundCountdown();show('splash');showOnlineWaitingRoom(room);return;}
-  if(room.status==='cancelled'){const o=onlineDuelCopy();stopOnlineDuelListener();onlineDuelMode=false;onlineDuelSession=null;resetDuelUi();openModal('<h3>📡 '+o.bothDisconnected+'</h3><div class="mrow"><button class="btn" id="mCancelledOk">OK</button></div>');bindTap('#mCancelledOk',()=>{closeModal();show('splash');});return;}
-  if(room.status==='abandoned'){const o=onlineDuelCopy();stopOnlineDuelListener();onlineDuelMode=false;onlineDuelSession=null;resetDuelUi();openModal('<h3>📡 '+o.abandoned+'</h3><div class="mrow"><button class="btn" id="mAbandonedOk">OK</button></div>');bindTap('#mAbandonedOk',()=>{closeModal();show('splash');});return;}
+  if(room.status==='cancelled'){clearOnlineDuelResume();const o=onlineDuelCopy();stopOnlineDuelListener();onlineDuelMode=false;onlineDuelSession=null;resetDuelUi();openModal('<h3>📡 '+o.bothDisconnected+'</h3><div class="mrow"><button class="btn" id="mCancelledOk">OK</button></div>');bindTap('#mCancelledOk',()=>{closeModal();show('splash');});return;}
+  if(room.status==='abandoned'){clearOnlineDuelResume();const o=onlineDuelCopy();stopOnlineDuelListener();onlineDuelMode=false;onlineDuelSession=null;resetDuelUi();openModal('<h3>📡 '+o.abandoned+'</h3><div class="mrow"><button class="btn" id="mAbandonedOk">OK</button></div>');bindTap('#mAbandonedOk',()=>{closeModal();show('splash');});return;}
   if(handleOnlineDisconnectState(room))return;
   if(room.status==='round_result'){clearOnlineRoundCountdown();stopOnlineFactRotation();removeOnlineQuickChat();onlineDuelSession.activeRoundKey='';showOnlineRoundResult(room);return;}
-  if(room.status==='finished'){clearOnlineRoundCountdown();stopOnlineFactRotation();removeOnlineQuickChat();onlineDuelSession.activeRoundKey='';showOnlineFinalResult(room);return;}
+  if(room.status==='finished'){clearOnlineRoundCountdown();stopOnlineFactRotation();removeOnlineQuickChat();onlineDuelSession.activeRoundKey='';showOnlineFinalResult(room);clearOnlineDuelResume();return;}
   if(room.status==='playing'){
-    const idx=onlineDuelSession.playerIndex,roundIndex=Number(room.round)||0,rounds=Array.isArray(room.rounds)?room.rounds:[],round=rounds[roundIndex]||{},results=Array.isArray(round.results)?round.results:[null,null];
+    // R81 simultaneous-hidden: BOTH clients enter this branch for the same round.
+    // Only a client's own locked result can move that client to the hidden wait screen.
+    const idx=Number(onlineDuelSession.playerIndex)===1?1:0,roundIndex=Number(room.round)||0,rounds=Array.isArray(room.rounds)?room.rounds:[],round=rounds[roundIndex]||{},results=Array.isArray(round.results)?round.results:[null,null];
     if(results[idx]){clearOnlineRoundCountdown();showOnlineHiddenWaiting(room);return;}
     const key='round-'+String(room.matchNo||1)+'-'+String(roundIndex);
     if(onlineDuelSession.activeRoundKey===key&&scr.game.classList.contains('on')){ensureOnlineQuickChatButton();return;}
     showOnlineRoundCountdown(room);return;
   }
 }
+function forceExitOnlineDuelLocal(){clearOnlineDuelResume();stopOnlineDuelListener();onlineDuelMode=false;onlineDuelSession=null;resetDuelUi();closeModal();show('splash');}
 async function exitOnlineDuel(notify){
-  const session=onlineDuelSession;stopOnlineDuelListener();onlineDuelMode=false;onlineDuelSession=null;
-  if(notify&&session&&window.MXCloud&&window.MXCloud.leaveDuelRoom)window.MXCloud.leaveDuelRoom(session.code).catch(()=>{});
-  resetDuelUi();closeModal();show('splash');
+  const session=onlineDuelSession;if(!session){forceExitOnlineDuelLocal();return;}
+  if(!notify){forceExitOnlineDuelLocal();return;}
+  if(!window.MXCloud||!window.MXCloud.leaveDuelRoom){forceExitOnlineDuelLocal();return;}
+  const o=onlineDuelCopy();openModal('<h3>📡 '+ml('DÜELLODAN ÇIKILIYOR','LEAVING DUEL','DUELL WIRD VERLASSEN','SALIENDO DEL DUELO','SAINDO DO DUELO','デュエルを退出中','SORTIE DU DUEL','正在退出对决')+'</h3><div class="onlineSyncSpinner"></div><div class="msub">'+ml('Rakibe bilgi gönderiliyor…','Notifying your opponent…','Gegner wird benachrichtigt…','Avisando a tu rival…','Avisando o adversário…','相手に通知しています…','Notification de l’adversaire…','正在通知对手…')+'</div>');
+  const res=await onlinePromiseTimeout(window.MXCloud.leaveDuelRoom(session.code),12000,'duel/timeout');
+  if(onlineDuelSession!==session)return;
+  if(res&&res.ok){
+    if(res.data&&res.data.status==='finished'){session.room=res.data;duelState=onlineRoomToDuelState(res.data);showOnlineFinalResult(res.data);return;}
+    forceExitOnlineDuelLocal();return;
+  }
+  openModal('<h3>📡 '+o.title+'</h3><div class="onlineDuelNotice error">'+onlineDuelErrorText(res&&res.reason)+'</div><div class="msub">'+ml('Rakibe anlık çıkış bilgisi gönderilemedi. Tekrar denersen hükmen sonuç hemen işlenir.','The leave notice could not reach your opponent. Retry to apply the forfeit immediately.','Die Austrittsmeldung konnte den Gegner nicht erreichen. Erneut versuchen, um die Aufgabe sofort zu werten.','No se pudo avisar al rival. Reintenta para aplicar el abandono de inmediato.','Não foi possível avisar o adversário. Tente novamente para aplicar a desistência imediatamente.','退出通知を送信できませんでした。再試行すると不戦敗がすぐ反映されます。','Impossible d’avertir l’adversaire. Réessaie pour appliquer immédiatement le forfait.','未能通知对手。重试即可立即判定弃权结果。')+'</div><div class="mrow"><button class="btn green" id="mOnlineLeaveRetry">'+o.retry+'</button><button class="btn ghost" id="mOnlineLeaveAnyway">'+ml('YİNE DE ÇIK','LEAVE ANYWAY','TROTZDEM VERLASSEN','SALIR DE TODOS MODOS','SAIR MESMO ASSIM','そのまま退出','QUITTER QUAND MÊME','仍然退出')+'</button></div>');
+  bindTap('#mOnlineLeaveRetry',()=>{SFX.play();exitOnlineDuel(true);});bindTap('#mOnlineLeaveAnyway',()=>{SFX.back();forceExitOnlineDuelLocal();});
 }
+async function submitOnlineDuelResultWithRetry(s,round,turn,payload){let last={ok:false,reason:'duel/offline'};for(let attempt=0;attempt<3;attempt++){if(onlineDuelSession!==s)return last;if(attempt){await new Promise(r=>setTimeout(r,attempt===1?900:2200));if(onlineDuelSession!==s)return last;}if(navigator.onLine===false){last={ok:false,reason:'duel/offline'};break;}last=await onlinePromiseTimeout(window.MXCloud.submitDuelTurn(s.code,round,turn,payload),12000,'duel/submit-timeout');if(last&&last.ok)return last;if(!onlineRetryableReason(last&&last.reason))break;}return last;}
 function finishOnlineDuelTurn(elapsedSeconds,completed){
   if(!onlineDuelSession||onlineDuelSession.pendingResult||!duelState)return;
-  onlineDuelSession.pendingResult=true;duelState.turnFinished=true;
-  const o=onlineDuelCopy(),c=duelCopy(),turn=onlineDuelSession.playerIndex,safeTime=completed?Math.min(DUEL_TIME_LIMIT,Math.max(0,elapsedSeconds)):DUEL_TIME_LIMIT;
+  const s=onlineDuelSession;onlineDuelSession.pendingResult=true;duelState.turnFinished=true;
+  const o=onlineDuelCopy(),c=duelCopy(),turn=onlineDuelSession.playerIndex,round=duelState.round,safeTime=completed?Math.min(DUEL_TIME_LIMIT,Math.max(0,elapsedSeconds)):DUEL_TIME_LIMIT;
   const payload={time:safeTime,moves,completed:!!completed,maxCombo:chainMode?chainMaxCombo:1,reactions:chainMode?chainReactions:0,autoMoves:chainMode?chainAutoMoves:0,hits:reactorMode?reactorHits:0,penalty:reactorMode?reactorPenalty:0};onlineDuelSession.pendingPayload=payload;
   const delay=completed?1800:500;
-  setTimeout(async()=>{if(!onlineDuelSession)return;openModal('<h3>'+(completed?c.turnDone:c.timeUp)+'</h3><div class="onlineSyncSpinner"></div><div class="msub">'+o.syncing+'</div>');
-    const res=await window.MXCloud.submitDuelTurn(onlineDuelSession.code,duelState.round,turn,payload);
-    if(!onlineDuelSession)return;if(!res||!res.ok){onlineDuelSession.pendingResult=false;openModal('<h3>📡 '+o.title+'</h3><div class="onlineDuelNotice error">'+onlineDuelErrorText(res&&res.reason)+'</div><div class="mrow"><button class="btn green" id="mOnlineRetry">'+o.retry+'</button><button class="btn ghost" id="mOnlineLeave">'+o.leave+'</button></div>');
+  setTimeout(async()=>{if(onlineDuelSession!==s)return;openModal('<h3>'+(completed?c.turnDone:c.timeUp)+'</h3><div class="onlineSyncSpinner"></div><div class="msub">'+o.syncing+'</div>');
+    const res=await submitOnlineDuelResultWithRetry(s,round,turn,payload);
+    if(onlineDuelSession!==s)return;if(!res||!res.ok){onlineDuelSession.pendingResult=false;openModal('<h3>📡 '+o.title+'</h3><div class="onlineDuelNotice error">'+onlineDuelErrorText(res&&res.reason)+'</div><div class="mrow"><button class="btn green" id="mOnlineRetry">'+o.retry+'</button><button class="btn ghost" id="mOnlineLeave">'+o.leave+'</button></div>');
       $('#mOnlineRetry').addEventListener('pointerdown',e=>{e.preventDefault();SFX.play();onlineDuelSession.pendingResult=false;finishOnlineDuelTurn(payload.time,payload.completed);},{passive:false});bindOnlineLeaveButton('#mOnlineLeave',true);}
     else if(res.data&&res.data.waitingForOpponent&&onlineDuelSession.room){onlineDuelSession.pendingResult=false;showOnlineHiddenWaiting(onlineDuelSession.room);}
   },delay);
@@ -7212,7 +7269,9 @@ function openLocalDuelSetup(){
 }
 function startDuelTurn(turn){
   const round=duelCurrentRound();if(!duelState||!round)return;
-  if(onlineDuelMode&&onlineDuelSession&&turn!==onlineDuelSession.playerIndex)return;
+  // R81 invariant: online players start independently on their own device.
+  // Never reject a start because of the shared room's legacy turn value.
+  if(onlineDuelMode&&onlineDuelSession)turn=Number(onlineDuelSession.playerIndex)===1?1:0;
   duelState.turn=turn;duelState.turnFinished=false;duelMode=true;startLevel(round.level,'duel');
 }
 function finishDuelTurn(elapsedSeconds,completed=true){
@@ -7286,10 +7345,14 @@ function finishDuelTimeout(){
   SFX.thunk();say(duelCopy().timeUp,'sad',2200,'shk');finishDuelTurn(DUEL_TIME_LIMIT,false);
 }
 function confirmQuitDuel(){
-  if(onlineDuelMode){const c=duelCopy(),o=onlineDuelCopy();openModal('<h3>'+c.quitTitle+'</h3><div class="msub">'+o.unranked+'</div><div class="mrow"><button class="btn danger" id="mDuelQuit">'+c.quit+'</button><button class="btn" id="mDuelStay">'+c.stay+'</button></div>');bindTap('#mDuelQuit',()=>{SFX.back();exitOnlineDuel(true);});bindTap('#mDuelStay',()=>{SFX.click();closeModal();});return;}
+  if(onlineDuelMode){
+    const c=duelCopy(),room=onlineDuelSession&&onlineDuelSession.room,ranked=onlineRoomIsRankedQuick(room);
+    const rule=ranked?ml('Bu maçtan çıkarsan hükmen mağlup sayılırsın. −10 DP · 0 MoleCoin. Rakibin hükmen kazanır.','Leaving now is a forfeit loss. −10 DP · 0 MoleCoin. Your opponent wins by forfeit.','Wenn du jetzt gehst, verlierst du durch Aufgabe. −10 DP · 0 MoleCoin. Dein Gegner gewinnt.','Si sales ahora, pierdes por abandono. −10 DP · 0 MoleCoin. Tu rival gana por abandono.','Se sair agora, você perde por desistência. −10 DP · 0 MoleCoin. O adversário vence.','今退出すると不戦敗です。−10 DP・MoleCoin 0。相手が不戦勝になります。','Quitter maintenant compte comme une défaite par forfait. −10 DP · 0 MoleCoin. L’adversaire gagne.','现在退出将判负：−10 DP · MoleCoin 0，对手判胜。'):ml('Bu maçtan çıkarsan hükmen mağlup sayılırsın. DP 0 · MoleCoin 0. Rakibin hükmen kazanır.','Leaving now is a forfeit loss. DP 0 · MoleCoin 0. Your opponent wins by forfeit.','Wenn du jetzt gehst, verlierst du durch Aufgabe. DP 0 · MoleCoin 0. Dein Gegner gewinnt.','Si sales ahora, pierdes por abandono. DP 0 · MoleCoin 0. Tu rival gana por abandono.','Se sair agora, você perde por desistência. DP 0 · MoleCoin 0. O adversário vence.','今退出すると不戦敗です。DP 0・MoleCoin 0。相手が不戦勝になります。','Quitter maintenant compte comme une défaite par forfait. DP 0 · MoleCoin 0. L’adversaire gagne.','现在退出将判负：DP 0 · MoleCoin 0，对手判胜。');
+    openModal('<h3>'+c.quitTitle+'</h3><div class="duelQuitRule '+(ranked?'ranked':'friendly')+'">'+rule+'</div><div class="mrow"><button class="btn danger" id="mDuelQuit">'+c.quit+'</button><button class="btn" id="mDuelStay">'+c.stay+'</button></div>');
+    bindTap('#mDuelQuit',()=>{SFX.back();exitOnlineDuel(true);});bindTap('#mDuelStay',()=>{SFX.click();closeModal();});return;
+  }
   const c=duelCopy();openModal('<h3>'+c.quitTitle+'</h3><div class="mrow"><button class="btn danger" id="mDuelQuit">'+c.quit+'</button><button class="btn" id="mDuelStay">'+c.stay+'</button></div>');
-  bindTap('#mDuelQuit',e=>{SFX.back();resetDuelUi();closeModal();show('splash');});
-  bindTap('#mDuelStay',e=>{SFX.click();closeModal();});
+  bindTap('#mDuelQuit',e=>{SFX.back();resetDuelUi();closeModal();show('splash');});bindTap('#mDuelStay',e=>{SFX.click();closeModal();});
 }
 function todaysLevelIndex(){return certifiedDailyChallenge().themeIndex;}
 const LEVEL42_COMBO_KEY='__level42FireZombieBriefing';
@@ -7439,7 +7502,14 @@ function storyPagesFor(level,index){
     }));
   }
   // Safe legacy fallback if the standalone story-data file is unavailable.
-  const chapter=storyChapterIndex(index),detail=level&&level.story?storyTextValue(level.story):'';
+  const chapter=storyChapterIndex(index),rawDetail=level&&level.story?level.story:'';
+  const storyLang=normalizeLang(LANG);
+  // Final R81: if the standalone story data is unavailable, never leak an
+  // English legacy story line into DE/ES/PT/JA. Use the localized generic
+  // fallback unless that legacy row explicitly contains the selected language.
+  const detail=(rawDetail&&typeof rawDetail==='object')
+    ?(rawDetail[storyLang]||((storyLang==='tr'||storyLang==='en')?storyTextValue(rawDetail):''))
+    :storyTextValue(rawDetail);
   return [{
     title:(ml("BÖLÜM ","CHAPTER ","KAPITEL ","CAPÍTULO ","CAPÍTULO ","チャプター "))+(chapter+1)+' · MOLECULOX',
     text:detail||(ml("Deneyler devam ediyor.","The experiments continue.","Die Experimente gehen weiter.","Los experimentos continúan.","Os experimentos continuam.","実験は続きます。")),
@@ -7777,6 +7847,7 @@ function startLevel(i,mode='campaign',expectedKey=''){
   setBgForTier(tierOf((duelMode||crystalMode||chainMode||reactorMode)?i:save.cur),false);
   grid=LV.g.map(r=>[...r].map(c=>c==='1'));
   breakableWalls=new Map(deriveBreakableWalls(LV,i,mode).map(w=>[breakableKey(w.x,w.y),{x:w.x,y:w.y,broken:false}]));portalPairs=new Map(derivePortals(LV,i,mode).map(p=>[portalKey(p.x,p.y),p]));oneWayTiles=new Map(deriveOneWayTiles(LV,i,mode).map(o=>[oneWayKey(o.x,o.y),o]));movingWalls=deriveMovingWalls(LV,i,mode).map(w=>{const c=w.path[w.index||0];return {...w,x:c.x,y:c.y,anim:null};});movingWallAnimating=false;hammerMode=false;hammerPending=null;precisionMode=false;barrierMode=false;barrierUsed=false;assistanceUsed=false;routeAssistUsed=false;temporaryBarriers=new Map();precisionPending=null;precisionExecuting=false;
+  invalidateBoardStatic();
   pressureSystems=derivePressureSystems(LV,i,mode);
   atoms=LV.a.map(a=>({x:a[0],y:a[1],e:a[2],ph:Math.random()*6.28,frozen:!!a[3],fire:!!a[4],sticky:!!a[5],zombie:!!a[6],lightning:!!a[7],zombieGen:0}));
   applyLightningAtoms(LV,i,mode);
@@ -8360,7 +8431,7 @@ function move(i,d){
     if(now-secureAttemptNoticeAt>1800){secureAttemptNoticeAt=now;prop('🔒',1200);say(t('securePreparing'),'talk',1800,'glow');}
     return;
   }
-  if(atoms[i].frozen){specialAtomSfx('frozen');specialAtomImpactFx(i,'frozen');mxHaptic('error');nudge={i,d,t0:performance.now()};moxyGameEvent('frozen');drEGameEvent('frozen');say(rnd(LN.frozen),'sad',2600,'shk');return;}
+  if(atoms[i].frozen){specialAtomSfx('frozen');specialAtomImpactFx(i,'frozen');mxHaptic('error');nudge={i,d,t0:performance.now()};wakeMainLoop();moxyGameEvent('frozen');drEGameEvent('frozen');say(rnd(LN.frozen),'sad',2600,'shk');return;}
   const chainOn=chainActive(),crystalOn=crystalActive(),reactorOn=reactorActive();
   const chainTrigger=chainOn&&!chainAutoExecuting?chainTriggerForMove(i,d):null;
   const linkedPlan=!precisionExecuting?pairMovePlan(i,d):null;
@@ -8374,7 +8445,7 @@ function move(i,d){
     moves++;moveLog.push({i,d,barrier:true});breakTemporaryBarrier(barrierHit);updateHUD();gameFeelToolState();resetIdle();return;
   }
   if(!dest){
-    (SFX.wallTap?SFX.wallTap():SFX.thunk());mxHaptic('error');nudge={i,d,t0:performance.now()};gameFeelImpact('light');gameFeelWallContact(i,d);moxyGameEvent('blocked');drEGameEvent('blocked');characterMoment('blocked');bumpN++;
+    (SFX.wallTap?SFX.wallTap():SFX.thunk());mxHaptic('error');nudge={i,d,t0:performance.now()};wakeMainLoop();gameFeelImpact('light');gameFeelWallContact(i,d);moxyGameEvent('blocked');drEGameEvent('blocked');characterMoment('blocked');bumpN++;
     stuckAtomCount=(stuckAtomIdx===i)?stuckAtomCount+1:1;stuckAtomIdx=i;
     if(stuckAtomCount>=3&&isFullyBoxed(i)){
       stuckAtomCount=0;
@@ -8407,6 +8478,7 @@ function move(i,d){
   const crystalPath=crystalOn?crystalPathBetween(atoms[i].x,atoms[i].y,dest.x,dest.y):null;
   const moveFrom={x:atoms[i].x,y:atoms[i].y};
   anim={i,d,fx:atoms[i].x,fy:atoms[i].y,tx:dest.x,ty:dest.y,t0:performance.now(),dur:80+dist*55,crystalPath,chainTrigger,chainAutoStep:!!chainAutoExecuting,prevBonds:bondsMatched(),partner:linkedPlan?{i:linkedPlan.j,fx:atoms[linkedPlan.j].x,fy:atoms[linkedPlan.j].y,tx:linkedPlan.mate.x,ty:linkedPlan.mate.y}:null};
+  wakeMainLoop();
   if(onlineDuelMode)publishOnlineMoveEvent(i,d,moveFrom,dest,anim.dur);
   SFX.slide(dist);mxHaptic('light');gameFeelAtomTrail(atoms[i],dist);updateHUD();gameFeelToolState();resetIdle();
   look(-0.7,-0.6,620,dist>=5?0.55:null);
@@ -8940,20 +9012,42 @@ function getPerformance(moveCount,par,minimum,isNewBest){
   const cfg=performanceCopy()[key];
   return {key,label:cfg.label,quotes:cfg.quotes,moves:moveCount,par,minimum,isNewBest:!!isNewBest};
 }
+function performanceMetaLabel(perf){
+  return ml('PAR '+perf.par+' · SEN '+perf.moves,'PAR '+perf.par+' · YOU '+perf.moves,'PAR '+perf.par+' · DU '+perf.moves,'PAR '+perf.par+' · TÚ '+perf.moves,'PAR '+perf.par+' · VOCÊ '+perf.moves,'PAR '+perf.par+' · あなた '+perf.moves,'PAR '+perf.par+' · VOUS '+perf.moves,'标准 '+perf.par+' · 你 '+perf.moves);
+}
+function performanceBestLabel(bang=false){
+  return ml(bang?'YENİ REKOR!':'YENİ REKOR',bang?'NEW BEST!':'NEW BEST',bang?'NEUER REKORD!':'NEUER REKORD',bang?'¡NUEVO RÉCORD!':'NUEVO RÉCORD',bang?'NOVO RECORDE!':'NOVO RECORDE',bang?'新記録！':'新記録',bang?'NOUVEAU RECORD !':'NOUVEAU RECORD',bang?'新纪录！':'新纪录');
+}
+function performanceAssistedLabel(){
+  return ml('DESTEKLİ GEÇİŞ · REKOR DIŞI','ASSISTED CLEAR · UNRANKED','MIT HILFE · NICHT GEWERTET','SUPERADO CON AYUDA · SIN RANKING','CONCLUÍDO COM AJUDA · FORA DO RANKING','アシストクリア・記録対象外','RÉUSSITE ASSISTÉE · NON CLASSÉE','辅助通关 · 不计排名');
+}
+function fitPerformanceGradeText(){
+  const el=$('#performanceGrade');if(!el)return;
+  el.style.fontSize='';el.style.letterSpacing='';
+  const vw=Math.max(240,document.documentElement.clientWidth||window.innerWidth||360);
+  const maxWidth=Math.max(180,vw-36);
+  el.style.maxWidth=maxWidth+'px';
+  const natural=el.scrollWidth;
+  if(natural>maxWidth){
+    const base=parseFloat(getComputedStyle(el).fontSize)||46;
+    el.style.fontSize=Math.max(28,Math.floor(base*(maxWidth/natural)*.97))+'px';
+  }
+}
 function showPerformanceGrade(perf){
   const wrap=$('#performanceWrap');if(!wrap||!perf)return;
   wrap.className='grade-'+perf.key;
   $('#performanceGrade').textContent=perf.label;
-  $('#performanceMeta').textContent=ml('PAR '+perf.par+' · SEN '+perf.moves,'PAR '+perf.par+' · YOU '+perf.moves,'PAR '+perf.par+' · DU '+perf.moves,'PAR '+perf.par+' · TÚ '+perf.moves,'PAR '+perf.par+' · VOCÊ '+perf.moves,'PAR '+perf.par+' · あなた '+perf.moves);
+  $('#performanceMeta').textContent=performanceMetaLabel(perf);
   const best=$('#performanceBest');
-  best.textContent=perf.isNewBest?(ml("YENİ REKOR!","NEW BEST!","NEUER REKORD!","¡NUEVO RÉCORD!","NOVO RECORDE!","新記録！")):'';
+  best.textContent=perf.isNewBest?performanceBestLabel(true):'';
+  fitPerformanceGradeText();
   wrap.classList.remove('on');void wrap.offsetWidth;wrap.classList.add('on');
   setTimeout(()=>wrap.classList.remove('on'),1320);
   setTimeout(()=>say(rnd(perf.quotes),perf.key==='complete'?'happy':'celebrate',2900,perf.key==='insane'||perf.key==='genius'?'glow':null),120);
 }
 function performanceResultHtml(perf){
   if(!perf)return '';
-  return '<div class="performanceResult grade-'+perf.key+'"><b>'+perf.label+'</b><span>'+ml('PAR '+perf.par+' · SEN '+perf.moves,'PAR '+perf.par+' · YOU '+perf.moves,'PAR '+perf.par+' · DU '+perf.moves,'PAR '+perf.par+' · TÚ '+perf.moves,'PAR '+perf.par+' · VOCÊ '+perf.moves,'PAR '+perf.par+' · あなた '+perf.moves)+'</span>'+(perf.isNewBest?'<em>'+ml('YENİ REKOR','NEW BEST','NEUER REKORD','NUEVO RÉCORD','NOVO RECORDE','新記録')+'</em>':'')+(perf.assisted?'<em class="assistedRun">'+(ml("DESTEKLİ GEÇİŞ · REKOR DIŞI","ASSISTED CLEAR · UNRANKED","MIT HILFE · NICHT GEWERTET","SUPERADO CON AYUDA · SIN RANKING","CONCLUÍDO COM AJUDA · FORA DO RANKING","アシストクリア・記録対象外"))+'</em>':'')+'</div>';
+  return '<div class="performanceResult grade-'+perf.key+'"><b>'+perf.label+'</b><span>'+performanceMetaLabel(perf)+'</span>'+(perf.isNewBest?'<em>'+performanceBestLabel(false)+'</em>':'')+(perf.assisted?'<em class="assistedRun">'+performanceAssistedLabel()+'</em>':'')+'</div>';
 }
 
 
@@ -11185,8 +11279,10 @@ function resize(){
   const cssW=T*W,cssH=T*H,pixelW=Math.max(1,Math.round(cssW*dpr)),pixelH=Math.max(1,Math.round(cssH*dpr));
   board.style.width=cssW+'px';board.style.height=cssH+'px';
   // Avoid clearing and reallocating the large board buffer on every resize tick.
-  if(board.width!==pixelW||board.height!==pixelH){board.width=pixelW;board.height=pixelH;}
+  if(board.width!==pixelW||board.height!==pixelH){board.width=pixelW;board.height=pixelH;invalidateBoardStatic();}
   bctx.setTransform(dpr,0,0,dpr,0,0);
+  const staticKey=pixelW+'x'+pixelH+'@'+dpr.toFixed(3)+'|'+T+'|'+W+'x'+H;
+  if(boardStaticKey!==staticKey){boardStaticKey=staticKey;invalidateBoardStatic();}
 }
 function rrect(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath();}
 const ease=p=>1-Math.pow(1-p,3);
@@ -11201,43 +11297,43 @@ const TIER_STONE=[
   ['#ffc85a','#d99a2d','#966417'],
   ['#ffdf72','#d8a936','#8a5c16']
 ];
-function stoneDoodle(cx,cy,r,seed){
-  bctx.strokeStyle='rgba(255,255,255,.24)';bctx.lineWidth=1.4;
+function stoneDoodle(cx,cy,r,seed,ctx=bctx){
+  ctx.strokeStyle='rgba(255,255,255,.24)';ctx.lineWidth=1.4;
   const kind=seed%3;
   if(kind===0){
-    bctx.beginPath();bctx.arc(cx,cy,r*0.16,0,6.3);bctx.stroke();
+    ctx.beginPath();ctx.arc(cx,cy,r*0.16,0,6.3);ctx.stroke();
     for(let k=0;k<3;k++){
-      bctx.save();bctx.translate(cx,cy);bctx.rotate(k*1.05);
-      bctx.beginPath();bctx.ellipse(0,0,r*0.62,r*0.24,0,0,6.3);bctx.stroke();
-      bctx.restore();
+      ctx.save();ctx.translate(cx,cy);ctx.rotate(k*1.05);
+      ctx.beginPath();ctx.ellipse(0,0,r*0.62,r*0.24,0,0,6.3);ctx.stroke();
+      ctx.restore();
     }
   }else if(kind===1){
-    bctx.beginPath();
-    bctx.moveTo(cx-r*0.14,cy-r*0.5);bctx.lineTo(cx-r*0.14,cy-r*0.05);
-    bctx.lineTo(cx-r*0.46,cy+r*0.5);bctx.lineTo(cx+r*0.46,cy+r*0.5);
-    bctx.lineTo(cx+r*0.14,cy-r*0.05);bctx.lineTo(cx+r*0.14,cy-r*0.5);
-    bctx.stroke();
-    bctx.beginPath();bctx.moveTo(cx-r*0.2,cy-r*0.5);bctx.lineTo(cx+r*0.2,cy-r*0.5);bctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(cx-r*0.14,cy-r*0.5);ctx.lineTo(cx-r*0.14,cy-r*0.05);
+    ctx.lineTo(cx-r*0.46,cy+r*0.5);ctx.lineTo(cx+r*0.46,cy+r*0.5);
+    ctx.lineTo(cx+r*0.14,cy-r*0.05);ctx.lineTo(cx+r*0.14,cy-r*0.5);
+    ctx.stroke();
+    ctx.beginPath();ctx.moveTo(cx-r*0.2,cy-r*0.5);ctx.lineTo(cx+r*0.2,cy-r*0.5);ctx.stroke();
   }else{
-    bctx.beginPath();bctx.arc(cx-r*0.3,cy-r*0.2,r*0.13,0,6.3);bctx.stroke();
-    bctx.beginPath();bctx.arc(cx+r*0.28,cy+r*0.22,r*0.13,0,6.3);bctx.stroke();
-    bctx.beginPath();bctx.moveTo(cx-r*0.2,cy-r*0.1);bctx.lineTo(cx+r*0.18,cy+r*0.12);bctx.stroke();
+    ctx.beginPath();ctx.arc(cx-r*0.3,cy-r*0.2,r*0.13,0,6.3);ctx.stroke();
+    ctx.beginPath();ctx.arc(cx+r*0.28,cy+r*0.22,r*0.13,0,6.3);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(cx-r*0.2,cy-r*0.1);ctx.lineTo(cx+r*0.18,cy+r*0.12);ctx.stroke();
   }
 }
-function drawStone(x,y,gx,gy){
+function drawStone(x,y,gx,gy,ctx=bctx){
   const p=2,s=T-4;
   const cs=TIER_STONE[tierOf(lv)]||TIER_STONE[0];
-  const g=bctx.createLinearGradient(x,y,x,y+T);
+  const g=ctx.createLinearGradient(x,y,x,y+T);
   g.addColorStop(0,cs[0]);g.addColorStop(0.5,cs[1]);g.addColorStop(1,cs[2]);
-  bctx.fillStyle=g;rrect(bctx,x+p,y+p,s,s,5);bctx.fill();
+  ctx.fillStyle=g;rrect(ctx,x+p,y+p,s,s,5);ctx.fill();
   if(gx!==undefined){
     const seed=(gx*7+gy*13)%6;
-    if(seed===0)stoneDoodle(x+T/2,y+T/2,T*0.42,(gx*3+gy*5)>>0);
+    if(seed===0)stoneDoodle(x+T/2,y+T/2,T*0.42,(gx*3+gy*5)>>0,ctx);
   }
-  bctx.strokeStyle='rgba(255,255,255,.35)';bctx.lineWidth=1.5;
-  bctx.beginPath();bctx.moveTo(x+p+3,y+p+s-3);bctx.lineTo(x+p+3,y+p+3);bctx.lineTo(x+p+s-3,y+p+3);bctx.stroke();
-  bctx.strokeStyle='rgba(0,0,0,.4)';
-  bctx.beginPath();bctx.moveTo(x+p+3,y+p+s-2);bctx.lineTo(x+p+s-2,y+p+s-2);bctx.lineTo(x+p+s-2,y+p+3);bctx.stroke();
+  ctx.strokeStyle='rgba(255,255,255,.35)';ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.moveTo(x+p+3,y+p+s-3);ctx.lineTo(x+p+3,y+p+3);ctx.lineTo(x+p+s-3,y+p+3);ctx.stroke();
+  ctx.strokeStyle='rgba(0,0,0,.4)';
+  ctx.beginPath();ctx.moveTo(x+p+3,y+p+s-2);ctx.lineTo(x+p+s-2,y+p+s-2);ctx.lineTo(x+p+s-2,y+p+3);ctx.stroke();
 }
 function drawNanoBarrier(gx,gy,t){
   const x=gx*T,y=gy*T,cx=x+T*.5,cy=y+T*.5,p=.5+.5*Math.sin(t/210),spin=t/900+(gx+gy)*.4;
@@ -11335,21 +11431,39 @@ function shade(hex,amt){
   const r=Math.max(0,Math.min(255,(n>>16)+amt)),g=Math.max(0,Math.min(255,((n>>8)&255)+amt)),b=Math.max(0,Math.min(255,(n&255)+amt));
   return 'rgb('+r+','+g+','+b+')';
 }
+function rebuildBoardStatic(){
+  const pixelW=Math.max(1,board.width),pixelH=Math.max(1,board.height);
+  if(boardStatic.width!==pixelW||boardStatic.height!==pixelH){boardStatic.width=pixelW;boardStatic.height=pixelH;}
+  const c=boardStaticCtx;c.setTransform(dpr,0,0,dpr,0,0);c.clearRect(0,0,T*W,T*H);
+  const movingWallCells=movingWalls.length?new Set(movingWalls.map(w=>w.x+','+w.y)):null;
+  const pressureDoorCells=pressureSystems.length?new Set(pressureSystems.map(sys=>sys.door.x+','+sys.door.y)):null;
+  for(let y=0;y<H;y++)for(let x=0;x<W;x++){
+    if(grid[y][x]){
+      const key=x+','+y,mw=movingWallCells&&movingWallCells.has(key),pd=pressureDoorCells&&pressureDoorCells.has(key);
+      if(mw||pd)continue;
+      const bw=breakableWalls.get(breakableKey(x,y));
+      if(bw&&!bw.broken)continue; // animated crack is drawn on the live layer
+      drawStone(x*T,y*T,x,y,c);
+    }else{
+      c.fillStyle=(x+y)%2?'rgba(255,255,255,.05)':'rgba(255,255,255,.028)';
+      rrect(c,x*T+2,y*T+2,T-4,T-4,4);c.fill();
+    }
+  }
+  boardStaticDirty=false;
+}
+function drawBoardStatic(){
+  if(boardStaticDirty||boardStatic.width!==board.width||boardStatic.height!==board.height)rebuildBoardStatic();
+  // Source pixels map 1:1 through the board DPR transform. Keeping this draw in
+  // logical coordinates also preserves the original whole-board shake effect.
+  bctx.drawImage(boardStatic,0,0,boardStatic.width,boardStatic.height,0,0,T*W,T*H);
+}
 function renderBoard(t){
   bctx.clearRect(0,0,T*W,T*H);
   bctx.save();
   if(shake>0){bctx.translate((Math.random()-0.5)*shake*9,(Math.random()-0.5)*shake*9);shake=Math.max(0,shake-0.045);}
-  // tiles — index dynamic wall/door cells once per frame instead of scanning
-  // their arrays for every grid cell. Rendering is pixel-identical.
-  const movingWallCells=movingWalls.length?new Set(movingWalls.map(w=>w.x+','+w.y)):null;
-  const pressureDoorCells=pressureSystems.length?new Set(pressureSystems.map(s=>s.door.x+','+s.door.y)):null;
-  for(let y=0;y<H;y++)for(let x=0;x<W;x++){
-    if(grid[y][x]){const key=x+','+y,mw=movingWallCells&&movingWallCells.has(key),pd=pressureDoorCells&&pressureDoorCells.has(key);if(mw||pd){}else{const bw=breakableWalls.get(breakableKey(x,y));if(bw&&!bw.broken)drawBreakableStone(x*T,y*T,x,y,t);else drawStone(x*T,y*T,x,y);}}
-    else{
-      bctx.fillStyle=(x+y)%2?'rgba(255,255,255,.05)':'rgba(255,255,255,.028)';
-      rrect(bctx,x*T+2,y*T+2,T-4,T-4,4);bctx.fill();
-    }
-  }
+  drawBoardStatic();
+  // Only genuinely animated grid cells stay on the live layer.
+  if(breakableWalls.size){for(const bw of breakableWalls.values())if(!bw.broken)drawBreakableStone(bw.x*T,bw.y*T,bw.x,bw.y,t);}
   if(movingWalls.length){for(const w of movingWalls)drawMovingWall(w,t);}
   if(pressureSystems.length){for(const p of pressureSystems){drawPressurePlate(p,t);drawPressureDoor(p,t);}}
   // Special floor components sit above floor tiles and below atoms.
@@ -11603,7 +11717,8 @@ function fxResize(){
   const pixelBudget=performanceLow()?(mobile?2600000:3600000):(mobile?4200000:6000000);
   const budgetDpr=Math.sqrt(pixelBudget/Math.max(1,w*h));
   const fxDpr=Math.max(1,Math.min(baseDpr,budgetDpr));
-  dpr=fxDpr;
+  // Keep board DPR and FX DPR independent; changing the decorative buffer must
+  // never perturb later board-cache geometry.
   const pixelW=Math.max(1,Math.round(w*fxDpr)),pixelH=Math.max(1,Math.round(h*fxDpr));
   const nextBufferKey=pixelW+'x'+pixelH+'@'+fxDpr.toFixed(3);
   if(fxBufferKey===nextBufferKey&&fxc.width===pixelW&&fxc.height===pixelH)return;
@@ -11689,7 +11804,15 @@ function renderFx(t,dt){
     switch(p.k){
       case 'drop':p.vy+=0.28*dts;p.x+=p.vx*dts;p.y+=p.vy*dts;
         fctx.fillStyle=p.c;fctx.beginPath();fctx.arc(p.x,p.y,p.r,0,7);fctx.fill();break;
-      case 'ring':{const r=p.r+p.vr2*p.t;fctx.strokeStyle=p.c;fctx.lineWidth=3.5*(1-q);
+      case 'ring':{
+        // Portal entry rings shrink inward. Once the radius reaches zero,
+        // CanvasRenderingContext2D.arc() throws on a negative radius and can
+        // terminate the main RAF loop, leaving portalTransit permanently active.
+        // Remove a fully-collapsed/invalid ring before drawing; the visual is
+        // already finished at that point and no effect is lost.
+        const r=(Number(p.r)||0)+(Number(p.vr2)||0)*p.t;
+        if(!Number.isFinite(r)||r<=0){PARTS.splice(i,1);continue;}
+        fctx.strokeStyle=p.c;fctx.lineWidth=3.5*(1-q);
         fctx.beginPath();fctx.arc(p.x,p.y,r,0,7);fctx.stroke();break;}
       case 'crys':p.vy+=0.2*dts;p.x+=p.vx*dts;p.y+=p.vy*dts;p.rot+=p.vr*dts;
         fctx.save();fctx.translate(p.x,p.y);fctx.rotate(p.rot);fctx.fillStyle=p.c;
@@ -11837,9 +11960,14 @@ function cadenceStamp(last,now,every){
   if(!last||now-last>every*4)return now;
   return last+every;
 }
-function scheduleMainLoop(cadence=1000/60){
+const ACTIVE_FRAME_MS=1000/60;
+function scheduleMainLoop(cadence=ACTIVE_FRAME_MS,syncToDisplay=false){
   if(mainLoopTimer||mainLoopRaf)return;
-  const now=performance.now(),step=Math.max(16,Number(cadence)||1000/60);
+  // During live motion/particles, stay on the display's own VSync. Heavy board
+  // and FX drawing is still cadence-gated to ~60fps, so a 120/144Hz panel does
+  // not double GPU work, while 90Hz panels avoid timeout-to-VSync alias jitter.
+  if(syncToDisplay){mainLoopNextDue=0;mainLoopRaf=requestAnimationFrame(loop);return;}
+  const now=performance.now(),step=Math.max(16,Number(cadence)||ACTIVE_FRAME_MS);
   if(!mainLoopNextDue||mainLoopNextDue<now-step*2||mainLoopNextDue>now+step*2)mainLoopNextDue=now+step;
   else while(mainLoopNextDue<=now+1)mainLoopNextDue+=step;
   const launch=()=>{mainLoopTimer=0;mainLoopRaf=requestAnimationFrame(loop);};
@@ -11849,7 +11977,7 @@ function scheduleMainLoop(cadence=1000/60){
 function wakeMainLoop(){
   if(mainLoopTimer){clearTimeout(mainLoopTimer);mainLoopTimer=0;}
   if(mainLoopRaf){cancelAnimationFrame(mainLoopRaf);mainLoopRaf=0;}
-  mainLoopNextDue=0;scheduleMainLoop(16.5);
+  mainLoopNextDue=0;mainLoopRaf=requestAnimationFrame(loop);
 }
 function resetPerformanceSampling(t){
   perfWindowStart=t;perfSampleLastT=t;perfFrames=perfJankFrames=perfVeryJankFrames=0;
@@ -11857,20 +11985,25 @@ function resetPerformanceSampling(t){
 function boardNeedsRealtime(){
   return !!(anim||bounce||nudge||shake>0||won||hintMark||movingWallAnimating||chainAutoActive||reactorActive());
 }
-function updatePerformanceGovernor(t){
+function updatePerformanceGovernor(t,expectedCadence=ACTIVE_FRAME_MS){
   if(save.performanceMode!=='auto')return;
+  const expected=Math.max(ACTIVE_FRAME_MS,Number(expectedCadence)||ACTIVE_FRAME_MS);
   const gap=Math.max(0,t-perfSampleLastT);perfSampleLastT=t;
   // Ignore cold-start parsing/font/image work; judge the device only after the
   // first menu has settled. This prevents a permanent low-quality first run.
   if(t<perfGovernorWarmUntil){perfWindowStart=t;perfFrames=perfJankFrames=perfVeryJankFrames=0;return;}
   perfFrames++;
-  if(gap>25)perfJankFrames++;
-  if(gap>42)perfVeryJankFrames++;
+  // Jank thresholds scale with the cadence we intentionally requested. An idle
+  // 30fps wakeup must not be misclassified as a 60fps frame miss.
+  if(gap>expected*1.55)perfJankFrames++;
+  if(gap>expected*2.55)perfVeryJankFrames++;
   const span=t-perfWindowStart;
   if(span<2200)return;
-  // A 90/120 Hz display is deliberately normalized to a 60 fps gameplay goal.
-  // This avoids wasting thermals while keeping touch/move animation fluid.
-  const fps=Math.min(60,perfFrames*1000/Math.max(1,span));
+  // Normalize observed callbacks against their requested cadence. 30fps idle
+  // work at its target is therefore treated as 60/60 health, while real drops
+  // during 60fps motion still trigger DPR pressure exactly as before.
+  const observed=perfFrames*1000/Math.max(1,span),expectedFps=1000/expected;
+  const fps=Math.min(60,observed*(60/expectedFps));
   const jank=perfJankFrames/Math.max(1,perfFrames),veryJank=perfVeryJankFrames/Math.max(1,perfFrames);
   const severe=fps<36||veryJank>.15;
   const slow=fps<50||jank>.16;
@@ -11915,16 +12048,25 @@ function updateDuelTension(remaining){
 }
 function loop(t){
   mainLoopRaf=0;
-  if(document.hidden){lastT=t;scheduleMainLoop(250);return;}
+  // Visibility resume explicitly wakes the loop. Do zero periodic RAF/timer work
+  // while backgrounded; this is pure battery/thermal savings with no visible loss.
+  if(document.hidden){lastT=t;mainLoopNextDue=0;return;}
   const dt=Math.min(50,t-lastT);lastT=t;
   const gameVisible=scr.game.classList.contains('on');
-  if(gameVisible||PARTS.length)updatePerformanceGovernor(t);else resetPerformanceSampling(t);
+  const realtimeBoard=gameVisible&&boardNeedsRealtime();
+  // R81 battery pass: interactive motion/particles stay display-synced at ~60 fps.
+  // A completely static puzzle/menu does not need 30+ JS/GPU wakeups per second.
+  // Slow ambient dust/goal wobble remain visible at a battery-friendly cadence,
+  // while any move, wall motion, portal animation or particle wakes 60 fps immediately.
+  const IDLE_GAME_FRAME_MS=60,IDLE_MENU_FRAME_MS=100;
+  const boardEvery=gameVisible?(realtimeBoard?ACTIVE_FRAME_MS:(performanceLow()?90:IDLE_GAME_FRAME_MS)):IDLE_MENU_FRAME_MS;
+  const goalEvery=realtimeBoard?(performanceLow()?50:33):(performanceLow()?100:(performancePressure()?80:IDLE_GAME_FRAME_MS));
+  const perfCadence=(realtimeBoard||PARTS.length)?ACTIVE_FRAME_MS:(gameVisible?IDLE_GAME_FRAME_MS:IDLE_MENU_FRAME_MS);
+  if(gameVisible||PARTS.length)updatePerformanceGovernor(t,perfCadence);else resetPerformanceSampling(t);
   if(gameVisible){
     // Keep interactive puzzle motion at ~60 fps. Automatic pressure changes
-    // internal pixel fill / hidden work only; it does not drop visible FX.
-    const boardEvery=boardNeedsRealtime()?16.5:(performanceLow()?40:30);
+    // internal pixel fill / hidden work only; it does not remove visible FX.
     if(t-lastBoardFrame>=boardEvery){lastBoardFrame=cadenceStamp(lastBoardFrame,t,boardEvery);renderBoard(t);}
-    const goalEvery=performanceLow()?66:(performancePressure()?50:33);
     if(curMol&&t-lastGoalFrame>=goalEvery){lastGoalFrame=cadenceStamp(lastGoalFrame,t,goalEvery);drawMol($('#goalCv'),curMol,false,t);}
     if((duelMode||crystalMode||chainMode||reactorMode)&&!won&&(!duelMode||!duelState.turnFinished)&&!onlineDuelConnectionPaused()){
       const limit=duelMode?DUEL_TIME_LIMIT:(crystalMode?CRYSTAL_TIME_LIMIT:(chainMode?CHAIN_TIME_LIMIT:REACTOR_TIME_LIMIT));
@@ -11942,9 +12084,11 @@ function loop(t){
       if(txt!==duelTimerText){duelTimerText=txt;const el=$('#duelTimer');if(el){el.textContent=txt;el.classList.remove('urgent');}}
     }
   }
-  const fxEvery=PARTS.length?(performanceLow()?33:16):(performanceLow()?90:(performancePressure()?60:45));
-  if(t-lastFxFrame>=fxEvery){const fxDt=Math.min(80,t-lastFxFrame||dt);lastFxFrame=cadenceStamp(lastFxFrame,t,fxEvery);renderFx(t,fxDt);}
-  scheduleMainLoop(gameVisible||PARTS.length?1000/60:fxEvery);
+  const fxEvery=PARTS.length?(performanceLow()?33:ACTIVE_FRAME_MS):(gameVisible?(performanceLow()?120:(performancePressure()?90:IDLE_GAME_FRAME_MS)):IDLE_MENU_FRAME_MS);
+  if(t-lastFxFrame>=fxEvery){const fxDt=Math.min(120,t-lastFxFrame||dt);lastFxFrame=cadenceStamp(lastFxFrame,t,fxEvery);renderFx(t,fxDt);}
+  const liveSync=realtimeBoard||PARTS.length>0;
+  const staticCadence=gameVisible?Math.min(boardEvery,curMol?goalEvery:999,fxEvery):fxEvery;
+  scheduleMainLoop(liveSync?ACTIVE_FRAME_MS:staticCadence,liveSync);
 }
 
 /* ================= INPUT ================= */
@@ -12108,11 +12252,12 @@ function guideContent(){
   };
 }
 
+function onlineDuelGuideRulesHtml(){return '<section class="guideSection guideDuelSection guideDuelComplete"><h4>'+ml('🌐 ONLINE DÜELLO · TAM KURALLAR','🌐 ONLINE DUEL · FULL RULES','🌐 ONLINE-DUELL · ALLE REGELN','🌐 DUELO ONLINE · REGLAS COMPLETAS','🌐 DUELO ONLINE · REGRAS COMPLETAS','🌐 オンラインデュエル・完全ルール','🌐 DUEL EN LIGNE · RÈGLES COMPLÈTES','🌐 在线对决 · 完整规则')+'</h4><ul><li>'+ml('<b>Hızlı Eşleşme derecelidir:</b> galibiyet +25 DP, beraberlik +3 DP, mağlubiyet −10 DP. MoleCoin her sonuçta 0.','<b>Quick Match is ranked:</b> win +25 DP, draw +3 DP, loss −10 DP. MoleCoin is 0 for every result.','<b>Schnellmatch ist gewertet:</b> Sieg +25 DP, Unentschieden +3 DP, Niederlage −10 DP. MoleCoin ist immer 0.','<b>Partida Rápida es clasificatoria:</b> victoria +25 DP, empate +3 DP, derrota −10 DP. MoleCoin siempre 0.','<b>Partida Rápida é ranqueada:</b> vitória +25 DP, empate +3 DP, derrota −10 DP. MoleCoin sempre 0.','<b>クイックマッチはランク戦:</b> 勝利+25 DP、引き分け+3 DP、敗北−10 DP。MoleCoinは常に0。','<b>Le Match rapide est classé :</b> victoire +25 DP, égalité +3 DP, défaite −10 DP. MoleCoin reste à 0.','<b>快速匹配为排位赛：</b>胜利+25 DP、平局+3 DP、失败−10 DP；MoleCoin始终为0。')+'</li><li>'+ml('<b>Arkadaş odası ve Aynı Telefon derecesizdir:</b> DP 0, sıralama puanı 0, MoleCoin 0.','<b>Friend Room and Same Phone are unranked:</b> DP 0, leaderboard points 0, MoleCoin 0.','<b>Freundesraum und gleiches Telefon sind ungewertet:</b> DP 0, Ranglistenpunkte 0, MoleCoin 0.','<b>Sala de amigos y Mismo teléfono no son clasificatorios:</b> DP 0, puntos de ranking 0, MoleCoin 0.','<b>Sala de amigos e Mesmo telefone não são ranqueados:</b> DP 0, pontos de ranking 0, MoleCoin 0.','<b>フレンドルームと同じ端末対戦はランク外:</b> DP 0、ランキングポイント0、MoleCoin 0。','<b>Salon entre amis et Même téléphone ne sont pas classés :</b> DP 0, points de classement 0, MoleCoin 0.','<b>好友房和同设备对战不计排位：</b>DP 0、排行榜积分0、MoleCoin 0。')+'</li><li>'+ml('Maç 3 raunddur; ilk 2 raundu kazanan maçı alır. Her raundda iki oyuncu aynı bölüme aynı anda girer ve kendi tahtasında bağımsız oynar; sıra sistemi yoktur. Her raund 90 saniyedir. İpucu ve Yeniden Başlat düelloda kapalıdır.','A match has 3 rounds; first to 2 round wins takes the match. In every round both players enter the same level together and play independently on their own board; there is no turn-taking. Each round lasts 90 seconds. Hint and Restart are disabled in Duel.','Ein Match hat 3 Runden; 2 Rundensiege gewinnen das Match. In jeder Runde starten beide Spieler gleichzeitig dasselbe Level und spielen unabhängig auf ihrem eigenen Brett; es gibt keinen Wechselzug. Jede Runde dauert 90 Sekunden. Hinweis und Neustart sind im Duell deaktiviert.','La partida tiene 3 rondas; gana quien consiga 2. En cada ronda ambos jugadores entran al mismo nivel al mismo tiempo y juegan de forma independiente en su propio tablero; no hay turnos alternos. Cada ronda dura 90 segundos. Pista y Reiniciar están desactivados.','A partida tem 3 rodadas; vence quem ganhar 2. Em cada rodada os dois jogadores entram na mesma fase ao mesmo tempo e jogam de forma independente no próprio tabuleiro; não há alternância de turnos. Cada rodada dura 90 segundos. Dica e Reiniciar ficam desativados.','3ラウンド制で2勝先取。各ラウンドでは2人が同じレベルに同時に入り、それぞれ自分の盤面で独立してプレイします。交互ターン制ではありません。各ラウンド90秒。デュエル中はヒントとリスタートを使用できません。','Le match comporte 3 manches ; le premier à 2 victoires gagne. À chaque manche, les deux joueurs entrent dans le même niveau en même temps et jouent indépendamment sur leur propre plateau ; il n’y a pas de tour alterné. Chaque manche dure 90 secondes. Indice et Recommencer sont désactivés.','每场3回合，先赢2回合者获胜。每回合双方同时进入同一关卡，并在各自棋盘上独立游戏，不采用轮流回合制。每回合90秒。对决中提示和重新开始不可用。')+'</li><li>'+ml('Rakibin tahtası, hamleleri ve ilerlemesi raund bitene kadar gizlidir.','Your opponent’s board, moves and progress stay hidden until the round ends.','Brett, Züge und Fortschritt des Gegners bleiben bis Rundenende verborgen.','El tablero, movimientos y progreso del rival permanecen ocultos hasta terminar la ronda.','Tabuleiro, jogadas e progresso do adversário ficam ocultos até o fim da rodada.','相手の盤面・手数・進行状況はラウンド終了まで非表示です。','Le plateau, les coups et la progression de l’adversaire restent masqués jusqu’à la fin de la manche.','对手棋盘、步数和进度在回合结束前保持隐藏。')+'</li><li>'+ml('<b>İsteğe bağlı çıkış hükmen mağlubiyettir.</b> Bağlantı varken rakibe anında bildirilir. Ranked maçta çıkan −10 DP, kalan +25 DP alır; MoleCoin 0.','<b>Leaving voluntarily is a forfeit loss.</b> When connected, the opponent is notified immediately. In Ranked, leaver gets −10 DP and the remaining player +25 DP; MoleCoin 0.','<b>Freiwilliges Verlassen zählt als Aufgabe.</b> Bei Verbindung wird der Gegner sofort informiert. Gewertet: Verlassender −10 DP, verbleibender Spieler +25 DP; MoleCoin 0.','<b>Salir voluntariamente cuenta como derrota por abandono.</b> Con conexión, el rival recibe aviso inmediato. En clasificatoria: quien sale −10 DP, quien queda +25 DP; MoleCoin 0.','<b>Sair voluntariamente conta como derrota por desistência.</b> Com conexão, o adversário é avisado na hora. Ranqueada: quem sai −10 DP, quem fica +25 DP; MoleCoin 0.','<b>自分から退出すると不戦敗。</b> 接続中なら相手へ即時通知。ランク戦では退出側−10 DP、残った側+25 DP、MoleCoin 0。','<b>Quitter volontairement compte comme une défaite par forfait.</b> Avec connexion, l’adversaire est averti immédiatement. Classé : sortant −10 DP, restant +25 DP ; MoleCoin 0.','<b>主动退出判负。</b>联网时会立即通知对手。排位赛中退出者−10 DP、留下者+25 DP；MoleCoin 0。')+'</li><li>'+ml('Bağlantı koparsa 30 saniyelik geri dönme süresi başlar. Süre içinde dönersen maç devam eder; dönmezsen hükmen kaybedersin.','If connection drops, a 30-second return window starts. Return in time to continue; otherwise you lose by forfeit.','Bei Verbindungsabbruch startet ein 30-Sekunden-Rückkehrfenster. Rechtzeitig zurück = weiterspielen, sonst Aufgabe-Niederlage.','Si se corta la conexión, empieza una ventana de 30 segundos. Si vuelves a tiempo, continúa; si no, pierdes por abandono.','Se a conexão cair, começa uma janela de 30 segundos. Voltando a tempo, a partida continua; caso contrário, derrota por desistência.','接続が切れると30秒の復帰猶予。時間内に戻れば続行、戻らなければ不戦敗。','En cas de coupure, une fenêtre de retour de 30 secondes démarre. Retour à temps = reprise ; sinon défaite par forfait.','断线后有30秒重连时间；及时返回继续比赛，否则判负。')+'</li><li>'+ml('<b>Online Rankings:</b> All‑Time sıralama DP’ye göre çalışır; galibiyet yükseltebilir, mağlubiyet düşürebilir. Haftalık/Aylık puan: galibiyet +3, beraberlik +1, mağlubiyet 0; puanın düşmese bile diğer oyuncular geçerse sıran gerileyebilir.','<b>Online Rankings:</b> All‑Time is sorted by DP, so wins can move you up and losses can move you down. Weekly/Monthly points: win +3, draw +1, loss 0; your rank can still fall when others pass you.','<b>Online-Rangliste:</b> Gesamt wird nach DP sortiert; Siege können dich nach oben, Niederlagen nach unten bringen. Woche/Monat: Sieg +3, Remis +1, Niederlage 0; andere können dich trotzdem überholen.','<b>Rankings Online:</b> Histórico se ordena por DP; ganar puede subirte y perder bajarte. Semanal/Mensual: victoria +3, empate +1, derrota 0; otros pueden adelantarte.','<b>Rankings Online:</b> Geral é ordenado por DP; vitória pode subir e derrota pode descer. Semana/Mês: vitória +3, empate +1, derrota 0; outros ainda podem ultrapassar você.','<b>オンラインランキング:</b> 全期間はDP順。勝利で上がり、敗北で下がることがあります。週間/月間は勝利+3、引き分け+1、敗北0。他プレイヤーに抜かれれば順位は下がります。','<b>Classements en ligne :</b> Général est trié par DP ; victoire peut faire monter, défaite faire descendre. Hebdo/Mensuel : +3/+1/0 ; les autres peuvent tout de même te dépasser.','<b>在线排名：</b>总榜按DP排序，胜利可能上升、失败可能下降。周榜/月榜为+3/+1/0；即使失败不扣周期积分，也可能被其他玩家反超。')+'</li></ul></section>';}
+
 function openGuideModal(){
   const c=guideContent();
-  openModal('<h3>📘 '+c.title+'</h3><div class="guideScroll">'+currentLevelMechanicsGuideHtml()+c.html+'</div><div class="mrow"><button class="btn green" id="mGuideClose">'+c.close+'</button></div>');
-  $('#modalBox').classList.add('guideModal');
-  bindTap('#mGuideClose',()=>closeModal());
+  openModal('<h3>📘 '+c.title+'</h3><div class="guideScroll">'+currentLevelMechanicsGuideHtml()+c.html+onlineDuelGuideRulesHtml()+'</div><div class="mrow"><button class="btn green" id="mGuideClose">'+c.close+'</button></div>');
+  $('#modalBox').classList.add('guideModal');bindTap('#mGuideClose',()=>closeModal());
 }
 function openAboutModal(){
   const c=whatsNewContent();
@@ -12259,7 +12404,7 @@ document.addEventListener('visibilitychange',()=>{
   }else setTimeout(()=>{
     resumeSolveClock('visibility');
     document.body.classList.remove('mxAppPaused');
-    lastT=performance.now();perfWindowStart=lastT;perfFrames=0;
+    lastT=performance.now();perfWindowStart=lastT;perfFrames=0;wakeMainLoop();
     try{if(AC&&AC.state==='suspended')AC.resume();}catch(e){}
     applyVol();if(bootDone)musKick();
     scheduleLeaderboardRepair('app-resume',900,false);

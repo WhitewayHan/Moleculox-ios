@@ -1,7 +1,7 @@
-// Moleculox v8.7.20 — R77: friend-room Firestore join fix + R76 duel guide.
+// Moleculox v8.7.25 — R82 Codemagic final. Native preparation removes this PWA service worker.
 // Core code is precached; large audio/story assets are cached only after use.
 // Firebase and Google traffic is never intercepted.
-const CACHE_NAME = 'moleculox-8.7.20-r77-native-ios';
+const CACHE_NAME = 'moleculox-8.7.25-r82-codemagic-final-ios';
 const CACHE_PREFIX = 'moleculox-';
 const CORE_SHELL = [
   './index.html','./css/app.css','./js/sync-core.js','./js/daily-levels.js',
@@ -10,7 +10,7 @@ const CORE_SHELL = [
   './manifest.webmanifest','./privacy-policy.html','./terms-of-use.html',
   './player-name-rules.html','./delete-data.html',
   './assets/icons/icon-192.png','./assets/icons/icon-512.png',
-  './assets/icons/icon-512-maskable.png','./assets/icons/apple-touch-icon.png',
+  './assets/icons/apple-touch-icon.png',
   './assets/images/bg-default.webp','./assets/images/boot-splash.webp',
   './assets/images/whiteway-studio-intro.png','./assets/images/button-doodle-left.svg',
   './assets/images/button-doodle-right.svg','./assets/images/einstein.webp',

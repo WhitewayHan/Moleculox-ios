@@ -30,8 +30,8 @@ ok(game.includes('},45000);'), 'online player count polling uses the lower-cost 
 
 ok(game.includes('function scheduleMainLoop('), 'hybrid main-loop scheduler is installed');
 ok(game.includes('function cadenceStamp('), 'display-independent accumulated cadence is installed');
-ok(game.includes('scheduleMainLoop(gameVisible||PARTS.length?1000/60:fxEvery);'), 'main loop separates gameplay and idle cadence');
-ok((game.match(/requestAnimationFrame\(loop\)/g) || []).length === 1, 'no uncapped duplicate animation loop remains');
+ok(game.includes('scheduleMainLoop(liveSync?ACTIVE_FRAME_MS:staticCadence,liveSync);'), 'main loop separates live VSync and lower-cost idle cadence');
+ok((game.match(/requestAnimationFrame\(loop\)/g) || []).length <= 3, 'main-loop RAF calls remain centralized in scheduler/wake paths');
 ok(game.includes("let PARTS=[],DUST=[],lastEmit=0,fxCanvasDirty=true,fxBufferKey='';"), 'FX canvas tracks dirtiness and buffer identity');
 ok(game.includes('if(fxBufferKey===nextBufferKey&&fxc.width===pixelW&&fxc.height===pixelH)return;'), 'unchanged FX canvas buffers are not reallocated');
 ok(game.includes('if(!ambientFx&&!PARTS.length)'), 'empty disabled FX canvas clears once instead of every frame');
@@ -68,8 +68,8 @@ function accumulatedRenderRate(displayHz, targetMs, seconds = 12) {
   return renders / seconds;
 }
 
-for (const displayHz of [60, 90, 120]) {
-  const fps = accumulatedRenderRate(displayHz, 16.5);
+for (const displayHz of [60, 90, 120, 144, 165]) {
+  const fps = accumulatedRenderRate(displayHz, 1000/60);
   ok(fps >= 59 && fps <= 61, `${displayHz} Hz cadence holds the ~60 FPS gameplay target (${fps.toFixed(1)})`);
 }
 

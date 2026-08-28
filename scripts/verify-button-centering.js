@@ -8,7 +8,7 @@ const pkg = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'))
 const must = (condition, message) => { if (!condition) throw new Error(message); };
 
 const platform = pkg.name.includes('google-play') ? 'android' : 'ios';
-const buildId = `8.7.20-r77-native-${platform}`;
+const buildId = `8.7.25-r82-codemagic-final-${platform}`;
 const marker = 'R46 WEB · COMPLETE SHORT-ACTION CENTERING PASS';
 const markerAt = css.lastIndexOf(marker);
 must(markerAt >= 0, 'final short-action centering pass is missing');

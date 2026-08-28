@@ -1845,8 +1845,9 @@ function timestampMillis(value) {
   return Number(value) || 0;
 }
 async function prepareDuelCloud() {
-  await readyPromise;
-  if (!auth || !auth.currentUser) await ensureAnonymous();
+  if (typeof navigator !== "undefined" && navigator.onLine === false) throw new Error("duel/offline");
+  await withCloudTimeout(readyPromise, "duel/auth-timeout", 8000);
+  if (!auth || !auth.currentUser) await withCloudTimeout(ensureAnonymous(), "duel/auth-timeout", 8000);
   if (!db || !uid) throw new Error("duel/offline");
 }
 function duelFriendConfigIndex(gameKind, poolKind) {
@@ -1868,10 +1869,15 @@ function decodeFriendDuelCode(codeValue) {
   const code = normalizeDuelCode(codeValue);
   if (code.length !== 6) return null;
   const index = Number(code.slice(0, 2)) - 10;
-  if (!Number.isInteger(index) || index < 0 || index >= 15) return null;
   const games = ["classic", "crystal", "chain", "reactor", "mixed"];
   const pools = ["mixed", "medium", "hard"];
-  return {code, gameKind: games[Math.floor(index / 3)] || "classic", poolKind: pools[index % 3] || "mixed"};
+  if (Number.isInteger(index) && index >= 0 && index < 15) {
+    return {code, gameKind: games[Math.floor(index / 3)] || "classic", poolKind: pools[index % 3] || "mixed", legacy: false};
+  }
+  // R81 JOIN-FIX1: older friend-room builds used arbitrary six-digit invite
+  // codes (for example 513380). A syntactically valid six-digit code must
+  // reach Firestore; room existence/status is the authoritative validation.
+  return {code, gameKind: null, poolKind: null, legacy: true};
 }
 async function createDuelRoom(config) {
   // R77: friend rooms use the native friend-room Firestore schema again.
@@ -2372,6 +2378,12 @@ async function resolveDuelDisconnect(codeValue) {
       const p1 = timestampMillis(room.guestPresenceAt);
       const fresh0 = !!p0 && now - p0 < DUEL_PRESENCE_STALE_MS;
       const fresh1 = !!p1 && now - p1 < DUEL_PRESENCE_STALE_MS;
+      // Never cancel a match merely because both stored presence timestamps are stale.
+      // A returning WebView must get a chance to heartbeat first, and any real
+      // disconnect must pass through the same 30-second grace window.
+      if (!room.disconnectState) return;
+      const deadline = timestampMillis(room.disconnectState.deadlineAt);
+      if (deadline && deadline > now) return;
       if (!fresh0 && !fresh1) {
         transaction.update(ref, {
           status: "cancelled", finishReason: "both_disconnected", disconnectState: null,
@@ -2380,9 +2392,6 @@ async function resolveDuelDisconnect(codeValue) {
         outcome = {status: "cancelled"};
         return;
       }
-      if (!room.disconnectState) return;
-      const deadline = timestampMillis(room.disconnectState.deadlineAt);
-      if (deadline && deadline > now) return;
       const disconnected = Number(room.disconnectState.playerIndex) === 1 ? 1 : 0;
       const disconnectedFresh = disconnected === 0 ? fresh0 : fresh1;
       if (disconnectedFresh) {
@@ -2577,7 +2586,6 @@ async function leaveDuelRoom(codeValue) {
   const code = normalizeDuelCode(codeValue);
   try {
     await prepareDuelCloud();
-    // Backward cleanup for queue-backed friend invites from older builds.
     const invite = decodeFriendDuelCode(code);
     if (invite) {
       const ticketId = friendHostTicketId(code);
@@ -2589,36 +2597,44 @@ async function leaveDuelRoom(codeValue) {
             const ticket = ticketSnap.data() || {};
             if (ticket.uid === uid && ticket.clientId === duelClientId && ticket.status === "waiting") {
               await deleteDoc(ticketRef);
-              return {ok: true};
+              return {ok: true, data: null};
             }
           }
         } catch (e) {}
       }
     }
     const ref = duelRoomRef(code);
+    let outcome = null;
     await runTransaction(db, async (transaction) => {
       const snap = await transaction.get(ref);
       if (!snap.exists()) return;
       const room = snap.data();
       const playerIndex = duelPlayerIndexForRoom(room);
       if (playerIndex < 0) return;
-      // A waiting friend room can be deleted cleanly by its host under the
-      // deployed rules. Active rooms are marked abandoned using schema keys only.
       if (room.status === "waiting" && playerIndex === 0) {
-        transaction.delete(ref);
-        return;
+        transaction.delete(ref); outcome={deleted:true}; return;
       }
+      if (["finished","cancelled","abandoned"].includes(room.status)) { outcome={alreadyFinal:true}; return; }
+      const winner = 1 - playerIndex;
+      const wins = Array.isArray(room.wins) ? room.wins.slice(0,2).map(v=>Math.max(0,Math.floor(Number(v)||0))) : [0,0];
+      wins[winner] = Math.max(2,wins[winner]);
       transaction.update(ref, {
-        status: "abandoned",
+        status: "finished",
+        wins,
         abandonedBy: uid,
         disconnectState: null,
         finishReason: "left",
+        forfeitWinner: winner,
+        forfeitBy: playerIndex,
         liveState: null,
         liveMove: null,
         updatedAt: serverTimestamp(),
       });
+      outcome={winner,forfeitBy:playerIndex};
     });
-    return {ok: true};
+    if(outcome&&outcome.deleted)return {ok:true,data:null};
+    const finalSnap=await getDoc(ref);
+    return {ok:true,data:finalSnap.exists()?finalSnap.data():null};
   } catch (e) {
     return {ok: false, reason: (e && (e.code || e.message)) || "error"};
   }
