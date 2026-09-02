@@ -33,7 +33,7 @@
 <p>If you connect a permanent Apple, Google, or email account, your chosen display name and selected game statistics may be visible to other players on public Career and Duel rankings. Guest accounts can view rankings but are not published. Players can report a displayed name and block that ranking profile on their device. Room-code Duels are unranked; Quick Match may affect Duel Points, but neither mode changes campaign progress or Career Ranking results. See our <a href="player-name-rules.html">Player Name Rules</a>.</p>
 
 <h2>Temporary Duel data and retention</h2>
-<p>Online Duel rooms are designed to expire approximately six hours after creation, Quick Match Quick Match queue tickets approximately two minutes after creation and friend invite tickets approximately fifteen minutes after creation, friend invite tickets approximately fifteen minutes after creation, and player-name reports approximately 180 days after creation. Production deployment must enable Firestore Time-to-Live (TTL) cleanup for the <code>expiresAt</code> fields in the <code>duelRooms</code>, <code>duelMatchQueue</code>, and <code>playerNameReports</code> collections. Temporary records may remain until Firebase completes that scheduled cleanup.</p>
+<p>Online Duel rooms are designed to expire approximately six hours after creation, Quick Match queue tickets approximately two minutes after creation, friend invite tickets approximately fifteen minutes after creation, and player-name reports approximately 180 days after creation. Temporary records may remain briefly until the service completes scheduled cleanup.</p>
 
 <h2>Where data is stored</h2>
 <p>Cloud save, account, rankings, online Duel, app-integrity checks, safety reports, and supported analytics use Google Firebase services (Authentication, Firestore, App Check, and Analytics). See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a>.</p>
@@ -49,5 +49,48 @@
 
 <h2>Contact</h2>
 <p>Questions about this policy: <a href="mailto:moleculoxsupport@gmail.com">moleculoxsupport@gmail.com</a></p>
+<template id="itCopy">
+<h1>Moleculox — Informativa sulla privacy</h1>
+<p class="updated">Ultimo aggiornamento: 21 agosto 2026. Studio: wHiTeWaY studio (Orhan Akyol).</p>
+<p>Moleculox ("il gioco") è sviluppato da wHiTeWaY studio. Questa pagina spiega quali dati vengono trattati dal gioco e per quali finalità.</p>
+
+<h2>Dati raccolti</h2>
+<ul>
+<li><strong>Un identificativo dell'account Firebase.</strong> Il gioco si avvia con un account Firebase anonimo. Se scegli l'accesso con Apple, Google oppure e-mail e password, Firebase tratta anche l'indirizzo e-mail e i dati di base necessari per l'accesso.</li>
+<li><strong>Il nome pubblico scelto</strong> (fino a 18 caratteri), usato per i profili cloud, i duelli online amichevoli e, ove previsto, le classifiche pubbliche.</li>
+<li><strong>I progressi di gioco</strong> necessari per il salvataggio locale e facoltativamente cloud: livelli sbloccati, stelle, MoleCoin, obiettivi, punti ricerca e statistiche simili.</li>
+<li><strong>Dati dei duelli online amichevoli.</strong> Quando crei, cerchi o ti unisci a un duello, Firebase tratta temporaneamente il codice della stanza, l'identificativo anonimo o dell'account, un identificativo del client Duello per dispositivo, i nomi dei giocatori, lo stato di round e turno, griglia e mosse, chiavi dei messaggi predefiniti, indicatori temporali di presenza, stato di connessione e riconnessione ed esito della partita. Non è disponibile una chat con testo libero.</li>
+<li><strong>Analisi d'uso di base</strong> tramite Firebase Analytics sulle piattaforme supportate, per comprendere in forma aggregata le modalità di gioco. La disponibilità di Analytics non impedisce mai l'avvio del gioco.</li>
+<li><strong>Segnali di integrità dell'app</strong> nelle versioni Android e iOS supportate. Firebase App Check può trattare un token di attestazione dell'app o del dispositivo per distinguere le installazioni autentiche dai client non autorizzati.</li>
+<li><strong>Segnalazioni di sicurezza sui nomi.</strong> Un giocatore connesso può segnalare un nome pubblico. La segnalazione contiene l'identificativo dell'account del segnalante, gli identificativi e il nome del profilo segnalato, la classifica di provenienza, la build dell'app, lo stato e gli indicatori temporali. Le segnalazioni non sono pubbliche e ne è prevista la scadenza dopo circa 180 giorni.</li>
+</ul>
+
+<h2>Dati che non richiediamo</h2>
+<p>Non richiediamo numero di telefono, posizione precisa, contatti, foto, microfono o fotocamera. L'indirizzo e-mail viene trattato solo quando scegli volontariamente l'accesso con Apple, Google oppure e-mail e password.</p>
+
+<h2>Dati visibili nelle classifiche pubbliche</h2>
+<p>Se colleghi un account permanente Apple, Google o e-mail, il nome scelto e alcune statistiche di gioco possono essere visibili agli altri giocatori nelle classifiche pubbliche Carriera e Duello. Gli account ospite possono consultare le classifiche ma non vengono pubblicati. È possibile segnalare un nome visualizzato e bloccare quel profilo di classifica sul proprio dispositivo. I duelli con codice stanza non sono classificati; la Partita rapida può influire sui Punti duello, ma nessuna delle due modalità modifica i progressi della campagna o la Classifica carriera. Consulta le <a href="player-name-rules.html">Regole per i nomi dei giocatori</a>.</p>
+
+<h2>Dati temporanei dei duelli e conservazione</h2>
+<p>Le stanze Duello scadono indicativamente sei ore dopo la creazione, i ticket della coda Partita rapida dopo circa due minuti, gli inviti agli amici dopo circa quindici minuti e le segnalazioni sui nomi dopo circa 180 giorni. I record temporanei vengono rimossi tramite i normali processi di conservazione e pulizia del servizio e possono restare presenti per un breve periodo tecnico prima della cancellazione.</p>
+
+<h2>Dove vengono conservati i dati</h2>
+<p>Salvataggio cloud, account, classifiche, Duello online, controlli di integrità, segnalazioni di sicurezza e analisi supportate usano i servizi Google Firebase (Authentication, Firestore, App Check e Analytics). Consulta l'<a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Informativa sulla privacy di Google</a>.</p>
+
+<h2>Gioco offline</h2>
+<p>La campagna può essere giocata offline. I progressi effettuati soltanto in locale restano nella memoria del dispositivo, a meno che in seguito non vengano usate le funzioni di salvataggio cloud.</p>
+
+<h2>Eliminazione dei dati</h2>
+<p>Da Impostazioni → Elimina dati cloud puoi eliminare un singolo profilo cloud. Dall'icona del profilo → Elimina account e tutti i dati puoi eliminare l'intero account Firebase, i profili cloud, le relative voci nelle classifiche e le segnalazioni di sicurezza inviate dall'account. Anche i record temporanei scadono secondo il relativo periodo di conservazione. Consulta la pagina <a href="delete-data.html">Eliminazione dei dati</a>.</p>
+
+<h2>Minori</h2>
+<p>Moleculox non richiede consapevolmente dati personali ai minori oltre ai limitati dati di account, gioco e attività online temporanea descritti sopra.</p>
+
+<h2>Contatti</h2>
+<p>Domande su questa informativa: <a href="mailto:moleculoxsupport@gmail.com">moleculoxsupport@gmail.com</a></p>
+</template>
+<script>
+try{if(localStorage.getItem('mx_language_pref_v1')==='it'){document.documentElement.lang='it';document.title='Moleculox — Informativa sulla privacy';document.body.innerHTML=document.getElementById('itCopy').innerHTML;}}catch(_e){}
+</script>
 </body>
 </html>
