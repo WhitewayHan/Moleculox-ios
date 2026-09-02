@@ -50,5 +50,49 @@
 
 <h2>Can't access the game?</h2>
 <p>Email <a href="mailto:moleculoxsupport@gmail.com">moleculoxsupport@gmail.com</a> with your in-game display name and roughly when you played, and we will assist with deletion.</p>
+<template id="itCopy">
+<h1>Moleculox — Elimina i tuoi dati</h1>
+<p class="updated">Ultimo aggiornamento: 21 agosto 2026.</p>
+<p>Puoi eliminare definitivamente dal gioco un singolo profilo cloud oppure l'intero account di accesso a Moleculox e i dati associati.</p>
+
+<h2>Eliminare un profilo cloud</h2>
+<ol>
+<li>Apri Moleculox e seleziona il profilo giocatore.</li>
+<li>Tocca l'icona ⚙️ Impostazioni.</li>
+<li>Tocca <strong>ELIMINA DATI CLOUD</strong> e conferma.</li>
+</ol>
+
+<h2>Eliminare l'intero account e i dati associati</h2>
+<ol>
+<li>Tocca l'icona del profilo nell'angolo in alto a sinistra.</li>
+<li>Tocca <strong>ELIMINA ACCOUNT E TUTTI I DATI</strong>.</li>
+<li>Leggi l'avviso e conferma. Per motivi di sicurezza Firebase può richiedere prima un accesso recente.</li>
+</ol>
+
+<h2>Dati eliminati</h2>
+<ul>
+<li><strong>ELIMINA DATI CLOUD:</strong> il backup cloud del profilo giocatore selezionato.</li>
+<li><strong>ELIMINA ACCOUNT E TUTTI I DATI:</strong> tutti i profili giocatore cloud dell'account, le relative voci nelle classifiche Carriera e Duello, le segnalazioni di sicurezza sui nomi inviate dall'account, l'account di accesso Firebase e i progressi di Moleculox salvati sul dispositivo corrente.</li>
+</ul>
+<p>La procedura di eliminazione completa si interrompe e mostra un errore se una cancellazione cloud necessaria non riesce; non elimina intenzionalmente l'account di accesso dopo una pulizia soltanto parziale.</p>
+
+<h2>Record temporanei dei duelli online</h2>
+<p>I record di stanza, mosse, messaggi predefiniti, presenza e Partita rapida sono temporanei e contengono un valore <code>expiresAt</code>. Con le necessarie regole TTL di Firebase attive, le stanze Duello scadono circa sei ore dopo la creazione, i ticket della coda Partita rapida dopo circa due minuti e gli inviti agli amici dopo circa quindici minuti. Firebase può impiegare altro tempo per completare l'eliminazione fisica.</p>
+
+<h2>Segnalazioni di sicurezza sui nomi</h2>
+<p>Con la necessaria regola TTL di Firebase attiva, la scadenza delle segnalazioni è prevista circa 180 giorni dopo la creazione. Le segnalazioni inviate dal tuo account vengono rimosse anche dalla procedura di eliminazione completa quando le regole Firestore distribuite consentono la pulizia da parte del proprietario.</p>
+
+<h2>Dati non interessati dall'eliminazione di un profilo cloud</h2>
+<ul><li>I progressi locali della campagna restano sul dispositivo finché non elimini quel giocatore locale o usi l'eliminazione completa dell'account.</li></ul>
+
+<h2>L'operazione non può essere annullata</h2>
+<p>I dati cloud eliminati non possono essere ripristinati. Se in seguito torni a giocare online, verrà creato un nuovo record vuoto.</p>
+
+<h2>Non riesci ad accedere al gioco?</h2>
+<p>Scrivi a <a href="mailto:moleculoxsupport@gmail.com">moleculoxsupport@gmail.com</a> indicando il nome visualizzato nel gioco e approssimativamente quando hai giocato; ti aiuteremo con l'eliminazione.</p>
+</template>
+<script>
+try{if(localStorage.getItem('mx_language_pref_v1')==='it'){document.documentElement.lang='it';document.title='Moleculox — Elimina i tuoi dati';document.body.innerHTML=document.getElementById('itCopy').innerHTML;}}catch(_e){}
+</script>
 </body>
 </html>

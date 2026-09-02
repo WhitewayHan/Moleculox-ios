@@ -1,7 +1,7 @@
 {
   "name": "Moleculox — Dr. E's Lab",
   "short_name": "Moleculox",
-  "description": "Moleculox v8.7.25 — R82 Codemagic final with portal/mechanics stabilization, 8-language responsive completion UI, high-refresh thermal/FPS optimization, and full release QA.",
+  "description": "Slide atoms, build molecules, master evolving laboratory mechanics, and explore 501 handcrafted puzzle experiments with Dr. E.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
@@ -34,5 +34,5 @@
     "games",
     "education"
   ],
-  "version": "8.7.25"
+  "version": "8.7.57"
 }
