@@ -2,31 +2,19 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#0e0c26">
 <meta name="description" content="Moleculox is a chemistry puzzle game with offline campaign play and friendly online Atom Duels.">
 <meta name="apple-mobile-web-app-title" content="Moleculox">
 <meta name="format-detection" content="telephone=no">
-<script>
-/* V8.1.7: lock browser zoom without breaking menu scrolling or controls. */
-(function(){
-  document.addEventListener('gesturestart',function(e){e.preventDefault();},{passive:false});
-  document.addEventListener('gesturechange',function(e){e.preventDefault();},{passive:false});
-  document.addEventListener('gestureend',function(e){e.preventDefault();},{passive:false});
-  document.addEventListener('touchmove',function(e){
-    if(e.touches&&e.touches.length>1)e.preventDefault();
-  },{passive:false});
-  document.addEventListener('dblclick',function(e){
-    if(!e.target.closest('input,textarea,select,[contenteditable=true]'))e.preventDefault();
-  },{passive:false});
-})();
-</script>
+
 <title>Moleculox — Dr. E's Lab</title>
 <script>
-window.__MX_BUILD_ID__='8.7.25-r82-codemagic-final-ios';
-window.__MX_NATIVE_SHELL__=!!(window.Capacitor&&window.Capacitor.isNativePlatform&&window.Capacitor.isNativePlatform())||/^(capacitor|ionic):$/i.test(location.protocol)||(location.hostname==='localhost'&&/iPhone|iPad|iPod/i.test(navigator.userAgent||''));
+window.__MX_BUILD_ID__='8.7.57-r160-codemagic-final-ios';
+window.__MX_DISTRIBUTION__='ios';
+window.__MX_NATIVE_SHELL__=true;
 </script>
 <script>
 /* V6.16: itch/iOS stale-build reset. Old service workers caused the empty laboratory screen.
@@ -52,11 +40,15 @@ window.__MX_NATIVE_SHELL__=!!(window.Capacitor&&window.Capacitor.isNativePlatfor
    Deferred to 'load' so it never competes with first paint. */
 if(!window.__MX_NATIVE_SHELL__&&'serviceWorker' in navigator){
   window.addEventListener('load',function(){
-    navigator.serviceWorker.register('./sw.js').catch(function(){});
+    var registerMoleculoxWorker=function(){navigator.serviceWorker.register('./sw.js',{updateViaCache:'none'}).catch(function(){});};
+    // Cache setup must never compete with the first menu/game frames. Modern
+    // browsers get an idle slot; older WebViews receive a short delayed start.
+    if('requestIdleCallback' in window)requestIdleCallback(registerMoleculoxWorker,{timeout:5000});
+    else setTimeout(registerMoleculoxWorker,2200);
   });
 }
 </script>
-<link rel="stylesheet" href="css/app.css?v=8.7.25-r82-codemagic-final-ios">
+<link rel="stylesheet" href="css/app.css?v=8.7.57-r160-codemagic-final-ios">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
 
@@ -114,7 +106,7 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
 
 <!-- WHITEWAY STUDIO INTRO -->
 <div id="studioScr" class="screen on" aria-label="wHiTeWaY studio">
-  <img id="studioLogo" src="assets/images/whiteway-studio-intro.png" alt="wHiTeWaY studio">
+  <img id="studioLogo" src="assets/images/whiteway-studio-intro.webp" alt="wHiTeWaY studio">
   <div id="studioEnergyCore" aria-hidden="true"></div>
   <div id="studioEnergySweep" aria-hidden="true"></div>
   <div id="studioTap" role="button" tabindex="0" aria-label="Tap to start"><b>TAP TO START</b><small><i aria-hidden="true"></i>SOUND ON</small></div>
@@ -169,7 +161,7 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
   <div id="splashBtns">
     <span id="btnPlayIntroWrap"><button id="btnPlay" class="btn green breathe">▶︎ CONTINUE</button></span>
     <button id="btnNew" class="btn">✦ <span data-i18n="newGameLabel">NEW GAME</span></button>
-    <button id="btnDaily" class="btn amber"><span class="menuCodeIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3"/><path d="M7.5 15h9"/></svg></span> <span data-i18n="todaysExpLabel">TODAY'S EXPERIMENT</span><span id="dailyDot"></span></button>
+    <button id="btnDaily" class="btn amber"><span class="menuCodeIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3"/><path d="M7.5 15h9"/></svg></span> <span data-i18n="todaysExpLabel">TODAY'S EXP.</span><span id="dailyDot"></span></button>
     <button id="btnLevels" class="btn" data-i18n="levels">LEVELS</button>
     <button id="btnCollect" class="btn ghost"><span class="menuCodeIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="12" rx="9" ry="3.6"/><ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(120 12 12)"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/></svg></span> <span data-i18n="myMolsLabel">MY MOLECULES</span></button>
   </div>
@@ -377,7 +369,7 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
       <div id="starRow"><span>★</span><span>★</span><span>★</span></div>
       <div id="movePill" class="chip">MOVES 0 · PAR 4</div>
       <div id="duelTimer" class="chip" aria-live="off">00:00.0</div>
-      <div id="crystalCounter" class="chip" aria-live="polite">🧪○ ⚡○ ⚛️○</div>
+      <div id="crystalCounter" class="chip" aria-live="polite" aria-label=""></div>
       <div id="chainCounter" class="chip" aria-live="polite">⚡ COMBO x1</div>
       <div id="reactorCounter" class="chip" aria-live="polite">☢️ DARBE 0</div>
     </div>
@@ -505,18 +497,41 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
 <div id="levelTransition"></div>
 <canvas id="fx"></canvas>
 
-<script src="js/sync-core.js?v=8.7.25-r82-codemagic-final-ios" defer></script>
-<script src="js/daily-levels.js?v=8.7.25-r82-codemagic-final-ios" defer></script>
-<script src="js/campaign-levels.js?v=8.7.25-r82-codemagic-final-ios" defer></script>
-<script src="js/level-fx-recipes.js?v=8.7.25-r82-codemagic-final-ios" defer></script>
-<script src="js/story-universe.js?v=8.7.25-r82-codemagic-final-ios" defer></script>
-<script src="js/v2-locales-generated.js?v=8.7.25-r82-codemagic-final-ios" defer></script>
-<script src="js/v2-story-quality.js?v=8.7.25-r82-codemagic-final-ios" defer></script>
-<script src="js/voice-locales-generated.js?v=8.7.25-r82-codemagic-final-ios" defer></script>
-<script src="js/game.js?v=8.7.25-r82-codemagic-final-ios" defer></script>
+<script src="js/sync-core.js?v=8.7.24-r81-it9-textfit2-web-itch-final" defer></script>
+<script src="js/daily-levels.js?v=8.7.24-r81-it9-textfit2-web-itch-final" defer></script>
+<script src="js/campaign-levels.js?v=8.7.41-r144-certified" defer></script>
+<script src="js/campaign-expansion-loader-r137.js?v=8.7.41-r144-perf" defer></script>
+<script src="js/early-campaign-quality-r137.js?v=8.7.41-r144-certified" defer></script>
+<script src="js/campaign-integrity-r139.js?v=8.7.41-r144-certified" defer></script>
+<script src="js/campaign-uniqueness-r140.js?v=8.7.41-r144-certified" defer></script>
+<script src="js/campaign-completion-r142.js?v=8.7.41-r144-certified" defer></script>
+<script src="js/campaign-hardcore-r143.js?v=8.7.41-r144-certified" defer></script>
+<script src="js/campaign-quality-r144.js?v=8.7.41-r144-structural-clarity" defer></script>
+<script src="js/campaign-polish-r145.js?v=8.7.42-r145-content-integrity" defer></script>
+<script src="js/campaign-feel-r146.js?v=8.7.43-r146-hammer-rhythm" defer></script>
+  <script src="js/campaign-choreography-r147.js?v=8.7.44-r147" defer></script>
+  <script src="js/campaign-final-r148.js?v=8.7.45-r148-final" defer></script>
+  <script src="js/campaign-final-r149.js?v=8.7.46-r149-final" defer></script>
+  <script src="js/campaign-final-r150.js?v=8.7.47-r150-final-ready" defer></script>
+  <script src="js/campaign-final-r151.js?v=8.7.48-r151-final-candidate" defer></script>
+<script src="js/level-fx-recipes.js?v=8.7.43-r146-501-distinct-fx" defer></script>
+<script src="js/story-universe.js?v=8.7.24-r121-story-comics-complete-crystal-only" defer></script>
+<script src="js/story-art-completion-r142.js?v=8.7.41-r144-story-41-preserved" defer></script>
+<script src="js/v2-locales-generated.js?v=8.7.24-r81-it9-textfit2-web-itch-final" defer></script>
+<script src="js/v2-story-quality.js?v=8.7.24-r81-it9-textfit2-web-itch-final" defer></script>
+<script src="js/story-art-completion-r152.js?v=8.7.49-r152-story-visual-rebuild" defer></script>
+<script src="js/it-locale-generated.js?v=8.7.24-r121-story-comics-complete-crystal-only" defer></script>
+<script src="js/story-continuity-r153.js?v=8.7.50-r153-story-continuity-locales" defer></script>
+<script src="js/story-main-campaign-art-r154.js?v=8.7.51-r154-main-story-visual-continuity" defer></script>
+<script src="js/voice-locales-generated.js?v=8.7.24-r81-it9-textfit2-web-itch-final" defer></script>
+<script src="js/voice-it-generated.js?v=8.7.54-r157-final-italian-voice" defer></script>
+<script src="js/game.js?v=8.7.57-r160-codemagic-final-ios" defer></script>
+<script src="js/expansion-science-loader-r137.js?v=8.7.43-r146-perf" defer></script>
 
 <!-- ================= FIREBASE (cloud save + world leaderboard) ================= -->
-<script type="module" src="js/firebase.js?v=8.7.25-r82-codemagic-final-ios"></script>
+<!-- R160 native release: existing Firebase bridge enabled without changing
+     authentication, cloud-save, leaderboard, Firestore, or duel implementation. -->
+<script type="module" src="js/firebase.js?v=8.7.57-r160-codemagic-final-ios"></script>
 
 <script>
 /* V8.5.17: convert functional UI emoji glyphs to one cross-platform SVG family.

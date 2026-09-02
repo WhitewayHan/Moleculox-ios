@@ -1,36 +1,21 @@
-// Moleculox v8.7.25 — R82 Codemagic final. Native preparation removes this PWA service worker.
+// Moleculox v8.7.57 — R160 ios native source cache identity; native preparation removes this worker.
 // Core code is precached; large audio/story assets are cached only after use.
 // Firebase and Google traffic is never intercepted.
-const CACHE_NAME = 'moleculox-8.7.25-r82-codemagic-final-ios';
+const CACHE_NAME = 'moleculox-8.7.57-r160-codemagic-final-ios';
 const CACHE_PREFIX = 'moleculox-';
 const CORE_SHELL = [
   './index.html','./css/app.css','./js/sync-core.js','./js/daily-levels.js',
-  './js/campaign-levels.js','./js/level-fx-recipes.js','./js/story-universe.js',
-  './js/v2-locales-generated.js','./js/v2-story-quality.js','./js/voice-locales-generated.js','./js/game.js','./js/firebase.js',
+  './js/campaign-levels.js','./js/campaign-expansion-loader-r137.js','./js/campaign-levels-expansion-r137.js',
+  './js/early-campaign-quality-r137.js','./js/campaign-integrity-r139.js','./js/campaign-uniqueness-r140.js','./js/campaign-completion-r142.js','./js/campaign-hardcore-r143.js','./js/campaign-quality-r144.js','./js/campaign-polish-r145.js','./js/campaign-feel-r146.js','./js/campaign-choreography-r147.js','./js/campaign-final-r148.js','./js/campaign-final-r149.js','./js/campaign-final-r150.js','./js/campaign-final-r151.js','./js/level-fx-recipes.js','./js/story-universe.js','./js/story-art-completion-r142.js','./js/story-art-completion-r152.js','./js/story-continuity-r153.js','./js/story-main-campaign-art-r154.js',
+  './js/v2-locales-generated.js','./js/v2-story-quality.js','./js/it-locale-generated.js','./js/voice-locales-generated.js','./js/voice-it-generated.js',
+  './js/game.js','./js/expansion-science-loader-r137.js','./js/expansion-science-bundle-r137.js','./js/smart-hint-worker.js',
   './manifest.webmanifest','./privacy-policy.html','./terms-of-use.html',
   './player-name-rules.html','./delete-data.html',
   './assets/icons/icon-192.png','./assets/icons/icon-512.png',
   './assets/icons/apple-touch-icon.png',
   './assets/images/bg-default.webp','./assets/images/boot-splash.webp',
-  './assets/images/whiteway-studio-intro.png','./assets/images/button-doodle-left.svg',
+  './assets/images/whiteway-studio-intro.webp','./assets/images/button-doodle-left.svg',
   './assets/images/button-doodle-right.svg','./assets/images/einstein.webp',
-  './assets/images/characters/dr-null-canon-r40.webp','./assets/images/characters/null-cat-canon-r40.webp',
-  './assets/images/characters/moxy-canon-r40.webp',
-  './assets/images/worlds/world-quantum-lab-r40.webp','./assets/images/worlds/world-element-island-r40.webp',
-  './assets/images/worlds/world-crystal-cave-r40.webp','./assets/images/worlds/world-orbital-station-r40.webp',
-  './assets/images/tier-bg-1.webp',
-  './assets/images/tier-bg-2.webp','./assets/images/tier-bg-3.webp','./assets/images/tier-bg-4.webp',
-  './assets/images/dr-e-poses/thinking.png','./assets/images/dr-e-poses/celebrate.png',
-  './assets/images/dr-e-poses/clap.png','./assets/images/dr-e-poses/surprised.png',
-  './assets/images/dr-e-poses/confused.png','./assets/images/dr-e-poses/victory.png',
-  './assets/images/dr-e-poses/medal.png','./assets/images/dr-e-poses/experiment.png',
-  './assets/images/dr-e-poses/clipboard.png','./assets/images/dr-e-poses/magnifier.png',
-  './assets/images/dr-e-poses/molecule.png',
-  './assets/audio/voices/dre-voice-sprite-en.mp3',
-  './assets/audio/voices/dre-voice-sprite-fr.mp3','./assets/audio/voices/dre-voice-sprite-es.mp3',
-  './assets/audio/voices/dre-voice-sprite-de.mp3','./assets/audio/voices/dre-voice-sprite-tr.mp3',
-  './assets/audio/voices/dre-voice-sprite-ja.mp3','./assets/audio/voices/dre-voice-sprite-zh.mp3',
-  './assets/audio/voices/dre-voice-sprite-pt.mp3'
 ];
 
 self.addEventListener('install', event => {
