@@ -1,6 +1,6 @@
 workflows:
   moleculox-ios-app-store:
-    name: Moleculox R82 v8.7.25 iOS App Store
+    name: Moleculox R160 v8.7.57 iOS App Store
     instance_type: mac_mini_m2
     max_build_duration: 120
     integrations:
@@ -20,20 +20,15 @@ workflows:
         script: npm install
       - name: Install Python icon library
         script: pip3 install --user Pillow
-      - name: Validate game JavaScript
+      - name: Validate R160 iOS source
         script: |
           npm run check
-          grep -Fq 'const APP_VERSION="v8.7.25";' www/js/game.js
+          grep -Fq 'const APP_VERSION="v8.7.57";' www/js/game.js
           grep -Fq 'async function nativeGoogleSignIn(button)' www/js/game.js
           grep -Fq 'async function nativeAppleSignIn(button)' www/js/game.js
           grep -Fq 'const MX_SHOW_APPLE_BTN=MX_IOS_NATIVE&&MX_APPLE_NATIVE_READY;' www/js/game.js
-          grep -Fq 'connectGoogleIdToken(idToken)' www/js/game.js
-          grep -Fq 'connectAppleIdToken(idToken,verifiedRawNonce' www/js/game.js
-          grep -Fq '"apple.com"' capacitor.config.json
-          grep -Fq '"google.com"' capacitor.config.json
           grep -Fq 'FirebaseAppCheck' www/js/firebase.js
-          grep -Fq '"@capacitor-firebase/app-check": "7.3.1"' package.json
-          test -d node_modules/@capacitor-firebase/app-check
+          for lang in en tr de es pt ja fr zh it; do test -f "www/assets/audio/voices/dre-voice-sprite-$lang.mp3"; done
       - name: Generate and prepare iOS project
         script: npm run ios:prepare
       - name: Verify generated App Store icon
@@ -44,16 +39,14 @@ workflows:
         script: |
           BUILD_NUMBER="$(date +%s)"
           /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD_NUMBER" ios/App/App/Info.plist
-          /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString 8.7.25" ios/App/App/Info.plist
+          /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString 8.7.57" ios/App/App/Info.plist
           cd ios/App
           agvtool new-version -all "$BUILD_NUMBER"
       - name: Apply App Store signing profiles
         script: xcode-project use-profiles
       - name: Build signed IPA
         script: |
-          xcode-project build-ipa \
-            --workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
-            --scheme "$XCODE_SCHEME"
+          xcode-project build-ipa --workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" --scheme "$XCODE_SCHEME"
       - name: Verify built IPA release metadata
         script: python3 scripts/verify-built-ipa.py
     artifacts:

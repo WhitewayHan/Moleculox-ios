@@ -1,13 +1,13 @@
 {
   "name": "moleculox-ios",
-  "version": "8.7.25",
+  "version": "8.7.57",
   "private": true,
-  "description": "Moleculox iOS R82 / v8.7.25 App Store Codemagic final, based on approved R81 gameplay except release identity/version markers; native Apple/Google/email auth, App Check bridge, simultaneous-hidden online duel, iPhone-only target, 8-language UI and performance QA preserved.",
+  "description": "Moleculox IOS R160 / v8.7.57 Codemagic final. R160 501-level campaign, Italian Dr. E voice, mobile tutorial hardfix, native authentication and protected cloud/duel systems.",
   "scripts": {
     "ios:prepare": "bash scripts/prepare-ios.sh",
     "ios:sync": "npx cap sync ios",
     "ios:open": "npx cap open ios",
-    "check": "node --check www/js/game.js && node --check www/js/firebase.js && node --check www/js/sync-core.js && node --check www/js/campaign-levels.js && node --check www/js/daily-levels.js && node --check www/js/level-fx-recipes.js && node --check www/js/story-universe.js && node --check www/js/v2-locales-generated.js && node --check www/js/v2-story-quality.js && node --check www/js/voice-locales-generated.js && node scripts/verify-progress-save-race.js && node scripts/verify-sync-debounce.js && node scripts/verify-account-progress-vault.js && node scripts/verify-cloud-context-race.js && node scripts/verify-sync-truth.js && node scripts/verify-root-sync-runtime.js && node scripts/verify-native-cache-version.js && node scripts/verify-button-centering.js && node scripts/verify-ui-localization.js && node scripts/verify-language-completion-matrix.js && node scripts/verify-r82-release.js && node scripts/verify-responsive-phone-matrix.js && node scripts/verify-mobile-web-dock-rail.js && node scripts/verify-adaptive-fps.js && node scripts/verify-high-refresh-performance.js && node scripts/verify-zero-loss-performance.js && node scripts/verify-battery-efficiency.js && node scripts/verify-friend-code-compatibility.js && node scripts/verify-online-simultaneous-hidden.js && node scripts/verify-online-duel-state-machine.js && node scripts/verify-online-duel-resilience.js && node scripts/verify-r81-online-ux.js && node scripts/verify-final-runtime.js"
+    "check": "node scripts/verify-all-js.js && node scripts/verify-r160-mobile-release.js"
   },
   "dependencies": {
     "@capacitor/core": "7.4.2",

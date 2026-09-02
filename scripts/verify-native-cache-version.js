@@ -7,9 +7,9 @@ const must = (condition, message) => {
   if (!condition) throw new Error(message);
 };
 
-const version = '8.7.25';
-const buildId = '8.7.25-r82-codemagic-final-ios';
-const cssToken = '8.7.25-r82-codemagic-final-ios';
+const version = '8.7.57';
+const buildId = '8.7.57-r160-codemagic-final-ios';
+const cssToken = '8.7.57-r160-codemagic-final-ios';
 
 const index = read('www/index.html');
 const game = read('www/js/game.js');
@@ -34,15 +34,15 @@ const expected = {
 };
 
 for (const [asset, token] of Object.entries(expected)) {
-  must(index.includes(`${asset}?v=${token}`), `Missing R82 cache identity for ${asset}: expected ${token}`);
+  must(index.includes(`${asset}?v=${token}`), `Missing R160 cache identity for ${asset}: expected ${token}`);
 }
 
-must(index.includes(`window.__MX_BUILD_ID__='${buildId}'`), 'Native build identity does not match R82');
-must(game.includes(`const APP_VERSION="v${version}";`), 'Visible app version does not match R82');
-must(pkg.version === version, 'package.json version does not match R82');
-must(manifest.version === version, 'manifest version does not match R82');
-must(codemagic.includes(`CFBundleShortVersionString ${version}`), 'Codemagic TestFlight version does not match R82');
-must(patchIos.includes(`'MARKETING_VERSION':'${version}'`), 'Generated Xcode marketing version does not match R82');
-must(sw.includes(`const CACHE_NAME = 'moleculox-8.7.25-r82-codemagic-final-ios';`), 'Service-worker cache does not match iOS R82 build');
+must(index.includes(`window.__MX_BUILD_ID__='${buildId}'`), 'Native build identity does not match R160');
+must(game.includes(`const APP_VERSION="v${version}";`), 'Visible app version does not match R160');
+must(pkg.version === version, 'package.json version does not match R160');
+must(manifest.version === version, 'manifest version does not match R160');
+must(codemagic.includes(`CFBundleShortVersionString ${version}`), 'Codemagic TestFlight version does not match R160');
+must(patchIos.includes(`'MARKETING_VERSION':'${version}'`), 'Generated Xcode marketing version does not match R160');
+must(sw.includes(`const CACHE_NAME = 'moleculox-8.7.57-r160-codemagic-final-ios';`), 'Service-worker cache does not match iOS R160 build');
 
-console.log('R82 native asset cache/version checks passed.');
+console.log('R160 native asset cache/version checks passed.');

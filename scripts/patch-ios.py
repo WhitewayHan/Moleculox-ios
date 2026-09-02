@@ -104,7 +104,7 @@ pbx=IOS/'App.xcodeproj'/'project.pbxproj'
 p=pbx.read_text()
 settings={
     'CODE_SIGN_ENTITLEMENTS':'App/App.entitlements',
-    'MARKETING_VERSION':'8.7.25',
+    'MARKETING_VERSION':'8.7.57',
     'CURRENT_PROJECT_VERSION':'1',
     'ASSETCATALOG_COMPILER_APPICON_NAME':'AppIcon',
     # iPhone only. Xcode writes UIDeviceFamily=[1] into the built app.

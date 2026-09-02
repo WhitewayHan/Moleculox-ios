@@ -1,4 +1,4 @@
-/* Moleculox v8.7.25 · R82 CODEMAGIC FINAL — cross-platform native styles */
+/* Moleculox v8.7.31 · R134 SEQUENTIAL-DIVERSITY + R133 SYMMETRY-DISTANCE ENDGAME + R131 SCIENTIFIC GLYPHS/BALANCED FX/ENTRY FIT */
 
 :root{
   --ink:#0e0c26;
@@ -612,6 +612,16 @@ body.tier5{--board-bg1:rgba(19,70,130,.60);--board-bg2:rgba(4,28,69,.80);--board
 body.tier6{--board-bg1:rgba(106,30,105,.60);--board-bg2:rgba(43,7,57,.80);--board-border:rgba(244,126,224,.64);--board-glow:rgba(232,96,207,.44);}
 body.tier7{--board-bg1:rgba(122,76,14,.60);--board-bg2:rgba(51,29,4,.80);--board-border:rgba(255,202,90,.66);--board-glow:rgba(255,179,61,.46);}
 body.tier8{--board-bg1:rgba(137,92,13,.62);--board-bg2:rgba(55,31,3,.82);--board-border:rgba(255,225,112,.72);--board-glow:rgba(255,202,72,.55);}
+body[data-mx-career-rank="resonance-researcher"]{--board-bg1:rgba(27,82,155,.66);--board-bg2:rgba(31,19,86,.84);--board-border:rgba(107,205,255,.76);--board-glow:rgba(91,131,255,.56)}
+body[data-mx-career-rank="vault-investigator"]{--board-bg1:rgba(18,104,137,.66);--board-bg2:rgba(25,20,82,.84);--board-border:rgba(100,236,255,.78);--board-glow:rgba(77,211,244,.57)}
+body[data-mx-career-rank="molecular-architect"]{--board-bg1:rgba(13,115,100,.67);--board-bg2:rgba(6,45,74,.85);--board-border:rgba(113,255,218,.79);--board-glow:rgba(70,230,197,.58)}
+body[data-mx-career-rank="rift-pioneer"]{--board-bg1:rgba(80,29,139,.67);--board-bg2:rgba(20,7,56,.87);--board-border:rgba(192,110,255,.80);--board-glow:rgba(151,67,255,.62)}
+body[data-mx-career-rank="rift-master"]{--board-bg1:rgba(121,27,126,.67);--board-bg2:rgba(37,6,68,.87);--board-border:rgba(255,120,231,.81);--board-glow:rgba(226,78,218,.62)}
+body[data-mx-career-rank="enzyme-master"]{--board-bg1:rgba(8,110,116,.68);--board-bg2:rgba(3,38,63,.87);--board-border:rgba(95,245,224,.82);--board-glow:rgba(56,222,199,.62)}
+body[data-mx-career-rank="bio-specialist"]{--board-bg1:rgba(60,93,131,.68);--board-bg2:rgba(42,15,80,.87);--board-border:rgba(162,234,205,.83);--board-glow:rgba(151,101,244,.63)}
+body[data-mx-career-rank="synthesis-architect"]{--board-bg1:rgba(112,66,31,.69);--board-bg2:rgba(37,20,70,.88);--board-border:rgba(255,205,112,.84);--board-glow:rgba(255,168,76,.64)}
+body[data-mx-career-rank="xorigin-vanguard"]{--board-bg1:rgba(51,42,132,.70);--board-bg2:rgba(8,10,50,.89);--board-border:rgba(111,221,255,.85);--board-glow:rgba(104,90,255,.66)}
+body[data-mx-career-rank="xorigin-grand"]{--board-bg1:rgba(54,102,134,.72);--board-bg2:rgba(33,25,79,.89);--board-border:rgba(255,240,180,.92);--board-glow:rgba(132,231,255,.74)}
 #boardFrame{
   position:relative;border-radius:22px;padding:7px;
   background:linear-gradient(160deg,var(--board-bg1),var(--board-bg2));
@@ -1452,8 +1462,20 @@ body.iosStandalone #einBoxS{
 }
 .crystalLabBtn span{display:block;margin-top:2px;font-size:8px;letter-spacing:.8px}
 .crystalLabBtn:active{transform:translateY(2px);box-shadow:0 2px 0 #18466a}
-#crystalCounter{display:none;font-size:11px;font-weight:1000;padding:4px 9px;letter-spacing:.25px;background:linear-gradient(90deg,rgba(220,109,42,.88),rgba(30,117,183,.88),rgba(35,143,93,.88));border-color:rgba(207,242,255,.58);box-shadow:0 0 16px rgba(67,190,195,.34);white-space:nowrap}
-#crystalCounter.on{display:block}
+#crystalCounter{display:none;align-items:center;justify-content:center;gap:4px;font-size:11px;font-weight:1000;padding:4px 6px;letter-spacing:.25px;background:linear-gradient(90deg,rgba(75,43,112,.94),rgba(17,76,116,.94),rgba(18,103,78,.94));border-color:rgba(220,250,255,.78);box-shadow:0 0 16px rgba(67,190,195,.34),inset 0 0 0 1px rgba(255,255,255,.10);white-space:nowrap}
+#crystalCounter.on{display:inline-flex}
+#crystalCounter .mxComponentHudItem{position:relative;display:inline-flex;align-items:center;min-width:42px;height:38px;justify-content:center;border:1px solid rgba(218,248,255,.28);border-radius:10px;background:rgba(5,17,37,.54);box-shadow:inset 0 1px 0 rgba(255,255,255,.10)}
+.mxComponentHudCanvas,.mxTrainingTokenCanvas,.mxComponentToastCanvas{display:block;object-fit:contain;filter:drop-shadow(0 1px 1px rgba(0,0,0,.58))}
+.mxComponentHudItem b{position:absolute;right:1px;bottom:1px;display:grid;place-items:center;width:14px;height:14px;border-radius:50%;font-size:11px;line-height:1;color:#f2f8ff;background:#18243a;border:1px solid rgba(232,248,255,.82);text-shadow:0 1px 2px rgba(0,0,0,.9)}
+.mxComponentHudItem.done{border-color:rgba(131,255,188,.72);background:rgba(11,73,55,.56)}.mxComponentHudItem.done b{color:#0b3322;background:#83ffbc;border-color:#d7ffe9}.mxComponentHudItem.pending{opacity:1}
+.mxTrainingTokenCanvas{width:38px;height:38px}
+.mxComponentToast{display:flex;align-items:center;justify-content:center;gap:8px;min-width:190px}
+.mxComponentToast>span:not(.mxComponentHudItem){font-weight:950;color:#effcff}
+.mxComponentProgressToast{gap:6px;min-width:150px}
+.mxComponentProgressToast .mxComponentHudItem{display:inline-flex;align-items:center;gap:0}
+.mxGuideMechanicCard{width:100%;text-align:left;color:inherit;font:inherit;cursor:pointer;appearance:none}
+.mxGuideMechanicCard small{display:block;margin-top:7px;color:#78e7ff;font-weight:900;line-height:1.3}
+.mxGuideMechanicCard:active{transform:translateY(1px)}
 #gameScr.crystalMode #boardFrame{outline:2px solid rgba(79,216,255,.76);outline-offset:3px}
 .crystalModeTag{display:inline-flex;align-items:center;justify-content:center;margin:5px auto 10px;padding:6px 12px;border-radius:999px;background:linear-gradient(90deg,rgba(225,121,52,.22),rgba(36,131,202,.20),rgba(43,162,108,.19));border:1px solid rgba(164,235,230,.42);font-size:11px;font-weight:1000;color:#e9fbff;letter-spacing:.7px}
 .crystalResult{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:13px 0}
@@ -5067,7 +5089,9 @@ body.mxIOSNative #moxyGameCompanion{right:clamp(184px,43vw,274px);width:clamp(70
 #levelStoryPanel .reactionMolecule{display:none!important}
 #levelStoryPanel:not(.storyHasFx) .comicBang{display:none!important}
 #levelStoryPanel .comicBang{max-width:45%!important;padding:3px 6px!important;border-width:2px!important;border-radius:8px!important;font-size:clamp(9px,2.2vw,12px)!important;line-height:1!important;opacity:.92!important}
-#levelStoryPanel.hasSceneArt .comicHero .sceneArtImg{inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important}
+/* R122: milestone art contains three stacked story strips. Keep the complete
+   16:9 frame visible on every phone height; dark framing is safer than cropping. */
+#levelStoryPanel.hasSceneArt .comicHero .sceneArtImg{inset:0!important;width:100%!important;height:100%!important;object-fit:contain!important;background:#09172c!important}
 #levelStoryPanel .storyNarration{margin-top:0!important}
 #levelStoryPanel .reactionText{margin-top:0!important}
 @media(max-width:620px){#levelStoryPanel .comicReaction{padding:6px 7px!important;gap:4px!important}#levelStoryPanel .comicReaction .speechBubble{padding:6px 8px!important;font-size:clamp(9.7px,2.55vw,10.8px)!important;line-height:1.18!important}#levelStoryPanel.hasSceneArt .comicPanel.comicHero{height:clamp(176px,27dvh,225px)!important}}
@@ -5792,6 +5816,7 @@ html body #boardFrame canvas#board{
     width:68px!important;
   }
 }
+
 #boardFrame>#moxyGameCompanion.mx-visit-dre,
 #boardFrame>#moxyGameCompanion.mx-visit-return,
 #boardFrame>#moxyGameCompanion.mxCinemaFocus{
@@ -8202,7 +8227,8 @@ html[lang="zh"] #profileTitle{
 }
 html[lang="de"] #modalBox .btn,
 html[lang="pt"] #modalBox .btn,
-html[lang="fr"] #modalBox .btn{
+html[lang="fr"] #modalBox .btn,
+html[lang="it"] #modalBox .btn{
   letter-spacing:.01em!important;
 }
 
@@ -8974,7 +9000,6 @@ body.mxReduceMotion #reactorCounter.hit{animation:none!important}
   }
 }
 
-
 /* FINAL R45 POLISH 6 · premium atom micro-FX (presentation only) */
 #mxCompletionSnap{
   position:fixed;z-index:91;pointer-events:none;width:74px;height:74px;
@@ -9502,7 +9527,8 @@ button,a.btn{
 html[lang="de"] #modalBox .mrow>.btn,
 html[lang="pt"] #modalBox .mrow>.btn,
 html[lang="es"] #modalBox .mrow>.btn,
-html[lang="fr"] #modalBox .mrow>.btn{
+html[lang="fr"] #modalBox .mrow>.btn,
+html[lang="it"] #modalBox .mrow>.btn{
   letter-spacing:0!important;
 }
 html[lang="ja"] button,html[lang="ja"] .btn,
@@ -9806,6 +9832,7 @@ html[lang="pt"] #btnMols small,html[lang="es"] #btnMols small{font-size:6.45px!i
 
 html[lang="de"] :is(#modalBox button,#modalBox .btn,#splashBtns .btn,.collectionTab,.labTab,.hofTopTab,.hofSubTab,.duelRankTab,.trainingChoice,.duelChoice),
 html[lang="fr"] :is(#modalBox button,#modalBox .btn,#splashBtns .btn,.collectionTab,.labTab,.hofTopTab,.hofSubTab,.duelRankTab,.trainingChoice,.duelChoice),
+html[lang="it"] :is(#modalBox button,#modalBox .btn,#splashBtns .btn,.collectionTab,.labTab,.hofTopTab,.hofSubTab,.duelRankTab,.trainingChoice,.duelChoice),
 html[lang="es"] :is(#modalBox button,#modalBox .btn,#splashBtns .btn,.collectionTab,.labTab,.hofTopTab,.hofSubTab,.duelRankTab,.trainingChoice,.duelChoice),
 html[lang="pt"] :is(#modalBox button,#modalBox .btn,#splashBtns .btn,.collectionTab,.labTab,.hofTopTab,.hofSubTab,.duelRankTab,.trainingChoice,.duelChoice){
   hyphens:auto;
@@ -10462,7 +10489,8 @@ html[lang="tr"] #performanceGrade,
 html[lang="de"] #performanceGrade,
 html[lang="es"] #performanceGrade,
 html[lang="pt"] #performanceGrade,
-html[lang="fr"] #performanceGrade{
+html[lang="fr"] #performanceGrade,
+html[lang="it"] #performanceGrade{
   font-size:clamp(32px,10.8vw,58px)!important;
   letter-spacing:clamp(.2px,.18vw,1px)!important;
 }
@@ -10521,7 +10549,8 @@ html[lang="zh"] #performanceGrade{
 }
 html[lang="de"] #modalBox.winResultModal .msub,
 html[lang="fr"] #modalBox.winResultModal .msub,
-html[lang="pt"] #modalBox.winResultModal .msub{
+html[lang="pt"] #modalBox.winResultModal .msub,
+html[lang="it"] #modalBox.winResultModal .msub{
   font-size:clamp(9.6px,2.6vw,11.5px)!important;
 }
 #modalBox.winResultModal .performanceResult{
@@ -10539,7 +10568,8 @@ html[lang="pt"] #modalBox.winResultModal .msub{
 html[lang="de"] #modalBox h3,
 html[lang="fr"] #modalBox h3,
 html[lang="pt"] #modalBox h3,
-html[lang="es"] #modalBox h3{
+html[lang="es"] #modalBox h3,
+html[lang="it"] #modalBox h3{
   overflow-wrap:anywhere!important;
   hyphens:auto!important;
 }
@@ -10559,7 +10589,8 @@ html[lang="zh"] #modalBox .btn{
   html[lang="de"] #performanceGrade,
   html[lang="es"] #performanceGrade,
   html[lang="pt"] #performanceGrade,
-  html[lang="fr"] #performanceGrade{font-size:clamp(29px,9.8vw,39px)!important}
+  html[lang="fr"] #performanceGrade,
+  html[lang="it"] #performanceGrade{font-size:clamp(29px,9.8vw,39px)!important}
   html[lang="ja"] #performanceGrade,
   html[lang="zh"] #performanceGrade{font-size:clamp(33px,11.3vw,44px)!important}
   #performanceMeta{font-size:clamp(10.5px,3.05vw,12.5px)!important}
@@ -10610,7 +10641,7 @@ body.mxNative #bgParticles{
   }
 }
 
-/* R82 / v8.7.25 — online final UX compactness + explicit ranked results */
+/* R81 / v8.7.24 — online final UX compactness + explicit ranked results */
 .duelModeChoice{grid-template-columns:1fr;gap:8px;margin:11px 0 9px}
 .duelChoice,.duelChoice.quick{grid-column:auto;min-height:68px;padding:9px 12px;display:grid;grid-template-columns:42px minmax(0,1fr);grid-template-rows:auto auto;column-gap:10px;row-gap:2px;justify-items:start;text-align:left}
 .duelChoice>span{grid-row:1/3;font-size:24px;align-self:center;justify-self:center}.duelChoice>b{align-self:end;font-size:12px}.duelChoice>small{align-self:start;font-size:9.5px;line-height:1.25}
@@ -10677,4 +10708,1032 @@ body.mxNative #bgParticles{
   body.mxWeb #splash .duelMini{font-size:7.5px!important}
   body.mxWeb #splash #btnHof .trophyIcon{width:32px!important;height:32px!important;padding:3px!important}
   body.mxWeb #splash #btnHof .trophyIcon svg{width:25px!important;height:25px!important}
+}
+
+/* R90 — Expansion molecule science flow / Moleculopedia */
+.mxScienceBrief{display:inline-block;margin-top:3px;line-height:1.35}
+.mxScienceUse{display:inline-block;margin-top:4px;line-height:1.35;color:#c8f4ff}
+.mxScienceLearnCard{margin:10px 0 12px;padding:11px 12px;border:1px solid rgba(110,229,255,.28);border-radius:14px;background:linear-gradient(145deg,rgba(49,92,155,.18),rgba(75,51,132,.16));display:grid;gap:7px;text-align:left}
+.mxScienceLearnCard .mxScienceLearnHead{display:flex;gap:8px;align-items:center;color:#dff9ff}
+.mxScienceLearnCard .mxScienceLearnHead b{font-size:13px;line-height:1.2}
+.mxScienceLearnCard>div:not(.mxScienceLearnHead){display:grid;gap:2px}
+.mxScienceLearnCard strong{font-size:9.5px;letter-spacing:.55px;color:#75e9ff}
+.mxScienceLearnCard small{font-size:10.5px;line-height:1.36;color:#eef5ff}
+.mxScienceLearnCard .mxScienceOpen{margin-top:3px;width:100%;min-height:38px;font-size:10.5px}
+.mxScienceFallback{margin:9px 0;padding:9px 11px;border-radius:12px;background:rgba(74,104,151,.12);border:1px solid rgba(130,173,221,.2);display:grid;gap:4px;text-align:left}
+.mxScienceFallback b{font-size:12px}.mxScienceFallback small{font-size:10px;line-height:1.35;color:#dfe9f7}
+.mxMoleculeDetail{text-align:left;display:grid;gap:10px}
+.mxMoleculeDetail>h3{text-align:center;margin:0;color:#f4f8ff;font-size:18px}
+.mxMoleculeDetailFormula{text-align:center;font-weight:900;font-size:34px;letter-spacing:.5px;color:#86ecff;text-shadow:0 0 18px rgba(95,225,255,.25)}
+.mxMoleculeDetailFormula.mxFormulaM{font-size:31px}.mxMoleculeDetailFormula.mxFormulaL{font-size:28px}.mxMoleculeDetailFormula.mxFormulaXL{font-size:24px}
+.mxMoleculeDetailRow{padding:10px 11px;border-radius:12px;background:rgba(255,255,255,.045);border:1px solid rgba(142,183,222,.16)}
+.mxMoleculeDetailRow b{display:block;font-size:10px;letter-spacing:.55px;color:#78e7ff;margin-bottom:4px}
+.mxMoleculeDetailRow p{margin:0;font-size:11.5px;line-height:1.45;color:#f1f5fb}
+#modalBox.mxMoleculeDetailModal .molModelNote{margin-top:2px;font-size:9.5px;line-height:1.35;color:#aebbd0}
+@media(max-height:700px){.mxScienceLearnCard{padding:8px 9px;gap:5px}.mxScienceLearnCard small{font-size:9.7px}.mxMoleculeDetailRow{padding:8px 9px}.mxMoleculeDetailRow p{font-size:10.5px}}
+
+
+/* ================= R107 RESULT SCREEN SAFE-FIT HOTFIX ================= */
+/* Some completion screens (especially 302+ with science cards and long names)
+   exceeded the visible phone viewport. The result modal must never clip the
+   CTA buttons; it should compact itself and become touch-scrollable when the
+   content is taller than the available height. */
+#modal:has(#modalBox.winResultModal){
+  overflow:auto!important;
+  padding-top:max(8px,var(--sat))!important;
+  padding-bottom:max(8px,var(--sab))!important;
+}
+#modalBox.winResultModal{
+  width:min(92vw,380px)!important;
+  max-height:calc(100dvh - max(8px,var(--sat)) - max(8px,var(--sab)) - 8px)!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  -webkit-overflow-scrolling:touch!important;
+  overscroll-behavior:contain!important;
+  scrollbar-gutter:stable both-edges!important;
+  padding-top:14px!important;
+  padding-bottom:max(14px,calc(10px + var(--sab)))!important;
+}
+#modalBox.winResultModal .mxResultHeading{
+  margin-bottom:2px!important;
+}
+#modalBox.winResultModal .mxResultHeadingName{
+  font-size:clamp(24px,5.4vw,32px)!important;
+  line-height:1.02!important;
+}
+#modalBox.winResultModal .mxResultHeadingFormula{
+  font-size:clamp(18px,4.2vw,24px)!important;
+}
+#modalBox.winResultModal .msub{
+  margin-bottom:5px!important;
+}
+#modalBox.winResultModal .mxScienceLearnCard{
+  margin:8px 0 10px!important;
+  padding:9px 10px!important;
+  gap:6px!important;
+}
+#modalBox.winResultModal .mxScienceLearnCard .mxScienceLearnHead b{
+  font-size:12px!important;
+}
+#modalBox.winResultModal .mxScienceLearnCard strong{
+  font-size:9px!important;
+}
+#modalBox.winResultModal .mxScienceLearnCard small{
+  font-size:10px!important;
+  line-height:1.3!important;
+}
+#modalBox.winResultModal .mxScienceLearnCard .mxScienceOpen{
+  min-height:36px!important;
+  font-size:10px!important;
+}
+#modalBox.winResultModal .performanceResult,
+#modalBox.winResultModal .mxSolveTimeResult{
+  width:min(100%,335px)!important;
+}
+#modalBox.winResultModal .mstars{margin-top:7px!important}
+#modalBox.winResultModal .mcoins{margin-bottom:6px!important}
+#modalBox.winResultModal>.mrow{
+  position:relative!important;
+  margin-top:10px!important;
+  padding-top:2px!important;
+}
+@media (max-height: 760px){
+  #modalBox.winResultModal{
+    width:min(93vw,366px)!important;
+    padding-top:11px!important;
+    padding-bottom:max(12px,calc(8px + var(--sab)))!important;
+  }
+  #modalBox.winResultModal .mxResultMolecule{
+    width:56px!important;
+    height:56px!important;
+    margin:1px auto 3px!important;
+  }
+  #modalBox.winResultModal .mxScienceLearnCard{
+    margin:7px 0 9px!important;
+    padding:8px 9px!important;
+    gap:5px!important;
+  }
+  #modalBox.winResultModal .mxScienceLearnCard small{
+    font-size:9.6px!important;
+    line-height:1.24!important;
+  }
+  #modalBox.winResultModal .performanceResult{
+    margin:4px auto!important;
+    padding:4px 6px!important;
+  }
+  #modalBox.winResultModal .mxSolveTimeResult{
+    margin:5px auto!important;
+    padding:6px 7px!important;
+  }
+  #modalBox.winResultModal #mNext{
+    min-height:40px!important;
+  }
+}
+@media (max-height: 680px){
+  #modalBox.winResultModal{
+    width:min(94vw,352px)!important;
+    padding-left:10px!important;
+    padding-right:10px!important;
+  }
+  #modalBox.winResultModal .mxResultHeadingName{
+    font-size:clamp(21px,5vw,28px)!important;
+  }
+  #modalBox.winResultModal .mxResultHeadingFormula{
+    font-size:clamp(16px,4vw,22px)!important;
+  }
+  #modalBox.winResultModal .mrow>.btn{
+    min-height:34px!important;
+  }
+  #modalBox.winResultModal #mNext,
+  #modalBox.winResultModal #mBonusNow{
+    width:90%!important;
+  }
+}
+
+
+/* ================= R108 RESULT SCREEN ONE-SCREEN LOCK ================= */
+/* User requirement: level-complete information must NEVER require scrolling.
+   The whole result composition auto-compacts by viewport height instead. */
+#modal:has(#modalBox.winResultModal){
+  overflow:hidden!important;
+  align-items:center!important;
+  justify-content:center!important;
+  padding-top:max(6px,var(--sat))!important;
+  padding-bottom:max(6px,var(--sab))!important;
+}
+#modalBox.winResultModal{
+  width:min(92vw,372px)!important;
+  max-height:calc(100dvh - max(6px,var(--sat)) - max(6px,var(--sab)) - 6px)!important;
+  overflow:hidden!important;
+  overscroll-behavior:none!important;
+  scrollbar-width:none!important;
+  padding:clamp(7px,1.05vh,11px) clamp(9px,2.4vw,13px)!important;
+  display:block!important;
+}
+#modalBox.winResultModal::-webkit-scrollbar{display:none!important}
+#modalBox.winResultModal .mxResultHeading{
+  margin:0!important;
+  gap:1px 5px!important;
+  line-height:1!important;
+}
+#modalBox.winResultModal .mxResultHeadingName{
+  font-size:clamp(18px,4.75vw,24px)!important;
+  line-height:1!important;
+  max-width:100%!important;
+}
+#modalBox.winResultModal .mxResultHeadingFormula{
+  font-size:clamp(13px,3.7vw,18px)!important;
+  line-height:1!important;
+}
+#modalBox.winResultModal .msub{
+  margin:2px 0 3px!important;
+  font-size:clamp(8.4px,2.25vw,10px)!important;
+  line-height:1.05!important;
+}
+#modalBox.winResultModal .mxResultMolecule{
+  width:clamp(50px,13.2vw,62px)!important;
+  height:clamp(50px,13.2vw,62px)!important;
+  margin:0 auto 3px!important;
+}
+#modalBox.winResultModal .mxResultOrbit{font-size:clamp(21px,5.7vw,27px)!important}
+#modalBox.winResultModal .mxResultFormula{font-size:clamp(9px,2.45vw,10.8px)!important;bottom:-6px!important}
+#modalBox.winResultModal .mxResultName{font-size:6.1px!important;top:calc(100% + 7px)!important;line-height:1!important}
+#modalBox.winResultModal .mxScienceLearnCard{
+  margin:5px 0 6px!important;
+  padding:6px 8px!important;
+  gap:3px!important;
+  border-radius:12px!important;
+}
+#modalBox.winResultModal .mxScienceLearnCard .mxScienceLearnHead{gap:5px!important}
+#modalBox.winResultModal .mxScienceLearnCard .mxScienceLearnHead b{
+  font-size:10.2px!important;
+  line-height:1.08!important;
+}
+#modalBox.winResultModal .mxScienceLearnCard>div:not(.mxScienceLearnHead){gap:0!important}
+#modalBox.winResultModal .mxScienceLearnCard strong{
+  font-size:7.8px!important;
+  line-height:1!important;
+  letter-spacing:.35px!important;
+}
+#modalBox.winResultModal .mxScienceLearnCard small{
+  font-size:8.75px!important;
+  line-height:1.16!important;
+}
+#modalBox.winResultModal .mxScienceLearnCard .mxScienceOpen{
+  min-height:30px!important;
+  margin-top:1px!important;
+  padding:4px 7px!important;
+  font-size:8.9px!important;
+}
+#modalBox.winResultModal .performanceResult{
+  margin:4px auto!important;
+  padding:4px 6px!important;
+  min-height:0!important;
+  font-size:clamp(9px,2.45vw,10.8px)!important;
+  line-height:1.05!important;
+}
+#modalBox.winResultModal .mxSolveTimeResult{
+  margin:4px auto!important;
+  padding:5px 6px!important;
+  gap:1px!important;
+  min-height:0!important;
+}
+#modalBox.winResultModal .mxSolveTimeResult b{font-size:clamp(12px,3.2vw,15px)!important;line-height:1!important}
+#modalBox.winResultModal .mxSolveTimeResult span,
+#modalBox.winResultModal .mxSolveTimeResult em{font-size:clamp(8px,2.15vw,9.6px)!important;line-height:1.05!important}
+#modalBox.winResultModal .mstars{
+  font-size:clamp(23px,6.2vw,28px)!important;
+  min-height:27px!important;
+  line-height:1!important;
+  margin:3px 0 1px!important;
+  letter-spacing:3px!important;
+}
+#modalBox.winResultModal .mcoins{
+  font-size:clamp(10px,2.8vw,12.5px)!important;
+  line-height:1!important;
+  margin:2px 0 4px!important;
+}
+#modalBox.winResultModal>.mrow{
+  margin-top:5px!important;
+  gap:5px!important;
+  padding:0!important;
+}
+#modalBox.winResultModal>.mrow .btn{
+  min-height:31px!important;
+  padding:4px 6px!important;
+  font-size:clamp(9px,2.45vw,10.5px)!important;
+  line-height:1!important;
+}
+#modalBox.winResultModal>.mrow #mNext,
+#modalBox.winResultModal>.mrow #mBonusNow{
+  width:84%!important;
+  min-height:36px!important;
+  font-size:clamp(10.5px,2.85vw,12px)!important;
+}
+#modalBox.winResultModal .accountMilestoneInvite{
+  margin:3px 0!important;
+  padding:4px 6px!important;
+  min-height:0!important;
+}
+#modalBox.winResultModal .accountMilestoneInvite b{font-size:8.6px!important}
+#modalBox.winResultModal .accountMilestoneInvite span{font-size:7.4px!important;line-height:1.05!important}
+#modalBox.winResultModal .accountMilestoneInvite .btn{min-height:27px!important;padding:3px 6px!important;font-size:8px!important}
+
+@media(max-height:760px){
+  #modalBox.winResultModal{width:min(93vw,356px)!important;padding:6px 8px!important}
+  #modalBox.winResultModal .mxResultMolecule{width:48px!important;height:48px!important;margin-bottom:2px!important}
+  #modalBox.winResultModal .mxScienceLearnCard{padding:5px 7px!important;gap:2px!important;margin:4px 0 5px!important}
+  #modalBox.winResultModal .mxScienceLearnCard small{font-size:8.25px!important;line-height:1.12!important}
+  #modalBox.winResultModal .mxScienceLearnCard .mxScienceOpen{min-height:27px!important}
+  #modalBox.winResultModal .performanceResult{margin:3px auto!important;padding:3px 5px!important}
+  #modalBox.winResultModal .mxSolveTimeResult{margin:3px auto!important;padding:4px 5px!important}
+  #modalBox.winResultModal .mstars{font-size:22px!important;min-height:24px!important;margin:2px 0!important}
+  #modalBox.winResultModal .mcoins{margin:1px 0 3px!important}
+  #modalBox.winResultModal>.mrow{margin-top:4px!important;gap:4px!important}
+  #modalBox.winResultModal>.mrow #mNext,#modalBox.winResultModal>.mrow #mBonusNow{min-height:33px!important}
+}
+@media(max-height:680px){
+  #modalBox.winResultModal{width:min(94vw,346px)!important;padding:5px 7px!important}
+  #modalBox.winResultModal .mxResultHeadingName{font-size:17px!important}
+  #modalBox.winResultModal .mxResultHeadingFormula{font-size:12.5px!important}
+  #modalBox.winResultModal .msub{font-size:8px!important;margin:1px 0 2px!important}
+  #modalBox.winResultModal .mxResultMolecule{width:44px!important;height:44px!important}
+  #modalBox.winResultModal .mxScienceLearnCard{padding:4px 6px!important;margin:3px 0 4px!important}
+  #modalBox.winResultModal .mxScienceLearnCard .mxScienceLearnHead b{font-size:9.5px!important}
+  #modalBox.winResultModal .mxScienceLearnCard strong{font-size:7.2px!important}
+  #modalBox.winResultModal .mxScienceLearnCard small{font-size:7.7px!important;line-height:1.08!important}
+  #modalBox.winResultModal .mxScienceLearnCard .mxScienceOpen{min-height:25px!important;font-size:8.2px!important}
+  #modalBox.winResultModal .performanceResult{font-size:8.7px!important}
+  #modalBox.winResultModal .mstars{font-size:20px!important;min-height:22px!important}
+  #modalBox.winResultModal>.mrow .btn{min-height:28px!important;font-size:8.8px!important}
+  #modalBox.winResultModal>.mrow #mNext,#modalBox.winResultModal>.mrow #mBonusNow{min-height:31px!important;width:88%!important}
+  #modalBox.winResultModal .accountMilestoneInvite span{display:none!important}
+}
+
+/* R110 · Post-Nobel career ladder: the next elite research rank is visible in Lab. */
+#labPurposeGrid .postNobelNext{grid-column:1/-1;border-color:rgba(255,216,118,.34);background:linear-gradient(135deg,rgba(33,34,82,.88),rgba(53,28,80,.82));box-shadow:inset 0 0 18px rgba(157,123,255,.08)}
+#labPurposeGrid .postNobelNext>b,#labPurposeGrid .postNobelNext b{color:#fff0aa}
+
+
+/* ================= R118 PLAYER-FLOW + UI POLISH ================= */
+/* Dr. E is commentary, not an input blocker. During normal gameplay pointer
+   events pass through his bubble to the board; tutorial bubbles remain tappable. */
+body:not(.tutorialMode) #bubble.on{pointer-events:none!important}
+body:not(.tutorialMode) #bubble:active{transform:scale(1) translateY(0)!important}
+#bubble.long{font-size:clamp(11.5px,3vw,13px);line-height:1.3}
+
+/* A first discovery is a lightweight reward beat, never an extra modal. */
+#bannerDiscover.mxNewDiscoveryUnlock{
+  border-color:rgba(255,220,106,.82)!important;
+  background:linear-gradient(180deg,rgba(66,45,116,.92),rgba(15,28,55,.9))!important;
+  color:#fff0a8!important;
+  box-shadow:0 8px 24px rgba(0,0,0,.3),0 0 22px rgba(255,215,106,.3)!important;
+  max-width:min(92vw,430px)!important;
+  white-space:normal!important;
+  text-wrap:balance;
+}
+
+/* Button-language harmony: preserve established geometry while preventing long
+   translations from clipping or drifting off-center. */
+.btn{
+  box-sizing:border-box;
+  min-width:0;
+  max-width:100%;
+  text-align:center;
+  line-height:1.14;
+  overflow-wrap:anywhere;
+  word-break:normal;
+  hyphens:auto;
+}
+#modalBox .btn,#splashBtns .btn,.accountActions .btn,.settingsActions .btn,
+#bannerDiscover,.learningDockBtn{
+  white-space:normal;
+  text-wrap:balance;
+}
+html[lang="de"] .btn,html[lang="es"] .btn,html[lang="pt"] .btn,
+html[lang="fr"] .btn,html[lang="it"] .btn{letter-spacing:.12px}
+html[lang="ja"] .btn,html[lang="zh"] .btn{line-height:1.22;word-break:keep-all}
+@media(max-width:390px){
+  #modalBox .btn,#splashBtns .btn{overflow-wrap:anywhere}
+  #bannerDiscover{font-size:clamp(9px,2.55vw,11px)!important;line-height:1.18!important}
+}
+
+/* ================= R119 · STORY-DRIVEN CRYSTAL BACKGROUNDS =================
+   Levels 302–501 use portrait chapter artwork.  The original background particle
+   layer becomes a low-cost crystal shimmer instead of laboratory bubbles. */
+body.mxCrystalEra #bgA,
+body.mxCrystalEra #bgB{
+  background-size:cover!important;
+  background-position:center top!important;
+}
+body.mxCrystalEra #bgVignette{
+  background:
+    linear-gradient(180deg,rgba(5,8,28,.28) 0%,rgba(5,8,28,.04) 25%,rgba(5,8,28,.08) 62%,rgba(5,8,28,.48) 100%)!important;
+}
+body.mxCrystalEra #bgA::after,
+body.mxCrystalEra #bgB::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 7% 19%,rgba(130,235,255,.20),transparent 11%),
+    radial-gradient(circle at 93% 21%,rgba(211,137,255,.18),transparent 12%),
+    radial-gradient(circle at 8% 76%,rgba(126,215,255,.17),transparent 12%),
+    radial-gradient(circle at 91% 77%,rgba(194,120,255,.18),transparent 13%);
+  opacity:.38;
+  animation:mxCrystalAura 6.8s ease-in-out infinite;
+}
+body.mxCrystalEra #bgParticles span{
+  border-radius:50%!important;
+  width:7px!important;height:7px!important;
+  background:radial-gradient(circle,#fff 0 12%,#bff7ff 18%,rgba(136,220,255,.72) 32%,rgba(164,119,255,.12) 62%,transparent 72%)!important;
+  box-shadow:0 0 5px rgba(156,230,255,.72),0 0 11px rgba(164,119,255,.32)!important;
+  opacity:0;
+  transform-origin:center;
+  will-change:transform,opacity;
+  animation-name:mxCrystalTwinkle!important;
+  animation-timing-function:ease-in-out!important;
+  animation-iteration-count:infinite!important;
+}
+body.mxCrystalEra #bgParticles span:nth-child(1){left:5%!important;top:17%!important;animation-duration:4.9s!important;animation-delay:-1.2s!important}
+body.mxCrystalEra #bgParticles span:nth-child(2){left:10%!important;top:67%!important;width:5px!important;height:5px!important;animation-duration:6.1s!important;animation-delay:-3.4s!important}
+body.mxCrystalEra #bgParticles span:nth-child(3){left:19%!important;top:36%!important;width:4px!important;height:4px!important;animation-duration:5.3s!important;animation-delay:-2.1s!important}
+body.mxCrystalEra #bgParticles span:nth-child(4){left:92%!important;top:19%!important;animation-duration:5.7s!important;animation-delay:-4.2s!important}
+body.mxCrystalEra #bgParticles span:nth-child(5){left:88%!important;top:72%!important;width:6px!important;height:6px!important;animation-duration:6.4s!important;animation-delay:-1.7s!important}
+body.mxCrystalEra #bgParticles span:nth-child(6){left:82%!important;top:41%!important;width:4px!important;height:4px!important;animation-duration:4.6s!important;animation-delay:-2.8s!important}
+@keyframes mxCrystalTwinkle{
+  0%,100%{opacity:.04;transform:scale(.55) rotate(0deg)}
+  36%{opacity:.14;transform:scale(.82) rotate(30deg)}
+  48%{opacity:.88;transform:scale(1.75) rotate(45deg)}
+  58%{opacity:.24;transform:scale(.92) rotate(70deg)}
+}
+@keyframes mxCrystalAura{
+  0%,100%{opacity:.24}
+  50%{opacity:.48}
+}
+body.mxReduceMotion.mxCrystalEra #bgA::after,
+body.mxReduceMotion.mxCrystalEra #bgB::after,
+body.mxReduceMotion.mxCrystalEra #bgParticles span{animation:none!important}
+body.mxReduceMotion.mxCrystalEra #bgParticles span{opacity:.12!important;transform:none!important}
+body.mxLowEffects.mxCrystalEra #bgA::after,
+body.mxLowEffects.mxCrystalEra #bgB::after{opacity:.22!important;animation-duration:9s!important}
+
+/* ================= R124 · QA STORY / EINSTEIN / FOCUS POLISH ================= */
+/* Dr. E commentary is intentionally tappable during gameplay and stays visible
+   until dismissed. Keep it compact so it never dominates the board. */
+body:not(.tutorialMode) #bubble.on{
+  pointer-events:auto!important;
+  touch-action:manipulation!important;
+  cursor:pointer!important;
+}
+#gameScr #bubble,#playScr #bubble{
+  width:min(46vw,190px)!important;
+  max-width:min(46vw,190px)!important;
+  max-height:min(23vh,150px)!important;
+  padding:8px 9px 10px!important;
+  font-size:clamp(10px,2.55vw,11.5px)!important;
+  line-height:1.18!important;
+  overflow:auto!important;
+  -webkit-overflow-scrolling:touch;
+}
+#gameScr #bubble.long,#playScr #bubble.long{
+  width:min(48vw,198px)!important;
+  max-width:min(48vw,198px)!important;
+  max-height:min(25vh,160px)!important;
+  font-size:clamp(9.7px,2.45vw,11px)!important;
+  line-height:1.18!important;
+}
+#gameScr #bubble .mxScienceBrief,#playScr #bubble .mxScienceBrief,
+#gameScr #bubble .mxScienceFact,#playScr #bubble .mxScienceFact{
+  color:inherit!important;
+  opacity:1!important;
+}
+/* 302+ DOM ambience: no decorative crystal point may sit over the board's
+   visual center. Left/right rim + top band only. */
+body.mxCrystalEra #bgParticles span:nth-child(1){left:1.5%!important;top:22%!important}
+body.mxCrystalEra #bgParticles span:nth-child(2){left:2.5%!important;top:71%!important}
+body.mxCrystalEra #bgParticles span:nth-child(3){left:1%!important;top:44%!important}
+body.mxCrystalEra #bgParticles span:nth-child(4){left:97.8%!important;top:25%!important}
+body.mxCrystalEra #bgParticles span:nth-child(5){left:96.8%!important;top:73%!important}
+body.mxCrystalEra #bgParticles span:nth-child(6){left:50%!important;top:9.5%!important}
+
+/* ================= R125 · MECHANIC VISIBILITY / LEVEL CARD SPACING / CRYSTAL POLISH ================= */
+/* Keep level number and formula optically separate on 5-column mobile cards. */
+.lvBtn:not(.lock) .lvNum{
+  position:absolute!important;left:0!important;right:0!important;top:16%!important;
+  line-height:1!important;z-index:1;
+}
+.lvBtn:not(.lock) .lvFormula{
+  top:54%!important;transform:translate(-50%,-50%)!important;
+  line-height:1.05!important;max-width:90%!important;
+}
+.lvBtn:not(.lock) .st{
+  position:absolute!important;left:0!important;right:0!important;bottom:7%!important;
+  line-height:1!important;
+}
+/* Advanced campaign identity must be readable at a glance. */
+.campaignFeatureTag{
+  width:22px!important;height:22px!important;font-size:12px!important;
+  right:3px!important;bottom:3px!important;
+}
+.campaignFeatureTag.enzyme{
+  background:linear-gradient(180deg,rgba(54,201,201,.96),rgba(24,111,152,.96))!important;
+  box-shadow:0 2px 7px rgba(0,0,0,.46),0 0 10px rgba(85,228,255,.42)!important;
+}
+.campaignFeatureTag.bio{
+  background:linear-gradient(180deg,rgba(202,99,255,.96),rgba(90,72,204,.96))!important;
+  box-shadow:0 2px 7px rgba(0,0,0,.46),0 0 11px rgba(202,120,255,.46)!important;
+}
+/* Up to four compact mechanic cues; distinguishing endgame modifiers come first. */
+.campaignMechanicStrip{
+  position:absolute;left:3px;top:3px;z-index:3;display:flex;gap:1px;align-items:center;
+  pointer-events:none;
+}
+.campaignMechanicStrip span{
+  width:15px;height:15px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:9px;line-height:1;background:rgba(8,15,42,.82);border:1px solid rgba(255,255,255,.36);
+  box-shadow:0 1px 4px rgba(0,0,0,.5),0 0 6px rgba(101,221,255,.2);
+}
+@media(max-width:390px){
+  .lvBtn:not(.lock) .lvNum{top:15%!important;font-size:17px!important}
+  .lvBtn:not(.lock) .lvFormula{top:55%!important}
+  .campaignMechanicStrip span{width:14px;height:14px;font-size:8.5px}
+  .campaignFeatureTag{width:20px!important;height:20px!important;font-size:11px!important}
+}
+
+/* Crystal glints stay on the left/right/top rim, but read a little more clearly. */
+body.mxCrystalEra #bgA::after,
+body.mxCrystalEra #bgB::after{
+  background:
+    radial-gradient(circle at 5% 19%,rgba(149,242,255,.25),transparent 12%),
+    radial-gradient(circle at 95% 21%,rgba(221,158,255,.23),transparent 13%),
+    radial-gradient(circle at 5% 76%,rgba(139,228,255,.21),transparent 13%),
+    radial-gradient(circle at 95% 77%,rgba(210,142,255,.22),transparent 14%),
+    radial-gradient(circle at 50% 6%,rgba(176,239,255,.16),transparent 11%)!important;
+}
+body.mxCrystalEra #bgParticles span{
+  width:8px!important;height:8px!important;
+  box-shadow:0 0 5px rgba(177,241,255,.84),0 0 9px rgba(176,130,255,.34)!important;
+}
+@keyframes mxCrystalTwinkle{
+  0%,100%{opacity:.05;transform:scale(.58) rotate(0deg)}
+  36%{opacity:.18;transform:scale(.88) rotate(30deg)}
+  48%{opacity:.96;transform:scale(1.82) rotate(45deg)}
+  58%{opacity:.30;transform:scale(.98) rotate(70deg)}
+}
+@keyframes mxCrystalAura{
+  0%,100%{opacity:.30}
+  50%{opacity:.56}
+}
+
+/* R126 mobile compositing pass: preserve the crystal look without blur filters on dozens of level cards. */
+.campaignFeatureTag{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}
+
+/* R127 · sustained mobile gameplay performance.
+   The gameplay FX canvas already draws the approved left/right/top crystal glints.
+   Pause the duplicate full-screen CSS particle compositor only while a puzzle is open;
+   menu ambience remains unchanged. */
+body.mxGameplayActive #bgParticles span{animation-play-state:paused!important;opacity:0!important;will-change:auto!important}
+body.mxGameplayActive #bgParticles{pointer-events:none!important}
+body.mxGameplayActive.mxCrystalEra #bgA::after,
+body.mxGameplayActive.mxCrystalEra #bgB::after{
+  animation:none!important;
+  opacity:.20!important;
+  will-change:auto!important;
+}
+/* On touch phones the puzzle owns the frame budget. Keep the same artwork and
+   controls, but stop promoting static full-screen layers and idle companion/UI
+   motion while the board is open. Event feedback and molecule landing FX stay. */
+@media (pointer:coarse), (max-width:760px){
+  body.mxGameplayActive #bgA,
+  body.mxGameplayActive #bgB{transition:none!important;will-change:auto!important}
+  body.mxGameplayActive #einBoxG{filter:none!important}
+  body.mxGameplayActive #einBoxG .einImg{will-change:auto!important}
+  body.mxGameplayActive #einBoxG:not(.mxPoseAsset).mx-life-breathe .einImg,
+  body.mxGameplayActive #goalCard.mxGoalBreath,
+  body.mxGameplayActive #goalCard.mxGoalNear{animation:none!important}
+  body.mxGameplayActive :is(#boardFrame,#goalCard,#gameScr .btn,#gameScr .pill,#gameScr .chip){
+    -webkit-backdrop-filter:none!important;
+    backdrop-filter:none!important;
+  }
+}
+
+/* R129 · each expansion triptych panel is a real, full-size story page.
+   Wide source rows use a directed comic crop inside the same viewport as the
+   original campaign art; this removes R128's tiny banner presentation. */
+#levelStoryPanel.storyTriptychPage .comicStrip{grid-template-columns:1fr!important;align-items:start!important}
+#levelStoryPanel.storyTriptychGrid{width:min(96vw,720px)!important}
+#levelStoryPanel.storyTriptychPage.hasSceneArt .comicPanel.comicHero{
+  position:relative!important;
+  width:100%!important;
+  height:clamp(210px,31dvh,310px)!important;
+  min-height:0!important;
+  max-height:310px!important;
+  overflow:hidden!important;
+  background:#09172c!important;
+}
+#levelStoryPanel.storyTriptychPage.hasSceneArt .comicHero .sceneArtCrop{
+  position:absolute!important;
+  inset:0!important;
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:100%!important;
+  max-height:100%!important;
+  margin:0!important;
+  border:0!important;
+  object-fit:fill!important;
+  aspect-ratio:auto!important;
+  background:#09172c!important;
+  filter:none!important;
+}
+#levelStoryPanel.storyTriptychPage .comicReaction{width:100%!important;box-sizing:border-box!important}
+@media(max-width:620px){
+  #levelStoryPanel.storyTriptychPage.hasSceneArt .comicPanel.comicHero{height:clamp(180px,29dvh,235px)!important;max-height:235px!important}
+}
+@media(max-height:700px){
+  #levelStoryPanel.storyTriptychPage.hasSceneArt .comicPanel.comicHero{height:clamp(165px,27dvh,195px)!important;max-height:195px!important}
+}
+
+/* R131 · responsive molecule entry card.
+   Long systematic names wrap inside the viewport instead of clipping. */
+#levelTransition .mxLevelEntryCard{
+  box-sizing:border-box!important;
+  width:min(88vw,380px)!important;
+  min-width:0!important;
+  max-width:calc(100vw - 24px)!important;
+  max-height:calc(100dvh - 24px)!important;
+  padding:clamp(13px,3.8vw,17px) clamp(15px,5vw,24px) clamp(15px,4.2vw,19px)!important;
+}
+#levelTransition .mxLevelEntryCard>b{
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:100%!important;
+  margin-inline:auto!important;
+  padding-inline:1px!important;
+  font-size:clamp(15px,5.1vw,25px)!important;
+  line-height:1.08!important;
+  letter-spacing:.01em!important;
+  white-space:normal!important;
+  overflow-wrap:anywhere!important;
+  word-break:normal!important;
+  hyphens:auto!important;
+  text-wrap:balance!important;
+}
+#levelTransition .mxLevelEntryCard.mxEntryNameLong>b{font-size:clamp(13.5px,4.35vw,20px)!important;line-height:1.12!important}
+#levelTransition .mxLevelEntryCard.mxEntryNameXL>b{font-size:clamp(12px,3.9vw,17px)!important;line-height:1.14!important;letter-spacing:0!important}
+#levelTransition .mxLevelEntryCard>em{
+  box-sizing:border-box!important;
+  max-width:100%!important;
+  white-space:normal!important;
+  overflow-wrap:anywhere!important;
+  line-height:1.15!important;
+  font-size:clamp(11px,3.5vw,14px)!important;
+}
+@media(max-width:360px),(max-height:620px){
+  #levelTransition .mxEntryAtom{width:42px!important;height:42px!important;margin:5px auto 4px!important;font-size:23px!important}
+  #levelTransition .mxLevelEntryCard strong{font-size:34px!important}
+  #levelTransition .mxLevelEntryCard>b{font-size:clamp(13px,4.6vw,18px)!important}
+  #levelTransition .mxLevelEntryCard.mxEntryNameLong>b{font-size:clamp(12px,4vw,15.5px)!important}
+  #levelTransition .mxLevelEntryCard.mxEntryNameXL>b{font-size:clamp(11px,3.65vw,14px)!important}
+}
+
+/* R131 · text-free scientific training glyphs matching the board tokens. */
+.mxTrainingToken:is(.substrate,.cofactor,.atp,.atPair,.cgPair,.backbone){
+  width:34px;height:34px;border-radius:50%;box-sizing:border-box;
+  border:1.5px solid rgba(232,251,255,.94);
+  background:radial-gradient(circle at 32% 25%,rgba(255,255,255,.30),#243f65 35%,#0a152d 78%);
+  box-shadow:0 0 10px rgba(92,222,255,.28),inset 0 0 0 2px rgba(255,255,255,.035);
+  overflow:hidden;
+}
+.mxTrainingToken:is(.substrate,.cofactor,.atp,.atPair,.cgPair,.backbone)::before,
+.mxTrainingToken:is(.substrate,.cofactor,.atp,.atPair,.cgPair,.backbone)::after{content:'';position:absolute;display:block;box-sizing:border-box}
+.mxTrainingToken.substrate::before{left:6px;top:7px;width:19px;height:18px;border-radius:55% 48% 58% 43%;background:linear-gradient(145deg,#e9dcff,#8159d3);clip-path:polygon(0 0,100% 0,100% 38%,72% 48%,100% 64%,82% 100%,0 88%)}
+.mxTrainingToken.substrate::after{right:4px;top:13px;width:10px;height:9px;background:linear-gradient(145deg,#fff4b8,#f08735);clip-path:polygon(0 20%,65% 0,100% 45%,68% 100%,25% 78%)}
+.mxTrainingToken.cofactor::before{left:13px;top:13px;width:8px;height:8px;border-radius:50%;background:#bff8ff;box-shadow:0 0 7px #57dcff,-8px -8px 0 -1px #fff39b,8px -8px 0 -1px #8df5ff,-8px 8px 0 -1px #8df5ff,8px 8px 0 -1px #fff39b}
+.mxTrainingToken.cofactor::after{left:8px;top:8px;width:18px;height:18px;border:1.5px solid rgba(208,250,255,.9);transform:rotate(45deg)}
+.mxTrainingToken.atp::before{left:4px;top:10px;width:12px;height:13px;background:linear-gradient(145deg,#eafdff,#3cbddd);clip-path:polygon(25% 0,75% 0,100% 38%,82% 100%,40% 84%,0 56%)}
+.mxTrainingToken.atp::after{left:16px;top:14px;width:5px;height:5px;border-radius:50%;background:#ffe36c;box-shadow:6px -1px 0 #ffc64c,12px -2px 0 #f09a28,0 0 4px #fff0a0,6px -1px 4px #ffd35d,12px -2px 4px #ffad35}
+.mxTrainingToken:is(.atPair,.cgPair)::before{left:5px;top:9px;width:10px;height:16px;background:var(--mx-base-left,#ff72ad);clip-path:polygon(50% 0,100% 28%,88% 82%,50% 100%,0 75%,8% 22%)}
+.mxTrainingToken:is(.atPair,.cgPair)::after{right:5px;top:9px;width:10px;height:16px;background:var(--mx-base-right,#ffc45f);clip-path:polygon(50% 0,100% 25%,92% 78%,50% 100%,0 72%,10% 20%);border-left:2px double #fff}
+.mxTrainingToken.cgPair{--mx-base-left:#43d8ff;--mx-base-right:#6ff0b8;box-shadow:0 0 10px rgba(67,216,255,.38),inset 0 0 0 2px rgba(255,255,255,.035)}
+.mxTrainingToken.backbone::before{left:6px;top:7px;width:6px;height:6px;border-radius:50%;background:#ffe372;box-shadow:6px 5px 0 0 #bd98ff,12px 10px 0 0 #ffe372,17px 15px 0 0 #bd98ff,21px 20px 0 0 #ffe372}
+.mxTrainingToken.backbone::after{left:8px;top:10px;width:22px;height:18px;border-bottom:2px solid #dffaff;transform:rotate(40deg);transform-origin:left top}
+
+
+/* ================= R136 ATOMIC LEVEL REVEAL ================= */
+/* Keep layout dimensions reserved while a level is being prepared. Visibility, not display,
+   prevents any right-column reflow and guarantees board + controls appear in one paint. */
+#gameScr.mxLevelPreparing #boardWrap{visibility:hidden!important}
+
+/* R140 · atomic action-column reveal + thermal budget.
+   Controls keep their final geometry from the very first visible puzzle frame.
+   Tutorial state disables a tool instead of hiding it and causing a late reflow. */
+#gameScr #actionCol,#gameScr #actionCol .btn{transition:none!important}
+body.mxGameplayActive #actionCol .btn.iconBadge:not(.on) .badgeIcon{animation:none!important;will-change:auto!important}
+body.mxGameplayActive #actionCol .btn.on .badgeIcon{animation-duration:.82s!important}
+@media (pointer:coarse), (max-width:760px){
+  body.mxGameplayActive #actionCol .btn.iconBadge:not(.on) .badgeIcon{filter:none!important;box-shadow:inset 0 0 0 1px rgba(189,246,255,.18)!important}
+}
+
+/* ================= R143 RESULT READABILITY FLOOR ================= */
+/* The compact molecule medallion repeated the already-visible heading name at
+   6.1px. Remove that redundant micro-copy and spend the recovered space on the
+   useful science explanation and action labels. The one-screen result contract
+   from R108 remains intact, including its non-scrolling safe-area geometry. */
+#modalBox.winResultModal .mxResultName{display:none!important}
+#modalBox.winResultModal .mxScienceLearnCard strong{font-size:8.4px!important}
+#modalBox.winResultModal .accountMilestoneInvite span{font-size:8px!important}
+@media(max-height:680px){
+  #modalBox.winResultModal .msub{font-size:8.5px!important}
+  #modalBox.winResultModal .mxScienceLearnCard strong{font-size:8.25px!important}
+  #modalBox.winResultModal .mxScienceLearnCard small{font-size:8.5px!important;line-height:1.1!important}
+  #modalBox.winResultModal .mxScienceLearnCard .mxScienceOpen{font-size:8.6px!important}
+  #modalBox.winResultModal .performanceResult{font-size:9px!important}
+  #modalBox.winResultModal>.mrow .btn{font-size:9.2px!important}
+}
+
+/* ===== R145 lightweight Moleculox brand arrival =====
+   Non-blocking: no dark overlay, no extra tap, and disabled for reduced motion. */
+#splash.mxLogoArrival #logoTitle{animation:mxR145LogoArrival .82s cubic-bezier(.16,.9,.24,1) both}
+#splash.mxLogoArrival #logoTop{animation:mxR145LogoTop .68s ease-out both}
+#splash.mxLogoArrival #logoSub{animation:mxR145LogoSub .72s ease-out .10s both}
+@keyframes mxR145LogoArrival{
+  0%{opacity:.15;transform:translateY(-5px) scale(.91);filter:brightness(1.8) drop-shadow(0 0 34px rgba(126,231,255,.9))}
+  42%{opacity:1;transform:translateY(1px) scale(1.045);filter:brightness(1.35) drop-shadow(0 0 24px rgba(157,123,255,.8))}
+  100%{opacity:1;transform:none;filter:drop-shadow(0 4px 0 rgba(40,20,120,.9)) drop-shadow(0 0 26px rgba(157,123,255,.65))}
+}
+@keyframes mxR145LogoTop{0%{opacity:0;letter-spacing:10px}100%{opacity:1;letter-spacing:5px}}
+@keyframes mxR145LogoSub{0%{opacity:0;transform:translateY(7px)}100%{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){#splash.mxLogoArrival #logoTitle,#splash.mxLogoArrival #logoTop,#splash.mxLogoArrival #logoSub{animation:none!important}}
+
+
+/* ================= R147 STORY ART PRESERVATION =================
+   Never crop user-supplied story panels. The complete 16:9/triptych artwork is
+   visible; text pages may reuse the same complete illustration rather than cut it. */
+#levelStoryPanel.storyTriptychPage.hasSceneArt .comicPanel.comicHero{
+  height:auto!important;max-height:none!important;min-height:0!important;aspect-ratio:1672/941!important;overflow:hidden!important;background:#09172c!important;
+}
+#levelStoryPanel.storyTriptychPage.hasSceneArt .comicHero .sceneArtFullR147{
+  position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;
+  object-fit:contain!important;object-position:center!important;margin:0!important;border:0!important;filter:none!important;background:#09172c!important;
+}
+@media(max-width:620px),(max-height:700px){
+  #levelStoryPanel.storyTriptychPage.hasSceneArt .comicPanel.comicHero{height:auto!important;max-height:none!important;aspect-ratio:1672/941!important;}
+}
+
+/* ================= R147 ACTION-COLUMN ELASTIC RETURN =================
+   Restore the older springy right-side icon personality. Transform-only and very
+   sparse, so it keeps the R146 thermal budget while bringing the controls back to life. */
+body.mxGameplayActive #actionCol .btn.iconBadge:not(.on) .badgeIcon{
+  animation:mxActionIconElastic 7.4s cubic-bezier(.34,1.56,.64,1) infinite!important;
+  transform-origin:50% 72%!important;will-change:auto!important;
+}
+body.mxGameplayActive #actionCol .btn.iconBadge:nth-child(2) .badgeIcon{animation-delay:-1.12s!important}
+body.mxGameplayActive #actionCol .btn.iconBadge:nth-child(3) .badgeIcon{animation-delay:-2.24s!important}
+body.mxGameplayActive #actionCol .btn.iconBadge:nth-child(4) .badgeIcon{animation-delay:-3.36s!important}
+body.mxGameplayActive #actionCol .btn.iconBadge:nth-child(5) .badgeIcon{animation-delay:-4.48s!important}
+body.mxGameplayActive #actionCol .btn.iconBadge:nth-child(6) .badgeIcon{animation-delay:-5.60s!important}
+body.mxGameplayActive #actionCol .btn.iconBadge:active .badgeIcon{animation:none!important;transform:scale(.82,.9) translateY(2px)!important}
+body.mxReduceMotion #actionCol .btn.iconBadge .badgeIcon{animation:none!important}
+@media(prefers-reduced-motion:reduce){body.mxGameplayActive #actionCol .btn.iconBadge .badgeIcon{animation:none!important}}
+
+/* ================= R152 STORY-VISUAL REBUILD =================
+   All dedicated story paintings share the authored 1672×941 frame. Triptych
+   checkpoints are positioned from explicit source-pixel crops, preserving
+   aspect ratio while giving every written beat its own readable mobile page. */
+#levelStoryPanel.hasSceneArt .comicPanel.comicHero{
+  position:relative!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  aspect-ratio:1672/941!important;
+  overflow:hidden!important;
+  background:#09172c!important;
+}
+#levelStoryPanel.hasSceneArt .comicHero .sceneArtFullR152{
+  position:absolute!important;
+  inset:0!important;
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:100%!important;
+  max-height:100%!important;
+  margin:0!important;
+  border:0!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  filter:none!important;
+  background:#09172c!important;
+}
+#levelStoryPanel.hasSceneArt .comicHero .sceneArtCropR152{
+  position:absolute!important;
+  inset:auto!important;
+  left:var(--mx-story-img-x,0)!important;
+  top:var(--mx-story-img-y,0)!important;
+  right:auto!important;
+  bottom:auto!important;
+  display:block!important;
+  width:var(--mx-story-img-w,100%)!important;
+  height:var(--mx-story-img-h,100%)!important;
+  min-width:0!important;
+  min-height:0!important;
+  max-width:none!important;
+  max-height:none!important;
+  margin:0!important;
+  border:0!important;
+  object-fit:fill!important;
+  object-position:center!important;
+  transform:none!important;
+  filter:none!important;
+  background:#09172c!important;
+}
+@media(max-width:620px),(max-height:700px){
+  #levelStoryPanel.hasSceneArt .comicPanel.comicHero{
+    height:auto!important;
+    min-height:0!important;
+    max-height:none!important;
+    aspect-ratio:1672/941!important;
+  }
+}
+
+/* ================= R155 RIGHT ACTION FRAME REFINEMENT =================
+   Make the visible right-side action tower one step lighter without sacrificing
+   mobile usability. The shortest layout keeps a genuine 44px touch target. */
+#gameScr #actionCol{
+  gap:7px!important;
+}
+#gameScr #actionCol .btn.iconBadge{
+  box-sizing:border-box!important;
+  width:54px!important;
+  height:64px!important;
+  min-width:54px!important;
+  min-height:64px!important;
+  padding:6px 3px 5px!important;
+  border-radius:14px!important;
+}
+#gameScr #actionCol .btn.iconBadge::before{
+  inset:3px!important;
+  border-radius:11px!important;
+}
+#gameScr #actionCol .btn.iconBadge .badgeIcon{
+  width:27px!important;
+  height:27px!important;
+  padding:3px!important;
+  border-radius:9px!important;
+}
+#gameScr #actionCol .btn.iconBadge small{
+  max-width:50px!important;
+  font-size:7.8px!important;
+  line-height:1!important;
+}
+@media(max-height:720px){
+  #gameScr #actionCol{gap:5px!important}
+  #gameScr #actionCol .btn.iconBadge{
+    width:48px!important;
+    height:46px!important;
+    min-width:48px!important;
+    min-height:46px!important;
+    padding:3px 2px!important;
+    border-radius:13px!important;
+  }
+  #gameScr #actionCol .btn.iconBadge::before{border-radius:10px!important}
+  #gameScr #actionCol .btn.iconBadge .badgeIcon{
+    width:21px!important;
+    height:21px!important;
+    padding:2px!important;
+    border-radius:8px!important;
+  }
+  #gameScr #actionCol .btn.iconBadge small{
+    max-width:44px!important;
+    font-size:6.6px!important;
+    letter-spacing:.1px!important;
+  }
+}
+@media(max-height:620px){
+  #gameScr #actionCol{gap:4px!important}
+  #gameScr #actionCol .btn.iconBadge{
+    width:46px!important;
+    height:44px!important;
+    min-width:46px!important;
+    min-height:44px!important;
+    padding:3px 2px!important;
+    border-radius:12px!important;
+  }
+  #gameScr #actionCol .btn.iconBadge::before{border-radius:9px!important}
+  #gameScr #actionCol .btn.iconBadge .badgeIcon{
+    width:19px!important;
+    height:19px!important;
+    padding:1px!important;
+  }
+  #gameScr #actionCol .btn.iconBadge small{
+    max-width:42px!important;
+    font-size:6.1px!important;
+    letter-spacing:0!important;
+  }
+}
+
+/* ================= R156 PERFORMANCE + ATOMIC GAMEPLAY UI =================
+   The board/action rail is pre-laid out by game.js and revealed together. Idle
+   utility icons stay still; authored tap, active-tool and short coach feedback
+   remain. While an atom moves, unrelated CSS loops yield the compositor. */
+#gameScr.mxLevelPreparing #boardWrap{pointer-events:none!important}
+body.mxGameplayActive #actionCol .btn.iconBadge:not(.on) .badgeIcon{
+  animation:none!important;
+  transform:none;
+  will-change:auto!important;
+}
+body.mxGameplayActive #actionCol .btn.mxToolReady:not(.mxToolCoachPulse){
+  animation:none!important;
+}
+body.mxAtomMoving #goalCard,
+body.mxAtomMoving #actionCol .btn,
+body.mxAtomMoving #actionCol .badgeIcon,
+body.mxAtomMoving #einBoxG .einImg,
+body.mxAtomMoving #moxyGameCompanion{
+  animation-play-state:paused!important;
+}
+body.mxAtomMoving #actionCol .badgeIcon{will-change:auto!important}
+
+
+/* ================= R157 FINAL TUTORIAL + ACTION-RAIL POLISH =================
+   - Preserve the premium dark laboratory chassis while giving each tool a subtle,
+     consistent functional accent for faster recognition.
+   - Restore transform-only elastic personality only while the board is idle.
+   - Suspend it completely while an atom is moving so input/animation stays crisp.
+   - Add a restrained swipe trail to the tutorial pointer; reduced-motion remains respected. */
+#tutorialArrowHint .tutGameArrow{position:relative}
+#tutorialArrowHint .tutGameArrow::after{
+  content:"";position:absolute;left:-12px;top:28px;width:28px;height:5px;border-radius:999px;
+  background:linear-gradient(90deg,transparent,rgba(121,235,255,.08) 18%,rgba(121,235,255,.52) 68%,rgba(255,246,163,.86));
+  box-shadow:0 0 9px rgba(93,225,255,.34);transform-origin:100% 50%;
+  animation:mxTutSwipeTrail 1.18s ease-in-out infinite;pointer-events:none;
+}
+@keyframes mxTutSwipeTrail{
+  0%,100%{opacity:.05;transform:translateX(-6px) scaleX(.42)}
+  42%{opacity:.85;transform:translateX(0) scaleX(1)}
+  72%{opacity:.22;transform:translateX(5px) scaleX(.62)}
+}
+
+/* Right-side action rail colors intentionally remain the approved pre-R157 palette.
+   Only the idle elastic motion is restored below; no per-tool color overrides. */
+/* R156 disabled the idle elastic loop globally. R157 restores it only when motion is idle. */
+body.mxGameplayActive:not(.mxAtomMoving) #actionCol .btn.iconBadge:not(.on) .badgeIcon{
+  animation:mxActionIconElastic 7.4s cubic-bezier(.34,1.56,.64,1) infinite!important;
+  transform-origin:50% 72%!important;
+}
+body.mxGameplayActive:not(.mxAtomMoving) #actionCol .btn.iconBadge:nth-child(2) .badgeIcon{animation-delay:-1.12s!important}
+body.mxGameplayActive:not(.mxAtomMoving) #actionCol .btn.iconBadge:nth-child(3) .badgeIcon{animation-delay:-2.24s!important}
+body.mxGameplayActive:not(.mxAtomMoving) #actionCol .btn.iconBadge:nth-child(4) .badgeIcon{animation-delay:-3.36s!important}
+body.mxGameplayActive:not(.mxAtomMoving) #actionCol .btn.iconBadge:nth-child(5) .badgeIcon{animation-delay:-4.48s!important}
+body.mxGameplayActive:not(.mxAtomMoving) #actionCol .btn.iconBadge:nth-child(6) .badgeIcon{animation-delay:-5.60s!important}
+body.mxAtomMoving #actionCol .btn.iconBadge .badgeIcon{animation:none!important;transform:none!important}
+
+body.mxReduceMotion #tutorialArrowHint .tutGameArrow::after,
+body.mxReduceMotion #actionCol .btn.iconBadge .badgeIcon{animation:none!important}
+@media(prefers-reduced-motion:reduce){
+  #tutorialArrowHint .tutGameArrow::after,
+  body.mxGameplayActive #actionCol .btn.iconBadge .badgeIcon{animation:none!important}
+}
+
+
+/* ================= R158 FINAL MASTER — UNDO RAIL MATCH =================
+   Undo no longer carries a unique purple frame. It uses the same neutral dark
+   action-rail chassis so it does not read as a different class of control. */
+#gameScr #btnUndo.iconBadge{
+  box-shadow:inset 0 0 0 1.5px rgba(224,233,245,.16),0 0 12px rgba(202,220,242,.12)!important;
+}
+#gameScr #btnUndo .badgeIcon{color:#d7e0ec!important}
+#gameScr #btnUndo.iconBadge:active{
+  box-shadow:inset 0 0 0 1.5px rgba(224,233,245,.34),0 0 18px rgba(202,220,242,.22)!important;
+}
+
+
+/* ================= R159 — MOBILE TUTORIAL BUBBLE HOTFIX =================
+   Keep the first Dr. E tutorial message readable on narrow mobile Safari/Chrome.
+   Gameplay geometry and regular Dr. E speech bubbles are intentionally untouched. */
+@media (orientation:portrait) and (max-width:430px){
+  #tutorialDialogue{
+    left:max(9px,calc(var(--sal) + 7px))!important;
+    right:max(9px,calc(var(--sar) + 7px))!important;
+    bottom:calc(var(--sab) + 10px)!important;
+    gap:7px!important;
+    align-items:flex-end!important;
+    box-sizing:border-box!important;
+  }
+  #tutorialEinFace{
+    display:block!important;
+    visibility:visible!important;
+    opacity:1!important;
+    width:46px!important;
+    height:46px!important;
+    flex:0 0 46px!important;
+  }
+  #tutorialBubble{
+    min-width:0!important;
+    max-width:calc(100vw - var(--sal) - var(--sar) - 78px)!important;
+    padding:9px 11px!important;
+    font-size:clamp(11px,3.15vw,12.5px)!important;
+    line-height:1.3!important;
+    border-radius:14px 14px 14px 4px!important;
+    overflow-wrap:break-word!important;
+    word-break:normal!important;
+    box-sizing:border-box!important;
+  }
+}
+@media (orientation:portrait) and (max-width:350px){
+  #tutorialEinFace{width:42px!important;height:42px!important;flex-basis:42px!important}
+  #tutorialBubble{font-size:11px!important;padding:8px 10px!important;max-width:calc(100vw - var(--sal) - var(--sar) - 70px)!important}
+}
+
+
+/* ================= R160 — HARD MOBILE TUTORIAL FIT =================
+   Guaranteed compact first-use tutorial card on mobile browsers, including
+   Safari visual/layout viewport mismatches. This touches only #tutorial* UI. */
+@media (orientation:portrait) and (max-width:600px){
+  body.tutorialMode #tutorialDialogue,
+  #tutorialOverlay.on #tutorialDialogue{
+    left:8px!important;
+    right:8px!important;
+    bottom:calc(var(--sab) + 10px)!important;
+    width:auto!important;
+    max-width:none!important;
+    gap:6px!important;
+    align-items:flex-end!important;
+    box-sizing:border-box!important;
+  }
+  body.tutorialMode #tutorialEinFace,
+  #tutorialOverlay.on #tutorialEinFace{
+    display:block!important;
+    visibility:visible!important;
+    opacity:1!important;
+    width:44px!important;
+    height:44px!important;
+    flex:0 0 44px!important;
+  }
+  body.tutorialMode #tutorialBubble,
+  #tutorialOverlay.on #tutorialBubble{
+    flex:1 1 0!important;
+    width:auto!important;
+    min-width:0!important;
+    max-width:none!important;
+    padding:8px 10px!important;
+    font-size:clamp(10.8px,2.95vw,11.8px)!important;
+    line-height:1.24!important;
+    border-radius:13px 13px 13px 4px!important;
+    white-space:normal!important;
+    overflow-wrap:anywhere!important;
+    word-break:normal!important;
+    box-sizing:border-box!important;
+    -webkit-text-size-adjust:100%!important;
+    text-size-adjust:100%!important;
+  }
+}
+@media (orientation:portrait) and (max-width:360px){
+  body.tutorialMode #tutorialEinFace,
+  #tutorialOverlay.on #tutorialEinFace{width:40px!important;height:40px!important;flex-basis:40px!important}
+  body.tutorialMode #tutorialBubble,
+  #tutorialOverlay.on #tutorialBubble{font-size:10.6px!important;padding:7px 9px!important}
 }
