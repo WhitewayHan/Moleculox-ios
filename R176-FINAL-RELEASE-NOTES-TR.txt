@@ -1,0 +1,8 @@
+Moleculox R176 / v8.7.73 — SUPPORT RAIL UI HOTFIX
+
+- R175 oyun davranışı korunmuştur.
+- 1 SQUARE / Tek Kare Hareket butonu sağ yardımcı panelde yeniden görünür hale getirildi.
+- Nano Barrier butonunun üzerindeki 300 MoleCoin fiyat rozeti kaldırıldı.
+- Barrier fiyatı değişmedi: 300 MoleCoin; fiyat yalnız satın alma/yerleştirme akışında gösterilir.
+- Kullanılmış Barrier durumu ✓ ile gösterilmeye devam eder.
+- Notification / izin / reminder sistemi yoktur.

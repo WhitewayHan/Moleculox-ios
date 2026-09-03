@@ -1,0 +1,20 @@
+
+'use strict';
+const fs=require('fs'),path=require('path');const root=path.resolve(__dirname,'..');
+const read=n=>fs.readFileSync(path.join(root,n),'utf8'),must=(c,m)=>{if(!c)throw new Error(m);};
+const game=read('www/js/game.js'),css=read('www/css/app.css'),fb=read('www/js/firebase.js'),idx=read('www/index.html');
+const pkg=JSON.parse(read('package.json')),manifest=JSON.parse(read('www/manifest.webmanifest'));
+must(pkg.version==='8.7.67'&&manifest.version==='8.7.67','R171 version mismatch');
+must(game.includes('const APP_VERSION="v8.7.67";')&&idx.includes('8.7.67-r171-goal-signals-ios'),'R171 build id mismatch');
+must(game.includes('const goalEvery=Number.POSITIVE_INFINITY')&&!game.includes("drawMol($('#goalCv'),curMol,false,t);"),'GOAL canvas still redraws/animates periodically');
+must(game.includes('function setGoalLastMoveSignal(on)')&&game.includes('mxGoalLastMovePulse')&&css.includes('@keyframes mxGoalLastMoveTwoPulse'),'finite gold last-move signal missing');
+must(game.includes('function setDeadlockVisual(on)')&&css.includes('#boardFrame.mxDeadlock'),'deadlock red-board signal missing');
+must(game.includes('Oyunu kilitledin')&&game.includes('I did not reset the board'),'Einstein non-resetting deadlock copy missing');
+must(!game.includes('Deneyi başa alıyorum…')&&!game.includes('I am restarting the experiment…'),'legacy automatic deadlock restart copy remains');
+must(game.includes('function goalSignalGuideHtml()')&&game.includes('TAHTA SİNYALLERİ')&&game.includes('BOARD SIGNALS')&&game.includes('SEGNALI DELLA TAVOLA'),'9-language How to Play signal section missing');
+must(game.includes('const BARRIER_USE_PRICE=300;')&&game.includes('spendCoins(BARRIER_USE_PRICE)'),'paid Barrier regression');
+must(game.includes('R170 · AAA static Unstable Atom'),'AAA unstable atom regression');
+must(!pkg.dependencies['@capacitor/local-notifications'],'Local Notifications dependency returned');
+must(!/LocalNotifications|MX_RETURN_REMINDER_IDS|requestPermissions\s*\(.*notification/i.test(game),'notification runtime returned');
+must(!fb.includes('savePushToken')&&!fb.includes('updatePushLang'),'push-token code returned');
+console.log('R171 ios goal-signal checks passed.');

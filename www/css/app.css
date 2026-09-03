@@ -11748,3 +11748,67 @@ body.mxReduceMotion #actionCol .btn.iconBadge .badgeIcon{animation:none!importan
   -webkit-tap-highlight-color:transparent;
 }
 html,body{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
+
+/* R168 barrier hotfix: keep the one-use tool visible as a calm USED state. */
+#btnBarrier.used{opacity:.78;box-shadow:inset 0 0 0 1px rgba(255,215,100,.38)}
+#btnBarrier.used .badgeIcon{animation:none!important;filter:saturate(.72)}
+
+
+/* ================= R169 — SUPPORT ECONOMY / MOLECOIN CONSISTENCY ================= */
+#btnBarrier .barrierCount{display:inline-flex;align-items:center;justify-content:center;gap:4px;min-width:34px;white-space:nowrap}
+#btnBarrier .barrierCount .coinIcon{width:14px;height:14px;flex:0 0 14px;animation:none!important}
+#btnBarrier .barrierCount .coinIcon::after{width:10px;height:5px}
+#btnBarrier.used .barrierCount{font-weight:1000;color:#fff1a0}
+.mxInlineMoleCoin{display:inline-flex;align-items:center;justify-content:center;gap:5px;white-space:nowrap;vertical-align:middle}
+.mxInlineMoleCoin .coinIcon{width:18px;height:18px;flex:0 0 18px;animation:none!important}
+.mxInlineMoleCoin .coinIcon::after{width:12px;height:5px}
+.mxHintBalance{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:8px;font-weight:900;color:#ffe68a}
+.mxHintPriceBtn{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:10px!important;width:min(94%,520px)!important;text-align:left!important}
+.mxHintPriceBtn>span:first-child{min-width:0;overflow-wrap:anywhere}
+.mxHintPriceBtn>span:last-child{display:inline-flex;align-items:center;gap:5px;flex:0 0 auto}
+.mxBarrierPrice{display:flex;align-items:center;justify-content:center;gap:6px}
+.mxBarrierPrice .coinIcon{animation:none!important}
+@media(max-width:390px){.mxHintPriceBtn{width:100%!important;font-size:12.5px!important;gap:7px!important}.mxInlineMoleCoin .coinIcon{width:16px;height:16px;flex-basis:16px}}
+
+
+/* ================= R170 — HELPER AVAILABILITY / STATIC SCIENCE POLISH ================= */
+#btnHammer.mxUnavailable,#btnPrecision.mxUnavailable,#btnBarrier.mxUnavailable{opacity:.58;filter:saturate(.55) brightness(.92);}
+#btnHammer.mxUnavailable .hammerCount,#btnPrecision.mxUnavailable .precisionCount,#btnBarrier.mxUnavailable .barrierCount{opacity:.82;font-weight:900;}
+#btnHammer.mxUnavailable:active,#btnPrecision.mxUnavailable:active,#btnBarrier.mxUnavailable:active{transform:scale(.97);}
+
+
+/* ================= R171 — STATIC GOAL / BOARD SIGNALS ================= */
+/* GOAL is intentionally calm. Legacy perpetual breathing/near/success/pop
+   classes are neutralized. The only permitted motion is the finite two-pulse
+   last-move signal below. */
+#goalCard.mxGoalBreath,#goalCard.mxGoalNear,#goalCard.mxGoalSuccess,#goalCard.goalPop{
+  animation:none!important;transform:none!important;
+}
+#goalCard.mxGoalLastMove{
+  border-color:rgba(255,211,86,.95)!important;
+  box-shadow:0 0 0 1px rgba(255,220,105,.48),0 0 18px rgba(255,190,55,.34),inset 0 0 13px rgba(255,210,84,.08)!important;
+}
+#goalCard.mxGoalLastMove.mxGoalLastMovePulse{
+  animation:mxGoalLastMoveTwoPulse .52s ease-in-out 2!important;
+}
+@keyframes mxGoalLastMoveTwoPulse{
+  0%,100%{filter:none;transform:scale(1)}
+  50%{filter:brightness(1.12) drop-shadow(0 0 9px rgba(255,197,65,.58));transform:scale(1.018)}
+}
+#boardFrame.mxDeadlock{
+  border-color:rgba(255,76,86,.96)!important;
+  box-shadow:0 0 0 2px rgba(255,76,86,.30),0 0 24px rgba(255,45,66,.30),0 18px 40px rgba(0,0,0,.55),inset 0 0 16px rgba(255,48,62,.07)!important;
+  animation:none!important;transform:none!important;
+}
+body.mxReduceMotion #goalCard.mxGoalLastMove.mxGoalLastMovePulse{animation:none!important}
+@media (prefers-reduced-motion:reduce){#goalCard.mxGoalLastMove.mxGoalLastMovePulse{animation:none!important}}
+
+
+
+/* ================= R172 — QUIET 501-CAMPAIGN DISCOVERY ================= */
+#campaign501Badge{display:inline-flex;align-items:center;justify-content:center;margin-top:8px;padding:4px 9px;border:1px solid rgba(155,205,238,.25);border-radius:999px;background:rgba(11,30,53,.34);color:rgba(220,239,251,.78);font-size:10px;font-weight:900;letter-spacing:.85px;line-height:1;white-space:nowrap;animation:none!important;transform:none!important;box-shadow:none!important;text-shadow:none!important}
+@media(max-height:700px){#campaign501Badge{margin-top:5px;padding:3px 8px;font-size:9px;letter-spacing:.7px}}
+body.mxNative #campaign501Badge{font-size:9.5px;margin-top:6px}
+
+/* ================= R176 SUPPORT-RAIL UI HOTFIX ================= */
+#btnBarrier .barrierCount:empty{display:none!important}

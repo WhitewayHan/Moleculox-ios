@@ -20,11 +20,14 @@ for(const id of ['gold_scope','holo_table','quantum_desk','robot','collider','ar
   const end=game.indexOf('}',game.indexOf('desc:{',start));const row=game.slice(start,end+1);
   for(const key of six)must(row.includes(key),`Lab item ${id} description missing ${key.slice(0,2)}`);
 }
-for(const id of ['hammer','precision','barrier']){
+for(const id of ['hammer','precision']){
   const start=game.indexOf(`{id:'${id}'`,game.indexOf('const BOOSTER_ITEMS=['));must(start>=0,`Missing booster ${id}`);
   const end=game.indexOf('}',game.indexOf('desc:{',start));const row=game.slice(start,end+1);
   for(const key of six)must(row.includes(key),`Booster ${id} description missing ${key.slice(0,2)}`);
 }
+must(game.includes('const BARRIER_USE_PRICE=300;'), 'Paid Barrier price missing');
+must(game.includes('Nano Bariyer için 300 MoleCoin gerekiyor.'), 'Paid Barrier Turkish copy missing');
+must(game.includes('Nano Barrier costs 300 MoleCoin.'), 'Paid Barrier English copy missing');
 for(const id of ['polar','collider','mars']){
   const start=game.indexOf(`{id:'${id}'`,game.indexOf('const LAB_MISSIONS=['));must(start>=0,`Missing lab mission ${id}`);
   const end=game.indexOf('progress:',start);const row=game.slice(start,end);

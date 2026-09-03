@@ -1,0 +1,8 @@
+Moleculox R177 / v8.7.73 — UNIFIED CAMPAIGN PERFORMANCE
+
+- R176 gameplay/economy/progress fixes preserved.
+- Levels 302–501 now use the early-campaign interaction-priority render discipline during mobile atom movement.
+- While an atom is sliding, secondary Rift/Portal/Rotation/Enzyme/Bio/Crystal/Nano Barrier decorative motion yields temporarily.
+- Fusion/Sticky/Linked background pulses and stationary atom bobbing also pause during the move on Levels 302–501.
+- Actual mechanic activation FX, teleport bursts, Fusion completion, win FX and level-completion board choreography are preserved.
+- 501-level cloud/progress sync, Barrier 300 MoleCoin flow, One-Square, GOAL/deadlock signals and notification removal remain intact.

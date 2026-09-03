@@ -1,0 +1,9 @@
+Moleculox R173 / v8.7.69 — 302–501 İlerleme + Performans Hotfix
+
+- Cloud merge ve leaderboard seviye sınırı 301 -> 501.
+- 302–501 yıldız, bestMoves, speedRuns, RP ve current-level verisi artık cloud merge sırasında kırpılmaz.
+- Bölüm bitişinde yinelenen cloud autosave yükü azaltıldı; local kayıt anında, authoritative checkpoint arka planda.
+- 302–501 ana kampanyada statik ileri mekanikler tüm board canvasını boşta sürekli yeniden çizdirmiyor.
+- Atom hareketi, kısa olay efektleri ve board shake/jolt korunuyor.
+- 1–301 render davranışı değiştirilmedi.
+- Notification sistemi yok.

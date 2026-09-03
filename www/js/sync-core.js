@@ -2,7 +2,7 @@
 (function(root){
   'use strict';
 
-  const MAX_LEVELS=301;
+  const MAX_LEVELS=501;
   const MAX_DAILY_SCORES=130;
   const SUPPORTED_LANGS=['en','tr','de','es','pt','ja','fr','zh','it'];
   function cleanLang(v){v=String(v||'');return SUPPORTED_LANGS.includes(v)?v:'en';}
@@ -105,7 +105,7 @@
     out.playerName=cleanName(preferField(left,right,settingsSide,'playerName','Player'));
 
     out.stars=mergeMaxMap(left.stars,right.stars,MAX_LEVELS,3);
-    out.disc=mergeTruthMap(left.disc,right.disc,130);
+    out.disc=mergeTruthMap(left.disc,right.disc,501);
     out.achv=mergeTruthMap(left.achv,right.achv,80);
     out.speedRuns=mergeMinPositiveMap(left.speedRuns,right.speedRuns,MAX_LEVELS);
     out.bestMoves=mergeMinPositiveMap(left.bestMoves,right.bestMoves,MAX_LEVELS);
@@ -147,8 +147,8 @@
     out.effectLevel=['low','normal','high'].includes(preferField(left,right,settingsSide,'effectLevel','normal'))?preferField(left,right,settingsSide,'effectLevel','normal'):'normal';
     out.performanceMode=['auto','low','high'].includes(preferField(left,right,settingsSide,'performanceMode','auto'))?preferField(left,right,settingsSide,'performanceMode','auto'):'auto';
     out.collectionFilter=String(preferField(left,right,settingsSide,'collectionFilter','all')||'all').slice(0,24);
-    out.favoriteMolecules=mergeTruthMap(left.favoriteMolecules,right.favoriteMolecules,200);
-    out.storySeen=mergeTruthMap(left.storySeen,right.storySeen,25);
+    out.favoriteMolecules=mergeTruthMap(left.favoriteMolecules,right.favoriteMolecules,501);
+    out.storySeen=mergeTruthMap(left.storySeen,right.storySeen,128);
     out.storySchema=Math.max(0,int(left.storySchema,0,10),int(right.storySchema,0,10));
     out.labTheme=String(preferField(left,right,settingsSide,'labTheme','basic')||'basic').slice(0,32);
     out.quantumHintDay=String(preferField(left,right,settingsSide,'quantumHintDay','')||'').slice(0,16);

@@ -1,21 +1,20 @@
 {
   "name": "moleculox-ios",
-  "version": "8.7.59",
+  "version": "8.7.73",
   "private": true,
-  "description": "Moleculox IOS R163 / v8.7.59 Codemagic final with consent-based sparse local reminders. R163 permanently disables double-tap browser zoom while preserving the R161 My Molecules stability fix, 501-level campaign, native authentication and protected cloud/duel systems.",
+  "description": "Moleculox IOS R177 / v8.7.73 FINAL: unified 1–501 render/cadence policy with interaction-priority advanced mechanics; 501 cloud progress and support economy preserved; no notification runtime.",
   "scripts": {
     "ios:prepare": "bash scripts/prepare-ios.sh",
     "ios:sync": "npx cap sync ios",
     "ios:open": "npx cap open ios",
-    "check": "node scripts/verify-all-js.js && node scripts/verify-language-completion-matrix.js && node scripts/verify-ui-localization.js && node scripts/verify-r163-final.js && node scripts/verify-native-cache-version.js"
+    "check": "node scripts/verify-all-js.js && node scripts/verify-language-completion-matrix.js && node scripts/verify-ui-localization.js && node scripts/verify-r177-final.js && node scripts/verify-native-cache-version.js && node scripts/verify-r176-support-rail.js"
   },
   "dependencies": {
     "@capacitor/core": "7.4.2",
     "@capacitor/ios": "7.4.2",
     "@capacitor-firebase/app-check": "7.3.1",
     "@capacitor-firebase/authentication": "7.3.1",
-    "firebase": "11.10.0",
-    "@capacitor/local-notifications": "7.0.7"
+    "firebase": "11.10.0"
   },
   "devDependencies": {
     "@capacitor/cli": "7.4.2"

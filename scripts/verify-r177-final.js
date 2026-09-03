@@ -1,0 +1,25 @@
+const fs=require('fs'),path=require('path');
+function must(v,msg){if(!v){console.error('R177 FAIL:',msg);process.exit(1);}}
+const root=path.resolve(__dirname,'..'),www=path.join(root,'www');
+const game=fs.readFileSync(path.join(www,'js','game.js'),'utf8');
+const sync=fs.readFileSync(path.join(www,'js','sync-core.js'),'utf8');
+const fb=fs.readFileSync(path.join(www,'js','firebase.js'),'utf8');
+const idx=fs.readFileSync(path.join(www,'index.html'),'utf8');
+const pkg=JSON.parse(fs.readFileSync(path.join(root,'package.json'),'utf8'));
+const manifest=JSON.parse(fs.readFileSync(path.join(www,'manifest.webmanifest'),'utf8'));
+const platform=pkg.name.includes('ios')?'ios':'android';
+const build=`8.7.73-r177-final-${platform}`;
+must(pkg.version==='8.7.73'&&manifest.version==='8.7.73','version mismatch');
+must(game.includes('const APP_VERSION="v8.7.73";'),'visible app version mismatch');
+must(idx.includes(build),'build identity mismatch');
+must(sync.includes('const MAX_LEVELS=501;'),'sync MAX_LEVELS is not 501');
+must(fb.includes('const LEADERBOARD_LEVEL_COUNT = 501;'),'leaderboard still capped below 501');
+must(game.includes('function advancedCampaignLevelActive()'),'advanced campaign detector missing');
+must(!game.includes('function expansionAdaptiveRenderActive()'),'302–501 still has separate expansion scheduling function');
+must(!game.includes('mxExpansionBoardCompositeSig'),'302–501 still has separate composite-signature render path');
+must(game.includes('R177 UNIFIED 1–501: one board scheduling path for the entire campaign.'),'unified main-loop marker missing');
+must(game.includes('const expansionMotionCalm=advancedCampaignLevelActive()'),'interaction-priority advanced-mechanic calm path missing');
+for(const token of ['drawEnzymeGate(enzymeGate,t,expansionMotionCalm)','drawRotationPad(p,t,expansionMotionCalm)','drawRiftTile(p,t,expansionMotionCalm)','drawPortalTile(p,t,expansionMotionCalm)','drawNanoBarrier(b.x,b.y,t,expansionMotionCalm)','drawCrystalToken((c.x+0.5)*T,(c.y+0.5)*T,t,c.type,expansionMotionCalm)']) must(game.includes(token),`advanced mechanic not unified: ${token}`);
+must(game.includes('window.MX_LEVEL_FX_RECIPES'),'501 completion FX recipe path missing');
+must(!game.includes('LocalNotifications')&&!game.includes('PushNotifications'),'notification runtime returned');
+console.log('R177 unified 1–501 render/progress checks passed.');

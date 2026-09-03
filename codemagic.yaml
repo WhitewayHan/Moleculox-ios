@@ -1,6 +1,6 @@
 workflows:
   moleculox-ios-app-store:
-    name: Moleculox R163 v8.7.59 iOS App Store
+    name: Moleculox R177 v8.7.73 iOS App Store
     instance_type: mac_mini_m2
     max_build_duration: 120
     integrations:
@@ -20,13 +20,15 @@ workflows:
         script: npm install
       - name: Install Python icon library
         script: pip3 install --user Pillow
-      - name: Validate R163 iOS source
+      - name: Validate R177 iOS source
         script: |
           npm run check
-          grep -Fq 'const APP_VERSION="v8.7.59";' www/js/game.js
+          grep -Fq 'const APP_VERSION="v8.7.73";' www/js/game.js
           grep -Fq 'R162 DOUBLE-TAP ZOOM LOCK' www/js/game.js
-          grep -Fq 'R163 CONSENT-BASED LOCAL RETURN REMINDERS' www/js/game.js
-          grep -Fq '@capacitor/local-notifications' package.json
+          grep -Fq 'const BARRIER_USE_PRICE=300;' www/js/game.js
+          grep -Fq 'spendCoins(BARRIER_USE_PRICE)' www/js/game.js
+          ! grep -Fq '@capacitor/local-notifications' package.json
+          ! grep -Fq 'LocalNotifications' www/js/game.js
           grep -Fq 'async function nativeGoogleSignIn(button)' www/js/game.js
           grep -Fq 'async function nativeAppleSignIn(button)' www/js/game.js
           grep -Fq 'const MX_SHOW_APPLE_BTN=MX_IOS_NATIVE&&MX_APPLE_NATIVE_READY;' www/js/game.js
@@ -42,7 +44,7 @@ workflows:
         script: |
           BUILD_NUMBER="$(date +%s)"
           /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD_NUMBER" ios/App/App/Info.plist
-          /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString 8.7.59" ios/App/App/Info.plist
+          /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString 8.7.73" ios/App/App/Info.plist
           cd ios/App
           agvtool new-version -all "$BUILD_NUMBER"
       - name: Apply App Store signing profiles

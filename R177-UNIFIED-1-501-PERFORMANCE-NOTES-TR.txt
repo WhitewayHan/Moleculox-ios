@@ -1,0 +1,8 @@
+Moleculox R177 / v8.7.73 — UNIFIED 1–501 PERFORMANCE & ANIMATION PASS
+
+- 302–501 artık ayrı expansion-only ana render/cadence yolu kullanmıyor.
+- 1–301 ile aynı ana loop ve board cadence kararı 1–501 kampanyanın tamamında kullanılıyor.
+- 302–501’de ağır yeni mekaniklerin ikincil animasyonları atom kayarken mobilde sakinleşiyor; ana hareket öncelik alıyor.
+- Portal/Rift/Rotation/Enzyme/Bio/Crystal/Nano Barrier görselleri beklerken canlı kalıyor; atom hareketi sırasında pahalı pulse/spin/blur detayları geçici olarak düşük maliyetli statik forma geçiyor.
+- Mekanik tetiklenme, teleport, fusion, atom hareketi ve 501 seviyelik bölüm sonu başarı/sarsılma efektleri korunuyor.
+- GOAL/deadlock, Barrier ekonomisi, 501 cloud progress ve notification kaldırılması aynen korunuyor.

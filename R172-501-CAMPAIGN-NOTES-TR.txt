@@ -1,0 +1,7 @@
+Moleculox R172 / v8.7.68 — 501 Campaign Discovery
+
+- Main menu: subtle static “501 experiments” badge, localized in 9 languages.
+- Dr. E: one-time in-game bubble per player explaining that the campaign contains 501 experiments.
+- No animation added to the badge.
+- R171 gameplay, static GOAL, deadlock signals, helper economy, and performance behavior preserved.
+- OS notification/reminder runtime and permission prompts remain absent.

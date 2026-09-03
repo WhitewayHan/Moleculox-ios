@@ -1,0 +1,1 @@
+R171 / v8.7.67: static GOAL, finite gold one-move signal, static red verified-deadlock board, no auto restart, 9-language How to Play, no notification runtime.

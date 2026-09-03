@@ -862,7 +862,7 @@ async function cleanupPlaceholderRankingRows() {
 // Firestore rules validate identity, field types, sensible limits and
 // monotonic progress. This deters casual tampering, but a client-written
 // leaderboard cannot provide the same anti-cheat guarantees as a server.
-const LEADERBOARD_LEVEL_COUNT = 301;
+const LEADERBOARD_LEVEL_COUNT = 501;
 const RP_SCHEMA = 3;
 const SAVE_SCHEMA = 5;
 const LEADERBOARD_SPEED_LEVELS = [2, 15, 35, 45, 55, 65];
@@ -2742,41 +2742,6 @@ document.addEventListener("visibilitychange", resumePresenceAfterPageReturn);
 window.addEventListener("pageshow", resumePresenceAfterPageReturn);
 window.addEventListener("pagehide", () => { stopPresence(); });
 
-// Added 2026-07-30: stores one push-notification token per device under
-// pushTokens/{uid}, keyed by token so multiple devices per account are all
-// kept (not overwritten). Written by mxInitPush() in game.js once the native
-// Capacitor Push Notifications plugin successfully registers. `lang` is
-// stored top-level on the doc (not per-token) so the reminder Cloud Function
-// can pick the right one of the 8 supported languages. Requires a matching
-// Firestore rule allowing the signed-in uid to write only its own
-// pushTokens/{uid} document — see the release notes for the exact rule text.
-async function savePushToken(token, platform, lang) {
-  await readyPromise;
-  if (!db || !uid || !token) return { ok: false, reason: "not-ready" };
-  try {
-    await setDoc(
-      doc(db, "pushTokens", uid),
-      { lang: ["en","tr","de","es","pt","ja","fr","zh"].includes(lang) ? lang : "en",
-        tokens: { [token]: { platform: platform || "unknown", updatedAt: serverTimestamp() } } },
-      { merge: true }
-    );
-    return { ok: true };
-  } catch (e) {
-    console.warn("[MXCloud] savePushToken failed:", e && e.code, e && e.message);
-    return { ok: false, reason: (e && (e.code || e.message)) || "error" };
-  }
-}
-async function updatePushLang(lang) {
-  await readyPromise;
-  if (!db || !uid || !["en","tr","de","es","pt","ja","fr","zh"].includes(lang)) return { ok: false };
-  try {
-    await setDoc(doc(db, "pushTokens", uid), { lang }, { merge: true });
-    return { ok: true };
-  } catch (e) {
-    return { ok: false, reason: (e && (e.code || e.message)) || "error" };
-  }
-}
-
 function sanitizeTelemetryParams(params={}) {
   const out={};
   Object.entries(params||{}).slice(0,24).forEach(([k,v])=>{
@@ -2834,7 +2799,7 @@ window.MXCloud = {
   cloudContextSnapshot, cloudContextMatches,
   isSkippedSaveResult: (value) => !!(value && value.__mxSaveSkipped),
   refreshPersistence, connectGoogle, connectGoogleIdToken, connectApple, connectAppleIdToken, registerEmail, signInEmail, resetPassword, signOutToGuest, deleteCurrentAuthAccount, deleteAccountAndData, setAuthDisplayName,
-  saveProgress, saveProgressNow, getLastSaveError, loadProfile, listProfiles, syncLeaderboard, repairLeaderboard, savePushToken, updatePushLang,
+  saveProgress, saveProgressNow, getLastSaveError, loadProfile, listProfiles, syncLeaderboard, repairLeaderboard,
   startLevelAttempt, submitLevelResult, updateDisplayName, claimDailyExperiment,
   deleteCloudProfile, cleanupOrphanRankingRows, cleanupPlaceholderRankingRows, reportPlayerName,
   getLeaderboard, getWeeklyLeaderboard, getMonthlyLeaderboard, getMyRankingStatus, clearLeaderboardCache: clearLeaderboardCaches, getChampions,

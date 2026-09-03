@@ -1,5 +1,5 @@
-/* Moleculox v8.7.59 — R163 iOS final: collection crash guard + double-tap zoom lock + consent-based local reminders. */
-const APP_VERSION="v8.7.59";
+/* Moleculox v8.7.73 — R177 UNIFIED CAMPAIGN PERFORMANCE: Levels 302–501 now use the same interaction-priority render discipline as Levels 1–301; secondary advanced-mechanic animation yields while atoms move; gameplay/FX events preserved; no OS notification runtime. */
+const APP_VERSION="v8.7.73";
 const mxReducedMotionQuery=window.matchMedia?window.matchMedia('(prefers-reduced-motion: reduce)'):null;
 let mxSystemReducedMotion=!!(mxReducedMotionQuery&&mxReducedMotionQuery.matches);
 if(mxReducedMotionQuery){
@@ -2279,15 +2279,15 @@ for(const [lang,copy] of Object.entries(R111_ENZYME_COPY)){if(I18N[lang])Object.
 
 /* R150 · player-facing science re-theme. Internal `zombie` remains unchanged for save/solver compatibility. */
 const R150_UNSTABLE_COPY={
-  en:{zombieTitle:'⚠️ Unstable Atom',zombieIntro:'⚠️ Unstable atom detected. Contact can transfer its instability to another atom, up to two times. Heat or an electrical charge can stabilize it again.',zombieDesc:'Contact can transfer instability up to two times. Heat or an electrical charge stabilizes an unstable atom.',zombieMsg:'⚠️ Instability transferred! That atom is unstable now.',cureMsg:'✨ Stabilized! The atom returned to a normal state.'},
-  tr:{zombieTitle:'⚠️ Kararsız Atom',zombieIntro:'⚠️ Kararsız atom tespit edildi. Temas, kararsızlığı başka bir atoma en fazla iki kez aktarabilir. Isı veya elektrik yükü atomu yeniden kararlı hâle getirir.',zombieDesc:'Temasla kararsızlığı en fazla iki kez aktarır. Isı veya elektrik yükü kararsız atomu yeniden dengeler.',zombieMsg:'⚠️ Kararsızlık aktarıldı! Bu atom artık kararsız.',cureMsg:'✨ Stabilize oldu! Atom yeniden normal duruma döndü.'},
-  de:{zombieTitle:'⚠️ Instabiles Atom',zombieIntro:'⚠️ Instabiles Atom erkannt. Kontakt kann die Instabilität bis zu zweimal auf andere Atome übertragen. Wärme oder elektrische Ladung stabilisiert es wieder.',zombieDesc:'Überträgt Instabilität bei Kontakt bis zu zweimal. Wärme oder elektrische Ladung stabilisiert das Atom.',zombieMsg:'⚠️ Instabilität übertragen! Dieses Atom ist jetzt instabil.',cureMsg:'✨ Stabilisiert! Das Atom ist wieder normal.'},
-  es:{zombieTitle:'⚠️ Átomo inestable',zombieIntro:'⚠️ Átomo inestable detectado. El contacto puede transferir la inestabilidad hasta dos veces. El calor o una carga eléctrica lo estabilizan de nuevo.',zombieDesc:'El contacto puede transferir la inestabilidad hasta dos veces. El calor o la carga eléctrica estabilizan el átomo.',zombieMsg:'⚠️ ¡Inestabilidad transferida! Ese átomo ahora es inestable.',cureMsg:'✨ ¡Estabilizado! El átomo volvió a su estado normal.'},
-  pt:{zombieTitle:'⚠️ Átomo instável',zombieIntro:'⚠️ Átomo instável detectado. O contato pode transferir a instabilidade até duas vezes. Calor ou carga elétrica o estabilizam novamente.',zombieDesc:'O contato pode transferir instabilidade até duas vezes. Calor ou carga elétrica estabilizam o átomo.',zombieMsg:'⚠️ Instabilidade transferida! Esse átomo agora está instável.',cureMsg:'✨ Estabilizado! O átomo voltou ao estado normal.'},
-  ja:{zombieTitle:'⚠️ 不安定原子',zombieIntro:'⚠️ 不安定原子を検出。接触すると不安定性が最大2回まで別の原子へ伝わります。熱または電荷で再び安定化できます。',zombieDesc:'接触で不安定性が最大2回伝わります。熱または電荷で安定化できます。',zombieMsg:'⚠️ 不安定性が伝わった！この原子は現在不安定です。',cureMsg:'✨ 安定化完了！原子は通常状態に戻りました。'},
-  fr:{zombieTitle:'⚠️ Atome instable',zombieIntro:'⚠️ Atome instable détecté. Le contact peut transmettre son instabilité jusqu’à deux fois. La chaleur ou une charge électrique le stabilise à nouveau.',zombieDesc:'Le contact peut transmettre l’instabilité jusqu’à deux fois. La chaleur ou une charge électrique stabilise l’atome.',zombieMsg:'⚠️ Instabilité transmise ! Cet atome est maintenant instable.',cureMsg:'✨ Stabilisé ! L’atome est revenu à son état normal.'},
-  zh:{zombieTitle:'⚠️ 不稳定原子',zombieIntro:'⚠️ 检测到不稳定原子。接触可将不稳定状态最多传递两次。热量或电荷可使它重新稳定。',zombieDesc:'接触可最多传递两次不稳定状态。热量或电荷可以使原子重新稳定。',zombieMsg:'⚠️ 不稳定状态已传递！该原子现在处于不稳定状态。',cureMsg:'✨ 已稳定！原子恢复正常状态。'},
-  it:{zombieTitle:'⚠️ Atomo instabile',zombieIntro:'⚠️ Atomo instabile rilevato. Il contatto può trasferire l’instabilità fino a due volte. Il calore o una carica elettrica lo stabilizzano di nuovo.',zombieDesc:'Il contatto può trasferire l’instabilità fino a due volte. Calore o carica elettrica stabilizzano l’atomo.',zombieMsg:'⚠️ Instabilità trasferita! Questo atomo ora è instabile.',cureMsg:'✨ Stabilizzato! L’atomo è tornato allo stato normale.'}
+  en:{zombieTitle:'Unstable Atom',zombieIntro:'Unstable atom detected. Its fractured-core double-orbit mark means contact can transfer instability to another atom, up to two times. Heat or an electrical charge can stabilize it again.',zombieDesc:'The fixed double orbit and fractured energy core mark an unstable atom. Contact can transfer instability up to two times; heat or electrical charge stabilizes it.',zombieMsg:'Instability transferred! That atom is unstable now.',cureMsg:'✨ Stabilized! The atom returned to a normal state.'},
+  tr:{zombieTitle:'Kararsız Atom',zombieIntro:'Kararsız atom tespit edildi. Çatlak enerji çekirdeği ve çift yörünge işareti, temasla kararsızlığın başka bir atoma en fazla iki kez aktarılabileceğini gösterir. Isı veya elektrik yükü atomu yeniden kararlı hâle getirir.',zombieDesc:'Sabit çift yörünge ve çatlak enerji çekirdeği kararsız atomu gösterir. Temasla kararsızlığı en fazla iki kez aktarır; ısı veya elektrik yükü yeniden dengeler.',zombieMsg:'Kararsızlık aktarıldı! Bu atom artık kararsız.',cureMsg:'✨ Stabilize oldu! Atom yeniden normal duruma döndü.'},
+  de:{zombieTitle:'Instabiles Atom',zombieIntro:'Instabiles Atom erkannt. Die feste Doppelbahn und der gebrochene Energiekern zeigen, dass Kontakt die Instabilität bis zu zweimal auf andere Atome übertragen kann. Wärme oder elektrische Ladung stabilisiert es wieder.',zombieDesc:'Feste Doppelbahnen und ein gebrochener Energiekern markieren ein instabiles Atom. Kontakt überträgt die Instabilität bis zu zweimal; Wärme oder Ladung stabilisiert es.',zombieMsg:'Instabilität übertragen! Dieses Atom ist jetzt instabil.',cureMsg:'✨ Stabilisiert! Das Atom ist wieder normal.'},
+  es:{zombieTitle:'Átomo inestable',zombieIntro:'Átomo inestable detectado. La doble órbita fija y el núcleo de energía fracturado indican que el contacto puede transferir la inestabilidad hasta dos veces. El calor o una carga eléctrica lo estabilizan de nuevo.',zombieDesc:'La doble órbita fija y el núcleo fracturado marcan un átomo inestable. El contacto puede transferir la inestabilidad hasta dos veces; el calor o la carga lo estabilizan.',zombieMsg:'¡Inestabilidad transferida! Ese átomo ahora es inestable.',cureMsg:'✨ ¡Estabilizado! El átomo volvió a su estado normal.'},
+  pt:{zombieTitle:'Átomo instável',zombieIntro:'Átomo instável detectado. As órbitas duplas fixas e o núcleo de energia fraturado indicam que o contato pode transferir a instabilidade até duas vezes. Calor ou carga elétrica o estabilizam novamente.',zombieDesc:'Órbitas duplas fixas e núcleo fraturado marcam um átomo instável. O contato pode transferir instabilidade até duas vezes; calor ou carga elétrica o estabilizam.',zombieMsg:'Instabilidade transferida! Esse átomo agora está instável.',cureMsg:'✨ Estabilizado! O átomo voltou ao estado normal.'},
+  ja:{zombieTitle:'不安定原子',zombieIntro:'不安定原子を検出。固定された二重軌道と亀裂の入ったエネルギー核は、接触で不安定性が最大2回まで別の原子へ伝わることを示します。熱または電荷で再び安定化できます。',zombieDesc:'固定二重軌道と亀裂の入ったエネルギー核が不安定原子の印です。接触で最大2回伝わり、熱または電荷で安定化できます。',zombieMsg:'不安定性が伝わった！この原子は現在不安定です。',cureMsg:'✨ 安定化完了！原子は通常状態に戻りました。'},
+  fr:{zombieTitle:'Atome instable',zombieIntro:'Atome instable détecté. Les deux orbites fixes et le noyau d’énergie fracturé indiquent que le contact peut transmettre l’instabilité jusqu’à deux fois. La chaleur ou une charge électrique le stabilise à nouveau.',zombieDesc:'Deux orbites fixes et un noyau fracturé signalent un atome instable. Le contact peut transmettre l’instabilité jusqu’à deux fois ; chaleur ou charge le stabilisent.',zombieMsg:'Instabilité transmise ! Cet atome est maintenant instable.',cureMsg:'✨ Stabilisé ! L’atome est revenu à son état normal.'},
+  zh:{zombieTitle:'不稳定原子',zombieIntro:'检测到不稳定原子。固定双轨道和破裂能量核心表示：接触最多可将不稳定状态传递两次。热量或电荷可使它重新稳定。',zombieDesc:'固定双轨道与破裂能量核心是不稳定原子的标记。接触最多传递两次；热量或电荷可使其稳定。',zombieMsg:'不稳定状态已传递！该原子现在处于不稳定状态。',cureMsg:'✨ 已稳定！原子恢复正常状态。'},
+  it:{zombieTitle:'Atomo instabile',zombieIntro:'Atomo instabile rilevato. Le doppie orbite fisse e il nucleo energetico fratturato indicano che il contatto può trasferire l’instabilità fino a due volte. Calore o carica elettrica lo stabilizzano di nuovo.',zombieDesc:'Doppie orbite fisse e nucleo fratturato indicano un atomo instabile. Il contatto può trasferire l’instabilità fino a due volte; calore o carica lo stabilizzano.',zombieMsg:'Instabilità trasferita! Questo atomo ora è instabile.',cureMsg:'✨ Stabilizzato! L’atomo è tornato allo stato normale.'}
 };
 for(const [lang,copy] of Object.entries(R150_UNSTABLE_COPY))if(I18N[lang])Object.assign(I18N[lang],copy);
 
@@ -2383,7 +2383,7 @@ function isIOSWebDevice(){
   }catch(e){return false;}
 }
 let externalMusicMode=false;
-function defaultSave(){return {cur:0,stars:{},coins:0,disc:{},volM:1,volMu:0.8,volS:1,volV:1,muM:false,muMu:false,muS:false,muV:false,externalMusic:false,dpad:false,reduceMotion:false,duelMessages:true,duelEffects:true,haptics:true,effectLevel:'normal',largeText:false,colorBlind:false,highContrast:false,performanceMode:'auto',favoriteMolecules:{},collectionFilter:'all',storySeen:{},storySchema:0,dailyDate:'',totalHints:0,streak3:0,lang:'en',achv:{},seenFrozen:false,seenFire:false,seenLightning:false,seenSticky:false,seenZombie:false,seenOneWay:false,seenBreakableWall:false,seenPortal:false,seenRift:false,seenMovingWall:false,seenPressureDoor:false,seenFragile:false,seenLinked:false,seenPrecision:false,seenFusion:false,seenPrebuiltModule:false,seenRotation:false,seenEnzymeGate:false,seenBioAssembly:false,playerName:'',speedRuns:{},bestMoves:{},maxCoins:0,profileId:'',tutorialDone:false,menuVoiceSeen:false,autoGuest:false,rpSchema:0,researchPoints:0,researchLevels:{},researchAchievements:{},researchBonuses:{},bonusClaims:{},dailyScores:{},dailyRPStreak:0,lastDailyRPDate:'',seasonId:'',seasonRP:0,weekId:'',weekRP:0,saveSchema:5,campaignContentSchema:0,labTheme:'basic',economySchema:0,quantumHintDay:'',duelRatedMatches:{},duelRewards:{},duelRewardClaims:{},activeDuelFrame:'frame_bronze',activeDuelTitle:'',duelRating:800,duelPeakRating:800,duelWins:0,duelLosses:0,duelDraws:0,duelStreak:0,duelBestStreak:0,duelWeekPoints:0,duelWeekWins:0,duelMonthPoints:0,duelMonthWins:0,accountMilestoneInviteSeen:false,accountMilestoneInviteLastLevel:0,nobelCertificateShared:false,seenHintSupport:false,seenUndoSupport:false,seenRestartSupport:false,seenLabSupport:false,seenSupportGuide:false,seenHammerSupport:false,seenPrecisionSupport:false,seenBarrierSupport:false,seenGoalGlowGuide:false,tutorialTips:true,seenFragileAtom:false,seenLinkedAtoms:false,seenHammerWall:false,pushDeclined:false};}
+function defaultSave(){return {cur:0,stars:{},coins:0,disc:{},volM:1,volMu:0.8,volS:1,volV:1,muM:false,muMu:false,muS:false,muV:false,externalMusic:false,dpad:false,reduceMotion:false,duelMessages:true,duelEffects:true,haptics:true,effectLevel:'normal',largeText:false,colorBlind:false,highContrast:false,performanceMode:'auto',favoriteMolecules:{},collectionFilter:'all',storySeen:{},storySchema:0,dailyDate:'',totalHints:0,streak3:0,lang:'en',achv:{},seenFrozen:false,seenFire:false,seenLightning:false,seenSticky:false,seenZombie:false,seenOneWay:false,seenBreakableWall:false,seenPortal:false,seenRift:false,seenMovingWall:false,seenPressureDoor:false,seenFragile:false,seenLinked:false,seenPrecision:false,seenFusion:false,seenPrebuiltModule:false,seenRotation:false,seenEnzymeGate:false,seenBioAssembly:false,playerName:'',speedRuns:{},bestMoves:{},maxCoins:0,profileId:'',tutorialDone:false,menuVoiceSeen:false,seen501CampaignIntro:false,autoGuest:false,rpSchema:0,researchPoints:0,researchLevels:{},researchAchievements:{},researchBonuses:{},bonusClaims:{},dailyScores:{},dailyRPStreak:0,lastDailyRPDate:'',seasonId:'',seasonRP:0,weekId:'',weekRP:0,saveSchema:5,campaignContentSchema:0,labTheme:'basic',economySchema:0,quantumHintDay:'',duelRatedMatches:{},duelRewards:{},duelRewardClaims:{},activeDuelFrame:'frame_bronze',activeDuelTitle:'',duelRating:800,duelPeakRating:800,duelWins:0,duelLosses:0,duelDraws:0,duelStreak:0,duelBestStreak:0,duelWeekPoints:0,duelWeekWins:0,duelMonthPoints:0,duelMonthWins:0,accountMilestoneInviteSeen:false,accountMilestoneInviteLastLevel:0,nobelCertificateShared:false,seenHintSupport:false,seenUndoSupport:false,seenRestartSupport:false,seenLabSupport:false,seenSupportGuide:false,seenHammerSupport:false,seenPrecisionSupport:false,seenBarrierSupport:false,seenGoalGlowGuide:false,tutorialTips:true,seenFragileAtom:false,seenLinkedAtoms:false,seenHammerWall:false};}
 const COIN_EARN_KEY='__coinEarned',COIN_SPEND_KEY='__coinSpent';
 const LAB_THEME_STAMP_KEY='__labThemeStamp',QUANTUM_DAY_KEY='__quantumDay';
 const LAB_THEME_CODES={basic:0,collider:1,arctic:2,mars:3},LAB_THEME_NAMES=['basic','collider','arctic','mars'];
@@ -2651,6 +2651,8 @@ function ensureResearchState(s){
   s.economySchema=Math.max(0,Math.floor(Number(s.economySchema)||0));
   s.quantumHintDay=String(s.quantumHintDay||'').slice(0,10);
   ensureCoinLedger(s);
+  // R169: Nano Barrier is pay-per-placement, never inventory. Purge legacy free stock.
+  if(Object.prototype.hasOwnProperty.call(s.researchAchievements,'__booster_barrier'))delete s.researchAchievements.__booster_barrier;
   s.labTheme=syncedLabTheme(s);
   const syncedQ=Math.max(0,Math.floor(Number(s.researchAchievements[QUANTUM_DAY_KEY])||0));
   if(syncedQ===utcEpochDay())s.quantumHintDay=utcDayId();
@@ -2804,6 +2806,11 @@ function mergeAccountProgressVault(base,profileId,uidOverride){
   const out=Object.assign({},base||{});out.cur=Math.max(Number(out.cur)||0,Number(vault.cur)||0);out.stars=Object.assign({},vault.stars||{},out.stars||{});return out;
 }
 function persistAll(){try{localStorage.setItem(PKEY,JSON.stringify({profiles,last:lastProfile}));}catch(e){}}
+function persistLocalOnly(){
+  if(!curProfile)return;
+  profiles[curProfile]=save;lastProfile=curProfile;persistAll();
+  if(save&&save.profileId)writeAccountProgressVault(save,save.profileId);
+}
 function persist(){
   if(!curProfile)return;
   profiles[curProfile]=save;lastProfile=curProfile;persistAll();
@@ -3806,6 +3813,30 @@ function bondReactionVfx(atomIndex,delta){
     setTimeout(()=>shell.remove(),620);
   }
 }
+let goalLastMoveSignal=false,deadlockVisualActive=false;
+function setDeadlockVisual(on){
+  deadlockVisualActive=!!on;
+  const bf=$('#boardFrame');if(bf)bf.classList.toggle('mxDeadlock',deadlockVisualActive);
+  if(deadlockVisualActive)setGoalLastMoveSignal(false);
+}
+function setGoalLastMoveSignal(on){
+  const goal=$('#goalCard');on=!!on&&!won&&!deadlockVisualActive;
+  if(!goal){goalLastMoveSignal=on;return;}
+  if(!on){goalLastMoveSignal=false;goal.classList.remove('mxGoalLastMove','mxGoalLastMovePulse');return;}
+  if(goalLastMoveSignal&&goal.classList.contains('mxGoalLastMove'))return;
+  goalLastMoveSignal=true;
+  goal.classList.remove('mxGoalBreath','mxGoalNear','mxGoalSuccess','goalPop','mxGoalLastMovePulse');
+  goal.classList.add('mxGoalLastMove');
+  // Exactly two brief pulses, then a static gold frame. No perpetual animation.
+  void goal.offsetWidth;goal.classList.add('mxGoalLastMovePulse');
+  setTimeout(()=>{if(goalLastMoveSignal&&goal)goal.classList.remove('mxGoalLastMovePulse');},1080);
+}
+function refreshGoalLastMoveSignal(){
+  if(won||deadlockVisualActive||!LV||!Array.isArray(LV.fs)){setGoalLastMoveSignal(false);return false;}
+  const progress=certifiedRouteProgress(LV.fs);
+  const oneMove=progress>=0&&(LV.fs.length-progress===1);
+  setGoalLastMoveSignal(oneMove);return oneMove;
+}
 function updateIntensity(){
   if(!curMol)return;
   const total=curMol.bs.size/2,m=bondsMatched();
@@ -3826,10 +3857,7 @@ function updateIntensity(){
   setIntensity(won?1:n);
   const close=n===2&&!won;
   const goalCard=$('#goalCard');
-  if(goalCard){
-    goalCard.classList.toggle('mxGoalBreath',!won&&!close);
-    goalCard.classList.toggle('mxGoalNear',close);
-  }
+  if(goalCard)goalCard.classList.remove('mxGoalBreath','mxGoalNear','mxGoalSuccess','goalPop');
   if(close&&!exc){
     setExcited(true);moxyGameEvent('near');drEGameEvent('near');characterMoment('near');
     if(!lastBondLine){lastBondLine=true;prop('⚡',1250);say(t('almostOneBond'),'happy',2600);playCharacterVoice('drE','near',{force:true,cooldown:0,duck:.30});}
@@ -3878,7 +3906,7 @@ function labEquipmentTutorial(id,onDone){
   const tr=LANG==='tr';
   const demos={
     gold_scope:{before:ml("Yeni keşif: normal ödül","New discovery: normal reward","Neue Entdeckung: normale Belohnung","Nuevo descubrimiento: recompensa normal","Nova descoberta: recompensa normal","新発見：通常報酬"),after:ml("Ödül +5 MoleCoin","Reward +5 MoleCoins","Belohnung +5 MoleCoins","Recompensa +5 MoleCoins","Recompensa +5 MoleCoins","報酬 +5 MoleCoin"),note:ml("Yeni bir molekülü ilk kez keşfettiğinde ödülüne otomatik +5 MoleCoin eklenir.","The first time you discover a molecule, +5 MoleCoins are added automatically.","Bei der ersten Entdeckung eines Moleküls werden automatisch 5 MoleCoins hinzugefügt.","La primera vez que descubres una molécula, se añaden automáticamente 5 MoleCoins.","Na primeira descoberta de uma molécula, 5 MoleCoins são adicionadas automaticamente.","分子を初めて発見すると、MoleCoinが自動で5枚追加されます。")},
-    holo_table:{before:ml("Kesin hamle: 125 🪙","Exact move: 125 🪙","Exakter Zug: 125 🪙","Movimiento exacto: 125 🪙","Movimento exato: 125 🪙","正確な一手：125 🪙"),after:ml("Kesin hamle: 100 🪙","Exact move: 100 🪙","Exakter Zug: 100 🪙","Movimiento exacto: 100 🪙","Movimento exato: 100 🪙","正確な一手：100 🪙"),note:ml("Kesin ipucu fiyatları otomatik olarak %20 düşer.","Exact-hint prices are reduced automatically by 20%.","Die Preise für exakte Hinweise sinken automatisch um 20 %.","Los precios de las pistas exactas se reducen automáticamente un 20 %.","Os preços das dicas exatas são reduzidos automaticamente em 20%.","正確なヒントの価格が自動で20%下がります。")},
+    holo_table:{before:ml("Kesin hamle: ","Exact move: ","Exakter Zug: ","Movimiento exacto: ","Movimento exato: ","正確な一手：")+'<span class="mxInlineMoleCoin"><span class="coinIcon" aria-hidden="true"></span><b>125</b></span>',after:ml("Kesin hamle: ","Exact move: ","Exakter Zug: ","Movimiento exacto: ","Movimento exato: ","正確な一手：")+'<span class="mxInlineMoleCoin"><span class="coinIcon" aria-hidden="true"></span><b>100</b></span>',note:ml("Kesin ipucu fiyatları otomatik olarak %20 düşer.","Exact-hint prices are reduced automatically by 20%.","Die Preise für exakte Hinweise sinken automatisch um 20 %.","Los precios de las pistas exactas se reducen automáticamente un 20 %.","Os preços das dicas exatas são reduzidos automaticamente em 20%.","正確なヒントの価格が自動で20%下がります。")},
     quantum_desk:{before:ml("Ücretsiz kesin ipucu: 0","Free exact hint: 0","Kostenlose exakte Hinweise: 0","Pistas exactas gratis: 0","Dicas exatas grátis: 0","無料の正確なヒント：0"),after:ml("Her gün ücretsiz: 1","Daily free: 1","Täglich kostenlos: 1","Gratis al día: 1","Grátis por dia: 1","1日1回無料"),note:ml("Her UTC gününde ilk kesin hamle ipucun ücretsiz olur.","Your first exact-move hint each UTC day is free.","Der erste exakte Zughinweis jedes UTC-Tages ist kostenlos.","La primera pista de movimiento exacto de cada día UTC es gratis.","A primeira dica de movimento exato de cada dia UTC é grátis.","UTC日ごとの最初の正確な一手ヒントは無料です。")},
     robot:{before:ml("Günün Deneyi ödülü","Daily Experiment reward","Belohnung für das Tagesexperiment","Recompensa del Experimento Diario","Recompensa do Experimento Diário","今日の実験の報酬"),after:ml("+5 MoleCoin bonusu","+5 MoleCoin bonus","+5 MoleCoin-Bonus","Bono de +5 MoleCoin","Bônus de +5 MoleCoin","MoleCoin +5 ボーナス"),note:ml("Günün Deneyi’nin o günkü ilk ödülüne otomatik +5 MoleCoin eklenir.","Adds +5 MoleCoins automatically to the first Daily Experiment reward of the day.","Fügt der ersten Belohnung des Tagesexperiments automatisch +5 MoleCoins hinzu.","Añade automáticamente +5 MoleCoins a la primera recompensa del Experimento Diario.","Adiciona automaticamente +5 MoleCoins à primeira recompensa do Experimento do Dia.","その日の最初の「今日の実験」報酬にMoleCoinを5枚自動追加します。")},
     collider:{before:ml("İlk bonus görevi","First bonus mission","Erste Bonusmission","Primera misión extra","Primeira missão bônus","最初のボーナスミッション"),after:ml("+20 MoleCoin bonusu","+20 MoleCoin bonus","+20 MoleCoin-Bonus","Bono de +20 MoleCoin","Bônus de +20 MoleCoin","MoleCoin +20 ボーナス"),note:ml("İlk kez tamamlanan bonus görevlerinin ödülüne +20 MoleCoin eklenir.","Adds +20 MoleCoins to first-clear bonus mission rewards.","Fügt Belohnungen für erstmals abgeschlossene Bonusmissionen 20 MoleCoins hinzu.","Añade 20 MoleCoins a la recompensa de una misión extra completada por primera vez.","Adiciona 20 MoleCoins à recompensa da primeira conclusão de uma missão bônus.","ボーナスミッション初回クリア報酬にMoleCoinを20枚追加します。")},
@@ -3904,8 +3932,8 @@ function labEquipmentGuideModal(){
 const BOOSTER_ITEMS=[
   {id:'hammer',price:90,icon:'🔨',name:{tr:'Çekiç',en:'Hammer',de:'Hammer',es:'Martillo',pt:'Martelo',ja:'ハンマー'},desc:{tr:'Kırılabilir duvar bulunan uyumlu bölümlerde bir duvarı kırar.',en:'Breaks one breakable wall in compatible levels.',de:'Zerstört in kompatiblen Levels eine zerstörbare Wand.',es:'Rompe una pared rompible en niveles compatibles.',pt:'Quebra uma parede quebrável em fases compatíveis.',ja:'対応レベルで壊せる壁を1つ破壊。'}},
   {id:'precision',price:120,icon:'↔️',name:{tr:'Tek Kare Hareket',en:'One-Square Move',de:'Ein-Feld-Zug',es:'Movimiento de una casilla',pt:'Movimento de uma casa',ja:'1マス移動'},desc:{tr:'Uyumlu bölümlerde seçilen atomu yalnızca bir kare taşır.',en:'Moves the selected atom exactly one square in compatible levels.',de:'Bewegt das gewählte Atom in kompatiblen Levels genau ein Feld.',es:'Mueve el átomo seleccionado exactamente una casilla en niveles compatibles.',pt:'Move o átomo selecionado exatamente uma casa em fases compatíveis.',ja:'対応レベルで選択した原子をちょうど1マス移動。'}},
-  {id:'barrier',price:100,icon:'🧱',name:{tr:'Nano Bariyer',en:'Nano Barrier',de:'Nano-Barriere',es:'Barrera nano',pt:'Barreira nano',ja:'ナノバリア'},desc:{tr:'Bölüm başına bir kez boş kareye geçici blok koyar. İlk atom çarpışmasında kırılır.',en:'Places one temporary block per level on an empty tile. It breaks on the first atom collision.',de:'Platziert pro Level einen temporären Block auf einem leeren Feld. Er zerbricht beim ersten Atomstoß.',es:'Coloca un bloque temporal por nivel en una casilla vacía. Se rompe con la primera colisión atómica.',pt:'Coloca um bloco temporário por fase em uma casa vazia. Quebra na primeira colisão com um átomo.',ja:'レベルごとに空きマスへ一時ブロックを1つ設置。最初の原子衝突で壊れます。'}}
 ];
+const BARRIER_USE_PRICE=300;
 function boosterKey(id){return '__booster_'+id;}
 function boosterCount(id){ensureResearchState(save);return Math.max(0,Math.floor(Number(save.researchAchievements[boosterKey(id)])||0));}
 function addBooster(id,n=1){ensureResearchState(save);n=Math.max(0,Math.floor(Number(n)||0));save.researchAchievements[boosterKey(id)]=boosterCount(id)+n;return boosterCount(id);}
@@ -4417,8 +4445,14 @@ function show(k){
   if(k==='splash'){refreshSplash();startSplashConversation(true,260);scheduleMainMenuVoice('home',680);}
   else stopSplashConversation();
 }
+function refresh501CampaignBadge(){
+  const badge=$('#campaign501Badge');if(!badge)return;
+  const label=ml('501 DENEY','501 EXPERIMENTS','501 EXPERIMENTE','501 EXPERIMENTOS','501 EXPERIMENTOS','501の実験','501 EXPÉRIENCES','501项实验','501 ESPERIMENTI');
+  badge.textContent=label;badge.setAttribute('aria-label',label);
+}
 function refreshSplash(){
   applyBonusCosmetics();
+  refresh501CampaignBadge();
   const p=$('#btnPlay');
   if(save.cur>0){p.disabled=false;p.textContent=t('continueLevel',Math.min(save.cur,LEVELS.length-1)+1);}
   else{p.disabled=true;p.textContent=t('continueBtn');}
@@ -5121,7 +5155,7 @@ function campaignMechanicMiniTags(level){
   if(Array.isArray(level.rt)&&level.rt.length===2)add('🕳️',ml('Yarık','Rift','Riss','Fisura','Fenda','リフト','Faille','裂隙','Fenditura'));
   if(Array.isArray(level.pt)&&level.pt.length===2)add('🌀',ml('Portal','Portal','Portal','Portal','Portal','ポータル','Portail','传送门','Portale'));
   if(Array.isArray(level.bw)&&level.bw.length)add('🔨',ml('Çekiç','Hammer','Hammer','Martillo','Martelo','ハンマー','Marteau','锤子','Martello'));
-  if(hasFlag(6))add('⚠️',ml('Kararsız','Unstable','Instabil','Inestable','Instável','不安定','Instable','不稳定','Instabile'));
+  if(hasFlag(6))add('◎',ml('Kararsız','Unstable','Instabil','Inestable','Instável','不安定','Instable','不稳定','Instabile'));
   if(hasFlag(3))add('❄️',ml('Donmuş','Frozen','Gefroren','Congelado','Congelado','凍結','Gelé','冻结','Congelato'));
   if(hasFlag(4))add('🔥',ml('Ateş','Fire','Feuer','Fuego','Fogo','炎','Feu','火焰','Fuoco'));
   if(hasFlag(7))add('⚡',ml('Elektrik','Lightning','Blitz','Rayo','Raio','電気','Éclair','闪电','Fulmine'));
@@ -6274,12 +6308,15 @@ function splashTalkMessages(){
     name+', sua missão bônus da fase '+pending.milestone+' está pronta. Deixei a recompensa no laboratório.',
     name+'、レベル'+pending.milestone+'のボーナスミッションが準備できたよ。報酬はラボに置いてある。'));
   if(completed>=LEVELS.length)rows.push(ml(
-    name+', artık Nobel adayısın. 301. final deneyi tamamlayarak ödülü kazan!',
-    name+', you are now a Nobel Candidate. Complete the 301st final experiment to win the prize!',
-    name+', du bist jetzt Nobel-Kandidat. Schließe das 301. Finalexperiment ab und gewinne den Preis!',
-    name+', ya eres Candidato al Nobel. ¡Completa el experimento final 301 para ganar el premio!',
-    name+', você agora é Candidato ao Nobel. Conclua o 301º experimento final para ganhar o prêmio!',
-    name+'、ついにノーベル候補だ。第301最終実験をクリアして賞を勝ち取ろう！'));
+    name+', 501 deneyin tamamı bitti. X-Origin araştırma zincirini tamamladın!',
+    name+', all 501 experiments are complete. You finished the X-Origin research chain!',
+    name+', alle 501 Experimente sind abgeschlossen. Du hast die X-Origin-Forschungsreihe beendet!',
+    name+', has completado los 501 experimentos. ¡Terminaste la cadena de investigación X-Origin!',
+    name+', todos os 501 experimentos foram concluídos. Você terminou a cadeia de pesquisa X-Origin!',
+    name+'、501の実験をすべて完了した。X-Origin研究チェーン制覇だ！',
+    name+', les 501 expériences sont terminées. Tu as achevé la chaîne de recherche X-Origin !',
+    name+'，501项实验已全部完成。你完成了X-Origin研究链！',
+    name+', tutti i 501 esperimenti sono completi. Hai concluso la catena di ricerca X-Origin!'));
   else if(completed>=140)rows.push(ml(
     name+', Nobel adaylığına çok yaklaştın. Son deneyler en zorları olacak.',
     name+', Nobel candidacy is close. The final experiments will be the hardest.',
@@ -6377,6 +6414,31 @@ function startSplashConversation(reset=false,delay=180){
   if(!splashBubble||!splashBubbleText)return;
   clearTimeout(splashTalkTimer);clearTimeout(splashTalkGapTimer);
   if(!scr.splash.classList.contains('on')){splashBubble.classList.remove('on');return;}
+  // R172: tell each player once that the main campaign contains 501 experiments.
+  // This is an in-game Dr. E bubble only; it is not an OS notification or permission prompt.
+  if(reset&&save&&save.profileId&&!save.seen501CampaignIntro){
+    save.seen501CampaignIntro=true;persist();
+    splashTalkGapTimer=setTimeout(()=>{
+      if(!scr.splash.classList.contains('on'))return;
+      splashBubbleText.textContent=ml(
+        'Laboratuvar artık 501 deneyden oluşuyor. Hepsini tamamlayabilir misin?',
+        'The laboratory now holds 501 experiments. Can you complete them all?',
+        'Das Labor umfasst jetzt 501 Experimente. Kannst du sie alle abschließen?',
+        'El laboratorio ahora tiene 501 experimentos. ¿Puedes completarlos todos?',
+        'O laboratório agora tem 501 experimentos. Você consegue completar todos?',
+        'ラボには全部で501の実験がある。すべて完了できるかな？',
+        'Le laboratoire compte désormais 501 expériences. Peux-tu toutes les terminer ?',
+        '实验室现在共有501项实验。你能全部完成吗？',
+        'Il laboratorio ora contiene 501 esperimenti. Riesci a completarli tutti?'
+      );
+      splashBubble.classList.add('on');einMood('happy',2100);
+      splashTalkTimer=setTimeout(()=>{
+        splashBubble.classList.remove('on');splashTalkIndex=0;
+        splashTalkGapTimer=setTimeout(()=>startSplashConversation(false,0),900);
+      },5000);
+    },Math.max(120,Number(delay)||180));
+    return;
+  }
   const rows=splashTalkMessages();if(!rows.length)return;
   const sig=LANG+'|'+splashPlayerName()+'|'+save.dailyDate+'|'+(save.cur||0)+'|'+(accountState.isAnonymous?'g':'m')+'|'+(nextBonusMission()?nextBonusMission().milestone:0)+'|'+((currentMonthlyLaureate()&&currentMonthlyLaureate().playerName)||'');
   if(reset||sig!==splashTalkSignature){splashTalkIndex=0;splashTalkSignature=sig;}
@@ -6959,21 +7021,23 @@ function riftEntryDestination(x,y,movedIdx){
   if(atoms.some((a,k)=>k!==movedIdx&&a.x===p.toX&&a.y===p.toY))return null;
   return{x:p.toX,y:p.toY,id:p.id};
 }
-function drawRiftTile(p,t){
-  const cx=(p.x+.5)*T,cy=(p.y+.5)*T,pulse=motionReduced()?.85:(.72+.22*Math.sin(t/150+p.x*.8+p.y)),spin=(p.id==='RIFT-A'?1:-1)*t/520;
+function drawRiftTile(p,t,calm=false){
+  const live=!motionReduced()&&!calm;
+  const cx=(p.x+.5)*T,cy=(p.y+.5)*T,pulse=live?(.72+.22*Math.sin(t/150+p.x*.8+p.y)):.85,spin=live?(p.id==='RIFT-A'?1:-1)*t/520:0;
   bctx.save();bctx.translate(cx,cy);
   const g=bctx.createRadialGradient(0,0,T*.02,0,0,T*.38);g.addColorStop(0,'rgba(0,0,0,.98)');g.addColorStop(.30,'rgba(24,6,42,.98)');g.addColorStop(.62,'rgba(94,24,132,.74)');g.addColorStop(1,'rgba(10,2,18,.08)');
-  bctx.globalAlpha=.98;bctx.fillStyle=g;bctx.shadowColor='#b24cff';bctx.shadowBlur=motionReduced()?5:20;bctx.beginPath();bctx.arc(0,0,T*.31*pulse,0,Math.PI*2);bctx.fill();
+  bctx.globalAlpha=.98;bctx.fillStyle=g;bctx.shadowColor='#b24cff';bctx.shadowBlur=live?20:5;bctx.beginPath();bctx.arc(0,0,T*.31*pulse,0,Math.PI*2);bctx.fill();
   bctx.rotate(spin);bctx.strokeStyle='#d68cff';bctx.lineWidth=Math.max(1.5,T*.026);bctx.globalAlpha=.72;bctx.setLineDash([Math.max(3,T*.08),Math.max(2,T*.055)]);bctx.beginPath();bctx.arc(0,0,T*.245,0,Math.PI*2);bctx.stroke();bctx.setLineDash([]);
   bctx.rotate(-spin);bctx.globalAlpha=.96;bctx.fillStyle='#f4d8ff';bctx.font='900 '+Math.max(9,Math.round(T*.16))+'px system-ui';bctx.textAlign='center';bctx.textBaseline='middle';bctx.fillText(p.id==='RIFT-A'?'◆':'◇',0,0);bctx.restore();
 }
 function riftBurst(x,y,mode='enter'){
   const r=board.getBoundingClientRect(),cx=r.left+(x+.5)*T,cy=r.top+(y+.5)*T;if(effectsAllowed()){const n=motionReduced()?5:18;for(let q=0;q<n;q++){const a=q/n*Math.PI*2,sp=.8+Math.random()*2.4;P({k:'glit',x:cx,y:cy,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,r:1.3+Math.random()*2.1,c:q%3?'#b95cff':'#efe2ff',life:.55,d:q*.004});}P({k:'ring',x:cx,y:cy,r:7,vr2:82,c:mode==='enter'?'#7a28a8':'#d67aff',life:.5});}mxHaptic('medium');
 }
-function drawPortalTile(p,t){
+function drawPortalTile(p,t,calm=false){
+  const live=!motionReduced()&&!calm;
   const cx=(p.x+.5)*T,cy=(p.y+.5)*T,isA=p.id==='A';
   const main=isA?'#67ebff':'#c58cff',soft=isA?'#bdf8ff':'#ead3ff',core=isA?'#0e7da0':'#6d36a8';
-  const dir=isA?1:-1,pulse=.93+.07*Math.sin(t/220+(isA?0:Math.PI));
+  const dir=isA?1:-1,pulse=live?(.93+.07*Math.sin(t/220+(isA?0:Math.PI))):1;
   bctx.save();bctx.translate(cx,cy);
 
   // Dark portal well keeps the tile readable and visually separates it from atoms.
@@ -6983,12 +7047,12 @@ function drawPortalTile(p,t){
   g.addColorStop(.23,core);
   g.addColorStop(.55,isA?'rgba(10,73,105,.90)':'rgba(66,24,98,.92)');
   g.addColorStop(1,'rgba(2,8,22,.10)');
-  bctx.globalAlpha=.92;bctx.fillStyle=g;bctx.shadowColor=main;bctx.shadowBlur=motionReduced()?6:18;
+  bctx.globalAlpha=.92;bctx.fillStyle=g;bctx.shadowColor=main;bctx.shadowBlur=live?18:6;
   bctx.beginPath();bctx.arc(0,0,T*.29*pulse,0,Math.PI*2);bctx.fill();
 
   // POLISH 7 · deeper portal lens: three restrained tunnel rings imply real depth
   // without making the floor unreadable.
-  if(!motionReduced()){
+  if(live){
     for(let k=0;k<3;k++){
       const q=((t/760)+k/3)%1,rr=T*(.08+.18*q),alpha=(1-q)*(.28-k*.035);
       bctx.globalAlpha=Math.max(.06,alpha);bctx.strokeStyle=k%2?soft:main;bctx.lineWidth=Math.max(1,T*.018);
@@ -7069,37 +7133,45 @@ function deriveBreakableWalls(level,index,mode){
   }
   return picked.length>=2?picked:candidates.slice(0,Math.min(3,candidates.length));
 }
+function hammerLevelEligible(){return breakableWalls.size>0&&!duelMode&&!dailyMode;}
+function precisionLevelEligible(){return !duelMode&&!dailyMode&&!chainMode&&!reactorMode;}
+function barrierLevelEligible(){return !duelMode&&!dailyMode;}
+function supportUnavailable(id){
+  const name=id==='hammer'?ml('Çekiç','Hammer','Hammer','Martillo','Martelo','ハンマー','Marteau','锤子','Martello'):id==='precision'?ml('Tek Kare Hareket','One-Square Move','Ein-Feld-Zug','Movimiento de una casilla','Movimento de uma casa','1マス移動','Déplacement d’une case','单格移动','Mossa di una casella'):ml('Nano Bariyer','Nano Barrier','Nano-Barriere','Barrera nano','Barreira Nano','ナノバリア','Nano-Barrière','纳米屏障','Nano Barriera');
+  const reason=id==='hammer'?ml('Bu bölümde kırılabilir duvar yok.','There is no breakable wall in this level.','In diesem Level gibt es keine zerbrechliche Wand.','En este nivel no hay una pared rompible.','Não há parede quebrável nesta fase.','このレベルには壊せる壁がありません。','Il n’y a pas de mur cassable dans ce niveau.','本关没有可破坏墙。','In questo livello non c’è un muro rompibile.'):id==='precision'?ml('Bu deney Tek Kare Hareket aracını desteklemiyor.','This experiment does not support One-Square Move.','Dieses Experiment unterstützt den Ein-Feld-Zug nicht.','Este experimento no admite Movimiento de una casilla.','Este experimento não aceita Movimento de uma casa.','この実験では1マス移動を使用できません。','Cette expérience n’autorise pas le déplacement d’une case.','本实验不支持单格移动。','Questo esperimento non supporta la Mossa di una casella.'):ml('Bu deney Nano Bariyer kullanımına izin vermiyor.','This experiment does not allow Nano Barrier.','Dieses Experiment erlaubt keine Nano-Barriere.','Este experimento no permite la Barrera nano.','Este experimento não permite a Barreira Nano.','この実験ではナノバリアを使用できません。','Cette expérience n’autorise pas la Nano-Barrière.','本实验不允许使用纳米屏障。','Questo esperimento non consente la Nano Barriera.');
+  SFX.thunk();mxHaptic('light');setDrEPose('thinking',3800,4,true);
+  say(ml('Bu bölümde ne yazık ki sana '+name+' veremem. '+reason,'I’m afraid I can’t give you '+name+' in this level. '+reason,'Leider kann ich dir '+name+' in diesem Level nicht geben. '+reason,'En este nivel no puedo darte '+name+'. '+reason,'Infelizmente não posso te dar '+name+' nesta fase. '+reason,'このレベルでは残念ながら'+name+'を渡せません。'+reason,'Malheureusement, je ne peux pas te donner '+name+' dans ce niveau. '+reason,'很遗憾，这一关我不能给你'+name+'。'+reason,'Purtroppo in questo livello non posso darti '+name+'. '+reason),'thinking',4200,'glow');
+}
+function markSupportAvailability(btn,eligible){
+  if(!btn)return;btn.classList.toggle('mxUnavailable',!eligible);btn.setAttribute('aria-disabled',eligible?'false':'true');
+  if(!eligible)btn.setAttribute('data-support-unavailable','1');else btn.removeAttribute('data-support-unavailable');
+}
 function syncHammerUi(){
   const b=document.querySelector('#btnHammer');if(!b)return;
-  // R140 atomic action-column reveal: level eligibility decides VISIBILITY;
-  // tutorial/win state only decides whether the already-visible control can be used.
-  // This prevents the right-side button from appearing one frame/briefing later.
-  const visible=breakableWalls.size>0&&!duelMode&&!dailyMode;
-  const usable=visible&&!won&&!tutorialActive;
-  b.hidden=!visible;b.disabled=!usable;b.classList.toggle('on',usable&&hammerMode);b.classList.toggle('empty',boosterCount('hammer')<1);
-  const label=b.querySelector('small');if(label)label.textContent=ml("ÇEKİÇ","HAMMER","HAMMER","MARTILLO","MARTELO","ハンマー");
-  const c=b.querySelector('.hammerCount');if(c)c.textContent=boosterCount('hammer');
+  const eligible=hammerLevelEligible(),usable=!won&&!tutorialActive&&!autoSolveInProgress;
+  b.hidden=false;b.disabled=!usable;b.classList.toggle('on',usable&&eligible&&hammerMode);b.classList.toggle('empty',eligible&&boosterCount('hammer')<1);markSupportAvailability(b,eligible);
+  const label=b.querySelector('small');if(label)label.textContent=ml("ÇEKİÇ","HAMMER","HAMMER","MARTILLO","MARTELO","ハンマー","MARTEAU","锤子","MARTELLO");
+  const c=b.querySelector('.hammerCount');if(c)c.textContent=eligible?boosterCount('hammer'):'—';
   gameFeelToolState();
 }
 function cancelHammer(){hammerMode=false;hammerPending=null;syncHammerUi();}
 function syncPrecisionUi(){
   const b=document.querySelector('#btnPrecision');if(!b)return;
-  const visible=!duelMode&&!dailyMode&&!chainMode&&!reactorMode;
-  const usable=visible&&!won&&!tutorialActive;
-  b.hidden=!visible;b.disabled=!usable;b.classList.toggle('on',usable&&precisionMode);b.classList.toggle('empty',boosterCount('precision')<1);
-  const label=b.querySelector('small');if(label)label.textContent=ml("1 KARE","1 SQUARE","1 FELD","1 CASILLA","1 CASA","1マス");
-  const c=b.querySelector('.precisionCount');if(c)c.textContent=boosterCount('precision');
+  const eligible=precisionLevelEligible(),usable=!won&&!tutorialActive&&!autoSolveInProgress;
+  b.hidden=false;b.disabled=!usable;b.classList.toggle('on',usable&&eligible&&precisionMode);b.classList.toggle('empty',eligible&&boosterCount('precision')<1);markSupportAvailability(b,eligible);
+  const label=b.querySelector('small');if(label)label.textContent=ml("1 KARE","1 SQUARE","1 FELD","1 CASILLA","1 CASA","1マス","1 CASE","1格","1 CASELLA");
+  const c=b.querySelector('.precisionCount');if(c)c.textContent=eligible?boosterCount('precision'):'—';
   gameFeelToolState();
 }
 function cancelPrecision(){precisionMode=false;precisionPending=null;syncPrecisionUi();}
 function barrierKey(x,y){return x+','+y;}
+function barrierPriceHtml(){return '<span class="coinIcon" aria-hidden="true"></span><b>'+BARRIER_USE_PRICE+'</b>';}
 function syncBarrierUi(){
   const b=document.querySelector('#btnBarrier');if(!b)return;
-  const visible=!duelMode&&!dailyMode&&!chainMode&&!reactorMode&&!barrierUsed;
-  const usable=visible&&!won&&!tutorialActive;
-  b.hidden=!visible;b.disabled=!usable;b.classList.toggle('on',usable&&barrierMode);b.classList.toggle('empty',boosterCount('barrier')<1);
-  const label=b.querySelector('small');if(label)label.textContent=ml("BARİYER","BARRIER","BARRIERE","BARRERA","BARREIRA","バリア");
-  const c=b.querySelector('.barrierCount');if(c)c.textContent=boosterCount('barrier');
+  const eligible=barrierLevelEligible(),usable=!won&&!tutorialActive&&!autoSolveInProgress;
+  b.hidden=false;b.disabled=!usable;b.classList.toggle('on',usable&&eligible&&barrierMode&&!barrierUsed);b.classList.toggle('empty',eligible&&!barrierUsed&&coinBalance()<BARRIER_USE_PRICE);b.classList.toggle('used',eligible&&barrierUsed);markSupportAvailability(b,eligible);
+  const label=b.querySelector('small');if(label)label.textContent=eligible&&barrierUsed?ml("KULLANILDI","USED","BENUTZT","USADA","USADA","使用済み","UTILISÉE","已使用","USATA"):ml("BARİYER","BARRIER","BARRIERE","BARRERA","BARREIRA","バリア","BARRIÈRE","屏障","BARRIERA");
+  const c=b.querySelector('.barrierCount');if(c)c.textContent=!eligible?'—':(barrierUsed?'✓':'');
   gameFeelToolState();
 }
 function cancelBarrier(){barrierMode=false;syncBarrierUi();}
@@ -7107,14 +7179,16 @@ function barrierCellAvailable(x,y){
   return x>0&&y>0&&x<W-1&&y<H-1&&grid[y]&&!grid[y][x]&&!atoms.some(a=>a.x===x&&a.y===y)&&!portalPairs.has(portalKey(x,y))&&!oneWayTiles.has(oneWayKey(x,y))&&!temporaryBarriers.has(barrierKey(x,y));
 }
 function attemptBarrierAt(x,y){
+  if(!barrierLevelEligible()){cancelBarrier();supportUnavailable('barrier');return;}
   if(!barrierMode||won||barrierUsed)return;
-  if(!barrierCellAvailable(x,y)){SFX.thunk();mxHaptic('error');say(ml("Bariyer yalnızca boş ve normal bir kareye konabilir.","The barrier can only be placed on an empty normal tile.","Die Barriere kann nur auf einem leeren normalen Feld platziert werden.","La barrera solo puede colocarse en una casilla normal vacía.","A barreira só pode ser colocada em uma casa normal vazia.","バリアは空いている通常マスにのみ設置できます。"),'sad',2500,'shk');return;}
-  if(boosterCount('barrier')<1){cancelBarrier();say(ml("Nano Bariyer kalmadı. Laboratuvardan satın alabilirsin.","No Nano Barriers left. Buy one in the Lab.","Keine Nano-Barrieren mehr. Du kannst im Labor eine kaufen.","No quedan Nano Barreras. Puedes comprar una en el Laboratorio.","Não restam Nano Barreiras. Você pode comprar uma no Laboratório.","ナノバリアがありません。ラボで購入できます。"),'sad',2800,'shk');return;}
-  openModal('<h3>🧱 '+(ml("NANO BARİYER","NANO BARRIER","NANO-BARRIERE","NANO BARRERA","NANO BARREIRA","ナノバリア"))+'</h3><div class="msub">'+(ml("Bu kareye geçici blok yerleştirilsin mi? Bölümde yalnızca bir kez kullanılabilir ve ilk atom çarpışmasında kırılır.<br><b>Destek kullanımı:</b> Bölüm, yıldız ve ödüller korunur; bu deneme en iyi hamle ve süre rekoruna yazılmaz.","Place a temporary block on this tile? It can be used once per level and breaks on the first atom collision.<br><b>Assisted run:</b> Level progress, stars, and rewards are kept; this attempt does not set a best-move or speed record.","Temporären Block auf diesem Feld platzieren? Einmal pro Level nutzbar; er zerbricht beim ersten Atomstoß.<br><b>Unterstützter Lauf:</b> Fortschritt, Sterne und Belohnungen bleiben erhalten; dieser Versuch setzt keinen Zug- oder Zeitrekord.","¿Colocar un bloque temporal en esta casilla? Se puede usar una vez por nivel y se rompe con la primera colisión atómica.<br><b>Partida asistida:</b> Se conservan progreso, estrellas y recompensas; este intento no establece récord de movimientos ni tiempo.","Colocar um bloco temporário nesta casa? Pode ser usado uma vez por fase e quebra na primeira colisão com um átomo.<br><b>Partida assistida:</b> Progresso, estrelas e recompensas são mantidos; esta tentativa não define recorde de movimentos ou tempo.","このマスに一時ブロックを置きますか？レベルごとに1回使え、最初の原子衝突で壊れます。<br><b>アシスト使用：</b>進行、スター、報酬は保持されますが、この挑戦は手数・タイム記録の対象外です。"))+'</div><div class="mrow"><button class="btn amber" id="mBarrierYes">'+(ml("YERLEŞTİR","PLACE","PLATZIEREN","COLOCAR","COLOCAR","設置"))+'</button><button class="btn ghost" id="mBarrierNo">'+t('cancel')+'</button></div>');
+  if(!barrierCellAvailable(x,y)){SFX.thunk();mxHaptic('error');say(ml("Bariyer yalnızca boş ve normal bir kareye konabilir.","The barrier can only be placed on an empty normal tile.","Die Barriere kann nur auf einem leeren normalen Feld platziert werden.","La barrera solo puede colocarse en una casilla normal vacía.","A barreira só pode ser colocada em uma casa normal vazia.","バリアは空いている通常マスにのみ設置できます。","La barrière ne peut être placée que sur une case normale vide.","屏障只能放在空的普通格子上。","La barriera può essere posizionata solo su una casella normale vuota."),'sad',2500,'shk');return;}
+  if(coinBalance()<BARRIER_USE_PRICE){cancelBarrier();SFX.thunk();mxHaptic('error');say(ml("Nano Bariyer için 300 MoleCoin gerekiyor.","Nano Barrier costs 300 MoleCoin.","Die Nano-Barriere kostet 300 MoleCoin.","La Barrera nano cuesta 300 MoleCoin.","A Barreira Nano custa 300 MoleCoin.","ナノバリアには300 MoleCoinが必要です。","La Nano-Barrière coûte 300 MoleCoin.","纳米屏障需要300 MoleCoin。","La Nano Barriera costa 300 MoleCoin."),'sad',3000,'shk');return;}
+  openModal('<h3>🧱 '+ml("NANO BARİYER","NANO BARRIER","NANO-BARRIERE","NANO BARRERA","NANO BARREIRA","ナノバリア","NANO-BARRIÈRE","纳米屏障","NANO BARRIERA")+'</h3><div class="msub">'+ml("Bu kareye geçici blok yerleştirilsin mi? <b>300 MoleCoin</b> yalnızca YERLEŞTİR dediğinde harcanır. Bölümde bir kez kullanılabilir ve ilk atom çarpışmasında kırılır.<br><b>Destek kullanımı:</b> Bölüm, yıldız ve ödüller korunur; bu deneme en iyi hamle ve süre rekoruna yazılmaz.","Place a temporary block on this tile? <b>300 MoleCoin</b> is charged only when you confirm PLACE. It can be used once per level and breaks on the first atom collision.<br><b>Assisted run:</b> Level progress, stars, and rewards are kept; this attempt does not set a best-move or speed record.","Temporären Block auf diesem Feld platzieren? <b>300 MoleCoin</b> werden erst bei PLATZIEREN abgezogen. Einmal pro Level nutzbar; er zerbricht beim ersten Atomstoß.<br><b>Unterstützter Lauf:</b> Fortschritt, Sterne und Belohnungen bleiben erhalten; dieser Versuch setzt keinen Zug- oder Zeitrekord.","¿Colocar un bloque temporal en esta casilla? Los <b>300 MoleCoin</b> se cobran solo al confirmar COLOCAR. Se usa una vez por nivel y se rompe con la primera colisión atómica.<br><b>Partida asistida:</b> Se conservan progreso, estrellas y recompensas; este intento no establece récord de movimientos ni tiempo.","Colocar um bloco temporário nesta casa? Os <b>300 MoleCoin</b> só são cobrados ao confirmar COLOCAR. Pode ser usado uma vez por fase e quebra na primeira colisão com um átomo.<br><b>Partida assistida:</b> Progresso, estrelas e recompensas são mantidos; esta tentativa não define recorde de movimentos ou tempo.","このマスに一時ブロックを置きますか？<b>300 MoleCoin</b>は「設置」を確定した時だけ消費されます。1レベルにつき1回使え、最初の原子衝突で壊れます。<br><b>アシスト使用：</b>進行、スター、報酬は保持されますが、この挑戦は手数・タイム記録の対象外です。","Placer un bloc temporaire sur cette case ? Les <b>300 MoleCoin</b> ne sont débités qu'après confirmation. Utilisable une fois par niveau, il se brise au premier choc d'atome.<br><b>Partie assistée :</b> progression, étoiles et récompenses sont conservées, mais aucun record de coups ou de temps n'est enregistré.","要在此格放置临时屏障吗？只有确认放置后才会扣除<b>300 MoleCoin</b>。每关只能使用一次，并会在第一次原子碰撞时破碎。<br><b>辅助挑战：</b>关卡进度、星星和奖励保留，但本次不会刷新最佳步数或速度纪录。","Posizionare un blocco temporaneo su questa casella? I <b>300 MoleCoin</b> vengono spesi solo quando confermi POSIZIONA. Si usa una volta per livello e si rompe al primo urto di un atomo.<br><b>Partita assistita:</b> progressi, stelle e ricompense restano validi, ma questo tentativo non registra record di mosse o tempo.")+'</div><div class="mcoins mxBarrierPrice">'+barrierPriceHtml()+'</div><div class="mrow"><button class="btn amber moleCoinBuyBtn" id="mBarrierYes"><span class="coinIcon" aria-hidden="true"></span><span>'+ml("SATIN AL & YERLEŞTİR","BUY & PLACE","KAUFEN & PLATZIEREN","COMPRAR Y COLOCAR","COMPRAR E COLOCAR","購入して設置","ACHETER & PLACER","购买并放置","ACQUISTA & POSIZIONA")+' · '+BARRIER_USE_PRICE+'</span></button><button class="btn ghost" id="mBarrierNo">'+t('cancel')+'</button></div>');
   bindTap('#mBarrierYes',()=>{
-    if(!barrierCellAvailable(x,y)||!spendBooster('barrier',1)){closeModal();cancelBarrier();return;}
-    temporaryBarriers.set(barrierKey(x,y),{x,y});barrierUsed=true;assistanceUsed=true;routeAssistUsed=true;barrierMode=false;closeModal();syncBarrierUi();(SFX.barrierBuild?SFX.barrierBuild():SFX.thunk());mxHaptic('medium');gameFeelBarrierConstruct(x,y);
-    say(ml("Nano Bariyer yerleştirildi. İlk çarpışmada kırılacak.","Nano Barrier placed. It will break on the first collision.","Nano-Barriere platziert. Sie zerbricht beim ersten Zusammenstoß.","Nano Barrera colocada. Se romperá con la primera colisión.","Nano Barreira colocada. Ela quebrará na primeira colisão.","ナノバリアを設置しました。最初の衝突で壊れます。"),'happy',2800,'glow');
+    if(!barrierCellAvailable(x,y)){closeModal();cancelBarrier();return;}
+    if(!spendCoins(BARRIER_USE_PRICE)){closeModal();cancelBarrier();say(ml("Yeterli MoleCoin yok.","Not enough MoleCoins.","Nicht genug MoleCoins.","No hay suficientes MoleCoins.","MoleCoins insuficientes.","MoleCoinが足りません。","Pas assez de MoleCoin.","MoleCoin不足。","MoleCoin insufficienti."),'sad',2600,'shk');return;}
+    persist();updateCoins(true);temporaryBarriers.set(barrierKey(x,y),{x,y});barrierUsed=true;assistanceUsed=true;routeAssistUsed=true;setDeadlockVisual(false);setGoalLastMoveSignal(false);barrierMode=false;closeModal();syncBarrierUi();(SFX.barrierBuild?SFX.barrierBuild():SFX.thunk());mxHaptic('medium');gameFeelBarrierConstruct(x,y);
+    say(ml("Nano Bariyer yerleştirildi. 300 MoleCoin harcandı; ilk çarpışmada kırılacak.","Nano Barrier placed. 300 MoleCoin spent; it will break on the first collision.","Nano-Barriere platziert. 300 MoleCoin wurden ausgegeben; sie zerbricht beim ersten Zusammenstoß.","Nano Barrera colocada. Se gastaron 300 MoleCoin; se romperá con la primera colisión.","Nano Barreira colocada. 300 MoleCoin foram gastos; ela quebrará na primeira colisão.","ナノバリアを設置しました。300 MoleCoinを使用し、最初の衝突で壊れます。","Nano-Barrière placée. 300 MoleCoin dépensés ; elle se brisera au premier choc.","纳米屏障已放置，已花费300 MoleCoin；第一次碰撞时会破碎。","Nano Barriera posizionata. Spesi 300 MoleCoin; si romperà al primo urto."),'happy',3000,'glow');
   });
   bindTap('#mBarrierNo',()=>{closeModal();cancelBarrier();});
 }
@@ -7153,7 +7227,7 @@ function attemptHammerAt(x,y){
   bindTap('#mHammerYes',()=>{
     const target=hammerPending;if(!target||target.broken){closeModal();cancelHammer();return;}
     if(!spendBooster('hammer',1)){closeModal();cancelHammer();return;}
-    assistanceUsed=true;routeAssistUsed=true;
+    assistanceUsed=true;routeAssistUsed=true;setDeadlockVisual(false);setGoalLastMoveSignal(false);
     target.broken=true;grid[target.y][target.x]=false;invalidateBoardStatic();closeModal();cancelHammer();mxHaptic('heavy');shake=motionReduced()?0:Math.max(shake,.30);
     gameFeelToolFx('hammer',target.x,target.y);wallBreakDustFx(target.x,target.y);
     say(ml("Duvar kırıldı. Seçimin artık bölümün bir parçası!","Wall broken. Your choice is now part of the level!","Wand zerstört. Deine Wahl ist jetzt Teil des Levels!","Pared rota. ¡Tu elección ahora forma parte del nivel!","Parede quebrada. Sua escolha agora faz parte da fase!","壁を壊しました。あなたの選択がこのレベルの一部になりました！"),'happy',2600,'glow');
@@ -7629,8 +7703,8 @@ function enzymeGateSprite(isBio,open,phaseIndex=0){
   else{const gatePhase=(phase/12)*Math.PI*2;c.strokeStyle='#88f1ff';c.lineWidth=Math.max(1.3,T*.032);c.beginPath();c.arc(0,0,T*.21,-Math.PI*.72,Math.PI*.72);c.stroke();for(let i=0;i<3;i++){const a=-Math.PI/2+i*Math.PI*2/3+gatePhase*.16,x=Math.cos(a)*T*.22,y=Math.sin(a)*T*.22;c.fillStyle=i===0?'#d4a7ff':(i===1?'#76e9ff':'#ffe477');c.beginPath();c.arc(x,y,T*.072,0,7);c.fill();c.strokeStyle='rgba(255,255,255,.86)';c.lineWidth=Math.max(1,T*.018);c.stroke();}c.fillStyle='#eefcff';c.beginPath();c.moveTo(-T*.03,-T*.11);c.lineTo(T*.12,-T*.02);c.lineTo(T*.07,T*.13);c.lineTo(-T*.10,T*.10);c.lineTo(-T*.14,-T*.02);c.closePath();c.fill();}
   const out={cv,logical};enzymeGateSpriteCache.set(key,out);return out;
 }
-function drawEnzymeGate(g,t){
-  if(!g)return;const isBio=bioActive(),animate=!motionReduced()&&!performanceLow(),phase=(animate&&(isBio||!g.open))?Math.floor(t/(mobileGameplayRender()?120:92))%12:0,spr=enzymeGateSprite(isBio,!!g.open,phase),pulse=animate?(1+.016*Math.sin(t/430)):1;
+function drawEnzymeGate(g,t,calm=false){
+  if(!g)return;const isBio=bioActive(),animate=!calm&&!motionReduced()&&!performanceLow(),phase=(animate&&(isBio||!g.open))?Math.floor(t/(mobileGameplayRender()?120:92))%12:0,spr=enzymeGateSprite(isBio,!!g.open,phase),pulse=animate?(1+.016*Math.sin(t/430)):1;
   // Only cached frames and one canvas transform animate. No DOM layout read,
   // blur layer or per-frame path construction is performed here.
   bctx.save();bctx.translate((g.x+.5)*T,(g.y+.5)*T);bctx.scale(pulse,pulse);bctx.drawImage(spr.cv,-spr.logical/2,-spr.logical/2,spr.logical,spr.logical);bctx.restore();
@@ -7662,8 +7736,8 @@ function collectCrystalsAlong(cells){
   }
   if(gained){SFX.sparkle();updateEnzymeGate(true);updateHUD();}
 }
-function drawCrystalToken(x,y,t,type='catalyst'){
-  const spr=componentTokenSprite(type),legacy=(type==='catalyst'||type==='energy'||type==='stabilizer'),animate=!motionReduced()&&!performanceLow(),pulse=animate?(1+Math.sin(t/(legacy?230:470)+x*.017+y*.013)*(legacy?.07:.026)):1,rot=animate?Math.sin(t/(legacy?760:1280)+x*.012)*(legacy?.08:.028):0;
+function drawCrystalToken(x,y,t,type='catalyst',calm=false){
+  const spr=componentTokenSprite(type),legacy=(type==='catalyst'||type==='energy'||type==='stabilizer'),animate=!calm&&!motionReduced()&&!performanceLow(),pulse=animate?(1+Math.sin(t/(legacy?230:470)+x*.017+y*.013)*(legacy?.07:.026)):1,rot=animate?Math.sin(t/(legacy?760:1280)+x*.012)*(legacy?.08:.028):0;
   bctx.save();bctx.translate(x,y);bctx.rotate(rot);bctx.scale(pulse,pulse);bctx.drawImage(spr.cv,-spr.logical/2,-spr.logical/2,spr.logical,spr.logical);bctx.restore();
 }
 function randomLevelFromPool(pool){return pool.min+Math.floor(Math.random()*(Math.min(pool.max,LEVELS.length-1)-pool.min+1));}
@@ -9413,7 +9487,7 @@ function revealPreparedLevel(levelIndex,token){
     resize();
     const paintAt=performance.now();
     renderBoard(paintAt);
-    if(curMol)drawMol($('#goalCv'),curMol,false,paintAt);
+    if(curMol)drawMol($('#goalCv'),curMol,false);
     const action=$('#actionCol');if(action)void action.offsetWidth;
     requestAnimationFrame(()=>{
       if(token!==preparedLevelRevealToken||lv!==levelIndex)return;
@@ -9430,6 +9504,7 @@ function startLevel(i,mode='campaign',expectedKey=''){
   const revealToken=++preparedLevelRevealToken;
   if(scr.game)scr.game.classList.add('mxLevelPreparing');
   setAtomMotionActive(false);landingResolutionBusy=false;landingResolutionToken++;
+  setDeadlockVisual(false);setGoalLastMoveSignal(false);
   stopDrEScienceFacts();
   directNextBusy=false;
   if(typeof PARTS!=='undefined')PARTS.length=0;
@@ -9581,7 +9656,7 @@ function startLevel(i,mode='campaign',expectedKey=''){
   scr.game.classList.toggle('reactorMode',reactorActive());
   $('#goalName').textContent=curMol.n;
   fitFormulaNode($('#goalFor'),curMol.f);
-  const _gc=$('#goalCard');_gc.classList.remove('goalPop');void _gc.offsetWidth;_gc.classList.add('goalPop');
+  const _gc=$('#goalCard');if(_gc)_gc.classList.remove('goalPop','mxGoalBreath','mxGoalNear','mxGoalSuccess','mxGoalLastMove','mxGoalLastMovePulse');
   const _bf=$('#boardFrame'),_tn=mixHex(curMol.c[0],TIER_ACCENT[tierOf(i)],0.4);
   _bf.style.borderColor=_tn+'99';
   _bf.style.boxShadow='0 0 0 1px rgba(0,0,0,.5),0 18px 40px rgba(0,0,0,.55),0 0 36px '+_tn+'66,inset 0 0 22px rgba(0,0,0,.55)';
@@ -9594,7 +9669,17 @@ function startLevel(i,mode='campaign',expectedKey=''){
   if(mode==='campaign'&&!duelMode&&!dailyMode)scheduleDrEScienceFact(true);
   if(mode==='campaign'&&!duelMode&&!dailyMode&&!save.seenGoalGlowGuide&&tut!==0){
     save.seenGoalGlowGuide=true;persist();
-    setTimeout(()=>say(ml('💡 HEDEF kartındaki yavaş mavi ışık hedefi hatırlatır. Işık hızlanıp turuncuya dönerse molekül tamamlanmaya çok yakındır — yalnızca bir doğru bağ kalmıştır!','💡 The slow blue GOAL glow reminds you of the target. If it speeds up and turns warm orange, the molecule is nearly complete — only one correct bond remains!','💡 Das langsame blaue Leuchten der ZIEL-Karte erinnert dich an das Ziel. Wird es schneller und warmorange, fehlt nur noch eine richtige Bindung!','💡 El brillo azul lento de la tarjeta OBJETIVO recuerda la meta. Si acelera y se vuelve naranja, solo falta un enlace correcto.','💡 O brilho azul lento do cartão OBJETIVO lembra a meta. Se acelerar e ficar laranja, falta apenas uma ligação correta.','💡 目標カードのゆっくりした青い光は目標を示します。光が速くなりオレンジ色になったら、正しい結合はあと1つです。'),'talk',6200,'glow'),4200);
+    setTimeout(()=>say(ml(
+      '🎯 HEDEF normalde tamamen sabittir. Çözüm tam bir hamle uzağındaysa HEDEF çerçevesi iki kısa altın sinyal verir ve altın kalır. Tahta kırmızıysa gerçek bir çıkmaza girdin; oyun seni otomatik sıfırlamaz.',
+      '🎯 GOAL normally stays completely still. When the solution is exactly one move away, its frame gives two short gold signals and remains gold. A red board means a verified dead end; the game will not restart you automatically.',
+      '🎯 Das ZIEL bleibt normalerweise völlig ruhig. Ist die Lösung genau einen Zug entfernt, gibt der Rahmen zwei kurze goldene Signale und bleibt gold. Ein rotes Brett bedeutet eine bestätigte Sackgasse; das Spiel startet nicht automatisch neu.',
+      '🎯 OBJETIVO permanece normalmente inmóvil. Si la solución está exactamente a un movimiento, el marco da dos señales doradas cortas y queda dorado. Un tablero rojo indica un callejón sin salida verificado; el juego no reinicia automáticamente.',
+      '🎯 O OBJETIVO normalmente fica totalmente parado. Quando a solução está exatamente a uma jogada, a moldura dá dois sinais dourados curtos e permanece dourada. Tabuleiro vermelho significa um beco sem saída confirmado; o jogo não reinicia sozinho.',
+      '🎯 目標は通常まったく動きません。解決まで正確にあと1手なら、枠が金色に2回だけ短く光り、その後は金色のままです。盤面が赤い場合は確認済みの行き止まりで、自動リスタートはしません。',
+      '🎯 L’OBJECTIF reste normalement totalement immobile. Si la solution est exactement à un coup, son cadre émet deux courts signaux dorés puis reste doré. Un plateau rouge indique une impasse vérifiée ; le jeu ne redémarre pas automatiquement.',
+      '🎯 目标平时完全静止。若距离解法恰好只剩一步，目标边框会短暂闪两次金色并保持金色。棋盘变红表示已确认的死局；游戏不会自动重开。',
+      '🎯 L’OBIETTIVO normalmente resta completamente fermo. Se la soluzione è esattamente a una mossa, la cornice dà due brevi segnali dorati e resta dorata. Una tavola rossa indica un vicolo cieco verificato; il gioco non riavvia automaticamente.'
+    ),'talk',7200,'glow'),4200);
   }
   if(!unifiedBriefingQueued&&save.tutorialTips!==false&&breakableWalls.size&&!save.seenHammerWall){save.seenHammerWall=true;persist();setTimeout(()=>say('🔨 '+t('hammerDesc'),'talk',6200,'glow'),900);}
   if(!unifiedBriefingQueued&&save.tutorialTips!==false&&portalPairs.size&&!save.seenPortal){save.seenPortal=true;persist();setTimeout(()=>say('🌀 '+t('portalDesc'),'talk',6200,'glow'),breakableWalls.size?6200:900);}
@@ -9681,7 +9766,7 @@ function loadTutorialPuzzle(tl){
   $('#lvPill').textContent=t('howToPlay');
   $('#goalName').textContent=curMol.n;
   fitFormulaNode($('#goalFor'),curMol.f);
-  const _gc=$('#goalCard');_gc.classList.remove('goalPop');void _gc.offsetWidth;_gc.classList.add('goalPop');
+  const _gc=$('#goalCard');if(_gc)_gc.classList.remove('goalPop','mxGoalBreath','mxGoalNear','mxGoalSuccess','mxGoalLastMove','mxGoalLastMovePulse');
   updateCoins();updateBadge();updateHUD();
   closeModal();show('game');resetDrEPose();hideMoxyGameCompanion();
   requestAnimationFrame(()=>drawMol($('#goalCv'),curMol,false));
@@ -9801,10 +9886,7 @@ function updateHUD(){
   sp[1].classList.toggle('off',moves>t2);
   sp[2].classList.toggle('off',moves>LV.p);
   const goalCard=$('#goalCard');
-  if(goalCard){
-    goalCard.classList.toggle('mxGoalBreath',!won);
-    if(won)goalCard.classList.remove('mxGoalNear');
-  }
+  if(goalCard)goalCard.classList.remove('mxGoalBreath','mxGoalNear','mxGoalSuccess','goalPop');
   const crystalOn=crystalActive(),chainOn=chainActive(),reactorOn=reactorActive();
   const cc=$('#crystalCounter');if(cc){cc.classList.toggle('on',crystalOn);renderLabComponentHud(cc);}
   const ch=$('#chainCounter');if(ch){ch.classList.toggle('on',chainOn);ch.classList.toggle('hot',chainOn&&chainAutoActive);ch.textContent=chainOn?chainCounterText():('⚡ '+ml('KOMBO','COMBO','KOMBO','COMBO','COMBO','コンボ')+' x1');}
@@ -9859,7 +9941,7 @@ function installGameFeelPolish(){
     @keyframes mxBoardImpact{0%{transform:translate3d(0,0,0)}35%{transform:translate3d(1.5px,-1px,0)}70%{transform:translate3d(-1px,.5px,0)}100%{transform:translate3d(0,0,0)}}
     @media (prefers-reduced-motion:reduce){#goalCard.mxGoalBreath,#goalCard.mxGoalSuccess,#goalCard.mxGoalNear,#btnHammer.mxToolReady,#btnPrecision.mxToolReady,#btnBarrier.mxToolReady,#btnHint.mxToolReady,.mxBadgeFlash,#mxToolFx,body.mxImpact #gameBoard,body.mxImpact canvas#board{animation:none!important}}
   `;document.head.appendChild(st);
-  const goal=$('#goalCard');if(goal)goal.classList.add('mxGoalBreath'); // Slow blue glow reminds the player of the target; near-completion switches to a faster warm glow.
+  const goal=$('#goalCard');if(goal)goal.classList.remove('mxGoalBreath','mxGoalNear','mxGoalSuccess','goalPop'); // R171: GOAL is intentionally static except the finite last-move signal.
 }
 function gameFeelImpact(strength='light'){
   if(motionReduced())return;
@@ -10029,7 +10111,7 @@ function gameFeelToolState(){
 }
 function gameFeelWinBurst(delay=0){
   installGameFeelPolish();
-  const goal=$('#goalCard');if(goal){goal.classList.remove('mxGoalBreath','mxGoalNear','mxGoalSuccess');void goal.offsetWidth;goal.classList.add('mxGoalSuccess');}
+  const goal=$('#goalCard');if(goal)goal.classList.remove('mxGoalBreath','mxGoalNear','mxGoalSuccess','goalPop','mxGoalLastMove','mxGoalLastMovePulse');
   if(!effectsAllowed())return;
   const burst=()=>{
     const r=board.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;
@@ -10325,6 +10407,7 @@ function checkFragileImpact(movedIdx){
 }
 
 function afterMove(movedIdx){
+  setDeadlockVisual(false);
   if(movedIdx!==undefined)applyRotationPad(movedIdx);
   if(movedIdx!==undefined)checkLightning(movedIdx);
   checkMelt();
@@ -10349,6 +10432,7 @@ function afterMove(movedIdx){
   updatePressureDoors(true);
   advanceMovingWalls();
   updateIntensity();
+  refreshGoalLastMoveSignal();
   if(onlineDuelMode)queueOnlineLiveState();
   if(demoMode)return;
   if(movedIdx!==undefined)scheduleReactiveEinstein(movedIdx);
@@ -10369,7 +10453,7 @@ function undo(){
     moves=Math.max(0,Math.floor(Number(h.movesBefore)||0)+impactDebt);
     moveLog.length=Math.max(0,h.moveLogLen||0);
   }else{moveLog.pop();moves=Math.max(0,moves-1);}
-  sel=h.i!==undefined?h.i:0;crystalGoalWarned=false;if(chainActive())chainRefreshStep();SFX.undo();updateHUD();updateIntensity();if(onlineDuelMode)queueOnlineLiveState(true);resetIdle();noteLabToolStress('undo');
+  sel=h.i!==undefined?h.i:0;crystalGoalWarned=false;if(chainActive())chainRefreshStep();setDeadlockVisual(false);SFX.undo();updateHUD();updateIntensity();refreshGoalLastMoveSignal();if(onlineDuelMode)queueOnlineLiveState(true);resetIdle();noteLabToolStress('undo');
 }
 function showSpecificHint(){
   if(moves!==0)return false;
@@ -10403,7 +10487,7 @@ function labToolSuggestedId(reason){
 function labToolEinsteinText(id){
   if(id==='hammer')return ml('Şu çatlak duvar fazla özgüvenli görünüyor. 🔨 Lab Araçları’ndaki Çekiç hâlâ senin emrinde — nerede kullanacağına karışmıyorum.','That cracked wall looks far too confident. 🔨 The Hammer in Lab Tools is still available — I will not tell you where to use it.','Diese rissige Wand wirkt viel zu selbstsicher. 🔨 Der Hammer in den Laborwerkzeugen ist verfügbar — wo du ihn einsetzt, verrate ich nicht.','Esa pared agrietada parece demasiado segura de sí misma. 🔨 El Martillo de Herramientas de laboratorio sigue disponible; no te diré dónde usarlo.','Essa parede rachada parece confiante demais. 🔨 O Martelo nas Ferramentas de laboratório continua disponível — não vou dizer onde usar.','あのひび割れた壁、ずいぶん自信満々だね。🔨 ラボツールのハンマーは使えるよ。どこで使うかまでは教えないけど。','Ce mur fissuré a beaucoup trop confiance en lui. 🔨 Le Marteau des Outils de labo reste disponible — je ne dirai pas où l’utiliser.','那面裂墙看起来自信过头了。🔨 实验室工具里的锤子还可以用——至于用在哪里，我可不剧透。','Quel muro crepato sembra fin troppo sicuro di sé. 🔨 Il Martello negli Strumenti da laboratorio è disponibile — non ti dirò dove usarlo.');
   if(id==='precision')return ml('Bazen bütün koridoru kaymak istemezsin. 🎯 Lab Araçları’ndaki Tek Kare Hareket’i unutma; doğru kareyi yine sen bulacaksın.','Sometimes you do not want the whole slide. 🎯 Remember One-Square Move in Lab Tools; finding the right square is still your job.','Manchmal willst du nicht bis zum Anschlag gleiten. 🎯 Denk an den Ein-Feld-Zug in den Laborwerkzeugen; das richtige Feld musst du selbst finden.','A veces no quieres deslizarte hasta el final. 🎯 Recuerda Movimiento de una casilla en Herramientas de laboratorio; la casilla correcta la eliges tú.','Às vezes você não quer deslizar até o fim. 🎯 Lembre do Movimento de Uma Casa nas Ferramentas de laboratório; a casa certa ainda é decisão sua.','端まで滑りたくない場面もある。🎯 ラボツールの1マス移動を忘れずに。どのマスが正解かは君が考えるんだ。','Parfois, tu ne veux pas parcourir tout le couloir. 🎯 Pense au déplacement d’une case dans les Outils de labo ; à toi de choisir la bonne case.','有时候你并不想一路滑到底。🎯 别忘了实验室工具里的单格移动；哪一格合适还是要你自己判断。','A volte non vuoi scivolare fino in fondo. 🎯 Ricorda la Mossa di una casella negli Strumenti da laboratorio; la casella giusta la scegli tu.');
-  if(id==='barrier')return ml('Yeni bir yol açmak yerine geçici bir durak yaratmak da bilimdir. 🧱 Nano Bariyer Lab Araçları’nda; konumunu ben söylemem.','Science can also mean creating a temporary stop instead of finding a new route. 🧱 Nano Barrier is in Lab Tools; I will not choose the position for you.','Wissenschaft kann auch heißen, einen temporären Stopp zu schaffen statt einen neuen Weg zu suchen. 🧱 Die Nano-Barriere ist in den Laborwerkzeugen; die Position wählst du.','La ciencia también puede consistir en crear una parada temporal en vez de buscar otra ruta. 🧱 La Barrera nano está en Herramientas de laboratorio; tú eliges dónde.','Ciência também pode ser criar uma parada temporária em vez de procurar outra rota. 🧱 A Barreira Nano está nas Ferramentas de laboratório; a posição é com você.','別の道を探すだけが科学じゃない。一時的な止まり場所を作る手もある。🧱 ナノバリアはラボツールにある。置き場所は君に任せるよ。','La science, c’est parfois créer un arrêt temporaire plutôt que chercher une autre route. 🧱 La Nano-Barrière est dans les Outils de labo ; à toi de choisir sa place.','科学有时不是找新路线，而是创造一个临时停靠点。🧱 纳米屏障就在实验室工具里；位置由你决定。','La scienza può anche voler dire creare un arresto temporaneo invece di cercare un’altra strada. 🧱 La Nano Barriera è negli Strumenti da laboratorio; la posizione la scegli tu.');
+  if(id==='barrier')return ml('Yeni bir yol açmak yerine geçici bir durak yaratmak da bilimdir. 🧱 Nano Bariyer sağdaki araçlarda; yerleştirirken 300 MoleCoin ödersin, konumunu ben söylemem.','Science can also mean creating a temporary stop instead of finding a new route. 🧱 Nano Barrier is in the right-side tools; it costs 300 MoleCoin when placed, and I will not choose the position for you.','Wissenschaft kann auch heißen, einen temporären Stopp zu schaffen statt einen neuen Weg zu suchen. 🧱 Die Nano-Barriere ist in den Laborwerkzeugen; die Position wählst du.','La ciencia también puede consistir en crear una parada temporal en vez de buscar otra ruta. 🧱 La Barrera nano está en Herramientas de laboratorio; tú eliges dónde.','Ciência também pode ser criar uma parada temporária em vez de procurar outra rota. 🧱 A Barreira Nano está nas Ferramentas de laboratório; a posição é com você.','別の道を探すだけが科学じゃない。一時的な止まり場所を作る手もある。🧱 ナノバリアはラボツールにある。置き場所は君に任せるよ。','La science, c’est parfois créer un arrêt temporaire plutôt que chercher une autre route. 🧱 La Nano-Barrière est dans les Outils de labo ; à toi de choisir sa place.','科学有时不是找新路线，而是创造一个临时停靠点。🧱 纳米屏障就在实验室工具里；位置由你决定。','La scienza può anche voler dire creare un arresto temporaneo invece di cercare un’altra strada. 🧱 La Nano Barriera è negli Strumenti da laboratorio; la posizione la scegli tu.');
   return ml('Takıldın diye deneyi senin yerine çözmeyeceğim. 😏 Ama Lab Araçları’nda Akıllı İpucu var; istersen yalnızca odağını daraltır.','I will not solve the experiment for you just because you are stuck. 😏 But Smart Hint is in Lab Tools; it can narrow your focus without taking over.','Nur weil du feststeckst, löse ich das Experiment nicht für dich. 😏 Aber Smart Hint ist in den Laborwerkzeugen und kann deinen Fokus eingrenzen.','No voy a resolver el experimento por ti solo porque estés atascado. 😏 Pero Pista inteligente está en Herramientas de laboratorio y puede ayudarte a enfocar.','Não vou resolver o experimento por você só porque travou. 😏 Mas a Dica Inteligente está nas Ferramentas de laboratório e pode reduzir o foco.','詰まったからって僕が全部解くわけじゃないよ。😏 でもラボツールのスマートヒントなら、答えを奪わずに注目点を絞れる。','Je ne vais pas résoudre l’expérience à ta place parce que tu bloques. 😏 Mais l’Indice intelligent des Outils de labo peut simplement réduire le champ de recherche.','卡住了我也不会替你解题。😏 不过实验室工具里有智能提示，它可以只帮你缩小关注范围。','Non risolverò l’esperimento al posto tuo solo perché sei bloccato. 😏 Ma il Suggerimento intelligente negli Strumenti da laboratorio può restringere il campo senza sostituirti.');
 }
 function showLabToolReminder(reason='stress'){
@@ -10432,15 +10516,15 @@ function reactiveHintEligible(){
 }
 function reactiveEinsteinText(kind,element){
   if(kind==='dead')return ml(
-    'Bu konumda normal çözüm kalmadığını doğruladım. Deneyi yeniden başlatacağım; buradan devam edemeyiz.',
-    'I verified a true dead end. I will restart the experiment because we cannot continue from here.',
-    'Das Experiment steckt in dieser Stellung fest. Ich setze es nicht automatisch zurück: Nutze RÜCKGÄNGIG, SMART-HINWEIS oder NANO-BARRIERE – oder starte nur auf deinen Wunsch neu.',
-    'El experimento está bloqueado en esta posición. No lo reiniciaré automáticamente: prueba DESHACER, PISTA INTELIGENTE o BARRERA NANO; reinicia solo si tú lo decides.',
-    'O experimento travou nesta posição. Não vou reiniciar automaticamente: tente DESFAZER, DICA INTELIGENTE ou BARREIRA NANO; reinicie apenas se você escolher.',
-    'この配置は行き詰まりです。自動ではリセットしません。「元に戻す」、スマートヒント、ナノバリアを試すか、自分で選んだときだけやり直せます。',
-    'L’expérience est bloquée dans cette position. Je ne la réinitialise pas automatiquement : essayez ANNULER, INDICE INTELLIGENT ou NANO-BARRIÈRE, ou recommencez seulement si vous le décidez.',
-    '实验在当前局面陷入死局。我不会自动重置：可以尝试撤销、智能提示或纳米屏障；只有你选择时才重新开始。',
-    'L’esperimento è bloccato in questa posizione. Non lo azzero automaticamente: prova ANNULLA, SUGGERIMENTO SMART o NANO BARRIERA; ricomincia solo se lo scegli tu.'
+    'Oyunu kilitledin. Bu konumdan normal çözüm yolu kalmadığını doğruladım. Tahtayı sıfırlamadım: GERİ AL, AKILLI İPUCU veya NANO BARİYER ile yolu değiştir; istersen YENİDEN BAŞLAT.',
+    'You locked the puzzle. I verified that no normal solution remains from this position. I did not reset the board: use UNDO, SMART HINT or NANO BARRIER to change the route, or RESTART if you choose.',
+    'Du hast das Puzzle festgefahren. Von dieser Stellung bleibt kein normaler Lösungsweg. Ich habe das Brett nicht zurückgesetzt: Nutze RÜCKGÄNGIG, SMART-HINWEIS oder NANO-BARRIERE – oder starte nur auf deinen Wunsch neu.',
+    'Has bloqueado el rompecabezas. Desde esta posición no queda una solución normal. No reinicié el tablero: usa DESHACER, PISTA INTELIGENTE o BARRERA NANO; reinicia solo si tú lo decides.',
+    'Você travou o quebra-cabeça. Não resta uma solução normal nesta posição. Não reiniciei o tabuleiro: use DESFAZER, DICA INTELIGENTE ou BARREIRA NANO; reinicie apenas se você escolher.',
+    'パズルを行き止まりにしました。この配置から通常の解法は残っていません。盤面はリセットしていません。「元に戻す」、スマートヒント、ナノバリアを使うか、自分で選んだときだけやり直してください。',
+    'Tu as bloqué le puzzle. Il ne reste aucune solution normale depuis cette position. Je n’ai pas réinitialisé le plateau : utilise ANNULER, INDICE INTELLIGENT ou NANO-BARRIÈRE, ou recommence seulement si tu le décides.',
+    '你把谜题走进死局了。我已确认当前局面没有正常解法。棋盘没有重置：可用撤销、智能提示或纳米屏障改变路线；只有你自己选择时才重新开始。',
+    'Hai bloccato il puzzle. Da questa posizione non resta una soluzione normale. Non ho azzerato la tavola: usa ANNULLA, SUGGERIMENTO SMART o NANO BARRIERA; ricomincia solo se lo scegli tu.'
   );
   if(kind==='alt')return ml(
     'İlginç… benim notlarımda böyle değildi ama hesap hâlâ tutuyor. Devam et, bilim bazen sürpriz sever. 😏',
@@ -10472,38 +10556,9 @@ function dispatchSupportButton(selector){
 function showDeadlockRescue(movedIdx){
   if(!reactiveHintEligible())return false;
   const key=lv+':'+moves+':'+stateKey(atoms);if(deadlockRescueKey===key)return false;deadlockRescueKey=key;
-  const deadLv=lv,mode=crystalMode?'crystal':(dailyMode?'daily':'campaign');
-  setDrEPose('thinking',5200,5,true);prop('🔄',1800);mxHaptic('light');
-  say(ml(
-    'Bu konumda normal bir çözüm kalmadığını doğruladım. Deneyi başa alıyorum…',
-    'I verified that no normal solution remains from this position. I am restarting the experiment…',
-    'Ich habe bestätigt, dass von dieser Stellung kein normaler Lösungsweg mehr bleibt. Ich starte das Experiment neu…',
-    'He confirmado que desde esta posición ya no queda una solución normal. Reinicio el experimento…',
-    'Confirmei que não resta uma solução normal a partir desta posição. Vou reiniciar o experimento…',
-    'この配置から通常の解法が残っていないことを確認しました。実験を最初からやり直します…',
-    'J’ai confirmé qu’il ne reste plus de solution normale depuis cette position. Je relance l’expérience…',
-    '我已确认当前局面没有正常解法了。正在重新开始实验……',
-    'Ho verificato che da questa posizione non resta una soluzione normale. Riavvio l’esperimento…'
-  ),'thinking',2600,'glow');
-  setTimeout(()=>{
-    if(lv!==deadLv||won||onlineDuelMode||duelMode)return;
-    startLevel(deadLv,mode);
-    setTimeout(()=>{
-      if(lv!==deadLv||won)return;
-      setDrEPose('clipboard',6200,5,true);prop('🧭',1800);
-      say(ml(
-        'Deneyi yeniden başlattım; buradan devam edemeyecektik. Bu kez farklı bir sıra dene. İpucu: ',
-        'I restarted the experiment because we could not continue from there. Try a different order this time. Tip: ',
-        'Ich habe das Experiment neu gestartet, weil wir von dort nicht weitermachen konnten. Probiere diesmal eine andere Reihenfolge. Tipp: ',
-        'He reiniciado el experimento porque desde allí no podíamos continuar. Prueba otro orden esta vez. Consejo: ',
-        'Reiniciei o experimento porque não podíamos continuar dali. Tente uma ordem diferente desta vez. Dica: ',
-        'そこからは続けられなかったので実験を再スタートしました。今度は違う順番を試してみて。ヒント：',
-        'J’ai relancé l’expérience car nous ne pouvions plus continuer depuis cette position. Essaie un autre ordre cette fois. Indice : ',
-        '我重新开始了实验，因为刚才那个局面已经无法继续。这次试试不同的顺序。提示：',
-        'Ho riavviato l’esperimento perché da lì non potevamo continuare. Questa volta prova un ordine diverso. Suggerimento: '
-      )+tipOf(mid),'talk',6800,'glow');
-    },420);
-  },900);
+  setGoalLastMoveSignal(false);setDeadlockVisual(true);
+  setDrEPose('thinking',6200,6,true);prop('⛔',1800);mxHaptic('light');
+  say(reactiveEinsteinText('dead',atoms[movedIdx]&&atoms[movedIdx].e||'?'),'thinking',7200,'glow');
   return true;
 }
 function reactiveEinsteinSpeak(kind,movedIdx){
@@ -10525,6 +10580,7 @@ function scheduleReactiveEinstein(movedIdx){
     if(token!==reactiveHintToken||lv!==levelAtSchedule||moves!==moveAtSchedule||!reactiveHintEligible())return;
     const progress=certifiedRouteProgress(LV&&LV.fs);
     if(progress>=0){
+      setGoalLastMoveSignal(LV.fs.length-progress===1);
       // Positive feedback is deliberately sparse; Einstein should not narrate every move.
       if(moves>=3&&moves%5===0)reactiveEinsteinSpeak('good',movedIdx);
       return;
@@ -10533,13 +10589,14 @@ function scheduleReactiveEinstein(movedIdx){
     const r=await requestSmartHintPath({forceSearch:true,maxNodes:36000,maxDepth:30,timeout:2800});
     if(token!==reactiveHintToken||lv!==levelAtSchedule||moves!==moveAtSchedule||!reactiveHintEligible())return;
     if(r&&r.ok&&Array.isArray(r.path)&&r.path.length){
+      setGoalLastMoveSignal(r.path.length===1);
       // An alternative route is valid: never call the player's move wrong.
       if(reactiveHintComments<1||moves-reactiveHintLastMove>=4)reactiveEinsteinSpeak('alt',movedIdx);
       return;
     }
     // Only a fully exhausted search may label the position a dead end. Timeouts,
     // node limits and depth limits stay silent so Einstein never invents certainty.
-    if(r&&r.provenDeadEnd===true)reactiveEinsteinSpeak('dead',movedIdx);
+    if(r&&r.provenDeadEnd===true){setGoalLastMoveSignal(false);reactiveEinsteinSpeak('dead',movedIdx);}
   },720);
 }
 function smartHintSnapshot(){
@@ -10653,14 +10710,17 @@ function hint(){
   drEGameEvent('hint',true);characterMoment('hint');
   offerPaidHint();
 }
+function moleCoinInline(amount){return '<span class="mxInlineMoleCoin"><span class="coinIcon" aria-hidden="true"></span><b>'+Math.max(0,Math.floor(Number(amount)||0))+'</b></span>';}
 function offerPaidHint(){
   ensureCoinLedger(save);
   const costs=labHintCosts(),free=quantumHintAvailable(),fullOpen=fullSolutionHintUnlocked();
   const fullLock=ml('2 ipucu kullandıktan veya PAR +2 hamleye ulaştıktan sonra açılır.','Unlocks after 2 hints or after reaching PAR +2 moves.','Wird nach 2 Hinweisen oder bei PAR +2 Zügen freigeschaltet.','Se desbloquea tras 2 pistas o al llegar a PAR +2 movimientos.','Desbloqueia após 2 dicas ou ao chegar a PAR +2 jogadas.','ヒントを2回使うか、PAR+2手に達すると解放。','Se débloque après 2 indices ou à PAR +2 coups.','使用2次提示或达到PAR+2步后解锁。','Si sblocca dopo 2 indizi o a PAR +2 mosse.');
-  openModal('<h3>'+t('paidHintTitle')+'</h3><div class="msub">'+(free?(ml("Kuantum masan bugünün kesin hamlesini ücretsiz hazırladı.","Your quantum desk prepared today’s exact move for free.","Dein Quantentisch hat den exakten Zug des Tages kostenlos vorbereitet.","Tu mesa cuántica preparó gratis el movimiento exacto de hoy.","Sua mesa quântica preparou gratuitamente o movimento exato de hoje.","量子デスクが今日の正確な一手を無料で用意しました。","Ton bureau quantique a préparé gratuitement le coup exact du jour.","量子桌已免费准备好今天的一步精确提示。","La scrivania quantistica ha preparato gratis la mossa esatta di oggi.")):t('paidHintMsg',coinBalance()))+'</div><div class="mrow" style="flex-direction:column;gap:10px">'+
-    '<button class="btn green" id="mHintGeneral" '+(coinBalance()<costs.general?'disabled style="opacity:.45"':'')+'>💡 '+ml("STRATEJİK İPUCU","STRATEGIC CLUE","STRATEGISCHER HINWEIS","PISTA ESTRATÉGICA","DICA ESTRATÉGICA","戦略ヒント","INDICE STRATÉGIQUE","策略提示","INDIZIO STRATEGICO")+' — '+costs.general+' 🪙</button>'+ 
-    '<button class="btn blue" id="mHint50" '+(!free&&coinBalance()<costs.move?'disabled style="opacity:.45"':'')+'>'+ml("⚡ SONRAKİ KESİN HAMLE","⚡ NEXT EXACT MOVE","⚡ NÄCHSTER EXAKTER ZUG","⚡ SIGUIENTE MOVIMIENTO EXACTO","⚡ PRÓXIMO MOVIMENTO EXATO","⚡ 次の正確な手","⚡ PROCHAIN COUP EXACT","⚡ 下一个精确步骤","⚡ PROSSIMA MOSSA ESATTA")+' — '+(free?ml("ÜCRETSİZ","FREE","KOSTENLOS","GRATIS","GRÁTIS","無料","GRATUIT","免费","GRATIS"):costs.move+' 🪙')+'</button>'+ 
-    '<button class="btn amber" id="mHint200" '+(!fullOpen||coinBalance()<costs.full?'disabled style="opacity:.42"':'')+'>'+ml("🏆 KALAN ÇÖZÜMÜ GÖSTER","🏆 SHOW THE REST","🏆 RESTLICHE LÖSUNG ZEIGEN","🏆 MOSTRAR EL RESTO","🏆 MOSTRAR O RESTANTE","🏆 残りの解答を見る","🏆 MONTRER LA SUITE","🏆 显示剩余解法","🏆 MOSTRA IL RESTO")+' — '+costs.full+' 🪙</button>'+ 
+  const balance=ml('MoleCoin bakiyen:','MoleCoin balance:','MoleCoin-Guthaben:','Saldo de MoleCoin:','Saldo de MoleCoin:','MoleCoin残高：','Solde MoleCoin :','MoleCoin余额：','Saldo MoleCoin:')+' '+moleCoinInline(coinBalance());
+  const intro=(free?ml("Kuantum masan bugünün kesin hamlesini ücretsiz hazırladı.","Your quantum desk prepared today’s exact move for free.","Dein Quantentisch hat den exakten Zug des Tages kostenlos vorbereitet.","Tu mesa cuántica preparó gratis el movimiento exacto de hoy.","Sua mesa quântica preparou gratuitamente o movimento exato de hoje.","量子デスクが今日の正確な一手を無料で用意しました。","Ton bureau quantique a préparé gratuitement le coup exact du jour.","量子桌已免费准备好今天的一步精确提示。","La scrivania quantistica ha preparato gratis la mossa esatta di oggi."):ml("Takıldığında MoleCoin kullanarak ek yardım alabilirsin.","Spend MoleCoin for extra help when you get stuck.","Wenn du feststeckst, kannst du MoleCoin für zusätzliche Hilfe ausgeben.","Si te atascas, puedes gastar MoleCoin para obtener ayuda adicional.","Se travar, você pode gastar MoleCoin para receber ajuda extra.","行き詰まったらMoleCoinを使って追加のヒントを得られます。","Si tu bloques, dépense des MoleCoin pour obtenir une aide supplémentaire.","卡住时可以使用MoleCoin获得额外帮助。","Se ti blocchi, puoi spendere MoleCoin per ricevere altro aiuto."));
+  openModal('<h3>'+t('paidHintTitle')+'</h3><div class="msub mxHintIntro">'+intro+'<div class="mxHintBalance">'+balance+'</div></div><div class="mrow mxHintBuyRows" style="flex-direction:column;gap:10px">'+
+    '<button class="btn green mxHintPriceBtn" id="mHintGeneral" '+(coinBalance()<costs.general?'disabled style="opacity:.45"':'')+'><span>💡 '+ml("STRATEJİK İPUCU","STRATEGIC CLUE","STRATEGISCHER HINWEIS","PISTA ESTRATÉGICA","DICA ESTRATÉGICA","戦略ヒント","INDICE STRATÉGIQUE","策略提示","INDIZIO STRATEGICO")+'</span><span>— '+moleCoinInline(costs.general)+'</span></button>'+ 
+    '<button class="btn blue mxHintPriceBtn" id="mHint50" '+(!free&&coinBalance()<costs.move?'disabled style="opacity:.45"':'')+'><span>'+ml("⚡ SONRAKİ KESİN HAMLE","⚡ NEXT EXACT MOVE","⚡ NÄCHSTER EXAKTER ZUG","⚡ SIGUIENTE MOVIMIENTO EXACTO","⚡ PRÓXIMO MOVIMENTO EXATO","⚡ 次の正確な手","⚡ PROCHAIN COUP EXACT","⚡ 下一个精确步骤","⚡ PROSSIMA MOSSA ESATTA")+'</span><span>— '+(free?'<b>'+ml("ÜCRETSİZ","FREE","KOSTENLOS","GRATIS","GRÁTIS","無料","GRATUIT","免费","GRATIS")+'</b>':moleCoinInline(costs.move))+'</span></button>'+ 
+    '<button class="btn amber mxHintPriceBtn" id="mHint200" '+(!fullOpen||coinBalance()<costs.full?'disabled style="opacity:.42"':'')+'><span>'+ml("🏆 KALAN ÇÖZÜMÜ GÖSTER","🏆 SHOW THE REST","🏆 RESTLICHE LÖSUNG ZEIGEN","🏆 MOSTRAR EL RESTO","🏆 MOSTRAR O RESTANTE","🏆 残りの解答を見る","🏆 MONTRER LA SUITE","🏆 显示剩余解法","🏆 MOSTRA IL RESTO")+'</span><span>— '+moleCoinInline(costs.full)+'</span></button>'+ 
     (!fullOpen?'<small style="opacity:.72;text-align:center">🔒 '+fullLock+'</small>':'')+
     '<button class="btn ghost" id="mHintShop">🛒 '+ml("LAB MAĞAZA","LAB SHOP","LAB-SHOP","TIENDA LAB","LOJA LAB","ラボショップ","BOUTIQUE LAB","实验室商店","NEGOZIO LAB")+'</button>'+ 
     '<button class="btn ghost" id="mHintCancel">'+t('cancel')+'</button></div>');
@@ -11326,7 +11386,11 @@ function winSeq(lastMovedIdx){
   addCoins(gained);
   const postNobelAward=claimPostNobelCareer(oldCur,save.cur);
   if(postNobelAward){gained+=postNobelAward.coins;rpGained+=postNobelAward.rp;}
-  persist();
+  // R173: commit progress locally immediately, then perform one authoritative
+  // background checkpoint. This avoids duplicate saveProgress + leaderboard
+  // writes on the same completion frame, which was especially wasteful once
+  // the 302–501 maps were present in the profile.
+  persistLocalOnly();
   // Save the completed level to Firebase silently in the background.
   // The result animation and next-level flow never wait for this network write.
   queueLevelCloudCheckpoint('campaign-level-'+String(lv+1));
@@ -12604,13 +12668,13 @@ function trainingProgress(){
   return {total,done,pct:total?Math.round(done*100/total):0};
 }
 const SUPPORT_INFO={
-  hint:{icon:'💡',title:['İpucu','Hint','Hinweis','Pista','Dica','ヒント'],desc:['Tek dokunuşla ipucu menüsü açılır. Ücretsiz genel tavsiye, sonraki kesin hamle veya kalan çözüm arasından seçim yaparsın.','One tap opens the hint menu. Choose a free general clue, the next exact move, or the remaining solution.','Ein Tippen öffnet das Hinweismenü. Wähle einen kostenlosen allgemeinen Tipp, den nächsten exakten Zug oder die restliche Lösung.','Un toque abre el menú de pistas. Elige una orientación general gratis, el siguiente movimiento exacto o la solución restante.','Um toque abre o menu de dicas. Escolha uma orientação geral grátis, o próximo movimento exato ou a solução restante.','1回タップするとヒントメニューが開きます。無料の一般ヒント、次の正確な手、残りの解答から選べます。']},
-  undo:{icon:'↩️',title:['Geri Al','Undo','Rückgängig','Deshacer','Desfazer','元に戻す'],desc:['Son normal hamleyi geri çevirir. Kullanılmış Çekiç, Tek Kare Hareket ve Nano Bariyer envantere geri dönmez.','Reverses the last normal move. Used Hammer, One-Square Move, and Nano Barrier items are not restored.','Macht den letzten normalen Zug rückgängig. Benutzter Hammer, Ein-Feld-Zug und Nano-Barriere werden nicht zurückgegeben.','Revierte el último movimiento normal. Martillo, Movimiento de una casilla y Barrera nano usados no se devuelven.','Desfaz o último movimento normal. Martelo, Movimento de uma casa e Barreira nano usados não são devolvidos.','直前の通常手を戻します。使用済みのハンマー、1マス移動、ナノバリアは戻りません。']},
-  restart:{icon:'🔄',title:['Yeniden Başlat','Restart','Neu starten','Reiniciar','Reiniciar','やり直す'],desc:['Bölümü başlangıç düzenine döndürür. Harcanan destekler geri verilmez.','Returns the level to its starting layout. Consumed support items are not restored.','Setzt das Level auf die Startanordnung zurück. Verbrauchte Hilfen werden nicht erstattet.','Devuelve el nivel a su disposición inicial. Las ayudas gastadas no se recuperan.','Retorna a fase à configuração inicial. Os suportes gastos não são devolvidos.','レベルを開始時の配置に戻します。消費したサポートは戻りません。']},
-  hammer:{icon:'🔨',title:['Çekiç','Hammer','Hammer','Martillo','Martelo','ハンマー'],desc:['Çekici seç, ardından çatlak duvara dokun. Eğitim örneği ücretsizdir; gerçek kullanımda 1 çekiç harcanır.','Select the hammer, then tap a cracked wall. The training example is free; real use consumes 1 hammer.','Wähle den Hammer und tippe dann auf eine rissige Wand. Das Trainingsbeispiel ist kostenlos; im echten Level wird 1 Hammer verbraucht.','Selecciona el martillo y toca una pared agrietada. El ejemplo de práctica es gratis; el uso real consume 1 martillo.','Selecione o martelo e toque em uma parede rachada. O exemplo de treino é grátis; o uso real consome 1 martelo.','ハンマーを選び、ひび割れた壁をタップします。練習は無料ですが、実際の使用ではハンマーを1個消費します。']},
-  precision:{icon:'↔️',title:['Tek Kare Hareket','One-Square Move','Ein-Feld-Zug','Movimiento de una casilla','Movimento de uma casa','1マス移動'],desc:['Aracı seç, atomu seç ve yön ver. Atom yalnızca 1 kare ilerler. Eğitim örneği ücretsizdir.','Select the tool, choose an atom and a direction. The atom moves exactly one square. The training example is free.','Wähle das Werkzeug, ein Atom und eine Richtung. Das Atom bewegt sich genau ein Feld. Das Trainingsbeispiel ist kostenlos.','Selecciona la herramienta, un átomo y una dirección. El átomo avanza exactamente una casilla. El ejemplo es gratis.','Selecione a ferramenta, um átomo e uma direção. O átomo avança exatamente uma casa. O exemplo é grátis.','ツール、原子、方向を選ぶと、原子がちょうど1マス移動します。練習は無料です。']},
-  barrier:{icon:'🧱',title:['Nano Bariyer','Nano Barrier','Nano-Barriere','Barrera nano','Barreira nano','ナノバリア'],desc:['Aracı seçip boş ve normal bir kareye dokun. Geçici blok ilk atom çarpışmasında kırılır ve bölüm başına yalnızca bir kez kullanılabilir.','Select the tool and tap an empty normal tile. The temporary block breaks on the first atom collision and can be used only once per level.','Wähle das Werkzeug und tippe auf ein leeres normales Feld. Der temporäre Block zerbricht beim ersten Atomaufprall und kann nur einmal pro Level benutzt werden.','Selecciona la herramienta y toca una casilla normal vacía. El bloque temporal se rompe con el primer choque de un átomo y solo puede usarse una vez por nivel.','Selecione a ferramenta e toque em uma casa normal vazia. O bloco temporário quebra na primeira colisão de um átomo e só pode ser usado uma vez por fase.','ツールを選び、空いている通常マスをタップします。一時ブロックは最初の原子衝突で壊れ、1レベルにつき1回だけ使えます。']},
-  lab:{icon:'🧪',title:['Laboratuvar ve Destekler','Laboratory and Supports','Labor und Hilfen','Laboratorio y ayudas','Laboratório e suportes','ラボとサポート'],desc:['Çekiç, Tek Kare Hareket ve Nano Bariyer burada alınır. Kalıcı cihazlar ipucu fiyatını düşürür veya ödülleri artırır. Satın almadan önce kartın etkisini kontrol et.','Hammer, One-Square Move, and Nano Barrier are bought here. Permanent equipment reduces hint costs or increases rewards. Check each card before buying.','Hammer, Ein-Feld-Zug und Nano-Barriere werden hier gekauft. Dauerhafte Geräte senken Hinweiskosten oder erhöhen Belohnungen. Prüfe vor dem Kauf jede Karte.','Aquí se compran Martillo, Movimiento de una casilla y Barrera nano. Los equipos permanentes reducen el coste de pistas o aumentan recompensas. Revisa cada tarjeta antes de comprar.','Martelo, Movimento de uma casa e Barreira nano são comprados aqui. Equipamentos permanentes reduzem o custo de dicas ou aumentam recompensas. Confira cada cartão antes de comprar.','ハンマー、1マス移動、ナノバリアを購入できます。常設装置はヒント費用を下げたり報酬を増やしたりします。購入前に効果を確認してください。']}
+  hint:{icon:'💡',title:['İpucu','Hint','Hinweis','Pista','Dica','ヒント','Indice','提示','Suggerimento'],desc:['Tek dokunuşla ipucu menüsü açılır. Ücretsiz genel tavsiye, sonraki kesin hamle veya kalan çözüm arasından seçim yaparsın.','One tap opens the hint menu. Choose a free general clue, the next exact move, or the remaining solution.','Ein Tippen öffnet das Hinweismenü. Wähle einen kostenlosen allgemeinen Tipp, den nächsten exakten Zug oder die restliche Lösung.','Un toque abre el menú de pistas. Elige una orientación general gratis, el siguiente movimiento exacto o la solución restante.','Um toque abre o menu de dicas. Escolha uma orientação geral grátis, o próximo movimento exato ou a solução restante.','1回タップするとヒントメニューが開きます。無料の一般ヒント、次の正確な手、残りの解答から選べます。','Un toucher ouvre le menu des indices. Choisis un conseil général gratuit, le prochain coup exact ou la solution restante.','轻触一次即可打开提示菜单。你可以选择免费的总体提示、下一步精确操作或剩余完整解法。','Un tocco apre il menu dei suggerimenti. Puoi scegliere un consiglio generale gratuito, la prossima mossa esatta o la soluzione restante.']},
+  undo:{icon:'↩️',title:['Geri Al','Undo','Rückgängig','Deshacer','Desfazer','元に戻す','Annuler','撤销','Annulla'],desc:['Son normal hamleyi geri çevirir. Kullanılmış Çekiç ve Tek Kare Hareket geri dönmez; yerleştirilmiş Nano Bariyer için harcanan MoleCoin iade edilmez.','Reverses the last normal move. Used Hammer and One-Square Move items are not restored; MoleCoin spent on a placed Nano Barrier is not refunded.','Macht den letzten normalen Zug rückgängig. Benutzter Hammer und Ein-Feld-Zug werden nicht zurückgegeben; MoleCoin für eine platzierte Nano-Barriere werden nicht erstattet.','Revierte el último movimiento normal. Los usos de Martillo y Movimiento de una casilla no se recuperan; los MoleCoin gastados en una Barrera nano colocada no se reembolsan.','Desfaz o último movimento normal. Martelo e Movimento de uma casa usados não são devolvidos; MoleCoin gastos em uma Barreira Nano colocada não são reembolsados.','直前の通常手を戻します。使用済みのハンマーと1マス移動は戻らず、設置済みナノバリアに使ったMoleCoinも返却されません。','Annule le dernier coup normal. Le Marteau et le déplacement d’une case consommés ne sont pas rendus ; les MoleCoin dépensés pour une Nano-Barrière placée ne sont pas remboursés.','撤销上一步普通移动。已使用的锤子和单格移动不会返还；已放置纳米屏障消耗的MoleCoin也不会退款。','Annulla l’ultima mossa normale. Martello e Mossa di una casella consumati non vengono restituiti; i MoleCoin spesi per una Nano Barriera già posizionata non vengono rimborsati.']},
+  restart:{icon:'🔄',title:['Yeniden Başlat','Restart','Neu starten','Reiniciar','Reiniciar','やり直す','Recommencer','重新开始','Ricomincia'],desc:['Bölümü başlangıç düzenine döndürür. Harcanan destekler geri verilmez.','Returns the level to its starting layout. Consumed support items are not restored.','Setzt das Level auf die Startanordnung zurück. Verbrauchte Hilfen werden nicht erstattet.','Devuelve el nivel a su disposición inicial. Las ayudas gastadas no se recuperan.','Retorna a fase à configuração inicial. Os suportes gastos não são devolvidos.','レベルを開始時の配置に戻します。消費したサポートは戻りません。','Remet le niveau dans sa configuration de départ. Les aides déjà consommées ne sont pas restituées.','将关卡恢复到初始布局。已消耗的辅助道具不会返还。','Riporta il livello alla disposizione iniziale. I supporti già consumati non vengono restituiti.']},
+  hammer:{icon:'🔨',title:['Çekiç','Hammer','Hammer','Martillo','Martelo','ハンマー','Marteau','锤子','Martello'],desc:['Çekiç yalnız çatlak duvar bulunan bölümlerde verilir. Aracı seç, ardından çatlak duvara dokun. Eğitim örneği ücretsizdir; gerçek kullanımda 1 çekiç harcanır.','Hammer is available only in levels with a cracked wall. Select it, then tap the cracked wall. The training example is free; real use consumes 1 hammer.','Der Hammer ist nur in Levels mit einer rissigen Wand verfügbar. Wähle ihn und tippe dann auf die rissige Wand. Das Training ist kostenlos; im echten Level wird 1 Hammer verbraucht.','El Martillo solo está disponible en niveles con una pared agrietada. Selecciónalo y toca esa pared. El ejemplo de práctica es gratis; el uso real consume 1 martillo.','O Martelo só fica disponível em fases com uma parede rachada. Selecione-o e toque nessa parede. O treino é grátis; o uso real consome 1 martelo.','ハンマーはひび割れ壁があるレベルでのみ使用できます。選択して壁をタップします。練習は無料ですが、実戦では1個消費します。','Le Marteau n’est disponible que dans les niveaux comportant un mur fissuré. Sélectionne-le puis touche ce mur. L’entraînement est gratuit ; l’usage réel consomme 1 Marteau.','锤子只会在存在裂纹墙的关卡中提供。选择锤子后点击裂纹墙。训练示例免费；实战每次消耗1把锤子。','Il Martello è disponibile solo nei livelli con un muro crepato. Selezionalo e tocca quel muro. L’esempio di allenamento è gratuito; l’uso reale consuma 1 Martello.']},
+  precision:{icon:'↔️',title:['Tek Kare Hareket','One-Square Move','Ein-Feld-Zug','Movimiento de una casilla','Movimento de uma casa','1マス移動','Déplacement d’une case','单格移动','Mossa di una casella'],desc:['Aracı seç, atomu seç ve yön ver. Atom yalnızca 1 kare ilerler. Bu deney aracı desteklemiyorsa Einstein bunu açıkça söyler. Eğitim örneği ücretsizdir.','Select the tool, choose an atom and a direction. The atom moves exactly one square. If the experiment does not support the tool, Dr. E tells you clearly. The training example is free.','Wähle Werkzeug, Atom und Richtung. Das Atom bewegt sich genau ein Feld. Unterstützt das Experiment das Werkzeug nicht, sagt Dr. E es ausdrücklich. Das Training ist kostenlos.','Selecciona la herramienta, un átomo y una dirección. El átomo avanza exactamente una casilla. Si el experimento no admite la herramienta, Dr. E te lo dirá claramente. El ejemplo es gratis.','Selecione a ferramenta, um átomo e uma direção. O átomo avança exatamente uma casa. Se o experimento não aceitar a ferramenta, Dr. E avisará claramente. O exemplo é grátis.','ツール、原子、方向を選ぶと、原子がちょうど1マス移動します。この実験で使えない場合はDr. Eが明確に知らせます。練習は無料です。','Sélectionne l’outil, un atome et une direction. L’atome avance exactement d’une case. Si l’expérience n’autorise pas cet outil, Dr. E te le dira clairement. L’entraînement est gratuit.','选择工具、原子和方向后，原子会精确移动一格。如果本实验不支持该工具，Dr. E会明确告诉你。训练示例免费。','Seleziona lo strumento, un atomo e una direzione. L’atomo si muove esattamente di una casella. Se l’esperimento non supporta lo strumento, Dr. E te lo dirà chiaramente. L’allenamento è gratuito.']},
+  barrier:{icon:'🧱',title:['Nano Bariyer','Nano Barrier','Nano-Barriere','Barrera nano','Barreira nano','ナノバリア','Nano-Barrière','纳米屏障','Nano Barriera'],desc:['Nano Bariyer desteklenen bölümlerde boş ve normal bir kareye yerleştirilir. Onayda 300 MoleCoin harcanır; ilk atom çarpışmasında kırılır ve bölüm başına yalnızca bir kez kullanılabilir. Kullanılamayan deneylerde Einstein bunu açıkça söyler.','In supported levels, Nano Barrier is placed on an empty normal tile. Confirming costs 300 MoleCoin; it breaks on the first atom collision and can be used only once per level. Dr. E clearly tells you when an experiment does not allow it.','In unterstützten Levels wird die Nano-Barriere auf ein leeres normales Feld gesetzt. Die Bestätigung kostet 300 MoleCoin; sie zerbricht beim ersten Atomaufprall und ist nur einmal pro Level nutzbar. Dr. E sagt klar, wenn sie in einem Experiment nicht erlaubt ist.','En niveles compatibles, la Barrera nano se coloca en una casilla normal vacía. Confirmar cuesta 300 MoleCoin; se rompe con el primer choque y solo puede usarse una vez por nivel. Dr. E avisa claramente cuando un experimento no la permite.','Nas fases compatíveis, a Barreira Nano é colocada em uma casa normal vazia. Confirmar custa 300 MoleCoin; ela quebra na primeira colisão e só pode ser usada uma vez por fase. Dr. E avisa claramente quando o experimento não permite seu uso.','対応レベルでは、ナノバリアを空いている通常マスに設置します。確定時に300 MoleCoinを消費し、最初の原子衝突で壊れ、1レベルにつき1回だけ使えます。使えない実験ではDr. Eが明確に知らせます。','Dans les niveaux compatibles, la Nano-Barrière se place sur une case normale vide. La confirmation coûte 300 MoleCoin ; elle se brise au premier choc d’atome et n’est utilisable qu’une fois par niveau. Dr. E indique clairement lorsqu’une expérience ne l’autorise pas.','在支持的关卡中，纳米屏障可放在空的普通格子上。确认时消耗300 MoleCoin；第一次原子碰撞时破碎，每关只能使用一次。若实验不允许使用，Dr. E会明确说明。','Nei livelli compatibili, la Nano Barriera si posiziona su una casella normale vuota. La conferma costa 300 MoleCoin; si rompe al primo urto di un atomo e può essere usata una sola volta per livello. Dr. E avvisa chiaramente quando l’esperimento non la consente.']},
+  lab:{icon:'🧪',title:['Laboratuvar ve Destekler','Laboratory and Supports','Labor und Hilfen','Laboratorio y ayudas','Laboratório e suportes','ラボとサポート','Laboratoire et aides','实验室与辅助','Laboratorio e supporti'],desc:['Çekiç ve Tek Kare Hareket Laboratuvardan alınır. Nano Bariyer desteklenen tahtada yerleştirirken 300 MoleCoin karşılığında satın alınır. Kalıcı cihazlar ipucu fiyatını düşürür veya ödülleri artırır.','Hammer and One-Square Move are bought in the Laboratory. Nano Barrier is purchased for 300 MoleCoin when placed on a supported board. Permanent equipment reduces hint costs or increases rewards.','Hammer und Ein-Feld-Zug werden im Labor gekauft. Die Nano-Barriere kostet beim Platzieren auf einem unterstützten Brett 300 MoleCoin. Dauerhafte Geräte senken Hinweiskosten oder erhöhen Belohnungen.','Martillo y Movimiento de una casilla se compran en el Laboratorio. La Barrera nano cuesta 300 MoleCoin al colocarla en un tablero compatible. El equipo permanente reduce el coste de pistas o aumenta recompensas.','Martelo e Movimento de uma casa são comprados no Laboratório. A Barreira Nano custa 300 MoleCoin ao ser colocada em um tabuleiro compatível. Equipamentos permanentes reduzem custos de dicas ou aumentam recompensas.','ハンマーと1マス移動はラボで購入します。ナノバリアは対応盤面に設置するとき300 MoleCoinで購入します。常設装置はヒント費用を下げたり報酬を増やしたりします。','Le Marteau et le déplacement d’une case s’achètent au Laboratoire. La Nano-Barrière coûte 300 MoleCoin au moment de la placer sur un plateau compatible. Les équipements permanents réduisent le coût des indices ou augmentent les récompenses.','锤子和单格移动可在实验室购买。纳米屏障在支持的棋盘上放置时以300 MoleCoin购买。永久设备可降低提示费用或提高奖励。','Martello e Mossa di una casella si acquistano nel Laboratorio. La Nano Barriera costa 300 MoleCoin quando viene posizionata su una tavola compatibile. Le attrezzature permanenti riducono il costo dei suggerimenti o aumentano le ricompense.']}
 };
 
 
@@ -12697,7 +12761,7 @@ const MECHANIC_FIRST_USE_POSE=Object.freeze({
 });
 function mechanicContextNote(opts){
   if(!opts||opts.context!=='level42FireZombie')return '';
-  return '<div class="mxMechanicContextNote"><b>🧪 '+ml('Bölüm 42 · NF₃ birleşik deney','Level 42 · NF₃ combined experiment','Level 42 · kombiniertes NF₃-Experiment','Nivel 42 · experimento combinado NF₃','Fase 42 · experimento combinado NF₃','レベル42・NF₃複合実験','Niveau 42 · expérience combinée NF₃','第42关 · NF₃综合实验','Livello 42 · esperimento combinato NF₃')+'</b><span>'+ml('❄️⚠️ işaretli flor hem donmuş hem kararsızdır. 🔥 işaretli flor yanına ulaştığında buzu eritir ve atomu yeniden stabilize eder. Kararsız atom, stabilize edilmeden temas ettiği atomlara kararsızlığı en fazla iki kez aktarabilir.','The fluorine marked ❄️⚠️ is both frozen and unstable. When the 🔥 fluorine reaches it, heat melts the ice and stabilizes the atom again. Before stabilization, an unstable atom can transfer instability to touching atoms at most twice.','Das mit ❄️⚠️ markierte Fluor ist gefroren und instabil. Das 🔥-Fluor schmilzt das Eis und stabilisiert das Atom wieder. Vor der Stabilisierung kann ein instabiles Atom die Instabilität höchstens zweimal auf berührte Atome übertragen.','El flúor marcado ❄️⚠️ está congelado e inestable. El flúor 🔥 derrite el hielo y vuelve a estabilizar el átomo. Antes de estabilizarse, un átomo inestable puede transferir la inestabilidad como máximo dos veces.','O flúor marcado ❄️⚠️ está congelado e instável. O flúor 🔥 derrete o gelo e estabiliza o átomo novamente. Antes de ser estabilizado, um átomo instável pode transferir a instabilidade no máximo duas vezes.','❄️⚠️印のフッ素は凍結かつ不安定です。🔥印のフッ素が隣に来ると氷を溶かし、原子を再び安定化します。安定化前の不安定原子は、接触した原子へ最大2回まで不安定性を伝えます。','Le fluor marqué ❄️⚠️ est à la fois gelé et instable. Lorsque le fluor 🔥 l’atteint, la chaleur fait fondre la glace et stabilise de nouveau l’atome. Avant stabilisation, un atome instable peut transmettre l’instabilité au maximum deux fois.','标有❄️⚠️的氟原子既被冻结又处于不稳定状态。🔥氟原子靠近后会融化冰层并使其重新稳定。在稳定之前，不稳定原子最多可将不稳定状态传递两次。','Il fluoro contrassegnato ❄️⚠️ è sia congelato sia instabile. Quando il fluoro 🔥 lo raggiunge, il calore scioglie il ghiaccio e stabilizza di nuovo l’atomo. Prima della stabilizzazione, un atomo instabile può trasferire l’instabilità al massimo due volte.')+'</span></div>';
+  return '<div class="mxMechanicContextNote"><b>🧪 '+ml('Bölüm 42 · NF₃ birleşik deney','Level 42 · NF₃ combined experiment','Level 42 · kombiniertes NF₃-Experiment','Nivel 42 · experimento combinado NF₃','Fase 42 · experimento combinado NF₃','レベル42・NF₃複合実験','Niveau 42 · expérience combinée NF₃','第42关 · NF₃综合实验','Livello 42 · esperimento combinato NF₃')+'</b><span>'+ml('❄️ ve çift yörünge işaretli flor hem donmuş hem kararsızdır. 🔥 işaretli flor yanına ulaştığında buzu eritir ve atomu yeniden stabilize eder. Kararsız atom, stabilize edilmeden temas ettiği atomlara kararsızlığı en fazla iki kez aktarabilir.','The fluorine marked ❄️ with the double-orbit unstable sign is both frozen and unstable. When the 🔥 fluorine reaches it, heat melts the ice and stabilizes the atom again. Before stabilization, an unstable atom can transfer instability to touching atoms at most twice.','Das mit ❄️ und dem Doppelbahn-Zeichen markierte Fluor ist gefroren und instabil. Das 🔥-Fluor schmilzt das Eis und stabilisiert das Atom wieder. Vor der Stabilisierung kann ein instabiles Atom die Instabilität höchstens zweimal auf berührte Atome übertragen.','El flúor marcado con ❄️ y la doble órbita está congelado e inestable. El flúor 🔥 derrite el hielo y vuelve a estabilizar el átomo. Antes de estabilizarse, un átomo inestable puede transferir la inestabilidad como máximo dos veces.','O flúor marcado com ❄️ e órbita dupla está congelado e instável. O flúor 🔥 derrete o gelo e estabiliza o átomo novamente. Antes de ser estabilizado, um átomo instável pode transferir a instabilidade no máximo duas vezes.','❄️と二重軌道の印があるフッ素は凍結かつ不安定です。🔥印のフッ素が隣に来ると氷を溶かし、原子を再び安定化します。安定化前の不安定原子は、接触した原子へ最大2回まで不安定性を伝えます。','Le fluor marqué ❄️ avec le signe à double orbite est à la fois gelé et instable. Lorsque le fluor 🔥 l’atteint, la chaleur fait fondre la glace et stabilise de nouveau l’atome. Avant stabilisation, un atome instable peut transmettre l’instabilité au maximum deux fois.','带有❄️与双轨道标记的氟原子既被冻结又处于不稳定状态。🔥氟原子靠近后会融化冰层并使其重新稳定。在稳定之前，不稳定原子最多可将不稳定状态传递两次。','Il fluoro contrassegnato da ❄️ e dalla doppia orbita è sia congelato sia instabile. Quando il fluoro 🔥 lo raggiunge, il calore scioglie il ghiaccio e stabilizza di nuovo l’atomo. Prima della stabilizzazione, un atomo instabile può trasferire l’instabilità al massimo due volte.')+'</span></div>';
 }
 function finishMechanicContext(opts){
   if(opts&&opts.context==='level42FireZombie')markLevel42ComboSeen();
@@ -12736,7 +12800,7 @@ const MECHANIC_INFO={
   fire:{icon:'🔥',titleKey:'fireTitle',descKey:'fireDesc'},
   lightning:{icon:'⚡',titleKey:'lightningTitle',descKey:'lightningDesc'},
   sticky:{icon:'🧲',titleKey:'stickyTitle',descKey:'stickyDesc'},
-  zombie:{icon:'⚠️',titleKey:'zombieTitle',descKey:'zombieDesc'},
+  zombie:{icon:'◎',titleKey:'zombieTitle',descKey:'zombieDesc'},
   oneWay:{icon:'↪️',titleKey:'oneWayTitle',descKey:'oneWayDesc'},
   hammer:{icon:'🧱',titleKey:'hammerTitle',descKey:'hammerDesc'},
   portal:{icon:'🌀',titleKey:'portalTitle',descKey:'portalDesc'},
@@ -12786,7 +12850,7 @@ function mechanicVisualCue(id){
     fire:()=>ml('Görünüş: atomun üzerinde 🔥 alev.','Look: 🔥 flame on the atom.','Aussehen: 🔥 auf dem Atom.','Aspecto: 🔥 sobre el átomo.','Visual: 🔥 no átomo.','見た目：原子上の🔥。'),
     lightning:()=>ml('Görünüş: atomun üzerinde ⚡ yük simgesi.','Look: ⚡ charge symbol on the atom.','Aussehen: ⚡-Ladungssymbol.','Aspecto: símbolo ⚡ de carga.','Visual: símbolo ⚡ de carga.','見た目：原子上の⚡印。'),
     sticky:()=>ml('Görünüş: atomun çevresinde yapışkan/mıknatıs işareti.','Look: sticky/magnet mark around the atom.','Aussehen: Klebe-/Magnetzeichen am Atom.','Aspecto: marca adhesiva/imán.','Visual: marca adesiva/ímã.','見た目：粘着／磁石の印。'),
-    zombie:()=>ml('Görünüş: atomun çevresinde titreşen kararsızlık halkası.','Look: a pulsing instability ring surrounds the atom.','Aussehen: ein pulsierender Instabilitätsring umgibt das Atom.','Aspecto: un anillo pulsante de inestabilidad rodea el átomo.','Visual: um anel pulsante de instabilidade cerca o átomo.','見た目：原子の周囲に不安定な脈動リング。','Aspect : un anneau d’instabilité pulsant entoure l’atome.','外观：原子周围有脉动的不稳定光环。','Aspetto: un anello pulsante di instabilità circonda l’atomo.'),
+    zombie:()=>ml('Görünüş: sabit çift yörünge, iki faz düğümü ve çatlak enerji çekirdeği kararsız atomu işaretler.','Look: fixed twin orbits, two phase nodes and a fractured energy core mark an unstable atom.','Aussehen: feste Doppelbahnen, zwei Phasenknoten und ein gebrochener Energiekern markieren ein instabiles Atom.','Aspecto: órbitas dobles fijas, dos nodos de fase y un núcleo de energía fracturado marcan un átomo inestable.','Visual: órbitas duplas fixas, dois nós de fase e um núcleo de energia fraturado marcam um átomo instável.','見た目：固定された二重軌道、2つの位相ノード、亀裂の入ったエネルギー核が不安定原子の印です。','Aspect : deux orbites fixes, deux nœuds de phase et un noyau d’énergie fracturé signalent un atome instable.','外观：固定双轨道、两个相位节点与破裂能量核心表示不稳定原子。','Aspetto: doppie orbite fisse, due nodi di fase e un nucleo energetico fratturato indicano un atomo instabile.'),
     oneWay:()=>ml('Görünüş: zemindeki büyük ok; yalnız ok yönünde geçilir.','Look: large floor arrow; pass only with it.','Aussehen: großer Bodenpfeil; nur in Pfeilrichtung.','Aspecto: flecha grande en el suelo.','Visual: seta grande no chão.','見た目：床の大きな矢印。'),
     hammer:()=>ml('Görünüş: çatlak duvarın köşesinde küçük 🔨 işareti.','Look: cracked wall with a small 🔨 mark.','Aussehen: rissige Wand mit kleinem 🔨.','Aspecto: pared agrietada con 🔨.','Visual: parede rachada com 🔨.','見た目：ひび割れ壁と小さな🔨。'),
     rift:()=>ml('Görünüş: siyah-mor yarık ve elmas işaretli eş Rift karoları geçerken zorunlu ışınlar.','Look: black-violet rifts with diamond markers force a warp while crossing.','Aussehen: Schwarz-violette Risse mit Rautensymbol lösen beim Überqueren einen Zwangs-Warp aus.','Aspecto: las fisuras negro-violeta con rombos fuerzan el salto al cruzarlas.','Visual: fendas preto-violeta com losango forçam o salto ao atravessar.','見た目：黒紫の裂け目と菱形マーク。通過時に強制ワープ。','Aspect : failles noir-violet à losange, téléportation forcée au passage.','外观：黑紫色裂隙带菱形标记，经过时强制传送。','Aspetto: fenditure nero-viola con rombo, teletrasporto forzato al passaggio.'),
@@ -12828,7 +12892,7 @@ function mechanicTutorialDemo(id){
     fire:{cells:['🔥 H','→','❄️ H'],action:ml("ATEŞİ BUZA YAKLAŞTIR","MOVE FIRE TO THE ICE","FEUER ZUM EIS BEWEGEN","MUEVE EL FUEGO AL HIELO","MOVA O FOGO ATÉ O GELO","炎を氷へ近づける"),result:ml("Ateş temas edince buz erir ve atom serbest kalır.","Contact with fire melts the ice and frees the atom.","Feuerkontakt schmilzt das Eis und befreit das Atom.","El contacto con fuego derrite el hielo y libera el átomo.","O contato com fogo derrete o gelo e libera o átomo.","炎に触れると氷が溶け、原子が自由になります。")},
     lightning:{cells:['⚡ atom','→','H—❄️ H'],action:ml("ZİNCİRE TEMAS ET","TOUCH THE CHAIN","KETTE BERÜHREN","TOCA LA CADENA","TOQUE NA CADEIA","連鎖に触れる"),result:ml("⚡ işareti elektrik yükünü gösterir. Enerji bağlı grup boyunca ilerleyip buzu çözer.","The ⚡ symbol marks electric charge. Energy travels through the connected group and thaws the ice.","Das ⚡-Symbol zeigt elektrische Ladung. Energie läuft durch die verbundene Gruppe und taut das Eis.","El símbolo ⚡ indica carga eléctrica. La energía recorre el grupo conectado y descongela el hielo.","O símbolo ⚡ indica carga elétrica. A energia percorre o grupo conectado e descongela o gelo.","⚡は電荷を示します。エネルギーが連結グループを伝わって氷を溶かします。")},
     sticky:{cells:['H','→','🧲 H'],action:ml("TEMASI DENE","TRY THE CONTACT","KONTAKT TESTEN","PRUEBA EL CONTACTO","TESTE O CONTATO","接触を試す"),result:ml("Temas eden atom o noktada yapışır; geri ayrılamaz.","The touching atom sticks at that point and cannot separate.","Das berührende Atom klebt dort fest und kann sich nicht mehr lösen.","El átomo que toca queda pegado y no puede separarse.","O átomo que toca fica preso e não pode se separar.","接触した原子はその場でくっつき、離れられません。")},
-    zombie:{cells:['H','→','⚠️ H'],action:ml("TEMASI DENE","TRY THE CONTACT","KONTAKT TESTEN","PRUEBA EL CONTACTO","TESTE O CONTATO","接触を試す"),result:ml("Temas kararsızlığı aktarır. Isı veya elektrik yükü atomu stabilize eder.","Contact transfers instability. Heat or electrical charge stabilizes the atom.","Kontakt überträgt Instabilität. Wärme oder elektrische Ladung stabilisiert das Atom.","El contacto transfiere inestabilidad. El calor o la carga eléctrica estabilizan el átomo.","O contato transfere instabilidade. Calor ou carga elétrica estabilizam o átomo.","接触で不安定性が伝わり、熱または電荷で安定化できます。")},
+    zombie:{cells:['H','→','◎ H'],action:ml("TEMASI DENE","TRY THE CONTACT","KONTAKT TESTEN","PRUEBA EL CONTACTO","TESTE O CONTATO","接触を試す"),result:ml("Temas kararsızlığı aktarır. Isı veya elektrik yükü atomu stabilize eder.","Contact transfers instability. Heat or electrical charge stabilizes the atom.","Kontakt überträgt Instabilität. Wärme oder elektrische Ladung stabilisiert das Atom.","El contacto transfiere inestabilidad. El calor o la carga eléctrica estabilizan el átomo.","O contato transfere instabilidade. Calor ou carga elétrica estabilizam o átomo.","接触で不安定性が伝わり、熱または電荷で安定化できます。")},
     oneWay:{cells:['H','→','↪️','→'],action:ml("OK YÖNÜNDE GEÇ","FOLLOW THE ARROW","PFEILRICHTUNG FOLGEN","SIGUE LA FLECHA","SIGA A SETA","矢印に従う"),result:ml("Ok yönünde geçebilirsin; ters yönden geri dönemezsin.","You may pass with the arrow, but cannot return against it.","Du kannst in Pfeilrichtung passieren, aber nicht dagegen zurück.","Puedes pasar en la dirección de la flecha, pero no volver en contra.","Você pode passar na direção da seta, mas não voltar contra ela.","矢印方向には通れますが、逆方向には戻れません。")},
     hammer:{cells:['H','🧱','H'],action:ml("ÇEKİCİ KULLAN","USE THE HAMMER","HAMMER BENUTZEN","USA EL MARTILLO","USE O MARTELO","ハンマーを使う"),result:ml("Alt araç çubuğundaki çekici seç, sonra çatlak duvara dokun.","Select the hammer in the bottom toolbar, then tap the cracked wall.","Wähle den Hammer unten und tippe dann auf die rissige Wand.","Selecciona el martillo abajo y toca la pared agrietada.","Selecione o martelo na barra inferior e toque na parede rachada.","下のツールバーでハンマーを選び、ひび割れ壁をタップします。")},
     rift:{cells:['H','→','🕳️ ◆','⇢','🕳️ ◇','→'],action:ml('RIFT ÜZERİNDEN GEÇ','CROSS THE RIFT','RIFT ÜBERQUEREN','CRUZA LA FISURA','ATRAVESSE A FENDA','リフトを通過','TRAVERSER LA FAILLE','穿过裂隙','ATTRAVERSA IL RIFT'),result:ml('Atom Rift karosuna basıp durmaz; geçerken eş Rift’e sıçrar ve aynı yönde kaymayı sürdürür.','The atom does not need to stop on the Rift; crossing it warps to the twin Rift and continues in the same direction.','Das Atom muss nicht auf dem Rift stoppen; beim Überqueren springt es zum Zwilling und gleitet in derselben Richtung weiter.','El átomo no tiene que detenerse; al cruzar salta a la fisura gemela y sigue en la misma dirección.','O átomo não precisa parar; ao atravessar salta para a fenda gêmea e segue na mesma direção.','停止する必要はありません。通過時に対のリフトへワープし、同じ方向へ滑り続けます。','L’atome n’a pas besoin de s’arrêter ; en traversant, il saute vers la faille jumelle et continue dans la même direction.','原子无需停在裂隙上；经过时会跳到另一端并沿相同方向继续滑动。','L’atomo non deve fermarsi; attraversando salta al Rift gemello e continua nella stessa direzione.')},
@@ -13311,7 +13375,6 @@ function setLang(lang,explicitChoice=false){
   if(mid&&MOLS[mid])curMol=MOLS[mid];
   save.lang=lang;persist();
   applyLang();
-  if(MX_NATIVE&&window.MXCloud&&window.MXCloud.updatePushLang)window.MXCloud.updatePushLang(lang);
 }
 
 /* ================= BOARD RENDER ================= */
@@ -13396,25 +13459,27 @@ function drawStone(x,y,gx,gy,ctx=bctx){
   ctx.strokeStyle='rgba(0,0,0,.4)';
   ctx.beginPath();ctx.moveTo(x+p+3,y+p+s-2);ctx.lineTo(x+p+s-2,y+p+s-2);ctx.lineTo(x+p+s-2,y+p+3);ctx.stroke();
 }
-function drawRotationPad(p,t){
-  const x=p.x*T,y=p.y*T,cx=x+T*.5,cy=y+T*.5,pulse=motionReduced()?.82:(.76+.18*Math.sin(t/220+p.x*.7+p.y*.4)),spin=(p.d>=0?1:-1)*t/760;
+function drawRotationPad(p,t,calm=false){
+  const live=!motionReduced()&&!calm;
+  const x=p.x*T,y=p.y*T,cx=x+T*.5,cy=y+T*.5,pulse=live?(.76+.18*Math.sin(t/220+p.x*.7+p.y*.4)):.82,spin=live?(p.d>=0?1:-1)*t/760:0;
   bctx.save();bctx.translate(cx,cy);
-  bctx.globalAlpha=.24+.10*pulse;bctx.fillStyle='#7c3cff';bctx.shadowColor='#a96cff';bctx.shadowBlur=motionReduced()?0:18;bctx.beginPath();bctx.arc(0,0,T*.37,0,Math.PI*2);bctx.fill();
+  bctx.globalAlpha=.24+.10*pulse;bctx.fillStyle='#7c3cff';bctx.shadowColor='#a96cff';bctx.shadowBlur=live?18:0;bctx.beginPath();bctx.arc(0,0,T*.37,0,Math.PI*2);bctx.fill();
   const g=bctx.createRadialGradient(-T*.09,-T*.12,T*.02,0,0,T*.34);g.addColorStop(0,'rgba(239,244,255,.55)');g.addColorStop(.34,'rgba(147,87,255,.30)');g.addColorStop(1,'rgba(42,14,85,.40)');bctx.fillStyle=g;bctx.globalAlpha=.96;bctx.beginPath();bctx.arc(0,0,T*.31,0,Math.PI*2);bctx.fill();
-  bctx.rotate(spin);bctx.strokeStyle='#c9f7ff';bctx.lineWidth=Math.max(2,T*.045);bctx.shadowColor='#69efff';bctx.shadowBlur=motionReduced()?0:9;bctx.globalAlpha=.92;
+  bctx.rotate(spin);bctx.strokeStyle='#c9f7ff';bctx.lineWidth=Math.max(2,T*.045);bctx.shadowColor='#69efff';bctx.shadowBlur=live?9:0;bctx.globalAlpha=.92;
   bctx.beginPath();bctx.arc(0,0,T*.19,p.d>=0?-.35:Math.PI+.35,p.d>=0?Math.PI*1.35:-Math.PI*.35,p.d<0);bctx.stroke();
   const a=p.d>=0?Math.PI*1.35:-Math.PI*.35,ax=Math.cos(a)*T*.19,ay=Math.sin(a)*T*.19;bctx.fillStyle='#e9ffff';bctx.beginPath();bctx.moveTo(ax,ay);bctx.lineTo(ax-T*.10,ay-T*.015);bctx.lineTo(ax-T*.025,ay-T*.10);bctx.closePath();bctx.fill();
   bctx.rotate(-spin);bctx.globalAlpha=.98;bctx.fillStyle='#ffffff';bctx.font='900 '+Math.max(8,Math.round(T*.16))+'px system-ui';bctx.textAlign='center';bctx.textBaseline='middle';bctx.fillText('90°',0,T*.02);bctx.restore();
 }
-function drawNanoBarrier(gx,gy,t){
-  const x=gx*T,y=gy*T,cx=x+T*.5,cy=y+T*.5,p=.5+.5*Math.sin(t/210),spin=t/900+(gx+gy)*.4;
+function drawNanoBarrier(gx,gy,t,calm=false){
+  const live=!motionReduced()&&!calm;
+  const x=gx*T,y=gy*T,cx=x+T*.5,cy=y+T*.5,p=live?(.5+.5*Math.sin(t/210)):.5,spin=live?t/900+(gx+gy)*.4:0;
   bctx.save();bctx.translate(cx,cy);
   // Soft floor pool grounds the barrier so it feels built into the board.
-  bctx.globalAlpha=.20+.06*p;bctx.fillStyle='#44dfff';bctx.shadowColor='#56eaff';bctx.shadowBlur=14;
+  bctx.globalAlpha=.20+.06*p;bctx.fillStyle='#44dfff';bctx.shadowColor='#56eaff';bctx.shadowBlur=live?14:4;
   bctx.beginPath();bctx.ellipse(0,T*.24,T*.34,T*.13,0,0,7);bctx.fill();
   // Outer armored frame.
   const frame=bctx.createLinearGradient(-T*.34,-T*.34,T*.34,T*.34);frame.addColorStop(0,'#eaffff');frame.addColorStop(.28,'#72ebff');frame.addColorStop(.68,'#318fd0');frame.addColorStop(1,'#163c70');
-  bctx.globalAlpha=.96;bctx.strokeStyle=frame;bctx.lineWidth=Math.max(2,T*.05);bctx.shadowColor='#5be8ff';bctx.shadowBlur=9+6*p;
+  bctx.globalAlpha=.96;bctx.strokeStyle=frame;bctx.lineWidth=Math.max(2,T*.05);bctx.shadowColor='#5be8ff';bctx.shadowBlur=live?(9+6*p):3;
   rrect(bctx,-T*.335,-T*.335,T*.67,T*.67,Math.max(5,T*.11));bctx.stroke();
   // Translucent energy membrane.
   const core=bctx.createRadialGradient(-T*.08,-T*.10,T*.02,0,0,T*.34);core.addColorStop(0,'rgba(242,255,255,.56)');core.addColorStop(.28,'rgba(98,238,255,.28)');core.addColorStop(.72,'rgba(42,139,238,.18)');core.addColorStop(1,'rgba(17,48,108,.30)');
@@ -13424,7 +13489,7 @@ function drawNanoBarrier(gx,gy,t){
     bctx.beginPath();bctx.moveTo(-T*.24,k*T*.11);bctx.lineTo(T*.24,k*T*.11);bctx.stroke();
     bctx.beginPath();bctx.moveTo(k*T*.11,-T*.24);bctx.lineTo(k*T*.11,T*.24);bctx.stroke();
   }
-  if(!motionReduced()){
+  if(live){
     const scan=-T*.22+(((t/720)+(gx*.13+gy*.09))%1)*T*.44;
     bctx.globalAlpha=.30+.18*p;bctx.strokeStyle='#ffffff';bctx.lineWidth=Math.max(1,T*.018);bctx.shadowColor='#a8fbff';bctx.shadowBlur=6;bctx.beginPath();bctx.moveTo(-T*.23,scan);bctx.lineTo(T*.23,scan);bctx.stroke();
   }
@@ -13434,8 +13499,8 @@ function drawNanoBarrier(gx,gy,t){
     bctx.fillStyle='#dfffff';bctx.beginPath();bctx.arc(ox*T,oy*T,Math.max(1,T*.021),0,7);bctx.fill();
   }
   // Central stabilizer diamond and two orbiting motes.
-  bctx.globalAlpha=.72+.2*p;bctx.save();bctx.rotate(Math.sin(t/1200)*.04);bctx.fillStyle='rgba(92,239,255,.32)';bctx.strokeStyle='#efffff';bctx.lineWidth=Math.max(1,T*.025);bctx.beginPath();bctx.moveTo(0,-T*.16);bctx.lineTo(T*.12,0);bctx.lineTo(0,T*.16);bctx.lineTo(-T*.12,0);bctx.closePath();bctx.fill();bctx.stroke();bctx.restore();
-  if(!motionReduced())for(let q=0;q<2;q++){const a=spin+q*Math.PI,r=T*.205;bctx.globalAlpha=.85;bctx.fillStyle=q?'#ffffff':'#8ff5ff';bctx.shadowColor='#65eaff';bctx.shadowBlur=7;bctx.beginPath();bctx.arc(Math.cos(a)*r,Math.sin(a)*r,Math.max(1.3,T*.027),0,7);bctx.fill();}
+  bctx.globalAlpha=.72+.2*p;bctx.save();bctx.rotate(live?Math.sin(t/1200)*.04:0);bctx.fillStyle='rgba(92,239,255,.32)';bctx.strokeStyle='#efffff';bctx.lineWidth=Math.max(1,T*.025);bctx.beginPath();bctx.moveTo(0,-T*.16);bctx.lineTo(T*.12,0);bctx.lineTo(0,T*.16);bctx.lineTo(-T*.12,0);bctx.closePath();bctx.fill();bctx.stroke();bctx.restore();
+  if(live)for(let q=0;q<2;q++){const a=spin+q*Math.PI,r=T*.205;bctx.globalAlpha=.85;bctx.fillStyle=q?'#ffffff':'#8ff5ff';bctx.shadowColor='#65eaff';bctx.shadowBlur=7;bctx.beginPath();bctx.arc(Math.cos(a)*r,Math.sin(a)*r,Math.max(1.3,T*.027),0,7);bctx.fill();}
   bctx.globalAlpha=.98;bctx.fillStyle='#fff7a4';bctx.shadowColor='#fff4a0';bctx.shadowBlur=9;bctx.beginPath();bctx.arc(0,0,Math.max(1.8,T*.045),0,7);bctx.fill();
   bctx.restore();
 }
@@ -13532,6 +13597,11 @@ function drawBoardStatic(){
 }
 function renderBoard(t){
   const fastMotion=!!anim&&mobileGameplayRender();
+  // R177: Levels 302–501 now inherit the same interaction-priority rule that makes
+  // the early campaign feel immediate: while an atom is sliding on mobile, secondary
+  // decorative mechanic motion yields to the move. Mechanics remain fully readable,
+  // and their actual activation/teleport/fusion/win FX are untouched.
+  const expansionMotionCalm=advancedCampaignLevelActive()&&mobileGameplayRender()&&!!(anim||movingWallAnimating);
   bctx.clearRect(0,0,T*W,T*H);
   bctx.save();
   if(shake>0){bctx.translate((Math.random()-0.5)*shake*9,(Math.random()-0.5)*shake*9);shake=Math.max(0,shake-0.045);}
@@ -13540,15 +13610,15 @@ function renderBoard(t){
   if(breakableWalls.size){for(const bw of breakableWalls.values())if(!bw.broken)drawBreakableStone(bw.x*T,bw.y*T,bw.x,bw.y,t);}
   if(movingWalls.length){for(const w of movingWalls)drawMovingWall(w,t);}
   if(pressureSystems.length){for(const p of pressureSystems){drawPressurePlate(p,t);drawPressureDoor(p,t);}}
-  if(enzymeGate)drawEnzymeGate(enzymeGate,t);
+  if(enzymeGate)drawEnzymeGate(enzymeGate,t,expansionMotionCalm);
   // Special floor components sit above floor tiles and below atoms.
   if(oneWayTiles.size){for(const o of oneWayTiles.values())drawOneWayTile(o,t);}
-  if(rotationPads.size){for(const p of rotationPads.values())drawRotationPad(p,t);}
-  if(riftPairs.size){for(const p of riftPairs.values())drawRiftTile(p,t);}
-  if(portalPairs.size){for(const p of portalPairs.values())drawPortalTile(p,t);}
-  if(temporaryBarriers.size){for(const b of temporaryBarriers.values())drawNanoBarrier(b.x,b.y,t);}
+  if(rotationPads.size){for(const p of rotationPads.values())drawRotationPad(p,t,expansionMotionCalm);}
+  if(riftPairs.size){for(const p of riftPairs.values())drawRiftTile(p,t,expansionMotionCalm);}
+  if(portalPairs.size){for(const p of portalPairs.values())drawPortalTile(p,t,expansionMotionCalm);}
+  if(temporaryBarriers.size){for(const b of temporaryBarriers.values())drawNanoBarrier(b.x,b.y,t,expansionMotionCalm);}
   if(reactorActive()){for(const g of reactorGates)drawReactorGate(g,t);}
-  if(crystalActive()){for(const c of crystals){if(!c.collected)drawCrystalToken((c.x+0.5)*T,(c.y+0.5)*T,t,c.type);}}
+  if(crystalActive()){for(const c of crystals){if(!c.collected)drawCrystalToken((c.x+0.5)*T,(c.y+0.5)*T,t,c.type,expansionMotionCalm);}}
   const chainCharged=chainActive()?chainChargedAtomIndex():-1;
   // render positions
   const pos=atoms.map((a,i)=>{
@@ -13586,7 +13656,7 @@ function renderBoard(t){
       if(q>=1)nudge=null;
       else{const[dx,dy]=DIRS[nudge.d];const k=Math.sin(q*Math.PI)*0.14;rx+=dx*k;ry+=dy*k;}
     }
-    const bob=(anim&&anim.i===i)?0:Math.sin(t/520+a.ph)*0.035;
+    const bob=(anim&&anim.i===i)||expansionMotionCalm?0:Math.sin(t/520+a.ph)*0.035;
     if(anim&&anim.i===i&&!mobileGameplayRender()){
       const br=board.getBoundingClientRect();gameFeelMovingTrail(a,br.left+(rx+.5)*(br.width/W),br.top+(ry+.5)*(br.height/H),t,anim.d);
     }
@@ -13598,7 +13668,7 @@ function renderBoard(t){
     for(const g of fusionGroups){
       for(let u=0;u<g.members.length;u++)for(let v=u+1;v<g.members.length;v++){
         const ai=g.members[u],bi=g.members[v],aa=atoms[ai],bb=atoms[bi],pa=pos[ai],pb=pos[bi];if(!aa||!bb||!pa||!pb||Math.abs(aa.x-bb.x)+Math.abs(aa.y-bb.y)!==1)continue;
-        const pulse=motionReduced()?1:(.82+.18*Math.sin(t/190+g.part)),ready=g.kind==='prebuilt';
+        const pulse=(motionReduced()||expansionMotionCalm)?1:(.82+.18*Math.sin(t/190+g.part)),ready=g.kind==='prebuilt';
         bctx.shadowColor=ready?'#ffd45c':'#9c72ff';bctx.shadowBlur=(motionReduced()||fastMotion)?0:14;bctx.strokeStyle=ready?('rgba(255,205,72,'+(.60*pulse)+')'):('rgba(156,114,255,'+(.55*pulse)+')');bctx.lineWidth=Math.max(9,T*.14);bctx.beginPath();bctx.moveTo(pa[0],pa[1]);bctx.lineTo(pb[0],pb[1]);bctx.stroke();
         bctx.shadowColor=ready?'#8ff7ff':'#73efff';bctx.shadowBlur=(motionReduced()||fastMotion)?0:8;bctx.strokeStyle=ready?('rgba(143,247,255,'+(.92*pulse)+')'):('rgba(115,239,255,'+(.88*pulse)+')');bctx.lineWidth=Math.max(3,T*.055);bctx.beginPath();bctx.moveTo(pa[0],pa[1]);bctx.lineTo(pb[0],pb[1]);bctx.stroke();
       }
@@ -13611,9 +13681,9 @@ function renderBoard(t){
     for(const [a,b] of stickyPairs){
       const pa=pos[a],pb=pos[b];if(!pa||!pb)continue;
       const dx=pb[0]-pa[0],dy=pb[1]-pa[1],len=Math.max(1,Math.hypot(dx,dy)),nx=-dy/len,ny=dx/len;
-      const wob=motionReduced()?0:Math.sin(t/210+a*1.73)*Math.min(T*.075,len*.08);
+      const wob=(motionReduced()||expansionMotionCalm)?0:Math.sin(t/210+a*1.73)*Math.min(T*.075,len*.08);
       const mx=(pa[0]+pb[0])*.5+nx*wob,my=(pa[1]+pb[1])*.5+ny*wob;
-      const pulse=.76+.10*Math.sin(t/230+a);
+      const pulse=expansionMotionCalm?.80:(.76+.10*Math.sin(t/230+a));
       // outer viscous body
       bctx.shadowColor='#ffc94a';bctx.shadowBlur=(motionReduced()||fastMotion)?0:9;
       bctx.strokeStyle='rgba(255,184,38,'+(.30*pulse)+')';bctx.lineWidth=Math.max(8,T*.13);
@@ -13632,7 +13702,7 @@ function renderBoard(t){
     bctx.restore();
   }
   // linked atom cable
-  if(linkedPairs.length){bctx.save();bctx.lineCap='round';for(const [a,b] of linkedPairs){const pa=pos[a],pb=pos[b];if(!pa||!pb)continue;const pulse=.58+.22*Math.sin(t/210+a);bctx.strokeStyle='rgba(119,232,255,'+pulse+')';bctx.lineWidth=Math.max(3,T*.055);bctx.setLineDash([Math.max(5,T*.12),Math.max(4,T*.08)]);bctx.lineDashOffset=motionReduced()?0:-t/35;bctx.beginPath();bctx.moveTo(pa[0],pa[1]);bctx.lineTo(pb[0],pb[1]);bctx.stroke();}bctx.restore();}
+  if(linkedPairs.length){bctx.save();bctx.lineCap='round';for(const [a,b] of linkedPairs){const pa=pos[a],pb=pos[b];if(!pa||!pb)continue;const pulse=expansionMotionCalm?.70:(.58+.22*Math.sin(t/210+a));bctx.strokeStyle='rgba(119,232,255,'+pulse+')';bctx.lineWidth=Math.max(3,T*.055);bctx.setLineDash([Math.max(5,T*.12),Math.max(4,T*.08)]);bctx.lineDashOffset=(motionReduced()||expansionMotionCalm)?0:-t/35;bctx.beginPath();bctx.moveTo(pa[0],pa[1]);bctx.lineTo(pb[0],pb[1]);bctx.stroke();}bctx.restore();}
   // bonds
   const movingI=anim?anim.i:-1,movingMembers=new Set(anim&&Array.isArray(anim.members)?anim.members.map(m=>m.i):[]);if(movingI>=0)movingMembers.add(movingI);if(anim&&anim.partner)movingMembers.add(anim.partner.i);
   bctx.lineCap='round';
@@ -13652,9 +13722,9 @@ function renderBoard(t){
   if(hintMark){
     const a=atoms[hintMark.i],[dx,dy]=DIRS[hintMark.d];
     const hx=(a.x+0.5)*T,hy=(a.y+0.5)*T;
-    const off=T*(0.75+0.18*Math.sin(t/180));
+    const off=T*(expansionMotionCalm?0.82:(0.75+0.18*Math.sin(t/180)));
     bctx.save();bctx.translate(hx+dx*off,hy+dy*off);bctx.rotate(Math.atan2(dy,dx));
-    bctx.fillStyle='#ffd23f';bctx.shadowColor='#ffd23f';bctx.shadowBlur=14;
+    bctx.fillStyle='#ffd23f';bctx.shadowColor='#ffd23f';bctx.shadowBlur=expansionMotionCalm?4:14;
     bctx.beginPath();bctx.moveTo(T*0.3,0);bctx.lineTo(-T*0.12,-T*0.22);bctx.lineTo(-T*0.12,T*0.22);bctx.closePath();bctx.fill();
     bctx.restore();
     bctx.strokeStyle='rgba(255,210,63,.9)';bctx.lineWidth=3;bctx.shadowColor='#ffd23f';bctx.shadowBlur=10;
@@ -13700,7 +13770,7 @@ function renderBoard(t){
     return '';
   }
   function specialAtomMeta(type){
-    return type==='zombie'?{icon:'⚠️',label:ml('KARARSIZ','UNSTABLE','INSTABIL','INESTABLE','INSTÁVEL','不安定','INSTABLE','不稳定','INSTABILE'),stroke:'#b784ff'}:
+    return type==='zombie'?{icon:'',label:ml('KARARSIZ','UNSTABLE','INSTABIL','INESTABLE','INSTÁVEL','不安定','INSTABLE','不稳定','INSTABILE'),stroke:'#8feaff'}:
       type==='lightning'?{icon:'⚡',label:ml('ŞİMŞEK','LIGHTNING','BLITZ','RAYO','RAIO','電気'),stroke:'#83efff'}:
       type==='fire'?{icon:'🔥',label:ml('ATEŞ','FIRE','FEUER','FUEGO','FOGO','炎'),stroke:'#ff9b3d'}:
       type==='frozen'?{icon:'❄️',label:ml('DONUK','FROZEN','GEFROREN','CONGELADO','CONGELADO','凍結'),stroke:'#c8f4ff'}:
@@ -13712,8 +13782,8 @@ function renderBoard(t){
     bctx.textAlign='center';bctx.textBaseline='middle';
     // POLISH 7 · shared premium aura. Each special mechanic keeps its own silhouette,
     // but gets a soft breathing shell so the board communicates "special atom" instantly.
-    const breathe=(reduce||fastMotion)?1:(.92+.08*Math.sin(t/240+x*.02+y*.015));
-    if(!fastMotion){
+    const breathe=(type==='zombie'||reduce||fastMotion)?1:(.92+.08*Math.sin(t/240+x*.02+y*.015));
+    if(!fastMotion&&type!=='zombie'){
       bctx.globalCompositeOperation='lighter';
       const aura=bctx.createRadialGradient(x,y,r*.72,x,y,(r+10)*breathe);
       aura.addColorStop(0,'rgba(255,255,255,0)');aura.addColorStop(.64,'rgba(255,255,255,0)');aura.addColorStop(1,m.stroke+'55');
@@ -13733,11 +13803,30 @@ function renderBoard(t){
       bctx.setLineDash([3,4]);bctx.lineDashOffset=reduce?0:-t/24;bctx.beginPath();bctx.arc(x,y,r+7,0,7);bctx.stroke();bctx.setLineDash([]);
       if(!reduce&&!fastMotion){for(let k=0;k<3;k++){const a=t/220+k*2.1;const x1=x+Math.cos(a)*(r+4),y1=y+Math.sin(a)*(r+4),x2=x+Math.cos(a+.28)*(r+13),y2=y+Math.sin(a+.28)*(r+13);bctx.globalAlpha=.7;bctx.beginPath();bctx.moveTo(x1,y1);bctx.lineTo((x1+x2)/2+Math.sin(t/70+k)*3,(y1+y2)/2);bctx.lineTo(x2,y2);bctx.stroke();}bctx.globalAlpha=1;}
     }else if(type==='zombie'){
-      bctx.setLineDash([2,5]);bctx.lineDashOffset=reduce?0:t/38;bctx.beginPath();bctx.arc(x,y,r+7,0,7);bctx.stroke();bctx.setLineDash([]);
-      // Unstable orbital distortion and ionized mist.
-      bctx.fillStyle='rgba(183,132,255,.42)';if(!reduce&&!fastMotion)for(let k=0;k<4;k++){const a=t/530+k*1.55;bctx.globalAlpha=.22+.18*Math.sin(a);bctx.beginPath();bctx.arc(x+Math.cos(a)*(r+11),y+Math.sin(a*.8)*(r+7),Math.max(2,T*.035),0,7);bctx.fill();}bctx.globalAlpha=1;
-      bctx.strokeStyle='#6d54a8';bctx.lineWidth=Math.max(2,T*.028);bctx.beginPath();bctx.ellipse(x,y,r*.78,r*.34,(reduce?-.42:-.42+Math.sin(t/620)*.12),0,Math.PI*2);bctx.stroke();
-      bctx.beginPath();bctx.moveTo(x-r*.44,y+r*.08);bctx.lineTo(x-r*.2,y-r*.10);bctx.lineTo(x,y+r*.13);bctx.lineTo(x+r*.2,y-r*.14);bctx.lineTo(x+r*.44,y+r*.05);bctx.stroke();
+      // R170 · AAA static Unstable Atom. No warning emoji, pulse, rotation or particles.
+      // The element sphere remains readable; the mechanic identity comes from a
+      // clean scientific double orbit, fixed phase nodes and a fractured core badge.
+      const orbitR=r+7,badgeX=x+r*.78,badgeY=y-r*.78,badgeR=Math.max(7,T*.115);
+      bctx.shadowBlur=fastMotion?0:5;
+      bctx.lineWidth=Math.max(1.8,T*.027);
+      const orbitA=bctx.createLinearGradient(x-orbitR,y-orbitR,x+orbitR,y+orbitR);
+      orbitA.addColorStop(0,'#d9fbff');orbitA.addColorStop(.48,'#69e8ff');orbitA.addColorStop(1,'#556fe6');
+      bctx.strokeStyle=orbitA;bctx.beginPath();bctx.ellipse(x,y,orbitR,orbitR*.38,-.54,0,Math.PI*2);bctx.stroke();
+      const orbitB=bctx.createLinearGradient(x+orbitR,y-orbitR,x-orbitR,y+orbitR);
+      orbitB.addColorStop(0,'#f1ddff');orbitB.addColorStop(.5,'#bc86ff');orbitB.addColorStop(1,'#6752bf');
+      bctx.strokeStyle=orbitB;bctx.beginPath();bctx.ellipse(x,y,orbitR*.98,orbitR*.40,.54,0,Math.PI*2);bctx.stroke();
+      // Fixed phase nodes make the instability readable even without color.
+      bctx.shadowBlur=0;bctx.fillStyle='#eaffff';
+      bctx.beginPath();bctx.arc(x-orbitR*.70,y-orbitR*.25,Math.max(1.9,T*.029),0,7);bctx.fill();
+      bctx.fillStyle='#d2adff';bctx.beginPath();bctx.arc(x+orbitR*.68,y+orbitR*.26,Math.max(1.9,T*.029),0,7);bctx.fill();
+      // Fractured-core badge: compact, premium and static at phone size.
+      bctx.fillStyle='rgba(10,17,31,.96)';bctx.strokeStyle='#d9d7ff';bctx.lineWidth=Math.max(1.5,T*.022);
+      bctx.beginPath();bctx.arc(badgeX,badgeY,badgeR,0,Math.PI*2);bctx.fill();bctx.stroke();
+      const rg=bctx.createRadialGradient(badgeX-badgeR*.20,badgeY-badgeR*.22,1,badgeX,badgeY,badgeR*.78);
+      rg.addColorStop(0,'#fff7b8');rg.addColorStop(.28,'#ffc24f');rg.addColorStop(.58,'#c26fff');rg.addColorStop(1,'#3d2b70');
+      bctx.fillStyle=rg;bctx.beginPath();bctx.arc(badgeX,badgeY,badgeR*.58,0,Math.PI*2);bctx.fill();
+      bctx.strokeStyle='#fff1a5';bctx.lineWidth=Math.max(1.5,T*.021);bctx.lineCap='round';bctx.lineJoin='round';
+      bctx.beginPath();bctx.moveTo(badgeX-badgeR*.16,badgeY-badgeR*.48);bctx.lineTo(badgeX+badgeR*.05,badgeY-badgeR*.12);bctx.lineTo(badgeX-badgeR*.11,badgeY+badgeR*.08);bctx.lineTo(badgeX+badgeR*.21,badgeY+badgeR*.44);bctx.stroke();
     }else if(type==='sticky'){
       bctx.beginPath();for(let k=0;k<16;k++){const a=k*Math.PI/8,rr=k%2?r+4:r+8;const px=x+Math.cos(a)*rr,py=y+Math.sin(a)*rr;k?bctx.lineTo(px,py):bctx.moveTo(px,py);}bctx.closePath();bctx.stroke();
       bctx.fillStyle='rgba(255,196,45,.7)';bctx.beginPath();bctx.ellipse(x-r*.2,y+r*.36,r*.28,r*.14,0,0,7);bctx.fill();
@@ -13752,14 +13841,14 @@ function renderBoard(t){
       }else if(type==='lightning'){
         bctx.fillStyle='#ffffff';for(let k=0;k<2;k++){const a=t/250+k*Math.PI,rr=r*1.05;bctx.globalAlpha=.35+.35*Math.sin(a*1.7);bctx.beginPath();bctx.arc(x+Math.cos(a)*rr,y+Math.sin(a)*rr,Math.max(1.2,T*.02),0,7);bctx.fill();}
       }else if(type==='zombie'){
-        bctx.fillStyle='rgba(123,231,255,.30)';for(let k=0;k<3;k++){const a=t/700+k*2.05,rr=r*(.86+.08*k);bctx.globalAlpha=.18+.12*Math.sin(a);bctx.beginPath();bctx.arc(x+Math.cos(a)*rr,y-r*.35+Math.sin(a*.7)*r*.5,Math.max(2,T*.032),0,7);bctx.fill();}
+        // R170: intentionally no ambient animation for the Unstable Atom.
       }else if(type==='sticky'){
         bctx.fillStyle='rgba(255,239,151,.82)';for(let k=0;k<2;k++){const a=t/760+k*3.1,rr=r*.72;bctx.globalAlpha=.35+.2*Math.sin(a);bctx.beginPath();bctx.arc(x+Math.cos(a)*rr,y+Math.sin(a)*rr,Math.max(1.5,T*.025),0,7);bctx.fill();}
       }
       bctx.globalAlpha=1;
     }
     bctx.shadowBlur=0;
-    bctx.font='900 '+Math.round(r*.56)+'px system-ui';bctx.lineWidth=3;bctx.strokeStyle='rgba(8,18,30,.9)';bctx.strokeText(m.icon,x+r*.78,y-r*.78);bctx.fillText(m.icon,x+r*.78,y-r*.78);
+    if(m.icon){bctx.font='900 '+Math.round(r*.56)+'px system-ui';bctx.lineWidth=3;bctx.strokeStyle='rgba(8,18,30,.9)';bctx.strokeText(m.icon,x+r*.78,y-r*.78);bctx.fillText(m.icon,x+r*.78,y-r*.78);}
     // AAA polish: identity is carried by silhouette, icon and motion; no permanent text tag.
 
     bctx.restore();
@@ -14130,14 +14219,15 @@ function boardNeedsRealtime(t=performance.now()){
   const winBurst=won&&t-winT<1350;
   return !!(anim||bounce||nudge||shake>0||movingWallAnimating||chainAutoActive||winBurst);
 }
+function advancedCampaignLevelActive(){
+  return !dailyMode&&!duelMode&&!crystalMode&&!chainMode&&!reactorMode&&lv>=301;
+}
 function boardNeedsDecorativeCadence(){
-  // Hints and Reactor gates remain animated, just on a smooth decorative lane
-  // instead of competing with atom slides on the realtime lane.
+  // R177 UNIFIED 1–501: no expansion-only scheduling branch. The full campaign
+  // follows the same cadence decision that Levels 1–301 already use.
   return !motionReduced()&&!!(hintMark||reactorActive()||boardNeedsBioCadence());
 }
 function boardNeedsBioCadence(){
-  // Bio/Enzyme icons are cached bitmaps. A 10–20 fps soft lane is enough for
-  // their breathing/phase animation and avoids returning to permanent 60 fps.
   return !!(enzymeGate||(crystalActive()&&crystals.some(c=>!c.collected)));
 }
 function updatePerformanceGovernor(t,expectedCadence=ACTIVE_FRAME_MS){
@@ -14225,17 +14315,19 @@ function loop(t){
   const boardEvery=gameVisible?(realtimeBoard?ACTIVE_FRAME_MS:(decorativeBoard?decorativeEvery:(performanceLow()?150:IDLE_GAME_FRAME_MS))):IDLE_MENU_FRAME_MS;
   // The goal canvas is unchanged during a slide. Avoid redrawing it two or three
   // times while the board needs the mobile GPU; catch it up immediately after.
-  const goalEvery=mobileMotion?360:(realtimeBoard?(mobileRuntime?105:(performanceLow()?75:60)):(performanceLow()?200:(performancePressure()?170:(mobileRuntime?160:115))));
+  const goalEvery=Number.POSITIVE_INFINITY; // R171: GOAL canvas is static; redraw only when level/goal content changes.
   // Hold any previous landing particles for the short slide window. They resume
   // afterwards, instead of clearing a full-screen Retina canvas beside the board.
   const realtimeFx=!mobileMotion&&hasRealtimeFxParts();
   const perfCadence=(realtimeBoard||realtimeFx)?ACTIVE_FRAME_MS:(gameVisible?Math.min(boardEvery,IDLE_GAME_FRAME_MS):IDLE_MENU_FRAME_MS);
   if(gameVisible||PARTS.length)updatePerformanceGovernor(t,perfCadence);else resetPerformanceSampling(t);
   if(gameVisible){
-    // Keep interactive puzzle motion at ~60 fps. Automatic pressure changes
-    // internal pixel fill / hidden work only; it does not remove visible FX.
-    if(t-lastBoardFrame>=boardEvery){lastBoardFrame=cadenceStamp(lastBoardFrame,t,boardEvery);renderBoard(t);}
-    if(curMol&&t-lastGoalFrame>=goalEvery){lastGoalFrame=cadenceStamp(lastGoalFrame,t,goalEvery);drawMol($('#goalCv'),curMol,false,t);}
+    // R177 UNIFIED 1–501: one board scheduling path for the entire campaign.
+    // 302–501 no longer run a separate expansion-only redraw policy.
+    if(t-lastBoardFrame>=boardEvery){
+      lastBoardFrame=cadenceStamp(lastBoardFrame,t,boardEvery);renderBoard(t);
+    }
+    // R171: no periodic GOAL redraw. The goal molecule itself never wobbles, pulses or consumes idle frames.
     if((duelMode||crystalMode||chainMode||reactorMode)&&!won&&(!duelMode||!duelState.turnFinished)&&!onlineDuelConnectionPaused()){
       const limit=duelMode?DUEL_TIME_LIMIT:(crystalMode?CRYSTAL_TIME_LIMIT:(chainMode?CHAIN_TIME_LIMIT:REACTOR_TIME_LIMIT));
       const elapsedForTimer=reactorMode?reactorElapsedSeconds(t):(t-levelStartT)/1000;
@@ -14293,7 +14385,11 @@ board.addEventListener('pointerdown',e=>{
   if(pd&&pd.id!==e.pointerId)return;
   e.preventDefault();
   try{board.setPointerCapture(e.pointerId);}catch(_){}
-  pd={x:e.clientX,y:e.clientY,ai:nearestTouchableAtom(e.clientX,e.clientY),id:e.pointerId,pointerType:e.pointerType||'touch'};
+  // R168 barrier hotfix: while placing a barrier, the board belongs to the
+  // barrier tool instead of the atom tap/swipe recognizer. This prevents normal
+  // finger drift from being misread as a swipe and stores the intended start cell.
+  const placingBarrier=barrierMode&&!won;
+  pd={x:e.clientX,y:e.clientY,ai:placingBarrier?-1:nearestTouchableAtom(e.clientX,e.clientY),id:e.pointerId,pointerType:e.pointerType||'touch',barrierCell:placingBarrier?boardCellAt(e.clientX,e.clientY):null};
   atomPressIdx=pd.ai;atomPressAt=performance.now();
 },{passive:false});
 board.addEventListener('pointerup',e=>{
@@ -14302,10 +14398,14 @@ board.addEventListener('pointerup',e=>{
   const dx=e.clientX-pd.x,dy=e.clientY-pd.y;
   const dist=Math.max(Math.abs(dx),Math.abs(dy));
   const tapTol=atomTouchTapTolerance(pd.pointerType);
+  if(barrierMode&&!won){
+    // R168: barrier placement owns the entire touch gesture. Even a drifting
+    // finger cannot turn the placement into an atom swipe.
+    const cell=pd.barrierCell||boardCellAt(e.clientX,e.clientY);attemptBarrierAt(cell.x,cell.y);pd=null;return;
+  }
   if(dist<tapTol){
     if(pd.ai<0)pd.ai=nearestTouchableAtom(e.clientX,e.clientY,1.08);
     if(hammerMode&&!won){const cell=boardCellAt(e.clientX,e.clientY);attemptHammerAt(cell.x,cell.y);pd=null;return;}
-    if(barrierMode&&!won){const cell=boardCellAt(e.clientX,e.clientY);attemptBarrierAt(cell.x,cell.y);pd=null;return;}
     if(pd.ai>=0&&!won){
       if(tutorialActive&&tutorialWaitTap!=null&&pd.ai!==tutorialWaitTap){pd=null;return;}
       sel=pd.ai;selT0=performance.now();SFX.select();mxHaptic('light');
@@ -14355,14 +14455,14 @@ $('#btnRestart').addEventListener('pointerdown',e=>{e.preventDefault();SFX.click
   if(tutorialActive){const phase=tutorialStep>=8?8:2;loadTutorialPuzzle(phase===8?TUT_LEVEL_2:TUT_LEVEL_1);tutorialGoStep(phase);return;}
   if(duelMode){say(duelCopy().noRestart,'sad',2200,'shk');return;}
   const doRestart=()=>{noteLabToolStress('restart');startLevel(lv,crystalMode?'crystal':(chainMode?'chain':(reactorMode?'reactor':(dailyMode?'daily':'campaign'))));};
-  const confirmRestart=()=>{openModal('<h3 class="mxProdRestartTitle">'+mxProdIcon('restart')+'<span>'+(ml("BÖLÜMÜ YENİDEN BAŞLAT?","RESTART LEVEL?","LEVEL NEU STARTEN?","¿REINICIAR NIVEL?","REINICIAR FASE?","レベルをやり直しますか？"))+'</span></h3><div class="msub">'+(ml("Bölüm başlangıç düzenine döner. Kullanılmış Çekiç ve Tek Kare Hareket geri verilmez.","The level returns to its starting layout. Used Hammer and One-Square Move items are not restored.","Das Level kehrt zum Startlayout zurück. Benutzte Hämmer und Ein-Feld-Bewegungen werden nicht wiederhergestellt.","El nivel vuelve a su disposición inicial. Los Martillos y Movimientos de Una Casilla usados no se restauran.","A fase volta ao layout inicial. Martelos e Movimentos de Uma Casa usados não são restaurados.","レベルは開始時の配置に戻ります。使用したハンマーと1マス移動は戻りません。"))+'</div><div class="mrow"><button class="btn amber" id="mRestartYes">'+(ml("YENİDEN BAŞLAT","RESTART","NEU STARTEN","REINICIAR","REINICIAR","やり直す"))+'</button><button class="btn ghost" id="mRestartNo">'+t('cancel')+'</button></div>');bindTap('#mRestartYes',()=>{closeModal();playCharacterVoice('drE','failure',{force:true,duck:.30,cooldown:0});doRestart();});bindTap('#mRestartNo',()=>closeModal());};
+  const confirmRestart=()=>{openModal('<h3 class="mxProdRestartTitle">'+mxProdIcon('restart')+'<span>'+(ml("BÖLÜMÜ YENİDEN BAŞLAT?","RESTART LEVEL?","LEVEL NEU STARTEN?","¿REINICIAR NIVEL?","REINICIAR FASE?","レベルをやり直しますか？"))+'</span></h3><div class="msub">'+(ml("Bölüm başlangıç düzenine döner. Kullanılmış Çekiç ve Tek Kare Hareket geri verilmez; Nano Bariyer için harcanmış MoleCoin iade edilmez.","The level returns to its starting layout. Used Hammer and One-Square Move items are not restored; MoleCoin spent on Nano Barrier is not refunded.","Das Level kehrt zum Startlayout zurück. Benutzte Hämmer und Ein-Feld-Bewegungen werden nicht wiederhergestellt.","El nivel vuelve a su disposición inicial. Los Martillos y Movimientos de Una Casilla usados no se restauran.","A fase volta ao layout inicial. Martelos e Movimentos de Uma Casa usados não são restaurados.","レベルは開始時の配置に戻ります。使用したハンマーと1マス移動は戻りません。"))+'</div><div class="mrow"><button class="btn amber" id="mRestartYes">'+(ml("YENİDEN BAŞLAT","RESTART","NEU STARTEN","REINICIAR","REINICIAR","やり直す"))+'</button><button class="btn ghost" id="mRestartNo">'+t('cancel')+'</button></div>');bindTap('#mRestartYes',()=>{closeModal();playCharacterVoice('drE','failure',{force:true,duck:.30,cooldown:0});doRestart();});bindTap('#mRestartNo',()=>closeModal());};
   if(!save.seenRestartSupport){save.seenRestartSupport=true;persist();showSupportTutorial('restart',confirmRestart);return;}
   confirmRestart();
 },{passive:false});
 $('#btnHint').addEventListener('pointerdown',e=>{e.preventDefault();if(tutorialActive)return;if(duelMode){say(duelCopy().noHint,'sad',2200,'shk');return;}if(chainMode){say(chainCopy().noHint,'sad',2200,'shk');return;}if(reactorMode){say(reactorCopy().noHint,'sad',2200,'shk');return;}if(!save.seenHintSupport){save.seenHintSupport=true;persist();showSupportTutorial('hint',hint);return;}hint();},{passive:false});
-$('#btnHammer').addEventListener('pointerdown',e=>{e.preventDefault();if(e.currentTarget.hidden||won||tutorialActive||autoSolveInProgress)return;if(!save.seenHammerSupport){save.seenHammerSupport=true;persist();showSupportTutorial('hammer',()=>$('#btnHammer').dispatchEvent(new PointerEvent('pointerdown',{bubbles:true})));return;}if(boosterCount('hammer')<1){buyBooster('hammer',()=>{syncHammerUi();say(ml("Çekiç satın alındı. Şimdi çatlak duvara dokun.","Hammer purchased. Now tap a cracked wall.","Hammer gekauft. Tippe jetzt auf eine rissige Wand.","Martillo comprado. Ahora toca una pared agrietada.","Martelo comprado. Agora toque em uma parede rachada.","ハンマーを購入しました。ひび割れた壁をタップしてください。"),'happy',3000,'glow');});return;}if(precisionMode)cancelPrecision();if(barrierMode)cancelBarrier();hammerMode=!hammerMode;SFX.select();mxHaptic('light');syncHammerUi();if(hammerMode)say(ml("Kırmak için çatlak duvara dokun.","Tap the cracked wall to break it.","Tippe auf die rissige Wand, um sie zu zerstören.","Toca la pared agrietada para romperla.","Toque na parede rachada para quebrá-la.","ひび割れた壁をタップして壊してください。"),'talk',2600,'glow');},{passive:false});
-$('#btnPrecision').addEventListener('pointerdown',e=>{e.preventDefault();if(e.currentTarget.hidden||won||tutorialActive||autoSolveInProgress)return;if(!save.seenPrecisionSupport){save.seenPrecisionSupport=true;persist();showSupportTutorial('precision',()=>$('#btnPrecision').dispatchEvent(new PointerEvent('pointerdown',{bubbles:true})));return;}if(boosterCount('precision')<1){buyBooster('precision',()=>{syncPrecisionUi();say(ml("Tek Kare Hareket satın alındı. Atomu seçip yön ver.","One-Square Move purchased. Select an atom and choose a direction.","Ein-Feld-Bewegung gekauft. Wähle ein Atom und eine Richtung.","Movimiento de Una Casilla comprado. Selecciona un átomo y una dirección.","Movimento de Uma Casa comprado. Selecione um átomo e uma direção.","1マス移動を購入しました。原子を選び、方向を指定してください。"),'happy',3200,'glow');});return;}if(hammerMode)cancelHammer();if(barrierMode)cancelBarrier();precisionMode=!precisionMode;SFX.select();mxHaptic('light');syncPrecisionUi();if(precisionMode)say(ml("Atomu seç, sonra yön ver. Atom yalnızca 1 kare ilerler.","Select an atom, then choose a direction. It will move exactly 1 square.","Wähle ein Atom und dann eine Richtung. Es bewegt sich genau 1 Feld.","Selecciona un átomo y luego una dirección. Se moverá exactamente 1 casilla.","Selecione um átomo e depois uma direção. Ele se moverá exatamente 1 casa.","原子を選び、方向を指定してください。ちょうど1マス移動します。"),'talk',3000,'glow');},{passive:false});
-$('#btnBarrier').addEventListener('pointerdown',e=>{e.preventDefault();if(e.currentTarget.hidden||won||tutorialActive||barrierUsed||autoSolveInProgress)return;if(!save.seenBarrierSupport){save.seenBarrierSupport=true;persist();showSupportTutorial('barrier',()=>$('#btnBarrier').dispatchEvent(new PointerEvent('pointerdown',{bubbles:true})));return;}if(boosterCount('barrier')<1){buyBooster('barrier',()=>{syncBarrierUi();say(ml("Nano Bariyer satın alındı. Boş bir kareye dokun.","Nano Barrier purchased. Tap an empty tile.","Nano-Barriere gekauft. Tippe auf ein leeres Feld.","Nano Barrera comprada. Toca una casilla vacía.","Nano Barreira comprada. Toque em uma casa vazia.","ナノバリアを購入しました。空いているマスをタップしてください。"),'happy',3000,'glow');});return;}if(hammerMode)cancelHammer();if(precisionMode)cancelPrecision();barrierMode=!barrierMode;SFX.select();mxHaptic('light');syncBarrierUi();if(barrierMode)say(ml("Geçici blok koymak için boş bir kareye dokun.","Tap an empty tile to place the temporary block.","Tippe auf ein leeres Feld, um den temporären Block zu platzieren.","Toca una casilla vacía para colocar el bloque temporal.","Toque em uma casa vazia para colocar o bloco temporário.","空いているマスをタップして一時ブロックを設置してください。"),'talk',2800,'glow');},{passive:false});
+$('#btnHammer').addEventListener('pointerdown',e=>{e.preventDefault();if(won||tutorialActive||autoSolveInProgress)return;if(!hammerLevelEligible()){cancelHammer();supportUnavailable('hammer');return;}if(!save.seenHammerSupport){save.seenHammerSupport=true;persist();showSupportTutorial('hammer',()=>$('#btnHammer').dispatchEvent(new PointerEvent('pointerdown',{bubbles:true})));return;}if(boosterCount('hammer')<1){buyBooster('hammer',()=>{syncHammerUi();say(ml("Çekiç satın alındı. Şimdi çatlak duvara dokun.","Hammer purchased. Now tap a cracked wall.","Hammer gekauft. Tippe jetzt auf eine rissige Wand.","Martillo comprado. Ahora toca una pared agrietada.","Martelo comprado. Agora toque em uma parede rachada.","ハンマーを購入しました。ひび割れた壁をタップしてください。"),'happy',3000,'glow');});return;}if(precisionMode)cancelPrecision();if(barrierMode)cancelBarrier();hammerMode=!hammerMode;SFX.select();mxHaptic('light');syncHammerUi();if(hammerMode)say(ml("Kırmak için çatlak duvara dokun.","Tap the cracked wall to break it.","Tippe auf die rissige Wand, um sie zu zerstören.","Toca la pared agrietada para romperla.","Toque na parede rachada para quebrá-la.","ひび割れた壁をタップして壊してください。"),'talk',2600,'glow');},{passive:false});
+$('#btnPrecision').addEventListener('pointerdown',e=>{e.preventDefault();if(won||tutorialActive||autoSolveInProgress)return;if(!precisionLevelEligible()){cancelPrecision();supportUnavailable('precision');return;}if(!save.seenPrecisionSupport){save.seenPrecisionSupport=true;persist();showSupportTutorial('precision',()=>$('#btnPrecision').dispatchEvent(new PointerEvent('pointerdown',{bubbles:true})));return;}if(boosterCount('precision')<1){buyBooster('precision',()=>{syncPrecisionUi();say(ml("Tek Kare Hareket satın alındı. Atomu seçip yön ver.","One-Square Move purchased. Select an atom and choose a direction.","Ein-Feld-Bewegung gekauft. Wähle ein Atom und eine Richtung.","Movimiento de Una Casilla comprado. Selecciona un átomo y una dirección.","Movimento de Uma Casa comprado. Selecione um átomo e uma direção.","1マス移動を購入しました。原子を選び、方向を指定してください。"),'happy',3200,'glow');});return;}if(hammerMode)cancelHammer();if(barrierMode)cancelBarrier();precisionMode=!precisionMode;SFX.select();mxHaptic('light');syncPrecisionUi();if(precisionMode)say(ml("Atomu seç, sonra yön ver. Atom yalnızca 1 kare ilerler.","Select an atom, then choose a direction. It will move exactly 1 square.","Wähle ein Atom und dann eine Richtung. Es bewegt sich genau 1 Feld.","Selecciona un átomo y luego una dirección. Se moverá exactamente 1 casilla.","Selecione um átomo e depois uma direção. Ele se moverá exatamente 1 casa.","原子を選び、方向を指定してください。ちょうど1マス移動します。"),'talk',3000,'glow');},{passive:false});
+$('#btnBarrier').addEventListener('pointerdown',e=>{e.preventDefault();if(won||tutorialActive||autoSolveInProgress)return;if(!barrierLevelEligible()){cancelBarrier();supportUnavailable('barrier');return;}if(barrierUsed){SFX.thunk();mxHaptic('light');say(ml("Bu deneyde Nano Bariyer zaten kullanıldı. Her bölümde yalnızca bir kez kullanabilirsin.","Nano Barrier has already been used in this experiment. You can use it only once per level.","Die Nano-Barriere wurde in diesem Experiment bereits benutzt. Du kannst sie nur einmal pro Level verwenden.","La Barrera nano ya se usó en este experimento. Solo puedes usarla una vez por nivel.","A Barreira Nano já foi usada neste experimento. Você pode usá-la apenas uma vez por fase.","この実験ではナノバリアをすでに使用しました。1レベルにつき1回だけ使えます。","La Nano-Barrière a déjà été utilisée dans cette expérience. Elle ne peut être utilisée qu’une fois par niveau.","本次实验已经使用过纳米屏障。每关只能使用一次。","La Nano Barriera è già stata usata in questo esperimento. Puoi usarla solo una volta per livello."),'talk',2800,'glow');return;}if(!save.seenBarrierSupport){save.seenBarrierSupport=true;persist();showSupportTutorial('barrier',()=>$('#btnBarrier').dispatchEvent(new PointerEvent('pointerdown',{bubbles:true})));return;}if(coinBalance()<BARRIER_USE_PRICE){SFX.thunk();mxHaptic('error');say(ml("Nano Bariyer için 300 MoleCoin gerekiyor.","Nano Barrier costs 300 MoleCoin.","Die Nano-Barriere kostet 300 MoleCoin.","La Barrera nano cuesta 300 MoleCoin.","A Barreira Nano custa 300 MoleCoin.","ナノバリアには300 MoleCoinが必要です。","La Nano-Barrière coûte 300 MoleCoin.","纳米屏障需要300 MoleCoin。","La Nano Barriera costa 300 MoleCoin."),'sad',3000,'shk');return;}if(hammerMode)cancelHammer();if(precisionMode)cancelPrecision();barrierMode=!barrierMode;SFX.select();mxHaptic('light');syncBarrierUi();if(barrierMode)say(ml("Boş bir kare seç. Onayladığında 300 MoleCoin harcanacak.","Choose an empty tile. 300 MoleCoin will be spent only after you confirm.","Wähle ein leeres Feld. 300 MoleCoin werden erst nach deiner Bestätigung ausgegeben.","Elige una casilla vacía. Los 300 MoleCoin se gastarán solo al confirmar.","Escolha uma casa vazia. Os 300 MoleCoin só serão gastos após a confirmação.","空いているマスを選んでください。確認後に300 MoleCoinを使用します。","Choisis une case vide. Les 300 MoleCoin ne seront dépensés qu'après confirmation.","选择一个空格。确认后才会花费300 MoleCoin。","Scegli una casella vuota. I 300 MoleCoin verranno spesi solo dopo la conferma."),'talk',3000,'glow');},{passive:false});
 $('#btnGear').addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();if(e.stopImmediatePropagation)e.stopImmediatePropagation();SFX.click();if(tutorialActive)return;settingsModal();},{passive:false});
 bindTap('#btnHome',e=>{SFX.click();if(autoSolveInProgress){say(ml("Çözüm oynatımı tamamlanıyor.","The solution playback is finishing.","Die Lösungswiedergabe wird beendet.","La reproducción de la solución está terminando.","A reprodução da solução está terminando.","解答の再生を終了しています。"),'talk',2200,'glow');return;}if(tutorialActive){endTutorial(false);return;}if(duelMode){confirmQuitDuel();return;}if(crystalMode){confirmQuitCrystal();return;}if(chainMode){confirmQuitChain();return;}if(reactorMode){confirmQuitReactor();return;}show('splash');});
 $('#lvHome').addEventListener('pointerdown',e=>{e.preventDefault();SFX.click();show('splash');},{passive:false});
@@ -14425,9 +14525,20 @@ function guideContent(){
 
 function onlineDuelGuideRulesHtml(){return '<section class="guideSection guideDuelSection guideDuelComplete"><h4>'+ml('🌐 ONLINE DÜELLO · TAM KURALLAR','🌐 ONLINE DUEL · FULL RULES','🌐 ONLINE-DUELL · ALLE REGELN','🌐 DUELO ONLINE · REGLAS COMPLETAS','🌐 DUELO ONLINE · REGRAS COMPLETAS','🌐 オンラインデュエル・完全ルール','🌐 DUEL EN LIGNE · RÈGLES COMPLÈTES','🌐 在线对决 · 完整规则')+'</h4><ul><li>'+ml('<b>Hızlı Eşleşme derecelidir:</b> galibiyet +25 DP, beraberlik +3 DP, mağlubiyet −10 DP. MoleCoin her sonuçta 0.','<b>Quick Match is ranked:</b> win +25 DP, draw +3 DP, loss −10 DP. MoleCoin is 0 for every result.','<b>Schnellmatch ist gewertet:</b> Sieg +25 DP, Unentschieden +3 DP, Niederlage −10 DP. MoleCoin ist immer 0.','<b>Partida Rápida es clasificatoria:</b> victoria +25 DP, empate +3 DP, derrota −10 DP. MoleCoin siempre 0.','<b>Partida Rápida é ranqueada:</b> vitória +25 DP, empate +3 DP, derrota −10 DP. MoleCoin sempre 0.','<b>クイックマッチはランク戦:</b> 勝利+25 DP、引き分け+3 DP、敗北−10 DP。MoleCoinは常に0。','<b>Le Match rapide est classé :</b> victoire +25 DP, égalité +3 DP, défaite −10 DP. MoleCoin reste à 0.','<b>快速匹配为排位赛：</b>胜利+25 DP、平局+3 DP、失败−10 DP；MoleCoin始终为0。')+'</li><li>'+ml('<b>Arkadaş odası ve Aynı Telefon derecesizdir:</b> DP 0, sıralama puanı 0, MoleCoin 0.','<b>Friend Room and Same Phone are unranked:</b> DP 0, leaderboard points 0, MoleCoin 0.','<b>Freundesraum und gleiches Telefon sind ungewertet:</b> DP 0, Ranglistenpunkte 0, MoleCoin 0.','<b>Sala de amigos y Mismo teléfono no son clasificatorios:</b> DP 0, puntos de ranking 0, MoleCoin 0.','<b>Sala de amigos e Mesmo telefone não são ranqueados:</b> DP 0, pontos de ranking 0, MoleCoin 0.','<b>フレンドルームと同じ端末対戦はランク外:</b> DP 0、ランキングポイント0、MoleCoin 0。','<b>Salon entre amis et Même téléphone ne sont pas classés :</b> DP 0, points de classement 0, MoleCoin 0.','<b>好友房和同设备对战不计排位：</b>DP 0、排行榜积分0、MoleCoin 0。')+'</li><li>'+ml('Maç 3 raunddur; ilk 2 raundu kazanan maçı alır. Her raundda iki oyuncu aynı bölüme aynı anda girer ve kendi tahtasında bağımsız oynar; sıra sistemi yoktur. Her raund 90 saniyedir. İpucu ve Yeniden Başlat düelloda kapalıdır.','A match has 3 rounds; first to 2 round wins takes the match. In every round both players enter the same level together and play independently on their own board; there is no turn-taking. Each round lasts 90 seconds. Hint and Restart are disabled in Duel.','Ein Match hat 3 Runden; 2 Rundensiege gewinnen das Match. In jeder Runde starten beide Spieler gleichzeitig dasselbe Level und spielen unabhängig auf ihrem eigenen Brett; es gibt keinen Wechselzug. Jede Runde dauert 90 Sekunden. Hinweis und Neustart sind im Duell deaktiviert.','La partida tiene 3 rondas; gana quien consiga 2. En cada ronda ambos jugadores entran al mismo nivel al mismo tiempo y juegan de forma independiente en su propio tablero; no hay turnos alternos. Cada ronda dura 90 segundos. Pista y Reiniciar están desactivados.','A partida tem 3 rodadas; vence quem ganhar 2. Em cada rodada os dois jogadores entram na mesma fase ao mesmo tempo e jogam de forma independente no próprio tabuleiro; não há alternância de turnos. Cada rodada dura 90 segundos. Dica e Reiniciar ficam desativados.','3ラウンド制で2勝先取。各ラウンドでは2人が同じレベルに同時に入り、それぞれ自分の盤面で独立してプレイします。交互ターン制ではありません。各ラウンド90秒。デュエル中はヒントとリスタートを使用できません。','Le match comporte 3 manches ; le premier à 2 victoires gagne. À chaque manche, les deux joueurs entrent dans le même niveau en même temps et jouent indépendamment sur leur propre plateau ; il n’y a pas de tour alterné. Chaque manche dure 90 secondes. Indice et Recommencer sont désactivés.','每场3回合，先赢2回合者获胜。每回合双方同时进入同一关卡，并在各自棋盘上独立游戏，不采用轮流回合制。每回合90秒。对决中提示和重新开始不可用。')+'</li><li>'+ml('Rakibin tahtası, hamleleri ve ilerlemesi raund bitene kadar gizlidir.','Your opponent’s board, moves and progress stay hidden until the round ends.','Brett, Züge und Fortschritt des Gegners bleiben bis Rundenende verborgen.','El tablero, movimientos y progreso del rival permanecen ocultos hasta terminar la ronda.','Tabuleiro, jogadas e progresso do adversário ficam ocultos até o fim da rodada.','相手の盤面・手数・進行状況はラウンド終了まで非表示です。','Le plateau, les coups et la progression de l’adversaire restent masqués jusqu’à la fin de la manche.','对手棋盘、步数和进度在回合结束前保持隐藏。')+'</li><li>'+ml('<b>İsteğe bağlı çıkış hükmen mağlubiyettir.</b> Bağlantı varken rakibe anında bildirilir. Ranked maçta çıkan −10 DP, kalan +25 DP alır; MoleCoin 0.','<b>Leaving voluntarily is a forfeit loss.</b> When connected, the opponent is notified immediately. In Ranked, leaver gets −10 DP and the remaining player +25 DP; MoleCoin 0.','<b>Freiwilliges Verlassen zählt als Aufgabe.</b> Bei Verbindung wird der Gegner sofort informiert. Gewertet: Verlassender −10 DP, verbleibender Spieler +25 DP; MoleCoin 0.','<b>Salir voluntariamente cuenta como derrota por abandono.</b> Con conexión, el rival recibe aviso inmediato. En clasificatoria: quien sale −10 DP, quien queda +25 DP; MoleCoin 0.','<b>Sair voluntariamente conta como derrota por desistência.</b> Com conexão, o adversário é avisado na hora. Ranqueada: quem sai −10 DP, quem fica +25 DP; MoleCoin 0.','<b>自分から退出すると不戦敗。</b> 接続中なら相手へ即時通知。ランク戦では退出側−10 DP、残った側+25 DP、MoleCoin 0。','<b>Quitter volontairement compte comme une défaite par forfait.</b> Avec connexion, l’adversaire est averti immédiatement. Classé : sortant −10 DP, restant +25 DP ; MoleCoin 0.','<b>主动退出判负。</b>联网时会立即通知对手。排位赛中退出者−10 DP、留下者+25 DP；MoleCoin 0。')+'</li><li>'+ml('Bağlantı koparsa 30 saniyelik geri dönme süresi başlar. Süre içinde dönersen maç devam eder; dönmezsen hükmen kaybedersin.','If connection drops, a 30-second return window starts. Return in time to continue; otherwise you lose by forfeit.','Bei Verbindungsabbruch startet ein 30-Sekunden-Rückkehrfenster. Rechtzeitig zurück = weiterspielen, sonst Aufgabe-Niederlage.','Si se corta la conexión, empieza una ventana de 30 segundos. Si vuelves a tiempo, continúa; si no, pierdes por abandono.','Se a conexão cair, começa uma janela de 30 segundos. Voltando a tempo, a partida continua; caso contrário, derrota por desistência.','接続が切れると30秒の復帰猶予。時間内に戻れば続行、戻らなければ不戦敗。','En cas de coupure, une fenêtre de retour de 30 secondes démarre. Retour à temps = reprise ; sinon défaite par forfait.','断线后有30秒重连时间；及时返回继续比赛，否则判负。')+'</li><li>'+ml('<b>Online Rankings:</b> All‑Time sıralama DP’ye göre çalışır; galibiyet yükseltebilir, mağlubiyet düşürebilir. Haftalık/Aylık puan: galibiyet +3, beraberlik +1, mağlubiyet 0; puanın düşmese bile diğer oyuncular geçerse sıran gerileyebilir.','<b>Online Rankings:</b> All‑Time is sorted by DP, so wins can move you up and losses can move you down. Weekly/Monthly points: win +3, draw +1, loss 0; your rank can still fall when others pass you.','<b>Online-Rangliste:</b> Gesamt wird nach DP sortiert; Siege können dich nach oben, Niederlagen nach unten bringen. Woche/Monat: Sieg +3, Remis +1, Niederlage 0; andere können dich trotzdem überholen.','<b>Rankings Online:</b> Histórico se ordena por DP; ganar puede subirte y perder bajarte. Semanal/Mensual: victoria +3, empate +1, derrota 0; otros pueden adelantarte.','<b>Rankings Online:</b> Geral é ordenado por DP; vitória pode subir e derrota pode descer. Semana/Mês: vitória +3, empate +1, derrota 0; outros ainda podem ultrapassar você.','<b>オンラインランキング:</b> 全期間はDP順。勝利で上がり、敗北で下がることがあります。週間/月間は勝利+3、引き分け+1、敗北0。他プレイヤーに抜かれれば順位は下がります。','<b>Classements en ligne :</b> Général est trié par DP ; victoire peut faire monter, défaite faire descendre. Hebdo/Mensuel : +3/+1/0 ; les autres peuvent tout de même te dépasser.','<b>在线排名：</b>总榜按DP排序，胜利可能上升、失败可能下降。周榜/月榜为+3/+1/0；即使失败不扣周期积分，也可能被其他玩家反超。')+'</li></ul></section>';}
 
+function goalSignalGuideHtml(){return ml(
+  '<section class="guideSection guideSignalSection"><h4>🎯 TAHTA SİNYALLERİ</h4><ul><li><b>Normal HEDEF:</b> Hedef kartı ve molekül tamamen sabittir; hareket etmez veya sürekli parlamaz.</li><li><b>Altın HEDEF çerçevesi:</b> Çözüm tam bir hamle uzağındadır. Çerçeve yalnız iki kısa sinyal verir, sonra sabit altın kalır.</li><li><b>Kırmızı tahta çerçevesi:</b> Dr. E mevcut konumdan normal çözüm kalmadığını doğrulamıştır. Oyun otomatik sıfırlanmaz; Geri Al, Akıllı İpucu, Nano Bariyer veya Yeniden Başlat seçeneklerinden birini sen seçersin.</li></ul></section>',
+  '<section class="guideSection guideSignalSection"><h4>🎯 BOARD SIGNALS</h4><ul><li><b>Normal GOAL:</b> The target card and molecule stay completely still; there is no constant motion or glow.</li><li><b>Gold GOAL frame:</b> The solution is exactly one move away. The frame gives only two short signals, then stays solid gold.</li><li><b>Red board frame:</b> Dr. E has verified that no normal solution remains from the current position. The game does not reset automatically; you choose Undo, Smart Hint, Nano Barrier, or Restart.</li></ul></section>',
+  '<section class="guideSection guideSignalSection"><h4>🎯 BRETT-SIGNALE</h4><ul><li><b>Normales ZIEL:</b> Zielkarte und Molekül bleiben völlig ruhig; kein ständiges Bewegen oder Leuchten.</li><li><b>Goldener ZIEL-Rahmen:</b> Die Lösung ist genau einen Zug entfernt. Der Rahmen gibt nur zwei kurze Signale und bleibt danach gold.</li><li><b>Roter Brettrahmen:</b> Dr. E hat bestätigt, dass von der aktuellen Stellung kein normaler Lösungsweg bleibt. Das Spiel setzt nicht automatisch zurück; du wählst Rückgängig, Smart-Hinweis, Nano-Barriere oder Neustart.</li></ul></section>',
+  '<section class="guideSection guideSignalSection"><h4>🎯 SEÑALES DEL TABLERO</h4><ul><li><b>OBJETIVO normal:</b> La tarjeta y la molécula permanecen totalmente inmóviles; no hay movimiento ni brillo constante.</li><li><b>Marco OBJETIVO dorado:</b> La solución está exactamente a un movimiento. El marco da solo dos señales cortas y después queda dorado.</li><li><b>Marco rojo del tablero:</b> Dr. E confirmó que no queda una solución normal desde la posición actual. El juego no reinicia automáticamente; tú eliges Deshacer, Pista inteligente, Barrera nano o Reiniciar.</li></ul></section>',
+  '<section class="guideSection guideSignalSection"><h4>🎯 SINAIS DO TABULEIRO</h4><ul><li><b>OBJETIVO normal:</b> O cartão e a molécula ficam totalmente parados; sem movimento ou brilho contínuo.</li><li><b>Moldura dourada do OBJETIVO:</b> A solução está exatamente a uma jogada. A moldura dá apenas dois sinais curtos e depois fica dourada.</li><li><b>Moldura vermelha do tabuleiro:</b> Dr. E confirmou que não resta uma solução normal na posição atual. O jogo não reinicia sozinho; você escolhe Desfazer, Dica Inteligente, Barreira Nano ou Reiniciar.</li></ul></section>',
+  '<section class="guideSection guideSignalSection"><h4>🎯 盤面シグナル</h4><ul><li><b>通常の目標:</b> 目標カードと分子は完全に静止し、常時の動きや発光はありません。</li><li><b>金色の目標枠:</b> 解決まで正確にあと1手です。枠は短く2回だけ光り、その後は金色のままです。</li><li><b>赤い盤面枠:</b> Dr. E が現在の配置から通常の解法が残っていないことを確認した状態です。自動リセットはせず、「元に戻す」、スマートヒント、ナノバリア、やり直しを自分で選びます。</li></ul></section>',
+  '<section class="guideSection guideSignalSection"><h4>🎯 SIGNAUX DU PLATEAU</h4><ul><li><b>OBJECTIF normal :</b> la carte et la molécule restent totalement immobiles ; aucun mouvement ou halo permanent.</li><li><b>Cadre OBJECTIF doré :</b> la solution est exactement à un coup. Le cadre émet seulement deux courts signaux puis reste doré.</li><li><b>Cadre rouge du plateau :</b> Dr. E a vérifié qu’aucune solution normale ne reste depuis la position actuelle. Le jeu ne réinitialise pas automatiquement ; tu choisis Annuler, Indice intelligent, Nano-Barrière ou Recommencer.</li></ul></section>',
+  '<section class="guideSection guideSignalSection"><h4>🎯 棋盘信号</h4><ul><li><b>普通目标：</b>目标卡片和分子完全静止，不会持续移动或发光。</li><li><b>金色目标边框：</b>距离解法恰好只剩一步。边框只会短暂闪两次，随后保持金色。</li><li><b>红色棋盘边框：</b>Dr. E 已确认当前局面没有正常解法。游戏不会自动重置；由你选择撤销、智能提示、纳米屏障或重新开始。</li></ul></section>',
+  '<section class="guideSection guideSignalSection"><h4>🎯 SEGNALI DELLA TAVOLA</h4><ul><li><b>OBIETTIVO normale:</b> la carta e la molecola restano completamente ferme; niente movimento o bagliore continuo.</li><li><b>Cornice OBIETTIVO dorata:</b> la soluzione è esattamente a una mossa. La cornice dà solo due brevi segnali, poi resta dorata.</li><li><b>Cornice rossa della tavola:</b> Dr. E ha verificato che dalla posizione attuale non resta una soluzione normale. Il gioco non si azzera automaticamente; scegli tu Annulla, Suggerimento smart, Nano Barriera o Ricomincia.</li></ul></section>'
+);}
 function openGuideModal(){
   const c=guideContent();
-  openModal('<h3>📘 '+c.title+'</h3><div class="guideScroll">'+currentLevelMechanicsGuideHtml()+c.html+allMechanicsGuideHtml()+onlineDuelGuideRulesHtml()+'</div><div class="mrow"><button class="btn green" id="mGuideClose">'+c.close+'</button></div>');
+  openModal('<h3>📘 '+c.title+'</h3><div class="guideScroll">'+currentLevelMechanicsGuideHtml()+goalSignalGuideHtml()+c.html+allMechanicsGuideHtml()+onlineDuelGuideRulesHtml()+'</div><div class="mrow"><button class="btn green" id="mGuideClose">'+c.close+'</button></div>');
   $('#modalBox').classList.add('guideModal');
   document.querySelectorAll('[data-guide-mechanic]').forEach(b=>bindTap(b,()=>{SFX.select();showMechanicBriefing([b.dataset.guideMechanic]);}));
   bindTap('#mGuideClose',()=>closeModal());
@@ -14645,7 +14756,7 @@ const MX_IOS_NATIVE=!!(window.Capacitor&&window.Capacitor.getPlatform&&window.Ca
 // Email-only until the native piece is wired up, then reappears on its own.
 const MX_ANDROID_NATIVE=!!(window.Capacitor&&window.Capacitor.getPlatform&&window.Capacitor.getPlatform()==='android');
 const MX_APPLE_NATIVE_READY=!!(window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.FirebaseAuthentication&&typeof window.Capacitor.Plugins.FirebaseAuthentication.signInWithApple==='function');
-const MX_SHOW_APPLE_BTN=MX_IOS_NATIVE&&MX_APPLE_NATIVE_READY;
+const MX_SHOW_APPLE_BTN=false;
 // Added 2026-07-26: on the plain web build (not the iOS app itself), only
 // show the Apple button to visitors actually on Apple hardware — checks
 // both navigator.platform and userAgent since platform is being frozen/
@@ -14657,102 +14768,6 @@ const MX_APPLE_DEVICE=MX_IOS_NATIVE||/Mac|iPhone|iPad|iPod/.test(String(navigato
 const MX_IOS_WEBKIT=/iPad|iPhone|iPod/.test(String(navigator.userAgent||''))||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
 const MX_MOBILE_VIEWPORT_STABLE=!!((window.matchMedia&&window.matchMedia('(pointer:coarse)').matches)||('ontouchstart' in window))&&Math.min(screen.width||9999,screen.height||9999)<1100;
 const MX_SHOW_APPLE_BTN_WEB=false; // Web edition: Google + email only; Apple button disabled by build policy
-// R163 final: the earlier dormant remote-push registration has been intentionally
-// superseded by the consent-based, device-only Local Notifications flow below.
-// This final build does not register a push token or require an FCM/APNs reminder server.
-
-/* ================= R163 CONSENT-BASED LOCAL RETURN REMINDERS =================
-   Two sparse, device-only reminders are scheduled after explicit in-game + OS
-   consent. Opening the app cancels the old dates and re-arms them, so they only
-   fire after inactivity. No account, tracking, push server or exact-alarm
-   permission is required. */
-const MX_RETURN_REMINDER_IDS=[873003,873010];
-let mxReminderRefreshTimer=0,mxReminderListenerBound=false;
-function mxLocalNotificationsPlugin(){
-  try{
-    const cap=window.Capacitor;if(!cap)return null;
-    if(cap.Plugins&&cap.Plugins.LocalNotifications)return cap.Plugins.LocalNotifications;
-    if(typeof cap.registerPlugin==='function'){
-      if(!window.__MXLocalNotificationsPlugin)window.__MXLocalNotificationsPlugin=cap.registerPlugin('LocalNotifications');
-      return window.__MXLocalNotificationsPlugin;
-    }
-  }catch(e){console.warn('[MXReminder] plugin lookup failed',e&&e.message||e);}
-  return null;
-}
-function mxReminderCopy(){
-  return {
-    promptTitle:ml('🧪 Dr. E seni tekrar laboratuvara çağırabilir mi?','🧪 May Dr. E invite you back to the lab?','🧪 Darf Dr. E dich wieder ins Labor einladen?','🧪 ¿Puede el Dr. E invitarte de nuevo al laboratorio?','🧪 O Dr. E pode chamar você de volta ao laboratório?','🧪 E博士からラボへのお誘いを送ってもいいですか？','🧪 Dr. E peut-il t’inviter à revenir au laboratoire ?','🧪 可以让E博士邀请你回实验室吗？','🧪 Il Dr. E può invitarti a tornare in laboratorio?'),
-    promptBody:ml('Sadece ara sıra, uzun süre oynamadığında bir hatırlatma gelir. Bildirim tamamen cihazında planlanır; reklam takibi veya yeni kişisel veri toplama yoktur.','Only occasionally, after you have been away from the game. The reminder is scheduled entirely on your device; there is no ad tracking or new personal-data collection.','Nur gelegentlich, wenn du längere Zeit nicht gespielt hast. Die Erinnerung wird vollständig auf deinem Gerät geplant; kein Werbe-Tracking und keine neue Erhebung persönlicher Daten.','Solo de vez en cuando, si llevas un tiempo sin jugar. El recordatorio se programa por completo en tu dispositivo; sin seguimiento publicitario ni nueva recopilación de datos personales.','Só de vez em quando, quando você fica um tempo sem jogar. O lembrete é agendado inteiramente no seu aparelho; sem rastreamento de anúncios nem nova coleta de dados pessoais.','しばらく遊んでいないときだけ、たまにお知らせします。通知は端末内だけで予約され、広告トラッキングや新たな個人データ収集はありません。','Seulement de temps en temps, après une longue absence. Le rappel est programmé entièrement sur ton appareil, sans suivi publicitaire ni nouvelle collecte de données personnelles.','只会在你一段时间没玩时偶尔提醒。提醒完全在设备本地安排，不含广告追踪，也不会新增个人数据收集。','Solo ogni tanto, dopo un periodo di inattività. Il promemoria viene programmato interamente sul dispositivo, senza tracciamento pubblicitario né nuova raccolta di dati personali.'),
-    allow:ml('İZİN VER','ALLOW','ERLAUBEN','PERMITIR','PERMITIR','許可する','AUTORISER','允许','CONSENTI'),
-    notNow:ml('ŞİMDİ DEĞİL','NOT NOW','JETZT NICHT','AHORA NO','AGORA NÃO','今はしない','PAS MAINTENANT','暂时不要','NON ORA'),
-    title:ml('🧪 Laboratuvar seni bekliyor!','🧪 The laboratory is waiting!','🧪 Das Labor wartet auf dich!','🧪 ¡El laboratorio te espera!','🧪 O laboratório está esperando por você!','🧪 ラボがあなたを待っています！','🧪 Le laboratoire t’attend !','🧪 实验室在等你！','🧪 Il laboratorio ti aspetta!'),
-    body:ml('Dr. E: Moleküller sabırsızlanıyor. Bir deney daha yapmaya hazır mısın?','Dr. E: The molecules are getting impatient. Ready for one more experiment?','Dr. E: Die Moleküle werden ungeduldig. Bereit für noch ein Experiment?','Dr. E: Las moléculas se están impacientando. ¿Listo para otro experimento?','Dr. E: As moléculas estão ficando impacientes. Pronto para mais um experimento?','E博士：分子たちが待ちきれないようです。もう一つ実験しませんか？','Dr. E : Les molécules s’impatientent. Prêt pour une expérience de plus ?','E博士：分子们已经等不及了。准备再做一个实验吗？','Dr. E: Le molecole stanno diventando impazienti. Pronto per un altro esperimento?')
-  };
-}
-function mxReminderDate(days){
-  const d=new Date();d.setDate(d.getDate()+days);d.setHours(19,30,0,0);return d;
-}
-async function mxCancelReturnReminders(Local){
-  try{await Local.cancel({notifications:MX_RETURN_REMINDER_IDS.map(id=>({id}))});}catch(e){}
-}
-async function mxScheduleReturnReminders(){
-  if(!MX_NATIVE||!save.reminderOptIn)return false;
-  const Local=mxLocalNotificationsPlugin();if(!Local)return false;
-  try{
-    const perm=await Local.checkPermissions();
-    if(!perm||perm.display!=='granted')return false;
-    if(MX_ANDROID_NATIVE&&typeof Local.createChannel==='function'){
-      try{await Local.createChannel({id:'moleculox-lab-reminders',name:'Moleculox Lab',description:'Occasional laboratory return reminders',importance:3,vibration:true});}catch(e){}
-    }
-    await mxCancelReturnReminders(Local);
-    const c=mxReminderCopy();
-    const base={title:c.title,body:c.body,autoCancel:true,extra:{type:'moleculox-return-reminder'}};
-    await Local.schedule({notifications:[
-      Object.assign({id:MX_RETURN_REMINDER_IDS[0],schedule:{at:mxReminderDate(3)}},base,MX_ANDROID_NATIVE?{channelId:'moleculox-lab-reminders'}:{}),
-      Object.assign({id:MX_RETURN_REMINDER_IDS[1],schedule:{at:mxReminderDate(10)}},base,MX_ANDROID_NATIVE?{channelId:'moleculox-lab-reminders'}:{})
-    ]});
-    save.reminderLastArmedAt=Date.now();persist();
-    if(!mxReminderListenerBound&&typeof Local.addListener==='function'){
-      mxReminderListenerBound=true;
-      Local.addListener('localNotificationActionPerformed',()=>{try{if(scr&&scr.splash)show('splash');}catch(e){}});
-    }
-    return true;
-  }catch(e){console.warn('[MXReminder] schedule failed (non-fatal)',e&&e.message||e);return false;}
-}
-async function mxEnableReturnReminders(){
-  const Local=mxLocalNotificationsPlugin();if(!Local)return false;
-  try{
-    const current=await Local.checkPermissions();
-    let display=current&&current.display;
-    if(display!=='granted'){
-      const req=await Local.requestPermissions();display=req&&req.display;
-    }
-    save.reminderPromptSeen=true;
-    if(display!=='granted'){
-      save.reminderOptIn=false;save.reminderPermissionDenied=true;persist();return false;
-    }
-    save.reminderOptIn=true;save.reminderPermissionDenied=false;persist();
-    return mxScheduleReturnReminders();
-  }catch(e){console.warn('[MXReminder] permission failed (non-fatal)',e&&e.message||e);return false;}
-}
-function mxOfferReturnReminder(){
-  if(!MX_NATIVE||save.reminderPromptSeen||save.reminderOptIn||Number(save.cur||0)<1)return;
-  const Local=mxLocalNotificationsPlugin();if(!Local)return;
-  const c=mxReminderCopy();
-  runWhenModalFree(()=>{
-    if(save.reminderPromptSeen||save.reminderOptIn)return;
-    openModal('<h3>'+c.promptTitle+'</h3><div class="msub">'+c.promptBody+'</div><div class="mrow"><button class="btn green" id="mxReminderAllow">'+c.allow+'</button><button class="btn ghost" id="mxReminderNotNow">'+c.notNow+'</button></div>');
-    bindTap('#mxReminderAllow',async()=>{SFX.click();closeModal();await mxEnableReturnReminders();});
-    bindTap('#mxReminderNotNow',()=>{SFX.click();save.reminderPromptSeen=true;save.reminderOptIn=false;persist();closeModal();});
-  });
-}
-function mxRefreshReturnRemindersSoon(){
-  if(!MX_NATIVE||!save.reminderOptIn)return;
-  clearTimeout(mxReminderRefreshTimer);mxReminderRefreshTimer=setTimeout(()=>mxScheduleReturnReminders(),900);
-}
-window.addEventListener('load',()=>setTimeout(()=>{if(!MX_NATIVE)return;if(save.reminderOptIn)mxScheduleReturnReminders();else mxOfferReturnReminder();},5200),{passive:true});
-window.addEventListener('pageshow',mxRefreshReturnRemindersSoon,{passive:true});
-document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')mxRefreshReturnRemindersSoon();},{passive:true});
 /* ================= R162 DOUBLE-TAP ZOOM LOCK =================
    Keep every real click/pointer input available to the game while cancelling
    only browser zoom gestures. The locked viewport is the primary protection;

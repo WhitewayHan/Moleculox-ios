@@ -1,0 +1,23 @@
+const fs=require('fs'),path=require('path');
+function must(v,msg){if(!v){console.error('R177 FAIL:',msg);process.exit(1);}}
+const root=path.resolve(__dirname,'..');
+const www=path.join(root,'www');
+const game=fs.readFileSync(path.join(www,'js','game.js'),'utf8');
+const sync=fs.readFileSync(path.join(www,'js','sync-core.js'),'utf8');
+const fb=fs.readFileSync(path.join(www,'js','firebase.js'),'utf8');
+const idx=fs.readFileSync(path.join(www,'index.html'),'utf8');
+const pkg=JSON.parse(fs.readFileSync(path.join(root,'package.json'),'utf8'));
+const manifest=JSON.parse(fs.readFileSync(path.join(www,'manifest.webmanifest'),'utf8'));
+const platform=process.platform==='darwin'?'ios':(pkg.name.includes('ios')?'ios':'android');
+const build=`8.7.73-r177-final-${platform}`;
+must(pkg.version==='8.7.73'&&manifest.version==='8.7.73','version mismatch');
+must(game.includes('const APP_VERSION="v8.7.73";'),'visible app version mismatch');
+must(idx.includes(build),'build identity mismatch');
+must(sync.includes('const MAX_LEVELS=501;'),'sync MAX_LEVELS is not 501');
+must(sync.includes('out.disc=mergeTruthMap(left.disc,right.disc,501);'),'discovery merge cap not expansion-safe');
+must(fb.includes('const LEADERBOARD_LEVEL_COUNT = 501;'),'leaderboard still capped at 301');
+must(game.includes('function persistLocalOnly()'),'local-only completion persistence missing');
+must(game.includes('function expansionAdaptiveRenderActive()'),'302-501 adaptive render missing');
+must(game.includes('if(expansionAdaptiveRenderActive())return !motionReduced()&&!!reactorActive();'),'advanced idle cadence not reduced');
+must(!game.includes('LocalNotifications')&&!game.includes('PushNotifications'),'notification runtime returned');
+console.log('R177 FINAL checks passed; R173 progress/performance behavior preserved.');

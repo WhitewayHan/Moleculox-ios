@@ -1,0 +1,15 @@
+'use strict';
+const fs=require('fs'),path=require('path');
+const root=path.resolve(__dirname,'..');
+const html=fs.readFileSync(path.join(root,'www/index.html'),'utf8');
+const game=fs.readFileSync(path.join(root,'www/js/game.js'),'utf8');
+const must=(v,m)=>{if(!v){console.error('R176 SUPPORT RAIL FAIL:',m);process.exit(1);}};
+const precision=html.match(/<button id="btnPrecision"[^>]*>/)?.[0]||'';
+const barrier=html.match(/<button id="btnBarrier"[\s\S]*?<\/button>/)?.[0]||'';
+must(precision && !/\shidden(?:\s|>|=)/.test(precision),'1-Square button still starts hidden');
+must(barrier && !barrier.includes('<b>300</b>') && !barrier.includes('coinIcon'),'Barrier action button still exposes price/coin badge');
+must(game.includes("c.textContent=!eligible?'—':(barrierUsed?'✓':'');"),'Barrier sync can still repopulate price on action button');
+must(game.includes('const BARRIER_USE_PRICE=300;'),'Barrier price changed unexpectedly');
+must(game.includes('300 MoleCoin') && game.includes('mBarrierYes'),'Barrier purchase confirmation no longer states price');
+must(game.includes("$('#btnPrecision').addEventListener('pointerdown'"),'1-Square click handler missing');
+console.log('R176 support-rail checks passed.');
