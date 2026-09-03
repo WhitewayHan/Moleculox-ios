@@ -1,5 +1,5 @@
-/* Moleculox v8.7.57 — R160 final native mobile release. */
-const APP_VERSION="v8.7.57";
+/* Moleculox v8.7.59 — R163 iOS final: collection crash guard + double-tap zoom lock + consent-based local reminders. */
+const APP_VERSION="v8.7.59";
 const mxReducedMotionQuery=window.matchMedia?window.matchMedia('(prefers-reduced-motion: reduce)'):null;
 let mxSystemReducedMotion=!!(mxReducedMotionQuery&&mxReducedMotionQuery.matches);
 if(mxReducedMotionQuery){
@@ -4394,6 +4394,7 @@ function show(k){
   const current=Object.keys(scr).find(s=>scr[s].classList.contains('on'))||scrPrev;
   if(current===k){screenTransitionLock=false;return;}
   if(current==='game'&&k!=='game')releaseGameVisualLoadForMenu();
+  if(current==='collect'&&k!=='collect')stopCollectionRendering(true);
   const outgoing=scr[current],incoming=scr[k];
   document.body.classList.add('mxUiTransitioning');
   if(outgoing)outgoing.classList.add('mxLeaving');
@@ -5457,73 +5458,155 @@ function fillSpot(id,r,offline){
   el.innerHTML='<span class="spName">'+esc((r.playerName||'?').slice(0,18))+'</span><span class="spScore">'+rankScoreText(r)+'</span>';
 }
 function clampDisplay(v){v=Number(v);return Number.isFinite(v)?Math.max(0,Math.floor(v)):0;}
-function buildCollection(){
-  const g=$('#molGrid');g.innerHTML='';let n=0;
+/* ================= R161 COLLECTION STABILITY =================
+   Keep the collection light on iOS/Android WebViews: build only the selected
+   tab, add molecule cards in short frame-sized batches, and allocate canvas
+   backing stores only when cards approach the viewport. */
+let collectionRenderToken=0;
+let collectionRenderFrame=0;
+let collectionCanvasObserver=null;
+function stopCollectionRendering(clearPanels){
+  collectionRenderToken++;
+  if(collectionRenderFrame){cancelAnimationFrame(collectionRenderFrame);collectionRenderFrame=0;}
+  if(collectionCanvasObserver){collectionCanvasObserver.disconnect();collectionCanvasObserver=null;}
+  if(clearPanels){
+    ['molGrid','elGrid','achvGrid','diplomaGrid'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML='';});
+  }
+}
+function collectionActiveTab(){
+  const active=document.querySelector('[data-collection-tab].on');
+  return active&&active.dataset.collectionTab||'molecules';
+}
+function ensureCollectionSaveState(){
+  if(!save||typeof save!=='object')return false;
+  if(!save.disc||typeof save.disc!=='object')save.disc={};
+  if(!Array.isArray(save.stars))save.stars=[];
+  if(!Array.isArray(save.bestMoves))save.bestMoves=[];
+  if(!Array.isArray(save.speedRuns))save.speedRuns=[];
   if(!save.favoriteMolecules||typeof save.favoriteMolecules!=='object')save.favoriteMolecules={};
   if(!['all','open','locked','fav'].includes(save.collectionFilter))save.collectionFilter='all';
-  let tools=$('#collectionTools');
-  if(!tools){
-    tools=document.createElement('div');tools.id='collectionTools';tools.className='collectionTools';
-    g.parentNode.insertBefore(tools,g);
+  return true;
+}
+function updateCollectionCount(){
+  if(!ensureCollectionSaveState())return;
+  let discovered=0;
+  for(const id in MOLS)if(save.disc[id])discovered++;
+  const count=$('#coCount');if(count)count.textContent=discovered+'/'+Object.keys(MOLS).length;
+}
+function collectionMoleculesVisible(token){
+  const panel=document.querySelector('[data-collection-panel="molecules"]');
+  return token===collectionRenderToken&&scr.collect.classList.contains('on')&&!!(panel&&panel.classList.contains('on'));
+}
+function queueCollectionCanvas(cv,mol,gray,token){
+  const paint=()=>{
+    if(token!==collectionRenderToken||!cv.isConnected)return;
+    try{drawMol(cv,mol,gray);}catch(err){console.warn('[collection] molecule preview skipped',err);}
+  };
+  if(!window.IntersectionObserver){paint();return;}
+  if(!collectionCanvasObserver){
+    const root=document.querySelector('#collectScr .collectionScroll');
+    collectionCanvasObserver=new window.IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        const canvas=entry.target;
+        const molRef=canvas.__mxCollectionMol,grayRef=canvas.__mxCollectionGray,canvasToken=canvas.__mxCollectionToken;
+        if(canvasToken!==collectionRenderToken||!canvas.isConnected){collectionCanvasObserver&&collectionCanvasObserver.unobserve(canvas);return;}
+        if(entry.isIntersecting&&!canvas.__mxCollectionDrawn){
+          try{drawMol(canvas,molRef,grayRef);canvas.__mxCollectionDrawn=true;}catch(err){console.warn('[collection] molecule preview skipped',err);}
+        }else if(!entry.isIntersecting&&canvas.__mxCollectionDrawn){
+          canvas.width=1;canvas.height=1;canvas.__mxCollectionDrawn=false;
+        }
+      });
+    },{root:root||null,rootMargin:'280px 0px',threshold:0.01});
   }
+  cv.__mxCollectionMol=mol;cv.__mxCollectionGray=gray;cv.__mxCollectionToken=token;cv.__mxCollectionDrawn=false;
+  collectionCanvasObserver.observe(cv);
+}
+function buildMoleculeCollection(){
+  const g=$('#molGrid');if(!g||!ensureCollectionSaveState())return;
+  g.innerHTML='';
+  let tools=$('#collectionTools');
+  if(!tools){tools=document.createElement('div');tools.id='collectionTools';tools.className='collectionTools';g.parentNode.insertBefore(tools,g);}
   const labels={all:ml('TÜMÜ','ALL','ALLE','TODOS','TODOS','すべて'),open:ml('AÇIK','OPEN','ENTDECKT','DESCUBIERTOS','DESCOBERTOS','発見済み'),locked:ml('KİLİTLİ','LOCKED','GESPERRT','BLOQUEADOS','BLOQUEADOS','未発見'),fav:ml('FAVORİ','FAVORITES','FAVORITEN','FAVORITOS','FAVORITOS','お気に入り')};
   tools.innerHTML=['all','open','locked','fav'].map(k=>'<button class="collectionFilter '+(save.collectionFilter===k?'on':'')+'" data-filter="'+k+'">'+labels[k]+'</button>').join('');
-  tools.querySelectorAll('.collectionFilter').forEach(b=>b.addEventListener('pointerdown',e=>{e.preventDefault();save.collectionFilter=b.dataset.filter;persist();buildCollection();SFX.click();},{passive:false}));
+  tools.querySelectorAll('.collectionFilter').forEach(b=>b.addEventListener('pointerdown',e=>{e.preventDefault();save.collectionFilter=b.dataset.filter;persist();const sc=document.querySelector('#collectScr .collectionScroll');if(sc)sc.scrollTop=0;buildCollection('molecules');SFX.click();},{passive:false}));
   const firstLevel={};
-  LEVELS.forEach((row,i)=>{if(firstLevel[row.m]===undefined)firstLevel[row.m]=i;});
+  LEVELS.forEach((row,i)=>{if(row&&row.m&&firstLevel[row.m]===undefined)firstLevel[row.m]=i;});
+  const rows=[];
   for(const id in MOLS){
-    const m=MOLS[id],d=!!save.disc[id],fav=!!save.favoriteMolecules[id];if(d)n++;
+    const m=MOLS[id],d=!!save.disc[id],fav=!!save.favoriteMolecules[id];
     if(save.collectionFilter==='open'&&!d)continue;
     if(save.collectionFilter==='locked'&&d)continue;
     if(save.collectionFilter==='fav'&&!fav)continue;
     const li=firstLevel[id],stars=li===undefined?0:Math.max(0,Number(save.stars[li])||0),best=li===undefined?0:Math.max(0,Number(save.bestMoves&&save.bestMoves[li])||0),time=li===undefined?0:Math.max(0,Number(save.speedRuns&&save.speedRuns[li])||0);
-    const card=document.createElement('div');
-    card.className='molCard card'+(d?'':' un')+(fav?' favorite':'');card.dataset.molecule=id;
-    const meta=d?('<div class="molMeta"><span>⭐ '+stars+'/3</span>'+(li!==undefined?'<span>🧪 '+ml('Bölüm ','Level ','Level ','Nivel ','Fase ','レベル ')+(li+1)+'</span>':'')+(best?'<span>↔ '+best+' '+ml('hamle','moves','Züge','movimientos','movimentos','手')+'</span>':'')+(time?'<span>⚡ '+time.toFixed(1)+'s</span>':'')+'</div>'):'<div class="molMeta lockedMeta">🔒 '+ml('Bölümü tamamlayarak keşfet','Complete its level to discover','Schließe das Level ab, um es zu entdecken','Completa su nivel para descubrirlo','Conclua a fase para descobrir','レベルをクリアして発見')+'</div>';
-    const modelNote=d?'<div class="molModelNote">'+ml('ℹ️ 2B oyun modeli · gerçek 3B yapı farklı olabilir','ℹ️ 2D game model · real 3D structure may differ','ℹ️ 2D-Spielmodell · reale 3D-Struktur kann abweichen','ℹ️ Modelo 2D del juego · la estructura 3D real puede variar','ℹ️ Modelo 2D do jogo · a estrutura 3D real pode variar','ℹ️ 2Dゲームモデル · 実際の3D構造とは異なる場合があります')+'</div>':'';
-    card.innerHTML='<button class="molFav" aria-label="'+favoriteAriaLabel(fav)+'">'+(fav?'★':'☆')+'</button><canvas></canvas><div class="mn">'+(d?m.n:t('undiscoveredName'))+'</div><div class="mf">'+(d?m.f:t('undiscoveredName'))+'</div>'+meta+'<div class="mfact">'+(d?m.fa:t('undiscoveredFact'))+'</div>'+modelNote;
-    g.appendChild(card);
-    drawMol(card.querySelector('canvas'),m,!d);
-    card.querySelector('.molFav').addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();save.favoriteMolecules[id]=!save.favoriteMolecules[id];persist();buildCollection();SFX.click();},{passive:false});
+    rows.push({id,m,d,fav,li,stars,best,time});
   }
-  $('#coCount').textContent=n+'/'+Object.keys(MOLS).length;
-  const discEl=new Set();
-  for(const id in save.disc)if(MOLS[id])MOLS[id].s.forEach(a=>discEl.add(a[0]));
-  const eg=$('#elGrid');eg.innerHTML='';
-  for(const sym in ELINFO){
-    const info=ELINFO[sym],col=EL[sym],d=discEl.has(sym);
-    const c=document.createElement('div');
-    c.className='elCard card'+(d?'':' un');
-    c.innerHTML='<div class="ez" title="'+ml('Atom numarası','Atomic number','Ordnungszahl','Número atómico','Número atômico','原子番号')+'">Z = '+info.z+'</div><div class="esym" style="background:'+(d?col.c:'#3a3564')+';color:'+(d?col.t:'#8a8fb8')+'">'+sym+'</div><div class="en">'+(d?info.n:t('undiscoveredName'))+'</div>'+(d?'<div class="elFact">'+info.fa+'</div>':'');
-    eg.appendChild(c);
+  const token=collectionRenderToken,batchSize=Math.min(innerWidth||9999,innerHeight||9999)<760?12:24;
+  let cursor=0;
+  const appendBatch=()=>{
+    collectionRenderFrame=0;
+    if(!collectionMoleculesVisible(token))return;
+    const frag=document.createDocumentFragment(),previews=[];
+    for(let added=0;cursor<rows.length&&added<batchSize;cursor++,added++){
+      const row=rows[cursor],{id,m,d,fav,li,stars,best,time}=row;
+      if(!m||typeof m!=='object')continue;
+      const card=document.createElement('div');
+      card.className='molCard card'+(d?'':' un')+(fav?' favorite':'');card.dataset.molecule=id;
+      const safeName=d&&m.n!=null?String(m.n):t('undiscoveredName');
+      const safeFormula=d&&m.f!=null?String(m.f):t('undiscoveredName');
+      const safeFact=d&&m.fa!=null?String(m.fa):t('undiscoveredFact');
+      const meta=d?('<div class="molMeta"><span>⭐ '+stars+'/3</span>'+(li!==undefined?'<span>🧪 '+ml('Bölüm ','Level ','Level ','Nivel ','Fase ','レベル ')+(li+1)+'</span>':'')+(best?'<span>↔ '+best+' '+ml('hamle','moves','Züge','movimientos','movimentos','手')+'</span>':'')+(time?'<span>⚡ '+time.toFixed(1)+'s</span>':'')+'</div>'):'<div class="molMeta lockedMeta">🔒 '+ml('Bölümü tamamlayarak keşfet','Complete its level to discover','Schließe das Level ab, um es zu entdecken','Completa su nivel para descubrirlo','Conclua a fase para descobrir','レベルをクリアして発見')+'</div>';
+      const modelNote=d?'<div class="molModelNote">'+ml('ℹ️ 2B oyun modeli · gerçek 3B yapı farklı olabilir','ℹ️ 2D game model · real 3D structure may differ','ℹ️ 2D-Spielmodell · reale 3D-Struktur kann abweichen','ℹ️ Modelo 2D del juego · la estructura 3D real puede variar','ℹ️ Modelo 2D do jogo · a estrutura 3D real pode variar','ℹ️ 2Dゲームモデル · 実際の3D構造とは異なる場合があります')+'</div>':'';
+      card.innerHTML='<button class="molFav" aria-label="'+favoriteAriaLabel(fav)+'">'+(fav?'★':'☆')+'</button><canvas width="1" height="1"></canvas><div class="mn">'+esc(safeName)+'</div><div class="mf">'+esc(safeFormula)+'</div>'+meta+'<div class="mfact">'+esc(safeFact)+'</div>'+modelNote;
+      frag.appendChild(card);
+      if(Array.isArray(m.s)&&m.s.length)previews.push([card.querySelector('canvas'),m,!d]);
+      card.querySelector('.molFav').addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();if(token!==collectionRenderToken)return;save.favoriteMolecules[id]=!save.favoriteMolecules[id];persist();buildCollection('molecules');SFX.click();},{passive:false});
+    }
+    g.appendChild(frag);
+    previews.forEach(p=>queueCollectionCanvas(p[0],p[1],p[2],token));
+    if(cursor<rows.length)collectionRenderFrame=requestAnimationFrame(appendBatch);
+  };
+  appendBatch();
+}
+function buildElementCollection(){
+  const discEl=new Set();for(const id in save.disc)if(MOLS[id])MOLS[id].s.forEach(a=>discEl.add(a[0]));
+  const eg=$('#elGrid');if(!eg)return;
+  for(const sym in ELINFO){const info=ELINFO[sym],col=EL[sym],d=discEl.has(sym),c=document.createElement('div');c.className='elCard card'+(d?'':' un');c.innerHTML='<div class="ez" title="'+ml('Atom numarası','Atomic number','Ordnungszahl','Número atómico','Número atômico','原子番号')+'">Z = '+info.z+'</div><div class="esym" style="background:'+(d?col.c:'#3a3564')+';color:'+(d?col.t:'#8a8fb8')+'">'+sym+'</div><div class="en">'+(d?info.n:t('undiscoveredName'))+'</div>'+(d?'<div class="elFact">'+info.fa+'</div>':'');eg.appendChild(c);}
+}
+function buildAchievementCollection(){
+  const ag=$('#achvGrid');if(!ag)return;
+  ACHV.forEach(a=>{const d=!!save.achv[a.id],c=document.createElement('div');c.className='achvCard card'+(d?'':' un');c.innerHTML='<div class="aic">'+(d?a.icon:'❔')+'</div><div class="an">'+(d?t(a.name):'???')+'</div><div class="adesc">'+(d?t(a.desc):t('achvLocked'))+'</div>';ag.appendChild(c);});
+}
+function buildDiplomaCollection(){
+  const dg=$('#diplomaGrid');if(!dg)return;const curTier=tierOf(save.cur);
+  DIPLOMAS.forEach((dip,i)=>{const unlocked=curTier>=i,c=document.createElement('div');c.className='diplomaCert'+(unlocked?'':' un');if(unlocked){c.style.setProperty('--dc1',dip.c1);c.style.setProperty('--dc2',dip.c2);}c.innerHTML=unlocked?('<div class="dcSeal">'+dip.icon+'</div><div class="dcHead">'+t('diplomaCertHead')+'</div><div class="dcName">'+(save.playerName||t('welcomeDefaultName'))+'</div><div class="dcSub">'+t('diplomaCertSub')+'</div><div class="dcRank">'+t('rank'+i).replace(/^\S+\s/,'')+'</div><div class="dcRibbon">✓ '+t('diplomaEarned')+'</div>'):('<div class="dcSeal">🔒</div><div class="dcName" style="opacity:.5">???</div><div class="dcSub">'+t('diplomaLocked')+'</div>');dg.appendChild(c);});
+}
+function buildCollection(tab){
+  tab=tab||collectionActiveTab();
+  if(!['molecules','elements','achievements','diplomas'].includes(tab))tab='molecules';
+  try{
+    stopCollectionRendering(true);
+    if(!ensureCollectionSaveState())throw new Error('collection-save-unavailable');
+    updateCollectionCount();
+    if(tab==='molecules')buildMoleculeCollection();
+    else if(tab==='elements')buildElementCollection();
+    else if(tab==='achievements')buildAchievementCollection();
+    else buildDiplomaCollection();
+  }catch(err){
+    console.error('[collection] safe render recovery',err);
+    stopCollectionRendering(false);
+    const target=document.getElementById(tab==='molecules'?'molGrid':tab==='elements'?'elGrid':tab==='achievements'?'achvGrid':'diplomaGrid');
+    if(target)target.innerHTML='<div class="card mxCollectionSafeError">'+ml(
+      'Koleksiyon güvenli modda açıldı. Bu kart şu anda gösterilemedi; oyun ilerlemen korunuyor.',
+      'The collection opened in safe mode. This card could not be shown right now; your game progress is safe.',
+      'Die Sammlung wurde im sicheren Modus geöffnet. Diese Karte konnte gerade nicht angezeigt werden; dein Fortschritt ist sicher.',
+      'La colección se abrió en modo seguro. Esta tarjeta no pudo mostrarse ahora; tu progreso está a salvo.',
+      'A coleção foi aberta em modo seguro. Este cartão não pôde ser exibido agora; seu progresso está protegido.',
+      'コレクションをセーフモードで開きました。このカードは現在表示できませんが、進行状況は保護されています。',
+      'La collection s’est ouverte en mode sécurisé. Cette carte ne peut pas être affichée pour le moment ; ta progression est protégée.',
+      '收藏已以安全模式打开。此卡片暂时无法显示；你的游戏进度已受到保护。',
+      'La collezione è stata aperta in modalità sicura. Questa scheda non può essere mostrata ora; i tuoi progressi sono al sicuro.'
+    )+'</div>';
   }
-  const ag=$('#achvGrid');ag.innerHTML='';
-  ACHV.forEach(a=>{
-    const d=!!save.achv[a.id];
-    const c=document.createElement('div');
-    c.className='achvCard card'+(d?'':' un');
-    c.innerHTML='<div class="aic">'+(d?a.icon:'❔')+'</div><div class="an">'+(d?t(a.name):'???')+'</div><div class="adesc">'+(d?t(a.desc):t('achvLocked'))+'</div>';
-    ag.appendChild(c);
-  });
-  const dg=$('#diplomaGrid');dg.innerHTML='';
-  const curTier=tierOf(save.cur);
-  DIPLOMAS.forEach((dip,i)=>{
-    const unlocked=curTier>=i;
-    const c=document.createElement('div');
-    c.className='diplomaCert'+(unlocked?'':' un');
-    if(unlocked){c.style.setProperty('--dc1',dip.c1);c.style.setProperty('--dc2',dip.c2);}
-    c.innerHTML=unlocked?(
-      '<div class="dcSeal">'+dip.icon+'</div>'+
-      '<div class="dcHead">'+t('diplomaCertHead')+'</div>'+
-      '<div class="dcName">'+(save.playerName||t('welcomeDefaultName'))+'</div>'+
-      '<div class="dcSub">'+t('diplomaCertSub')+'</div>'+
-      '<div class="dcRank">'+t('rank'+i).replace(/^\S+\s/,'')+'</div>'+
-      '<div class="dcRibbon">✓ '+t('diplomaEarned')+'</div>'
-    ):(
-      '<div class="dcSeal">🔒</div><div class="dcName" style="opacity:.5">???</div><div class="dcSub">'+t('diplomaLocked')+'</div>'
-    );
-    dg.appendChild(c);
-  });
 }
 
 /* ================= EINSTEIN ================= */
@@ -11478,7 +11561,7 @@ async function shareNobelCertificate(){
 }
 function openMoleculeInCollection(moleculeId){
   const bw=$('#bannerWrap');if(bw){bw.classList.add('leaving');setTimeout(()=>bw.classList.remove('on','longName','leaving'),340);}
-  closeModal();show('collect');setCollectionTab('molecules');save.collectionFilter='all';persist();buildCollection();
+  closeModal();save.collectionFilter='all';persist();setCollectionTab('molecules');show('collect');
   requestAnimationFrame(()=>requestAnimationFrame(()=>{const safe=window.CSS&&CSS.escape?CSS.escape(String(moleculeId)):String(moleculeId).replace(/["\\]/g,'\\$&');const card=document.querySelector('.molCard[data-molecule="'+safe+'"]');if(!card)return;card.classList.add('mxCompletionFocus');card.scrollIntoView({behavior:motionReduced()?'auto':'smooth',block:'center'});setTimeout(()=>card.classList.remove('mxCompletionFocus'),2800);}));
 }
 function winModal(stars,gained,rpGained){
@@ -14385,10 +14468,11 @@ function setCollectionTab(tab){
   document.querySelectorAll('[data-collection-tab]').forEach(b=>b.classList.toggle('on',b.dataset.collectionTab===tab));
   document.querySelectorAll('[data-collection-panel]').forEach(p=>p.classList.toggle('on',p.dataset.collectionPanel===tab));
   const sc=document.querySelector('#collectScr .collectionScroll');if(sc)sc.scrollTop=0;
+  if(scr.collect.classList.contains('on'))buildCollection(tab);
 }
 document.querySelectorAll('[data-collection-tab]').forEach(b=>b.addEventListener('pointerdown',e=>{e.preventDefault();SFX.click();setCollectionTab(b.dataset.collectionTab);},{passive:false}));
-$('#btnMols').addEventListener('pointerdown',e=>{e.preventDefault();SFX.click();show('collect');setCollectionTab('molecules');},{passive:false});
-$('#btnAchv').addEventListener('pointerdown',e=>{e.preventDefault();SFX.click();show('collect');setCollectionTab('achievements');},{passive:false});
+$('#btnMols').addEventListener('pointerdown',e=>{e.preventDefault();SFX.click();setCollectionTab('molecules');show('collect');},{passive:false});
+$('#btnAchv').addEventListener('pointerdown',e=>{e.preventDefault();SFX.click();setCollectionTab('achievements');show('collect');},{passive:false});
 let __playGuard=false;
 $('#btnPlay').addEventListener('pointerdown',e=>{e.preventDefault();if(__playGuard)return;__playGuard=true;setTimeout(()=>{__playGuard=false;},800);SFX.play();startLevel(Math.min(save.cur,LEVELS.length-1));},{passive:false});
 $('#btnDaily').addEventListener('pointerdown',e=>{e.preventDefault();SFX.click();startDaily();},{passive:false});
@@ -14431,7 +14515,7 @@ $('#btnNew').addEventListener('pointerdown',e=>{e.preventDefault();SFX.click();
 $('#btnLevels').addEventListener('pointerdown',e=>{e.preventDefault();SFX.click();show('levels');},{passive:false});
 bindTap('#btnCrystalHunt',e=>{SFX.select();openBonusLab();});
 $('#lvScrollArea').addEventListener('scroll',updateLvScrollThumb,{passive:true});
-$('#btnCollect').addEventListener('pointerdown',e=>{e.preventDefault();SFX.click();show('collect');setCollectionTab('molecules');},{passive:false});
+$('#btnCollect').addEventListener('pointerdown',e=>{e.preventDefault();SFX.click();setCollectionTab('molecules');show('collect');},{passive:false});
 bindTap('#btnLabMenu',()=>{SFX.click();const go=()=>show('lab');if(!save.seenLabSupport){save.seenLabSupport=true;persist();showSupportTutorial('lab',go);return;}go();});
 bindTap('#labBack',()=>{SFX.back();show(scrPrev==='game'?'game':'splash');});
 bindTap('#labHome',()=>{SFX.click();show('splash');});
@@ -14573,45 +14657,113 @@ const MX_APPLE_DEVICE=MX_IOS_NATIVE||/Mac|iPhone|iPad|iPod/.test(String(navigato
 const MX_IOS_WEBKIT=/iPad|iPhone|iPod/.test(String(navigator.userAgent||''))||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
 const MX_MOBILE_VIEWPORT_STABLE=!!((window.matchMedia&&window.matchMedia('(pointer:coarse)').matches)||('ontouchstart' in window))&&Math.min(screen.width||9999,screen.height||9999)<1100;
 const MX_SHOW_APPLE_BTN_WEB=false; // Web edition: Google + email only; Apple button disabled by build policy
-// Added 2026-07-30: push-notification registration for streak/return reminders.
-// Follows the exact same defensive pattern as MX_APPLE_NATIVE_READY above: this
-// checks for the @capacitor/push-notifications plugin at runtime and is a total
-// no-op (no error, nothing shown) until that plugin is actually installed in the
-// native iOS/Android project and `npx cap sync` has run. Safe to ship before
-// that native-side step is done — see RELEASE notes for the exact remaining
-// checklist (native plugin install, Firebase Console APNs key, Cloud Function
-// deploy) since none of those can be done from this web-code repo alone.
-const MX_PUSH_PLUGIN=()=>window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.PushNotifications;
-async function mxInitPush(){
-  if(!MX_NATIVE||!MX_PUSH_PLUGIN())return; // web build, or native plugin not installed yet
-  if(save.pushDeclined)return; // user said no once on this device; do not re-nag every launch
+// R163 final: the earlier dormant remote-push registration has been intentionally
+// superseded by the consent-based, device-only Local Notifications flow below.
+// This final build does not register a push token or require an FCM/APNs reminder server.
+
+/* ================= R163 CONSENT-BASED LOCAL RETURN REMINDERS =================
+   Two sparse, device-only reminders are scheduled after explicit in-game + OS
+   consent. Opening the app cancels the old dates and re-arms them, so they only
+   fire after inactivity. No account, tracking, push server or exact-alarm
+   permission is required. */
+const MX_RETURN_REMINDER_IDS=[873003,873010];
+let mxReminderRefreshTimer=0,mxReminderListenerBound=false;
+function mxLocalNotificationsPlugin(){
   try{
-    const Push=MX_PUSH_PLUGIN();
-    const perm=await Push.checkPermissions();
-    if(perm.receive==='prompt'){
-      const req=await Push.requestPermissions();
-      if(req.receive!=='granted'){save.pushDeclined=true;persist();return;}
-    }else if(perm.receive!=='granted'){
-      return; // previously denied at the OS level; do not prompt again ourselves
+    const cap=window.Capacitor;if(!cap)return null;
+    if(cap.Plugins&&cap.Plugins.LocalNotifications)return cap.Plugins.LocalNotifications;
+    if(typeof cap.registerPlugin==='function'){
+      if(!window.__MXLocalNotificationsPlugin)window.__MXLocalNotificationsPlugin=cap.registerPlugin('LocalNotifications');
+      return window.__MXLocalNotificationsPlugin;
     }
-    await Push.register();
-    Push.addListener('registration',async token=>{
-      try{
-        if(window.MXCloud&&window.MXCloud.savePushToken){
-          await window.MXCloud.savePushToken(token.value,MX_IOS_NATIVE?'ios':(MX_ANDROID_NATIVE?'android':'web'),LANG);
-        }
-      }catch(e){console.warn('[MXPush] token save failed:',e&&e.message);}
-    });
-    Push.addListener('registrationError',err=>console.warn('[MXPush] registration error:',err));
-    // Foreground notification: keep it quiet (no system banner while playing),
-    // matching how most puzzle games handle in-app foreground pushes.
-    Push.addListener('pushNotificationReceived',()=>{});
-  }catch(e){console.warn('[MXPush] init failed (non-fatal):',e&&e.message);}
+  }catch(e){console.warn('[MXReminder] plugin lookup failed',e&&e.message||e);}
+  return null;
 }
-// Ask once the player has actually reached the main menu (not on cold boot before
-// they have even seen the game), matching the account-linking prompts' timing style.
-window.addEventListener('load',()=>setTimeout(()=>{if(!MX_NATIVE)return;mxInitPush();},4000),{passive:true});
-if(!MX_NATIVE)document.addEventListener('gesturestart',e=>e.preventDefault());
+function mxReminderCopy(){
+  return {
+    promptTitle:ml('🧪 Dr. E seni tekrar laboratuvara çağırabilir mi?','🧪 May Dr. E invite you back to the lab?','🧪 Darf Dr. E dich wieder ins Labor einladen?','🧪 ¿Puede el Dr. E invitarte de nuevo al laboratorio?','🧪 O Dr. E pode chamar você de volta ao laboratório?','🧪 E博士からラボへのお誘いを送ってもいいですか？','🧪 Dr. E peut-il t’inviter à revenir au laboratoire ?','🧪 可以让E博士邀请你回实验室吗？','🧪 Il Dr. E può invitarti a tornare in laboratorio?'),
+    promptBody:ml('Sadece ara sıra, uzun süre oynamadığında bir hatırlatma gelir. Bildirim tamamen cihazında planlanır; reklam takibi veya yeni kişisel veri toplama yoktur.','Only occasionally, after you have been away from the game. The reminder is scheduled entirely on your device; there is no ad tracking or new personal-data collection.','Nur gelegentlich, wenn du längere Zeit nicht gespielt hast. Die Erinnerung wird vollständig auf deinem Gerät geplant; kein Werbe-Tracking und keine neue Erhebung persönlicher Daten.','Solo de vez en cuando, si llevas un tiempo sin jugar. El recordatorio se programa por completo en tu dispositivo; sin seguimiento publicitario ni nueva recopilación de datos personales.','Só de vez em quando, quando você fica um tempo sem jogar. O lembrete é agendado inteiramente no seu aparelho; sem rastreamento de anúncios nem nova coleta de dados pessoais.','しばらく遊んでいないときだけ、たまにお知らせします。通知は端末内だけで予約され、広告トラッキングや新たな個人データ収集はありません。','Seulement de temps en temps, après une longue absence. Le rappel est programmé entièrement sur ton appareil, sans suivi publicitaire ni nouvelle collecte de données personnelles.','只会在你一段时间没玩时偶尔提醒。提醒完全在设备本地安排，不含广告追踪，也不会新增个人数据收集。','Solo ogni tanto, dopo un periodo di inattività. Il promemoria viene programmato interamente sul dispositivo, senza tracciamento pubblicitario né nuova raccolta di dati personali.'),
+    allow:ml('İZİN VER','ALLOW','ERLAUBEN','PERMITIR','PERMITIR','許可する','AUTORISER','允许','CONSENTI'),
+    notNow:ml('ŞİMDİ DEĞİL','NOT NOW','JETZT NICHT','AHORA NO','AGORA NÃO','今はしない','PAS MAINTENANT','暂时不要','NON ORA'),
+    title:ml('🧪 Laboratuvar seni bekliyor!','🧪 The laboratory is waiting!','🧪 Das Labor wartet auf dich!','🧪 ¡El laboratorio te espera!','🧪 O laboratório está esperando por você!','🧪 ラボがあなたを待っています！','🧪 Le laboratoire t’attend !','🧪 实验室在等你！','🧪 Il laboratorio ti aspetta!'),
+    body:ml('Dr. E: Moleküller sabırsızlanıyor. Bir deney daha yapmaya hazır mısın?','Dr. E: The molecules are getting impatient. Ready for one more experiment?','Dr. E: Die Moleküle werden ungeduldig. Bereit für noch ein Experiment?','Dr. E: Las moléculas se están impacientando. ¿Listo para otro experimento?','Dr. E: As moléculas estão ficando impacientes. Pronto para mais um experimento?','E博士：分子たちが待ちきれないようです。もう一つ実験しませんか？','Dr. E : Les molécules s’impatientent. Prêt pour une expérience de plus ?','E博士：分子们已经等不及了。准备再做一个实验吗？','Dr. E: Le molecole stanno diventando impazienti. Pronto per un altro esperimento?')
+  };
+}
+function mxReminderDate(days){
+  const d=new Date();d.setDate(d.getDate()+days);d.setHours(19,30,0,0);return d;
+}
+async function mxCancelReturnReminders(Local){
+  try{await Local.cancel({notifications:MX_RETURN_REMINDER_IDS.map(id=>({id}))});}catch(e){}
+}
+async function mxScheduleReturnReminders(){
+  if(!MX_NATIVE||!save.reminderOptIn)return false;
+  const Local=mxLocalNotificationsPlugin();if(!Local)return false;
+  try{
+    const perm=await Local.checkPermissions();
+    if(!perm||perm.display!=='granted')return false;
+    if(MX_ANDROID_NATIVE&&typeof Local.createChannel==='function'){
+      try{await Local.createChannel({id:'moleculox-lab-reminders',name:'Moleculox Lab',description:'Occasional laboratory return reminders',importance:3,vibration:true});}catch(e){}
+    }
+    await mxCancelReturnReminders(Local);
+    const c=mxReminderCopy();
+    const base={title:c.title,body:c.body,autoCancel:true,extra:{type:'moleculox-return-reminder'}};
+    await Local.schedule({notifications:[
+      Object.assign({id:MX_RETURN_REMINDER_IDS[0],schedule:{at:mxReminderDate(3)}},base,MX_ANDROID_NATIVE?{channelId:'moleculox-lab-reminders'}:{}),
+      Object.assign({id:MX_RETURN_REMINDER_IDS[1],schedule:{at:mxReminderDate(10)}},base,MX_ANDROID_NATIVE?{channelId:'moleculox-lab-reminders'}:{})
+    ]});
+    save.reminderLastArmedAt=Date.now();persist();
+    if(!mxReminderListenerBound&&typeof Local.addListener==='function'){
+      mxReminderListenerBound=true;
+      Local.addListener('localNotificationActionPerformed',()=>{try{if(scr&&scr.splash)show('splash');}catch(e){}});
+    }
+    return true;
+  }catch(e){console.warn('[MXReminder] schedule failed (non-fatal)',e&&e.message||e);return false;}
+}
+async function mxEnableReturnReminders(){
+  const Local=mxLocalNotificationsPlugin();if(!Local)return false;
+  try{
+    const current=await Local.checkPermissions();
+    let display=current&&current.display;
+    if(display!=='granted'){
+      const req=await Local.requestPermissions();display=req&&req.display;
+    }
+    save.reminderPromptSeen=true;
+    if(display!=='granted'){
+      save.reminderOptIn=false;save.reminderPermissionDenied=true;persist();return false;
+    }
+    save.reminderOptIn=true;save.reminderPermissionDenied=false;persist();
+    return mxScheduleReturnReminders();
+  }catch(e){console.warn('[MXReminder] permission failed (non-fatal)',e&&e.message||e);return false;}
+}
+function mxOfferReturnReminder(){
+  if(!MX_NATIVE||save.reminderPromptSeen||save.reminderOptIn||Number(save.cur||0)<1)return;
+  const Local=mxLocalNotificationsPlugin();if(!Local)return;
+  const c=mxReminderCopy();
+  runWhenModalFree(()=>{
+    if(save.reminderPromptSeen||save.reminderOptIn)return;
+    openModal('<h3>'+c.promptTitle+'</h3><div class="msub">'+c.promptBody+'</div><div class="mrow"><button class="btn green" id="mxReminderAllow">'+c.allow+'</button><button class="btn ghost" id="mxReminderNotNow">'+c.notNow+'</button></div>');
+    bindTap('#mxReminderAllow',async()=>{SFX.click();closeModal();await mxEnableReturnReminders();});
+    bindTap('#mxReminderNotNow',()=>{SFX.click();save.reminderPromptSeen=true;save.reminderOptIn=false;persist();closeModal();});
+  });
+}
+function mxRefreshReturnRemindersSoon(){
+  if(!MX_NATIVE||!save.reminderOptIn)return;
+  clearTimeout(mxReminderRefreshTimer);mxReminderRefreshTimer=setTimeout(()=>mxScheduleReturnReminders(),900);
+}
+window.addEventListener('load',()=>setTimeout(()=>{if(!MX_NATIVE)return;if(save.reminderOptIn)mxScheduleReturnReminders();else mxOfferReturnReminder();},5200),{passive:true});
+window.addEventListener('pageshow',mxRefreshReturnRemindersSoon,{passive:true});
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')mxRefreshReturnRemindersSoon();},{passive:true});
+/* ================= R162 DOUBLE-TAP ZOOM LOCK =================
+   Keep every real click/pointer input available to the game while cancelling
+   only browser zoom gestures. The locked viewport is the primary protection;
+   these capture-phase listeners cover Safari/WKWebView and desktop dblclick. */
+(function installBrowserZoomLock(){
+  const cancelBrowserZoom=e=>{if(e.cancelable)e.preventDefault();};
+  document.addEventListener('dblclick',cancelBrowserZoom,{capture:true,passive:false});
+  document.addEventListener('gesturestart',cancelBrowserZoom,{capture:true,passive:false});
+  document.addEventListener('gesturechange',cancelBrowserZoom,{capture:true,passive:false});
+  document.addEventListener('gestureend',cancelBrowserZoom,{capture:true,passive:false});
+})();
 document.body.classList.toggle('mxNative',MX_NATIVE);document.body.classList.toggle('mxWeb',!MX_NATIVE);document.body.classList.toggle('mxIOSNative',MX_IOS_NATIVE);document.body.classList.toggle('mxAndroidNative',MX_ANDROID_NATIVE);document.body.classList.toggle('mxIOSWebKit',MX_IOS_WEBKIT);document.body.classList.toggle('mxViewportStable',MX_MOBILE_VIEWPORT_STABLE);
 const viewportRoot=document.documentElement;
 let stableViewportWidth=Math.round(window.innerWidth||document.documentElement.clientWidth||360),stableViewportHeight=Math.round(window.innerHeight||document.documentElement.clientHeight||640);

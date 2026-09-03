@@ -1,7 +1,7 @@
-// Moleculox v8.7.57 — R160 ios native source cache identity; native preparation removes this worker.
+// Moleculox v8.7.59 — R162 iOS double-tap zoom lock source cache identity; native preparation removes this worker.
 // Core code is precached; large audio/story assets are cached only after use.
 // Firebase and Google traffic is never intercepted.
-const CACHE_NAME = 'moleculox-8.7.57-r160-codemagic-final-ios';
+const CACHE_NAME = 'moleculox-8.7.59-r163-codemagic-final-ios';
 const CACHE_PREFIX = 'moleculox-';
 const CORE_SHELL = [
   './index.html','./css/app.css','./js/sync-core.js','./js/daily-levels.js',

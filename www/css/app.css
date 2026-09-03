@@ -11737,3 +11737,14 @@ body.mxReduceMotion #actionCol .btn.iconBadge .badgeIcon{animation:none!importan
   body.tutorialMode #tutorialBubble,
   #tutorialOverlay.on #tutorialBubble{font-size:10.6px!important;padding:7px 9px!important}
 }
+
+/* ================= R162 — PERMANENT DOUBLE-TAP ZOOM LOCK =================
+   The viewport meta tag and JS capture guard provide the hard lock. This final
+   low-specificity layer tells every tappable surface to keep taps immediate and
+   never reserve a second tap for browser zoom; existing board/scroll rules win. */
+:where(html,body,#app,.screen,button,a,[role="button"],canvas,.levelCard,.molCard){
+  touch-action:manipulation;
+  -ms-touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+}
+html,body{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}

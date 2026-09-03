@@ -4,8 +4,9 @@ const root=path.resolve(__dirname,'..');
 const game=fs.readFileSync(path.join(root,'www/js/game.js'),'utf8');
 const css=fs.readFileSync(path.join(root,'www/css/app.css'),'utf8');
 const loc=fs.readFileSync(path.join(root,'www/js/v2-locales-generated.js'),'utf8');
+const itLoc=fs.readFileSync(path.join(root,'www/js/it-locale-generated.js'),'utf8');
 const must=(ok,msg)=>{if(!ok)throw new Error(msg);};
-const langs=['en','tr','de','es','pt','ja','fr','zh'];
+const langs=['en','tr','de','es','pt','ja','fr','zh','it'];
 for(const lang of langs) must(game.includes(`${lang}:{`)||game.includes(`${lang}: {`),`base I18N language missing: ${lang}`);
 for(const fn of ['performanceMetaLabel','performanceBestLabel','performanceAssistedLabel','fitPerformanceGradeText']) must(game.includes(`function ${fn}(`),`completion helper missing: ${fn}`);
 for(const needle of [
@@ -28,4 +29,5 @@ for(const needle of [
   '.sort((a,b)=>b[0].length-a[0].length)'
 ]) must(loc.includes(needle),`FR/ZH runtime locale contract missing: ${needle}`);
 for(const bad of ['LE MEILLEUR NOUVEAU!','完成了 · 复制可用','最好的已经声称','Le meilleur déjà réclamé','下一个级别 ▶︎']) must(!loc.includes(bad),`stale bad locale text remains: ${bad}`);
-console.log('Language completion phone-matrix checks passed for 8 languages.');
+for(const needle of ['\"COMPLETED · REPLAY AVAILABLE\":\"COMPLETATO · PUOI RIGIOCARE\"','\"NEW BEST!\":\"NUOVO RECORD!\"','\"NEXT LEVEL ▶︎\":\"LIVELLO SUCCESSIVO ▶︎\"']) must(itLoc.includes(needle),`IT runtime locale contract missing: ${needle}`);
+console.log('Language completion phone-matrix checks passed for 9 languages.');
