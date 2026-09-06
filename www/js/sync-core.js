@@ -1,4 +1,4 @@
-/* Moleculox V8.5.69 R24 — deterministic cross-platform profile and Duel-rank merge core. */
+/* Moleculox V8.7.96 R199 — deterministic cross-platform merge; reserved economy/sync keys are never trimmed. */
 (function(root){
   'use strict';
 
@@ -44,8 +44,15 @@
     if(!limit)return map;
     const keys=Object.keys(map);
     if(keys.length<=limit)return map;
-    const out={};
-    keys.sort((a,b)=>String(a).localeCompare(String(b))).slice(keys.length-limit).forEach(k=>{out[k]=map[k];});
+    // R194: keys beginning with "__" are internal monotonic ledgers/state
+    // (__coinEarned, __coinSpent, quantum-day, lab-theme stamp, etc.). Dropping
+    // them during a cloud merge can resurrect spent MoleCoins or forget paid
+    // state. Preserve every reserved key and trim only ordinary history keys.
+    const reserved=keys.filter(k=>String(k).startsWith('__')).sort((a,b)=>String(a).localeCompare(String(b)));
+    const normal=keys.filter(k=>!String(k).startsWith('__')).sort((a,b)=>String(a).localeCompare(String(b)));
+    const slots=Math.max(0,limit-reserved.length),out={};
+    normal.slice(Math.max(0,normal.length-slots)).forEach(k=>{out[k]=map[k];});
+    reserved.forEach(k=>{out[k]=map[k];});
     return out;
   }
   function sumMap(map){return Object.entries(obj(map)).reduce((s,[k,v])=>s+(String(k).startsWith('__')?0:int(v,0)),0);}
@@ -137,6 +144,9 @@
       'seenPressureDoor','seenFragile','seenPrecision','seenHintSupport','seenUndoSupport',
       'seenRestartSupport','seenLabSupport','seenSupportGuide','seenHammerSupport',
       'seenPrecisionSupport','accountMilestoneInviteSeen','nobelCertificateShared'])out[key]=!!(left[key]||right[key]);
+    for(const key of new Set([...Object.keys(left),...Object.keys(right)])){if(/^seen[A-Z][A-Za-z0-9]*$/.test(key))out[key]=!!(left[key]||right[key]);}
+    out.tutorialTips=preferField(left,right,settingsSide,'tutorialTips',true)!==false;
+    out.audioSettingsSchema=Math.max(int(left.audioSettingsSchema,0,10),int(right.audioSettingsSchema,0,10));
     out.lang=cleanLang(preferField(left,right,settingsSide,'lang','en'));
     for(const key of ['volM','volMu','volS','volV']){
       const raw=Number(preferField(left,right,settingsSide,key,key==='volMu'?0.8:1));

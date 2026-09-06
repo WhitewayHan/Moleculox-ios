@@ -1,5 +1,5 @@
-/* Moleculox v8.7.73 — R177 UNIFIED CAMPAIGN PERFORMANCE: Levels 302–501 now use the same interaction-priority render discipline as Levels 1–301; secondary advanced-mechanic animation yields while atoms move; gameplay/FX events preserved; no OS notification runtime. */
-const APP_VERSION="v8.7.73";
+/* Moleculox v8.7.97 R200 STONE DOODLE PASS: preserves R199 gameplay, hints, GOAL and board geometry while restoring larger menu-style scientific doodles on a sparse set of wall stones. */
+const APP_VERSION="v8.7.97";
 const mxReducedMotionQuery=window.matchMedia?window.matchMedia('(prefers-reduced-motion: reduce)'):null;
 let mxSystemReducedMotion=!!(mxReducedMotionQuery&&mxReducedMotionQuery.matches);
 if(mxReducedMotionQuery){
@@ -352,7 +352,7 @@ for(const id in MOLS_EN){
   for(let i=0;i<m.s.length;i++)for(let j=i+1;j<m.s.length;j++){
     const dx=m.s[j][1]-m.s[i][1],dy=m.s[j][2]-m.s[i][2];
     if(Math.abs(dx)+Math.abs(dy)===1){
-      if(m.s[i][0]==='H'&&m.s[j][0]==='H')continue;
+      if(m.s.length!==2&&m.s[i][0]==='H'&&m.s[j][0]==='H')continue;
       m.bs.add(m.s[i][0]+','+m.s[j][0]+','+dx+','+dy);
       m.bs.add(m.s[j][0]+','+m.s[i][0]+','+(-dx)+','+(-dy));
     }
@@ -903,10 +903,30 @@ const R113_BIO_COPY={"en":{"bioAssemblyTitle":"🧬 Bio Assembly","bioAssemblyDe
 
 function mxFinalizeMoleculeWinData(set){
   if(!set)return;
+  const languages={en:MOLS_EN,tr:MOLS_TR,de:MOLS_DE,es:MOLS_ES,pt:MOLS_PT,ja:MOLS_JA,fr:MOLS_FR,zh:MOLS_ZH,it:MOLS_IT};
+  const language=Object.keys(languages).find(k=>languages[k]===set)||'en';
+  const labels={"tr": "Rezonans Modeli", "en": "Resonance Model", "de": "Resonanzmodell", "es": "Modelo de resonancia", "pt": "Modelo de ressonância", "ja": "共鳴モデル", "fr": "Modèle de résonance", "zh": "共振模型", "it": "Modello di risonanza"},description={"tr": "Bu, Moleculox için tasarlanmış bir araştırma desenidir. Formül atom içeriğini, kesik çizgiler bulmaca bağlantılarını gösterir; gerçek bir molekülün kimyasal bağ şeması değildir.", "en": "This is a research pattern designed for Moleculox. The formula lists its atoms; dashed lines show puzzle connections, not a real molecule’s chemical bonds.", "de": "Dies ist ein Forschungsmuster für Moleculox. Die Formel nennt die Atome; gestrichelte Linien zeigen Puzzleverbindungen, keine chemischen Bindungen eines echten Moleküls.", "es": "Este es un patrón de investigación de Moleculox. La fórmula enumera sus átomos; las líneas discontinuas indican conexiones del puzle, no enlaces químicos de una molécula real.", "pt": "Este é um padrão de pesquisa do Moleculox. A fórmula lista os átomos; as linhas tracejadas mostram conexões do quebra-cabeça, não ligações químicas de uma molécula real.", "ja": "Moleculox用の研究パターンです。式は原子の種類と数、破線はパズルの接続を示します。実在分子の化学結合図ではありません。", "fr": "C’est un motif de recherche conçu pour Moleculox. La formule indique les atomes ; les pointillés représentent les connexions du puzzle, pas les liaisons chimiques d’une molécule réelle.", "zh": "这是为Moleculox设计的研究图案。化学式列出原子组成，虚线表示谜题连接，并非真实分子的化学键。", "it": "È uno schema di ricerca creato per Moleculox. La formula elenca gli atomi; le linee tratteggiate indicano collegamenti del rompicapo, non i legami chimici di una molecola reale."};
+  for(const[id,t]of Object.entries(window.MX_R180_TARGETS||{})){
+    const original=set[t.source]||MOLS_EN[t.source];if(!original)continue;
+    set[id]={...original,n:labels[language]+' '+t.level,shortName:labels[language]+' '+t.level,s:t.s.map(a=>a.slice()),researchPattern:true,xb:[],fa:description[language]};
+    for(let i=0;i<set[id].s.length;i++)for(let j=i+1;j<set[id].s.length;j++)if(Math.abs(set[id].s[i][1]-set[id].s[j][1])+Math.abs(set[id].s[i][2]-set[id].s[j][2])===1)set[id].xb.push([i,j]);
+  }
+
   for(const id in set){
     const m=set[id];if(!m||!Array.isArray(m.s)||!m.s.length)continue;
     const mx=Math.min(...m.s.map(a=>a[1])),my=Math.min(...m.s.map(a=>a[2]));
     m.key=m.s.map(a=>a[0]+','+(a[1]-mx)+','+(a[2]-my)).sort().join('|');
+
+    let graph=Array.isArray(m.xb)&&m.xb.length?m.xb.map(p=>p.slice()):[];
+    if(!graph.length)for(let i=0;i<m.s.length;i++)for(let j=i+1;j<m.s.length;j++)if(Math.abs(m.s[i][1]-m.s[j][1])+Math.abs(m.s[i][2]-m.s[j][2])===1&&!(m.s.length!==2&&m.s[i][0]==='H'&&m.s[j][0]==='H'))graph.push([i,j]);
+    if(!m.researchPattern&&id==='N2F4'){graph=graph.filter(([i,j])=>!(m.s[i][0]==='F'&&m.s[j][0]==='F'));m.xb=graph;}
+    const degrees=m.s.map(()=>0);for(const[i,j]of graph)if(m.s[i]&&m.s[j]){degrees[i]++;degrees[j]++;}
+    if(m.researchPattern||m.s.some((a,i)=>(a[0]==='H'||a[0]==='F')&&degrees[i]>1)){
+      m.researchPattern=true;m.fa=description[language];
+      if(!m.shortName){m.chemicalReferenceName=m.n;m.n=labels[language]+' · '+m.f;m.shortName=labels[language];}
+    }
+    if(id==='H2')m.xb=[[0,1]];
+    if(id==='C2Cl4')m.shortName=({tr:'Perkloroetilen',en:'Perchloroethylene',de:'Perchlorethen',es:'Percloroetileno',pt:'Percloroetileno',ja:'パークロロエチレン',fr:'Perchloroéthylène',zh:'四氯乙烯',it:'Percloroetilene'})[language];
     m.bs=new Set();
     const pairs=(Array.isArray(m.xb)&&m.xb.length)?m.xb:null;
     if(pairs){
@@ -914,18 +934,21 @@ function mxFinalizeMoleculeWinData(set){
         const i=pair&&pair[0],j=pair&&pair[1];
         if(!Number.isInteger(i)||!Number.isInteger(j)||!m.s[i]||!m.s[j]||i===j)continue;
         const dx=m.s[j][1]-m.s[i][1],dy=m.s[j][2]-m.s[i][2];
-        if(m.s[i][0]==='H'&&m.s[j][0]==='H')continue;
+        if(m.s.length!==2&&m.s[i][0]==='H'&&m.s[j][0]==='H')continue;
         m.bs.add(m.s[i][0]+','+m.s[j][0]+','+dx+','+dy);
         m.bs.add(m.s[j][0]+','+m.s[i][0]+','+(-dx)+','+(-dy));
       }
     }else for(let i=0;i<m.s.length;i++)for(let j=i+1;j<m.s.length;j++){
       const dx=m.s[j][1]-m.s[i][1],dy=m.s[j][2]-m.s[i][2];
       if(Math.abs(dx)+Math.abs(dy)!==1)continue;
-      if(m.s[i][0]==='H'&&m.s[j][0]==='H')continue;
+      if(m.s.length!==2&&m.s[i][0]==='H'&&m.s[j][0]==='H')continue;
       m.bs.add(m.s[i][0]+','+m.s[j][0]+','+dx+','+dy);
       m.bs.add(m.s[j][0]+','+m.s[i][0]+','+(-dx)+','+(-dy));
     }
   }
+  // Keep legacy ID lookup for migration without adding unobtainable collection cards.
+  for(const target of Object.values(window.MX_R180_TARGETS||{})){if(set[target.source])Object.defineProperty(set,target.source,{enumerable:false,configurable:true,writable:true,value:set[target.source]});}
+
 }
 Object.values({en:MOLS_EN,tr:MOLS_TR,de:MOLS_DE,es:MOLS_ES,pt:MOLS_PT,ja:MOLS_JA,fr:MOLS_FR,zh:MOLS_ZH,it:MOLS_IT}).forEach(mxFinalizeMoleculeWinData);
 
@@ -1270,6 +1293,17 @@ function v2DeepCopy(value,lang){
 const LN_FR=v2DeepCopy(LN_EN,'fr');
 const LN_ZH=v2DeepCopy(LN_EN,'zh');
 const LN_IT=v2DeepCopy(LN_EN,'it');
+// R179 REV3 · Economy rebalance + One-Square direct-pay explanation in all 9 languages.
+LN_EN.precisionDesc='Optional support: select an atom and direction to move exactly ONE tile. It costs 250 MoleCoin only when you confirm the move; cancelling or choosing a blocked direction costs nothing.';
+LN_TR.precisionDesc='İsteğe bağlı destek: bir atom ve yön seçerek atomu tam BİR kare taşırsın. Ücret 250 MoleCoin’dir ve yalnızca hareketi onayladığında harcanır; iptal veya kapalı yön ücretsizdir.';
+LN_DE.precisionDesc='Optionale Hilfe: Wähle ein Atom und eine Richtung, um es genau EIN Feld zu bewegen. 250 MoleCoin werden nur beim Bestätigen abgezogen; Abbrechen oder eine blockierte Richtung kostet nichts.';
+LN_ES.precisionDesc='Ayuda opcional: selecciona un átomo y una dirección para moverlo exactamente UNA casilla. Cuesta 250 MoleCoin solo al confirmar; cancelar o elegir una dirección bloqueada no cuesta nada.';
+LN_PT.precisionDesc='Ajuda opcional: escolha um átomo e uma direção para movê-lo exatamente UMA casa. Custa 250 MoleCoin somente ao confirmar; cancelar ou escolher uma direção bloqueada não custa nada.';
+LN_JA.precisionDesc='任意の補助機能です。原子と方向を選ぶと、ちょうど1マス移動できます。料金は250 MoleCoinで、移動を確定した時だけ消費されます。キャンセルや移動不可の方向では消費されません。';
+LN_FR.precisionDesc='Aide facultative : choisissez un atome et une direction pour le déplacer exactement d’UNE case. Le coût de 250 MoleCoin n’est débité qu’après confirmation ; annuler ou choisir une direction bloquée ne coûte rien.';
+LN_ZH.precisionDesc='可选辅助：选择一个原子和方向，使其精确移动一格。仅在确认移动后扣除250 MoleCoin；取消或选择被阻挡的方向不会扣费。';
+LN_IT.precisionDesc='Aiuto facoltativo: scegli un atomo e una direzione per spostarlo esattamente di UNA casella. Il costo di 250 MoleCoin viene addebitato solo alla conferma; annullare o scegliere una direzione bloccata non costa nulla.';
+
 // R57 — Dr. E voice/text quality pass for French and Simplified Chinese.
 Object.assign(LN_FR,{
   greet:["Bienvenue dans mon laboratoire ! 🧪","E=mc², c’était facile… mais ÇA, c’est le vrai test ! 😉","Quelle molécule préparons-nous aujourd’hui ? 👨‍🔬","Les atomes sont prêts — et vous ? ⚛️"],
@@ -1516,7 +1550,7 @@ const I18N={
     frozenTitle:'❄️ Frozen atom',frozenDesc:'A frozen atom cannot move. Build around it, or bring a fire atom next to it to melt the ice.',
     fireTitle:'🔥 Fire atom',fireDesc:'A fire atom melts any frozen atom directly beside it. Move it into contact to open the route.',
     lightningTitle:'⚡ Electrically charged atom',lightningDesc:'The ⚡ symbol means this atom carries an electric charge. When it touches a connected atom group, the pulse travels through the chain and thaws every frozen atom it reaches.',
-    stickyTitle:'🧲 Sticky atom',stickyDesc:'The first movable atom that touches it forms a rigid two-atom pair. The pair can still move, but both atoms slide together and stop when either side is blocked.',
+    stickyTitle:'🍯 Sticky atom',stickyDesc:'The first movable atom that touches it forms a rigid two-atom pair. The pair can still move, but both atoms slide together and stop when either side is blocked.',
     zombieTitle:'🧟‍♂️ Zombie atom',zombieDesc:'It infects touching atoms up to two times. A fire atom can cure infected atoms back to normal.',
     oneWayTitle:'↪️ One-way tile',oneWayDesc:'An atom sliding onto the arrow can only keep going that direction — it can never come back the way it came.',
     hammerTitle:'🧱 Breakable wall + 🔨 Hammer',hammerDesc:'This wall blocks the path until you smash it with the HAMMER tool at the bottom of the screen. You get a limited number per level, so use them wisely.',
@@ -1672,7 +1706,7 @@ const I18N={
     frozenTitle:'❄️ Donmuş atom',frozenDesc:'Donmuş atom hareket etmez. Molekülü çevresinde kur veya yanına ateş atomu getirerek buzu erit.',
     fireTitle:'🔥 Ateş atomu',fireDesc:'Ateş atomu hemen yanındaki donmuş atomu eritir. Yolu açmak için ikisini temas ettir.',
     lightningTitle:'⚡ Elektrik yüklü atom',lightningDesc:'⚡ işareti atomun elektrik yüklü olduğunu gösterir. Bağlı bir atom grubuna değdiğinde enerji zincir boyunca ilerler ve ulaştığı tüm donmuş atomları çözer.',
-    stickyTitle:'🧲 Yapışkan atom',stickyDesc:'Ona ilk temas eden hareketli atomla iki atomlu sert bir çift oluşturur. Çift hareket etmeye devam eder; ancak iki atom birlikte kayar ve taraflardan biri engellenince ikisi de durur.',
+    stickyTitle:'🍯 Yapışkan atom',stickyDesc:'Ona ilk temas eden hareketli atomla iki atomlu sert bir çift oluşturur. Çift hareket etmeye devam eder; ancak iki atom birlikte kayar ve taraflardan biri engellenince ikisi de durur.',
     zombieTitle:'🧟‍♂️ Zombi atom',zombieDesc:'Temas ettiği atomlara en fazla iki kez bulaşır. Ateş atomu enfekte atomları normale döndürür.',
     oneWayTitle:'↪️ Tek yönlü kare',oneWayDesc:'Oka doğru kayan bir atom sadece o yönde devam edebilir — geldiği yöne asla geri dönemez.',
     hammerTitle:'🧱 Kırılabilir duvar + 🔨 Çekiç',hammerDesc:'Bu duvar yolunu kapatır, ekranın altındaki ÇEKİÇ aracıyla kırana kadar. Her seviyede sınırlı sayıda çekicin var, akıllıca kullan.',
@@ -1830,7 +1864,7 @@ I18N.es=Object.assign({},I18N.en,{
   tut7d:'Gana MoleCoins al completar niveles. Úsalas en pistas, el martillo y mejoras especiales del laboratorio.',tut8:'Tu turno, científico. ¡Completa el experimento!',
   tut8hint:'Consejo: toca un átomo y deslízalo hacia el otro.',tut9:'¡Excelente! El laboratorio está listo para ti.',tutRewardToast:'¡Tutorial completado! +15 🪙',goodLuck:'¡Buena suerte! 🍀',
   frozenTitle:'❄️ Átomo congelado',frozenDesc:'No puede moverse. Construye a su alrededor o acerca un átomo de fuego para derretir el hielo.',fireTitle:'🔥 Átomo de fuego',fireDesc:'Derrite cualquier átomo congelado que esté justo a su lado.',
-  stickyIntro:'🍯 ¡Átomo pegajoso! Cuando un átomo móvil se desliza hasta tocarlo, ambos forman un par rígido. Desde entonces se mueven juntos y se detienen si uno de los lados queda bloqueado.',stickyTitle:'🧲 Átomo pegajoso',stickyDesc:'El primer átomo móvil que se desliza hasta tocarlo forma con él un par rígido. El par sigue siendo móvil: ambos átomos se deslizan juntos y se detienen cuando uno de los dos lados queda bloqueado.',stickMsg:'🍯 ¡Unidos! Estos dos átomos ahora se mueven juntos como una sola unidad.',oneWayTitle:'↪️ Casilla de un solo sentido',oneWayDesc:'Al entrar siguiendo la flecha, el átomo solo puede continuar en esa dirección.',
+  stickyIntro:'🍯 ¡Átomo pegajoso! Cuando un átomo móvil se desliza hasta tocarlo, ambos forman un par rígido. Desde entonces se mueven juntos y se detienen si uno de los lados queda bloqueado.',stickyTitle:'🍯 Átomo pegajoso',stickyDesc:'El primer átomo móvil que se desliza hasta tocarlo forma con él un par rígido. El par sigue siendo móvil: ambos átomos se deslizan juntos y se detienen cuando uno de los dos lados queda bloqueado.',stickMsg:'🍯 ¡Unidos! Estos dos átomos ahora se mueven juntos como una sola unidad.',oneWayTitle:'↪️ Casilla de un solo sentido',oneWayDesc:'Al entrar siguiendo la flecha, el átomo solo puede continuar en esa dirección.',
   hammerTitle:'🧱 Pared rompible + 🔨 Martillo',hammerDesc:'La pared bloquea el paso hasta que la rompas con el martillo. Hay pocos por nivel.',portalTitle:'🌀 Portal',portalDesc:'Un átomo entra por un portal y sale de inmediato por su pareja conectada.',
   movingWallTitle:'🚧 Pared móvil',movingWallDesc:'Cambia de posición con tus movimientos. Observa el patrón.',pressureDoorTitle:'🔘 Puerta con presión',pressureDoorDesc:'Coloca un átomo sobre el interruptor para abrir la puerta conectada.',
   fragileTitle:'💎 Átomo frágil',fragileDesc:'Se agrieta con cada choque fuerte y se rompe al tercero.',linkedTitle:'🔗 Átomos enlazados',linkedDesc:'Los dos átomos marcados se mueven juntos en la misma dirección.',
@@ -1854,7 +1888,7 @@ I18N.pt=Object.assign({},I18N.en,{
   tut7a:'Desfazer reverte seu último movimento.',tut7b:'Reiniciar começa o experimento do zero.',tut7c:'Use uma dica se ficar preso; ela custa moedas.',tut7d:'Ganhe MoleCoins ao concluir níveis. Use-as em dicas, no martelo e em melhorias do laboratório.',
   tut8:'Sua vez, cientista. Conclua o experimento!',tut8hint:'Dica: toque em um átomo e deslize-o em direção ao outro.',tut9:'Excelente! O laboratório está pronto para você.',tutRewardToast:'Tutorial concluído! +15 🪙',goodLuck:'Boa sorte! 🍀',
   frozenTitle:'❄️ Átomo congelado',frozenDesc:'Não pode se mover. Construa ao redor dele ou aproxime um átomo de fogo para derreter o gelo.',fireTitle:'🔥 Átomo de fogo',fireDesc:'Derrete qualquer átomo congelado ao lado.',
-  stickyIntro:'🍯 Átomo pegajoso! Quando um átomo móvel desliza até encostar nele, os dois formam um par rígido. Depois disso eles se movem juntos e param se um dos lados ficar bloqueado.',stickyTitle:'🧲 Átomo pegajoso',stickyDesc:'O primeiro átomo móvel que desliza até tocá-lo forma com ele um par rígido. O par continua móvel: os dois átomos deslizam juntos e param quando um dos lados fica bloqueado.',stickMsg:'🍯 Ligados! Estes dois átomos agora se movem juntos como uma única unidade.',oneWayTitle:'↪️ Piso de mão única',oneWayDesc:'Ao entrar seguindo a seta, o átomo só pode continuar nessa direção.',
+  stickyIntro:'🍯 Átomo pegajoso! Quando um átomo móvel desliza até encostar nele, os dois formam um par rígido. Depois disso eles se movem juntos e param se um dos lados ficar bloqueado.',stickyTitle:'🍯 Átomo pegajoso',stickyDesc:'O primeiro átomo móvel que desliza até tocá-lo forma com ele um par rígido. O par continua móvel: os dois átomos deslizam juntos e param quando um dos lados fica bloqueado.',stickMsg:'🍯 Ligados! Estes dois átomos agora se movem juntos como uma única unidade.',oneWayTitle:'↪️ Piso de mão única',oneWayDesc:'Ao entrar seguindo a seta, o átomo só pode continuar nessa direção.',
   hammerTitle:'🧱 Parede quebrável + 🔨 Martelo',hammerDesc:'A parede bloqueia o caminho até ser quebrada com o martelo. A quantidade é limitada por nível.',portalTitle:'🌀 Portal',portalDesc:'Um átomo entra em um portal e sai imediatamente no portal conectado.',
   movingWallTitle:'🚧 Parede móvel',movingWallDesc:'Muda de posição conforme seus movimentos. Observe o padrão.',pressureDoorTitle:'🔘 Porta de pressão',pressureDoorDesc:'Coloque um átomo no interruptor para abrir a porta conectada.',
   fragileTitle:'💎 Átomo frágil',fragileDesc:'Racha a cada colisão forte e quebra na terceira.',linkedTitle:'🔗 Átomos ligados',linkedDesc:'Os dois átomos marcados se movem juntos na mesma direção.',
@@ -1876,7 +1910,7 @@ I18N.ja=Object.assign({},I18N.en,{
   tut6:'少ない手数と速いクリアで、最大3つ星を獲得できる。',tut7a:'「元に戻す」で直前の手を取り消せる。',tut7b:'「やり直す」で実験を最初から始める。',tut7c:'困ったらヒントを使おう。コインが必要だ。',
   tut7d:'レベルをクリアしてMoleCoinを獲得し、ヒント、ハンマー、研究室の強化に使おう。',tut8:'君の番だ、科学者。実験を完成させよう！',tut8hint:'ヒント：原子をタップして、もう一方へスワイプしよう。',
   tut9:'素晴らしい！研究室の準備は整った。',tutRewardToast:'チュートリアル完了！+15 🪙',goodLuck:'幸運を！🍀',frozenTitle:'❄️ 凍結原子',frozenDesc:'凍結原子は動かない。周りに組み立てるか、炎原子を隣に置いて溶かそう。',
-  fireTitle:'🔥 炎原子',fireDesc:'隣接する凍結原子を溶かす。',stickyIntro:'🍯 粘着原子！移動する原子が滑って触れると、2つは固定ペアになります。その後は一緒に動き、どちらか一方が塞がれると両方とも止まります。',stickyTitle:'🧲 粘着原子',stickyDesc:'最初に触れた移動可能な原子と2原子の固定ペアを作ります。ペア自体は動けますが、2つは一緒に滑り、どちらかが塞がれると両方とも止まります。',stickMsg:'🍯 接着！この2つの原子は1つのユニットとして一緒に動きます。',oneWayTitle:'↪️ 一方通行マス',oneWayDesc:'矢印方向に入ると、その方向にしか進めない。',
+  fireTitle:'🔥 炎原子',fireDesc:'隣接する凍結原子を溶かす。',stickyIntro:'🍯 粘着原子！移動する原子が滑って触れると、2つは固定ペアになります。その後は一緒に動き、どちらか一方が塞がれると両方とも止まります。',stickyTitle:'🍯 粘着原子',stickyDesc:'最初に触れた移動可能な原子と2原子の固定ペアを作ります。ペア自体は動けますが、2つは一緒に滑り、どちらかが塞がれると両方とも止まります。',stickMsg:'🍯 接着！この2つの原子は1つのユニットとして一緒に動きます。',oneWayTitle:'↪️ 一方通行マス',oneWayDesc:'矢印方向に入ると、その方向にしか進めない。',
   hammerTitle:'🧱 壊せる壁 + 🔨 ハンマー',hammerDesc:'ハンマーで壊すまで道を塞ぐ。各レベルで使用回数に限りがある。',portalTitle:'🌀 ポータル',portalDesc:'原子は片方のポータルに入り、対応するもう片方から出る。',
   movingWallTitle:'🚧 移動する壁',movingWallDesc:'手を動かすたびに位置が変わる。パターンを見極めよう。',pressureDoorTitle:'🔘 圧力スイッチ扉',pressureDoorDesc:'スイッチに原子を置くと、連動する扉が開く。',
   fragileTitle:'💎 壊れやすい原子',fragileDesc:'強く衝突するたびにひびが入り、3回目で壊れる。',linkedTitle:'🔗 連結原子',linkedDesc:'印の付いた2つの原子は同じ方向へ一緒に動く。',
@@ -1890,7 +1924,7 @@ I18N.ja=Object.assign({},I18N.en,{
 Object.assign(I18N.de,{
   frozenTitle:'❄️ Gefrorenes Atom',frozenDesc:'Ein gefrorenes Atom kann sich nicht bewegen. Baue das Molekül darum herum oder bringe ein Feueratom daneben, um das Eis zu schmelzen.',
   fireTitle:'🔥 Feueratom',fireDesc:'Ein Feueratom schmilzt ein direkt benachbartes gefrorenes Atom und macht es wieder beweglich.',
-  stickyTitle:'🧲 Klebriges Atom',stickyDesc:'Das erste bewegliche Atom, das es berührt, bildet mit ihm ein starres Zweierpaar. Das Paar bleibt beweglich, aber beide Atome gleiten gemeinsam und stoppen, sobald eine Seite blockiert ist.',
+  stickyTitle:'🍯 Klebriges Atom',stickyDesc:'Das erste bewegliche Atom, das es berührt, bildet mit ihm ein starres Zweierpaar. Das Paar bleibt beweglich, aber beide Atome gleiten gemeinsam und stoppen, sobald eine Seite blockiert ist.',
   lightningTitle:'⚡ Elektrisch geladenes Atom',lightningDesc:'Das ⚡-Zeichen zeigt elektrische Ladung. Berührt das Atom eine verbundene Atomgruppe, läuft der Impuls durch die Kette und taut erreichte gefrorene Atome auf.',
   zombieTitle:'🧟 Zombie-Atom',zombieDesc:'Steckt berührende Atome an. Ein Feueratom heilt die Infektion.',
   precisionTitle:'🎯 Ein-Feld-Zug (optional)',precisionDesc:'Ein optionaler Helfer: aktivieren, Atom wählen und eine Richtung angeben. Das Atom bewegt sich genau ein Feld.',
@@ -2040,7 +2074,7 @@ Object.assign(I18N.fr,{
   nobelTitle:'VOUS ÊTES PRIX NOBEL !',goal:'OBJECTIF',letsPlay:'JOUONS ! ▶',newGame:'✦ NOUVELLE PARTIE',continueBtn:'▶︎ CONTINUER',levels:'NIVEAUX',myMols:'🧪 MES MOLÉCULES',newGameLabel:'NOUVELLE PARTIE',todaysExpLabel:'EXPÉRIENCE DU JOUR',myMolsLabel:'MES MOLÉCULES',hofLabel:'TABLEAU D’HONNEUR',hofCertTitle:'CERTIFICAT D’EXCELLENCE',hofNamePh:'Saisissez votre nom',welcomeTitle:'Bienvenue, scientifique !',welcomeMsg:'Quel nom doit apparaître au tableau d’honneur ?',welcomeStart:'COMMENCER LES EXPÉRIENCES',welcomeDefaultName:'Scientifique anonyme',whosPlaying:'QUI JOUE ?',newPlayerBtn:'+ NOUVEAU JOUEUR',switchPlayerTip:'Changer de joueur',deleteProfileTitle:'Supprimer ce joueur ?',deleteProfileTip:'Supprimer le joueur',deleteProfileWorking:'Suppression…',deleteProfileDone:'Joueur supprimé définitivement.',profileLimit:'Vous pouvez créer jusqu’à 5 joueurs.',managePlayers:'👥 GÉRER LES JOUEURS',
   hofStat3Stars:'NIVEAUX À 3 ÉTOILES',hofStatLevels:'NIVEAUX TERMINÉS',hofStatMols:'MOLÉCULES',hofStatAchv:'SUCCÈS',hofSpeedTitle:'⚡ RECORDS DE VITESSE',hofNotYet:'Pas encore',newRecord:'NOUVEAU RECORD',hofWorldTitle:'🏆 CLASSEMENT DE CARRIÈRE',worldLoading:'Chargement du classement…',worldOffline:'Impossible de charger le classement. Veuillez réessayer.',worldEmpty:'Aucun classement vérifié — soyez le premier !',worldYou:'VOUS',securePreparing:'🔒 Préparation du score vérifié…',secureVerified:'✅ Score vérifié par le serveur !',spotWeek:'⭐ JOUEUR DE LA SEMAINE',spotMonth:'🏆 JOUEUR DU MOIS',spotNone:'Aucun record — soyez le premier !',hofMyRecordsTab:'🏅 MES RECORDS',hofRankingsTab:'🌍 CLASSEMENTS',tabWorld:'CARRIÈRE',tabWeek:'CETTE SEMAINE',tabMonth:'CE MOIS-CI',tabChamps:'CHAMPIONS',rankingSoonTitle:'BIENTÔT DISPONIBLE',rankingSoonText:'Les archives des champions saisonniers ouvriront dans une prochaine mise à jour.',champEmpty:'Aucun champion archivé — revenez après la fin de cette semaine ou de ce mois !',hofChampTitle:'🏆 VOS RECORDS',hofStatScore:'POINTS DE RECHERCHE',hofStatMaxCoins:'RECORD DE PIÈCES',hofStatBestTime:'MEILLEUR TEMPS',diplomasHead:'🎓 DIPLÔMES',diplomaEarned:'Diplôme obtenu !',diplomaLocked:'Atteignez ce rang pour l’obtenir',diplomaCertHead:'Certificat de réussite',diplomaCertSub:'a rempli toutes les conditions requises pour le rang de',todaysExp:'🔬 EXPÉRIENCE DU JOUR',myMolecules:'MES MOLÉCULES',periodicTable:'⚛️ TABLEAU PÉRIODIQUE',achievements:'🏆 SUCCÈS',achvShort:'RÉCOMPENSES',achvLocked:'Continuez à jouer pour le débloquer !',
   achvMicroName:'Microscope',achvMicroDesc:'Obtenir 3 étoiles dans 10 niveaux',achvTeslaName:'Bobine Tesla',achvTeslaDesc:'Réaliser 7 niveaux parfaits d’affilée',achvCrystalName:'Cristal',achvCrystalDesc:'Découvrir 15 molécules',achvDnaName:'Hélice d’ADN',achvDnaDesc:'Terminer le niveau bonus Nobel',achvProfName:'Médaille',achvProfDesc:'Atteindre le rang de professeur',achvDailyName:'Calendrier',achvDailyDesc:'Terminer un défi quotidien',achvCompassName:'Boussole',achvCompassDesc:'Utiliser 20 indices au total',achvGogglesName:'Lunettes de protection',achvGogglesDesc:'Découvrir toutes les molécules',achvStarName:'Étoile filante',achvStarDesc:'Obtenir 3 étoiles dans 25 niveaux',achvMechName:'Maître des mécaniques',achvMechDesc:'Obtenir 3 étoiles dans chaque niveau avec atomes gelés, en feu ou collants',achvPetriName:'Boîte de Petri',achvPetriDesc:'Découvrir 30 molécules différentes',achvRocketName:'Décollage',achvRocketDesc:'Atteindre le niveau 50',achvFirstLessonName:'Première expérience',achvFirstLessonDesc:'Terminer le tutoriel des mouvements de base',achvToolStudentName:'Apprenti du soutien',achvToolStudentDesc:'Apprendre 3 leçons d’aide au joueur',achvMechExplorerName:'Explorateur des mécaniques',achvMechExplorerDesc:'Apprendre 5 leçons sur les atomes spéciaux ou les mécaniques',achvLabStudentName:'Élève de laboratoire',achvLabStudentDesc:'Apprendre 3 leçons sur l’équipement du laboratoire',achvTrainingMasterName:'Maître de la Moléculopédie',achvTrainingMasterDesc:'Terminer tous les tutoriels et toutes les leçons du laboratoire',
-  mechanicBriefingHeading:'Nouvelle mécanique !',mechanicBriefingSub:'Petit avertissement avant de commencer :',mechanicBriefingGo:'Compris, allons-y ! ▶',frozenTitle:'❄️ Atome gelé',fireTitle:'🔥 Atome de feu',lightningTitle:'⚡ Atome chargé électriquement',stickyTitle:'🧲 Atome collant',zombieTitle:'🧟‍♂️ Atome zombie',oneWayTitle:'↪️ Case à sens unique',hammerTitle:'🧱 Mur cassable + 🔨 Marteau',portalTitle:'🌀 Portail',movingWallTitle:'🚧 Mur mobile',pressureDoorTitle:'🔘 Porte à pression',fragileTitle:'💎 Atome fragile',linkedTitle:'🔗 Atomes liés',precisionTitle:'🎯 Déplacement d’une case (facultatif)',classicCatalystTitle:'🧪 Objectif Chasse au catalyseur',classicChainTitle:'⚡ Objectif Réaction en chaîne',classicReactorTitle:'☢️ Lasers du réacteur',zombieMsg:'🧟‍♂️ Infecté ! Cet atome est maintenant lui aussi un zombie…',cureMsg:'🔥✨ Guéri ! Le zombie est redevenu normal !',meltMsg:'🔥💧 Pschitt ! La glace a fondu — cet atome peut de nouveau bouger !',
+  mechanicBriefingHeading:'Nouvelle mécanique !',mechanicBriefingSub:'Petit avertissement avant de commencer :',mechanicBriefingGo:'Compris, allons-y ! ▶',frozenTitle:'❄️ Atome gelé',fireTitle:'🔥 Atome de feu',lightningTitle:'⚡ Atome chargé électriquement',stickyTitle:'🍯 Atome collant',zombieTitle:'🧟‍♂️ Atome zombie',oneWayTitle:'↪️ Case à sens unique',hammerTitle:'🧱 Mur cassable + 🔨 Marteau',portalTitle:'🌀 Portail',movingWallTitle:'🚧 Mur mobile',pressureDoorTitle:'🔘 Porte à pression',fragileTitle:'💎 Atome fragile',linkedTitle:'🔗 Atomes liés',precisionTitle:'🎯 Déplacement d’une case (facultatif)',classicCatalystTitle:'🧪 Objectif Chasse au catalyseur',classicChainTitle:'⚡ Objectif Réaction en chaîne',classicReactorTitle:'☢️ Lasers du réacteur',zombieMsg:'🧟‍♂️ Infecté ! Cet atome est maintenant lui aussi un zombie…',cureMsg:'🔥✨ Guéri ! Le zombie est redevenu normal !',meltMsg:'🔥💧 Pschitt ! La glace a fondu — cet atome peut de nouveau bouger !',
   undo:'ANNULER',hint:'INDICE',restart:'RECOMMENCER',lab:'LABORATOIRE',molecules:'MOLÉCULES',allComplete:'🏆 TOUS LES NIVEAUX TERMINÉS ! 🏆',bestClaimed:'Meilleur score déjà obtenu',nextLevel:'NIVEAU SUIVANT ▶︎',playAgain:'🔄 REJOUER',dailyTitle:'🔬 EXPÉRIENCE DU JOUR',dailyAlready:'La récompense du jour a déjà été reçue — rejouez pour améliorer vos RP !',dailySolved:'Résolu ! Rejouez pour améliorer vos RP du jour, ou revenez demain.',dailyPractice:'Entraînement — aucun bonus',dailyOffline:'Hors ligne — cette partie était un entraînement. Reconnectez-vous pour recevoir la récompense du jour.',dailyPracticeAgain:'🔄 RECOMMENCER L’ENTRAÎNEMENT',mainMenu:'MENU PRINCIPAL',newGameTitle:'NOUVELLE PARTIE',playFrom1:'▶︎ JOUER DEPUIS LE NIVEAU 1',wipe:'🗑️ EFFACER ET COMMENCER',cancel:'ANNULER',settingsTitle:'PARAMÈTRES',showDpad:'🕹️ Afficher la croix directionnelle',language:'🌐 Langue',tutorialTipsLabel:'Conseils du tutoriel',reduceMotionLabel:'Réduire les animations',duelEffectsLabel:'Effets de duel',duelEffectsNote:'Alertes de l’adversaire et effets d’écran.',duelMessagesLabel:'Messages de duel',duelMessagesNote:'Afficher ou couper les messages prédéfinis.',hapticsLabel:'Retour haptique',hapticsNote:'Brèves vibrations tactiles.',largeTextLabel:'Texte agrandi',largeTextNote:'Agrandit le texte des menus et de l’aide.',colorBlindLabel:'Aide aux daltoniens',colorBlindNote:'Ajoute des symboles et des contours plus marqués aux couleurs.',highContrastLabel:'Contraste élevé',highContrastNote:'Renforce la séparation du texte, des cartes et des boutons.',effectIntensityLabel:'Intensité des effets',effectLow:'Faible',effectNormal:'Normale',effectHigh:'Élevée',performanceModeLabel:'Mode de performance',performanceAuto:'Automatique',performanceLow:'Économie d’énergie',performanceHigh:'Haute qualité',resetProgress:'RÉINITIALISER LA PROGRESSION',deleteCloudOnly:'☁ Supprimer uniquement les données cloud',close:'FERMER',deleteCloudBtn:'SUPPRIMER LES DONNÉES CLOUD',deleteCloudTitle:'Supprimer les données cloud ?',yesDeleteCloud:'Oui, supprimer mes données cloud',
   rank0:'🧪 Assistant de laboratoire',rank1:'🔬 Assistant scientifique',rank2:'⚗️ Scientifique',rank3:'🥼 Scientifique senior',rank4:'🎓 Docteur',rank5:'📚 Professeur',rank6:'🌟 Professeur émérite',rank7:'🚀 En route vers le Nobel',rank8:'🏆 Prix Nobel',rankUpTitle:'PROMOTION !',rankUpContinue:'CONTINUER ▶︎',audioSettings:'PARAMÈTRES AUDIO',master:'🔉 Volume principal',music:'🎵 Musique',sfx:'🔔 Effets',externalMusicLabel:'🎧 Mode musique externe',externalMusicNote:'Laisse Spotify / YouTube Music jouer. Le son du jeu est coupé.',musicListBtn:'🎵 BANDE-SON',musicListTitle:'🎵 BANDE-SON',areYouSure:'CONFIRMER ?',yesWipe:'OUI, TOUT EFFACER',langEN:'English',langTR:'Türkçe',langDE:'Deutsch',langES:'Español',langPT:'Português',langJA:'日本語',langFR:'Français',langZH:'简体中文'
 });
@@ -2050,7 +2084,7 @@ Object.assign(I18N.zh,{
   nobelTitle:'你获得了诺贝尔奖！',goal:'目标',letsPlay:'开始游戏！▶',newGame:'✦ 新游戏',continueBtn:'▶︎ 继续',levels:'关卡',myMols:'🧪 我的分子',newGameLabel:'新游戏',todaysExpLabel:'今日实验',myMolsLabel:'我的分子',hofLabel:'名人堂',hofCertTitle:'卓越证书',hofNamePh:'输入你的名字',welcomeTitle:'欢迎，科学家！',welcomeMsg:'你希望名人堂显示什么名字？',welcomeStart:'开始实验',welcomeDefaultName:'匿名科学家',whosPlaying:'谁在游戏？',newPlayerBtn:'+ 新玩家',switchPlayerTip:'切换玩家',deleteProfileTitle:'删除玩家？',deleteProfileTip:'删除玩家',deleteProfileWorking:'正在删除…',deleteProfileDone:'玩家已永久删除。',profileLimit:'最多可创建5名玩家。',managePlayers:'👥 管理玩家',
   hofStat3Stars:'3星关卡',hofStatLevels:'已完成关卡',hofStatMols:'分子',hofStatAchv:'成就',hofSpeedTitle:'⚡ 最快记录',hofNotYet:'暂无',newRecord:'新记录',hofWorldTitle:'🏆 生涯排名',worldLoading:'正在加载排名…',worldOffline:'目前无法加载排名，请重试。',worldEmpty:'还没有已验证的排名——成为第一位吧！',worldYou:'你',securePreparing:'🔒 正在准备验证分数…',secureVerified:'✅ 服务器已验证分数！',spotWeek:'⭐ 本周最佳玩家',spotMonth:'🏆 本月最佳玩家',spotNone:'还没有记录——成为第一位吧！',hofMyRecordsTab:'🏅 我的记录',hofRankingsTab:'🌍 排名',tabWorld:'生涯',tabWeek:'本周',tabMonth:'本月',tabChamps:'冠军',rankingSoonTitle:'即将推出',rankingSoonText:'赛季冠军档案将在后续更新中开放。',champEmpty:'暂无归档冠军——请在本周或本月结束后再来查看！',hofChampTitle:'🏆 你的记录',hofStatScore:'研究点数',hofStatMaxCoins:'最高金币数',hofStatBestTime:'最快用时',diplomasHead:'🎓 文凭',diplomaEarned:'已获得文凭！',diplomaLocked:'达到此职级后获得',diplomaCertHead:'成就证书',diplomaCertSub:'已完成以下职级的全部要求：',todaysExp:'🔬 今日实验',myMolecules:'我的分子',periodicTable:'⚛️ 元素周期表',achievements:'🏆 成就',achvShort:'奖励',achvLocked:'继续游戏以解锁！',
   achvMicroName:'显微镜',achvMicroDesc:'在10个关卡中获得3星',achvTeslaName:'特斯拉线圈',achvTeslaDesc:'连续7个关卡获得完美评价',achvCrystalName:'晶体',achvCrystalDesc:'发现15种分子',achvDnaName:'DNA双螺旋',achvDnaDesc:'完成诺贝尔奖励关卡',achvProfName:'奖章',achvProfDesc:'达到教授职级',achvDailyName:'日历',achvDailyDesc:'完成一次每日挑战',achvCompassName:'指南针',achvCompassDesc:'累计使用20次提示',achvGogglesName:'护目镜',achvGogglesDesc:'发现所有分子',achvStarName:'流星',achvStarDesc:'在25个关卡中获得3星',achvMechName:'机制大师',achvMechDesc:'在所有冻结、火焰和黏性原子关卡中获得3星',achvPetriName:'培养皿',achvPetriDesc:'发现30种不同分子',achvRocketName:'发射升空',achvRocketDesc:'达到第50关',achvFirstLessonName:'第一次实验',achvFirstLessonDesc:'完成基础移动教程',achvToolStudentName:'辅助学徒',achvToolStudentDesc:'学习3个玩家辅助课程',achvMechExplorerName:'机制探索者',achvMechExplorerDesc:'学习5个特殊原子或机制课程',achvLabStudentName:'实验室学生',achvLabStudentDesc:'学习3个实验室设备课程',achvTrainingMasterName:'分子百科大师',achvTrainingMasterDesc:'完成所有教程和实验室课程',
-  mechanicBriefingHeading:'新机制！',mechanicBriefingSub:'开始前快速说明：',mechanicBriefingGo:'明白，开始吧！▶',frozenTitle:'❄️ 冻结原子',fireTitle:'🔥 火焰原子',lightningTitle:'⚡ 带电原子',stickyTitle:'🧲 黏性原子',zombieTitle:'🧟‍♂️ 僵尸原子',oneWayTitle:'↪️ 单向地块',hammerTitle:'🧱 可破坏墙 + 🔨 锤子',portalTitle:'🌀 传送门',movingWallTitle:'🚧 移动墙',pressureDoorTitle:'🔘 压力门',fragileTitle:'💎 易碎原子',linkedTitle:'🔗 相连原子',precisionTitle:'🎯 单格移动（可选）',classicCatalystTitle:'🧪 催化剂搜寻目标',classicChainTitle:'⚡ 连锁反应目标',classicReactorTitle:'☢️ 反应堆激光',zombieMsg:'🧟‍♂️ 已感染！那个原子也变成僵尸了…',cureMsg:'🔥✨ 已治愈！僵尸原子恢复正常！',meltMsg:'🔥💧 滋——！冰融化了，这个原子现在可以移动！',
+  mechanicBriefingHeading:'新机制！',mechanicBriefingSub:'开始前快速说明：',mechanicBriefingGo:'明白，开始吧！▶',frozenTitle:'❄️ 冻结原子',fireTitle:'🔥 火焰原子',lightningTitle:'⚡ 带电原子',stickyTitle:'🍯 黏性原子',zombieTitle:'🧟‍♂️ 僵尸原子',oneWayTitle:'↪️ 单向地块',hammerTitle:'🧱 可破坏墙 + 🔨 锤子',portalTitle:'🌀 传送门',movingWallTitle:'🚧 移动墙',pressureDoorTitle:'🔘 压力门',fragileTitle:'💎 易碎原子',linkedTitle:'🔗 相连原子',precisionTitle:'🎯 单格移动（可选）',classicCatalystTitle:'🧪 催化剂搜寻目标',classicChainTitle:'⚡ 连锁反应目标',classicReactorTitle:'☢️ 反应堆激光',zombieMsg:'🧟‍♂️ 已感染！那个原子也变成僵尸了…',cureMsg:'🔥✨ 已治愈！僵尸原子恢复正常！',meltMsg:'🔥💧 滋——！冰融化了，这个原子现在可以移动！',
   undo:'撤销',hint:'提示',restart:'重新开始',lab:'实验室',molecules:'分子',allComplete:'🏆 所有关卡已完成！🏆',bestClaimed:'已领取最佳奖励',nextLevel:'下一关 ▶︎',playAgain:'🔄 再玩一次',dailyTitle:'🔬 今日实验',dailyAlready:'今天的金币奖励已领取——再玩一次来提高你的RP！',dailySolved:'已解决！再玩一次提高今日RP，或明天再来。',dailyPractice:'练习模式——无奖励',dailyOffline:'当前离线——本局仅为练习。重新连接后即可领取今日奖励。',dailyPracticeAgain:'🔄 再次练习',mainMenu:'主菜单',newGameTitle:'新游戏',playFrom1:'▶︎ 从第1关开始',wipe:'🗑️ 清除并开始',cancel:'取消',settingsTitle:'设置',showDpad:'🕹️ 显示方向键',language:'🌐 语言',tutorialTipsLabel:'教程提示',reduceMotionLabel:'减少动态效果',duelEffectsLabel:'对决效果',duelEffectsNote:'对手提醒和屏幕效果。',duelMessagesLabel:'对决消息',duelMessagesNote:'显示或静音预设消息。',hapticsLabel:'触觉反馈',hapticsNote:'短促的触觉反馈。',largeTextLabel:'大号文字',largeTextNote:'放大菜单和帮助文字。',colorBlindLabel:'色觉辅助',colorBlindNote:'在颜色之外使用更明显的符号和轮廓。',highContrastLabel:'高对比度',highContrastNote:'加强文字、卡片和按钮之间的区分。',effectIntensityLabel:'效果强度',effectLow:'低',effectNormal:'标准',effectHigh:'高',performanceModeLabel:'性能模式',performanceAuto:'自动',performanceLow:'省电',performanceHigh:'高画质',resetProgress:'重置进度',deleteCloudOnly:'☁ 仅删除云端数据',close:'关闭',deleteCloudBtn:'删除云端数据',deleteCloudTitle:'删除云端数据？',yesDeleteCloud:'是，删除我的云端数据',
   rank0:'🧪 实验室助理',rank1:'🔬 科研助理',rank2:'⚗️ 科学家',rank3:'🥼 高级科学家',rank4:'🎓 博士',rank5:'📚 教授',rank6:'🌟 资深教授',rank7:'🚀 诺贝尔之路',rank8:'🏆 诺贝尔奖得主',rankUpTitle:'晋升！',rankUpContinue:'继续 ▶︎',audioSettings:'音频设置',master:'🔉 主音量',music:'🎵 音乐',sfx:'🔔 音效',externalMusicLabel:'🎧 外部音乐模式',externalMusicNote:'保持 Spotify / YouTube Music 播放，同时静音游戏音频。',musicListBtn:'🎵 原声音乐',musicListTitle:'🎵 原声音乐',areYouSure:'确定吗？',yesWipe:'是，全部清除',langEN:'English',langTR:'Türkçe',langDE:'Deutsch',langES:'Español',langPT:'Português',langJA:'日本語',langFR:'Français',langZH:'简体中文'
 });
@@ -2291,6 +2325,9 @@ const R150_UNSTABLE_COPY={
 };
 for(const [lang,copy] of Object.entries(R150_UNSTABLE_COPY))if(I18N[lang])Object.assign(I18N[lang],copy);
 
+const R180_CHAIN_COPY={"en": ["» Chain starter", "The gold » marks a chain starter. Move it in the indicated direction to trigger the next moves automatically and build a combo. The blue ⚡ thaws frozen atoms."], "tr": ["» Zincir başlatıcısı", "Altın » işareti zincir başlatıcısını gösterir. İşaretli yönde hareket ettir; sonraki hamleler otomatik ilerler ve kombo oluşur. Mavi ⚡ donmuş atomları çözer."], "de": ["» Kettenstart", "Das goldene » markiert den Kettenstart. Bewege das Atom in die angezeigte Richtung: Die Folgezüge laufen automatisch und bilden eine Kombo. Das blaue ⚡ taut gefrorene Atome auf."], "es": ["» Inicio de cadena", "El símbolo dorado » inicia una cadena. Mueve el átomo en la dirección indicada para activar los siguientes movimientos y crear un combo. El ⚡ azul descongela átomos."], "pt": ["» Início da cadeia", "O símbolo dourado » inicia uma cadeia. Mova o átomo na direção indicada para ativar as próximas jogadas e formar um combo. O ⚡ azul descongela átomos."], "ja": ["» 連鎖の起点", "金色の»は連鎖の起点です。表示された方向へ動かすと、次の手が自動で続き、コンボになります。青い⚡は凍った原子を解凍します。"], "fr": ["» Départ de chaîne", "Le » doré indique le départ d’une chaîne. Déplace cet atome dans le sens indiqué pour déclencher les coups suivants et créer un combo. Le ⚡ bleu dégèle les atomes."], "zh": ["» 连锁起点", "金色»表示连锁起点。按提示方向移动该原子，后续步骤会自动执行并形成连击。蓝色⚡用于解冻原子。"], "it": ["» Avvio della catena", "Il simbolo dorato » avvia una catena. Muovi l’atomo nella direzione indicata: le mosse successive partono automaticamente e creano una combo. Il ⚡ blu scongela gli atomi."]};
+for(const[lang,c]of Object.entries(R180_CHAIN_COPY)){I18N[lang].classicChainTitle=c[0];I18N[lang].classicChainDesc=c[1];}
+
 function ml(tr,en,de,es,pt,ja,fr,zh,it){
   if(LANG==='fr')return fr!==undefined&&fr!==null?fr:v2Text(en,LANG);
   if(LANG==='zh')return zh!==undefined&&zh!==null?zh:v2Text(en,LANG);
@@ -2373,9 +2410,17 @@ function postNobelCareerCelebration(award){
 }
 
 /* ================= SAVE / PROFILES ================= */
-// R83 SAFE QA: isolated local storage; never reads/writes the live release profile keys.
-const SKEY='moleculox_qa_save_r131';
-const PKEY='moleculox_qa_profiles_r131';
+// R180 stable local keys with migration from the known R179 QA namespace.
+const SKEY='moleculox_save_v1';
+const LEGACY_SKEY='moleculox_qa_save_r131';
+const PKEY='moleculox_profiles_v1';
+const LEGACY_PKEY='moleculox_qa_profiles_r131';
+const PROFILE_BACKUP_KEY=PKEY+'_backup';
+function readProfileStore(){
+  for(const key of [PKEY,PROFILE_BACKUP_KEY,LEGACY_PKEY]){
+    try{const v=JSON.parse(localStorage.getItem(key)||'null');if(v&&typeof v==='object'&&!Array.isArray(v))return v;}catch(e){}
+  }return null;
+}
 function isIOSWebDevice(){
   try{
     const ua=navigator.userAgent||'';
@@ -2383,7 +2428,7 @@ function isIOSWebDevice(){
   }catch(e){return false;}
 }
 let externalMusicMode=false;
-function defaultSave(){return {cur:0,stars:{},coins:0,disc:{},volM:1,volMu:0.8,volS:1,volV:1,muM:false,muMu:false,muS:false,muV:false,externalMusic:false,dpad:false,reduceMotion:false,duelMessages:true,duelEffects:true,haptics:true,effectLevel:'normal',largeText:false,colorBlind:false,highContrast:false,performanceMode:'auto',favoriteMolecules:{},collectionFilter:'all',storySeen:{},storySchema:0,dailyDate:'',totalHints:0,streak3:0,lang:'en',achv:{},seenFrozen:false,seenFire:false,seenLightning:false,seenSticky:false,seenZombie:false,seenOneWay:false,seenBreakableWall:false,seenPortal:false,seenRift:false,seenMovingWall:false,seenPressureDoor:false,seenFragile:false,seenLinked:false,seenPrecision:false,seenFusion:false,seenPrebuiltModule:false,seenRotation:false,seenEnzymeGate:false,seenBioAssembly:false,playerName:'',speedRuns:{},bestMoves:{},maxCoins:0,profileId:'',tutorialDone:false,menuVoiceSeen:false,seen501CampaignIntro:false,autoGuest:false,rpSchema:0,researchPoints:0,researchLevels:{},researchAchievements:{},researchBonuses:{},bonusClaims:{},dailyScores:{},dailyRPStreak:0,lastDailyRPDate:'',seasonId:'',seasonRP:0,weekId:'',weekRP:0,saveSchema:5,campaignContentSchema:0,labTheme:'basic',economySchema:0,quantumHintDay:'',duelRatedMatches:{},duelRewards:{},duelRewardClaims:{},activeDuelFrame:'frame_bronze',activeDuelTitle:'',duelRating:800,duelPeakRating:800,duelWins:0,duelLosses:0,duelDraws:0,duelStreak:0,duelBestStreak:0,duelWeekPoints:0,duelWeekWins:0,duelMonthPoints:0,duelMonthWins:0,accountMilestoneInviteSeen:false,accountMilestoneInviteLastLevel:0,nobelCertificateShared:false,seenHintSupport:false,seenUndoSupport:false,seenRestartSupport:false,seenLabSupport:false,seenSupportGuide:false,seenHammerSupport:false,seenPrecisionSupport:false,seenBarrierSupport:false,seenGoalGlowGuide:false,tutorialTips:true,seenFragileAtom:false,seenLinkedAtoms:false,seenHammerWall:false};}
+function defaultSave(){return {audioSettingsSchema:1,cur:0,stars:{},coins:0,disc:{},volM:1,volMu:0.8,volS:1,volV:1,muM:false,muMu:false,muS:false,muV:false,externalMusic:false,dpad:false,reduceMotion:false,duelMessages:true,duelEffects:true,haptics:true,effectLevel:'normal',largeText:false,colorBlind:false,highContrast:false,performanceMode:'auto',favoriteMolecules:{},collectionFilter:'all',storySeen:{},storySchema:0,dailyDate:'',totalHints:0,streak3:0,lang:'en',achv:{},seenFrozen:false,seenFire:false,seenLightning:false,seenSticky:false,seenZombie:false,seenOneWay:false,seenBreakableWall:false,seenPortal:false,seenRift:false,seenMovingWall:false,seenPressureDoor:false,seenFragile:false,seenLinked:false,seenPrecision:false,seenFusion:false,seenPrebuiltModule:false,seenRotation:false,seenEnzymeGate:false,seenBioAssembly:false,playerName:'',speedRuns:{},bestMoves:{},maxCoins:0,profileId:'',tutorialDone:false,menuVoiceSeen:false,seen501CampaignIntro:false,autoGuest:false,rpSchema:0,researchPoints:0,researchLevels:{},researchAchievements:{},researchBonuses:{},bonusClaims:{},dailyScores:{},dailyRPStreak:0,lastDailyRPDate:'',seasonId:'',seasonRP:0,weekId:'',weekRP:0,saveSchema:5,campaignContentSchema:0,labTheme:'basic',economySchema:0,quantumHintDay:'',duelRatedMatches:{},duelRewards:{},duelRewardClaims:{},activeDuelFrame:'frame_bronze',activeDuelTitle:'',duelRating:800,duelPeakRating:800,duelWins:0,duelLosses:0,duelDraws:0,duelStreak:0,duelBestStreak:0,duelWeekPoints:0,duelWeekWins:0,duelMonthPoints:0,duelMonthWins:0,accountMilestoneInviteSeen:false,accountMilestoneInviteLastLevel:0,nobelCertificateShared:false,seenHintSupport:false,seenUndoSupport:false,seenRestartSupport:false,seenLabSupport:false,seenSupportGuide:false,seenHammerSupport:false,seenPrecisionSupport:false,seenBarrierSupport:false,seenGoalGlowGuide:false,tutorialTips:true,seenFragileAtom:false,seenLinkedAtoms:false,seenHammerWall:false};}
 const COIN_EARN_KEY='__coinEarned',COIN_SPEND_KEY='__coinSpent';
 const LAB_THEME_STAMP_KEY='__labThemeStamp',QUANTUM_DAY_KEY='__quantumDay';
 const LAB_THEME_CODES={basic:0,collider:1,arctic:2,mars:3},LAB_THEME_NAMES=['basic','collider','arctic','mars'];
@@ -2576,10 +2621,33 @@ function recalcResearchFromProgress(){
   }
   return raised;
 }
+function mxProgressMap(v){
+  if(!v||typeof v!=='object')return {};
+  if(Array.isArray(v)){
+    const out={};
+    Object.keys(v).forEach(k=>{if(v[k]!==undefined&&v[k]!==null)out[k]=v[k];});
+    return out;
+  }
+  return v;
+}
+function repairPostNobelCompletionStars(s){
+  const cur=Math.max(0,Math.min(LEVELS.length,Math.floor(Number(s&&s.cur)||0)));
+  if(cur<=301)return 0;
+  s.stars=mxProgressMap(s.stars);
+  // Repair only saves that have genuinely completed the full 1–301 campaign.
+  // In the normal campaign, cur=N means Levels 1..N are already cleared.
+  for(let i=0;i<301;i++)if(Math.max(0,Number(s.stars[i])||0)<=0)return 0;
+  let repaired=0;
+  for(let i=301;i<cur;i++){
+    if(Math.max(0,Number(s.stars[i])||0)<=0){s.stars[i]=1;repaired++;}
+  }
+  return repaired;
+}
 function ensureResearchState(s){
   s=s||defaultSave();
-  s.disc=s.disc&&typeof s.disc==='object'?s.disc:{};
-  s.stars=s.stars&&typeof s.stars==='object'?s.stars:{};
+  s.disc=mxProgressMap(s.disc);
+  for(const [id,target] of Object.entries(window.MX_R180_TARGETS||{})){if(s.disc[target.source])s.disc[id]=1;}
+  s.stars=mxProgressMap(s.stars);
   if(typeof s.seenRift!=='boolean')s.seenRift=riftTutorialSeen();
   let campaignContentSchema=Math.max(0,Math.floor(Number(s.campaignContentSchema)||0));
   if(campaignContentSchema<1){
@@ -2618,8 +2686,8 @@ function ensureResearchState(s){
   s.researchBonuses=s.researchBonuses&&typeof s.researchBonuses==='object'?s.researchBonuses:{};
   s.bonusClaims=s.bonusClaims&&typeof s.bonusClaims==='object'?s.bonusClaims:{};
   s.dailyScores=s.dailyScores&&typeof s.dailyScores==='object'?s.dailyScores:{};
-  s.speedRuns=s.speedRuns&&typeof s.speedRuns==='object'?s.speedRuns:{};
-  s.bestMoves=s.bestMoves&&typeof s.bestMoves==='object'?s.bestMoves:{};
+  s.speedRuns=mxProgressMap(s.speedRuns);
+  s.bestMoves=mxProgressMap(s.bestMoves);
   let schema=Math.max(0,Math.floor(Number(s.rpSchema)||0));
   if(schema<1){
     let migrated=0;
@@ -2653,9 +2721,13 @@ function ensureResearchState(s){
   ensureCoinLedger(s);
   // R169: Nano Barrier is pay-per-placement, never inventory. Purge legacy free stock.
   if(Object.prototype.hasOwnProperty.call(s.researchAchievements,'__booster_barrier'))delete s.researchAchievements.__booster_barrier;
+  // R179 REV3: One-Square Move is pay-per-confirmed-use, never inventory. Purge legacy stock.
+  if(Object.prototype.hasOwnProperty.call(s.researchAchievements,'__booster_precision'))delete s.researchAchievements.__booster_precision;
   s.labTheme=syncedLabTheme(s);
   const syncedQ=Math.max(0,Math.floor(Number(s.researchAchievements[QUANTUM_DAY_KEY])||0));
   if(syncedQ===utcEpochDay())s.quantumHintDay=utcDayId();
+  const repairedPostNobel=repairPostNobelCompletionStars(s);
+  if(repairedPostNobel>0)console.info('[R179] repaired post-Nobel completion stars',repairedPostNobel);
   const canonicalResearch=researchMapSum(s.researchLevels)+researchMapSum(s.researchAchievements)+researchMapSum(s.researchBonuses)+researchMapSum(s.dailyScores);
   s.researchPoints=Math.max(canonicalResearch,Math.max(0,Math.floor(Number(s.researchPoints)||0)));
   s.seasonRP=Math.max(0,Math.floor(Number(s.seasonRP)||0));
@@ -2669,11 +2741,11 @@ function scoreMoveBonus(moveCount,par,minimum){
   moveCount=Math.max(0,Number(moveCount)||0);par=Math.max(1,Number(par)||1);
   minimum=Math.max(1,Math.min(par,Number(minimum)||par));
   // Preserve the V3.7.0–V3.7.2 RP table for existing leaderboard players.
-  // A certified-minimum bonus exists only when the verified minimum is below PAR.
+  // A reference-route bonus exists when the authored reference is below PAR; this is not an optimality proof.
   if(minimum<par&&moveCount<=minimum)return 40;
   if(minimum<par&&moveCount<par)return 35;
   if(moveCount===par)return 25;
-  // A score below PAR is impossible when minimum===PAR; never grant a premium bonus.
+  // Keep the existing reward table when reference and PAR are equal.
   if(moveCount<par)return 25;
   if(moveCount<=Math.ceil(par*1.25))return 15;
   if(moveCount<=Math.ceil(par*1.6))return 5;
@@ -2716,23 +2788,28 @@ function awardDailyResearch(dayId,moveCount,par,minimum,seconds,hints,assisted=f
   return {delta:addResearchPoints(delta,delta),score,streak:save.dailyRPStreak};
 }
 let profiles={};
+let lastPersistedProfileText='',localSaveFailed=false;
 let lastProfile=null;
 try{
-  const pr=JSON.parse(localStorage.getItem(PKEY));
+  const pr=readProfileStore();
   if(pr&&typeof pr==='object'){
     if(pr.profiles&&typeof pr.profiles==='object'){profiles=pr.profiles;lastProfile=pr.last||null;}
     else{profiles=pr;}
   }
 }catch(e){}
 try{
-  const legacy=JSON.parse(localStorage.getItem(SKEY));
+  const legacy=JSON.parse(localStorage.getItem(SKEY)||localStorage.getItem(LEGACY_SKEY));
   if(legacy&&typeof legacy==='object'&&!Object.keys(profiles).length){
     if(legacy.snd===false&&legacy.muMu===undefined){legacy.muMu=true;legacy.muS=true;}
     const nm=(legacy.playerName||'Oyuncu1').slice(0,18)||'Oyuncu1';
     profiles[nm]=Object.assign(defaultSave(),legacy);
+    if(!legacy.audioSettingsSchema)profiles[nm].audioSettingsSchema=0;
     lastProfile=nm;
   }
 }catch(e){}
+for(const profile of Object.values(profiles)){
+  if(profile&&Number(profile.audioSettingsSchema||0)<1){profile.volV=Number.isFinite(profile.volS)?profile.volS:1;profile.muV=!!profile.muS;profile.audioSettingsSchema=1;}
+}
 try{
   const migrationKey='moleculox_qa_external_music_optin_r131';
   if(!localStorage.getItem(migrationKey)){
@@ -2805,7 +2882,31 @@ function mergeAccountProgressVault(base,profileId,uidOverride){
   if(core&&typeof core.mergeProfiles==='function')return core.mergeProfiles(base||{},vault,{settings:'left',identity:'left',includeBonus:true,now:new Date()});
   const out=Object.assign({},base||{});out.cur=Math.max(Number(out.cur)||0,Number(vault.cur)||0);out.stars=Object.assign({},vault.stars||{},out.stars||{});return out;
 }
-function persistAll(){try{localStorage.setItem(PKEY,JSON.stringify({profiles,last:lastProfile}));}catch(e){}}
+function showLocalSaveStatus(failed){
+  localSaveFailed=failed;
+  let el=document.getElementById('localSaveStatus');
+  if(!failed){if(el)el.hidden=true;return;}
+  if(!el){el=document.createElement('div');el.id='localSaveStatus';el.setAttribute('role','status');el.setAttribute('aria-live','polite');document.body.appendChild(el);}
+  el.hidden=false;el.replaceChildren();
+  const label=document.createElement('span');label.textContent=ml('İlerleme kaydedilemedi. Depolama alanını kontrol et.','Progress could not be saved. Check your storage space.','Fortschritt konnte nicht gespeichert werden. Prüfe den Speicherplatz.','No se pudo guardar el progreso. Revisa el almacenamiento.','Não foi possível salvar o progresso. Verifique o armazenamento.','進行状況を保存できません。空き容量を確認してください。','La progression n’a pas pu être enregistrée. Vérifie le stockage.','无法保存进度。请检查存储空间。','Impossibile salvare i progressi. Controlla lo spazio disponibile.');el.appendChild(label);
+  const retry=document.createElement('button');retry.type='button';retry.textContent=ml('Tekrar dene','Retry','Erneut versuchen','Reintentar','Tentar novamente','再試行','Réessayer','重试','Riprova');retry.addEventListener('click',()=>persistAll());el.appendChild(retry);
+}
+function persistAll(){
+  const text=JSON.stringify({profiles,last:lastProfile,storageSchema:1,savedAt:Date.now()});
+  try{
+    // The previous valid snapshot stays recoverable if a later write is interrupted.
+    const previous=localStorage.getItem(PKEY);
+    if(previous&&previous!==lastPersistedProfileText){try{const v=JSON.parse(previous);if(v?.profiles)localStorage.setItem(PROFILE_BACKUP_KEY,previous);}catch(e){}}
+    localStorage.setItem(PKEY,text);lastPersistedProfileText=text;
+    try{localStorage.setItem(PROFILE_BACKUP_KEY,text);}catch(e){}
+    if(localSaveFailed)showLocalSaveStatus(false);
+    return true;
+  }catch(e){
+    localSaveFailed=true;
+    setTimeout(()=>showLocalSaveStatus(true),0);
+    return false;
+  }
+}
 function persistLocalOnly(){
   if(!curProfile)return;
   profiles[curProfile]=save;lastProfile=curProfile;persistAll();
@@ -2888,10 +2989,7 @@ let musicDuck=1,musicFadeToken=0,musicTrimIndex=0;
 // FINAL R45 mastering trim. A release audit found roughly a 4 dB average-level
 // spread across the 23 shipped tracks. These attenuation-only trims tame the
 // louder files without re-encoding, boosting, clipping or changing user volume.
-const MUSIC_TRACK_TRIM=[
-  1.000,0.966,1.000,0.955,0.724,0.861,1.000,0.977,1.000,0.977,1.000,1.000,
-  0.955,0.977,1.000,0.989,0.912,1.000,0.966,1.000,0.861,1.000,0.891
-];
+const MUSIC_TRACK_TRIM=[0.57544, 0.65313, 0.65313, 0.63096, 0.5559, 0.59566, 0.67608, 0.6166, 0.63826, 0.63096, 0.63096, 0.63096, 0.71614, 0.6166, 0.57544, 0.5821, 0.54954, 0.63826, 0.59566, 0.53088, 0.52481, 0.56885, 0.62373];
 function currentMusicTrim(){
   const i=Math.max(0,Math.min(MUSIC_TRACK_TRIM.length-1,Math.floor(Number(musicTrimIndex)||0)));
   return clampAudio(MUSIC_TRACK_TRIM[i]||1);
@@ -2945,7 +3043,7 @@ function applyVol(){
   // R17: professor speech follows the visible Master + Effects controls.
   // Old hidden per-profile muV/volV values caused voice to work for one player
   // but remain silent for others, with no settings control to correct it.
-  const voices=save.muS?0:clampAudio(save.volS);
+  const voices=save.muV?0:clampAudio(save.volV);
   if(AC){
     setGainNow(masterG,master);
     setGainNow(musicG,clampAudio(music*musicTrim*musicDuck));
@@ -2963,7 +3061,10 @@ function ac(){
   configureAudioSession();
   if(!AC){
     try{AC=new (window.AudioContext||window.webkitAudioContext)();}catch(e){return null;}
-    masterG=AC.createGain();masterG.connect(AC.destination);
+    masterG=AC.createGain();
+    const limiter=AC.createDynamicsCompressor(),output=AC.createGain();
+    limiter.threshold.value=-8;limiter.knee.value=0;limiter.ratio.value=20;limiter.attack.value=.003;limiter.release.value=.16;output.gain.value=.75;
+    masterG.connect(limiter);limiter.connect(output);output.connect(AC.destination);
     musicG=AC.createGain();musicG.connect(masterG);
     sfxG=AC.createGain();sfxG.connect(masterG);
     voiceG=AC.createGain();voiceG.connect(masterG);
@@ -3310,7 +3411,7 @@ const voiceQueue=[],voiceShuffleBags=new Map();
 // The decoded sprite can be prepared silently, but playback is armed only after
 // the real main menu is visible and its transition has settled.
 let speechPlaybackArmed=false;
-function voiceEnabled(){return !!activeVoicePack().url&&speechPlaybackArmed&&!externalMusicMode&&!save.muM&&!save.muS&&clampAudio(save.volM)>0&&clampAudio(save.volS)>0;}
+function voiceEnabled(){return !!activeVoicePack().url&&speechPlaybackArmed&&!externalMusicMode&&!save.muM&&!save.muV&&clampAudio(save.volM)>0&&clampAudio(save.volV)>0;}
 function decodeVoiceBuffer(ctx,data){
   return new Promise((resolve,reject)=>{
     let settled=false;
@@ -3764,7 +3865,7 @@ function showFinalWow(perf,stars){
 }
 function wallBreakDustFx(gx,gy){
   const br=board.getBoundingClientRect(),cx=br.left+(gx+.5)*T,cy=br.top+(gy+.5)*T;
-  SFX.wallBreak();gameFeelImpact('medium');
+  SFX.wallBreak();
   if(!effectsAllowed())return;
   for(let q=0;q<14;q++)P({k:'smoke',x:cx+(Math.random()-.5)*T*.28,y:cy+(Math.random()-.5)*T*.22,vx:(Math.random()-.5)*1.3,vy:-.25-Math.random()*1.15,r:6+Math.random()*10,c:q%3?'#9b8873':'#cbb9a2',life:.75+Math.random()*.5,d:q*.008});
   for(let q=0;q<24;q++){const a=Math.random()*Math.PI*2,sp=1.1+Math.random()*4.1;P({k:'crys',x:cx+(Math.random()-.5)*8,y:cy+(Math.random()-.5)*8,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-2.5,w:3+Math.random()*7,rot:Math.random()*7,vr:(Math.random()-.5)*.55,c:q%3===0?'#d7c5ae':q%3===1?'#9c856e':'#6f5d4d',life:1.05+Math.random()*.45,d:q*.006});}
@@ -3869,7 +3970,10 @@ const $=s=>document.querySelector(s);
 function bindTap(target,handler){
   const el=typeof target==='string'?$(target):target;if(!el)return null;
   let last=0,downX=0,downY=0,tracking=false;
+  const immediateIds=new Set(['btnUndo','btnRestart','btnHint','btnHammer','btnPrecision','btnBarrier','btnGear','lvHome','coHome','splashGear','btnMols','btnAchv','btnPlay','btnLevels','btnCollect','btnDuel','btnHof','hofBack','hofHome','lvBack','coBack','btnSwitchProfile']);
+  const immediate=immediateIds.has(el.id);
   const activate=e=>{
+    if(el.disabled||el.getAttribute('aria-disabled')==='true')return;
     const now=performance.now();if(now-last<85)return;last=now;
     if(e&&e.preventDefault)e.preventDefault();
     handler(e||{currentTarget:el,target:el});
@@ -3877,10 +3981,11 @@ function bindTap(target,handler){
   el.addEventListener('pointerdown',e=>{
     if(e.button!=null&&e.button!==0)return;
     downX=e.clientX;downY=e.clientY;tracking=true;
+    if(immediate){tracking=false;activate(e);return;}
     try{el.setPointerCapture(e.pointerId);}catch(_){ }
-  },{passive:true});
+  },{passive:!immediate});
   el.addEventListener('pointerup',e=>{
-    if(!tracking)return;tracking=false;
+    if(immediate||!tracking)return;tracking=false;
     if(Math.hypot(e.clientX-downX,e.clientY-downY)<=18)activate(e);
   },{passive:false});
   el.addEventListener('pointercancel',()=>{tracking=false;},{passive:true});
@@ -3906,7 +4011,7 @@ function labEquipmentTutorial(id,onDone){
   const tr=LANG==='tr';
   const demos={
     gold_scope:{before:ml("Yeni keşif: normal ödül","New discovery: normal reward","Neue Entdeckung: normale Belohnung","Nuevo descubrimiento: recompensa normal","Nova descoberta: recompensa normal","新発見：通常報酬"),after:ml("Ödül +5 MoleCoin","Reward +5 MoleCoins","Belohnung +5 MoleCoins","Recompensa +5 MoleCoins","Recompensa +5 MoleCoins","報酬 +5 MoleCoin"),note:ml("Yeni bir molekülü ilk kez keşfettiğinde ödülüne otomatik +5 MoleCoin eklenir.","The first time you discover a molecule, +5 MoleCoins are added automatically.","Bei der ersten Entdeckung eines Moleküls werden automatisch 5 MoleCoins hinzugefügt.","La primera vez que descubres una molécula, se añaden automáticamente 5 MoleCoins.","Na primeira descoberta de uma molécula, 5 MoleCoins são adicionadas automaticamente.","分子を初めて発見すると、MoleCoinが自動で5枚追加されます。")},
-    holo_table:{before:ml("Kesin hamle: ","Exact move: ","Exakter Zug: ","Movimiento exacto: ","Movimento exato: ","正確な一手：")+'<span class="mxInlineMoleCoin"><span class="coinIcon" aria-hidden="true"></span><b>125</b></span>',after:ml("Kesin hamle: ","Exact move: ","Exakter Zug: ","Movimiento exacto: ","Movimento exato: ","正確な一手：")+'<span class="mxInlineMoleCoin"><span class="coinIcon" aria-hidden="true"></span><b>100</b></span>',note:ml("Kesin ipucu fiyatları otomatik olarak %20 düşer.","Exact-hint prices are reduced automatically by 20%.","Die Preise für exakte Hinweise sinken automatisch um 20 %.","Los precios de las pistas exactas se reducen automáticamente un 20 %.","Os preços das dicas exatas são reduzidos automaticamente em 20%.","正確なヒントの価格が自動で20%下がります。")},
+    holo_table:{before:ml("Kesin hamle: ","Exact move: ","Exakter Zug: ","Movimiento exacto: ","Movimento exato: ","正確な一手：")+'<span class="mxInlineMoleCoin"><span class="coinIcon" aria-hidden="true"></span><b>200</b></span>',after:ml("Kesin hamle: ","Exact move: ","Exakter Zug: ","Movimiento exacto: ","Movimento exato: ","正確な一手：")+'<span class="mxInlineMoleCoin"><span class="coinIcon" aria-hidden="true"></span><b>160</b></span>',note:ml("Kesin ipucu fiyatları otomatik olarak %20 düşer.","Exact-hint prices are reduced automatically by 20%.","Die Preise für exakte Hinweise sinken automatisch um 20 %.","Los precios de las pistas exactas se reducen automáticamente un 20 %.","Os preços das dicas exatas são reduzidos automaticamente em 20%.","正確なヒントの価格が自動で20%下がります。")},
     quantum_desk:{before:ml("Ücretsiz kesin ipucu: 0","Free exact hint: 0","Kostenlose exakte Hinweise: 0","Pistas exactas gratis: 0","Dicas exatas grátis: 0","無料の正確なヒント：0"),after:ml("Her gün ücretsiz: 1","Daily free: 1","Täglich kostenlos: 1","Gratis al día: 1","Grátis por dia: 1","1日1回無料"),note:ml("Her UTC gününde ilk kesin hamle ipucun ücretsiz olur.","Your first exact-move hint each UTC day is free.","Der erste exakte Zughinweis jedes UTC-Tages ist kostenlos.","La primera pista de movimiento exacto de cada día UTC es gratis.","A primeira dica de movimento exato de cada dia UTC é grátis.","UTC日ごとの最初の正確な一手ヒントは無料です。")},
     robot:{before:ml("Günün Deneyi ödülü","Daily Experiment reward","Belohnung für das Tagesexperiment","Recompensa del Experimento Diario","Recompensa do Experimento Diário","今日の実験の報酬"),after:ml("+5 MoleCoin bonusu","+5 MoleCoin bonus","+5 MoleCoin-Bonus","Bono de +5 MoleCoin","Bônus de +5 MoleCoin","MoleCoin +5 ボーナス"),note:ml("Günün Deneyi’nin o günkü ilk ödülüne otomatik +5 MoleCoin eklenir.","Adds +5 MoleCoins automatically to the first Daily Experiment reward of the day.","Fügt der ersten Belohnung des Tagesexperiments automatisch +5 MoleCoins hinzu.","Añade automáticamente +5 MoleCoins a la primera recompensa del Experimento Diario.","Adiciona automaticamente +5 MoleCoins à primeira recompensa do Experimento do Dia.","その日の最初の「今日の実験」報酬にMoleCoinを5枚自動追加します。")},
     collider:{before:ml("İlk bonus görevi","First bonus mission","Erste Bonusmission","Primera misión extra","Primeira missão bônus","最初のボーナスミッション"),after:ml("+20 MoleCoin bonusu","+20 MoleCoin bonus","+20 MoleCoin-Bonus","Bono de +20 MoleCoin","Bônus de +20 MoleCoin","MoleCoin +20 ボーナス"),note:ml("İlk kez tamamlanan bonus görevlerinin ödülüne +20 MoleCoin eklenir.","Adds +20 MoleCoins to first-clear bonus mission rewards.","Fügt Belohnungen für erstmals abgeschlossene Bonusmissionen 20 MoleCoins hinzu.","Añade 20 MoleCoins a la recompensa de una misión extra completada por primera vez.","Adiciona 20 MoleCoins à recompensa da primeira conclusão de uma missão bônus.","ボーナスミッション初回クリア報酬にMoleCoinを20枚追加します。")},
@@ -3930,10 +4035,10 @@ function labEquipmentGuideModal(){
   bindTap('#mLabGuideClose',()=>settingsModal());
 }
 const BOOSTER_ITEMS=[
-  {id:'hammer',price:90,icon:'🔨',name:{tr:'Çekiç',en:'Hammer',de:'Hammer',es:'Martillo',pt:'Martelo',ja:'ハンマー'},desc:{tr:'Kırılabilir duvar bulunan uyumlu bölümlerde bir duvarı kırar.',en:'Breaks one breakable wall in compatible levels.',de:'Zerstört in kompatiblen Levels eine zerstörbare Wand.',es:'Rompe una pared rompible en niveles compatibles.',pt:'Quebra uma parede quebrável em fases compatíveis.',ja:'対応レベルで壊せる壁を1つ破壊。'}},
-  {id:'precision',price:120,icon:'↔️',name:{tr:'Tek Kare Hareket',en:'One-Square Move',de:'Ein-Feld-Zug',es:'Movimiento de una casilla',pt:'Movimento de uma casa',ja:'1マス移動'},desc:{tr:'Uyumlu bölümlerde seçilen atomu yalnızca bir kare taşır.',en:'Moves the selected atom exactly one square in compatible levels.',de:'Bewegt das gewählte Atom in kompatiblen Levels genau ein Feld.',es:'Mueve el átomo seleccionado exactamente una casilla en niveles compatibles.',pt:'Move o átomo selecionado exatamente uma casa em fases compatíveis.',ja:'対応レベルで選択した原子をちょうど1マス移動。'}},
+  {id:'hammer',price:150,icon:'🔨',name:{tr:'Çekiç',en:'Hammer',de:'Hammer',es:'Martillo',pt:'Martelo',ja:'ハンマー'},desc:{tr:'Kırılabilir duvar bulunan uyumlu bölümlerde bir duvarı kırar.',en:'Breaks one breakable wall in compatible levels.',de:'Zerstört in kompatiblen Levels eine zerstörbare Wand.',es:'Rompe una pared rompible en niveles compatibles.',pt:'Quebra uma parede quebrável em fases compatíveis.',ja:'対応レベルで壊せる壁を1つ破壊。'}},
 ];
-const BARRIER_USE_PRICE=300;
+const BARRIER_USE_PRICE=500;
+const PRECISION_USE_PRICE=250;
 function boosterKey(id){return '__booster_'+id;}
 function boosterCount(id){ensureResearchState(save);return Math.max(0,Math.floor(Number(save.researchAchievements[boosterKey(id)])||0));}
 function addBooster(id,n=1){ensureResearchState(save);n=Math.max(0,Math.floor(Number(n)||0));save.researchAchievements[boosterKey(id)]=boosterCount(id)+n;return boosterCount(id);}
@@ -3956,6 +4061,58 @@ function lx(v){if(v&&typeof v==='object'){const exact=v[LANG];if(exact!==undefin
 function ui6(tr,en,de,es,pt,ja){return (LANG==='fr'||LANG==='zh'||LANG==='it')?v2Text(en,LANG):({tr,en,de,es,pt,ja}[LANG]||en||tr||'');}
 const MX_EXP_MOL_INFO={"XeO3":{"about":{"tr":"Ksenon trioksit, ksenon ve oksijenden oluşan, yüksek yükseltgenme basamaklı ve çok hassas bir ksenon oksididir.","en":"Xenon trioxide is a highly sensitive xenon oxide made from xenon and oxygen, with xenon in a high oxidation state.","de":"Xenontrioxid ist ein sehr empfindliches Xenonoxid aus Xenon und Sauerstoff, in dem Xenon eine hohe Oxidationsstufe besitzt.","es":"El trióxido de xenón es un óxido de xenón muy sensible formado por xenón y oxígeno, con el xenón en un estado de oxidación alto.","pt":"O trióxido de xenônio é um óxido de xenônio muito sensível, formado por xenônio e oxigênio, com o xenônio em alto estado de oxidação.","ja":"三酸化キセノンは、キセノンと酸素からなる非常に敏感なキセノン酸化物で、キセノンが高い酸化状態をとります。","fr":"Le trioxyde de xénon est un oxyde de xénon très sensible formé de xénon et d’oxygène, où le xénon possède un état d’oxydation élevé.","zh":"三氧化氙是一种由氙和氧组成、非常敏感的氙氧化物，其中氙处于较高氧化态。","it":"Il triossido di xeno è un ossido di xeno molto sensibile formato da xeno e ossigeno, con lo xeno in un alto stato di ossidazione."},"use":{"tr":"Rutin ticari kullanımı yoktur; soy gaz kimyası ve ksenon–oksijen bağlarını anlamak için araştırılır.","en":"It has no routine commercial use; it is studied to understand noble-gas chemistry and xenon–oxygen bonding.","de":"Es hat keine übliche kommerzielle Anwendung; es wird zur Erforschung der Edelgaschemie und von Xenon-Sauerstoff-Bindungen untersucht.","es":"No tiene un uso comercial habitual; se estudia para comprender la química de los gases nobles y los enlaces xenón–oxígeno.","pt":"Não tem uso comercial rotineiro; é estudado para compreender a química dos gases nobres e as ligações xenônio–oxigênio.","ja":"一般的な商業用途はなく、希ガス化学やキセノン–酸素結合を理解するために研究されます。","fr":"Il n’a pas d’usage commercial courant ; il est étudié pour comprendre la chimie des gaz nobles et les liaisons xénon–oxygène.","zh":"它没有常规商业用途，主要用于研究稀有气体化学以及氙–氧键。","it":"Non ha un uso commerciale abituale; viene studiato per comprendere la chimica dei gas nobili e i legami xeno–ossigeno."},"fact":{"tr":"Soy gazların tamamen tepkisiz olmadığını gösteren çarpıcı örneklerden biridir.","en":"It is a striking example that noble gases are not completely chemically inert.","de":"Es ist ein eindrucksvolles Beispiel dafür, dass Edelgase chemisch nicht völlig inert sind.","es":"Es un ejemplo llamativo de que los gases nobles no son completamente inertes químicamente.","pt":"É um exemplo marcante de que os gases nobres não são totalmente inertes quimicamente.","ja":"希ガスが化学的に完全な不活性ではないことを示す印象的な例です。","fr":"C’est un exemple frappant montrant que les gaz nobles ne sont pas totalement inertes chimiquement.","zh":"它生动说明了稀有气体并非在化学上完全惰性。","it":"È un esempio notevole del fatto che i gas nobili non sono completamente inerti dal punto di vista chimico."}},"HOCl":{"about":{"tr":"Hipokloröz asit, suda oluşabilen zayıf fakat güçlü oksitleyici özellik gösteren bir klor oksiasididir.","en":"Hypochlorous acid is a weak chlorine oxoacid that can form in water and acts as a strong oxidizing antimicrobial species.","de":"Hypochlorige Säure ist eine schwache Chlor-Sauerstoffsäure, die sich in Wasser bilden kann und stark oxidierend sowie antimikrobiell wirkt.","es":"El ácido hipocloroso es un oxoácido débil del cloro que puede formarse en agua y actúa como especie oxidante y antimicrobiana.","pt":"O ácido hipocloroso é um oxiácido fraco do cloro que pode se formar na água e atua como espécie oxidante e antimicrobiana.","ja":"次亜塩素酸は水中で生じる弱い塩素オキソ酸で、強い酸化力と抗微生物作用を示します。","fr":"L’acide hypochloreux est un oxoacide faible du chlore qui peut se former dans l’eau et agit comme espèce oxydante antimicrobienne.","zh":"次氯酸是一种可在水中形成的弱含氯含氧酸，同时具有很强的氧化和抗微生物作用。","it":"L’acido ipocloroso è un debole ossiacido del cloro che può formarsi in acqua e agisce come specie ossidante antimicrobica."},"use":{"tr":"Su arıtımı ve dezenfeksiyonda etkilidir; bağışıklık hücreleri de mikroplarla savaşırken HOCl üretebilir.","en":"It is effective in water treatment and disinfection; immune cells can also produce HOCl while fighting microbes.","de":"Es ist bei Wasseraufbereitung und Desinfektion wirksam; auch Immunzellen können HOCl zur Bekämpfung von Mikroben bilden.","es":"Es eficaz en tratamiento de agua y desinfección; las células inmunitarias también pueden producir HOCl para combatir microbios.","pt":"É eficaz no tratamento de água e na desinfecção; células do sistema imune também podem produzir HOCl para combater micróbios.","ja":"水処理や消毒に有効で、免疫細胞も微生物と戦う際にHOClを生成できます。","fr":"Il est efficace pour le traitement de l’eau et la désinfection ; les cellules immunitaires peuvent aussi produire du HOCl contre les microbes.","zh":"它可用于水处理和消毒；免疫细胞在对抗微生物时也能产生HOCl。","it":"È efficace nel trattamento dell’acqua e nella disinfezione; anche le cellule immunitarie possono produrre HOCl per combattere i microbi."},"fact":{"tr":"Vücuttaki bazı beyaz kan hücreleri HOCl’yi kendi kimyasal savunmalarının bir parçası olarak üretir.","en":"Some white blood cells make HOCl as part of the body’s own chemical defense system.","de":"Einige weiße Blutkörperchen bilden HOCl als Teil der körpereigenen chemischen Abwehr.","es":"Algunos glóbulos blancos producen HOCl como parte de la defensa química del organismo.","pt":"Alguns glóbulos brancos produzem HOCl como parte da defesa química do organismo.","ja":"一部の白血球は、体の化学的防御の一部としてHOClを作ります。","fr":"Certains globules blancs produisent du HOCl dans le cadre des défenses chimiques de l’organisme.","zh":"某些白细胞会产生HOCl，作为人体自身化学防御的一部分。","it":"Alcuni globuli bianchi producono HOCl come parte delle difese chimiche dell’organismo."}},"NaBr":{"about":{"tr":"Sodyum bromür, sodyum ve bromür iyonlarından oluşan, suda iyi çözünen iyonik bir tuzdur.","en":"Sodium bromide is a water-soluble ionic salt made of sodium and bromide ions.","de":"Natriumbromid ist ein wasserlösliches Ionensalz aus Natrium- und Bromidionen.","es":"El bromuro de sodio es una sal iónica soluble en agua formada por iones sodio y bromuro.","pt":"O brometo de sódio é um sal iônico solúvel em água formado por íons sódio e brometo.","ja":"臭化ナトリウムはナトリウムイオンと臭化物イオンからなる水溶性のイオン性塩です。","fr":"Le bromure de sodium est un sel ionique soluble dans l’eau, formé d’ions sodium et bromure.","zh":"溴化钠是一种由钠离子和溴离子组成、易溶于水的离子盐。","it":"Il bromuro di sodio è un sale ionico solubile in acqua formato da ioni sodio e bromuro."},"use":{"tr":"Bromür kaynağı olarak kimyasal üretimde ve bazı su arıtma sistemlerinde kullanılır; fotoğrafçılıkta da tarihsel kullanımı vardır.","en":"It is used as a bromide source in chemical manufacturing and some water-treatment systems, with historical use in photography.","de":"Es dient als Bromidquelle in der chemischen Herstellung und in manchen Wasseraufbereitungssystemen; historisch wurde es auch in der Fotografie genutzt.","es":"Se usa como fuente de bromuro en fabricación química y algunos sistemas de tratamiento de agua, y tuvo uso histórico en fotografía.","pt":"É usado como fonte de brometo na fabricação química e em alguns sistemas de tratamento de água, além de uso histórico em fotografia.","ja":"化学製造や一部の水処理システムで臭化物源として使われ、写真分野でも歴史的に利用されました。","fr":"Il sert de source de bromure dans la fabrication chimique et certains systèmes de traitement de l’eau, avec un usage historique en photographie.","zh":"它可作为溴离子来源用于化学制造和部分水处理系统，历史上也用于摄影。","it":"È usato come fonte di bromuro nella produzione chimica e in alcuni sistemi di trattamento dell’acqua; in passato è stato usato anche in fotografia."},"fact":{"tr":"Katı halde kristal görünür; suya girdiğinde Na⁺ ve Br⁻ iyonlarına ayrılır.","en":"As a solid it forms crystals; in water it separates into Na⁺ and Br⁻ ions.","de":"Als Feststoff bildet es Kristalle; in Wasser trennt es sich in Na⁺- und Br⁻-Ionen.","es":"Como sólido forma cristales; en agua se separa en iones Na⁺ y Br⁻.","pt":"Como sólido forma cristais; na água se separa em íons Na⁺ e Br⁻.","ja":"固体では結晶を作り、水中ではNa⁺とBr⁻のイオンに分かれます。","fr":"À l’état solide il forme des cristaux ; dans l’eau il se sépare en ions Na⁺ et Br⁻.","zh":"固态时它形成晶体；进入水中后会分离成Na⁺和Br⁻离子。","it":"Allo stato solido forma cristalli; in acqua si separa negli ioni Na⁺ e Br⁻."}},"HOBr":{"about":{"tr":"Hipobromöz asit, bromun suda oluşturduğu zayıf bir oksiasittir ve aktif bir oksitleyici dezenfektan türüdür.","en":"Hypobromous acid is a weak bromine oxoacid formed in water and is an active oxidizing disinfectant species.","de":"Hypobromige Säure ist eine schwache Brom-Sauerstoffsäure, die sich in Wasser bildet und als oxidierende Desinfektionsspezies wirkt.","es":"El ácido hipobromoso es un oxoácido débil del bromo que se forma en agua y actúa como especie desinfectante oxidante.","pt":"O ácido hipobromoso é um oxiácido fraco do bromo formado na água e atua como espécie desinfetante oxidante.","ja":"次亜臭素酸は水中で生じる弱い臭素オキソ酸で、酸化性の消毒成分として働きます。","fr":"L’acide hypobromeux est un oxoacide faible du brome formé dans l’eau et agit comme espèce désinfectante oxydante.","zh":"次溴酸是一种在水中形成的弱含溴含氧酸，是活性的氧化性消毒物种。","it":"L’acido ipobromoso è un debole ossiacido del bromo che si forma in acqua e agisce come specie disinfettante ossidante."},"use":{"tr":"Brom bazlı havuz ve spa dezenfeksiyonunda etkin türlerden biridir; kararsız olduğu için genellikle yerinde oluşur.","en":"It is one of the active species in bromine-based pool and spa disinfection and is usually generated in place because it is unstable.","de":"Es ist eine der aktiven Spezies bei der bromgestützten Pool- und Spa-Desinfektion und wird wegen seiner Instabilität meist vor Ort gebildet.","es":"Es una de las especies activas en la desinfección de piscinas y spas con bromo y suele generarse in situ por su inestabilidad.","pt":"É uma das espécies ativas na desinfecção de piscinas e spas com bromo e geralmente é gerado no local por ser instável.","ja":"臭素系のプールやスパ消毒で働く活性種の一つで、不安定なため通常はその場で生成されます。","fr":"C’est l’une des espèces actives de la désinfection au brome des piscines et spas, généralement produite sur place car elle est instable.","zh":"它是溴系泳池和SPA消毒中的活性物种之一，由于不稳定，通常在使用现场生成。","it":"È una delle specie attive nella disinfezione a base di bromo di piscine e spa e, poiché è instabile, viene normalmente generato sul posto."},"fact":{"tr":"Suyun pH’ı değiştikçe HOBr ile hipobromit iyonu OBr⁻ arasındaki denge de değişir.","en":"As water pH changes, the balance between HOBr and the hypobromite ion OBr⁻ changes too.","de":"Mit dem pH-Wert des Wassers verschiebt sich auch das Gleichgewicht zwischen HOBr und dem Hypobromit-Ion OBr⁻.","es":"Al cambiar el pH del agua también cambia el equilibrio entre HOBr y el ion hipobromito OBr⁻.","pt":"Quando o pH da água muda, também muda o equilíbrio entre HOBr e o íon hipobromito OBr⁻.","ja":"水のpHが変わると、HOBrと次亜臭素酸イオンOBr⁻の平衡も変化します。","fr":"Lorsque le pH de l’eau change, l’équilibre entre HOBr et l’ion hypobromite OBr⁻ change aussi.","zh":"随着水的pH变化，HOBr与次溴酸根离子OBr⁻之间的平衡也会变化。","it":"Quando cambia il pH dell’acqua, cambia anche l’equilibrio tra HOBr e lo ione ipobromito OBr⁻."}},"H2O2":{"about":{"tr":"Hidrojen peroksit, iki oksijen atomu arasında peroksit bağı bulunan güçlü bir oksitleyicidir.","en":"Hydrogen peroxide is a strong oxidizer containing a peroxide bond between two oxygen atoms.","de":"Wasserstoffperoxid ist ein starkes Oxidationsmittel mit einer Peroxidbindung zwischen zwei Sauerstoffatomen.","es":"El peróxido de hidrógeno es un oxidante fuerte con un enlace peróxido entre dos átomos de oxígeno.","pt":"O peróxido de hidrogênio é um forte oxidante com uma ligação peróxido entre dois átomos de oxigênio.","ja":"過酸化水素は、2つの酸素原子の間に過酸化結合をもつ強い酸化剤です。","fr":"Le peroxyde d’hydrogène est un oxydant puissant contenant une liaison peroxyde entre deux atomes d’oxygène.","zh":"过氧化氢是一种强氧化剂，两个氧原子之间具有过氧键。","it":"Il perossido di idrogeno è un forte ossidante con un legame perossidico tra due atomi di ossigeno."},"use":{"tr":"Dezenfeksiyon, ağartma, su arıtımı ve çeşitli kimyasal üretim süreçlerinde kullanılır.","en":"It is used in disinfection, bleaching, water treatment, and many chemical manufacturing processes.","de":"Es wird zur Desinfektion, zum Bleichen, in der Wasseraufbereitung und in vielen chemischen Herstellungsprozessen eingesetzt.","es":"Se utiliza en desinfección, blanqueo, tratamiento de agua y numerosos procesos de fabricación química.","pt":"É usado em desinfecção, branqueamento, tratamento de água e diversos processos de fabricação química.","ja":"消毒、漂白、水処理、さまざまな化学製造工程で使われます。","fr":"Il est utilisé pour la désinfection, le blanchiment, le traitement de l’eau et de nombreux procédés de fabrication chimique.","zh":"它用于消毒、漂白、水处理以及多种化学制造过程。","it":"È usato nella disinfezione, nello sbiancamento, nel trattamento dell’acqua e in molti processi chimici industriali."},"fact":{"tr":"Parçalandığında su ve oksijen oluşturur; gördüğün kabarcıkların önemli kısmı açığa çıkan oksijendir.","en":"When it decomposes it forms water and oxygen; many of the bubbles you see are released oxygen.","de":"Beim Zerfall entstehen Wasser und Sauerstoff; viele der sichtbaren Bläschen bestehen aus freigesetztem Sauerstoff.","es":"Al descomponerse forma agua y oxígeno; muchas de las burbujas visibles son oxígeno liberado.","pt":"Ao se decompor forma água e oxigênio; muitas das bolhas visíveis são oxigênio liberado.","ja":"分解すると水と酸素になり、見える泡の多くは放出された酸素です。","fr":"En se décomposant, il forme de l’eau et de l’oxygène ; une grande partie des bulles visibles correspond à l’oxygène libéré.","zh":"它分解时会生成水和氧气；看到的许多气泡就是释放出的氧气。","it":"Quando si decompone forma acqua e ossigeno; molte delle bolle visibili sono ossigeno liberato."}},"S2Cl2":{"about":{"tr":"Disülfür diklorür, iki kükürt atomunun birbirine bağlı olduğu reaktif bir kükürt-klor bileşiğidir.","en":"Disulfur dichloride is a reactive sulfur–chlorine compound containing a sulfur–sulfur bond.","de":"Dischwefeldichlorid ist eine reaktive Schwefel-Chlor-Verbindung mit einer Schwefel-Schwefel-Bindung.","es":"El dicloruro de disulfuro es un compuesto reactivo de azufre y cloro que contiene un enlace azufre–azufre.","pt":"O dicloreto de dissulfureto é um composto reativo de enxofre e cloro que contém uma ligação enxofre–enxofre.","ja":"二塩化二硫黄は、硫黄–硫黄結合をもつ反応性の高い硫黄・塩素化合物です。","fr":"Le dichlorure de disoufre est un composé réactif soufre–chlore contenant une liaison soufre–soufre.","zh":"二氯化二硫是一种活泼的硫–氯化合物，内部含有硫–硫键。","it":"Il dicloruro di dizolfo è un composto reattivo di zolfo e cloro che contiene un legame zolfo–zolfo."},"use":{"tr":"Kauçuğun vulkanizasyonunda ve çeşitli kimyasal sentez süreçlerinde kullanılır.","en":"It is used in rubber vulcanization and in a range of chemical synthesis processes.","de":"Es wird bei der Vulkanisation von Gummi und in verschiedenen chemischen Synthesen eingesetzt.","es":"Se utiliza en la vulcanización del caucho y en distintos procesos de síntesis química.","pt":"É usado na vulcanização da borracha e em vários processos de síntese química.","ja":"ゴムの加硫や、さまざまな化学合成工程で使われます。","fr":"Il est utilisé dans la vulcanisation du caoutchouc et dans divers procédés de synthèse chimique.","zh":"它用于橡胶硫化以及多种化学合成过程。","it":"È usato nella vulcanizzazione della gomma e in diversi processi di sintesi chimica."},"fact":{"tr":"Eski kaynaklarda “sulfur monochloride” adıyla da geçer; formülü yine S₂Cl₂’dir.","en":"Older sources often call it “sulfur monochloride,” even though its molecular formula is S₂Cl₂.","de":"In älteren Quellen heißt es oft „Schwefelmonochlorid“, obwohl die Summenformel S₂Cl₂ lautet.","es":"En fuentes antiguas suele llamarse “monocloruro de azufre”, aunque su fórmula molecular es S₂Cl₂.","pt":"Em fontes antigas aparece muitas vezes como “monocloreto de enxofre”, embora sua fórmula molecular seja S₂Cl₂.","ja":"古い資料では「一塩化硫黄」と呼ばれることがありますが、分子式はS₂Cl₂です。","fr":"Les sources anciennes l’appellent souvent « monochlorure de soufre », bien que sa formule moléculaire soit S₂Cl₂.","zh":"旧资料中常称它为“氯化硫/一氯化硫”，但其分子式实际上是S₂Cl₂。","it":"Nelle fonti più datate è spesso chiamato “monocloruro di zolfo”, anche se la formula molecolare è S₂Cl₂."}},"P4":{"about":{"tr":"P₄, beyaz fosforun dört fosfor atomundan oluşan tetrahedral moleküler birimidir.","en":"P₄ is the tetrahedral four-phosphorus molecular unit of white phosphorus.","de":"P₄ ist die tetraedrische Moleküleinheit aus vier Phosphoratomen im weißen Phosphor.","es":"P₄ es la unidad molecular tetraédrica de cuatro átomos de fósforo del fósforo blanco.","pt":"P₄ é a unidade molecular tetraédrica de quatro átomos de fósforo do fósforo branco.","ja":"P₄は白リンを構成する、4個のリン原子からなる正四面体型の分子単位です。","fr":"P₄ est l’unité moléculaire tétraédrique à quatre atomes de phosphore du phosphore blanc.","zh":"P₄是白磷中由四个磷原子组成的四面体分子单元。","it":"P₄ è l’unità molecolare tetraedrica a quattro atomi di fosforo del fosforo bianco."},"use":{"tr":"Beyaz fosfor endüstride fosforik asit ve başka fosfor bileşiklerini üretmek için bir başlangıç maddesidir.","en":"White phosphorus is an industrial starting material for producing phosphoric acid and many other phosphorus compounds.","de":"Weißer Phosphor ist ein industrieller Ausgangsstoff zur Herstellung von Phosphorsäure und vielen weiteren Phosphorverbindungen.","es":"El fósforo blanco es una materia prima industrial para producir ácido fosfórico y muchos otros compuestos de fósforo.","pt":"O fósforo branco é uma matéria-prima industrial para produzir ácido fosfórico e muitos outros compostos de fósforo.","ja":"白リンはリン酸や多くのリン化合物を製造するための工業原料です。","fr":"Le phosphore blanc est une matière première industrielle pour produire de l’acide phosphorique et de nombreux autres composés du phosphore.","zh":"白磷是工业上生产磷酸及许多其他含磷化合物的起始原料。","it":"Il fosforo bianco è una materia prima industriale per produrre acido fosforico e molti altri composti del fosforo."},"fact":{"tr":"P₄ molekülü gerçek hayatta düz bir kare değil, üç boyutlu bir tetrahedron oluşturur.","en":"A real P₄ molecule is not a flat square; its four phosphorus atoms form a three-dimensional tetrahedron.","de":"Ein echtes P₄-Molekül ist kein flaches Quadrat; die vier Phosphoratome bilden ein dreidimensionales Tetraeder.","es":"Una molécula real de P₄ no es un cuadrado plano; sus cuatro átomos de fósforo forman un tetraedro tridimensional.","pt":"Uma molécula real de P₄ não é um quadrado plano; seus quatro átomos de fósforo formam um tetraedro tridimensional.","ja":"実際のP₄分子は平面の四角形ではなく、4個のリン原子が三次元の正四面体を作ります。","fr":"Une vraie molécule de P₄ n’est pas un carré plat : ses quatre atomes de phosphore forment un tétraèdre tridimensionnel.","zh":"真实的P₄分子并不是平面正方形；四个磷原子会形成三维四面体。","it":"Una vera molecola di P₄ non è un quadrato piatto: i quattro atomi di fosforo formano un tetraedro tridimensionale."}},"Si2H4":{"about":{"tr":"Disilen, Si₂H₄ formüllü ve iki silisyum atomu arasında Si=Si bağı bulunan çok reaktif bir silisyum hidrürüdür.","en":"Disilene is a highly reactive silicon hydride, Si₂H₄, containing a Si=Si bond between two silicon atoms.","de":"Disilen ist ein sehr reaktives Siliciumhydrid mit der Formel Si₂H₄ und einer Si=Si-Bindung zwischen zwei Siliciumatomen.","es":"El disileno es un hidruro de silicio muy reactivo, Si₂H₄, con un enlace Si=Si entre dos átomos de silicio.","pt":"O disileno é um hidreto de silício muito reativo, Si₂H₄, com uma ligação Si=Si entre dois átomos de silício.","ja":"ジシレンはSi₂H₄で表される非常に反応性の高いケイ素水素化物で、2つのケイ素原子の間にSi=Si結合をもちます。","fr":"Le disilène est un hydrure de silicium très réactif, Si₂H₄, contenant une liaison Si=Si entre deux atomes de silicium.","zh":"二硅烯是一种非常活泼的硅氢化物Si₂H₄，两个硅原子之间含有Si=Si键。","it":"Il disilene è un idruro di silicio molto reattivo, Si₂H₄, con un legame Si=Si tra due atomi di silicio."},"use":{"tr":"Ana disilenin rutin endüstriyel kullanımı yoktur; silisyum çoklu bağlarının yapısı ve tepkimeleri üzerine araştırmalarda önemlidir.","en":"Parent disilene has no routine industrial use; it is important in research on the structure and reactivity of silicon multiple bonds.","de":"Das unsubstituierte Disilen hat keine übliche industrielle Anwendung; es ist für die Forschung zu Struktur und Reaktivität von Silicium-Mehrfachbindungen wichtig.","es":"El disileno no tiene un uso industrial habitual; es importante en la investigación sobre la estructura y reactividad de los enlaces múltiples del silicio.","pt":"O disileno simples não tem uso industrial rotineiro; é importante em pesquisas sobre a estrutura e a reatividade de ligações múltiplas de silício.","ja":"母体ジシレンに一般的な工業用途はなく、ケイ素多重結合の構造と反応性を研究する上で重要です。","fr":"Le disilène parent n’a pas d’usage industriel courant ; il est important pour la recherche sur la structure et la réactivité des liaisons multiples du silicium.","zh":"母体二硅烯没有常规工业用途，但在研究硅多重键的结构与反应性方面很重要。","it":"Il disilene semplice non ha un uso industriale abituale; è importante nella ricerca sulla struttura e reattività dei legami multipli del silicio."},"fact":{"tr":"Karbon-karbon çift bağlarına benzese de Si=Si bağı daha farklı geometrilere ve çok daha yüksek tepkime eğilimine sahip olabilir.","en":"Although it resembles a carbon–carbon double bond, a Si=Si bond can have different geometry and much greater reactivity.","de":"Obwohl sie einer Kohlenstoff-Kohlenstoff-Doppelbindung ähnelt, kann eine Si=Si-Bindung eine andere Geometrie und deutlich höhere Reaktivität besitzen.","es":"Aunque se parece a un doble enlace carbono–carbono, un enlace Si=Si puede tener geometría distinta y mucha mayor reactividad.","pt":"Embora lembre uma ligação dupla carbono–carbono, uma ligação Si=Si pode ter geometria diferente e reatividade muito maior.","ja":"炭素–炭素二重結合に似ていますが、Si=Si結合は異なる形状をとり、はるかに高い反応性を示すことがあります。","fr":"Même si elle rappelle une double liaison carbone–carbone, une liaison Si=Si peut présenter une géométrie différente et une réactivité bien plus forte.","zh":"虽然它类似碳–碳双键，但Si=Si键可能具有不同几何形状，并表现出更高反应性。","it":"Anche se ricorda un doppio legame carbonio–carbonio, un legame Si=Si può avere geometria diversa e reattività molto maggiore."}},"CH3SH":{"about":{"tr":"Metantiyol, CH₃SH formüllü, kükürt içeren ve çok güçlü kokusuyla tanınan renksiz bir gazdır.","en":"Methanethiol is a sulfur-containing colorless gas, CH₃SH, famous for its extremely strong odor.","de":"Methanthiol ist ein schwefelhaltiges farbloses Gas mit der Formel CH₃SH, das für seinen sehr starken Geruch bekannt ist.","es":"El metanotiol es un gas incoloro que contiene azufre, CH₃SH, famoso por su olor extremadamente fuerte.","pt":"O metanotiol é um gás incolor contendo enxofre, CH₃SH, conhecido por seu odor extremamente forte.","ja":"メタンチオールはCH₃SHで表される硫黄を含む無色の気体で、非常に強いにおいで知られます。","fr":"Le méthanethiol est un gaz incolore contenant du soufre, CH₃SH, célèbre pour son odeur extrêmement forte.","zh":"甲硫醇是一种含硫的无色气体，分子式CH₃SH，以极强气味著称。","it":"Il metantiolo è un gas incolore contenente zolfo, CH₃SH, famoso per il suo odore estremamente intenso."},"use":{"tr":"Kükürtlü kimyasalların üretiminde bir endüstriyel ara madde olarak kullanılır; bazı pestisit ve yakıt uygulamalarında da yer alır.","en":"It is used as an industrial intermediate for sulfur chemicals and appears in some pesticide and fuel-related applications.","de":"Es wird als industrielles Zwischenprodukt für Schwefelchemikalien eingesetzt und kommt auch in einigen Pestizid- und Kraftstoffanwendungen vor.","es":"Se usa como intermedio industrial para compuestos de azufre y aparece en algunas aplicaciones relacionadas con pesticidas y combustibles.","pt":"É usado como intermediário industrial para compostos de enxofre e aparece em algumas aplicações ligadas a pesticidas e combustíveis.","ja":"硫黄化学品の工業中間体として使われ、一部の農薬や燃料関連用途にも利用されます。","fr":"Il est utilisé comme intermédiaire industriel pour des produits soufrés et intervient dans certaines applications liées aux pesticides et aux carburants.","zh":"它可作为含硫化学品的工业中间体，也出现在部分农药和燃料相关应用中。","it":"È usato come intermedio industriale per sostanze chimiche contenenti zolfo e compare anche in alcune applicazioni legate a pesticidi e combustibili."},"fact":{"tr":"Metantiyol doğada çürüyen organik maddelerde ve bazı gıdalarda da oluşabilir.","en":"Methanethiol also occurs naturally in decaying organic matter and in some foods.","de":"Methanthiol kommt auch natürlich in verrottendem organischem Material und in einigen Lebensmitteln vor.","es":"El metanotiol también aparece de forma natural en materia orgánica en descomposición y en algunos alimentos.","pt":"O metanotiol também ocorre naturalmente em matéria orgânica em decomposição e em alguns alimentos.","ja":"メタンチオールは腐敗する有機物や一部の食品にも自然に存在します。","fr":"Le méthanethiol se forme aussi naturellement dans la matière organique en décomposition et dans certains aliments.","zh":"甲硫醇也会自然存在于腐败有机物以及某些食物中。","it":"Il metantiolo si trova anche naturalmente nella materia organica in decomposizione e in alcuni alimenti."}},"S8":{"about":{"tr":"S₈, sekiz kükürt atomunun halka oluşturduğu ve elementel kükürdün en yaygın moleküler biçimlerinden biri olan yapıdır.","en":"S₈ is an eight-sulfur ring and one of the most common molecular forms of elemental sulfur.","de":"S₈ ist ein Ring aus acht Schwefelatomen und eine der häufigsten Molekülformen des elementaren Schwefels.","es":"S₈ es un anillo de ocho átomos de azufre y una de las formas moleculares más comunes del azufre elemental.","pt":"S₈ é um anel de oito átomos de enxofre e uma das formas moleculares mais comuns do enxofre elementar.","ja":"S₈は8個の硫黄原子からなる環で、単体硫黄の代表的な分子形の一つです。","fr":"S₈ est un anneau de huit atomes de soufre et l’une des formes moléculaires les plus courantes du soufre élémentaire.","zh":"S₈是由八个硫原子组成的环，也是单质硫最常见的分子形态之一。","it":"S₈ è un anello di otto atomi di zolfo e una delle forme molecolari più comuni dello zolfo elementare."},"use":{"tr":"Elementel kükürt; sülfürik asit, gübre ve kauçuk vulkanizasyonu gibi büyük endüstriyel süreçlerin temel hammaddelerindendir.","en":"Elemental sulfur is a major raw material for sulfuric acid, fertilizers, and rubber vulcanization.","de":"Elementarer Schwefel ist ein wichtiger Rohstoff für Schwefelsäure, Düngemittel und die Vulkanisation von Gummi.","es":"El azufre elemental es una materia prima importante para ácido sulfúrico, fertilizantes y vulcanización del caucho.","pt":"O enxofre elementar é uma importante matéria-prima para ácido sulfúrico, fertilizantes e vulcanização da borracha.","ja":"単体硫黄は硫酸、肥料、ゴムの加硫などに使われる重要な工業原料です。","fr":"Le soufre élémentaire est une matière première majeure pour l’acide sulfurique, les engrais et la vulcanisation du caoutchouc.","zh":"单质硫是制造硫酸、肥料以及进行橡胶硫化的重要原料。","it":"Lo zolfo elementare è una materia prima importante per acido solforico, fertilizzanti e vulcanizzazione della gomma."},"fact":{"tr":"Gerçek S₈ halkası düz değildir; “taç” benzeri üç boyutlu kıvrımlı bir şekle sahiptir.","en":"A real S₈ ring is not flat; it adopts a puckered three-dimensional “crown” shape.","de":"Ein echter S₈-Ring ist nicht flach, sondern besitzt eine gefaltete dreidimensionale „Kronen“-Form.","es":"Un anillo real de S₈ no es plano; adopta una forma tridimensional plegada semejante a una “corona”.","pt":"Um anel real de S₈ não é plano; assume uma forma tridimensional dobrada semelhante a uma “coroa”.","ja":"実際のS₈環は平面ではなく、三次元の「王冠」のように折れ曲がった形をとります。","fr":"Un véritable anneau S₈ n’est pas plat ; il adopte une forme tridimensionnelle plissée en « couronne ».","zh":"真实的S₈环并非平面，而是呈三维起伏的“皇冠”形。","it":"Un vero anello S₈ non è piatto; assume una forma tridimensionale ripiegata simile a una “corona”."}},"N2H2":{"about":{"tr":"Diazen (diimid), HN=NH yapısında, kısa ömürlü ve cis/trans biçimleri bulunabilen bir azot hidrürüdür.","en":"Diazene (diimide) is a short-lived nitrogen hydride, HN=NH, that can exist in cis and trans forms.","de":"Diazen (Diimid) ist ein kurzlebiges Stickstoffhydrid HN=NH, das in cis- und trans-Formen vorkommen kann.","es":"El diazeno (diimida) es un hidruro de nitrógeno de vida corta, HN=NH, que puede existir en formas cis y trans.","pt":"O diazeno (diimida) é um hidreto de nitrogênio de vida curta, HN=NH, que pode existir nas formas cis e trans.","ja":"ジアゼン（ジイミド）はHN=NHで表される短寿命の窒素水素化物で、cis体とtrans体が存在します。","fr":"Le diazène (diimide) est un hydrure d’azote de courte durée de vie, HN=NH, pouvant exister sous formes cis et trans.","zh":"二氮烯（二酰亚胺）是一种短寿命的含氮氢化物HN=NH，可存在顺式和反式形态。","it":"Il diazene (diimmide) è un idruro di azoto di breve durata, HN=NH, che può esistere nelle forme cis e trans."},"use":{"tr":"Kararsız olduğu için genellikle gerektiği anda üretilir; organik kimyada bazı C=C çift bağlarını seçici biçimde indirgemek için kullanılabilir.","en":"Because it is unstable, it is usually generated when needed and can selectively reduce certain C=C double bonds in organic chemistry.","de":"Wegen seiner Instabilität wird es meist bei Bedarf erzeugt und kann in der organischen Chemie bestimmte C=C-Doppelbindungen selektiv reduzieren.","es":"Como es inestable, suele generarse cuando se necesita y puede reducir selectivamente ciertos dobles enlaces C=C en química orgánica.","pt":"Por ser instável, geralmente é gerado quando necessário e pode reduzir seletivamente certas ligações duplas C=C em química orgânica.","ja":"不安定なため通常は必要なときにその場で生成され、有機化学で特定のC=C二重結合を選択的に還元できます。","fr":"Comme il est instable, il est généralement produit au moment de l’emploi et peut réduire sélectivement certaines doubles liaisons C=C en chimie organique.","zh":"由于它不稳定，通常在需要时原位生成，可在有机化学中选择性还原某些C=C双键。","it":"Poiché è instabile, viene generalmente generato al momento dell’uso e può ridurre selettivamente alcuni doppi legami C=C in chimica organica."},"fact":{"tr":"Diazen indirgemesinde hidrojenler çift bağa birlikte aktarılır ve reaksiyon sonunda azot gazı oluşur.","en":"In a diimide reduction, hydrogen is transferred across the double bond and nitrogen gas is formed as the reagent is consumed.","de":"Bei einer Diimid-Reduktion wird Wasserstoff über die Doppelbindung übertragen, während beim Verbrauch des Reagenzes Stickstoffgas entsteht.","es":"En una reducción con diimida, el hidrógeno se transfiere al doble enlace y se forma nitrógeno gaseoso al consumirse el reactivo.","pt":"Na redução com diimida, o hidrogênio é transferido para a ligação dupla e forma-se gás nitrogênio à medida que o reagente é consumido.","ja":"ジイミド還元では二重結合へ水素が移り、試薬が消費されると窒素ガスが生じます。","fr":"Lors d’une réduction au diimide, l’hydrogène est transféré sur la double liaison et du diazote se forme à mesure que le réactif est consommé.","zh":"在二酰亚胺还原中，氢会转移到双键上，试剂消耗过程中会形成氮气。","it":"Nella riduzione con diimmide, l’idrogeno viene trasferito sul doppio legame e, consumandosi il reagente, si forma azoto gassoso."}},"As4":{"about":{"tr":"As₄, dört arsenik atomundan oluşan tetrahedral bir arsenik kümesidir ve moleküler arsenik türlerinden biridir.","en":"As₄ is a tetrahedral cluster of four arsenic atoms and one of the molecular forms of elemental arsenic.","de":"As₄ ist ein tetraedrischer Cluster aus vier Arsenatomen und eine molekulare Form des elementaren Arsens.","es":"As₄ es un agregado tetraédrico de cuatro átomos de arsénico y una de las formas moleculares del arsénico elemental.","pt":"As₄ é um aglomerado tetraédrico de quatro átomos de arsênio e uma das formas moleculares do arsênio elementar.","ja":"As₄は4個のヒ素原子からなる正四面体型クラスターで、単体ヒ素の分子形の一つです。","fr":"As₄ est un agrégat tétraédrique de quatre atomes d’arsenic et l’une des formes moléculaires de l’arsenic élémentaire.","zh":"As₄是由四个砷原子组成的四面体簇，也是单质砷的一种分子形态。","it":"As₄ è un cluster tetraedrico di quattro atomi di arsenico e una delle forme molecolari dell’arsenico elementare."},"use":{"tr":"Ayrı bir As₄ molekülünün rutin pratik kullanımı yoktur; arsenik buharı, allotropları ve bağ yapısı üzerine araştırmalarda incelenir.","en":"Discrete As₄ has no routine practical use; it is studied in research on arsenic vapor, allotropes, and bonding.","de":"Einzelnes As₄ hat keine übliche praktische Anwendung; es wird in der Forschung zu Arsendampf, Allotropen und Bindungen untersucht.","es":"El As₄ discreto no tiene un uso práctico habitual; se estudia en investigaciones sobre vapor de arsénico, alótropos y enlaces.","pt":"O As₄ isolado não tem uso prático rotineiro; é estudado em pesquisas sobre vapor de arsênio, alótropos e ligações.","ja":"単独のAs₄分子に一般的な実用用途はなく、ヒ素蒸気、同素体、結合の研究で扱われます。","fr":"La molécule As₄ isolée n’a pas d’usage pratique courant ; elle est étudiée dans les recherches sur la vapeur d’arsenic, les allotropes et les liaisons.","zh":"独立的As₄分子没有常规实用用途，主要用于研究砷蒸气、同素异形体和成键。","it":"La molecola As₄ isolata non ha un uso pratico abituale; viene studiata nella ricerca sul vapore di arsenico, sugli allotropi e sui legami."},"fact":{"tr":"P₄ gibi As₄ de dört atomlu tetrahedral bir yapı oluşturabilir; Moleculox’taki 2B şekil bunun sadeleştirilmiş modelidir.","en":"Like P₄, As₄ can form a four-atom tetrahedral structure; Moleculox shows a simplified 2D model of it.","de":"Wie P₄ kann auch As₄ eine tetraedrische Struktur aus vier Atomen bilden; Moleculox zeigt davon ein vereinfachtes 2D-Modell.","es":"Al igual que P₄, As₄ puede formar una estructura tetraédrica de cuatro átomos; Moleculox muestra un modelo 2D simplificado.","pt":"Assim como P₄, As₄ pode formar uma estrutura tetraédrica de quatro átomos; o Moleculox mostra um modelo 2D simplificado.","ja":"P₄と同様にAs₄も4原子の正四面体構造をとれます。Moleculoxではそれを簡略化した2Dモデルで表現します。","fr":"Comme P₄, As₄ peut former une structure tétraédrique à quatre atomes ; Moleculox en montre un modèle 2D simplifié.","zh":"与P₄类似，As₄也能形成四原子的四面体结构；Moleculox中显示的是简化的2D模型。","it":"Come P₄, anche As₄ può formare una struttura tetraedrica a quattro atomi; Moleculox ne mostra un modello 2D semplificato."}},"N2F4":{"about":{"tr":"Tetraflorohidrazin, iki azot atomunu N–N bağıyla birleştiren ve dört flor içeren N₂F₄ molekülüdür.","en":"Tetrafluorohydrazine is N₂F₄, a molecule with two nitrogen atoms joined by an N–N bond and four fluorine atoms.","de":"Tetrafluorhydrazin ist N₂F₄, ein Molekül mit zwei über eine N–N-Bindung verbundenen Stickstoffatomen und vier Fluoratomen.","es":"La tetrafluorohidrazina es N₂F₄, una molécula con dos átomos de nitrógeno unidos por un enlace N–N y cuatro átomos de flúor.","pt":"A tetrafluoro-hidrazina é N₂F₄, uma molécula com dois átomos de nitrogênio unidos por uma ligação N–N e quatro átomos de flúor.","ja":"テトラフルオロヒドラジンはN₂F₄で、N–N結合でつながった2個の窒素と4個のフッ素からなる分子です。","fr":"La tétrafluorohydrazine est N₂F₄, une molécule comportant deux atomes d’azote reliés par une liaison N–N et quatre atomes de fluor.","zh":"四氟肼N₂F₄由两个通过N–N键连接的氮原子和四个氟原子组成。","it":"La tetrafluoroidrazina è N₂F₄, una molecola con due atomi di azoto uniti da un legame N–N e quattro atomi di fluoro."},"use":{"tr":"Organik sentezde ve güçlü oksitleyici kimya araştırmalarında kullanılmış; roket yakıtı oksitleyicisi olarak da incelenmiştir.","en":"It has been used in organic synthesis and strong-oxidizer chemistry and has also been studied as a rocket-fuel oxidizing agent.","de":"Es wurde in der organischen Synthese und in der Chemie starker Oxidationsmittel eingesetzt und auch als Oxidationsmittel für Raketentreibstoffe untersucht.","es":"Se ha usado en síntesis orgánica y química de oxidantes fuertes, y también se ha estudiado como oxidante para combustibles de cohete.","pt":"Foi usado em síntese orgânica e na química de oxidantes fortes, além de ter sido estudado como oxidante para combustíveis de foguete.","ja":"有機合成や強酸化剤の化学で使われ、ロケット燃料用酸化剤としても研究されました。","fr":"Il a été utilisé en synthèse organique et dans la chimie des oxydants puissants, et étudié aussi comme oxydant pour carburants de fusée.","zh":"它曾用于有机合成和强氧化剂化学，也被研究作为火箭燃料体系中的氧化剂。","it":"È stato usato nella sintesi organica e nella chimica dei forti ossidanti ed è stato studiato anche come ossidante per combustibili per razzi."},"fact":{"tr":"Yapıyı iki NF₂ grubunun bir N–N bağıyla birleşmesi gibi düşünebilirsin.","en":"A useful way to picture it is as two NF₂ groups connected by an N–N bond.","de":"Man kann sich die Struktur gut als zwei NF₂-Gruppen vorstellen, die durch eine N–N-Bindung verbunden sind.","es":"Una forma útil de imaginar su estructura es como dos grupos NF₂ conectados por un enlace N–N.","pt":"Uma forma útil de imaginar a estrutura é como dois grupos NF₂ ligados por uma ligação N–N.","ja":"構造は、2つのNF₂基がN–N結合でつながっていると考えると分かりやすいです。","fr":"On peut se représenter sa structure comme deux groupes NF₂ reliés par une liaison N–N.","zh":"可以把它想象成两个NF₂基团通过一条N–N键连接在一起。","it":"Un modo utile per immaginarne la struttura è pensare a due gruppi NF₂ collegati da un legame N–N."}},"Se8":{"about":{"tr":"Se₈, sekiz selenyum atomunun halka oluşturduğu siklooktaselenyum yapısıdır.","en":"Se₈ is cyclooctaselenium, a ring made from eight selenium atoms.","de":"Se₈ ist Cyclooctaselen, ein Ring aus acht Selenatomen.","es":"Se₈ es ciclooctaselenio, un anillo formado por ocho átomos de selenio.","pt":"Se₈ é ciclooctasselênio, um anel formado por oito átomos de selênio.","ja":"Se₈は8個のセレン原子からなる環状分子、シクロオクタセレンです。","fr":"Se₈ est le cyclooctasélénium, un anneau formé de huit atomes de sélénium.","zh":"Se₈即环八硒，是由八个硒原子组成的环状结构。","it":"Se₈ è il cicloottaselenio, un anello formato da otto atomi di selenio."},"use":{"tr":"Ayrı Se₈ halkasının yaygın bir günlük kullanımı yoktur; selenyum allotropları, buhar türleri ve malzeme kimyası araştırmalarında önem taşır.","en":"The discrete Se₈ ring has no common everyday use; it is relevant to research on selenium allotropes, vapor species, and materials chemistry.","de":"Der einzelne Se₈-Ring hat keine verbreitete Alltagsanwendung; er ist für die Forschung zu Selen-Allotropen, Dampf-Spezies und Materialchemie relevant.","es":"El anillo Se₈ aislado no tiene un uso cotidiano común; es relevante en estudios de alótropos de selenio, especies de vapor y química de materiales.","pt":"O anel Se₈ isolado não tem uso cotidiano comum; é relevante em pesquisas sobre alótropos de selênio, espécies de vapor e química de materiais.","ja":"単独のSe₈環に一般的な日常用途はありませんが、セレン同素体、蒸気種、材料化学の研究で重要です。","fr":"L’anneau Se₈ isolé n’a pas d’usage quotidien courant ; il intervient dans les recherches sur les allotropes du sélénium, les espèces en phase vapeur et la chimie des matériaux.","zh":"独立的Se₈环没有常见日常用途，但在硒的同素异形体、蒸气物种和材料化学研究中很重要。","it":"L’anello Se₈ isolato non ha un comune uso quotidiano; è rilevante nella ricerca sugli allotropi del selenio, sulle specie in fase vapore e sulla chimica dei materiali."},"fact":{"tr":"Se₈, S₈ kükürt halkasıyla aynı sekiz üyeli halka fikrini paylaşır; ancak selenyum atomları daha büyük ve ağırdır.","en":"Se₈ shares the same eight-membered ring idea as S₈ sulfur, but selenium atoms are larger and heavier.","de":"Se₈ besitzt wie S₈ einen achtgliedrigen Ring, doch Selenatome sind größer und schwerer als Schwefelatome.","es":"Se₈ comparte la idea de un anillo de ocho miembros con S₈, pero los átomos de selenio son más grandes y pesados.","pt":"Se₈ compartilha a ideia de um anel de oito membros com S₈, mas os átomos de selênio são maiores e mais pesados.","ja":"Se₈はS₈と同じ8員環という考え方を共有しますが、セレン原子は硫黄原子より大きく重いです。","fr":"Se₈ partage avec S₈ l’idée d’un anneau à huit membres, mais les atomes de sélénium sont plus gros et plus lourds.","zh":"Se₈与S₈一样都是八元环，但硒原子比硫原子更大、更重。","it":"Se₈ condivide con S₈ l’idea dell’anello a otto membri, ma gli atomi di selenio sono più grandi e più pesanti."}}};
 window.MX_EXP_MOL_INFO=MX_EXP_MOL_INFO;
+/* R179 REV5 · Keep deferred Moleculopedia science aligned with the final
+   302–501 campaign targets. R134 replaced a subset of molecule identifiers
+   after the original science packs were authored; without reconciliation,
+   those targets fell back to short facts while obsolete cards remained in
+   the catalog. The generic entries deliberately describe certified puzzle
+   targets and do not claim an unverified real-world compound identity. */
+const R179_SEQ_SCIENCE_ABOUT={
+  en:'{name} is a formula-specific Moleculox research target. {formula} shows its elemental composition; the board defines a certified 2D connectivity challenge rather than claiming one unique real-world 3D species.',
+  tr:'{name}, formüle özgü bir Moleculox araştırma hedefidir. {formula} element bileşimini gösterir; tahta tek ve özgün bir gerçek 3B tür iddia etmek yerine onaylanmış bir 2B bağlanma bulmacası tanımlar.',
+  de:'{name} ist ein formelspezifisches Moleculox-Forschungsziel. {formula} zeigt die Elementzusammensetzung; das Feld definiert eine geprüfte 2D-Verknüpfungsaufgabe und behauptet keine eindeutige reale 3D-Spezies.',
+  es:'{name} es un objetivo de investigación de Moleculox definido por su fórmula. {formula} muestra la composición elemental; el tablero plantea una conectividad 2D verificada, no una especie 3D real única.',
+  pt:'{name} é um alvo de pesquisa do Moleculox definido pela fórmula. {formula} mostra a composição elementar; o tabuleiro propõe uma conectividade 2D verificada, não uma espécie 3D real única.',
+  ja:'{name}は、化学式に基づくMoleculoxの研究ターゲットです。{formula}は元素組成を示し、盤面は検証済みの2D結合課題を表します。単一の実在3D化学種を主張するものではありません。',
+  fr:'{name} est une cible de recherche Moleculox définie par sa formule. {formula} indique la composition élémentaire ; le plateau propose une connectivité 2D vérifiée, sans prétendre représenter une espèce 3D réelle unique.',
+  zh:'{name}是一个由化学式定义的Moleculox研究目标。{formula}表示元素组成；棋盘给出经过验证的二维连接挑战，并不声称它对应唯一的真实三维物种。',
+  it:'{name} è un obiettivo di ricerca Moleculox definito dalla formula. {formula} indica la composizione elementare; il tabellone propone una connettività 2D verificata, senza affermare l’esistenza di un’unica specie 3D reale.'
+};
+const R179_SEQ_SCIENCE_USE={
+  en:'In Moleculox it is used to study sequential assembly, connectivity and route planning. No laboratory use or handling guidance is claimed for this puzzle target.',
+  tr:'Moleculox içinde sıralı birleştirme, bağlanma ve rota planlamasını çalışmak için kullanılır. Bu bulmaca hedefi için laboratuvar kullanımı ya da kullanım talimatı iddia edilmez.',
+  de:'In Moleculox dient es zum Üben von schrittweisem Aufbau, Verknüpfung und Routenplanung. Für dieses Puzzle-Ziel werden weder Laboranwendung noch Handhabungshinweise behauptet.',
+  es:'En Moleculox se usa para estudiar ensamblaje secuencial, conectividad y planificación de rutas. No se atribuye a este objetivo de puzle ningún uso de laboratorio ni instrucciones de manipulación.',
+  pt:'No Moleculox, ele é usado para estudar montagem sequencial, conectividade e planejamento de rotas. Não se atribuem a este alvo de puzzle uso laboratorial nem instruções de manuseio.',
+  ja:'Moleculoxでは、順次組立、結合関係、経路計画を学ぶために使います。このパズル目標について実験室用途や取り扱い手順を示すものではありません。',
+  fr:'Dans Moleculox, elle sert à étudier l’assemblage séquentiel, la connectivité et la planification d’itinéraire. Aucun usage de laboratoire ni conseil de manipulation n’est revendiqué pour cette cible de puzzle.',
+  zh:'在Moleculox中，它用于学习顺序组装、连接关系和路线规划。此谜题目标不声称具有实验室用途，也不提供操作指南。',
+  it:'In Moleculox serve a studiare assemblaggio sequenziale, connettività e pianificazione del percorso. Per questo obiettivo di puzzle non si dichiarano usi di laboratorio né istruzioni di manipolazione.'
+};
+function r179ScienceTemplate(text,molecule){
+  return String(text||'').replace('{name}',molecule.n||molecule.f).replace('{formula}',molecule.f||'');
+}
+function r179SequentialScienceEntry(id){
+  const sets={en:MOLS_EN,tr:MOLS_TR,de:MOLS_DE,es:MOLS_ES,pt:MOLS_PT,ja:MOLS_JA,fr:MOLS_FR,zh:MOLS_ZH,it:MOLS_IT};
+  const out={about:{},use:{},fact:{}};
+  for(const [lang,set] of Object.entries(sets)){
+    const molecule=set[id]||MOLS_EN[id];
+    if(!molecule)continue;
+    out.about[lang]=r179ScienceTemplate(R179_SEQ_SCIENCE_ABOUT[lang],molecule);
+    out.use[lang]=R179_SEQ_SCIENCE_USE[lang];
+    out.fact[lang]=molecule.fa||R143_SEQ_FACT[lang]||R143_SEQ_FACT.en;
+  }
+  return out;
+}
+function r179FinalizeExpansionScienceCatalog(){
+  const activeIds=LEVELS.slice(301,CAMPAIGN_TARGET_LEVELS).map(level=>level&&level.m).filter(Boolean);
+  const active=new Set(activeIds);
+  for(const id of Object.keys(MX_EXP_MOL_INFO))if(!active.has(id))delete MX_EXP_MOL_INFO[id];
+  for(const id of activeIds)if(!MX_EXP_MOL_INFO[id])MX_EXP_MOL_INFO[id]=r179SequentialScienceEntry(id);
+  return activeIds.length===200&&Object.keys(MX_EXP_MOL_INFO).length===200;
+}
+window.MXFinalizeExpansionScienceCatalog=r179FinalizeExpansionScienceCatalog;
+r179FinalizeExpansionScienceCatalog();
 /* R116 X-ORIGIN SCIENCE */
 const R116_ENDGAME_INFO={"C4H5BrFI3":{"about":{"en":"1-bromo-2-fluoro-1,3,4-triiodobutane (C₄H₅BrFI₃) is represented as a specific highly halogenated butane isomer. The real molecule is three-dimensional; Moleculox uses simplified 2D connectivity.","tr":"1-bromo-2-floro-1,3,4-triiyodobütan (C₄H₅BrFI₃), belirli bir yüksek halojenli bütan izomeri olarak gösterilir. Gerçek molekül üç boyutludur; Moleculox sadeleştirilmiş 2B bağlanma kullanır.","de":"1-brom-2-fluor-1,3,4-triiodbutan (C₄H₅BrFI₃) wird als bestimmtes hochhalogeniertes Butan-Isomer dargestellt. Moleculox nutzt vereinfachte 2D-Verknüpfung.","es":"1-bromo-2-fluoro-1,3,4-triyodobutano (C₄H₅BrFI₃) se representa como un isómero específico de butano muy halogenado. Moleculox usa conectividad 2D simplificada.","pt":"1-bromo-2-fluoro-1,3,4-triiodobutano (C₄H₅BrFI₃) é representado como um isômero específico de butano altamente halogenado. Moleculox usa conectividade 2D simplificada.","ja":"1-bromo-2-fluoro-1,3,4-triiodobutane（多ハロゲン化ブタン）（C₄H₅BrFI₃）は高度にハロゲン化された特定のブタン異性体です。Moleculoxでは簡略化した2D結合を使います。","fr":"1-bromo-2-fluoro-1,3,4-triiodobutane (C₄H₅BrFI₃) est représenté comme un isomère précis de butane fortement halogéné. Moleculox utilise une connectivité 2D simplifiée.","zh":"1-bromo-2-fluoro-1,3,4-triiodobutane（多卤代丁烷）（C₄H₅BrFI₃）是一种特定的高卤代丁烷异构体。Moleculox采用简化二维连接。","it":"1-bromo-2-fluoro-1,3,4-triiodobutano (C₄H₅BrFI₃) è rappresentato come uno specifico isomero di butano altamente alogenato. Moleculox usa connettività 2D semplificata."},"use":{"en":"No broad everyday use is claimed for this exact isomer. It is presented as a specialized synthesis/reference/research species; compound-specific evidence would be required before claiming a practical use.","tr":"Bu tam izomer için yaygın günlük kullanım iddia edilmez. Özel sentez/referans/araştırma türü olarak sunulur; pratik kullanım iddiası için bileşiğe özgü kanıt gerekir.","de":"Für dieses genaue Isomer wird keine breite Alltagsanwendung behauptet; es wird als spezielle Synthese-/Referenz-/Forschungsart dargestellt.","es":"No se afirma un uso cotidiano amplio para este isómero exacto; se presenta como especie especializada de síntesis, referencia o investigación.","pt":"Não se afirma um uso cotidiano amplo para este isômero exato; ele é apresentado como espécie especializada de síntese, referência ou pesquisa.","ja":"この正確な異性体に広い日常用途があるとはしていません。特殊合成・標準・研究の対象として提示します。","fr":"Aucun usage quotidien généralisé n’est affirmé pour cet isomère exact ; il est présenté comme espèce spécialisée de synthèse, de référence ou de recherche.","zh":"不声称这种确切异构体具有广泛日常用途；这里将其作为专门合成、标准或研究物种展示。","it":"Non viene attribuito un ampio uso quotidiano a questo esatto isomero; è presentato come specie specialistica di sintesi, riferimento o ricerca."},"fact":{"en":"Heavy halogen substitution can strongly change molecular mass, polarizability, volatility and reactivity. The game uses connectivity as the challenge and does not predict those properties from the board drawing.","tr":"Yoğun halojen yer değiştirmesi molekül kütlesi, polarize olabilirlik, uçuculuk ve tepkime davranışını ciddi biçimde değiştirebilir. Oyun bağlanmayı bulmaca olarak kullanır; tahta çiziminden bu özellikleri tahmin etmez.","de":"Starke Halogensubstitution kann Molekülmasse, Polarisierbarkeit, Flüchtigkeit und Reaktivität deutlich verändern. Das Spiel nutzt nur die Verknüpfung als Puzzle.","es":"Una halogenación intensa puede cambiar mucho masa molecular, polarizabilidad, volatilidad y reactividad. El juego usa la conectividad como reto, no como predicción de propiedades.","pt":"Uma halogenação intensa pode alterar bastante massa molecular, polarizabilidade, volatilidade e reatividade. O jogo usa a conectividade como desafio, não como previsão de propriedades.","ja":"強いハロゲン置換は分子量、分極率、揮発性、反応性を大きく変えることがあります。ゲームは結合関係を課題に使い、盤面から物性を予測しません。","fr":"Une forte halogénation peut modifier fortement masse moléculaire, polarisabilité, volatilité et réactivité. Le jeu utilise la connectivité comme défi, pas comme prédiction de propriétés.","zh":"高度卤代可能显著改变分子质量、可极化性、挥发性和反应性。游戏把连接关系作为挑战，并不根据棋盘图预测这些性质。","it":"Una forte alogenazione può cambiare molto massa molecolare, polarizzabilità, volatilità e reattività. Il gioco usa la connettività come sfida, non come previsione delle proprietà."}},"C4H5BrF2I2":{"about":{"en":"1-bromo-2,4-difluoro-1,3-diiodobutane (C₄H₅BrF₂I₂) is represented as a specific highly halogenated butane isomer. The real molecule is three-dimensional; Moleculox uses simplified 2D connectivity.","tr":"1-bromo-2,4-difloro-1,3-diiyodobütan (C₄H₅BrF₂I₂), belirli bir yüksek halojenli bütan izomeri olarak gösterilir. Gerçek molekül üç boyutludur; Moleculox sadeleştirilmiş 2B bağlanma kullanır.","de":"1-brom-2,4-difluor-1,3-diiodbutan (C₄H₅BrF₂I₂) wird als bestimmtes hochhalogeniertes Butan-Isomer dargestellt. Moleculox nutzt vereinfachte 2D-Verknüpfung.","es":"1-bromo-2,4-difluoro-1,3-diyodobutano (C₄H₅BrF₂I₂) se representa como un isómero específico de butano muy halogenado. Moleculox usa conectividad 2D simplificada.","pt":"1-bromo-2,4-difluoro-1,3-diiodobutano (C₄H₅BrF₂I₂) é representado como um isômero específico de butano altamente halogenado. Moleculox usa conectividade 2D simplificada.","ja":"1-bromo-2,4-difluoro-1,3-diiodobutane（多ハロゲン化ブタン）（C₄H₅BrF₂I₂）は高度にハロゲン化された特定のブタン異性体です。Moleculoxでは簡略化した2D結合を使います。","fr":"1-bromo-2,4-difluoro-1,3-diiodobutane (C₄H₅BrF₂I₂) est représenté comme un isomère précis de butane fortement halogéné. Moleculox utilise une connectivité 2D simplifiée.","zh":"1-bromo-2,4-difluoro-1,3-diiodobutane（多卤代丁烷）（C₄H₅BrF₂I₂）是一种特定的高卤代丁烷异构体。Moleculox采用简化二维连接。","it":"1-bromo-2,4-difluoro-1,3-diiodobutano (C₄H₅BrF₂I₂) è rappresentato come uno specifico isomero di butano altamente alogenato. Moleculox usa connettività 2D semplificata."},"use":{"en":"No broad everyday use is claimed for this exact isomer. It is presented as a specialized synthesis/reference/research species; compound-specific evidence would be required before claiming a practical use.","tr":"Bu tam izomer için yaygın günlük kullanım iddia edilmez. Özel sentez/referans/araştırma türü olarak sunulur; pratik kullanım iddiası için bileşiğe özgü kanıt gerekir.","de":"Für dieses genaue Isomer wird keine breite Alltagsanwendung behauptet; es wird als spezielle Synthese-/Referenz-/Forschungsart dargestellt.","es":"No se afirma un uso cotidiano amplio para este isómero exacto; se presenta como especie especializada de síntesis, referencia o investigación.","pt":"Não se afirma um uso cotidiano amplo para este isômero exato; ele é apresentado como espécie especializada de síntese, referência ou pesquisa.","ja":"この正確な異性体に広い日常用途があるとはしていません。特殊合成・標準・研究の対象として提示します。","fr":"Aucun usage quotidien généralisé n’est affirmé pour cet isomère exact ; il est présenté comme espèce spécialisée de synthèse, de référence ou de recherche.","zh":"不声称这种确切异构体具有广泛日常用途；这里将其作为专门合成、标准或研究物种展示。","it":"Non viene attribuito un ampio uso quotidiano a questo esatto isomero; è presentato come specie specialistica di sintesi, riferimento o ricerca."},"fact":{"en":"Heavy halogen substitution can strongly change molecular mass, polarizability, volatility and reactivity. The game uses connectivity as the challenge and does not predict those properties from the board drawing.","tr":"Yoğun halojen yer değiştirmesi molekül kütlesi, polarize olabilirlik, uçuculuk ve tepkime davranışını ciddi biçimde değiştirebilir. Oyun bağlanmayı bulmaca olarak kullanır; tahta çiziminden bu özellikleri tahmin etmez.","de":"Starke Halogensubstitution kann Molekülmasse, Polarisierbarkeit, Flüchtigkeit und Reaktivität deutlich verändern. Das Spiel nutzt nur die Verknüpfung als Puzzle.","es":"Una halogenación intensa puede cambiar mucho masa molecular, polarizabilidad, volatilidad y reactividad. El juego usa la conectividad como reto, no como predicción de propiedades.","pt":"Uma halogenação intensa pode alterar bastante massa molecular, polarizabilidade, volatilidade e reatividade. O jogo usa a conectividade como desafio, não como previsão de propriedades.","ja":"強いハロゲン置換は分子量、分極率、揮発性、反応性を大きく変えることがあります。ゲームは結合関係を課題に使い、盤面から物性を予測しません。","fr":"Une forte halogénation peut modifier fortement masse moléculaire, polarisabilité, volatilité et réactivité. Le jeu utilise la connectivité comme défi, pas comme prédiction de propriétés.","zh":"高度卤代可能显著改变分子质量、可极化性、挥发性和反应性。游戏把连接关系作为挑战，并不根据棋盘图预测这些性质。","it":"Una forte alogenazione può cambiare molto massa molecolare, polarizzabilità, volatilità e reattività. Il gioco usa la connettività come sfida, non come previsione delle proprietà."}},"C4H5BrF3I":{"about":{"en":"1-bromo-1,2,4-trifluoro-3-iodobutane (C₄H₅BrF₃I) is represented as a specific highly halogenated butane isomer. The real molecule is three-dimensional; Moleculox uses simplified 2D connectivity.","tr":"1-bromo-1,2,4-trifloro-3-iyodobütan (C₄H₅BrF₃I), belirli bir yüksek halojenli bütan izomeri olarak gösterilir. Gerçek molekül üç boyutludur; Moleculox sadeleştirilmiş 2B bağlanma kullanır.","de":"1-brom-1,2,4-trifluor-3-iodbutan (C₄H₅BrF₃I) wird als bestimmtes hochhalogeniertes Butan-Isomer dargestellt. Moleculox nutzt vereinfachte 2D-Verknüpfung.","es":"1-bromo-1,2,4-trifluoro-3-yodobutano (C₄H₅BrF₃I) se representa como un isómero específico de butano muy halogenado. Moleculox usa conectividad 2D simplificada.","pt":"1-bromo-1,2,4-trifluoro-3-iodobutano (C₄H₅BrF₃I) é representado como um isômero específico de butano altamente halogenado. Moleculox usa conectividade 2D simplificada.","ja":"1-bromo-1,2,4-trifluoro-3-iodobutane（多ハロゲン化ブタン）（C₄H₅BrF₃I）は高度にハロゲン化された特定のブタン異性体です。Moleculoxでは簡略化した2D結合を使います。","fr":"1-bromo-1,2,4-trifluoro-3-iodobutane (C₄H₅BrF₃I) est représenté comme un isomère précis de butane fortement halogéné. Moleculox utilise une connectivité 2D simplifiée.","zh":"1-bromo-1,2,4-trifluoro-3-iodobutane（多卤代丁烷）（C₄H₅BrF₃I）是一种特定的高卤代丁烷异构体。Moleculox采用简化二维连接。","it":"1-bromo-1,2,4-trifluoro-3-iodobutano (C₄H₅BrF₃I) è rappresentato come uno specifico isomero di butano altamente alogenato. Moleculox usa connettività 2D semplificata."},"use":{"en":"No broad everyday use is claimed for this exact isomer. It is presented as a specialized synthesis/reference/research species; compound-specific evidence would be required before claiming a practical use.","tr":"Bu tam izomer için yaygın günlük kullanım iddia edilmez. Özel sentez/referans/araştırma türü olarak sunulur; pratik kullanım iddiası için bileşiğe özgü kanıt gerekir.","de":"Für dieses genaue Isomer wird keine breite Alltagsanwendung behauptet; es wird als spezielle Synthese-/Referenz-/Forschungsart dargestellt.","es":"No se afirma un uso cotidiano amplio para este isómero exacto; se presenta como especie especializada de síntesis, referencia o investigación.","pt":"Não se afirma um uso cotidiano amplo para este isômero exato; ele é apresentado como espécie especializada de síntese, referência ou pesquisa.","ja":"この正確な異性体に広い日常用途があるとはしていません。特殊合成・標準・研究の対象として提示します。","fr":"Aucun usage quotidien généralisé n’est affirmé pour cet isomère exact ; il est présenté comme espèce spécialisée de synthèse, de référence ou de recherche.","zh":"不声称这种确切异构体具有广泛日常用途；这里将其作为专门合成、标准或研究物种展示。","it":"Non viene attribuito un ampio uso quotidiano a questo esatto isomero; è presentato come specie specialistica di sintesi, riferimento o ricerca."},"fact":{"en":"Heavy halogen substitution can strongly change molecular mass, polarizability, volatility and reactivity. The game uses connectivity as the challenge and does not predict those properties from the board drawing.","tr":"Yoğun halojen yer değiştirmesi molekül kütlesi, polarize olabilirlik, uçuculuk ve tepkime davranışını ciddi biçimde değiştirebilir. Oyun bağlanmayı bulmaca olarak kullanır; tahta çiziminden bu özellikleri tahmin etmez.","de":"Starke Halogensubstitution kann Molekülmasse, Polarisierbarkeit, Flüchtigkeit und Reaktivität deutlich verändern. Das Spiel nutzt nur die Verknüpfung als Puzzle.","es":"Una halogenación intensa puede cambiar mucho masa molecular, polarizabilidad, volatilidad y reactividad. El juego usa la conectividad como reto, no como predicción de propiedades.","pt":"Uma halogenação intensa pode alterar bastante massa molecular, polarizabilidade, volatilidade e reatividade. O jogo usa a conectividade como desafio, não como previsão de propriedades.","ja":"強いハロゲン置換は分子量、分極率、揮発性、反応性を大きく変えることがあります。ゲームは結合関係を課題に使い、盤面から物性を予測しません。","fr":"Une forte halogénation peut modifier fortement masse moléculaire, polarisabilité, volatilité et réactivité. Le jeu utilise la connectivité comme défi, pas comme prédiction de propriétés.","zh":"高度卤代可能显著改变分子质量、可极化性、挥发性和反应性。游戏把连接关系作为挑战，并不根据棋盘图预测这些性质。","it":"Una forte alogenazione può cambiare molto massa molecolare, polarizzabilità, volatilità e reattività. Il gioco usa la connettività come sfida, non come previsione delle proprietà."}},"C4H5Br2FI2":{"about":{"en":"1,4-dibromo-2-fluoro-1,3-diiodobutane (C₄H₅Br₂FI₂) is represented as a specific highly halogenated butane isomer. The real molecule is three-dimensional; Moleculox uses simplified 2D connectivity.","tr":"1,4-dibromo-2-floro-1,3-diiyodobütan (C₄H₅Br₂FI₂), belirli bir yüksek halojenli bütan izomeri olarak gösterilir. Gerçek molekül üç boyutludur; Moleculox sadeleştirilmiş 2B bağlanma kullanır.","de":"1,4-dibrom-2-fluor-1,3-diiodbutan (C₄H₅Br₂FI₂) wird als bestimmtes hochhalogeniertes Butan-Isomer dargestellt. Moleculox nutzt vereinfachte 2D-Verknüpfung.","es":"1,4-dibromo-2-fluoro-1,3-diyodobutano (C₄H₅Br₂FI₂) se representa como un isómero específico de butano muy halogenado. Moleculox usa conectividad 2D simplificada.","pt":"1,4-dibromo-2-fluoro-1,3-diiodobutano (C₄H₅Br₂FI₂) é representado como um isômero específico de butano altamente halogenado. Moleculox usa conectividade 2D simplificada.","ja":"1,4-dibromo-2-fluoro-1,3-diiodobutane（多ハロゲン化ブタン）（C₄H₅Br₂FI₂）は高度にハロゲン化された特定のブタン異性体です。Moleculoxでは簡略化した2D結合を使います。","fr":"1,4-dibromo-2-fluoro-1,3-diiodobutane (C₄H₅Br₂FI₂) est représenté comme un isomère précis de butane fortement halogéné. Moleculox utilise une connectivité 2D simplifiée.","zh":"1,4-dibromo-2-fluoro-1,3-diiodobutane（多卤代丁烷）（C₄H₅Br₂FI₂）是一种特定的高卤代丁烷异构体。Moleculox采用简化二维连接。","it":"1,4-dibromo-2-fluoro-1,3-diiodobutano (C₄H₅Br₂FI₂) è rappresentato come uno specifico isomero di butano altamente alogenato. Moleculox usa connettività 2D semplificata."},"use":{"en":"No broad everyday use is claimed for this exact isomer. It is presented as a specialized synthesis/reference/research species; compound-specific evidence would be required before claiming a practical use.","tr":"Bu tam izomer için yaygın günlük kullanım iddia edilmez. Özel sentez/referans/araştırma türü olarak sunulur; pratik kullanım iddiası için bileşiğe özgü kanıt gerekir.","de":"Für dieses genaue Isomer wird keine breite Alltagsanwendung behauptet; es wird als spezielle Synthese-/Referenz-/Forschungsart dargestellt.","es":"No se afirma un uso cotidiano amplio para este isómero exacto; se presenta como especie especializada de síntesis, referencia o investigación.","pt":"Não se afirma um uso cotidiano amplo para este isômero exato; ele é apresentado como espécie especializada de síntese, referência ou pesquisa.","ja":"この正確な異性体に広い日常用途があるとはしていません。特殊合成・標準・研究の対象として提示します。","fr":"Aucun usage quotidien généralisé n’est affirmé pour cet isomère exact ; il est présenté comme espèce spécialisée de synthèse, de référence ou de recherche.","zh":"不声称这种确切异构体具有广泛日常用途；这里将其作为专门合成、标准或研究物种展示。","it":"Non viene attribuito un ampio uso quotidiano a questo esatto isomero; è presentato come specie specialistica di sintesi, riferimento o ricerca."},"fact":{"en":"Heavy halogen substitution can strongly change molecular mass, polarizability, volatility and reactivity. The game uses connectivity as the challenge and does not predict those properties from the board drawing.","tr":"Yoğun halojen yer değiştirmesi molekül kütlesi, polarize olabilirlik, uçuculuk ve tepkime davranışını ciddi biçimde değiştirebilir. Oyun bağlanmayı bulmaca olarak kullanır; tahta çiziminden bu özellikleri tahmin etmez.","de":"Starke Halogensubstitution kann Molekülmasse, Polarisierbarkeit, Flüchtigkeit und Reaktivität deutlich verändern. Das Spiel nutzt nur die Verknüpfung als Puzzle.","es":"Una halogenación intensa puede cambiar mucho masa molecular, polarizabilidad, volatilidad y reactividad. El juego usa la conectividad como reto, no como predicción de propiedades.","pt":"Uma halogenação intensa pode alterar bastante massa molecular, polarizabilidade, volatilidade e reatividade. O jogo usa a conectividade como desafio, não como previsão de propriedades.","ja":"強いハロゲン置換は分子量、分極率、揮発性、反応性を大きく変えることがあります。ゲームは結合関係を課題に使い、盤面から物性を予測しません。","fr":"Une forte halogénation peut modifier fortement masse moléculaire, polarisabilité, volatilité et réactivité. Le jeu utilise la connectivité comme défi, pas comme prédiction de propriétés.","zh":"高度卤代可能显著改变分子质量、可极化性、挥发性和反应性。游戏把连接关系作为挑战，并不根据棋盘图预测这些性质。","it":"Una forte alogenazione può cambiare molto massa molecolare, polarizzabilità, volatilità e reattività. Il gioco usa la connettività come sfida, non come previsione delle proprietà."}},"C4H5Br2F2I":{"about":{"en":"1,4-dibromo-1,2-difluoro-3-iodobutane (C₄H₅Br₂F₂I) is represented as a specific highly halogenated butane isomer. The real molecule is three-dimensional; Moleculox uses simplified 2D connectivity.","tr":"1,4-dibromo-1,2-difloro-3-iyodobütan (C₄H₅Br₂F₂I), belirli bir yüksek halojenli bütan izomeri olarak gösterilir. Gerçek molekül üç boyutludur; Moleculox sadeleştirilmiş 2B bağlanma kullanır.","de":"1,4-dibrom-1,2-difluor-3-iodbutan (C₄H₅Br₂F₂I) wird als bestimmtes hochhalogeniertes Butan-Isomer dargestellt. Moleculox nutzt vereinfachte 2D-Verknüpfung.","es":"1,4-dibromo-1,2-difluoro-3-yodobutano (C₄H₅Br₂F₂I) se representa como un isómero específico de butano muy halogenado. Moleculox usa conectividad 2D simplificada.","pt":"1,4-dibromo-1,2-difluoro-3-iodobutano (C₄H₅Br₂F₂I) é representado como um isômero específico de butano altamente halogenado. Moleculox usa conectividade 2D simplificada.","ja":"1,4-dibromo-1,2-difluoro-3-iodobutane（多ハロゲン化ブタン）（C₄H₅Br₂F₂I）は高度にハロゲン化された特定のブタン異性体です。Moleculoxでは簡略化した2D結合を使います。","fr":"1,4-dibromo-1,2-difluoro-3-iodobutane (C₄H₅Br₂F₂I) est représenté comme un isomère précis de butane fortement halogéné. Moleculox utilise une connectivité 2D simplifiée.","zh":"1,4-dibromo-1,2-difluoro-3-iodobutane（多卤代丁烷）（C₄H₅Br₂F₂I）是一种特定的高卤代丁烷异构体。Moleculox采用简化二维连接。","it":"1,4-dibromo-1,2-difluoro-3-iodobutano (C₄H₅Br₂F₂I) è rappresentato come uno specifico isomero di butano altamente alogenato. Moleculox usa connettività 2D semplificata."},"use":{"en":"No broad everyday use is claimed for this exact isomer. It is presented as a specialized synthesis/reference/research species; compound-specific evidence would be required before claiming a practical use.","tr":"Bu tam izomer için yaygın günlük kullanım iddia edilmez. Özel sentez/referans/araştırma türü olarak sunulur; pratik kullanım iddiası için bileşiğe özgü kanıt gerekir.","de":"Für dieses genaue Isomer wird keine breite Alltagsanwendung behauptet; es wird als spezielle Synthese-/Referenz-/Forschungsart dargestellt.","es":"No se afirma un uso cotidiano amplio para este isómero exacto; se presenta como especie especializada de síntesis, referencia o investigación.","pt":"Não se afirma um uso cotidiano amplo para este isômero exato; ele é apresentado como espécie especializada de síntese, referência ou pesquisa.","ja":"この正確な異性体に広い日常用途があるとはしていません。特殊合成・標準・研究の対象として提示します。","fr":"Aucun usage quotidien généralisé n’est affirmé pour cet isomère exact ; il est présenté comme espèce spécialisée de synthèse, de référence ou de recherche.","zh":"不声称这种确切异构体具有广泛日常用途；这里将其作为专门合成、标准或研究物种展示。","it":"Non viene attribuito un ampio uso quotidiano a questo esatto isomero; è presentato come specie specialistica di sintesi, riferimento o ricerca."},"fact":{"en":"Heavy halogen substitution can strongly change molecular mass, polarizability, volatility and reactivity. The game uses connectivity as the challenge and does not predict those properties from the board drawing.","tr":"Yoğun halojen yer değiştirmesi molekül kütlesi, polarize olabilirlik, uçuculuk ve tepkime davranışını ciddi biçimde değiştirebilir. Oyun bağlanmayı bulmaca olarak kullanır; tahta çiziminden bu özellikleri tahmin etmez.","de":"Starke Halogensubstitution kann Molekülmasse, Polarisierbarkeit, Flüchtigkeit und Reaktivität deutlich verändern. Das Spiel nutzt nur die Verknüpfung als Puzzle.","es":"Una halogenación intensa puede cambiar mucho masa molecular, polarizabilidad, volatilidad y reactividad. El juego usa la conectividad como reto, no como predicción de propiedades.","pt":"Uma halogenação intensa pode alterar bastante massa molecular, polarizabilidade, volatilidade e reatividade. O jogo usa a conectividade como desafio, não como previsão de propriedades.","ja":"強いハロゲン置換は分子量、分極率、揮発性、反応性を大きく変えることがあります。ゲームは結合関係を課題に使い、盤面から物性を予測しません。","fr":"Une forte halogénation peut modifier fortement masse moléculaire, polarisabilité, volatilité et réactivité. Le jeu utilise la connectivité comme défi, pas comme prédiction de propriétés.","zh":"高度卤代可能显著改变分子质量、可极化性、挥发性和反应性。游戏把连接关系作为挑战，并不根据棋盘图预测这些性质。","it":"Una forte alogenazione può cambiare molto massa molecolare, polarizzabilità, volatilità e reattività. Il gioco usa la connettività come sfida, non come previsione delle proprietà."}},"C4H5Br3FI":{"about":{"en":"1,1,4-tribromo-2-fluoro-3-iodobutane (C₄H₅Br₃FI) is represented as a specific highly halogenated butane isomer. The real molecule is three-dimensional; Moleculox uses simplified 2D connectivity.","tr":"1,1,4-tribromo-2-floro-3-iyodobütan (C₄H₅Br₃FI), belirli bir yüksek halojenli bütan izomeri olarak gösterilir. Gerçek molekül üç boyutludur; Moleculox sadeleştirilmiş 2B bağlanma kullanır.","de":"1,1,4-tribrom-2-fluor-3-iodbutan (C₄H₅Br₃FI) wird als bestimmtes hochhalogeniertes Butan-Isomer dargestellt. Moleculox nutzt vereinfachte 2D-Verknüpfung.","es":"1,1,4-tribromo-2-fluoro-3-yodobutano (C₄H₅Br₃FI) se representa como un isómero específico de butano muy halogenado. Moleculox usa conectividad 2D simplificada.","pt":"1,1,4-tribromo-2-fluoro-3-iodobutano (C₄H₅Br₃FI) é representado como um isômero específico de butano altamente halogenado. Moleculox usa conectividade 2D simplificada.","ja":"1,1,4-tribromo-2-fluoro-3-iodobutane（多ハロゲン化ブタン）（C₄H₅Br₃FI）は高度にハロゲン化された特定のブタン異性体です。Moleculoxでは簡略化した2D結合を使います。","fr":"1,1,4-tribromo-2-fluoro-3-iodobutane (C₄H₅Br₃FI) est représenté comme un isomère précis de butane fortement halogéné. Moleculox utilise une connectivité 2D simplifiée.","zh":"1,1,4-tribromo-2-fluoro-3-iodobutane（多卤代丁烷）（C₄H₅Br₃FI）是一种特定的高卤代丁烷异构体。Moleculox采用简化二维连接。","it":"1,1,4-tribromo-2-fluoro-3-iodobutano (C₄H₅Br₃FI) è rappresentato come uno specifico isomero di butano altamente alogenato. Moleculox usa connettività 2D semplificata."},"use":{"en":"No broad everyday use is claimed for this exact isomer. It is presented as a specialized synthesis/reference/research species; compound-specific evidence would be required before claiming a practical use.","tr":"Bu tam izomer için yaygın günlük kullanım iddia edilmez. Özel sentez/referans/araştırma türü olarak sunulur; pratik kullanım iddiası için bileşiğe özgü kanıt gerekir.","de":"Für dieses genaue Isomer wird keine breite Alltagsanwendung behauptet; es wird als spezielle Synthese-/Referenz-/Forschungsart dargestellt.","es":"No se afirma un uso cotidiano amplio para este isómero exacto; se presenta como especie especializada de síntesis, referencia o investigación.","pt":"Não se afirma um uso cotidiano amplo para este isômero exato; ele é apresentado como espécie especializada de síntese, referência ou pesquisa.","ja":"この正確な異性体に広い日常用途があるとはしていません。特殊合成・標準・研究の対象として提示します。","fr":"Aucun usage quotidien généralisé n’est affirmé pour cet isomère exact ; il est présenté comme espèce spécialisée de synthèse, de référence ou de recherche.","zh":"不声称这种确切异构体具有广泛日常用途；这里将其作为专门合成、标准或研究物种展示。","it":"Non viene attribuito un ampio uso quotidiano a questo esatto isomero; è presentato come specie specialistica di sintesi, riferimento o ricerca."},"fact":{"en":"Heavy halogen substitution can strongly change molecular mass, polarizability, volatility and reactivity. The game uses connectivity as the challenge and does not predict those properties from the board drawing.","tr":"Yoğun halojen yer değiştirmesi molekül kütlesi, polarize olabilirlik, uçuculuk ve tepkime davranışını ciddi biçimde değiştirebilir. Oyun bağlanmayı bulmaca olarak kullanır; tahta çiziminden bu özellikleri tahmin etmez.","de":"Starke Halogensubstitution kann Molekülmasse, Polarisierbarkeit, Flüchtigkeit und Reaktivität deutlich verändern. Das Spiel nutzt nur die Verknüpfung als Puzzle.","es":"Una halogenación intensa puede cambiar mucho masa molecular, polarizabilidad, volatilidad y reactividad. El juego usa la conectividad como reto, no como predicción de propiedades.","pt":"Uma halogenação intensa pode alterar bastante massa molecular, polarizabilidade, volatilidade e reatividade. O jogo usa a conectividade como desafio, não como previsão de propriedades.","ja":"強いハロゲン置換は分子量、分極率、揮発性、反応性を大きく変えることがあります。ゲームは結合関係を課題に使い、盤面から物性を予測しません。","fr":"Une forte halogénation peut modifier fortement masse moléculaire, polarisabilité, volatilité et réactivité. Le jeu utilise la connectivité comme défi, pas comme prédiction de propriétés.","zh":"高度卤代可能显著改变分子质量、可极化性、挥发性和反应性。游戏把连接关系作为挑战，并不根据棋盘图预测这些性质。","it":"Una forte alogenazione può cambiare molto massa molecolare, polarizzabilità, volatilità e reattività. Il gioco usa la connettività come sfida, non come previsione delle proprietà."}},"C4H5ClFI3":{"about":{"en":"1-chloro-2-fluoro-1,3,4-triiodobutane (C₄H₅ClFI₃) is represented as a specific highly halogenated butane isomer. The real molecule is three-dimensional; Moleculox uses simplified 2D connectivity.","tr":"1-kloro-2-floro-1,3,4-triiyodobütan (C₄H₅ClFI₃), belirli bir yüksek halojenli bütan izomeri olarak gösterilir. Gerçek molekül üç boyutludur; Moleculox sadeleştirilmiş 2B bağlanma kullanır.","de":"1-chlor-2-fluor-1,3,4-triiodbutan (C₄H₅ClFI₃) wird als bestimmtes hochhalogeniertes Butan-Isomer dargestellt. Moleculox nutzt vereinfachte 2D-Verknüpfung.","es":"1-cloro-2-fluoro-1,3,4-triyodobutano (C₄H₅ClFI₃) se representa como un isómero específico de butano muy halogenado. Moleculox usa conectividad 2D simplificada.","pt":"1-cloro-2-fluoro-1,3,4-triiodobutano (C₄H₅ClFI₃) é representado como um isômero específico de butano altamente halogenado. Moleculox usa conectividade 2D simplificada.","ja":"1-chloro-2-fluoro-1,3,4-triiodobutane（多ハロゲン化ブタン）（C₄H₅ClFI₃）は高度にハロゲン化された特定のブタン異性体です。Moleculoxでは簡略化した2D結合を使います。","fr":"1-chloro-2-fluoro-1,3,4-triiodobutane (C₄H₅ClFI₃) est représenté comme un isomère précis de butane fortement halogéné. Moleculox utilise une connectivité 2D simplifiée.","zh":"1-chloro-2-fluoro-1,3,4-triiodobutane（多卤代丁烷）（C₄H₅ClFI₃）是一种特定的高卤代丁烷异构体。Moleculox采用简化二维连接。","it":"1-cloro-2-fluoro-1,3,4-triiodobutano (C₄H₅ClFI₃) è rappresentato come uno specifico isomero di butano altamente alogenato. Moleculox usa connettività 2D semplificata."},"use":{"en":"No broad everyday use is claimed for this exact isomer. It is presented as a specialized synthesis/reference/research species; compound-specific evidence would be required before claiming a practical use.","tr":"Bu tam izomer için yaygın günlük kullanım iddia edilmez. Özel sentez/referans/araştırma türü olarak sunulur; pratik kullanım iddiası için bileşiğe özgü kanıt gerekir.","de":"Für dieses genaue Isomer wird keine breite Alltagsanwendung behauptet; es wird als spezielle Synthese-/Referenz-/Forschungsart dargestellt.","es":"No se afirma un uso cotidiano amplio para este isómero exacto; se presenta como especie especializada de síntesis, referencia o investigación.","pt":"Não se afirma um uso cotidiano amplo para este isômero exato; ele é apresentado como espécie especializada de síntese, referência ou pesquisa.","ja":"この正確な異性体に広い日常用途があるとはしていません。特殊合成・標準・研究の対象として提示します。","fr":"Aucun usage quotidien généralisé n’est affirmé pour cet isomère exact ; il est présenté comme espèce spécialisée de synthèse, de référence ou de recherche.","zh":"不声称这种确切异构体具有广泛日常用途；这里将其作为专门合成、标准或研究物种展示。","it":"Non viene attribuito un ampio uso quotidiano a questo esatto isomero; è presentato come specie specialistica di sintesi, riferimento o ricerca."},"fact":{"en":"Heavy halogen substitution can strongly change molecular mass, polarizability, volatility and reactivity. The game uses connectivity as the challenge and does not predict those properties from the board drawing.","tr":"Yoğun halojen yer değiştirmesi molekül kütlesi, polarize olabilirlik, uçuculuk ve tepkime davranışını ciddi biçimde değiştirebilir. Oyun bağlanmayı bulmaca olarak kullanır; tahta çiziminden bu özellikleri tahmin etmez.","de":"Starke Halogensubstitution kann Molekülmasse, Polarisierbarkeit, Flüchtigkeit und Reaktivität deutlich verändern. Das Spiel nutzt nur die Verknüpfung als Puzzle.","es":"Una halogenación intensa puede cambiar mucho masa molecular, polarizabilidad, volatilidad y reactividad. El juego usa la conectividad como reto, no como predicción de propiedades.","pt":"Uma halogenação intensa pode alterar bastante massa molecular, polarizabilidade, volatilidade e reatividade. O jogo usa a conectividade como desafio, não como previsão de propriedades.","ja":"強いハロゲン置換は分子量、分極率、揮発性、反応性を大きく変えることがあります。ゲームは結合関係を課題に使い、盤面から物性を予測しません。","fr":"Une forte halogénation peut modifier fortement masse moléculaire, polarisabilité, volatilité et réactivité. Le jeu utilise la connectivité comme défi, pas comme prédiction de propriétés.","zh":"高度卤代可能显著改变分子质量、可极化性、挥发性和反应性。游戏把连接关系作为挑战，并不根据棋盘图预测这些性质。","it":"Una forte alogenazione può cambiare molto massa molecolare, polarizzabilità, volatilità e reattività. Il gioco usa la connettività come sfida, non come previsione delle proprietà."}},"C4H5ClF2I2":{"about":{"en":"1-chloro-2,4-difluoro-1,3-diiodobutane (C₄H₅ClF₂I₂) is represented as a specific highly halogenated butane isomer. The real molecule is three-dimensional; Moleculox uses simplified 2D connectivity.","tr":"1-kloro-2,4-difloro-1,3-diiyodobütan (C₄H₅ClF₂I₂), belirli bir yüksek halojenli bütan izomeri olarak gösterilir. Gerçek molekül üç boyutludur; Moleculox sadeleştirilmiş 2B bağlanma kullanır.","de":"1-chlor-2,4-difluor-1,3-diiodbutan (C₄H₅ClF₂I₂) wird als bestimmtes hochhalogeniertes Butan-Isomer dargestellt. Moleculox nutzt vereinfachte 2D-Verknüpfung.","es":"1-cloro-2,4-difluoro-1,3-diyodobutano (C₄H₅ClF₂I₂) se representa como un isómero específico de butano muy halogenado. Moleculox usa conectividad 2D simplificada.","pt":"1-cloro-2,4-difluoro-1,3-diiodobutano (C₄H₅ClF₂I₂) é representado como um isômero específico de butano altamente halogenado. Moleculox usa conectividade 2D simplificada.","ja":"1-chloro-2,4-difluoro-1,3-diiodobutane（多ハロゲン化ブタン）（C₄H₅ClF₂I₂）は高度にハロゲン化された特定のブタン異性体です。Moleculoxでは簡略化した2D結合を使います。","fr":"1-chloro-2,4-difluoro-1,3-diiodobutane (C₄H₅ClF₂I₂) est représenté comme un isomère précis de butane fortement halogéné. Moleculox utilise une connectivité 2D simplifiée.","zh":"1-chloro-2,4-difluoro-1,3-diiodobutane（多卤代丁烷）（C₄H₅ClF₂I₂）是一种特定的高卤代丁烷异构体。Moleculox采用简化二维连接。","it":"1-cloro-2,4-difluoro-1,3-diiodobutano (C₄H₅ClF₂I₂) è rappresentato come uno specifico isomero di butano altamente alogenato. Moleculox usa connettività 2D semplificata."},"use":{"en":"No broad everyday use is claimed for this exact isomer. It is presented as a specialized synthesis/reference/research species; compound-specific evidence would be required before claiming a practical use.","tr":"Bu tam izomer için yaygın günlük kullanım iddia edilmez. Özel sentez/referans/araştırma türü olarak sunulur; pratik kullanım iddiası için bileşiğe özgü kanıt gerekir.","de":"Für dieses genaue Isomer wird keine breite Alltagsanwendung behauptet; es wird als spezielle Synthese-/Referenz-/Forschungsart dargestellt.","es":"No se afirma un uso cotidiano amplio para este isómero exacto; se presenta como especie especializada de síntesis, referencia o investigación.","pt":"Não se afirma um uso cotidiano amplo para este isômero exato; ele é apresentado como espécie especializada de síntese, referência ou pesquisa.","ja":"この正確な異性体に広い日常用途があるとはしていません。特殊合成・標準・研究の対象として提示します。","fr":"Aucun usage quotidien généralisé n’est affirmé pour cet isomère exact ; il est présenté comme espèce spécialisée de synthèse, de référence ou de recherche.","zh":"不声称这种确切异构体具有广泛日常用途；这里将其作为专门合成、标准或研究物种展示。","it":"Non viene attribuito un ampio uso quotidiano a questo esatto isomero; è presentato come specie specialistica di sintesi, riferimento o ricerca."},"fact":{"en":"Heavy halogen substitution can strongly change molecular mass, polarizability, volatility and reactivity. The game uses connectivity as the challenge and does not predict those properties from the board drawing.","tr":"Yoğun halojen yer değiştirmesi molekül kütlesi, polarize olabilirlik, uçuculuk ve tepkime davranışını ciddi biçimde değiştirebilir. Oyun bağlanmayı bulmaca olarak kullanır; tahta çiziminden bu özellikleri tahmin etmez.","de":"Starke Halogensubstitution kann Molekülmasse, Polarisierbarkeit, Flüchtigkeit und Reaktivität deutlich verändern. Das Spiel nutzt nur die Verknüpfung als Puzzle.","es":"Una halogenación intensa puede cambiar mucho masa molecular, polarizabilidad, volatilidad y reactividad. El juego usa la conectividad como reto, no como predicción de propiedades.","pt":"Uma halogenação intensa pode alterar bastante massa molecular, polarizabilidade, volatilidade e reatividade. O jogo usa a conectividade como desafio, não como previsão de propriedades.","ja":"強いハロゲン置換は分子量、分極率、揮発性、反応性を大きく変えることがあります。ゲームは結合関係を課題に使い、盤面から物性を予測しません。","fr":"Une forte halogénation peut modifier fortement masse moléculaire, polarisabilité, volatilité et réactivité. Le jeu utilise la connectivité comme défi, pas comme prédiction de propriétés.","zh":"高度卤代可能显著改变分子质量、可极化性、挥发性和反应性。游戏把连接关系作为挑战，并不根据棋盘图预测这些性质。","it":"Una forte alogenazione può cambiare molto massa molecolare, polarizzabilità, volatilità e reattività. Il gioco usa la connettività come sfida, non come previsione delle proprietà."}},"C4H5ClF3I":{"about":{"en":"1-chloro-1,2,4-trifluoro-3-iodobutane (C₄H₅ClF₃I) is represented as a specific highly halogenated butane isomer. The real molecule is three-dimensional; Moleculox uses simplified 2D connectivity.","tr":"1-kloro-1,2,4-trifloro-3-iyodobütan (C₄H₅ClF₃I), belirli bir yüksek halojenli bütan izomeri olarak gösterilir. Gerçek molekül üç boyutludur; Moleculox sadeleştirilmiş 2B bağlanma kullanır.","de":"1-chlor-1,2,4-trifluor-3-iodbutan (C₄H₅ClF₃I) wird als bestimmtes hochhalogeniertes Butan-Isomer dargestellt. Moleculox nutzt vereinfachte 2D-Verknüpfung.","es":"1-cloro-1,2,4-trifluoro-3-yodobutano (C₄H₅ClF₃I) se representa como un isómero específico de butano muy halogenado. Moleculox usa conectividad 2D simplificada.","pt":"1-cloro-1,2,4-trifluoro-3-iodobutano (C₄H₅ClF₃I) é representado como um isômero específico de butano altamente halogenado. Moleculox usa conectividade 2D simplificada.","ja":"1-chloro-1,2,4-trifluoro-3-iodobutane（多ハロゲン化ブタン）（C₄H₅ClF₃I）は高度にハロゲン化された特定のブタン異性体です。Moleculoxでは簡略化した2D結合を使います。","fr":"1-chloro-1,2,4-trifluoro-3-iodobutane (C₄H₅ClF₃I) est représenté comme un isomère précis de butane fortement halogéné. Moleculox utilise une connectivité 2D simplifiée.","zh":"1-chloro-1,2,4-trifluoro-3-iodobutane（多卤代丁烷）（C₄H₅ClF₃I）是一种特定的高卤代丁烷异构体。Moleculox采用简化二维连接。","it":"1-cloro-1,2,4-trifluoro-3-iodobutano (C₄H₅ClF₃I) è rappresentato come uno specifico isomero di butano altamente alogenato. Moleculox usa connettività 2D semplificata."},"use":{"en":"No broad everyday use is claimed for this exact isomer. It is presented as a specialized synthesis/reference/research species; compound-specific evidence would be required before claiming a practical use.","tr":"Bu tam izomer için yaygın günlük kullanım iddia edilmez. Özel sentez/referans/araştırma türü olarak sunulur; pratik kullanım iddiası için bileşiğe özgü kanıt gerekir.","de":"Für dieses genaue Isomer wird keine breite Alltagsanwendung behauptet; es wird als spezielle Synthese-/Referenz-/Forschungsart dargestellt.","es":"No se afirma un uso cotidiano amplio para este isómero exacto; se presenta como especie especializada de síntesis, referencia o investigación.","pt":"Não se afirma um uso cotidiano amplo para este isômero exato; ele é apresentado como espécie especializada de síntese, referência ou pesquisa.","ja":"この正確な異性体に広い日常用途があるとはしていません。特殊合成・標準・研究の対象として提示します。","fr":"Aucun usage quotidien généralisé n’est affirmé pour cet isomère exact ; il est présenté comme espèce spécialisée de synthèse, de référence ou de recherche.","zh":"不声称这种确切异构体具有广泛日常用途；这里将其作为专门合成、标准或研究物种展示。","it":"Non viene attribuito un ampio uso quotidiano a questo esatto isomero; è presentato come specie specialistica di sintesi, riferimento o ricerca."},"fact":{"en":"Heavy halogen substitution can strongly change molecular mass, polarizability, volatility and reactivity. The game uses connectivity as the challenge and does not predict those properties from the board drawing.","tr":"Yoğun halojen yer değiştirmesi molekül kütlesi, polarize olabilirlik, uçuculuk ve tepkime davranışını ciddi biçimde değiştirebilir. Oyun bağlanmayı bulmaca olarak kullanır; tahta çiziminden bu özellikleri tahmin etmez.","de":"Starke Halogensubstitution kann Molekülmasse, Polarisierbarkeit, Flüchtigkeit und Reaktivität deutlich verändern. Das Spiel nutzt nur die Verknüpfung als Puzzle.","es":"Una halogenación intensa puede cambiar mucho masa molecular, polarizabilidad, volatilidad y reactividad. El juego usa la conectividad como reto, no como predicción de propiedades.","pt":"Uma halogenação intensa pode alterar bastante massa molecular, polarizabilidade, volatilidade e reatividade. O jogo usa a conectividade como desafio, não como previsão de propriedades.","ja":"強いハロゲン置換は分子量、分極率、揮発性、反応性を大きく変えることがあります。ゲームは結合関係を課題に使い、盤面から物性を予測しません。","fr":"Une forte halogénation peut modifier fortement masse moléculaire, polarisabilité, volatilité et réactivité. Le jeu utilise la connectivité comme défi, pas comme prédiction de propriétés.","zh":"高度卤代可能显著改变分子质量、可极化性、挥发性和反应性。游戏把连接关系作为挑战，并不根据棋盘图预测这些性质。","it":"Una forte alogenazione può cambiare molto massa molecolare, polarizzabilità, volatilità e reattività. Il gioco usa la connettività come sfida, non come previsione delle proprietà."}},"C4H5ClBrI3":{"about":{"en":"2-bromo-1-chloro-1,3,4-triiodobutane (C₄H₅ClBrI₃) is represented as a specific highly halogenated butane isomer. The real molecule is three-dimensional; Moleculox uses simplified 2D connectivity.","tr":"2-bromo-1-kloro-1,3,4-triiyodobütan (C₄H₅ClBrI₃), belirli bir yüksek halojenli bütan izomeri olarak gösterilir. Gerçek molekül üç boyutludur; Moleculox sadeleştirilmiş 2B bağlanma kullanır.","de":"2-brom-1-chlor-1,3,4-triiodbutan (C₄H₅ClBrI₃) wird als bestimmtes hochhalogeniertes Butan-Isomer dargestellt. Moleculox nutzt vereinfachte 2D-Verknüpfung.","es":"2-bromo-1-cloro-1,3,4-triyodobutano (C₄H₅ClBrI₃) se representa como un isómero específico de butano muy halogenado. Moleculox usa conectividad 2D simplificada.","pt":"2-bromo-1-cloro-1,3,4-triiodobutano (C₄H₅ClBrI₃) é representado como um isômero específico de butano altamente halogenado. Moleculox usa conectividade 2D simplificada.","ja":"2-bromo-1-chloro-1,3,4-triiodobutane（多ハロゲン化ブタン）（C₄H₅ClBrI₃）は高度にハロゲン化された特定のブタン異性体です。Moleculoxでは簡略化した2D結合を使います。","fr":"2-bromo-1-chloro-1,3,4-triiodobutane (C₄H₅ClBrI₃) est représenté comme un isomère précis de butane fortement halogéné. Moleculox utilise une connectivité 2D simplifiée.","zh":"2-bromo-1-chloro-1,3,4-triiodobutane（多卤代丁烷）（C₄H₅ClBrI₃）是一种特定的高卤代丁烷异构体。Moleculox采用简化二维连接。","it":"2-bromo-1-cloro-1,3,4-triiodobutano (C₄H₅ClBrI₃) è rappresentato come uno specifico isomero di butano altamente alogenato. Moleculox usa connettività 2D semplificata."},"use":{"en":"No broad everyday use is claimed for this exact isomer. It is presented as a specialized synthesis/reference/research species; compound-specific evidence would be required before claiming a practical use.","tr":"Bu tam izomer için yaygın günlük kullanım iddia edilmez. Özel sentez/referans/araştırma türü olarak sunulur; pratik kullanım iddiası için bileşiğe özgü kanıt gerekir.","de":"Für dieses genaue Isomer wird keine breite Alltagsanwendung behauptet; es wird als spezielle Synthese-/Referenz-/Forschungsart dargestellt.","es":"No se afirma un uso cotidiano amplio para este isómero exacto; se presenta como especie especializada de síntesis, referencia o investigación.","pt":"Não se afirma um uso cotidiano amplo para este isômero exato; ele é apresentado como espécie especializada de síntese, referência ou pesquisa.","ja":"この正確な異性体に広い日常用途があるとはしていません。特殊合成・標準・研究の対象として提示します。","fr":"Aucun usage quotidien généralisé n’est affirmé pour cet isomère exact ; il est présenté comme espèce spécialisée de synthèse, de référence ou de recherche.","zh":"不声称这种确切异构体具有广泛日常用途；这里将其作为专门合成、标准或研究物种展示。","it":"Non viene attribuito un ampio uso quotidiano a questo esatto isomero; è presentato come specie specialistica di sintesi, riferimento o ricerca."},"fact":{"en":"Heavy halogen substitution can strongly change molecular mass, polarizability, volatility and reactivity. The game uses connectivity as the challenge and does not predict those properties from the board drawing.","tr":"Yoğun halojen yer değiştirmesi molekül kütlesi, polarize olabilirlik, uçuculuk ve tepkime davranışını ciddi biçimde değiştirebilir. Oyun bağlanmayı bulmaca olarak kullanır; tahta çiziminden bu özellikleri tahmin etmez.","de":"Starke Halogensubstitution kann Molekülmasse, Polarisierbarkeit, Flüchtigkeit und Reaktivität deutlich verändern. Das Spiel nutzt nur die Verknüpfung als Puzzle.","es":"Una halogenación intensa puede cambiar mucho masa molecular, polarizabilidad, volatilidad y reactividad. El juego usa la conectividad como reto, no como predicción de propiedades.","pt":"Uma halogenação intensa pode alterar bastante massa molecular, polarizabilidade, volatilidade e reatividade. O jogo usa a conectividade como desafio, não como previsão de propriedades.","ja":"強いハロゲン置換は分子量、分極率、揮発性、反応性を大きく変えることがあります。ゲームは結合関係を課題に使い、盤面から物性を予測しません。","fr":"Une forte halogénation peut modifier fortement masse moléculaire, polarisabilité, volatilité et réactivité. Le jeu utilise la connectivité comme défi, pas comme prédiction de propriétés.","zh":"高度卤代可能显著改变分子质量、可极化性、挥发性和反应性。游戏把连接关系作为挑战，并不根据棋盘图预测这些性质。","it":"Una forte alogenazione può cambiare molto massa molecolare, polarizzabilità, volatilità e reattività. Il gioco usa la connettività come sfida, non come previsione delle proprietà."}},"C4H5ClBrFI2":{"about":{"en":"2-bromo-1-chloro-3-fluoro-1,4-diiodobutane (C₄H₅ClBrFI₂) is represented as a specific highly halogenated butane isomer. The real molecule is three-dimensional; Moleculox uses simplified 2D connectivity.","tr":"2-bromo-1-kloro-3-floro-1,4-diiyodobütan (C₄H₅ClBrFI₂), belirli bir yüksek halojenli bütan izomeri olarak gösterilir. Gerçek molekül üç boyutludur; Moleculox sadeleştirilmiş 2B bağlanma kullanır.","de":"2-brom-1-chlor-3-fluor-1,4-diiodbutan (C₄H₅ClBrFI₂) wird als bestimmtes hochhalogeniertes Butan-Isomer dargestellt. Moleculox nutzt vereinfachte 2D-Verknüpfung.","es":"2-bromo-1-cloro-3-fluoro-1,4-diyodobutano (C₄H₅ClBrFI₂) se representa como un isómero específico de butano muy halogenado. Moleculox usa conectividad 2D simplificada.","pt":"2-bromo-1-cloro-3-fluoro-1,4-diiodobutano (C₄H₅ClBrFI₂) é representado como um isômero específico de butano altamente halogenado. Moleculox usa conectividade 2D simplificada.","ja":"2-bromo-1-chloro-3-fluoro-1,4-diiodobutane（多ハロゲン化ブタン）（C₄H₅ClBrFI₂）は高度にハロゲン化された特定のブタン異性体です。Moleculoxでは簡略化した2D結合を使います。","fr":"2-bromo-1-chloro-3-fluoro-1,4-diiodobutane (C₄H₅ClBrFI₂) est représenté comme un isomère précis de butane fortement halogéné. Moleculox utilise une connectivité 2D simplifiée.","zh":"2-bromo-1-chloro-3-fluoro-1,4-diiodobutane（多卤代丁烷）（C₄H₅ClBrFI₂）是一种特定的高卤代丁烷异构体。Moleculox采用简化二维连接。","it":"2-bromo-1-cloro-3-fluoro-1,4-diiodobutano (C₄H₅ClBrFI₂) è rappresentato come uno specifico isomero di butano altamente alogenato. Moleculox usa connettività 2D semplificata."},"use":{"en":"No broad everyday use is claimed for this exact isomer. It is presented as a specialized synthesis/reference/research species; compound-specific evidence would be required before claiming a practical use.","tr":"Bu tam izomer için yaygın günlük kullanım iddia edilmez. Özel sentez/referans/araştırma türü olarak sunulur; pratik kullanım iddiası için bileşiğe özgü kanıt gerekir.","de":"Für dieses genaue Isomer wird keine breite Alltagsanwendung behauptet; es wird als spezielle Synthese-/Referenz-/Forschungsart dargestellt.","es":"No se afirma un uso cotidiano amplio para este isómero exacto; se presenta como especie especializada de síntesis, referencia o investigación.","pt":"Não se afirma um uso cotidiano amplo para este isômero exato; ele é apresentado como espécie especializada de síntese, referência ou pesquisa.","ja":"この正確な異性体に広い日常用途があるとはしていません。特殊合成・標準・研究の対象として提示します。","fr":"Aucun usage quotidien généralisé n’est affirmé pour cet isomère exact ; il est présenté comme espèce spécialisée de synthèse, de référence ou de recherche.","zh":"不声称这种确切异构体具有广泛日常用途；这里将其作为专门合成、标准或研究物种展示。","it":"Non viene attribuito un ampio uso quotidiano a questo esatto isomero; è presentato come specie specialistica di sintesi, riferimento o ricerca."},"fact":{"en":"Heavy halogen substitution can strongly change molecular mass, polarizability, volatility and reactivity. The game uses connectivity as the challenge and does not predict those properties from the board drawing.","tr":"Yoğun halojen yer değiştirmesi molekül kütlesi, polarize olabilirlik, uçuculuk ve tepkime davranışını ciddi biçimde değiştirebilir. Oyun bağlanmayı bulmaca olarak kullanır; tahta çiziminden bu özellikleri tahmin etmez.","de":"Starke Halogensubstitution kann Molekülmasse, Polarisierbarkeit, Flüchtigkeit und Reaktivität deutlich verändern. Das Spiel nutzt nur die Verknüpfung als Puzzle.","es":"Una halogenación intensa puede cambiar mucho masa molecular, polarizabilidad, volatilidad y reactividad. El juego usa la conectividad como reto, no como predicción de propiedades.","pt":"Uma halogenação intensa pode alterar bastante massa molecular, polarizabilidade, volatilidade e reatividade. O jogo usa a conectividade como desafio, não como previsão de propriedades.","ja":"強いハロゲン置換は分子量、分極率、揮発性、反応性を大きく変えることがあります。ゲームは結合関係を課題に使い、盤面から物性を予測しません。","fr":"Une forte halogénation peut modifier fortement masse moléculaire, polarisabilité, volatilité et réactivité. Le jeu utilise la connectivité comme défi, pas comme prédiction de propriétés.","zh":"高度卤代可能显著改变分子质量、可极化性、挥发性和反应性。游戏把连接关系作为挑战，并不根据棋盘图预测这些性质。","it":"Una forte alogenazione può cambiare molto massa molecolare, polarizzabilità, volatilità e reattività. Il gioco usa la connettività come sfida, non come previsione delle proprietà."}},"C4H5ClBr2I2":{"about":{"en":"2,4-dibromo-1-chloro-1,3-diiodobutane (C₄H₅ClBr₂I₂) is represented as a specific highly halogenated butane isomer. The real molecule is three-dimensional; Moleculox uses simplified 2D connectivity.","tr":"2,4-dibromo-1-kloro-1,3-diiyodobütan (C₄H₅ClBr₂I₂), belirli bir yüksek halojenli bütan izomeri olarak gösterilir. Gerçek molekül üç boyutludur; Moleculox sadeleştirilmiş 2B bağlanma kullanır.","de":"2,4-dibrom-1-chlor-1,3-diiodbutan (C₄H₅ClBr₂I₂) wird als bestimmtes hochhalogeniertes Butan-Isomer dargestellt. Moleculox nutzt vereinfachte 2D-Verknüpfung.","es":"2,4-dibromo-1-cloro-1,3-diyodobutano (C₄H₅ClBr₂I₂) se representa como un isómero específico de butano muy halogenado. Moleculox usa conectividad 2D simplificada.","pt":"2,4-dibromo-1-cloro-1,3-diiodobutano (C₄H₅ClBr₂I₂) é representado como um isômero específico de butano altamente halogenado. Moleculox usa conectividade 2D simplificada.","ja":"2,4-dibromo-1-chloro-1,3-diiodobutane（多ハロゲン化ブタン）（C₄H₅ClBr₂I₂）は高度にハロゲン化された特定のブタン異性体です。Moleculoxでは簡略化した2D結合を使います。","fr":"2,4-dibromo-1-chloro-1,3-diiodobutane (C₄H₅ClBr₂I₂) est représenté comme un isomère précis de butane fortement halogéné. Moleculox utilise une connectivité 2D simplifiée.","zh":"2,4-dibromo-1-chloro-1,3-diiodobutane（多卤代丁烷）（C₄H₅ClBr₂I₂）是一种特定的高卤代丁烷异构体。Moleculox采用简化二维连接。","it":"2,4-dibromo-1-cloro-1,3-diiodobutano (C₄H₅ClBr₂I₂) è rappresentato come uno specifico isomero di butano altamente alogenato. Moleculox usa connettività 2D semplificata."},"use":{"en":"No broad everyday use is claimed for this exact isomer. It is presented as a specialized synthesis/reference/research species; compound-specific evidence would be required before claiming a practical use.","tr":"Bu tam izomer için yaygın günlük kullanım iddia edilmez. Özel sentez/referans/araştırma türü olarak sunulur; pratik kullanım iddiası için bileşiğe özgü kanıt gerekir.","de":"Für dieses genaue Isomer wird keine breite Alltagsanwendung behauptet; es wird als spezielle Synthese-/Referenz-/Forschungsart dargestellt.","es":"No se afirma un uso cotidiano amplio para este isómero exacto; se presenta como especie especializada de síntesis, referencia o investigación.","pt":"Não se afirma um uso cotidiano amplo para este isômero exato; ele é apresentado como espécie especializada de síntese, referência ou pesquisa.","ja":"この正確な異性体に広い日常用途があるとはしていません。特殊合成・標準・研究の対象として提示します。","fr":"Aucun usage quotidien généralisé n’est affirmé pour cet isomère exact ; il est présenté comme espèce spécialisée de synthèse, de référence ou de recherche.","zh":"不声称这种确切异构体具有广泛日常用途；这里将其作为专门合成、标准或研究物种展示。","it":"Non viene attribuito un ampio uso quotidiano a questo esatto isomero; è presentato come specie specialistica di sintesi, riferimento o ricerca."},"fact":{"en":"Heavy halogen substitution can strongly change molecular mass, polarizability, volatility and reactivity. The game uses connectivity as the challenge and does not predict those properties from the board drawing.","tr":"Yoğun halojen yer değiştirmesi molekül kütlesi, polarize olabilirlik, uçuculuk ve tepkime davranışını ciddi biçimde değiştirebilir. Oyun bağlanmayı bulmaca olarak kullanır; tahta çiziminden bu özellikleri tahmin etmez.","de":"Starke Halogensubstitution kann Molekülmasse, Polarisierbarkeit, Flüchtigkeit und Reaktivität deutlich verändern. Das Spiel nutzt nur die Verknüpfung als Puzzle.","es":"Una halogenación intensa puede cambiar mucho masa molecular, polarizabilidad, volatilidad y reactividad. El juego usa la conectividad como reto, no como predicción de propiedades.","pt":"Uma halogenação intensa pode alterar bastante massa molecular, polarizabilidade, volatilidade e reatividade. O jogo usa a conectividade como desafio, não como previsão de propriedades.","ja":"強いハロゲン置換は分子量、分極率、揮発性、反応性を大きく変えることがあります。ゲームは結合関係を課題に使い、盤面から物性を予測しません。","fr":"Une forte halogénation peut modifier fortement masse moléculaire, polarisabilité, volatilité et réactivité. Le jeu utilise la connectivité comme défi, pas comme prédiction de propriétés.","zh":"高度卤代可能显著改变分子质量、可极化性、挥发性和反应性。游戏把连接关系作为挑战，并不根据棋盘图预测这些性质。","it":"Una forte alogenazione può cambiare molto massa molecolare, polarizzabilità, volatilità e reattività. Il gioco usa la connettività come sfida, non come previsione delle proprietà."}},"C4H5ClBr3I":{"about":{"en":"1,2,4-tribromo-1-chloro-3-iodobutane (C₄H₅ClBr₃I) is represented as a specific highly halogenated butane isomer. The real molecule is three-dimensional; Moleculox uses simplified 2D connectivity.","tr":"1,2,4-tribromo-1-kloro-3-iyodobütan (C₄H₅ClBr₃I), belirli bir yüksek halojenli bütan izomeri olarak gösterilir. Gerçek molekül üç boyutludur; Moleculox sadeleştirilmiş 2B bağlanma kullanır.","de":"1,2,4-tribrom-1-chlor-3-iodbutan (C₄H₅ClBr₃I) wird als bestimmtes hochhalogeniertes Butan-Isomer dargestellt. Moleculox nutzt vereinfachte 2D-Verknüpfung.","es":"1,2,4-tribromo-1-cloro-3-yodobutano (C₄H₅ClBr₃I) se representa como un isómero específico de butano muy halogenado. Moleculox usa conectividad 2D simplificada.","pt":"1,2,4-tribromo-1-cloro-3-iodobutano (C₄H₅ClBr₃I) é representado como um isômero específico de butano altamente halogenado. Moleculox usa conectividade 2D simplificada.","ja":"1,2,4-tribromo-1-chloro-3-iodobutane（多ハロゲン化ブタン）（C₄H₅ClBr₃I）は高度にハロゲン化された特定のブタン異性体です。Moleculoxでは簡略化した2D結合を使います。","fr":"1,2,4-tribromo-1-chloro-3-iodobutane (C₄H₅ClBr₃I) est représenté comme un isomère précis de butane fortement halogéné. Moleculox utilise une connectivité 2D simplifiée.","zh":"1,2,4-tribromo-1-chloro-3-iodobutane（多卤代丁烷）（C₄H₅ClBr₃I）是一种特定的高卤代丁烷异构体。Moleculox采用简化二维连接。","it":"1,2,4-tribromo-1-cloro-3-iodobutano (C₄H₅ClBr₃I) è rappresentato come uno specifico isomero di butano altamente alogenato. Moleculox usa connettività 2D semplificata."},"use":{"en":"No broad everyday use is claimed for this exact isomer. It is presented as a specialized synthesis/reference/research species; compound-specific evidence would be required before claiming a practical use.","tr":"Bu tam izomer için yaygın günlük kullanım iddia edilmez. Özel sentez/referans/araştırma türü olarak sunulur; pratik kullanım iddiası için bileşiğe özgü kanıt gerekir.","de":"Für dieses genaue Isomer wird keine breite Alltagsanwendung behauptet; es wird als spezielle Synthese-/Referenz-/Forschungsart dargestellt.","es":"No se afirma un uso cotidiano amplio para este isómero exacto; se presenta como especie especializada de síntesis, referencia o investigación.","pt":"Não se afirma um uso cotidiano amplo para este isômero exato; ele é apresentado como espécie especializada de síntese, referência ou pesquisa.","ja":"この正確な異性体に広い日常用途があるとはしていません。特殊合成・標準・研究の対象として提示します。","fr":"Aucun usage quotidien généralisé n’est affirmé pour cet isomère exact ; il est présenté comme espèce spécialisée de synthèse, de référence ou de recherche.","zh":"不声称这种确切异构体具有广泛日常用途；这里将其作为专门合成、标准或研究物种展示。","it":"Non viene attribuito un ampio uso quotidiano a questo esatto isomero; è presentato come specie specialistica di sintesi, riferimento o ricerca."},"fact":{"en":"Heavy halogen substitution can strongly change molecular mass, polarizability, volatility and reactivity. The game uses connectivity as the challenge and does not predict those properties from the board drawing.","tr":"Yoğun halojen yer değiştirmesi molekül kütlesi, polarize olabilirlik, uçuculuk ve tepkime davranışını ciddi biçimde değiştirebilir. Oyun bağlanmayı bulmaca olarak kullanır; tahta çiziminden bu özellikleri tahmin etmez.","de":"Starke Halogensubstitution kann Molekülmasse, Polarisierbarkeit, Flüchtigkeit und Reaktivität deutlich verändern. Das Spiel nutzt nur die Verknüpfung als Puzzle.","es":"Una halogenación intensa puede cambiar mucho masa molecular, polarizabilidad, volatilidad y reactividad. El juego usa la conectividad como reto, no como predicción de propiedades.","pt":"Uma halogenação intensa pode alterar bastante massa molecular, polarizabilidade, volatilidade e reatividade. O jogo usa a conectividade como desafio, não como previsão de propriedades.","ja":"強いハロゲン置換は分子量、分極率、揮発性、反応性を大きく変えることがあります。ゲームは結合関係を課題に使い、盤面から物性を予測しません。","fr":"Une forte halogénation peut modifier fortement masse moléculaire, polarisabilité, volatilité et réactivité. Le jeu utilise la connectivité comme défi, pas comme prédiction de propriétés.","zh":"高度卤代可能显著改变分子质量、可极化性、挥发性和反应性。游戏把连接关系作为挑战，并不根据棋盘图预测这些性质。","it":"Una forte alogenazione può cambiare molto massa molecolare, polarizzabilità, volatilità e reattività. Il gioco usa la connettività come sfida, non come previsione delle proprietà."}},"C4H5Cl2FI2":{"about":{"en":"1,4-dichloro-2-fluoro-1,3-diiodobutane (C₄H₅Cl₂FI₂) is represented as a specific highly halogenated butane isomer. The real molecule is three-dimensional; Moleculox uses simplified 2D connectivity.","tr":"1,4-dikloro-2-floro-1,3-diiyodobütan (C₄H₅Cl₂FI₂), belirli bir yüksek halojenli bütan izomeri olarak gösterilir. Gerçek molekül üç boyutludur; Moleculox sadeleştirilmiş 2B bağlanma kullanır.","de":"1,4-dichlor-2-fluor-1,3-diiodbutan (C₄H₅Cl₂FI₂) wird als bestimmtes hochhalogeniertes Butan-Isomer dargestellt. Moleculox nutzt vereinfachte 2D-Verknüpfung.","es":"1,4-dicloro-2-fluoro-1,3-diyodobutano (C₄H₅Cl₂FI₂) se representa como un isómero específico de butano muy halogenado. Moleculox usa conectividad 2D simplificada.","pt":"1,4-dicloro-2-fluoro-1,3-diiodobutano (C₄H₅Cl₂FI₂) é representado como um isômero específico de butano altamente halogenado. Moleculox usa conectividade 2D simplificada.","ja":"1,4-dichloro-2-fluoro-1,3-diiodobutane（多ハロゲン化ブタン）（C₄H₅Cl₂FI₂）は高度にハロゲン化された特定のブタン異性体です。Moleculoxでは簡略化した2D結合を使います。","fr":"1,4-dichloro-2-fluoro-1,3-diiodobutane (C₄H₅Cl₂FI₂) est représenté comme un isomère précis de butane fortement halogéné. Moleculox utilise une connectivité 2D simplifiée.","zh":"1,4-dichloro-2-fluoro-1,3-diiodobutane（多卤代丁烷）（C₄H₅Cl₂FI₂）是一种特定的高卤代丁烷异构体。Moleculox采用简化二维连接。","it":"1,4-dicloro-2-fluoro-1,3-diiodobutano (C₄H₅Cl₂FI₂) è rappresentato come uno specifico isomero di butano altamente alogenato. Moleculox usa connettività 2D semplificata."},"use":{"en":"No broad everyday use is claimed for this exact isomer. It is presented as a specialized synthesis/reference/research species; compound-specific evidence would be required before claiming a practical use.","tr":"Bu tam izomer için yaygın günlük kullanım iddia edilmez. Özel sentez/referans/araştırma türü olarak sunulur; pratik kullanım iddiası için bileşiğe özgü kanıt gerekir.","de":"Für dieses genaue Isomer wird keine breite Alltagsanwendung behauptet; es wird als spezielle Synthese-/Referenz-/Forschungsart dargestellt.","es":"No se afirma un uso cotidiano amplio para este isómero exacto; se presenta como especie especializada de síntesis, referencia o investigación.","pt":"Não se afirma um uso cotidiano amplo para este isômero exato; ele é apresentado como espécie especializada de síntese, referência ou pesquisa.","ja":"この正確な異性体に広い日常用途があるとはしていません。特殊合成・標準・研究の対象として提示します。","fr":"Aucun usage quotidien généralisé n’est affirmé pour cet isomère exact ; il est présenté comme espèce spécialisée de synthèse, de référence ou de recherche.","zh":"不声称这种确切异构体具有广泛日常用途；这里将其作为专门合成、标准或研究物种展示。","it":"Non viene attribuito un ampio uso quotidiano a questo esatto isomero; è presentato come specie specialistica di sintesi, riferimento o ricerca."},"fact":{"en":"Heavy halogen substitution can strongly change molecular mass, polarizability, volatility and reactivity. The game uses connectivity as the challenge and does not predict those properties from the board drawing.","tr":"Yoğun halojen yer değiştirmesi molekül kütlesi, polarize olabilirlik, uçuculuk ve tepkime davranışını ciddi biçimde değiştirebilir. Oyun bağlanmayı bulmaca olarak kullanır; tahta çiziminden bu özellikleri tahmin etmez.","de":"Starke Halogensubstitution kann Molekülmasse, Polarisierbarkeit, Flüchtigkeit und Reaktivität deutlich verändern. Das Spiel nutzt nur die Verknüpfung als Puzzle.","es":"Una halogenación intensa puede cambiar mucho masa molecular, polarizabilidad, volatilidad y reactividad. El juego usa la conectividad como reto, no como predicción de propiedades.","pt":"Uma halogenação intensa pode alterar bastante massa molecular, polarizabilidade, volatilidade e reatividade. O jogo usa a conectividade como desafio, não como previsão de propriedades.","ja":"強いハロゲン置換は分子量、分極率、揮発性、反応性を大きく変えることがあります。ゲームは結合関係を課題に使い、盤面から物性を予測しません。","fr":"Une forte halogénation peut modifier fortement masse moléculaire, polarisabilité, volatilité et réactivité. Le jeu utilise la connectivité comme défi, pas comme prédiction de propriétés.","zh":"高度卤代可能显著改变分子质量、可极化性、挥发性和反应性。游戏把连接关系作为挑战，并不根据棋盘图预测这些性质。","it":"Una forte alogenazione può cambiare molto massa molecolare, polarizzabilità, volatilità e reattività. Il gioco usa la connettività come sfida, non come previsione delle proprietà."}},"C4H5Cl2F2I":{"about":{"en":"1,4-dichloro-1,2-difluoro-3-iodobutane (C₄H₅Cl₂F₂I) is represented as a specific highly halogenated butane isomer. The real molecule is three-dimensional; Moleculox uses simplified 2D connectivity.","tr":"1,4-dikloro-1,2-difloro-3-iyodobütan (C₄H₅Cl₂F₂I), belirli bir yüksek halojenli bütan izomeri olarak gösterilir. Gerçek molekül üç boyutludur; Moleculox sadeleştirilmiş 2B bağlanma kullanır.","de":"1,4-dichlor-1,2-difluor-3-iodbutan (C₄H₅Cl₂F₂I) wird als bestimmtes hochhalogeniertes Butan-Isomer dargestellt. Moleculox nutzt vereinfachte 2D-Verknüpfung.","es":"1,4-dicloro-1,2-difluoro-3-yodobutano (C₄H₅Cl₂F₂I) se representa como un isómero específico de butano muy halogenado. Moleculox usa conectividad 2D simplificada.","pt":"1,4-dicloro-1,2-difluoro-3-iodobutano (C₄H₅Cl₂F₂I) é representado como um isômero específico de butano altamente halogenado. Moleculox usa conectividade 2D simplificada.","ja":"1,4-dichloro-1,2-difluoro-3-iodobutane（多ハロゲン化ブタン）（C₄H₅Cl₂F₂I）は高度にハロゲン化された特定のブタン異性体です。Moleculoxでは簡略化した2D結合を使います。","fr":"1,4-dichloro-1,2-difluoro-3-iodobutane (C₄H₅Cl₂F₂I) est représenté comme un isomère précis de butane fortement halogéné. Moleculox utilise une connectivité 2D simplifiée.","zh":"1,4-dichloro-1,2-difluoro-3-iodobutane（多卤代丁烷）（C₄H₅Cl₂F₂I）是一种特定的高卤代丁烷异构体。Moleculox采用简化二维连接。","it":"1,4-dicloro-1,2-difluoro-3-iodobutano (C₄H₅Cl₂F₂I) è rappresentato come uno specifico isomero di butano altamente alogenato. Moleculox usa connettività 2D semplificata."},"use":{"en":"No broad everyday use is claimed for this exact isomer. It is presented as a specialized synthesis/reference/research species; compound-specific evidence would be required before claiming a practical use.","tr":"Bu tam izomer için yaygın günlük kullanım iddia edilmez. Özel sentez/referans/araştırma türü olarak sunulur; pratik kullanım iddiası için bileşiğe özgü kanıt gerekir.","de":"Für dieses genaue Isomer wird keine breite Alltagsanwendung behauptet; es wird als spezielle Synthese-/Referenz-/Forschungsart dargestellt.","es":"No se afirma un uso cotidiano amplio para este isómero exacto; se presenta como especie especializada de síntesis, referencia o investigación.","pt":"Não se afirma um uso cotidiano amplo para este isômero exato; ele é apresentado como espécie especializada de síntese, referência ou pesquisa.","ja":"この正確な異性体に広い日常用途があるとはしていません。特殊合成・標準・研究の対象として提示します。","fr":"Aucun usage quotidien généralisé n’est affirmé pour cet isomère exact ; il est présenté comme espèce spécialisée de synthèse, de référence ou de recherche.","zh":"不声称这种确切异构体具有广泛日常用途；这里将其作为专门合成、标准或研究物种展示。","it":"Non viene attribuito un ampio uso quotidiano a questo esatto isomero; è presentato come specie specialistica di sintesi, riferimento o ricerca."},"fact":{"en":"Heavy halogen substitution can strongly change molecular mass, polarizability, volatility and reactivity. The game uses connectivity as the challenge and does not predict those properties from the board drawing.","tr":"Yoğun halojen yer değiştirmesi molekül kütlesi, polarize olabilirlik, uçuculuk ve tepkime davranışını ciddi biçimde değiştirebilir. Oyun bağlanmayı bulmaca olarak kullanır; tahta çiziminden bu özellikleri tahmin etmez.","de":"Starke Halogensubstitution kann Molekülmasse, Polarisierbarkeit, Flüchtigkeit und Reaktivität deutlich verändern. Das Spiel nutzt nur die Verknüpfung als Puzzle.","es":"Una halogenación intensa puede cambiar mucho masa molecular, polarizabilidad, volatilidad y reactividad. El juego usa la conectividad como reto, no como predicción de propiedades.","pt":"Uma halogenação intensa pode alterar bastante massa molecular, polarizabilidade, volatilidade e reatividade. O jogo usa a conectividade como desafio, não como previsão de propriedades.","ja":"強いハロゲン置換は分子量、分極率、揮発性、反応性を大きく変えることがあります。ゲームは結合関係を課題に使い、盤面から物性を予測しません。","fr":"Une forte halogénation peut modifier fortement masse moléculaire, polarisabilité, volatilité et réactivité. Le jeu utilise la connectivité comme défi, pas comme prédiction de propriétés.","zh":"高度卤代可能显著改变分子质量、可极化性、挥发性和反应性。游戏把连接关系作为挑战，并不根据棋盘图预测这些性质。","it":"Una forte alogenazione può cambiare molto massa molecolare, polarizzabilità, volatilità e reattività. Il gioco usa la connettività come sfida, non come previsione delle proprietà."}},"C4H5Cl2BrI2":{"about":{"en":"2-bromo-1,4-dichloro-1,3-diiodobutane (C₄H₅Cl₂BrI₂) is represented as a specific highly halogenated butane isomer. The real molecule is three-dimensional; Moleculox uses simplified 2D connectivity.","tr":"2-bromo-1,4-dikloro-1,3-diiyodobütan (C₄H₅Cl₂BrI₂), belirli bir yüksek halojenli bütan izomeri olarak gösterilir. Gerçek molekül üç boyutludur; Moleculox sadeleştirilmiş 2B bağlanma kullanır.","de":"2-brom-1,4-dichlor-1,3-diiodbutan (C₄H₅Cl₂BrI₂) wird als bestimmtes hochhalogeniertes Butan-Isomer dargestellt. Moleculox nutzt vereinfachte 2D-Verknüpfung.","es":"2-bromo-1,4-dicloro-1,3-diyodobutano (C₄H₅Cl₂BrI₂) se representa como un isómero específico de butano muy halogenado. Moleculox usa conectividad 2D simplificada.","pt":"2-bromo-1,4-dicloro-1,3-diiodobutano (C₄H₅Cl₂BrI₂) é representado como um isômero específico de butano altamente halogenado. Moleculox usa conectividade 2D simplificada.","ja":"2-bromo-1,4-dichloro-1,3-diiodobutane（多ハロゲン化ブタン）（C₄H₅Cl₂BrI₂）は高度にハロゲン化された特定のブタン異性体です。Moleculoxでは簡略化した2D結合を使います。","fr":"2-bromo-1,4-dichloro-1,3-diiodobutane (C₄H₅Cl₂BrI₂) est représenté comme un isomère précis de butane fortement halogéné. Moleculox utilise une connectivité 2D simplifiée.","zh":"2-bromo-1,4-dichloro-1,3-diiodobutane（多卤代丁烷）（C₄H₅Cl₂BrI₂）是一种特定的高卤代丁烷异构体。Moleculox采用简化二维连接。","it":"2-bromo-1,4-dicloro-1,3-diiodobutano (C₄H₅Cl₂BrI₂) è rappresentato come uno specifico isomero di butano altamente alogenato. Moleculox usa connettività 2D semplificata."},"use":{"en":"No broad everyday use is claimed for this exact isomer. It is presented as a specialized synthesis/reference/research species; compound-specific evidence would be required before claiming a practical use.","tr":"Bu tam izomer için yaygın günlük kullanım iddia edilmez. Özel sentez/referans/araştırma türü olarak sunulur; pratik kullanım iddiası için bileşiğe özgü kanıt gerekir.","de":"Für dieses genaue Isomer wird keine breite Alltagsanwendung behauptet; es wird als spezielle Synthese-/Referenz-/Forschungsart dargestellt.","es":"No se afirma un uso cotidiano amplio para este isómero exacto; se presenta como especie especializada de síntesis, referencia o investigación.","pt":"Não se afirma um uso cotidiano amplo para este isômero exato; ele é apresentado como espécie especializada de síntese, referência ou pesquisa.","ja":"この正確な異性体に広い日常用途があるとはしていません。特殊合成・標準・研究の対象として提示します。","fr":"Aucun usage quotidien généralisé n’est affirmé pour cet isomère exact ; il est présenté comme espèce spécialisée de synthèse, de référence ou de recherche.","zh":"不声称这种确切异构体具有广泛日常用途；这里将其作为专门合成、标准或研究物种展示。","it":"Non viene attribuito un ampio uso quotidiano a questo esatto isomero; è presentato come specie specialistica di sintesi, riferimento o ricerca."},"fact":{"en":"Heavy halogen substitution can strongly change molecular mass, polarizability, volatility and reactivity. The game uses connectivity as the challenge and does not predict those properties from the board drawing.","tr":"Yoğun halojen yer değiştirmesi molekül kütlesi, polarize olabilirlik, uçuculuk ve tepkime davranışını ciddi biçimde değiştirebilir. Oyun bağlanmayı bulmaca olarak kullanır; tahta çiziminden bu özellikleri tahmin etmez.","de":"Starke Halogensubstitution kann Molekülmasse, Polarisierbarkeit, Flüchtigkeit und Reaktivität deutlich verändern. Das Spiel nutzt nur die Verknüpfung als Puzzle.","es":"Una halogenación intensa puede cambiar mucho masa molecular, polarizabilidad, volatilidad y reactividad. El juego usa la conectividad como reto, no como predicción de propiedades.","pt":"Uma halogenação intensa pode alterar bastante massa molecular, polarizabilidade, volatilidade e reatividade. O jogo usa a conectividade como desafio, não como previsão de propriedades.","ja":"強いハロゲン置換は分子量、分極率、揮発性、反応性を大きく変えることがあります。ゲームは結合関係を課題に使い、盤面から物性を予測しません。","fr":"Une forte halogénation peut modifier fortement masse moléculaire, polarisabilité, volatilité et réactivité. Le jeu utilise la connectivité comme défi, pas comme prédiction de propriétés.","zh":"高度卤代可能显著改变分子质量、可极化性、挥发性和反应性。游戏把连接关系作为挑战，并不根据棋盘图预测这些性质。","it":"Una forte alogenazione può cambiare molto massa molecolare, polarizzabilità, volatilità e reattività. Il gioco usa la connettività come sfida, non come previsione delle proprietà."}},"C4H5Cl2Br2I":{"about":{"en":"1,2-dibromo-1,4-dichloro-3-iodobutane (C₄H₅Cl₂Br₂I) is represented as a specific highly halogenated butane isomer. The real molecule is three-dimensional; Moleculox uses simplified 2D connectivity.","tr":"1,2-dibromo-1,4-dikloro-3-iyodobütan (C₄H₅Cl₂Br₂I), belirli bir yüksek halojenli bütan izomeri olarak gösterilir. Gerçek molekül üç boyutludur; Moleculox sadeleştirilmiş 2B bağlanma kullanır.","de":"1,2-dibrom-1,4-dichlor-3-iodbutan (C₄H₅Cl₂Br₂I) wird als bestimmtes hochhalogeniertes Butan-Isomer dargestellt. Moleculox nutzt vereinfachte 2D-Verknüpfung.","es":"1,2-dibromo-1,4-dicloro-3-yodobutano (C₄H₅Cl₂Br₂I) se representa como un isómero específico de butano muy halogenado. Moleculox usa conectividad 2D simplificada.","pt":"1,2-dibromo-1,4-dicloro-3-iodobutano (C₄H₅Cl₂Br₂I) é representado como um isômero específico de butano altamente halogenado. Moleculox usa conectividade 2D simplificada.","ja":"1,2-dibromo-1,4-dichloro-3-iodobutane（多ハロゲン化ブタン）（C₄H₅Cl₂Br₂I）は高度にハロゲン化された特定のブタン異性体です。Moleculoxでは簡略化した2D結合を使います。","fr":"1,2-dibromo-1,4-dichloro-3-iodobutane (C₄H₅Cl₂Br₂I) est représenté comme un isomère précis de butane fortement halogéné. Moleculox utilise une connectivité 2D simplifiée.","zh":"1,2-dibromo-1,4-dichloro-3-iodobutane（多卤代丁烷）（C₄H₅Cl₂Br₂I）是一种特定的高卤代丁烷异构体。Moleculox采用简化二维连接。","it":"1,2-dibromo-1,4-dicloro-3-iodobutano (C₄H₅Cl₂Br₂I) è rappresentato come uno specifico isomero di butano altamente alogenato. Moleculox usa connettività 2D semplificata."},"use":{"en":"No broad everyday use is claimed for this exact isomer. It is presented as a specialized synthesis/reference/research species; compound-specific evidence would be required before claiming a practical use.","tr":"Bu tam izomer için yaygın günlük kullanım iddia edilmez. Özel sentez/referans/araştırma türü olarak sunulur; pratik kullanım iddiası için bileşiğe özgü kanıt gerekir.","de":"Für dieses genaue Isomer wird keine breite Alltagsanwendung behauptet; es wird als spezielle Synthese-/Referenz-/Forschungsart dargestellt.","es":"No se afirma un uso cotidiano amplio para este isómero exacto; se presenta como especie especializada de síntesis, referencia o investigación.","pt":"Não se afirma um uso cotidiano amplo para este isômero exato; ele é apresentado como espécie especializada de síntese, referência ou pesquisa.","ja":"この正確な異性体に広い日常用途があるとはしていません。特殊合成・標準・研究の対象として提示します。","fr":"Aucun usage quotidien généralisé n’est affirmé pour cet isomère exact ; il est présenté comme espèce spécialisée de synthèse, de référence ou de recherche.","zh":"不声称这种确切异构体具有广泛日常用途；这里将其作为专门合成、标准或研究物种展示。","it":"Non viene attribuito un ampio uso quotidiano a questo esatto isomero; è presentato come specie specialistica di sintesi, riferimento o ricerca."},"fact":{"en":"Heavy halogen substitution can strongly change molecular mass, polarizability, volatility and reactivity. The game uses connectivity as the challenge and does not predict those properties from the board drawing.","tr":"Yoğun halojen yer değiştirmesi molekül kütlesi, polarize olabilirlik, uçuculuk ve tepkime davranışını ciddi biçimde değiştirebilir. Oyun bağlanmayı bulmaca olarak kullanır; tahta çiziminden bu özellikleri tahmin etmez.","de":"Starke Halogensubstitution kann Molekülmasse, Polarisierbarkeit, Flüchtigkeit und Reaktivität deutlich verändern. Das Spiel nutzt nur die Verknüpfung als Puzzle.","es":"Una halogenación intensa puede cambiar mucho masa molecular, polarizabilidad, volatilidad y reactividad. El juego usa la conectividad como reto, no como predicción de propiedades.","pt":"Uma halogenação intensa pode alterar bastante massa molecular, polarizabilidade, volatilidade e reatividade. O jogo usa a conectividade como desafio, não como previsão de propriedades.","ja":"強いハロゲン置換は分子量、分極率、揮発性、反応性を大きく変えることがあります。ゲームは結合関係を課題に使い、盤面から物性を予測しません。","fr":"Une forte halogénation peut modifier fortement masse moléculaire, polarisabilité, volatilité et réactivité. Le jeu utilise la connectivité comme défi, pas comme prédiction de propriétés.","zh":"高度卤代可能显著改变分子质量、可极化性、挥发性和反应性。游戏把连接关系作为挑战，并不根据棋盘图预测这些性质。","it":"Una forte alogenazione può cambiare molto massa molecolare, polarizzabilità, volatilità e reattività. Il gioco usa la connettività come sfida, non come previsione delle proprietà."}},"C4H5Cl3FI":{"about":{"en":"1,1,4-trichloro-2-fluoro-3-iodobutane (C₄H₅Cl₃FI) is represented as a specific highly halogenated butane isomer. The real molecule is three-dimensional; Moleculox uses simplified 2D connectivity.","tr":"1,1,4-trikloro-2-floro-3-iyodobütan (C₄H₅Cl₃FI), belirli bir yüksek halojenli bütan izomeri olarak gösterilir. Gerçek molekül üç boyutludur; Moleculox sadeleştirilmiş 2B bağlanma kullanır.","de":"1,1,4-trichlor-2-fluor-3-iodbutan (C₄H₅Cl₃FI) wird als bestimmtes hochhalogeniertes Butan-Isomer dargestellt. Moleculox nutzt vereinfachte 2D-Verknüpfung.","es":"1,1,4-tricloro-2-fluoro-3-yodobutano (C₄H₅Cl₃FI) se representa como un isómero específico de butano muy halogenado. Moleculox usa conectividad 2D simplificada.","pt":"1,1,4-tricloro-2-fluoro-3-iodobutano (C₄H₅Cl₃FI) é representado como um isômero específico de butano altamente halogenado. Moleculox usa conectividade 2D simplificada.","ja":"1,1,4-trichloro-2-fluoro-3-iodobutane（多ハロゲン化ブタン）（C₄H₅Cl₃FI）は高度にハロゲン化された特定のブタン異性体です。Moleculoxでは簡略化した2D結合を使います。","fr":"1,1,4-trichloro-2-fluoro-3-iodobutane (C₄H₅Cl₃FI) est représenté comme un isomère précis de butane fortement halogéné. Moleculox utilise une connectivité 2D simplifiée.","zh":"1,1,4-trichloro-2-fluoro-3-iodobutane（多卤代丁烷）（C₄H₅Cl₃FI）是一种特定的高卤代丁烷异构体。Moleculox采用简化二维连接。","it":"1,1,4-tricloro-2-fluoro-3-iodobutano (C₄H₅Cl₃FI) è rappresentato come uno specifico isomero di butano altamente alogenato. Moleculox usa connettività 2D semplificata."},"use":{"en":"No broad everyday use is claimed for this exact isomer. It is presented as a specialized synthesis/reference/research species; compound-specific evidence would be required before claiming a practical use.","tr":"Bu tam izomer için yaygın günlük kullanım iddia edilmez. Özel sentez/referans/araştırma türü olarak sunulur; pratik kullanım iddiası için bileşiğe özgü kanıt gerekir.","de":"Für dieses genaue Isomer wird keine breite Alltagsanwendung behauptet; es wird als spezielle Synthese-/Referenz-/Forschungsart dargestellt.","es":"No se afirma un uso cotidiano amplio para este isómero exacto; se presenta como especie especializada de síntesis, referencia o investigación.","pt":"Não se afirma um uso cotidiano amplo para este isômero exato; ele é apresentado como espécie especializada de síntese, referência ou pesquisa.","ja":"この正確な異性体に広い日常用途があるとはしていません。特殊合成・標準・研究の対象として提示します。","fr":"Aucun usage quotidien généralisé n’est affirmé pour cet isomère exact ; il est présenté comme espèce spécialisée de synthèse, de référence ou de recherche.","zh":"不声称这种确切异构体具有广泛日常用途；这里将其作为专门合成、标准或研究物种展示。","it":"Non viene attribuito un ampio uso quotidiano a questo esatto isomero; è presentato come specie specialistica di sintesi, riferimento o ricerca."},"fact":{"en":"Heavy halogen substitution can strongly change molecular mass, polarizability, volatility and reactivity. The game uses connectivity as the challenge and does not predict those properties from the board drawing.","tr":"Yoğun halojen yer değiştirmesi molekül kütlesi, polarize olabilirlik, uçuculuk ve tepkime davranışını ciddi biçimde değiştirebilir. Oyun bağlanmayı bulmaca olarak kullanır; tahta çiziminden bu özellikleri tahmin etmez.","de":"Starke Halogensubstitution kann Molekülmasse, Polarisierbarkeit, Flüchtigkeit und Reaktivität deutlich verändern. Das Spiel nutzt nur die Verknüpfung als Puzzle.","es":"Una halogenación intensa puede cambiar mucho masa molecular, polarizabilidad, volatilidad y reactividad. El juego usa la conectividad como reto, no como predicción de propiedades.","pt":"Uma halogenação intensa pode alterar bastante massa molecular, polarizabilidade, volatilidade e reatividade. O jogo usa a conectividade como desafio, não como previsão de propriedades.","ja":"強いハロゲン置換は分子量、分極率、揮発性、反応性を大きく変えることがあります。ゲームは結合関係を課題に使い、盤面から物性を予測しません。","fr":"Une forte halogénation peut modifier fortement masse moléculaire, polarisabilité, volatilité et réactivité. Le jeu utilise la connectivité comme défi, pas comme prédiction de propriétés.","zh":"高度卤代可能显著改变分子质量、可极化性、挥发性和反应性。游戏把连接关系作为挑战，并不根据棋盘图预测这些性质。","it":"Una forte alogenazione può cambiare molto massa molecolare, polarizzabilità, volatilità e reattività. Il gioco usa la connettività come sfida, non come previsione delle proprietà."}},"C4H5Cl3BrI":{"about":{"en":"2-bromo-1,1,4-trichloro-3-iodobutane (C₄H₅Cl₃BrI) is represented as a specific highly halogenated butane isomer. The real molecule is three-dimensional; Moleculox uses simplified 2D connectivity.","tr":"2-bromo-1,1,4-trikloro-3-iyodobütan (C₄H₅Cl₃BrI), belirli bir yüksek halojenli bütan izomeri olarak gösterilir. Gerçek molekül üç boyutludur; Moleculox sadeleştirilmiş 2B bağlanma kullanır.","de":"2-brom-1,1,4-trichlor-3-iodbutan (C₄H₅Cl₃BrI) wird als bestimmtes hochhalogeniertes Butan-Isomer dargestellt. Moleculox nutzt vereinfachte 2D-Verknüpfung.","es":"2-bromo-1,1,4-tricloro-3-yodobutano (C₄H₅Cl₃BrI) se representa como un isómero específico de butano muy halogenado. Moleculox usa conectividad 2D simplificada.","pt":"2-bromo-1,1,4-tricloro-3-iodobutano (C₄H₅Cl₃BrI) é representado como um isômero específico de butano altamente halogenado. Moleculox usa conectividade 2D simplificada.","ja":"2-bromo-1,1,4-trichloro-3-iodobutane（多ハロゲン化ブタン）（C₄H₅Cl₃BrI）は高度にハロゲン化された特定のブタン異性体です。Moleculoxでは簡略化した2D結合を使います。","fr":"2-bromo-1,1,4-trichloro-3-iodobutane (C₄H₅Cl₃BrI) est représenté comme un isomère précis de butane fortement halogéné. Moleculox utilise une connectivité 2D simplifiée.","zh":"2-bromo-1,1,4-trichloro-3-iodobutane（多卤代丁烷）（C₄H₅Cl₃BrI）是一种特定的高卤代丁烷异构体。Moleculox采用简化二维连接。","it":"2-bromo-1,1,4-tricloro-3-iodobutano (C₄H₅Cl₃BrI) è rappresentato come uno specifico isomero di butano altamente alogenato. Moleculox usa connettività 2D semplificata."},"use":{"en":"No broad everyday use is claimed for this exact isomer. It is presented as a specialized synthesis/reference/research species; compound-specific evidence would be required before claiming a practical use.","tr":"Bu tam izomer için yaygın günlük kullanım iddia edilmez. Özel sentez/referans/araştırma türü olarak sunulur; pratik kullanım iddiası için bileşiğe özgü kanıt gerekir.","de":"Für dieses genaue Isomer wird keine breite Alltagsanwendung behauptet; es wird als spezielle Synthese-/Referenz-/Forschungsart dargestellt.","es":"No se afirma un uso cotidiano amplio para este isómero exacto; se presenta como especie especializada de síntesis, referencia o investigación.","pt":"Não se afirma um uso cotidiano amplo para este isômero exato; ele é apresentado como espécie especializada de síntese, referência ou pesquisa.","ja":"この正確な異性体に広い日常用途があるとはしていません。特殊合成・標準・研究の対象として提示します。","fr":"Aucun usage quotidien généralisé n’est affirmé pour cet isomère exact ; il est présenté comme espèce spécialisée de synthèse, de référence ou de recherche.","zh":"不声称这种确切异构体具有广泛日常用途；这里将其作为专门合成、标准或研究物种展示。","it":"Non viene attribuito un ampio uso quotidiano a questo esatto isomero; è presentato come specie specialistica di sintesi, riferimento o ricerca."},"fact":{"en":"Heavy halogen substitution can strongly change molecular mass, polarizability, volatility and reactivity. The game uses connectivity as the challenge and does not predict those properties from the board drawing.","tr":"Yoğun halojen yer değiştirmesi molekül kütlesi, polarize olabilirlik, uçuculuk ve tepkime davranışını ciddi biçimde değiştirebilir. Oyun bağlanmayı bulmaca olarak kullanır; tahta çiziminden bu özellikleri tahmin etmez.","de":"Starke Halogensubstitution kann Molekülmasse, Polarisierbarkeit, Flüchtigkeit und Reaktivität deutlich verändern. Das Spiel nutzt nur die Verknüpfung als Puzzle.","es":"Una halogenación intensa puede cambiar mucho masa molecular, polarizabilidad, volatilidad y reactividad. El juego usa la conectividad como reto, no como predicción de propiedades.","pt":"Uma halogenação intensa pode alterar bastante massa molecular, polarizabilidade, volatilidade e reatividade. O jogo usa a conectividade como desafio, não como previsão de propriedades.","ja":"強いハロゲン置換は分子量、分極率、揮発性、反応性を大きく変えることがあります。ゲームは結合関係を課題に使い、盤面から物性を予測しません。","fr":"Une forte halogénation peut modifier fortement masse moléculaire, polarisabilité, volatilité et réactivité. Le jeu utilise la connectivité comme défi, pas comme prédiction de propriétés.","zh":"高度卤代可能显著改变分子质量、可极化性、挥发性和反应性。游戏把连接关系作为挑战，并不根据棋盘图预测这些性质。","it":"Una forte alogenazione può cambiare molto massa molecolare, polarizzabilità, volatilità e reattività. Il gioco usa la connettività come sfida, non come previsione delle proprietà."}},"C4H4BrFI4":{"about":{"en":"1-bromo-2-fluoro-1,2,3,4-tetraiodobutane (C₄H₄BrFI₄) is represented as a specific highly halogenated butane isomer. The real molecule is three-dimensional; Moleculox uses simplified 2D connectivity.","tr":"1-bromo-2-floro-1,2,3,4-tetraiyodobütan (C₄H₄BrFI₄), belirli bir yüksek halojenli bütan izomeri olarak gösterilir. Gerçek molekül üç boyutludur; Moleculox sadeleştirilmiş 2B bağlanma kullanır.","de":"1-brom-2-fluor-1,2,3,4-tetraiodbutan (C₄H₄BrFI₄) wird als bestimmtes hochhalogeniertes Butan-Isomer dargestellt. Moleculox nutzt vereinfachte 2D-Verknüpfung.","es":"1-bromo-2-fluoro-1,2,3,4-tetrayodobutano (C₄H₄BrFI₄) se representa como un isómero específico de butano muy halogenado. Moleculox usa conectividad 2D simplificada.","pt":"1-bromo-2-fluoro-1,2,3,4-tetraiodobutano (C₄H₄BrFI₄) é representado como um isômero específico de butano altamente halogenado. Moleculox usa conectividade 2D simplificada.","ja":"1-bromo-2-fluoro-1,2,3,4-tetraiodobutane（多ハロゲン化ブタン）（C₄H₄BrFI₄）は高度にハロゲン化された特定のブタン異性体です。Moleculoxでは簡略化した2D結合を使います。","fr":"1-bromo-2-fluoro-1,2,3,4-tetraiodobutane (C₄H₄BrFI₄) est représenté comme un isomère précis de butane fortement halogéné. Moleculox utilise une connectivité 2D simplifiée.","zh":"1-bromo-2-fluoro-1,2,3,4-tetraiodobutane（多卤代丁烷）（C₄H₄BrFI₄）是一种特定的高卤代丁烷异构体。Moleculox采用简化二维连接。","it":"1-bromo-2-fluoro-1,2,3,4-tetraiodobutano (C₄H₄BrFI₄) è rappresentato come uno specifico isomero di butano altamente alogenato. Moleculox usa connettività 2D semplificata."},"use":{"en":"No broad everyday use is claimed for this exact isomer. It is presented as a specialized synthesis/reference/research species; compound-specific evidence would be required before claiming a practical use.","tr":"Bu tam izomer için yaygın günlük kullanım iddia edilmez. Özel sentez/referans/araştırma türü olarak sunulur; pratik kullanım iddiası için bileşiğe özgü kanıt gerekir.","de":"Für dieses genaue Isomer wird keine breite Alltagsanwendung behauptet; es wird als spezielle Synthese-/Referenz-/Forschungsart dargestellt.","es":"No se afirma un uso cotidiano amplio para este isómero exacto; se presenta como especie especializada de síntesis, referencia o investigación.","pt":"Não se afirma um uso cotidiano amplo para este isômero exato; ele é apresentado como espécie especializada de síntese, referência ou pesquisa.","ja":"この正確な異性体に広い日常用途があるとはしていません。特殊合成・標準・研究の対象として提示します。","fr":"Aucun usage quotidien généralisé n’est affirmé pour cet isomère exact ; il est présenté comme espèce spécialisée de synthèse, de référence ou de recherche.","zh":"不声称这种确切异构体具有广泛日常用途；这里将其作为专门合成、标准或研究物种展示。","it":"Non viene attribuito un ampio uso quotidiano a questo esatto isomero; è presentato come specie specialistica di sintesi, riferimento o ricerca."},"fact":{"en":"Heavy halogen substitution can strongly change molecular mass, polarizability, volatility and reactivity. The game uses connectivity as the challenge and does not predict those properties from the board drawing.","tr":"Yoğun halojen yer değiştirmesi molekül kütlesi, polarize olabilirlik, uçuculuk ve tepkime davranışını ciddi biçimde değiştirebilir. Oyun bağlanmayı bulmaca olarak kullanır; tahta çiziminden bu özellikleri tahmin etmez.","de":"Starke Halogensubstitution kann Molekülmasse, Polarisierbarkeit, Flüchtigkeit und Reaktivität deutlich verändern. Das Spiel nutzt nur die Verknüpfung als Puzzle.","es":"Una halogenación intensa puede cambiar mucho masa molecular, polarizabilidad, volatilidad y reactividad. El juego usa la conectividad como reto, no como predicción de propiedades.","pt":"Uma halogenação intensa pode alterar bastante massa molecular, polarizabilidade, volatilidade e reatividade. O jogo usa a conectividade como desafio, não como previsão de propriedades.","ja":"強いハロゲン置換は分子量、分極率、揮発性、反応性を大きく変えることがあります。ゲームは結合関係を課題に使い、盤面から物性を予測しません。","fr":"Une forte halogénation peut modifier fortement masse moléculaire, polarisabilité, volatilité et réactivité. Le jeu utilise la connectivité comme défi, pas comme prédiction de propriétés.","zh":"高度卤代可能显著改变分子质量、可极化性、挥发性和反应性。游戏把连接关系作为挑战，并不根据棋盘图预测这些性质。","it":"Una forte alogenazione può cambiare molto massa molecolare, polarizzabilità, volatilità e reattività. Il gioco usa la connettività come sfida, non come previsione delle proprietà."}},"C4H4BrF2I3":{"about":{"en":"1-bromo-2,4-difluoro-1,2,3-triiodobutane (C₄H₄BrF₂I₃) is represented as a specific highly halogenated butane isomer. The real molecule is three-dimensional; Moleculox uses simplified 2D connectivity.","tr":"1-bromo-2,4-difloro-1,2,3-triiyodobütan (C₄H₄BrF₂I₃), belirli bir yüksek halojenli bütan izomeri olarak gösterilir. Gerçek molekül üç boyutludur; Moleculox sadeleştirilmiş 2B bağlanma kullanır.","de":"1-brom-2,4-difluor-1,2,3-triiodbutan (C₄H₄BrF₂I₃) wird als bestimmtes hochhalogeniertes Butan-Isomer dargestellt. Moleculox nutzt vereinfachte 2D-Verknüpfung.","es":"1-bromo-2,4-difluoro-1,2,3-triyodobutano (C₄H₄BrF₂I₃) se representa como un isómero específico de butano muy halogenado. Moleculox usa conectividad 2D simplificada.","pt":"1-bromo-2,4-difluoro-1,2,3-triiodobutano (C₄H₄BrF₂I₃) é representado como um isômero específico de butano altamente halogenado. Moleculox usa conectividade 2D simplificada.","ja":"1-bromo-2,4-difluoro-1,2,3-triiodobutane（多ハロゲン化ブタン）（C₄H₄BrF₂I₃）は高度にハロゲン化された特定のブタン異性体です。Moleculoxでは簡略化した2D結合を使います。","fr":"1-bromo-2,4-difluoro-1,2,3-triiodobutane (C₄H₄BrF₂I₃) est représenté comme un isomère précis de butane fortement halogéné. Moleculox utilise une connectivité 2D simplifiée.","zh":"1-bromo-2,4-difluoro-1,2,3-triiodobutane（多卤代丁烷）（C₄H₄BrF₂I₃）是一种特定的高卤代丁烷异构体。Moleculox采用简化二维连接。","it":"1-bromo-2,4-difluoro-1,2,3-triiodobutano (C₄H₄BrF₂I₃) è rappresentato come uno specifico isomero di butano altamente alogenato. Moleculox usa connettività 2D semplificata."},"use":{"en":"No broad everyday use is claimed for this exact isomer. It is presented as a specialized synthesis/reference/research species; compound-specific evidence would be required before claiming a practical use.","tr":"Bu tam izomer için yaygın günlük kullanım iddia edilmez. Özel sentez/referans/araştırma türü olarak sunulur; pratik kullanım iddiası için bileşiğe özgü kanıt gerekir.","de":"Für dieses genaue Isomer wird keine breite Alltagsanwendung behauptet; es wird als spezielle Synthese-/Referenz-/Forschungsart dargestellt.","es":"No se afirma un uso cotidiano amplio para este isómero exacto; se presenta como especie especializada de síntesis, referencia o investigación.","pt":"Não se afirma um uso cotidiano amplo para este isômero exato; ele é apresentado como espécie especializada de síntese, referência ou pesquisa.","ja":"この正確な異性体に広い日常用途があるとはしていません。特殊合成・標準・研究の対象として提示します。","fr":"Aucun usage quotidien généralisé n’est affirmé pour cet isomère exact ; il est présenté comme espèce spécialisée de synthèse, de référence ou de recherche.","zh":"不声称这种确切异构体具有广泛日常用途；这里将其作为专门合成、标准或研究物种展示。","it":"Non viene attribuito un ampio uso quotidiano a questo esatto isomero; è presentato come specie specialistica di sintesi, riferimento o ricerca."},"fact":{"en":"Heavy halogen substitution can strongly change molecular mass, polarizability, volatility and reactivity. The game uses connectivity as the challenge and does not predict those properties from the board drawing.","tr":"Yoğun halojen yer değiştirmesi molekül kütlesi, polarize olabilirlik, uçuculuk ve tepkime davranışını ciddi biçimde değiştirebilir. Oyun bağlanmayı bulmaca olarak kullanır; tahta çiziminden bu özellikleri tahmin etmez.","de":"Starke Halogensubstitution kann Molekülmasse, Polarisierbarkeit, Flüchtigkeit und Reaktivität deutlich verändern. Das Spiel nutzt nur die Verknüpfung als Puzzle.","es":"Una halogenación intensa puede cambiar mucho masa molecular, polarizabilidad, volatilidad y reactividad. El juego usa la conectividad como reto, no como predicción de propiedades.","pt":"Uma halogenação intensa pode alterar bastante massa molecular, polarizabilidade, volatilidade e reatividade. O jogo usa a conectividade como desafio, não como previsão de propriedades.","ja":"強いハロゲン置換は分子量、分極率、揮発性、反応性を大きく変えることがあります。ゲームは結合関係を課題に使い、盤面から物性を予測しません。","fr":"Une forte halogénation peut modifier fortement masse moléculaire, polarisabilité, volatilité et réactivité. Le jeu utilise la connectivité comme défi, pas comme prédiction de propriétés.","zh":"高度卤代可能显著改变分子质量、可极化性、挥发性和反应性。游戏把连接关系作为挑战，并不根据棋盘图预测这些性质。","it":"Una forte alogenazione può cambiare molto massa molecolare, polarizzabilità, volatilità e reattività. Il gioco usa la connettività come sfida, non come previsione delle proprietà."}},"C4F10":{"about":{"en":"Perfluorobutane (C₄F₁₀), also called perflubutane or decafluorobutane, is butane in which all ten hydrogen atoms are replaced by fluorine.","tr":"Perflorobütan (C₄F₁₀), perflubütan veya dekaflorobütan olarak da bilinir; bütandaki on hidrojenin tamamının florla yer değiştirdiği bir perflorokarbondur.","de":"Perfluorbutan (C₄F₁₀), auch Perflubutan oder Decafluorbutan, ist Butan, bei dem alle zehn Wasserstoffatome durch Fluor ersetzt sind.","es":"El perfluorobutano (C₄F₁₀), también llamado perflubutano o decafluorobutano, es butano cuyos diez hidrógenos fueron sustituidos por flúor.","pt":"O perfluorobutano (C₄F₁₀), também chamado perflubutano ou decafluorobutano, é butano com todos os dez hidrogênios substituídos por flúor.","ja":"ペルフルオロブタン（C₄F₁₀、perflubutane/decafluorobutane）は、ブタンの10個の水素がすべてフッ素に置換されたパーフルオロカーボンです。","fr":"Le perfluorobutane (C₄F₁₀), aussi appelé perflubutane ou décafluorobutane, est un butane dont les dix hydrogènes sont remplacés par du fluor.","zh":"全氟丁烷（C₄F₁₀，也称perflubutane或十氟丁烷）是丁烷的十个氢全部被氟取代形成的全氟碳化合物。","it":"Il perfluorobutano (C₄F₁₀), detto anche perflubutano o decafluorobutano, è butano in cui tutti e dieci gli idrogeni sono sostituiti da fluoro."},"use":{"en":"Perfluorobutane gas is used in stabilized microbubbles for some ultrasound contrast agents and is also used in specialized research and industrial applications.","tr":"Perflorobütan gazı bazı ultrason kontrast ajanlarında kararlı mikrobaloncukların gaz çekirdeği olarak kullanılır; ayrıca özel araştırma ve endüstriyel uygulamalarda yer alır.","de":"Perfluorbutan-Gas wird in stabilisierten Mikrobläschen einiger Ultraschall-Kontrastmittel sowie in speziellen Forschungs- und Industrieanwendungen eingesetzt.","es":"El gas perfluorobutano se usa en microburbujas estabilizadas de algunos agentes de contraste para ultrasonido y en aplicaciones especializadas de investigación e industria.","pt":"O gás perfluorobutano é usado em microbolhas estabilizadas de alguns agentes de contraste por ultrassom e em aplicações especializadas de pesquisa e indústria.","ja":"ペルフルオロブタンガスは、一部の超音波造影剤の安定化マイクロバブルのガス成分や、特殊な研究・産業用途で使われます。","fr":"Le gaz perfluorobutane est utilisé dans des microbulles stabilisées de certains agents de contraste échographique, ainsi que dans des applications spécialisées de recherche et d’industrie.","zh":"全氟丁烷气体用于某些超声造影剂的稳定微泡气核，也用于一些专业研究和工业用途。","it":"Il gas perfluorobutano è usato in microbolle stabilizzate di alcuni mezzi di contrasto ecografici e in applicazioni specialistiche di ricerca e industria."},"fact":{"en":"Its PubChem IUPAC name is 1,1,1,2,2,3,3,4,4,4-decafluorobutane. Moleculox still shows only simplified 2D connectivity rather than its real 3D conformation.","tr":"PubChem’deki IUPAC adı 1,1,1,2,2,3,3,4,4,4-dekaflorobütandır. Moleculox yine gerçek 3B konformasyonu değil, sadeleştirilmiş 2B bağlanmayı gösterir.","de":"Der PubChem-IUPAC-Name lautet 1,1,1,2,2,3,3,4,4,4-Decafluorbutan. Moleculox zeigt weiterhin nur vereinfachte 2D-Verknüpfung.","es":"Su nombre IUPAC en PubChem es 1,1,1,2,2,3,3,4,4,4-decafluorobutano. Moleculox muestra solo conectividad 2D simplificada.","pt":"O nome IUPAC no PubChem é 1,1,1,2,2,3,3,4,4,4-decafluorobutano. Moleculox mostra apenas conectividade 2D simplificada.","ja":"PubChemのIUPAC名は1,1,1,2,2,3,3,4,4,4-decafluorobutaneです。Moleculoxでは実際の3D配座ではなく簡略化した2D結合を表示します。","fr":"Son nom IUPAC PubChem est 1,1,1,2,2,3,3,4,4,4-décafluorobutane. Moleculox montre uniquement une connectivité 2D simplifiée.","zh":"PubChem给出的IUPAC名称为1,1,1,2,2,3,3,4,4,4-十氟丁烷。Moleculox仍只展示简化二维连接。","it":"Il nome IUPAC PubChem è 1,1,1,2,2,3,3,4,4,4-decafluorobutano. Moleculox mostra solo connettività 2D semplificata."}}};
 Object.assign(MX_EXP_MOL_INFO,R116_ENDGAME_INFO);
@@ -3971,6 +4128,7 @@ Object.assign(MX_EXP_MOL_INFO,R114_GRAND_INFO);
 
 
 function richMoleculeInfo(id){
+  if(MOLS[id]?.researchPattern)return null;
   const x=MX_EXP_MOL_INFO[String(id||'')];
   if(!x)return null;
   return {about:lx(x.about),use:lx(x.use),fact:lx(x.fact)};
@@ -4039,9 +4197,9 @@ function labHintCosts(){
   const round5=v=>Math.max(5,Math.round(v/5)*5);
   const round10=v=>Math.max(10,Math.round(v/10)*10);
   return {
-    general:Math.max(30,round5(40*discount*repeat)),
-    move:Math.max(100,round5(125*discount*repeat)),
-    full:Math.max(480,round10(600*discount*repeat))
+    general:Math.max(75,round5(75*repeat)),
+    move:Math.max(160,round5(200*discount*repeat)),
+    full:Math.max(720,round10(900*discount*repeat))
   };
 }
 function fullSolutionHintUnlocked(){
@@ -4056,6 +4214,41 @@ function consumeQuantumHint(){
   if(!quantumHintAvailable())return false;
   save.researchAchievements[QUANTUM_DAY_KEY]=utcEpochDay();save.quantumHintDay=utcDayId();persist();return true;
 }
+
+// R199: one verified STRATEGIC clue is free per eligible level. The used state
+// is profile-scoped and stored independently from the board attempt, so pressing
+// Restart cannot restore the free clue. Keeping this lightweight entitlement out
+// of the cloud progress schema avoids any risk to stars, RP or MoleCoin merging.
+const FREE_STRATEGIC_STORAGE_VERSION=1;
+function freeStrategicStorageKey(){
+  const raw=String((save&&save.profileId)||curProfile||(save&&save.playerName)||'guest').trim()||'guest';
+  return 'moleculox_free_strategic_v'+FREE_STRATEGIC_STORAGE_VERSION+'_'+raw.replace(/[^A-Za-z0-9_.-]/g,'_').slice(0,72);
+}
+function readFreeStrategicState(){
+  try{
+    const raw=JSON.parse(localStorage.getItem(freeStrategicStorageKey())||'{}')||{};
+    return {campaign:(raw.campaign&&typeof raw.campaign==='object')?raw.campaign:{},crystal:(raw.crystal&&typeof raw.crystal==='object')?raw.crystal:{},daily:String(raw.daily||'')};
+  }catch(_){return {campaign:{},crystal:{},daily:''};}
+}
+function writeFreeStrategicState(state){
+  try{localStorage.setItem(freeStrategicStorageKey(),JSON.stringify({campaign:state.campaign||{},crystal:state.crystal||{},daily:String(state.daily||'')}));return true;}catch(_){return false;}
+}
+function freeStrategicHintDescriptor(){
+  if(!LV||lv<0||duelMode||chainMode||reactorMode)return null;
+  if(dailyMode)return {kind:'daily',id:String(currentDailyId||utcDayId())};
+  return {kind:crystalMode?'crystal':'campaign',id:String(lv)};
+}
+function freeStrategicHintAvailable(){
+  const d=freeStrategicHintDescriptor();if(!d)return false;const state=readFreeStrategicState();
+  if(d.kind==='daily')return state.daily!==d.id;
+  return !state[d.kind][d.id];
+}
+function consumeFreeStrategicHint(){
+  const d=freeStrategicHintDescriptor();if(!d)return false;const state=readFreeStrategicState();
+  if(d.kind==='daily'){if(state.daily===d.id)return false;state.daily=d.id;return writeFreeStrategicState(state);}
+  if(state[d.kind][d.id])return false;state[d.kind][d.id]=1;return writeFreeStrategicState(state);
+}
+
 function labItemVisualHtml(id,small){
   return '<span class="labAsset '+id+(small?' small':'')+'"><i></i><b></b><em></em></span>';
 }
@@ -4399,9 +4592,9 @@ function releaseGameVisualLoadForMenu(){
     const entry=document.getElementById('levelTransition');if(entry){entry.classList.remove('on','mxOut');}
     const tool=document.getElementById('mxToolFx');if(tool)tool.remove();
     const snap=document.getElementById('mxCompletionSnap');if(snap)snap.remove();
-    document.body.classList.remove('mxImpact');setAtomMotionActive(false);
+    setAtomMotionActive(false);
     const frame=document.getElementById('boardFrame');if(frame)frame.classList.remove('mxCompletionHold');
-    anim=null;landingResolutionBusy=false;landingResolutionToken++;shake=0;bounce=0;nudge=0;movingWallAnimating=false;
+    anim=null;landingResolutionBusy=false;landingResolutionToken++;bounce=0;nudge=0;movingWallAnimating=false;
     lastBoardFrame=lastGoalFrame=lastFxFrame=performance.now();
   }catch(e){console.warn('[stability] menu visual cleanup failed',e);}
 }
@@ -5087,7 +5280,15 @@ function drawMol(cv,mol,gray,animT){
   c.setTransform(dpr,0,0,dpr,0,0);c.clearRect(0,0,cw,ch);
   const xs=mol.s.map(a=>a[1]),ys=mol.s.map(a=>a[2]);
   const sw=Math.max(...xs)+1,sh=Math.max(...ys)+1;
-  const t=Math.min(cw/(sw+0.4),ch/(sh+0.4),30);
+  /* R198 GOAL rule: keep the R197 fixed card and typography, but make the
+     molecule itself easier to read. Ordinary targets share one larger visual
+     atom scale on a given device. Only targets whose geometry needs more room
+     are reduced proportionally by goalFitT; the GOAL frame never changes size.
+     Collection previews keep the historical auto-fit behaviour. */
+  const isGoalPreview=cv.id==='goalCv';
+  const standardGoalT=Math.min(26,cw*0.30,ch*0.40);
+  const goalFitT=Math.min(cw/(sw+0.55),ch/(sh+0.55));
+  const t=isGoalPreview?Math.min(standardGoalT,goalFitT):Math.min(cw/(sw+0.4),ch/(sh+0.4),30);
   const ox=(cw-sw*t)/2,oy=(ch-sh*t)/2;
   const glowPulse=animT?(0.75+0.25*Math.sin(animT/700)):1;
   const P=(a,i)=>{
@@ -5095,16 +5296,16 @@ function drawMol(cv,mol,gray,animT){
     const wob=Math.sin(animT/850+(i!=null?i*1.8:0))*0.045;
     return [ox+(a[1]+0.5)*t,oy+(a[2]+0.5+wob)*t];
   };
-  c.lineWidth=Math.max(3,t*0.18);c.lineCap='round';
+  c.lineWidth=Math.max(3,t*0.18);c.lineCap='round';if(mol.researchPattern)c.setLineDash([Math.max(2,t*.12),Math.max(2,t*.10)]);
   c.strokeStyle=gray?'rgba(160,160,180,.6)':'rgba(190,230,255,.95)';
   c.shadowColor=gray?'transparent':'rgba(79,216,255,.9)';c.shadowBlur=gray?0:6*glowPulse;
   if(Array.isArray(mol.xb)&&mol.xb.length){
-    for(const pair of mol.xb){const i=pair&&pair[0],j=pair&&pair[1];if(!Number.isInteger(i)||!Number.isInteger(j)||!mol.s[i]||!mol.s[j]||i===j)continue;if(mol.s[i][0]==='H'&&mol.s[j][0]==='H')continue;const[a,b]=[P(mol.s[i],i),P(mol.s[j],j)];c.beginPath();c.moveTo(a[0],a[1]);c.lineTo(b[0],b[1]);c.stroke();}
+    for(const pair of mol.xb){const i=pair&&pair[0],j=pair&&pair[1];if(!Number.isInteger(i)||!Number.isInteger(j)||!mol.s[i]||!mol.s[j]||i===j)continue;if(mol.s.length!==2&&mol.s[i][0]==='H'&&mol.s[j][0]==='H')continue;const[a,b]=[P(mol.s[i],i),P(mol.s[j],j)];c.beginPath();c.moveTo(a[0],a[1]);c.lineTo(b[0],b[1]);c.stroke();}
   }else for(let i=0;i<mol.s.length;i++)for(let j=i+1;j<mol.s.length;j++){
     const dx=mol.s[j][1]-mol.s[i][1],dy=mol.s[j][2]-mol.s[i][2];
-    if(Math.abs(dx)+Math.abs(dy)===1){if(mol.s[i][0]==='H'&&mol.s[j][0]==='H')continue;const[a,b]=[P(mol.s[i],i),P(mol.s[j],j)];c.beginPath();c.moveTo(a[0],a[1]);c.lineTo(b[0],b[1]);c.stroke();}
+    if(Math.abs(dx)+Math.abs(dy)===1){if(mol.s.length!==2&&mol.s[i][0]==='H'&&mol.s[j][0]==='H')continue;const[a,b]=[P(mol.s[i],i),P(mol.s[j],j)];c.beginPath();c.moveTo(a[0],a[1]);c.lineTo(b[0],b[1]);c.stroke();}
   }
-  c.shadowBlur=0;
+  c.shadowBlur=0;c.setLineDash([]);
   for(let i=0;i<mol.s.length;i++){
     const at=mol.s[i];
     const[x,y]=P(at,i),r=t*0.42,e=EL[at[0]];
@@ -5255,7 +5456,7 @@ function buildHof(){
   ).join('');
 
   const stars3=Object.values(save.stars).filter(v=>v===3).length;
-  const levelsDone=Object.keys(save.stars).length;
+  const levelsDone=Math.max(Object.values(save.stars||{}).filter(v=>Number(v)>0).length,Math.max(0,Math.min(LEVELS.length,Math.floor(Number(save.cur)||0))));
   const molCount=Object.keys(save.disc).length;
   const achvCount=ACHV.filter(a=>save.achv&&save.achv[a.id]).length;
 
@@ -5439,7 +5640,7 @@ async function refreshHofWorldTabs(tab){
   const memberInfo=periodFair?
     (ml("Adil dönem puanı yalnızca herkesin aynı gün oynadığı Günün Deneyi’nden gelir. Herkes 20 Temmuz 2026’da 0’dan başlar.","Fair period score comes only from Today’s Experiment, which is the same daily challenge for everyone. Everyone starts from 0 on July 20, 2026.","Die faire Periodenwertung stammt nur aus dem Experiment des Tages, derselben täglichen Herausforderung für alle. Alle starten am 20. Juli 2026 bei 0.","La puntuación justa del periodo solo proviene del Experimento del Día, el mismo reto diario para todos. Todos empiezan desde 0 el 20 de julio de 2026.","A pontuação justa do período vem apenas do Experimento do Dia, o mesmo desafio diário para todos. Todos começam do 0 em 20 de julho de 2026.","公平な期間スコアは全員共通の「今日の実験」だけで獲得します。全員2026年7月20日に0から開始します。")):
     (ml("Kariyer Puanı = RP + (tamamlanan bölüm × 20) + (toplam yıldız × 5). Eski RP, bölüm ve yıldızların korunur.","Career Score = RP + (completed levels × 20) + (total stars × 5). Your previous RP, levels and stars are preserved.","Karrierepunkte = RP + (abgeschlossene Level × 20) + (Sterne gesamt × 5). Deine bisherigen RP, Level und Sterne bleiben erhalten.","Puntuación de Carrera = RP + (niveles completados × 20) + (estrellas totales × 5). Se conservan tus RP, niveles y estrellas.","Pontuação de Carreira = RP + (fases concluídas × 20) + (total de estrelas × 5). Seus RP, fases e estrelas são preservados.","キャリアスコア = RP +（クリアレベル×20）+（合計スター×5）。これまでのRP、レベル、スターは保持されます。"));
-  const localCompleted=Object.values(save.stars||{}).filter(v=>Number(v)>0).length;
+  const localCompleted=Math.max(Object.values(save.stars||{}).filter(v=>Number(v)>0).length,Math.max(0,Math.min(LEVELS.length,Math.floor(Number(save.cur)||0))));
   const localPerfect=Object.values(save.stars||{}).filter(v=>Number(v)===3).length;
   const localStars=Object.values(save.stars||{}).reduce((sum,v)=>sum+Math.max(0,Math.min(3,Number(v)||0)),0);
   const localCareer=clampDisplay(save.researchPoints)+(localCompleted*20)+(localStars*5);
@@ -5513,10 +5714,10 @@ function collectionActiveTab(){
 }
 function ensureCollectionSaveState(){
   if(!save||typeof save!=='object')return false;
-  if(!save.disc||typeof save.disc!=='object')save.disc={};
-  if(!Array.isArray(save.stars))save.stars=[];
-  if(!Array.isArray(save.bestMoves))save.bestMoves=[];
-  if(!Array.isArray(save.speedRuns))save.speedRuns=[];
+  save.disc=mxProgressMap(save.disc);
+  save.stars=mxProgressMap(save.stars);
+  save.bestMoves=mxProgressMap(save.bestMoves);
+  save.speedRuns=mxProgressMap(save.speedRuns);
   if(!save.favoriteMolecules||typeof save.favoriteMolecules!=='object')save.favoriteMolecules={};
   if(!['all','open','locked','fav'].includes(save.collectionFilter))save.collectionFilter='all';
   return true;
@@ -6237,15 +6438,16 @@ function say(txt,mood,dur,fx){
     moxyPose('dre',false);
   }
   clearTimeout(sayT);
-  // R124: gameplay commentary remains readable until the player dismisses it.
-  // The bubble itself is tappable; no auto-close timer competes with reading.
-  sayT=null;
+  // R181: restore the classic thin read-timer behavior. The line finishes, then
+  // the bubble closes; the player can dismiss it immediately by tapping it.
+  sayT=setTimeout(closeSayBubble,readMs);
 }
 if(bub){
   const dismiss=e=>{if(!bub.classList.contains('on'))return;if(e&&e.cancelable)e.preventDefault();closeSayBubble();};
   bub.addEventListener('pointerdown',dismiss,{passive:false});
   bub.addEventListener('click',dismiss,{passive:false});
 }
+
 
 function showVictoryLabFx(mode){
   const wrap=$('#victoryLabFx'),particles=$('#victoryLabParticles');if(!wrap||!particles)return;
@@ -6700,7 +6902,7 @@ function rotationPadBurst(plan,blocked=false){
     const count=motionReduced()?7:24;for(let q=0;q<count;q++){const ang=q/count*Math.PI*2+(blocked?0:Math.PI*.25),sp=blocked?(.5+Math.random()):(.9+Math.random()*2.2);P({k:'glit',x:cx,y:cy,vx:Math.cos(ang)*sp,vy:Math.sin(ang)*sp,r:1.5+Math.random()*2.4,c:blocked?(q%2?'#ff7a92':'#ffd1d9'):(q%3===0?'#ffffff':q%2?'#c070ff':'#69efff'),life:.72,d:q*.006});}
     P({k:'ring',x:cx,y:cy,r:7,vr2:blocked?48:94,c:blocked?'#ff6b7e':'#a96cff',life:.7});
   }
-  if(!motionReduced())shake=Math.max(shake,blocked?.10:.17);mxHaptic(blocked?'light':'medium');
+  mxHaptic(blocked?'light':'medium');
 }
 function applyRotationPad(movedIdx){
   const plan=rotationPlanForMovedGroup(movedIdx);if(!plan)return false;
@@ -6745,23 +6947,13 @@ function updateFusionGroups(announce=true){
   }
   return formed;
 }
+function movementContext(){return {atoms,grid,barriers:temporaryBarriers,oneWay:oneWayAllows};}
+function atomHasMovementGroup(i){return !!fusionGroupFor(i)||stickyMate.has(i)||linkedMate.has(i);}
+function legalMoveDestination(i,d){const p=fusionMovePlan(i,d)||pairMovePlan(i,d);return p?p.main:(atomHasMovementGroup(i)?null:slideDest(i,d));}
 function fusionMovePlan(i,d,singleStep=false){
-  const group=fusionGroupFor(i);if(!group||group.members.length<2)return null;
-  const members=group.members.slice(),memberSet=new Set(members);if(members.some(k=>atoms[k]?.frozen))return null;
-  const [dx,dy]=DIRS[d],base=atoms.map(a=>({x:a.x,y:a.y})),cur=new Map(members.map(k=>[k,{x:base[k].x,y:base[k].y}]));let moved=false;
-  for(let guard=0;guard<(singleStep?1:32);guard++){
-    const next=new Map();let blocked=false;
-    for(const k of members){
-      const p=cur.get(k),nx=p.x+dx,ny=p.y+dy;
-      if(temporaryBarriers.has(barrierKey(nx,ny))||grid[ny]?.[nx]!==false||atoms.some((a,j)=>!memberSet.has(j)&&a.x===nx&&a.y===ny)||!oneWayAllows(p.x,p.y,nx,ny,d)){blocked=true;break;}
-      next.set(k,{x:nx,y:ny});
-    }
-    if(blocked||new Set([...next.values()].map(p=>p.x+','+p.y)).size!==members.length)break;
-    for(const [k,p] of next)cur.set(k,p);moved=true;
-  }
-  if(!moved)return null;
-  const main=cur.get(i),aux=members.filter(k=>k!==i).map(k=>({i:k,pos:cur.get(k)}));
-  return {fusion:true,groupPart:group.part,members:members.slice(),main,aux};
+  const g=fusionGroupFor(i);if(!g)return null;
+  const plan=window.MXMovementCore.rigid(movementContext(),g.members,i,d,singleStep);
+  if(plan)plan.groupPart=g.part;return plan;
 }
 function fusionPrecisionMovePlan(i,d){return fusionMovePlan(i,d,true);}
 function addStickyPair(a,b){
@@ -6771,39 +6963,9 @@ function addStickyPair(a,b){
   const id='S'+(stickyBondSeq++);atoms[a].stickyBonded=atoms[b].stickyBonded=true;atoms[a].stickyBondId=atoms[b].stickyBondId=id;
   return true;
 }
-function stickyMovePlan(i,d){
-  const j=stickyMate.get(i);if(j===undefined||atoms[i]?.frozen||atoms[j]?.frozen)return null;
-  const [dx,dy]=DIRS[d],base=atoms.map(a=>({x:a.x,y:a.y}));
-  let pi={x:base[i].x,y:base[i].y},pj={x:base[j].x,y:base[j].y},moved=false;
-  const blocked=(who,nx,ny)=>grid[ny]?.[nx]!==false||base.some((a,k)=>k!==i&&k!==j&&a.x===nx&&a.y===ny)||!oneWayAllows(who.x,who.y,nx,ny,d);
-  for(let guard=0;guard<32;guard++){
-    const ni={x:pi.x+dx,y:pi.y+dy},nj={x:pj.x+dx,y:pj.y+dy};
-    // Glue is rigid: the pair advances only while BOTH halves can advance.
-    if(blocked(pi,ni.x,ni.y)||blocked(pj,nj.x,nj.y))break;
-    if(ni.x===nj.x&&ni.y===nj.y)break;
-    pi=ni;pj=nj;moved=true;
-  }
-  return moved?{j,main:pi,mate:pj,sticky:true}:null;
-}
+function stickyMovePlan(i,d){return window.MXMovementCore.sticky(movementContext(),i,stickyMate.get(i),d);}
 function pairMovePlan(i,d){return stickyMovePlan(i,d)||linkedMovePlan(i,d);}
-function linkedMovePlan(i,d){
-  const j=linkedMate.get(i);if(j===undefined)return null;
-  const [dx,dy]=DIRS[d],base=atoms.map(a=>({x:a.x,y:a.y}));
-  const p={i:{x:base[i].x,y:base[i].y},j:{x:base[j].x,y:base[j].y}};
-  let ai=true,aj=true;
-  for(let guard=0;guard<32&&(ai||aj);guard++){
-    const ni={x:p.i.x+dx,y:p.i.y+dy},nj={x:p.j.x+dx,y:p.j.y+dy};
-    const staticBlocked=(who,nx,ny)=>grid[ny]?.[nx]!==false||base.some((a,k)=>k!==i&&k!==j&&a.x===nx&&a.y===ny)||!oneWayAllows(who.x,who.y,nx,ny,d);
-    let canI=ai&&!staticBlocked(p.i,ni.x,ni.y),canJ=aj&&!staticBlocked(p.j,nj.x,nj.y);
-    if(canI&&canJ&&ni.x===nj.x&&ni.y===nj.y){canI=canJ=false;}
-    if(canI&&ni.x===p.j.x&&ni.y===p.j.y&&!canJ)canI=false;
-    if(canJ&&nj.x===p.i.x&&nj.y===p.i.y&&!canI)canJ=false;
-    if(canI)p.i=ni;else ai=false;
-    if(canJ)p.j=nj;else aj=false;
-  }
-  const movedI=p.i.x!==base[i].x||p.i.y!==base[i].y,movedJ=p.j.x!==base[j].x||p.j.y!==base[j].y;
-  return(movedI||movedJ)?{j,main:p.i,mate:p.j}:null;
-}
+function linkedMovePlan(i,d){return window.MXMovementCore.linked(movementContext(),i,linkedMate.get(i),d);}
 function deriveFragileAtomIndexes(level,index,mode){
   if(mode!=='campaign'||dailyMode||duelMode||crystalMode||chainMode||reactorMode)return [];
   if(Array.isArray(level.fragile))return level.fragile.map(Number).filter(n=>Number.isInteger(n)&&n>=0&&n<(level.a||[]).length);
@@ -6878,7 +7040,7 @@ function drawPressureDoor(sys,t){
     bctx.globalAlpha=.42;bctx.strokeStyle='#72ffb5';bctx.lineWidth=Math.max(2,T*.04);bctx.setLineDash([T*.12,T*.08]);rrect(bctx,px+T*.12,py+T*.12,T*.76,T*.76,Math.max(4,T*.1));bctx.stroke();bctx.setLineDash([]);
     bctx.globalAlpha=.9;bctx.fillStyle='#d9ffea';bctx.font='900 '+Math.max(10,Math.round(T*.25))+'px system-ui';bctx.textAlign='center';bctx.textBaseline='middle';bctx.fillText('↔',px+T*.5,py+T*.52);
   }else{
-    bctx.shadowColor='#ffbf5c';bctx.shadowBlur=8+5*pulse;drawStone(px,py,sys.door.x,sys.door.y);
+    bctx.shadowColor='#ffbf5c';bctx.shadowBlur=8+5*pulse;drawStone(px,py,sys.door.x,sys.door.y,bctx,false);
     bctx.globalAlpha=.92;bctx.strokeStyle='#ffe0a0';bctx.lineWidth=Math.max(2,T*.04);for(let k=1;k<=3;k++){bctx.beginPath();bctx.moveTo(px+T*(.22*k),py+T*.18);bctx.lineTo(px+T*(.22*k),py+T*.82);bctx.stroke();}
   }
   bctx.globalAlpha=.96;bctx.fillStyle=sys.open?'#d9ffea':'#4b2f00';bctx.font='900 '+Math.max(8,Math.round(T*.18))+'px system-ui';bctx.textAlign='center';bctx.textBaseline='middle';bctx.fillText(pressureSystemLabel(sys),px+T*.76,py+T*.24);
@@ -6919,7 +7081,7 @@ function drawMovingWall(w,t){
     bctx.globalAlpha=.12*(1-qAnim*.45);bctx.fillStyle='#ffd36e';bctx.shadowColor='#ffbd4a';bctx.shadowBlur=12;
     rrect(bctx,px-dx*T*.16+T*.12,py-dy*T*.16+T*.12,T*.76,T*.76,Math.max(5,T*.11));bctx.fill();
   }
-  bctx.globalAlpha=1;bctx.shadowColor='#ffcf67';bctx.shadowBlur=9+7*pulse;drawStone(px,py,Math.round(x),Math.round(y));
+  bctx.globalAlpha=1;bctx.shadowColor='#ffcf67';bctx.shadowBlur=9+7*pulse;drawStone(px,py,Math.round(x),Math.round(y),bctx,false);
   // Powered metal frame: keeps the original stone identity but clearly marks it as machinery.
   const frame=bctx.createLinearGradient(px,py,px+T,py+T);frame.addColorStop(0,'rgba(255,245,189,.95)');frame.addColorStop(.45,'rgba(255,193,72,.88)');frame.addColorStop(1,'rgba(117,73,16,.9)');
   bctx.globalAlpha=.94;bctx.strokeStyle=frame;bctx.lineWidth=Math.max(2,T*.045);rrect(bctx,px+T*.095,py+T*.095,T*.81,T*.81,Math.max(5,T*.12));bctx.stroke();
@@ -7158,9 +7320,9 @@ function cancelHammer(){hammerMode=false;hammerPending=null;syncHammerUi();}
 function syncPrecisionUi(){
   const b=document.querySelector('#btnPrecision');if(!b)return;
   const eligible=precisionLevelEligible(),usable=!won&&!tutorialActive&&!autoSolveInProgress;
-  b.hidden=false;b.disabled=!usable;b.classList.toggle('on',usable&&eligible&&precisionMode);b.classList.toggle('empty',eligible&&boosterCount('precision')<1);markSupportAvailability(b,eligible);
+  b.hidden=false;b.disabled=!usable;b.classList.toggle('on',usable&&eligible&&precisionMode);b.classList.toggle('empty',eligible&&coinBalance()<PRECISION_USE_PRICE);markSupportAvailability(b,eligible);
   const label=b.querySelector('small');if(label)label.textContent=ml("1 KARE","1 SQUARE","1 FELD","1 CASILLA","1 CASA","1マス","1 CASE","1格","1 CASELLA");
-  const c=b.querySelector('.precisionCount');if(c)c.textContent=eligible?boosterCount('precision'):'—';
+  const c=b.querySelector('.precisionCount');if(c)c.textContent=eligible?'':'—';
   gameFeelToolState();
 }
 function cancelPrecision(){precisionMode=false;precisionPending=null;syncPrecisionUi();}
@@ -7182,22 +7344,22 @@ function attemptBarrierAt(x,y){
   if(!barrierLevelEligible()){cancelBarrier();supportUnavailable('barrier');return;}
   if(!barrierMode||won||barrierUsed)return;
   if(!barrierCellAvailable(x,y)){SFX.thunk();mxHaptic('error');say(ml("Bariyer yalnızca boş ve normal bir kareye konabilir.","The barrier can only be placed on an empty normal tile.","Die Barriere kann nur auf einem leeren normalen Feld platziert werden.","La barrera solo puede colocarse en una casilla normal vacía.","A barreira só pode ser colocada em uma casa normal vazia.","バリアは空いている通常マスにのみ設置できます。","La barrière ne peut être placée que sur une case normale vide.","屏障只能放在空的普通格子上。","La barriera può essere posizionata solo su una casella normale vuota."),'sad',2500,'shk');return;}
-  if(coinBalance()<BARRIER_USE_PRICE){cancelBarrier();SFX.thunk();mxHaptic('error');say(ml("Nano Bariyer için 300 MoleCoin gerekiyor.","Nano Barrier costs 300 MoleCoin.","Die Nano-Barriere kostet 300 MoleCoin.","La Barrera nano cuesta 300 MoleCoin.","A Barreira Nano custa 300 MoleCoin.","ナノバリアには300 MoleCoinが必要です。","La Nano-Barrière coûte 300 MoleCoin.","纳米屏障需要300 MoleCoin。","La Nano Barriera costa 300 MoleCoin."),'sad',3000,'shk');return;}
-  openModal('<h3>🧱 '+ml("NANO BARİYER","NANO BARRIER","NANO-BARRIERE","NANO BARRERA","NANO BARREIRA","ナノバリア","NANO-BARRIÈRE","纳米屏障","NANO BARRIERA")+'</h3><div class="msub">'+ml("Bu kareye geçici blok yerleştirilsin mi? <b>300 MoleCoin</b> yalnızca YERLEŞTİR dediğinde harcanır. Bölümde bir kez kullanılabilir ve ilk atom çarpışmasında kırılır.<br><b>Destek kullanımı:</b> Bölüm, yıldız ve ödüller korunur; bu deneme en iyi hamle ve süre rekoruna yazılmaz.","Place a temporary block on this tile? <b>300 MoleCoin</b> is charged only when you confirm PLACE. It can be used once per level and breaks on the first atom collision.<br><b>Assisted run:</b> Level progress, stars, and rewards are kept; this attempt does not set a best-move or speed record.","Temporären Block auf diesem Feld platzieren? <b>300 MoleCoin</b> werden erst bei PLATZIEREN abgezogen. Einmal pro Level nutzbar; er zerbricht beim ersten Atomstoß.<br><b>Unterstützter Lauf:</b> Fortschritt, Sterne und Belohnungen bleiben erhalten; dieser Versuch setzt keinen Zug- oder Zeitrekord.","¿Colocar un bloque temporal en esta casilla? Los <b>300 MoleCoin</b> se cobran solo al confirmar COLOCAR. Se usa una vez por nivel y se rompe con la primera colisión atómica.<br><b>Partida asistida:</b> Se conservan progreso, estrellas y recompensas; este intento no establece récord de movimientos ni tiempo.","Colocar um bloco temporário nesta casa? Os <b>300 MoleCoin</b> só são cobrados ao confirmar COLOCAR. Pode ser usado uma vez por fase e quebra na primeira colisão com um átomo.<br><b>Partida assistida:</b> Progresso, estrelas e recompensas são mantidos; esta tentativa não define recorde de movimentos ou tempo.","このマスに一時ブロックを置きますか？<b>300 MoleCoin</b>は「設置」を確定した時だけ消費されます。1レベルにつき1回使え、最初の原子衝突で壊れます。<br><b>アシスト使用：</b>進行、スター、報酬は保持されますが、この挑戦は手数・タイム記録の対象外です。","Placer un bloc temporaire sur cette case ? Les <b>300 MoleCoin</b> ne sont débités qu'après confirmation. Utilisable une fois par niveau, il se brise au premier choc d'atome.<br><b>Partie assistée :</b> progression, étoiles et récompenses sont conservées, mais aucun record de coups ou de temps n'est enregistré.","要在此格放置临时屏障吗？只有确认放置后才会扣除<b>300 MoleCoin</b>。每关只能使用一次，并会在第一次原子碰撞时破碎。<br><b>辅助挑战：</b>关卡进度、星星和奖励保留，但本次不会刷新最佳步数或速度纪录。","Posizionare un blocco temporaneo su questa casella? I <b>300 MoleCoin</b> vengono spesi solo quando confermi POSIZIONA. Si usa una volta per livello e si rompe al primo urto di un atomo.<br><b>Partita assistita:</b> progressi, stelle e ricompense restano validi, ma questo tentativo non registra record di mosse o tempo.")+'</div><div class="mcoins mxBarrierPrice">'+barrierPriceHtml()+'</div><div class="mrow"><button class="btn amber moleCoinBuyBtn" id="mBarrierYes"><span class="coinIcon" aria-hidden="true"></span><span>'+ml("SATIN AL & YERLEŞTİR","BUY & PLACE","KAUFEN & PLATZIEREN","COMPRAR Y COLOCAR","COMPRAR E COLOCAR","購入して設置","ACHETER & PLACER","购买并放置","ACQUISTA & POSIZIONA")+' · '+BARRIER_USE_PRICE+'</span></button><button class="btn ghost" id="mBarrierNo">'+t('cancel')+'</button></div>');
+  if(coinBalance()<BARRIER_USE_PRICE){cancelBarrier();SFX.thunk();mxHaptic('error');say(ml("Nano Bariyer için 500 MoleCoin gerekiyor.","Nano Barrier costs 500 MoleCoin.","Die Nano-Barriere kostet 500 MoleCoin.","La Barrera nano cuesta 500 MoleCoin.","A Barreira Nano custa 500 MoleCoin.","ナノバリアには500 MoleCoinが必要です。","La Nano-Barrière coûte 500 MoleCoin.","纳米屏障需要500 MoleCoin。","La Nano Barriera costa 500 MoleCoin."),'sad',3000,'shk');return;}
+  openModal('<h3>🧱 '+ml("NANO BARİYER","NANO BARRIER","NANO-BARRIERE","NANO BARRERA","NANO BARREIRA","ナノバリア","NANO-BARRIÈRE","纳米屏障","NANO BARRIERA")+'</h3><div class="msub">'+ml("Bu kareye geçici blok yerleştirilsin mi? <b>500 MoleCoin</b> yalnızca YERLEŞTİR dediğinde harcanır. Bölümde bir kez kullanılabilir ve ilk atom çarpışmasında kırılır.<br><b>Destek kullanımı:</b> Bölüm, yıldız ve ödüller korunur; bu deneme en iyi hamle ve süre rekoruna yazılmaz.","Place a temporary block on this tile? <b>500 MoleCoin</b> is charged only when you confirm PLACE. It can be used once per level and breaks on the first atom collision.<br><b>Assisted run:</b> Level progress, stars, and rewards are kept; this attempt does not set a best-move or speed record.","Temporären Block auf diesem Feld platzieren? <b>500 MoleCoin</b> werden erst bei PLATZIEREN abgezogen. Einmal pro Level nutzbar; er zerbricht beim ersten Atomstoß.<br><b>Unterstützter Lauf:</b> Fortschritt, Sterne und Belohnungen bleiben erhalten; dieser Versuch setzt keinen Zug- oder Zeitrekord.","¿Colocar un bloque temporal en esta casilla? Los <b>500 MoleCoin</b> se cobran solo al confirmar COLOCAR. Se usa una vez por nivel y se rompe con la primera colisión atómica.<br><b>Partida asistida:</b> Se conservan progreso, estrellas y recompensas; este intento no establece récord de movimientos ni tiempo.","Colocar um bloco temporário nesta casa? Os <b>500 MoleCoin</b> só são cobrados ao confirmar COLOCAR. Pode ser usado uma vez por fase e quebra na primeira colisão com um átomo.<br><b>Partida assistida:</b> Progresso, estrelas e recompensas são mantidos; esta tentativa não define recorde de movimentos ou tempo.","このマスに一時ブロックを置きますか？<b>500 MoleCoin</b>は「設置」を確定した時だけ消費されます。1レベルにつき1回使え、最初の原子衝突で壊れます。<br><b>アシスト使用：</b>進行、スター、報酬は保持されますが、この挑戦は手数・タイム記録の対象外です。","Placer un bloc temporaire sur cette case ? Les <b>500 MoleCoin</b> ne sont débités qu'après confirmation. Utilisable une fois par niveau, il se brise au premier choc d'atome.<br><b>Partie assistée :</b> progression, étoiles et récompenses sont conservées, mais aucun record de coups ou de temps n'est enregistré.","要在此格放置临时屏障吗？只有确认放置后才会扣除<b>500 MoleCoin</b>。每关只能使用一次，并会在第一次原子碰撞时破碎。<br><b>辅助挑战：</b>关卡进度、星星和奖励保留，但本次不会刷新最佳步数或速度纪录。","Posizionare un blocco temporaneo su questa casella? I <b>500 MoleCoin</b> vengono spesi solo quando confermi POSIZIONA. Si usa una volta per livello e si rompe al primo urto di un atomo.<br><b>Partita assistita:</b> progressi, stelle e ricompense restano validi, ma questo tentativo non registra record di mosse o tempo.")+'</div><div class="mcoins mxBarrierPrice">'+barrierPriceHtml()+'</div><div class="mrow"><button class="btn amber moleCoinBuyBtn" id="mBarrierYes"><span class="coinIcon" aria-hidden="true"></span><span>'+ml("SATIN AL & YERLEŞTİR","BUY & PLACE","KAUFEN & PLATZIEREN","COMPRAR Y COLOCAR","COMPRAR E COLOCAR","購入して設置","ACHETER & PLACER","购买并放置","ACQUISTA & POSIZIONA")+' · '+BARRIER_USE_PRICE+'</span></button><button class="btn ghost" id="mBarrierNo">'+t('cancel')+'</button></div>');
   bindTap('#mBarrierYes',()=>{
     if(!barrierCellAvailable(x,y)){closeModal();cancelBarrier();return;}
     if(!spendCoins(BARRIER_USE_PRICE)){closeModal();cancelBarrier();say(ml("Yeterli MoleCoin yok.","Not enough MoleCoins.","Nicht genug MoleCoins.","No hay suficientes MoleCoins.","MoleCoins insuficientes.","MoleCoinが足りません。","Pas assez de MoleCoin.","MoleCoin不足。","MoleCoin insufficienti."),'sad',2600,'shk');return;}
     persist();updateCoins(true);temporaryBarriers.set(barrierKey(x,y),{x,y});barrierUsed=true;assistanceUsed=true;routeAssistUsed=true;setDeadlockVisual(false);setGoalLastMoveSignal(false);barrierMode=false;closeModal();syncBarrierUi();(SFX.barrierBuild?SFX.barrierBuild():SFX.thunk());mxHaptic('medium');gameFeelBarrierConstruct(x,y);
-    say(ml("Nano Bariyer yerleştirildi. 300 MoleCoin harcandı; ilk çarpışmada kırılacak.","Nano Barrier placed. 300 MoleCoin spent; it will break on the first collision.","Nano-Barriere platziert. 300 MoleCoin wurden ausgegeben; sie zerbricht beim ersten Zusammenstoß.","Nano Barrera colocada. Se gastaron 300 MoleCoin; se romperá con la primera colisión.","Nano Barreira colocada. 300 MoleCoin foram gastos; ela quebrará na primeira colisão.","ナノバリアを設置しました。300 MoleCoinを使用し、最初の衝突で壊れます。","Nano-Barrière placée. 300 MoleCoin dépensés ; elle se brisera au premier choc.","纳米屏障已放置，已花费300 MoleCoin；第一次碰撞时会破碎。","Nano Barriera posizionata. Spesi 300 MoleCoin; si romperà al primo urto."),'happy',3000,'glow');
+    say(ml("Nano Bariyer yerleştirildi. 500 MoleCoin harcandı; ilk çarpışmada kırılacak.","Nano Barrier placed. 500 MoleCoin spent; it will break on the first collision.","Nano-Barriere platziert. 500 MoleCoin wurden ausgegeben; sie zerbricht beim ersten Zusammenstoß.","Nano Barrera colocada. Se gastaron 500 MoleCoin; se romperá con la primera colisión.","Nano Barreira colocada. 500 MoleCoin foram gastos; ela quebrará na primeira colisão.","ナノバリアを設置しました。500 MoleCoinを使用し、最初の衝突で壊れます。","Nano-Barrière placée. 500 MoleCoin dépensés ; elle se brisera au premier choc.","纳米屏障已放置，已花费500 MoleCoin；第一次碰撞时会破碎。","Nano Barriera posizionata. Spesi 500 MoleCoin; si romperà al primo urto."),'happy',3000,'glow');
   });
   bindTap('#mBarrierNo',()=>{closeModal();cancelBarrier();});
 }
 function precisionDest(i,d){
   if(i<0||!atoms[i])return null;
   const fp=fusionPrecisionMovePlan(i,d);if(fp)return fp.main;
-  if(fusionGroupFor(i))return null;
+  if(atomHasMovementGroup(i))return null;
   const [dx,dy]=DIRS[d],x=atoms[i].x+dx,y=atoms[i].y+dy;
-  if(!grid[y]||grid[y][x]||atoms.some((a,k)=>k!==i&&a.x===x&&a.y===y)||!oneWayAllows(atoms[i].x,atoms[i].y,x,y,d))return null;
+  if(!grid[y]||grid[y][x]||temporaryBarriers.has(barrierKey(x,y))||atoms.some((a,k)=>k!==i&&a.x===x&&a.y===y)||!oneWayAllows(atoms[i].x,atoms[i].y,x,y,d))return null;
   return{x,y};
 }
 function attemptPrecisionMove(i,d){
@@ -7205,15 +7367,14 @@ function attemptPrecisionMove(i,d){
   if(atoms[i].frozen){specialAtomSfx('frozen');specialAtomImpactFx(i,'frozen');mxHaptic('error');say(rnd(LN.frozen),'sad',2600,'shk');return;}
   const dest=precisionDest(i,d);
   if(!dest){SFX.thunk();mxHaptic('error');say(ml("O yöndeki ilk kare boş değil. Tek Kare Hareket harcanmadı.","The first square in that direction is blocked. One-Square Move was not spent.","Das erste Feld in dieser Richtung ist blockiert. Ein-Feld-Bewegung wurde nicht verbraucht.","La primera casilla en esa dirección está bloqueada. No se gastó Movimiento de Una Casilla.","A primeira casa nessa direção está bloqueada. Movimento de Uma Casa não foi gasto.","その方向の最初のマスは塞がれています。1マス移動は消費されませんでした。"),'sad',2400,'shk');return;}
-  if(boosterCount('precision')<1){cancelPrecision();say(ml("Tek Kare Hareket kalmadı. Laboratuvardan satın alabilirsin.","No One-Square Moves left. Buy one in the Lab.","Keine Ein-Feld-Bewegungen mehr. Du kannst im Labor eine kaufen.","No quedan Movimientos de Una Casilla. Puedes comprar uno en el Laboratorio.","Não restam Movimentos de Uma Casa. Você pode comprar um no Laboratório.","1マス移動がありません。ラボで購入できます。"),'sad',3000,'shk');return;}
   precisionPending={i,d,dest};
-  openModal('<h3>↔️ '+(ml("TEK KARE HAREKET","ONE-SQUARE MOVE","EIN-FELD-BEWEGUNG","MOVIMIENTO DE UNA CASILLA","MOVIMENTO DE UMA CASA","1マス移動"))+'</h3><div class="msub">'+(ml("Seçili atom bu yönde yalnızca 1 kare taşınsın mı? 1 güçlendirici harcanır ve Geri Alma iade etmez.<br><b>Destek kullanımı:</b> Bölüm, yıldız ve ödüller korunur; bu deneme en iyi hamle ve süre rekoruna yazılmaz.","Move the selected atom exactly 1 square in this direction? This spends 1 booster and Undo will not refund it.<br><b>Assisted run:</b> Level progress, stars, and rewards are kept; this attempt does not set a best-move or speed record.","Das gewählte Atom genau 1 Feld in diese Richtung bewegen? Verbraucht 1 Booster; Rückgängig erstattet ihn nicht.<br><b>Unterstützter Lauf:</b> Fortschritt, Sterne und Belohnungen bleiben erhalten; kein Zug- oder Zeitrekord.","¿Mover el átomo seleccionado exactamente 1 casilla en esta dirección? Gasta 1 potenciador y Deshacer no lo devuelve.<br><b>Partida asistida:</b> Se conservan progreso, estrellas y recompensas; no establece récord de movimientos ni tiempo.","Mover o átomo selecionado exatamente 1 casa nesta direção? Gasta 1 reforço e Desfazer não o devolve.<br><b>Partida assistida:</b> Progresso, estrelas e recompensas são mantidos; não define recorde de movimentos ou tempo.","選択した原子をこの方向へちょうど1マス動かしますか？ブースターを1個消費し、元に戻しても返却されません。<br><b>アシスト使用：</b>進行、スター、報酬は保持されますが、手数・タイム記録の対象外です。"))+'</div><div class="mrow"><button class="btn amber" id="mPrecisionYes">'+(ml("HAREKET ET","MOVE","BEWEGEN","MOVER","MOVER","移動"))+'</button><button class="btn ghost" id="mPrecisionNo">'+t('cancel')+'</button></div>');
+  openModal('<h3>↔️ '+ml("TEK KARE HAREKET","ONE-SQUARE MOVE","EIN-FELD-BEWEGUNG","MOVIMIENTO DE UNA CASILLA","MOVIMENTO DE UMA CASA","1マス移動","DÉPLACEMENT D’UNE CASE","单格移动","MOSSA DI UNA CASELLA")+'</h3><div class="msub">'+ml("Seçili atom bu yönde tam 1 kare taşınsın mı? <b>250 MoleCoin</b> yalnızca HAREKET ET dediğinde harcanır. İptal edersen veya yön artık geçersizse ücret alınmaz; Geri Alma harcanan MoleCoin’i iade etmez.<br><b>Destek kullanımı:</b> Bölüm, yıldız ve ödüller korunur; bu deneme en iyi hamle ve süre rekoruna yazılmaz.","Move the selected atom exactly 1 square in this direction? <b>250 MoleCoin</b> is charged only when you confirm MOVE. Cancelling or an invalid direction costs nothing; Undo does not refund spent MoleCoin.<br><b>Assisted run:</b> Level progress, stars, and rewards are kept; this attempt does not set a best-move or speed record.","Das gewählte Atom genau 1 Feld in diese Richtung bewegen? <b>250 MoleCoin</b> werden erst beim Bestätigen von BEWEGEN abgezogen. Abbrechen oder eine ungültige Richtung kostet nichts; Rückgängig erstattet ausgegebene MoleCoin nicht.<br><b>Unterstützter Lauf:</b> Fortschritt, Sterne und Belohnungen bleiben erhalten; kein Zug- oder Zeitrekord.","¿Mover el átomo seleccionado exactamente 1 casilla en esta dirección? Los <b>250 MoleCoin</b> solo se cobran al confirmar MOVER. Cancelar o una dirección inválida no cuesta nada; Deshacer no devuelve los MoleCoin gastados.<br><b>Partida asistida:</b> Se conservan progreso, estrellas y recompensas; no establece récord de movimientos ni tiempo.","Mover o átomo selecionado exatamente 1 casa nesta direção? Os <b>250 MoleCoin</b> só são cobrados ao confirmar MOVER. Cancelar ou uma direção inválida não custa nada; Desfazer não devolve os MoleCoin gastos.<br><b>Partida assistida:</b> Progresso, estrelas e recompensas são mantidos; não define recorde de movimentos ou tempo.","選択した原子をこの方向へちょうど1マス動かしますか？<b>250 MoleCoin</b>は「移動」を確定した時だけ消費されます。キャンセルや無効な方向では消費されず、元に戻しても使用したMoleCoinは返却されません。<br><b>アシスト使用：</b>進行、スター、報酬は保持されますが、手数・タイム記録の対象外です。","Déplacer l’atome sélectionné exactement d’une case dans cette direction ? Les <b>250 MoleCoin</b> ne sont débités qu’après confirmation. Annuler ou choisir une direction devenue invalide ne coûte rien ; Annuler le coup ne rembourse pas les MoleCoin dépensés.<br><b>Partie assistée :</b> progression, étoiles et récompenses sont conservées, mais aucun record de coups ou de temps n’est enregistré.","要让选中的原子沿此方向精确移动一格吗？只有确认移动后才会扣除<b>250 MoleCoin</b>。取消或方向无效不会扣费；撤销操作不会退还已花费的MoleCoin。<br><b>辅助挑战：</b>关卡进度、星星和奖励保留，但本次不会刷新最佳步数或速度纪录。","Spostare l’atomo selezionato esattamente di una casella in questa direzione? I <b>250 MoleCoin</b> vengono addebitati solo quando confermi SPOSTA. Annullare o una direzione non più valida non costa nulla; Annulla non rimborsa i MoleCoin spesi.<br><b>Partita assistita:</b> progressi, stelle e ricompense restano validi, ma questo tentativo non registra record di mosse o tempo.")+'</div><div class="mcoins mxPrecisionPrice"><span class="coinIcon" aria-hidden="true"></span><b>'+PRECISION_USE_PRICE+'</b></div><div class="mrow"><button class="btn amber moleCoinBuyBtn" id="mPrecisionYes"><span class="coinIcon" aria-hidden="true"></span><span>'+ml("SATIN AL & HAREKET ET","BUY & MOVE","KAUFEN & BEWEGEN","COMPRAR Y MOVER","COMPRAR E MOVER","購入して移動","ACHETER & DÉPLACER","购买并移动","ACQUISTA & SPOSTA")+' · '+PRECISION_USE_PRICE+'</span></button><button class="btn ghost" id="mPrecisionNo">'+t('cancel')+'</button></div>');
   bindTap('#mPrecisionYes',()=>{
     const q=precisionPending;if(!q||!precisionDest(q.i,q.d)){closeModal();cancelPrecision();return;}
-    if(!spendBooster('precision',1)){closeModal();cancelPrecision();return;}
-    assistanceUsed=true;routeAssistUsed=true;
+    if(!spendCoins(PRECISION_USE_PRICE)){closeModal();cancelPrecision();say(ml("Yeterli MoleCoin yok.","Not enough MoleCoins.","Nicht genug MoleCoins.","No hay suficientes MoleCoins.","MoleCoins insuficientes.","MoleCoinが足りません。","Pas assez de MoleCoin.","MoleCoin不足。","MoleCoin insufficienti."),'sad',2600,'shk');return;}
+    persist();updateCoins(true);assistanceUsed=true;routeAssistUsed=true;
     closeModal();precisionMode=false;precisionPending=null;syncPrecisionUi();gameFeelPrecisionPulse(q.i);precisionExecuting=true;move(q.i,q.d);precisionExecuting=false;
-    say(ml("Atom yalnızca 1 kare taşındı.","Atom moved exactly 1 square.","Das Atom wurde genau 1 Feld bewegt.","El átomo se movió exactamente 1 casilla.","O átomo se moveu exatamente 1 casa.","原子をちょうど1マス移動しました。"),'happy',2200,'glow');
+    say(ml("Atom tam 1 kare taşındı. 250 MoleCoin harcandı.","Atom moved exactly 1 square. 250 MoleCoin spent.","Das Atom wurde genau 1 Feld bewegt. 250 MoleCoin wurden ausgegeben.","El átomo se movió exactamente 1 casilla. Se gastaron 250 MoleCoin.","O átomo se moveu exatamente 1 casa. 250 MoleCoin foram gastos.","原子をちょうど1マス移動しました。250 MoleCoinを使用しました。","L’atome a été déplacé exactement d’une case. 250 MoleCoin dépensés.","原子已精确移动一格，已花费250 MoleCoin。","L’atomo è stato spostato esattamente di una casella. Spesi 250 MoleCoin."),'happy',2400,'glow');
   });
   bindTap('#mPrecisionNo',()=>{closeModal();cancelPrecision();});
 }
@@ -7228,7 +7389,7 @@ function attemptHammerAt(x,y){
     const target=hammerPending;if(!target||target.broken){closeModal();cancelHammer();return;}
     if(!spendBooster('hammer',1)){closeModal();cancelHammer();return;}
     assistanceUsed=true;routeAssistUsed=true;setDeadlockVisual(false);setGoalLastMoveSignal(false);
-    target.broken=true;grid[target.y][target.x]=false;invalidateBoardStatic();closeModal();cancelHammer();mxHaptic('heavy');shake=motionReduced()?0:Math.max(shake,.30);
+    target.broken=true;grid[target.y][target.x]=false;invalidateBoardStatic();closeModal();cancelHammer();mxHaptic('heavy');
     gameFeelToolFx('hammer',target.x,target.y);wallBreakDustFx(target.x,target.y);
     say(ml("Duvar kırıldı. Seçimin artık bölümün bir parçası!","Wall broken. Your choice is now part of the level!","Wand zerstört. Deine Wahl ist jetzt Teil des Levels!","Pared rota. ¡Tu elección ahora forma parte del nivel!","Parede quebrada. Sua escolha agora faz parte da fase!","壁を壊しました。あなたの選択がこのレベルの一部になりました！"),'happy',2600,'glow');
   });
@@ -7274,7 +7435,7 @@ function bioActive(){return campaignFeature==='bio';}
 function crystalActive(){return crystalMode||campaignFeature==='crystal'||enzymeActive()||bioActive();}
 function chainActive(){return chainMode||campaignFeature==='chain';}
 function reactorActive(){return reactorMode||campaignFeature==='reactor';}
-function campaignFeatureIcon(mode){return mode==='crystal'?'🧪':(mode==='enzyme'?'🧩':(mode==='bio'?'🧬':(mode==='chain'?'⚡':(mode==='reactor'?'☢️':''))));}
+function campaignFeatureIcon(mode){return mode==='crystal'?'🧪':(mode==='enzyme'?'🧩':(mode==='bio'?'🧬':(mode==='chain'?'»':(mode==='reactor'?'☢️':''))));}
 function campaignFeatureName(mode){if(mode==='enzyme')return ml('Enzim Kapısı','Enzyme Gate','Enzym-Tor','Puerta Enzimática','Portal Enzimático','酵素ゲート','Porte Enzymatique','酶门','Porta Enzimatica');if(mode==='bio')return ml('Bio Assembly','Bio Assembly','Bio Assembly','Bio Assembly','Bio Assembly','バイオ組立','Bio Assembly','生物组装','Bio Assembly');return mode?bonusModeName(mode):'';}
 let bonusMission=null,bonusVisualTier=0;
 const BONUS_MILESTONES=Array.from({length:15},(_,i)=>(i+1)*10);
@@ -7364,7 +7525,7 @@ function objectiveNeedAllCopy(){
 
 let attemptHintCount=0;
 let won=false,winT=0,hintStep=0,hintMark=null,bumpN=0,slowSaid=false,lastPerformance=null,stuckAtomIdx=-1,stuckAtomCount=0,strugglingSaid=false;
-let anim=null,bounce=null,nudge=null,shake=0;
+let anim=null,bounce=null,nudge=null;
 let landingResolutionBusy=false,landingResolutionToken=0;
 function setAtomMotionActive(active){
   if(document.body)document.body.classList.toggle('mxAtomMoving',!!active);
@@ -7384,7 +7545,6 @@ function deferLandingResolution(i,finishedAnim,landDist){
       gameFeelLandingContact(i,finishedAnim.d,landDist,bonded);
       if(bonded){mxHaptic('medium');moxyReact('pop',false);}
       if(chainActive()&&!won){if(finishedAnim.chainTrigger)beginChainReaction(finishedAnim.chainTrigger);else if(finishedAnim.chainAutoStep)setTimeout(runNextChainAuto,75);}
-      if(!won&&!motionReduced())shake=Math.max(shake,Math.min(0.16,0.035+landDist*0.018));
     }finally{
       if(token===landingResolutionToken)landingResolutionBusy=false;
       if(!anim)setAtomMotionActive(false);
@@ -7400,7 +7560,7 @@ function bonusModeName(mode){
   if(mode==='chain')return ml('Zincir Reaksiyon','Chain Reaction','Kettenreaktion','Reacción en Cadena','Reação em Cadeia','連鎖反応');
   return ml('Reaktör Kaçışı','Reactor Escape','Reaktor-Flucht','Escape del Reactor','Fuga do Reator','リアクター脱出');
 }
-function bonusModeIcon(mode){return mode==='crystal'?'🧪':(mode==='chain'?'⚡':'☢️');}
+function bonusModeIcon(mode){return mode==='crystal'?'🧪':(mode==='chain'?'»':'☢️');}
 function bonusModeForMilestone(milestone){return ['crystal','chain','reactor'][Math.max(0,Math.floor(milestone/10)-1)%3];}
 function bonusModeLabel(mode){return mode==='crystal'?(ml("KATALİZÖR AVI","CATALYST HUNT","KATALYSATOR-JAGD","CAZA DE CATALIZADOR","CAÇA AO CATALISADOR","触媒ハント")):(mode==='chain'?(ml("ZİNCİR REAKSİYONU","CHAIN REACTION","KETTENREAKTION","REACCIÓN EN CADENA","REAÇÃO EM CADEIA","連鎖反応")):(ml("REAKTÖR KAÇIŞI","REACTOR ESCAPE","REAKTOR-FLUCHT","ESCAPE DEL REACTOR","FUGA DO REATOR","リアクター脱出")));}
 function bonusModeDesc(mode){return mode==='crystal'?(ml("Katalizör, enerji hücresi ve stabilizatörü topla","Collect the catalyst, energy cell, and stabilizer","Sammle Katalysator, Energiezelle und Stabilisator","Recoge el catalizador, la célula de energía y el estabilizador","Colete o catalisador, a célula de energia e o estabilizador","触媒、エネルギーセル、安定化装置を集める")):(mode==='chain'?(ml("Yüklü hamlelerle Kombo x2 / x3 başlat","Trigger Combo x2 / x3 with charged moves","Löse mit geladenen Zügen Combo x2 / x3 aus","Activa Combo x2 / x3 con movimientos cargados","Ative Combo x2 / x3 com movimentos carregados","チャージ移動でコンボx2 / x3を発動")):(ml("Lazerler kapanınca geç, darbelerden kaçın","Move while lasers are open and avoid hits","Bewege dich bei offenen Lasern und weiche Treffern aus","Muévete cuando los láseres estén abiertos y evita impactos","Mova-se quando os lasers estiverem abertos e evite impactos","レーザーが開いている間に進み、攻撃を避ける")));}
@@ -7411,7 +7571,7 @@ function bonusModeVisualHtml(mode,compact){
 }
 function bonusModeCardHtml(mode,id,extraCls){return '<button class="bonusModeCard '+mode+' '+(extraCls||'')+'" id="'+id+'"><div class="bonusModeVisual">'+bonusModeVisualHtml(mode,false)+'</div><b>'+bonusModeIcon(mode)+' '+bonusModeLabel(mode)+'</b><small>'+bonusModeDesc(mode)+'</small></button>';}
 function duelSelectedBadgeHtml(mode){
-  const icon=mode==='classic'?'⚛️':(mode==='crystal'?'🧪':(mode==='chain'?'⚡':(mode==='reactor'?'☢️':'🎲')));
+  const icon=mode==='classic'?'⚛️':(mode==='crystal'?'🧪':(mode==='chain'?'»':(mode==='reactor'?'☢️':'🎲')));
   const label=mode==='classic'?(ml("KLASİK MOLECULOX","CLASSIC MOLECULOX","KLASSISCHES MOLECULOX","MOLECULOX CLÁSICO","MOLECULOX CLÁSSICO","クラシック MOLECULOX")):(mode==='mixed'?(ml("KARIŞIK","MIXED","GEMISCHT","MIXTO","MISTO","ミックス")):bonusModeLabel(mode));
   return '<span class="bonusModeBadge duelSelected '+mode+'"><span class="duelPreviewIcon">'+icon+'</span><em>'+label+'</em></span>';
 }
@@ -7865,7 +8025,7 @@ function chainChargedAtomIndex(){
 }
 function chainCounterText(){
   const total=Math.max(1,chainPlan.length),combo=chainAutoActive?chainCurrentCombo:chainMaxCombo;
-  return '⚡ '+ml('KOMBO','COMBO','KOMBO','COMBO','COMBO','コンボ')+' x'+Math.max(1,combo)+' · '+chainReactions+'/'+total;
+  return '» '+ml('KOMBO','COMBO','KOMBO','COMBO','COMBO','コンボ')+' x'+Math.max(1,combo)+' · '+chainReactions+'/'+total;
 }
 
 function mxSpecialCellPulse(cx,cy,type='gate',strength=1){
@@ -7897,7 +8057,7 @@ function runNextChainAuto(){
   // so checking only slideDest(i,d) here could wrongly cancel a valid
   // Chain Reaction auto-queue on levels that combine linked atoms with the
   // Chain bonus mode (170, 176).
-  const legal=pairMovePlan(i,d)||slideDest(i,d);
+  const legal=legalMoveDestination(i,d);
   if(!legal){chainAutoQueue=[];chainAutoActive=false;chainCurrentCombo=1;chainRefreshStep();updateHUD();return;}
   chainAutoExecuting=true;move(i,d);chainAutoExecuting=false;
 }
@@ -7983,7 +8143,7 @@ function buildReactorPlan(levelIndex){
     if(!picks.some(p=>p.x===c.x&&p.y===c.y))picks.push(c);
   }
   for(const c of usable){if(picks.length>=REACTOR_GATE_COUNT)break;if(!picks.some(p=>p.x===c.x&&p.y===c.y))picks.push(c);}
-  return picks.slice(0,REACTOR_GATE_COUNT).map((c,i)=>({x:c.x,y:c.y,axis:c.axis,step:c.step,period:1800,safeMs:820,phase:(i*520+((levelIndex+1)*137)%390)%1800}));
+  return picks.slice(0,REACTOR_GATE_COUNT).map((c,i)=>({x:c.x,y:c.y,axis:c.axis,step:c.step,period:1800,safeMs:820,phase:((levelIndex+1)*137)%390}));
 }
 function isReactorLevelEligible(levelIndex){return buildReactorPlan(levelIndex).length>=REACTOR_GATE_COUNT;}
 function reactorEligibleLevels(pool,exclude=[]){const list=[];for(let i=pool.min;i<=Math.min(pool.max,LEVELS.length-1);i++)if(!exclude.includes(i)&&isReactorLevelEligible(i))list.push(i);return list;}
@@ -8065,7 +8225,7 @@ function reactorHit(g,d){
   // the same move total used by PAR/stars/results in Campaign, Reactor Escape
   // and Reactor Duel. The board itself does not move.
   moves++;
-  reactorHits++;if(campaignFeature!=='reactor')reactorPenalty+=3;reactorLastHitAt=performance.now();shake=Math.max(shake,.8);nudge={i:sel,d,t0:performance.now()};SFX.thunk();mxHaptic('error');gameFeelImpact('medium');reactorImpactFx(g,d);drEGameEvent('reactor');
+  reactorHits++;if(campaignFeature!=='reactor')reactorPenalty+=3;reactorLastHitAt=performance.now();nudge={i:sel,d,t0:performance.now()};SFX.thunk();mxHaptic('error');reactorImpactFx(g,d);drEGameEvent('reactor');
   const rc=$('#reactorCounter');if(rc){rc.classList.remove('hit');void rc.offsetWidth;rc.classList.add('hit');}
   if(campaignFeature==='reactor'){
     prop(ml("☢️ DARBE · +1 HAMLE","☢️ IMPACT · +1 MOVE","☢️ TREFFER · +1 ZUG","☢️ IMPACTO · +1 MOVIMIENTO","☢️ IMPACTO · +1 JOGADA","☢️ 衝突・+1手"),1600);
@@ -8608,7 +8768,7 @@ function duelFinalRoundStatsHtml(){
   if(!duelState||!Array.isArray(duelState.rounds))return '';
   const rows=duelState.rounds.map((r,i)=>{
     const a=r&&Array.isArray(r.results)?r.results[0]:null,b=r&&Array.isArray(r.results)?r.results[1]:null;if(!a||!b)return '';
-    const mark=r.winner<0?'➖':(r.winner===0?'🔴':'🔵'),icon=r.gameType==='crystal'?'🧪':(r.gameType==='chain'?'⚡':(r.gameType==='reactor'?'☢️':'⚛️'));
+    const mark=r.winner<0?'➖':(r.winner===0?'🔴':'🔵'),icon=r.gameType==='crystal'?'🧪':(r.gameType==='chain'?'»':(r.gameType==='reactor'?'☢️':'⚛️'));
     const compact=x=>'⏱ '+duelFormatTime(x.time)+' · ↔ '+Math.max(0,Number(x.moves)||0);
     return '<div class="duelFinalStatRow"><b>'+mark+' R'+(i+1)+' '+icon+'</b><span class="red">🔴 '+compact(a)+'</span><span class="blue">🔵 '+compact(b)+'</span></div>';
   }).filter(Boolean).join('');
@@ -8817,7 +8977,7 @@ function duelRoundHistoryHtml(){
   return '<div class="duelRoundHistory">'+duelState.rounds.map((r,i)=>{
     if(!r.results[1])return '';
     const mark=r.winner<0?'➖':(r.winner===0?'🔴':'🔵');
-    const icon=r.gameType==='crystal'?'🧪':(r.gameType==='chain'?'⚡':(r.gameType==='reactor'?'☢️':'⚛️'));return '<span>'+mark+' '+icon+' R'+(i+1)+' · B'+(r.level+1)+'</span>';
+    const icon=r.gameType==='crystal'?'🧪':(r.gameType==='chain'?'»':(r.gameType==='reactor'?'☢️':'⚛️'));return '<span>'+mark+' '+icon+' R'+(i+1)+' · B'+(r.level+1)+'</span>';
   }).join('')+'</div>';
 }
 function showDuelFinalResult(){
@@ -8858,10 +9018,25 @@ function chemicalFormulaClass(v){
 }
 function fitFormulaNode(el,v){
   if(!el)return;
+  /* R197: formula typography is intentionally identical for every level on the
+     same viewport. Long formulas are contained by the fixed GOAL width; they no
+     longer select a smaller per-molecule font class. */
   el.textContent=v||'';
   el.classList.remove('mxFormulaS','mxFormulaM','mxFormulaL','mxFormulaXL');
-  el.classList.add(chemicalFormulaClass(v).trim());
+  el.classList.add('mxFormulaFixed');
   el.setAttribute('data-formula-length',String(String(v||'').length));
+}
+function fitGoalNameNode(el,v){
+  if(!el)return;
+  /* R197: every molecule name uses the same font metrics on a given viewport.
+     Long localized names wrap inside a reserved fixed-height text area instead
+     of shrinking the font or resizing the GOAL card. */
+  const text=String(v||'');
+  const n=Array.from(text).length;
+  el.textContent=text;
+  el.classList.remove('mxGoalNameS','mxGoalNameM','mxGoalNameL','mxGoalNameXL');
+  el.classList.add('mxGoalNameFixed');
+  el.setAttribute('data-goal-name-length',String(n));
 }
 function levelMoleculeInfoHtml(){
   if(!curMol)return '';
@@ -8879,7 +9054,7 @@ function announceLevelStartAfterBriefing(){
   else if(campaignFeature==='enzyme'){say('🧬 '+t('enzymeGateDesc'),'happy',7000,'glow');}
   else if(campaignFeature==='bio'){say('🧬 '+t('bioAssemblyDesc'),'happy',7600,'glow');}
   else if(campaignFeature==='crystal'){say('🧪 '+t('classicCatalystDesc'),'happy',6500,'glow');}
-  else if(campaignFeature==='chain'){say('⚡ '+t('classicChainDesc'),'happy',6500,'glow');}
+  else if(campaignFeature==='chain'){say('» '+t('classicChainDesc'),'happy',6500,'glow');}
   else if(campaignFeature==='reactor'){say('☢️ '+t('classicReactorDesc'),'happy',6500,'glow');}
   else if(tut===0){$('#tutOverlay').classList.add('on');}
   else if(!save.disc[mid]){say(levelMoleculeInfoHtml(),'talk',7000,'glow');}
@@ -8971,23 +9146,21 @@ function expansionStoryAct(index,level){
 function splitStoryTextIntoPages(value,count=3){
   const text=storyTextValue(value).replace(/\s+/g,' ').trim();
   if(!text)return Array.from({length:count},()=> '');
-  let parts=(text.match(/[^.!?。！？,;:，；：]+(?:[.!?。！？,;:，；：]+|$)/gu)||[text]).map(v=>v.trim()).filter(Boolean);
-  // Keep every word and punctuation mark exactly once while balancing the three pages.
-  while(parts.length>count){
-    let joinAt=0,joinSize=Infinity;
-    for(let i=0;i<parts.length-1;i++){const size=parts[i].length+parts[i+1].length;if(size<joinSize){joinAt=i;joinSize=size;}}
-    parts.splice(joinAt,2,(parts[joinAt]+' '+parts[joinAt+1]).replace(/\s+([.!?。！？,;:，；：])/gu,'$1'));
+  let sentences=[];
+  if(typeof Intl!=='undefined'&&Intl.Segmenter){
+    const segmenter=new Intl.Segmenter(localeCode(),{granularity:'sentence'});
+    sentences=[...segmenter.segment(text)].map(s=>s.segment.trim()).filter(Boolean);
+  }else sentences=(text.match(/[^.!?。！？]+[.!?。！？]+[”’"»」』]*|[^.!?。！？]+$/gu)||[text]).map(s=>s.trim());
+  // Join a detached closing quote to its own sentence, never to the next page.
+  for(let i=1;i<sentences.length;i++){
+    const m=sentences[i].match(/^[”’"»」』]+/u);if(m){sentences[i-1]+=m[0];sentences[i]=sentences[i].slice(m[0].length).trim();}
   }
-  while(parts.length<count){
-    let splitAt=0;for(let i=1;i<parts.length;i++)if(parts[i].length>parts[splitAt].length)splitAt=i;
-    const source=parts[splitAt],words=source.split(/\s+/).filter(Boolean);let left='',right='';
-    if(words.length>1){const mid=Math.max(1,Math.ceil(words.length/2));left=words.slice(0,mid).join(' ');right=words.slice(mid).join(' ');}
-    else{const chars=Array.from(source),mid=Math.max(1,Math.ceil(chars.length/2));left=chars.slice(0,mid).join('');right=chars.slice(mid).join('');}
-    if(!right)right=left;
-    parts.splice(splitAt,1,left.trim(),right.trim());
-  }
-  return parts.slice(0,count);
+  sentences=sentences.filter(Boolean);
+  const pages=Array.from({length:count},()=> '');
+  for(let i=0;i<sentences.length;i++){const slot=Math.min(count-1,Math.floor(i*count/sentences.length));pages[slot]+=(pages[slot]?' ':'')+sentences[i];}
+  return pages;
 }
+
 function expansionTriptychCrops(levelNumber){
   // The supplied R122/R123 art files are 1672×941 triptychs. Level 302 is a
   // two-up grid plus a wide final panel; every other checkpoint is three rows.
@@ -9020,7 +9193,9 @@ function expansionStorySubject(levelNumber,epilogue=false){
   if(n<501)return ml('X-Origin koridoru','The X-Origin corridor','Der X-Origin-Korridor','El corredor X-Origin','O corredor X-Origin','X-Origin回廊','Le couloir X-Origin','X-Origin通道','Il corridoio X-Origin');
   return ml('Köken imzası','The origin signature','Die Ursprungssignatur','La firma de origen','A assinatura de origem','起源シグネチャ','La signature d’origine','起源特征','La firma d’origine');
 }
+const R180_STORY_NOTES={"306": {"tr": "Önce birleşecek parçaların çıkışını açık bırak. Erken birleşen grup dar koridorda sıkışabilir.", "en": "Leave an exit for the pieces you join. A group formed too early can become trapped in the narrow corridor."}, "315": {"tr": "Halkayı kapatmadan önce son parçanın yaklaşacağı kenarı seç. Birleşim sırası boş alanı belirleyecek.", "en": "Choose the last piece’s approach before closing the ring. Your joining order determines the space left to work in."}, "326": {"tr": "Dönüşten sonra grubun tamamı sığmalı. Yalnızca seçili atomun gideceği kareyi kontrol etmek yetmez.", "en": "The whole group must fit after rotation. Checking only the selected atom’s destination is not enough."}, "329": {"tr": "Tek yön oku ile dönüş pedini birlikte oku. Parçayı döndürmeden önce geri çıkışını planla.", "en": "Read the one-way arrow together with the rotation pad. Plan the exit before turning the piece."}, "365": {"tr": "Son kolu yerleştirmeden önce dönüş alanını koru. Dolu bir kare bütün grubun dönüşünü engelleyebilir.", "en": "Keep the turning area clear before placing the final arm. One occupied cell can block the whole group’s rotation."}, "396": {"tr": "Hazır modülün içindeki atomlar ayrılmaz. Modülü tek parça olarak hedefe yaklaştıracak durma noktasını bul.", "en": "Atoms inside a prebuilt module stay together. Find a stopping point that brings the entire module toward the target."}, "401": {"tr": "Rift girişine bakmak yetmez; çıkış çevresindeki boşluğu da kontrol et. Sonraki hamlen orada başlayacak.", "en": "Check the space around the Rift exit as well as its entrance. That is where your next move begins."}, "415": {"tr": "Hareketli duvar yeni konuma geçtiğinde Rift çıkışı hâlâ kullanılabilir mi? Kırılgan parçayı riske atmadan bunu çöz.", "en": "Will the Rift exit remain usable after the moving wall shifts? Work that out before risking the fragile piece."}, "416": {"tr": "Enzim kapısının kabul ettiği atomu belirle. Yanlış parçayı öne almak doğru parçanın yolunu kapatabilir.", "en": "Identify the atom accepted by the enzyme gate. Moving the wrong piece first can block the right one."}, "430": {"tr": "Elektriğin ulaşacağı donmuş parçayı bul. Onu serbest bırakmak, enzim kapısına giden sırayı değiştirecek.", "en": "Find the frozen piece the electricity can reach. Freeing it will change the order of approach to the enzyme gate."}, "431": {"tr": "Eşleşen parçaları bulduktan sonra birleşme yerini seç. Doğru eşleşme kadar grubun çıkış yolu da önemli.", "en": "After finding the matching pieces, choose where to join them. The resulting group needs an exit as well as a correct match."}, "445": {"tr": "Önce donmuş parçaların serbest kalacağı yolu ayır. Portal ve hareketli duvar, eşleşme sırasını değiştirebilir.", "en": "Reserve a route for freeing the frozen pieces first. The portal and moving wall can change the pairing order."}, "446": {"tr": "Üç modül de tek parça kalır. Hedef şekli kurarken bir modülü diğerinin dönüş alanına park etme.", "en": "All three modules stay intact. While building the target, keep each module out of the others’ turning space."}, "458": {"tr": "Basınç kapısını açık tutan konumu kaybetmeden diğer modülü geçir. Kapının ötesindeki durma noktasını önceden seç.", "en": "Move the other module through without losing the position that holds the pressure door open. Choose its stopping point beyond the door first."}, "480": {"tr": "Dört grubun sırasını kapıya göre belirle. Kapıyı açan parçayı erken birleştirirsen geri dönmek zorlaşabilir.", "en": "Order the four groups around the door. Joining the piece that opens it too early can make returning difficult."}, "501": {"tr": "Son deneyde dört grubun da yeri var. Kırılgan parçayı koru ve birleşimden önce kalan boşluğu kontrol et.", "en": "Each of the four groups has a place in the final experiment. Protect the fragile piece and check the remaining space before joining."}};
 function expansionStoryDialogue(levelNumber,step,formula,epilogue=false){
+  if(step===1&&!epilogue&&R180_STORY_NOTES[levelNumber]?.[LANG])return R180_STORY_NOTES[levelNumber][LANG];
   const subject=expansionStorySubject(levelNumber,epilogue);
   if(step===0)return ml(
     subject+' şimdi netleşti. İlk karedeki kanıtı oku; hamle yapmadan önce düzeni incele.',
@@ -9257,7 +9432,8 @@ function renderStoryPage(panel){
       sceneImg.style.removeProperty('--mx-story-img-y');
       if(page.crop){
         const crop=page.crop,sourceW=Math.max(1,Number(crop.sourceW)||1672),sourceH=Math.max(1,Number(crop.sourceH)||941);
-        const cropW=Math.max(1,Number(crop.w)||sourceW),cropH=Math.max(1,Number(crop.h)||sourceH),heroRatio=1672/941;
+        const cropW=Math.max(1,Number(crop.w)||sourceW),cropH=Math.max(1,Number(crop.h)||sourceH),heroRatio=cropW/cropH;
+        hero.style.setProperty('aspect-ratio',String(heroRatio),'important');
         const cropWidthPct=(cropW/(cropH*heroRatio))*100;
         const baseLeftPct=-(Math.max(0,Number(crop.x)||0)/(cropH*heroRatio))*100;
         const overflowPct=Math.max(0,cropWidthPct-100);
@@ -9271,7 +9447,7 @@ function renderStoryPage(panel){
         sceneImg.style.setProperty('--mx-story-img-x',(baseLeftPct-focusShift).toFixed(4)+'%');
         sceneImg.style.setProperty('--mx-story-img-y',(-(Math.max(0,Number(crop.y)||0)/cropH)*100).toFixed(4)+'%');
       }else{
-        sceneImg.className='sceneArtImg sceneArtFullR152';
+        hero.style.removeProperty('aspect-ratio');sceneImg.className='sceneArtImg sceneArtFullR152';
       }
       hero.style.backgroundImage='';hero.style.backgroundSize='';hero.style.backgroundPosition='';
       panel.classList.add('hasSceneArt');
@@ -9498,6 +9674,7 @@ function revealPreparedLevel(levelIndex,token){
   });
 }
 function startLevel(i,mode='campaign',expectedKey=''){
+  closeSayBubble();
   // R136: hide the entire board/action region during synchronous level preparation.
   // This also covers Restart/Next Level when #gameScr is already visible: the board and
   // conditional right-side buttons are revealed together in one browser paint.
@@ -9633,7 +9810,13 @@ function startLevel(i,mode='campaign',expectedKey=''){
   for(const f of atoms){
     if(!f.fire)continue;
     for(const fr of atoms){
-      if(fr.frozen&&Math.abs(f.x-fr.x)+Math.abs(f.y-fr.y)===1)fr.frozen=false;
+      if(fr.frozen&&Math.abs(f.x-fr.x)+Math.abs(f.y-fr.y)===1){
+        fr.frozen=false;
+        // Starting contact follows the same cure rule as contact after a move.
+        // Leaving the Zombie flag behind could re-infect and lock the certified
+        // routes on Levels 421, 427, 437 and 439.
+        if(fr.zombie){fr.zombie=false;fr.zombieGen=0;}
+      }
     }
   }
   sel=0;moves=0;hist=[];won=false;winT=0;hintStep=0;attemptHintCount=0;lastSolveSeconds=0;previousSpeedRecord=0;newSpeedRecord=null;lastSolveRecordEligible=false;hintMark=null;bumpN=0;stuckAtomIdx=-1;stuckAtomCount=0;strugglingSaid=false;slowSaid=false;crystalGoalWarned=false;clearTimeout(autoHintT);
@@ -9642,7 +9825,7 @@ function startLevel(i,mode='campaign',expectedKey=''){
   setTheme(Math.floor(i/20));lastBondLine=false;prevB=0;mxReactionStreak=0;mxReactionAt=0;setExcited(false);updateIntensity();einMood('enter',650);if(Math.random()<0.6)prop('👋',1300);
   if(mode==='campaign'&&!duelMode&&!dailyMode)playCharacterVoice('drE','ready',{force:true,cooldown:0,duck:.38});if(mid==='N2O')setTimeout(()=>{einMood('laugh',1200);},1500);
   if(lv===NOBEL_LEVEL_INDEX)setTimeout(()=>{einMood('excited',900);prop('🏆',3000);say(t('nobelIntro'),'talk',5500,'glow');playCharacterVoice('drE','nobel',{force:true,duck:.24});},900);
-  const duelTypeTag=crystalMode?'🧪':(chainMode?'⚡':(reactorMode?'☢️':'⚛️'));
+  const duelTypeTag=crystalMode?'🧪':(chainMode?'»':(reactorMode?'☢️':'⚛️'));
   const campaignPill=campaignFeature?(t('level',i+1)+' · '+campaignFeatureIcon(campaignFeature)+' '+campaignFeatureName(campaignFeature)):t('level',i+1);
   $('#lvPill').textContent=duelMode?('VS '+duelTypeTag+' · R'+(duelState.round+1)+'/'+DUEL_MAX_ROUNDS+' · '+duelState.players[duelState.turn]):(crystalMode?'🧪 '+crystalCopy().title+' · B'+(i+1):(chainMode?'⚡ '+chainCopy().title+' · B'+(i+1):(reactorMode?'☢️ '+reactorCopy().title+' · B'+(i+1):campaignPill)));
   queueLevelStory(LV,i,mode);
@@ -9654,7 +9837,7 @@ function startLevel(i,mode='campaign',expectedKey=''){
   scr.game.classList.toggle('crystalMode',crystalActive());
   scr.game.classList.toggle('chainMode',chainActive());
   scr.game.classList.toggle('reactorMode',reactorActive());
-  $('#goalName').textContent=curMol.n;
+  fitGoalNameNode($('#goalName'),curMol.shortName||curMol.n);$('#goalName').title=curMol.n;
   fitFormulaNode($('#goalFor'),curMol.f);
   const _gc=$('#goalCard');if(_gc)_gc.classList.remove('goalPop','mxGoalBreath','mxGoalNear','mxGoalSuccess','mxGoalLastMove','mxGoalLastMovePulse');
   const _bf=$('#boardFrame'),_tn=mixHex(curMol.c[0],TIER_ACCENT[tierOf(i)],0.4);
@@ -9664,22 +9847,12 @@ function startLevel(i,mode='campaign',expectedKey=''){
   // R136: resolve every conditional action button before revealing the prepared board region.
   // The board and the complete right action column therefore enter the first visible frame together.
   syncHammerUi();syncPrecisionUi();syncBarrierUi();
-  closeModal();show('game');resetDrEPose();refreshMoxyGameCompanion(i,mode);resetLabToolCoach(i);revealPreparedLevel(i,revealToken);
+  closeModal();show('game');updateLevelMechanicBar();resetDrEPose();refreshMoxyGameCompanion(i,mode);resetLabToolCoach(i);revealPreparedLevel(i,revealToken);
   setTimeout(()=>{if(revealToken!==preparedLevelRevealToken||lv!==i)return;scheduleLabToolsIntro();const startPose=(crystalMode||chainMode||reactorMode||campaignFeature)?'experiment':'clipboard';setDrEPose(startPose,5000,startPose==='experiment'?7:3,true);},90);
   if(mode==='campaign'&&!duelMode&&!dailyMode)scheduleDrEScienceFact(true);
-  if(mode==='campaign'&&!duelMode&&!dailyMode&&!save.seenGoalGlowGuide&&tut!==0){
+  if(mode==='campaign'&&!duelMode&&!dailyMode&&save.tutorialTips!==false&&!save.seenGoalGlowGuide&&tut!==0){
     save.seenGoalGlowGuide=true;persist();
-    setTimeout(()=>say(ml(
-      '🎯 HEDEF normalde tamamen sabittir. Çözüm tam bir hamle uzağındaysa HEDEF çerçevesi iki kısa altın sinyal verir ve altın kalır. Tahta kırmızıysa gerçek bir çıkmaza girdin; oyun seni otomatik sıfırlamaz.',
-      '🎯 GOAL normally stays completely still. When the solution is exactly one move away, its frame gives two short gold signals and remains gold. A red board means a verified dead end; the game will not restart you automatically.',
-      '🎯 Das ZIEL bleibt normalerweise völlig ruhig. Ist die Lösung genau einen Zug entfernt, gibt der Rahmen zwei kurze goldene Signale und bleibt gold. Ein rotes Brett bedeutet eine bestätigte Sackgasse; das Spiel startet nicht automatisch neu.',
-      '🎯 OBJETIVO permanece normalmente inmóvil. Si la solución está exactamente a un movimiento, el marco da dos señales doradas cortas y queda dorado. Un tablero rojo indica un callejón sin salida verificado; el juego no reinicia automáticamente.',
-      '🎯 O OBJETIVO normalmente fica totalmente parado. Quando a solução está exatamente a uma jogada, a moldura dá dois sinais dourados curtos e permanece dourada. Tabuleiro vermelho significa um beco sem saída confirmado; o jogo não reinicia sozinho.',
-      '🎯 目標は通常まったく動きません。解決まで正確にあと1手なら、枠が金色に2回だけ短く光り、その後は金色のままです。盤面が赤い場合は確認済みの行き止まりで、自動リスタートはしません。',
-      '🎯 L’OBJECTIF reste normalement totalement immobile. Si la solution est exactement à un coup, son cadre émet deux courts signaux dorés puis reste doré. Un plateau rouge indique une impasse vérifiée ; le jeu ne redémarre pas automatiquement.',
-      '🎯 目标平时完全静止。若距离解法恰好只剩一步，目标边框会短暂闪两次金色并保持金色。棋盘变红表示已确认的死局；游戏不会自动重开。',
-      '🎯 L’OBIETTIVO normalmente resta completamente fermo. Se la soluzione è esattamente a una mossa, la cornice dà due brevi segnali dorati e resta dorata. Una tavola rossa indica un vicolo cieco verificato; il gioco non riavvia automaticamente.'
-    ),'talk',7200,'glow'),4200);
+    setTimeout(()=>{if(lv===i&&revealToken===preparedLevelRevealToken&&save.tutorialTips!==false)say(ml("🎯 Altın hedef: bir hamle kaldı. Kırmızı tahta: geri alabilir veya destek kullanabilirsin.","🎯 Gold goal: one move left. Red board: try Undo or a support tool.","🎯 Goldenes Ziel: noch ein Zug. Rotes Brett: Rückgängig oder ein Hilfsmittel versuchen.","🎯 Objetivo dorado: falta un movimiento. Tablero rojo: prueba Deshacer o una ayuda.","🎯 Alvo dourado: falta uma jogada. Tabuleiro vermelho: tente Desfazer ou uma ajuda.","🎯 金色の目標：あと1手。赤い盤面：元に戻すか、サポートを試そう。","🎯 Objectif doré : encore un coup. Plateau rouge : essaie Annuler ou une aide.","🎯 金色目标：还差一步。红色棋盘：试试撤销或辅助工具。","🎯 Obiettivo dorato: manca una mossa. Tavola rossa: prova Annulla o un aiuto."),'talk',4800,'');},1100);
   }
   if(!unifiedBriefingQueued&&save.tutorialTips!==false&&breakableWalls.size&&!save.seenHammerWall){save.seenHammerWall=true;persist();setTimeout(()=>say('🔨 '+t('hammerDesc'),'talk',6200,'glow'),900);}
   if(!unifiedBriefingQueued&&save.tutorialTips!==false&&portalPairs.size&&!save.seenPortal){save.seenPortal=true;persist();setTimeout(()=>say('🌀 '+t('portalDesc'),'talk',6200,'glow'),breakableWalls.size?6200:900);}
@@ -9764,7 +9937,7 @@ function loadTutorialPuzzle(tl){
   anim=null;setAtomMotionActive(false);landingResolutionBusy=false;landingResolutionToken++;bounce=null;nudge=null;tut=9;
   t2=Math.ceil(tl.p*1.7);
   $('#lvPill').textContent=t('howToPlay');
-  $('#goalName').textContent=curMol.n;
+  fitGoalNameNode($('#goalName'),curMol.shortName||curMol.n);$('#goalName').title=curMol.n;
   fitFormulaNode($('#goalFor'),curMol.f);
   const _gc=$('#goalCard');if(_gc)_gc.classList.remove('goalPop','mxGoalBreath','mxGoalNear','mxGoalSuccess','mxGoalLastMove','mxGoalLastMovePulse');
   updateCoins();updateBadge();updateHUD();
@@ -9879,12 +10052,12 @@ function endTutorial(completed){
   else show('splash');
 }
 
+function starsForMoves(count,par){return count<=par?3:count<=Math.ceil(par*1.7)?2:count<=Math.ceil(par*2.3)?1:0;}
 function updateHUD(){
   $('#movePill').textContent=t('moves',moves,LV.p);
   const sp=$('#starRow').children;
-  sp[0].classList.toggle('off',false);
-  sp[1].classList.toggle('off',moves>t2);
-  sp[2].classList.toggle('off',moves>LV.p);
+  const count=starsForMoves(moves,LV.p);
+  for(let i=0;i<sp.length;i++)sp[i].classList.toggle('off',i>=count);
   const goalCard=$('#goalCard');
   if(goalCard)goalCard.classList.remove('mxGoalBreath','mxGoalNear','mxGoalSuccess','goalPop');
   const crystalOn=crystalActive(),chainOn=chainActive(),reactorOn=reactorActive();
@@ -9929,7 +10102,6 @@ function installGameFeelPolish(){
     @keyframes mxCoinArrive{0%{transform:scale(1)}36%{transform:scale(1.27) translateY(-2px);filter:brightness(1.48)}72%{transform:scale(.96) translateY(1px)}100%{transform:scale(1);filter:brightness(1)}}
     @keyframes mxCoinVaultFlash{0%{opacity:0;transform:scale(.45)}28%{opacity:1}100%{opacity:0;transform:scale(1.45)}}
     @keyframes mxCoinGainFloat{0%{opacity:0;transform:translateY(5px) scale(.9)}24%{opacity:1;transform:translateY(0) scale(1.05)}72%{opacity:1}100%{opacity:0;transform:translateY(-12px) scale(.98)}}
-    body.mxImpact #gameBoard,body.mxImpact canvas#board{animation:mxBoardImpact .18s ease-out}
     @keyframes mxGoalBreath{0%,100%{filter:drop-shadow(0 0 0 rgba(105,235,255,0));transform:scale(1)}50%{filter:drop-shadow(0 0 11px rgba(105,235,255,.42));transform:scale(1.012)}}
     @keyframes mxGoalSuccess{0%{transform:scale(1);filter:brightness(1)}45%{transform:scale(1.07);filter:brightness(1.45) drop-shadow(0 0 18px rgba(255,224,100,.75))}100%{transform:scale(1);filter:brightness(1)}}
     @keyframes mxGoalNear{0%,100%{filter:drop-shadow(0 0 4px rgba(255,183,77,.25));transform:scale(1.006)}50%{filter:brightness(1.12) drop-shadow(0 0 16px rgba(255,183,77,.78));transform:scale(1.03)}}
@@ -9938,16 +10110,9 @@ function installGameFeelPolish(){
     @keyframes mxHammerStrike{0%{opacity:0;transform:translate(-15%,-150%) rotate(-36deg) scale(.75)}35%{opacity:1}72%{transform:translate(-50%,-50%) rotate(8deg) scale(1.15)}100%{opacity:0;transform:translate(-50%,-42%) rotate(2deg) scale(.92)}}
     @keyframes mxPrecisionPulse{0%{opacity:0;transform:translate(-50%,-50%) scale(.35)}40%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(1.8)}}
     @keyframes mxBarrierBuild{0%{opacity:0;transform:translate(-50%,-20%) scaleY(.12) scaleX(.72)}55%{opacity:1;transform:translate(-50%,-50%) scaleY(1.16) scaleX(1.04)}100%{opacity:0;transform:translate(-50%,-50%) scale(1)}}
-    @keyframes mxBoardImpact{0%{transform:translate3d(0,0,0)}35%{transform:translate3d(1.5px,-1px,0)}70%{transform:translate3d(-1px,.5px,0)}100%{transform:translate3d(0,0,0)}}
-    @media (prefers-reduced-motion:reduce){#goalCard.mxGoalBreath,#goalCard.mxGoalSuccess,#goalCard.mxGoalNear,#btnHammer.mxToolReady,#btnPrecision.mxToolReady,#btnBarrier.mxToolReady,#btnHint.mxToolReady,.mxBadgeFlash,#mxToolFx,body.mxImpact #gameBoard,body.mxImpact canvas#board{animation:none!important}}
+    @media (prefers-reduced-motion:reduce){#goalCard.mxGoalBreath,#goalCard.mxGoalSuccess,#goalCard.mxGoalNear,#btnHammer.mxToolReady,#btnPrecision.mxToolReady,#btnBarrier.mxToolReady,#btnHint.mxToolReady,.mxBadgeFlash,#mxToolFx{animation:none!important}}
   `;document.head.appendChild(st);
   const goal=$('#goalCard');if(goal)goal.classList.remove('mxGoalBreath','mxGoalNear','mxGoalSuccess','goalPop'); // R171: GOAL is intentionally static except the finite last-move signal.
-}
-function gameFeelImpact(strength='light'){
-  if(motionReduced())return;
-  document.body.classList.remove('mxImpact');void document.body.offsetWidth;document.body.classList.add('mxImpact');
-  setTimeout(()=>document.body.classList.remove('mxImpact'),220);
-  if(strength==='medium')shake=Math.max(shake,.12);
 }
 function gameFeelWallContact(i,d){
   const a=atoms[i];if(!a||!effectsAllowed())return;
@@ -10004,7 +10169,6 @@ function gameFeelLandingContact(i,d,dist,bonded){
       r:1.1+Math.random()*(bonded?1.8:1.2),c:rnd(cols),life:bonded?.42:.27,d:q*.006});
   }
   if(meta.kind==='wall'||meta.kind==='laser')P({k:'ring',x:cx,y:cy,r:2.5,vr2:38+(Math.min(7,dist)||1)*3,c:meta.kind==='laser'?'#ff826e':'#9eeaff',life:.20});
-  if(!won&&dist>=5&&!motionReduced())shake=Math.max(shake,.055);
 }
 function gameFeelAtomTrail(atom,dist){
   // Full-screen trail particles compete with the board canvas on mobile
@@ -10118,7 +10282,6 @@ function gameFeelWinBurst(delay=0){
     const cols=['#fff4a8','#ffd23f','#8fe9ff','#ffffff','#c88cff'];
     const quality=mxFxQuality(),count=quality==='low'?22:quality==='mid'?30:38;
     for(let q=0;q<count;q++){const a=Math.random()*Math.PI*2,sp=1.2+Math.random()*3.5;P({k:'glit',x:cx,y:cy,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-1.1,r:1.6+Math.random()*3,c:rnd(cols),life:.9+Math.random()*.45,d:q*.008});}
-    gameFeelImpact('medium');
   };
   if(delay>0)setTimeout(burst,delay);else burst();
 }
@@ -10141,7 +10304,7 @@ function slidePlan(i,d){
 function slideDest(i,d){return slidePlan(i,d).dest;}
 function isFullyBoxed(i){
   if(i<0||!atoms[i]||atoms[i].frozen)return false;
-  for(let d=0;d<4;d++){if(fusionMovePlan(i,d)||slidePlan(i,d).dest)return false;}
+  for(let d=0;d<4;d++){if(legalMoveDestination(i,d))return false;}
   return true;
 }
 function restoreTemporaryBarriers(state){
@@ -10155,7 +10318,7 @@ function restoreTemporaryBarriers(state){
 function breakTemporaryBarrier(key){
   const b=temporaryBarriers.get(key);if(!b)return;temporaryBarriers.delete(key);
   const br=board.getBoundingClientRect(),cx=br.left+(b.x+.5)*T,cy=br.top+(b.y+.5)*T;
-  SFX.thunk();mxHaptic('medium');shake=motionReduced()?0:.14;
+  SFX.thunk();mxHaptic('medium');
   let crack=null;
   if(!motionReduced()){
     crack=document.createElement('div');crack.className='mxBarrierCrack';crack.style.left=cx+'px';crack.style.top=cy+'px';
@@ -10187,24 +10350,25 @@ function move(i,d){
   const chainOn=chainActive(),crystalOn=crystalActive(),reactorOn=reactorActive();
   const chainTrigger=chainOn&&!chainAutoExecuting?chainTriggerForMove(i,d):null;
   const linkedPlan=precisionExecuting?fusionPrecisionMovePlan(i,d):(fusionMovePlan(i,d)||pairMovePlan(i,d));
-  const normalPlan=(!linkedPlan&&!precisionExecuting)?slidePlan(i,d):null;
-  let dest=linkedPlan?linkedPlan.main:(precisionExecuting?precisionDest(i,d):normalPlan.dest);
+  const normalPlan=(!linkedPlan&&!precisionExecuting&&!atomHasMovementGroup(i))?slidePlan(i,d):null;
+  let dest=linkedPlan?linkedPlan.main:(precisionExecuting&&!atomHasMovementGroup(i)?precisionDest(i,d):normalPlan?.dest);
   const riftPlan=(!linkedPlan&&!precisionExecuting&&normalPlan&&normalPlan.rift)?normalPlan.rift:null;
   const intendedDest=dest?{x:dest.x,y:dest.y}:null;
   let reactorPartial=false;
-  const barrierHit=normalPlan&&normalPlan.barrierHit;
+  const barrierHit=(linkedPlan&&linkedPlan.barrierHit)||(normalPlan&&normalPlan.barrierHit);
   if(!dest&&barrierHit){
-    hist.push({fullAtoms:atoms.map(a=>({...a})),movesBefore:moves,moveLogLen:moveLog.length,reactorHitsBefore:reactorHits,stickyPairsState:stickyPairs.map(pair=>pair.slice()),barrierState:[...temporaryBarriers.values()].map(b=>({...b})),movingWallState:movingWallSnapshot()});
+    hist.push({fullAtoms:atoms.map(a=>({...a})),movesBefore:moves,moveLogLen:moveLog.length,reactorHitsBefore:reactorHits,fusionGroupsState:fusionGroups.map(g=>({part:g.part,kind:g.kind,members:g.members.slice()})),stickyPairsState:stickyPairs.map(pair=>pair.slice()),barrierState:[...temporaryBarriers.values()].map(b=>({...b})),movingWallState:movingWallSnapshot()});
     moves++;moveLog.push({i,d,barrier:true});breakTemporaryBarrier(barrierHit);updateHUD();gameFeelToolState();resetIdle();return;
   }
   if(!dest){
-    (SFX.wallTap?SFX.wallTap():SFX.thunk());mxHaptic('error');nudge={i,d,t0:performance.now()};wakeMainLoop();gameFeelImpact('light');gameFeelWallContact(i,d);moxyGameEvent('blocked');drEGameEvent('blocked');characterMoment('blocked');bumpN++;
+    (SFX.wallTap?SFX.wallTap():SFX.thunk());mxHaptic('error');nudge={i,d,t0:performance.now()};wakeMainLoop();gameFeelWallContact(i,d);moxyGameEvent('blocked');drEGameEvent('blocked');characterMoment('blocked');bumpN++;
+    const mechanicBlockedMsg=blockedMechanicExplanation(i,d);if(mechanicBlockedMsg)say(mechanicBlockedMsg,'talk',4200,'glow');
     stuckAtomCount=(stuckAtomIdx===i)?stuckAtomCount+1:1;stuckAtomIdx=i;
     if(stuckAtomCount>=3&&isFullyBoxed(i)){
       stuckAtomCount=0;
       say(ml("Bu atom her yönden kapalı. Tahtayı sıfırlamadım: başka bir atomu dene, GERİ AL kullan veya Akıllı İpucu / Nano Bariyer ile yolu değiştir.","This atom is boxed in on every side. I did not reset the board: try another atom, use UNDO, or change the route with Smart Hint / Nano Barrier.","Dieses Atom ist vollständig eingeschlossen. Das Brett wurde nicht zurückgesetzt: Probiere ein anderes Atom, RÜCKGÄNGIG oder ändere den Weg mit Smart-Hinweis / Nano-Barriere.","Este átomo está bloqueado por todos lados. No reinicié el tablero: prueba otro átomo, DESHACER o cambia la ruta con Pista inteligente / Barrera nano.","Este átomo está bloqueado por todos os lados. O tabuleiro não foi reiniciado: tente outro átomo, DESFAZER ou mude a rota com Dica inteligente / Barreira Nano.","この原子は四方を塞がれています。盤面はリセットしていません。別の原子、「元に戻す」、スマートヒント／ナノバリアを試してください。","Cet atome est bloqué de tous côtés. Le plateau n’a pas été réinitialisé : essayez un autre atome, ANNULER, ou modifiez la route avec l’Indice intelligent / Nano-Barrière.","这个原子四面受阻。棋盘没有重置：试试其他原子、撤销，或用智能提示／纳米屏障改变路线。","Questo atomo è bloccato da ogni lato. La tavola non è stata azzerata: prova un altro atomo, ANNULLA o cambia percorso con Suggerimento smart / Nano Barriera."),'sad',5600,'shk');
       prop('🧭',2200);
-    }else if(bumpN%4===3){say(rnd(LN.bump),'sad',2600,'shk');prop('🤦',1200);}
+    }else if(!mechanicBlockedMsg&&bumpN%4===3){say(rnd(LN.bump),'sad',2600,'shk');prop('🤦',1200);}
     return;
   }
   const reactorPath=reactorOn?((normalPlan&&normalPlan.path&&normalPlan.path.length)?normalPlan.path:crystalPathBetween(atoms[i].x,atoms[i].y,dest.x,dest.y)):null;
@@ -10244,15 +10408,7 @@ function move(i,d){
     setTimeout(()=>{if(!won)say(ml("Bu bölüm biraz uzadı. Sıkışırsan İPUCU dene, ya da GERİ AL / YENİDEN ile temiz bir başlangıç yap — hepsi ilerlemeni koruyor.","This one is running long. If you feel stuck, try HINT, or use UNDO / RESTART for a clean start — none of them cost your progress.","Dieses Level dauert etwas länger. Wenn du feststeckst, probiere HINWEIS oder nutze RÜCKGÄNGIG / NEUSTART — dein Fortschritt bleibt erhalten.","Este nivel se está alargando. Si te atascas, prueba PISTA o usa DESHACER / REINICIAR; tu progreso se conserva.","Esta fase está demorando. Se travar, tente DICA ou use DESFAZER / REINICIAR; seu progresso é preservado.","このレベルは少し長引いています。詰まったらヒント、元に戻す、やり直すを使えます。進行状況は失われません。"),'talk',5600,'glow');},900);
   }
 }
-function applyLightningAtoms(level,index,mode){
-  if(mode!=='campaign'||dailyMode||duelMode||crystalMode||chainMode||reactorMode)return;
-  // Existing certified boards are preserved. These campaign chapters only
-  // decorate a movable atom; the pulse can make the puzzle easier, never block it.
-  const plans={110:0,111:0,131:0,144:0,145:0};
-  const pick=plans[index];
-  if(pick===undefined||!atoms[pick]||atoms[pick].frozen)return;
-  atoms[pick].lightning=true;
-}
+function applyLightningAtoms(level,index,mode){}
 function lightningConnectedGroup(startIdx){
   const seen=new Set([startIdx]),queue=[startIdx];
   while(queue.length){
@@ -10400,7 +10556,7 @@ function checkFragileImpact(movedIdx){
   }
   a.fragileBroken=true;fragileFailure=true;
   if(effectsAllowed())for(let q=0;q<28;q++){const ang=Math.random()*Math.PI*2,sp=1.1+Math.random()*2.8;P({k:'glit',x:cx,y:cy,vx:Math.cos(ang)*sp,vy:Math.sin(ang)*sp-0.5,r:1.8+Math.random()*2.8,c:rnd(['#ffffff','#bcecff','#72c9ff','#d9f7ff']),life:.9,d:q*.008});}
-  SFX.thunk&&SFX.thunk();mxHaptic('error');if(!motionReduced())shake=Math.max(shake,.32);
+  SFX.thunk&&SFX.thunk();mxHaptic('error');
   say(ml("💥 Kırılgan atom parçalandı! Deney yeniden başlıyor.","💥 The fragile atom shattered! Restarting the experiment.","💥 Das zerbrechliche Atom ist zerbrochen! Das Experiment startet neu.","💥 ¡El átomo frágil se rompió! Reiniciando el experimento.","💥 O átomo frágil se despedaçou! Reiniciando o experimento.","💥 壊れやすい原子が砕けました！実験を再開します。"),'sad',2600,'shk');
   setTimeout(()=>{if(fragileFailure&&!duelMode)startLevel(lv);},1300);
   return true;
@@ -10441,6 +10597,7 @@ function afterMove(movedIdx){
 }
 function undo(){
   if(anim||won||!hist.length||chainAutoActive)return;
+  closeSayBubble();reactiveHintReset();
   const h=hist.pop();
   if(h.fullAtoms){atoms=h.fullAtoms.map(a=>({...a}));if(Array.isArray(h.stickyPairsState))restoreStickyPairs(h.stickyPairsState);else resetStickyBonds();if(Array.isArray(h.fusionGroupsState))restoreFusionGroups(h.fusionGroupsState);else resetFusionGroups();fragileFailure=false;if(h.chainState){chainCurrentStep=h.chainState.currentStep;chainMaxCombo=h.chainState.maxCombo;chainReactions=h.chainState.reactions;chainAutoMoves=h.chainState.autoMoves;}chainAutoActive=false;chainAutoQueue=[];chainCurrentCombo=1;}else{atoms[h.i].x=h.x;atoms[h.i].y=h.y;}
   if(crystalActive()&&h.crystalState)crystals.forEach((c,i)=>{c.collected=!!h.crystalState[i];});if(enzymeGate)updateEnzymeGate(false);
@@ -10460,10 +10617,10 @@ function showSpecificHint(){
   const raw=Array.isArray(LV.h)?LV.h:null;
   let i=raw?atoms.findIndex(a=>a.x===raw[0]&&a.y===raw[1]):-1;
   let d=raw&&Number.isInteger(raw[2])?raw[2]:-1;
-  const legal=(ai,dir)=>ai>=0&&atoms[ai]&&dir>=0&&dir<=3&&!atoms[ai].frozen&&!!(fusionMovePlan(ai,dir)||pairMovePlan(ai,dir)||slideDest(ai,dir));
-  // Five late campaign records contain an old editorial hint direction that is
-  // no longer legal after board rebalancing. Always fall back to the certified
-  // first solution move when the stored coordinate hint cannot actually move.
+  const legal=(ai,dir)=>ai>=0&&atoms[ai]&&dir>=0&&dir<=3&&!atoms[ai].frozen&&!!legalMoveDestination(ai,dir);
+  // Defensive fallback for imported or legacy campaign data: if a stored
+  // coordinate hint is stale or illegal, use the certified first route move
+  // rather than surfacing a dead hint.
   if(!legal(i,d)&&Array.isArray(LV.fs)&&LV.fs.length){
     const first=LV.fs[0];
     if(Array.isArray(first)&&legal(first[0],first[1])){i=first[0];d=first[1];}
@@ -10487,7 +10644,7 @@ function labToolSuggestedId(reason){
 function labToolEinsteinText(id){
   if(id==='hammer')return ml('Şu çatlak duvar fazla özgüvenli görünüyor. 🔨 Lab Araçları’ndaki Çekiç hâlâ senin emrinde — nerede kullanacağına karışmıyorum.','That cracked wall looks far too confident. 🔨 The Hammer in Lab Tools is still available — I will not tell you where to use it.','Diese rissige Wand wirkt viel zu selbstsicher. 🔨 Der Hammer in den Laborwerkzeugen ist verfügbar — wo du ihn einsetzt, verrate ich nicht.','Esa pared agrietada parece demasiado segura de sí misma. 🔨 El Martillo de Herramientas de laboratorio sigue disponible; no te diré dónde usarlo.','Essa parede rachada parece confiante demais. 🔨 O Martelo nas Ferramentas de laboratório continua disponível — não vou dizer onde usar.','あのひび割れた壁、ずいぶん自信満々だね。🔨 ラボツールのハンマーは使えるよ。どこで使うかまでは教えないけど。','Ce mur fissuré a beaucoup trop confiance en lui. 🔨 Le Marteau des Outils de labo reste disponible — je ne dirai pas où l’utiliser.','那面裂墙看起来自信过头了。🔨 实验室工具里的锤子还可以用——至于用在哪里，我可不剧透。','Quel muro crepato sembra fin troppo sicuro di sé. 🔨 Il Martello negli Strumenti da laboratorio è disponibile — non ti dirò dove usarlo.');
   if(id==='precision')return ml('Bazen bütün koridoru kaymak istemezsin. 🎯 Lab Araçları’ndaki Tek Kare Hareket’i unutma; doğru kareyi yine sen bulacaksın.','Sometimes you do not want the whole slide. 🎯 Remember One-Square Move in Lab Tools; finding the right square is still your job.','Manchmal willst du nicht bis zum Anschlag gleiten. 🎯 Denk an den Ein-Feld-Zug in den Laborwerkzeugen; das richtige Feld musst du selbst finden.','A veces no quieres deslizarte hasta el final. 🎯 Recuerda Movimiento de una casilla en Herramientas de laboratorio; la casilla correcta la eliges tú.','Às vezes você não quer deslizar até o fim. 🎯 Lembre do Movimento de Uma Casa nas Ferramentas de laboratório; a casa certa ainda é decisão sua.','端まで滑りたくない場面もある。🎯 ラボツールの1マス移動を忘れずに。どのマスが正解かは君が考えるんだ。','Parfois, tu ne veux pas parcourir tout le couloir. 🎯 Pense au déplacement d’une case dans les Outils de labo ; à toi de choisir la bonne case.','有时候你并不想一路滑到底。🎯 别忘了实验室工具里的单格移动；哪一格合适还是要你自己判断。','A volte non vuoi scivolare fino in fondo. 🎯 Ricorda la Mossa di una casella negli Strumenti da laboratorio; la casella giusta la scegli tu.');
-  if(id==='barrier')return ml('Yeni bir yol açmak yerine geçici bir durak yaratmak da bilimdir. 🧱 Nano Bariyer sağdaki araçlarda; yerleştirirken 300 MoleCoin ödersin, konumunu ben söylemem.','Science can also mean creating a temporary stop instead of finding a new route. 🧱 Nano Barrier is in the right-side tools; it costs 300 MoleCoin when placed, and I will not choose the position for you.','Wissenschaft kann auch heißen, einen temporären Stopp zu schaffen statt einen neuen Weg zu suchen. 🧱 Die Nano-Barriere ist in den Laborwerkzeugen; die Position wählst du.','La ciencia también puede consistir en crear una parada temporal en vez de buscar otra ruta. 🧱 La Barrera nano está en Herramientas de laboratorio; tú eliges dónde.','Ciência também pode ser criar uma parada temporária em vez de procurar outra rota. 🧱 A Barreira Nano está nas Ferramentas de laboratório; a posição é com você.','別の道を探すだけが科学じゃない。一時的な止まり場所を作る手もある。🧱 ナノバリアはラボツールにある。置き場所は君に任せるよ。','La science, c’est parfois créer un arrêt temporaire plutôt que chercher une autre route. 🧱 La Nano-Barrière est dans les Outils de labo ; à toi de choisir sa place.','科学有时不是找新路线，而是创造一个临时停靠点。🧱 纳米屏障就在实验室工具里；位置由你决定。','La scienza può anche voler dire creare un arresto temporaneo invece di cercare un’altra strada. 🧱 La Nano Barriera è negli Strumenti da laboratorio; la posizione la scegli tu.');
+  if(id==='barrier')return ml('Yeni bir yol açmak yerine geçici bir durak yaratmak da bilimdir. 🧱 Nano Bariyer sağdaki araçlarda; yerleştirirken 500 MoleCoin ödersin, konumunu ben söylemem.','Science can also mean creating a temporary stop instead of finding a new route. 🧱 Nano Barrier is in the right-side tools; it costs 500 MoleCoin when placed, and I will not choose the position for you.','Wissenschaft kann auch heißen, einen temporären Stopp zu schaffen statt einen neuen Weg zu suchen. 🧱 Die Nano-Barriere ist in den Laborwerkzeugen; die Position wählst du.','La ciencia también puede consistir en crear una parada temporal en vez de buscar otra ruta. 🧱 La Barrera nano está en Herramientas de laboratorio; tú eliges dónde.','Ciência também pode ser criar uma parada temporária em vez de procurar outra rota. 🧱 A Barreira Nano está nas Ferramentas de laboratório; a posição é com você.','別の道を探すだけが科学じゃない。一時的な止まり場所を作る手もある。🧱 ナノバリアはラボツールにある。置き場所は君に任せるよ。','La science, c’est parfois créer un arrêt temporaire plutôt que chercher une autre route. 🧱 La Nano-Barrière est dans les Outils de labo ; à toi de choisir sa place.','科学有时不是找新路线，而是创造一个临时停靠点。🧱 纳米屏障就在实验室工具里；位置由你决定。','La scienza può anche voler dire creare un arresto temporaneo invece di cercare un’altra strada. 🧱 La Nano Barriera è negli Strumenti da laboratorio; la posizione la scegli tu.');
   return ml('Takıldın diye deneyi senin yerine çözmeyeceğim. 😏 Ama Lab Araçları’nda Akıllı İpucu var; istersen yalnızca odağını daraltır.','I will not solve the experiment for you just because you are stuck. 😏 But Smart Hint is in Lab Tools; it can narrow your focus without taking over.','Nur weil du feststeckst, löse ich das Experiment nicht für dich. 😏 Aber Smart Hint ist in den Laborwerkzeugen und kann deinen Fokus eingrenzen.','No voy a resolver el experimento por ti solo porque estés atascado. 😏 Pero Pista inteligente está en Herramientas de laboratorio y puede ayudarte a enfocar.','Não vou resolver o experimento por você só porque travou. 😏 Mas a Dica Inteligente está nas Ferramentas de laboratório e pode reduzir o foco.','詰まったからって僕が全部解くわけじゃないよ。😏 でもラボツールのスマートヒントなら、答えを奪わずに注目点を絞れる。','Je ne vais pas résoudre l’expérience à ta place parce que tu bloques. 😏 Mais l’Indice intelligent des Outils de labo peut simplement réduire le champ de recherche.','卡住了我也不会替你解题。😏 不过实验室工具里有智能提示，它可以只帮你缩小关注范围。','Non risolverò l’esperimento al posto tuo solo perché sei bloccato. 😏 Ma il Suggerimento intelligente negli Strumenti da laboratorio può restringere il campo senza sostituirti.');
 }
 function showLabToolReminder(reason='stress'){
@@ -10512,7 +10669,7 @@ function reactiveHintReset(){
 function reactiveHintEligible(){
   // Never touch online/duel behavior. Chain/Reactor have extra autonomous/gate
   // state that is intentionally outside Smart Hint until their solver model is complete.
-  return !onlineDuelMode&&!duelMode&&!demoMode&&!tutorialActive&&!won&&!fragileFailure&&!autoSolveInProgress&&!hintPurchaseBusy&&!chainMode&&!reactorMode&&!chainAutoActive&&!!(curMol&&curMol.key)&&!!LV;
+  return save.tutorialTips!==false&&!onlineDuelMode&&!duelMode&&!demoMode&&!tutorialActive&&!won&&!fragileFailure&&!autoSolveInProgress&&!hintPurchaseBusy&&!chainMode&&!reactorMode&&!chainAutoActive&&!!(curMol&&curMol.key)&&!!LV;
 }
 function reactiveEinsteinText(kind,element){
   if(kind==='dead')return ml(
@@ -10562,6 +10719,7 @@ function showDeadlockRescue(movedIdx){
   return true;
 }
 function reactiveEinsteinSpeak(kind,movedIdx){
+  if(kind==='alt'&&moves===0)return;
   if(!reactiveHintEligible()||(kind!=='dead'&&(reactiveHintComments>=2||moves-reactiveHintLastMove<2||Date.now()-reactiveHintLastAt<9000)))return;
   const element=atoms[movedIdx]&&atoms[movedIdx].e||'?';
   reactiveHintComments++;reactiveHintLastMove=moves;reactiveHintLastAt=Date.now();sel=movedIdx;
@@ -10617,6 +10775,8 @@ function smartHintSnapshot(){
     barriers:[...temporaryBarriers.values()].map(b=>({x:+b.x,y:+b.y})),
     crystals:crystalActive()?crystals.map(c=>({x:+c.x,y:+c.y,collected:!!c.collected,type:c.type||''})):[],
     enzymeGate:enzymeGate?{x:+enzymeGate.x,y:+enzymeGate.y,open:!!enzymeGate.open}:null,
+    reactorGates:reactorActive()?reactorGates.map(g=>({...g})):[],
+    rulesVersion:180,
     targetKey:curMol&&curMol.key||''
   };
 }
@@ -10635,7 +10795,7 @@ function scheduleSmartHintWorkerIdleDispose(){
 }
 function ensureSmartHintWorker(){
   if(smartHintWorker)return smartHintWorker;
-  const w=new Worker('js/smart-hint-worker.js?v=R145-RIFT-SAFE-RESCUE-1');smartHintWorker=w;
+  const w=new Worker('js/smart-hint-worker.js?v=R199-FREE-FIRST-STRATEGIC-HINT');smartHintWorker=w;
   w.onmessage=e=>{
     const r=e.data||{},p=smartHintPending.get(r.id);if(!p)return;
     clearTimeout(p.timer);smartHintPending.delete(r.id);smartHintWorkerBusyId=0;
@@ -10671,32 +10831,85 @@ function requestSmartHintPath(opts={}){
 }
 
 if(typeof document!=='undefined')document.addEventListener('visibilitychange',()=>{if(document.hidden&&!smartHintWorkerBusyId)disposeSmartHintWorker('page-hidden');},{passive:true});
-function smartHintFocusText(element){
-  return ml(
-    'Einstein hesabı yaptı: <b>'+element+'</b> atomuna odaklan. Doğru fikrin bir sonraki parçası onda — yönü sana bırakıyorum. 😉',
-    'Einstein ran the numbers: focus on the <b>'+element+'</b> atom. The next useful idea starts there — I’ll leave the direction to you. 😉',
-    'Einstein hat gerechnet: Konzentriere dich auf das <b>'+element+'</b>-Atom. Dort beginnt die nächste gute Idee — die Richtung überlasse ich dir. 😉',
-    'Einstein hizo los cálculos: céntrate en el átomo <b>'+element+'</b>. La siguiente buena idea empieza ahí; la dirección te la dejo a ti. 😉',
-    'Einstein fez as contas: concentre-se no átomo <b>'+element+'</b>. A próxima boa ideia começa nele — a direção fica por sua conta. 😉',
-    'アインシュタインの計算では、<b>'+element+'</b>原子に注目。次の良い一手の鍵はそこだよ。方向は君に任せる。😉',
-    'Einstein a fait ses calculs : concentrez-vous sur l’atome <b>'+element+'</b>. La prochaine bonne idée commence là — je vous laisse choisir la direction. 😉',
-    '爱因斯坦算过了：先盯住 <b>'+element+'</b> 原子。下一步好思路从它开始——方向留给你决定。😉',
-    'Einstein ha fatto i conti: concentrati sull’atomo <b>'+element+'</b>. La prossima buona idea parte da lì — la direzione la lascio a te. 😉'
+function smartHintAxisText(direction){
+  const vertical=direction===0||direction===2;
+  return vertical?ml(
+    'Bu atom için <b>dikey ekseni</b> düşün; kesin yönü sana bırakıyorum.',
+    'Think along the <b>vertical axis</b> for this atom; I’ll leave the exact direction to you.',
+    'Denke bei diesem Atom an die <b>vertikale Achse</b>; die genaue Richtung bleibt dir.',
+    'Piensa en el <b>eje vertical</b> para este átomo; la dirección exacta queda en tus manos.',
+    'Pense no <b>eixo vertical</b> para este átomo; a direção exata fica com você.',
+    'この原子は<b>縦方向</b>を考えよう。正確な向きは君に任せる。',
+    'Pour cet atome, pense à <b>l’axe vertical</b> ; je te laisse choisir le sens exact.',
+    '这个原子要考虑<b>纵向轴</b>；具体方向留给你判断。',
+    'Per questo atomo pensa all’<b>asse verticale</b>; la direzione esatta la lascio a te.'
+  ):ml(
+    'Bu atom için <b>yatay ekseni</b> düşün; kesin yönü sana bırakıyorum.',
+    'Think along the <b>horizontal axis</b> for this atom; I’ll leave the exact direction to you.',
+    'Denke bei diesem Atom an die <b>horizontale Achse</b>; die genaue Richtung bleibt dir.',
+    'Piensa en el <b>eje horizontal</b> para este átomo; la dirección exacta queda en tus manos.',
+    'Pense no <b>eixo horizontal</b> para este átomo; a direção exata fica com você.',
+    'この原子は<b>横方向</b>を考えよう。正確な向きは君に任せる。',
+    'Pour cet atome, pense à <b>l’axe horizontal</b> ; je te laisse choisir le sens exact.',
+    '这个原子要考虑<b>横向轴</b>；具体方向留给你判断。',
+    'Per questo atomo pensa all’<b>asse orizzontale</b>; la direzione esatta la lascio a te.'
   );
 }
+function smartHintFocusText(element,direction){
+  return ml(
+    'Einstein hesabı yaptı: <b>'+element+'</b> atomuna odaklan. Doğru fikir burada başlıyor.',
+    'Einstein ran the numbers: focus on the <b>'+element+'</b> atom. The useful route starts here.',
+    'Einstein hat gerechnet: Konzentriere dich auf das <b>'+element+'</b>-Atom. Hier beginnt die hilfreiche Route.',
+    'Einstein hizo los cálculos: céntrate en el átomo <b>'+element+'</b>. La ruta útil empieza aquí.',
+    'Einstein fez as contas: concentre-se no átomo <b>'+element+'</b>. A rota útil começa aqui.',
+    'アインシュタインの計算では、<b>'+element+'</b>原子に注目。役立つルートはここから始まる。',
+    'Einstein a fait ses calculs : concentre-toi sur l’atome <b>'+element+'</b>. La bonne piste commence ici.',
+    '爱因斯坦算过了：先盯住 <b>'+element+'</b> 原子。有用的路线从这里开始。',
+    'Einstein ha fatto i conti: concentrati sull’atomo <b>'+element+'</b>. Il percorso utile parte da qui.'
+  )+'<br><small>'+smartHintAxisText(direction)+'</small>';
+}
 
-async function showGeneralHint(cost=0){
-  if(cost>0&&!spendCoins(cost))return false;
-  closeModal();assistanceUsed=true;attemptHintCount++;save.totalHints=(save.totalHints||0)+1;persist();updateCoins(false);
-  setDrEPose('thinking',5400,4,true);hintStep=1;SFX.hint();einAuraPulse('einAuraBlue',900);prop('🧠',1600);lidHalf(true);setTimeout(()=>lidHalf(false),850);
+async function showGeneralHint(cost=0,useFreeStrategic=false){
+  if(hintPurchaseBusy||autoSolveInProgress)return false;
+  hintPurchaseBusy=true;closeModal();
+  // R195: a paid strategic clue must be tied to a VERIFIED route from the
+  // player's current board. Never charge first and then fall back to a generic
+  // molecule tip that may not help with the actual position.
+  let nextMove=matchCurrentToPath(LV&&LV.fs);
+  if(!nextMove){
+    say(ml('Tahtayı analiz edip güvenli bir ipucu hazırlıyorum…','Analyzing the board for a safe clue…','Ich analysiere das Brett für einen sicheren Hinweis…','Analizando el tablero para una pista segura…','Analisando o tabuleiro para uma dica segura…','盤面を解析して安全なヒントを準備中…','J’analyse le plateau pour préparer un indice sûr…','正在分析棋盘并准备安全提示…','Analizzo la tavola per preparare un indizio sicuro…'),'thinking',2200,'glow');
+    const r=await requestSmartHintPath({forceSearch:true,maxNodes:62000,maxDepth:24,timeout:5400});
+    if(r&&r.ok&&Array.isArray(r.path)&&r.path.length)nextMove=r.path[0];
+  }
+  const i=nextMove&&Number(nextMove[0]),d=nextMove&&Number(nextMove[1]);
+  const playable=Number.isInteger(i)&&Number.isInteger(d)&&atoms[i]&&!atoms[i].frozen&&d>=0&&d<=3&&
+    (legalMoveDestination(i,d)||(!atomHasMovementGroup(i)&&slidePlan(i,d).barrierHit));
+  if(!playable){
+    finishHintTransaction();
+    say(ml('Bu konum için güvenli ve yararlı bir ipucu doğrulayamadım. MoleCoin alınmadı; birkaç GERİ AL hamlesi deneyebilirsin.','I could not verify a safe, useful clue from this position. No MoleCoins were charged; try a few UNDO moves.','Für diese Stellung konnte ich keinen sicheren, hilfreichen Hinweis bestätigen. Keine MoleCoins wurden berechnet; versuche einige Züge RÜCKGÄNGIG.','No pude verificar una pista segura y útil desde esta posición. No se cobraron MoleCoins; prueba algunos movimientos de DESHACER.','Não consegui verificar uma dica segura e útil nesta posição. Nenhuma MoleCoin foi cobrada; tente alguns DESFAZER.','この配置では安全で役立つヒントを確認できませんでした。MoleCoinは消費されていません。何手か元に戻してみてください。','Je n’ai pas pu valider un indice sûr et utile depuis cette position. Aucun MoleCoin n’a été dépensé ; essayez quelques ANNULER.','无法从当前局面验证安全且有用的提示；未扣除MoleCoin。请先撤销几步。','Non sono riuscito a verificare un indizio sicuro e utile da questa posizione. Nessun MoleCoin è stato addebitato; prova qualche ANNULLA.'),'sad',5200,'shk');
+    return false;
+  }
+  if(useFreeStrategic){
+    if(!consumeFreeStrategicHint()){
+      finishHintTransaction();
+      say(ml('Bu bölümün ücretsiz stratejik ipucunu zaten kullandın.','You already used this level’s free strategic clue.','Du hast den kostenlosen strategischen Hinweis dieses Levels bereits genutzt.','Ya usaste la pista estratégica gratis de este nivel.','Você já usou a dica estratégica grátis desta fase.','このレベルの無料戦略ヒントはすでに使用しました。','Tu as déjà utilisé l’indice stratégique gratuit de ce niveau.','你已经使用了本关的免费策略提示。','Hai già usato l’indizio strategico gratuito di questo livello.'),'talk',3600,'glow');
+      return false;
+    }
+  }else if(cost>0&&!spendCoins(cost)){finishHintTransaction();return false;}
+  assistanceUsed=true;attemptHintCount++;save.totalHints=(save.totalHints||0)+1;persist();updateCoins(false);
+  setDrEPose('thinking',5400,4,true);hintStep=1;SFX.hint();einAuraPulse('einAuraBlue',900);lidHalf(true);setTimeout(()=>lidHalf(false),850);
+  // Select the verified atom so identical-element boards still point to the
+  // correct physical atom. Strategic clue intentionally withholds direction.
+  sel=i;
   const special=[];
-  if(atoms.some(a=>a.frozen))special.push(ml('donmuş atomu doğrudan hareket ettirmeye çalışma','do not try to move the frozen atom directly','bewege das gefrorene Atom nicht direkt','no intentes mover directamente el átomo congelado','não tente mover diretamente o átomo congelado','凍結原子を直接動かそうとしないで','n’essaie pas de déplacer directement l’atome gelé','不要直接移动冻结原子','non provare a muovere direttamente l’atomo congelato'));
-  if(atoms.some(a=>a.zombie))special.push(ml('kararsız atomun temas zincirini kontrol et','control the unstable atom’s contact chain','kontrolliere die Kontaktkette des instabilen Atoms','controla la cadena de contactos del átomo inestable','controle a cadeia de contato do átomo instável','不安定原子の接触連鎖を管理しよう','contrôle la chaîne de contact de l’atome instable','控制不稳定原子的接触链','controlla la catena di contatto dell’atomo instabile'));
-  if(rotationPads&&rotationPads.length)special.push(ml('rijit grubu döndürmeden önce platforma hangi yönden sokacağını planla','plan from which side the rigid group should enter the rotation pad','plane, von welcher Seite die starre Gruppe das Rotationsfeld erreicht','planea desde qué lado debe entrar el grupo rígido en la plataforma','planeje de que lado o grupo rígido deve entrar na plataforma','剛体グループを回転パッドへ入れる方向を先に考えよう','prévois de quel côté le groupe rigide doit entrer sur la plateforme','先规划刚性组从哪一侧进入旋转平台','pianifica da quale lato far entrare il gruppo rigido sulla piattaforma'));
-  if(pressureDoorOn)special.push(ml('kapıyı açan atom ile hedefi kuran atomun sırasını ayır','separate the door-opening move from the molecule-building order','trenne Türöffner und Molekül-Aufbau in deiner Reihenfolge','separa el movimiento que abre la puerta del orden de construcción','separe a jogada que abre a porta da ordem de montagem','扉を開ける手と分子を組む順番を分けて考えよう','sépare l’ouverture de la porte de l’ordre de construction','把开门步骤和构建分子的顺序分开考虑','separa la mossa che apre la porta dall’ordine di costruzione'));
-  const clue=special[0]||tipOf(mid);
-  say(ml('Stratejik ipucu: ','Strategic clue: ','Strategischer Hinweis: ','Pista estratégica: ','Dica estratégica: ','戦略ヒント：','Indice stratégique : ','策略提示：','Indizio strategico: ')+clue,'talk',6200,'glow');
-  prop('💡',2200);updateHUD();
+  if(atoms.some(a=>a.frozen))special.push(ml('Donmuş atomu doğrudan hareket ettirmeye çalışma.','Do not try to move the frozen atom directly.','Bewege das gefrorene Atom nicht direkt.','No intentes mover directamente el átomo congelado.','Não tente mover diretamente o átomo congelado.','凍結原子を直接動かそうとしないでください。','N’essaie pas de déplacer directement l’atome gelé.','不要直接移动冻结原子。','Non provare a muovere direttamente l’atomo congelato.'));
+  if(atoms.some(a=>a.zombie))special.push(ml('Kararsız atomun temas zincirini kontrol et.','Control the unstable atom’s contact chain.','Kontrolliere die Kontaktkette des instabilen Atoms.','Controla la cadena de contactos del átomo inestable.','Controle a cadeia de contato do átomo instável.','不安定原子の接触連鎖を管理しよう。','Contrôle la chaîne de contact de l’atome instable.','控制不稳定原子的接触链。','Controlla la catena di contatto dell’atomo instabile.'));
+  if(rotationPads&&rotationPads.size)special.push(ml('Rijit grubu döndürmeden önce platforma hangi yönden sokacağını planla.','Plan which side the rigid group should enter the rotation pad from.','Plane, von welcher Seite die starre Gruppe das Rotationsfeld erreicht.','Planea desde qué lado debe entrar el grupo rígido en la plataforma.','Planeje de que lado o grupo rígido deve entrar na plataforma.','剛体グループを回転パッドへ入れる方向を先に考えよう。','Prévois de quel côté le groupe rigide doit entrer sur la plateforme.','先规划刚性组从哪一侧进入旋转平台。','Pianifica da quale lato far entrare il gruppo rigido sulla piattaforma.'));
+  if(pressureSystems&&pressureSystems.length)special.push(ml('Kapıyı açan atom ile hedefi kuran atomun sırasını ayır.','Separate the door-opening move from the molecule-building order.','Trenne Türöffner und Molekül-Aufbau in deiner Reihenfolge.','Separa el movimiento que abre la puerta del orden de construcción.','Separe a jogada que abre a porta da ordem de montagem.','扉を開ける手と分子を組む順番を分けて考えよう。','Sépare l’ouverture de la porte de l’ordre de construction.','把开门步骤和构建分子的顺序分开考虑。','Separa la mossa che apre la porta dall’ordine di costruzione.'));
+  const routeClue=smartHintFocusText(atoms[i].e,d),extra=special.length?'<br><small>'+special[0]+'</small>':'';
+  const charge=useFreeStrategic?' <b>· '+ml('ÜCRETSİZ','FREE','KOSTENLOS','GRATIS','GRÁTIS','無料','GRATUIT','免费','GRATIS')+'</b>':(cost>0?' <b>−'+cost+' MoleCoin</b> · '+ml('Kalan: ','Balance: ','Rest: ','Saldo: ','Saldo: ','残高: ','Solde : ','余额: ','Saldo: ')+coinBalance():'');
+  say(ml('Stratejik ipucu: ','Strategic clue: ','Strategischer Hinweis: ','Pista estratégica: ','Dica estratégica: ','戦略ヒント：','Indice stratégique : ','策略提示：','Indizio strategico: ')+routeClue+extra+charge,'talk',7200,'glow');
+  prop('💡 '+atoms[i].e+(useFreeStrategic?' · '+ml('ÜCRETSİZ','FREE','KOSTENLOS','GRATIS','GRÁTIS','無料','GRATUIT','免费','GRATIS'):(cost>0?' · −'+cost+' 🪙':'')),3600);updateHUD();finishHintTransaction(true);
   if(save.totalHints===15)setTimeout(()=>say(t('hint15'),'happy',4200),1500);
   else if(save.totalHints===50)setTimeout(()=>say(t('hint50'),'happy',4500),1500);
   return true;
@@ -10713,19 +10926,53 @@ function hint(){
 function moleCoinInline(amount){return '<span class="mxInlineMoleCoin"><span class="coinIcon" aria-hidden="true"></span><b>'+Math.max(0,Math.floor(Number(amount)||0))+'</b></span>';}
 function offerPaidHint(){
   ensureCoinLedger(save);
-  const costs=labHintCosts(),free=quantumHintAvailable(),fullOpen=fullSolutionHintUnlocked();
+  const costs=labHintCosts(),strategicFree=freeStrategicHintAvailable(),freeExact=quantumHintAvailable(),fullOpen=fullSolutionHintUnlocked();
   const fullLock=ml('2 ipucu kullandıktan veya PAR +2 hamleye ulaştıktan sonra açılır.','Unlocks after 2 hints or after reaching PAR +2 moves.','Wird nach 2 Hinweisen oder bei PAR +2 Zügen freigeschaltet.','Se desbloquea tras 2 pistas o al llegar a PAR +2 movimientos.','Desbloqueia após 2 dicas ou ao chegar a PAR +2 jogadas.','ヒントを2回使うか、PAR+2手に達すると解放。','Se débloque après 2 indices ou à PAR +2 coups.','使用2次提示或达到PAR+2步后解锁。','Si sblocca dopo 2 indizi o a PAR +2 mosse.');
   const balance=ml('MoleCoin bakiyen:','MoleCoin balance:','MoleCoin-Guthaben:','Saldo de MoleCoin:','Saldo de MoleCoin:','MoleCoin残高：','Solde MoleCoin :','MoleCoin余额：','Saldo MoleCoin:')+' '+moleCoinInline(coinBalance());
-  const intro=(free?ml("Kuantum masan bugünün kesin hamlesini ücretsiz hazırladı.","Your quantum desk prepared today’s exact move for free.","Dein Quantentisch hat den exakten Zug des Tages kostenlos vorbereitet.","Tu mesa cuántica preparó gratis el movimiento exacto de hoy.","Sua mesa quântica preparou gratuitamente o movimento exato de hoje.","量子デスクが今日の正確な一手を無料で用意しました。","Ton bureau quantique a préparé gratuitement le coup exact du jour.","量子桌已免费准备好今天的一步精确提示。","La scrivania quantistica ha preparato gratis la mossa esatta di oggi."):ml("Takıldığında MoleCoin kullanarak ek yardım alabilirsin.","Spend MoleCoin for extra help when you get stuck.","Wenn du feststeckst, kannst du MoleCoin für zusätzliche Hilfe ausgeben.","Si te atascas, puedes gastar MoleCoin para obtener ayuda adicional.","Se travar, você pode gastar MoleCoin para receber ajuda extra.","行き詰まったらMoleCoinを使って追加のヒントを得られます。","Si tu bloques, dépense des MoleCoin pour obtenir une aide supplémentaire.","卡住时可以使用MoleCoin获得额外帮助。","Se ti blocchi, puoi spendere MoleCoin per ricevere altro aiuto."));
+  const freeRule=ml(
+    'Her bölümde ilk Stratejik İpucu ücretsizdir. Bölümü yeniden başlatmak ücretsiz hakkı yenilemez.',
+    'The first Strategic Clue in each level is free. Restarting the level does not restore it.',
+    'Der erste strategische Hinweis jedes Levels ist kostenlos. Ein Neustart stellt ihn nicht wieder her.',
+    'La primera pista estratégica de cada nivel es gratis. Reiniciar el nivel no la restaura.',
+    'A primeira dica estratégica de cada fase é grátis. Reiniciar a fase não restaura o uso gratuito.',
+    '各レベル最初の戦略ヒントは無料です。レベルを再スタートしても無料分は復活しません。',
+    'Le premier indice stratégique de chaque niveau est gratuit. Recommencer le niveau ne le rétablit pas.',
+    '每关第一次策略提示免费。重新开始关卡不会恢复免费次数。',
+    'Il primo indizio strategico di ogni livello è gratis. Riavviare il livello non lo rende di nuovo gratuito.'
+  );
+  const exactIntro=freeExact?ml(
+    ' Kuantum masan ayrıca bugünün kesin hamlesini ücretsiz hazırladı.',
+    ' Your Quantum Desk also prepared today’s exact move for free.',
+    ' Dein Quantentisch hat außerdem den heutigen exakten Zug kostenlos vorbereitet.',
+    ' Tu mesa cuántica también preparó gratis el movimiento exacto de hoy.',
+    ' Sua mesa quântica também preparou gratuitamente o movimento exato de hoje.',
+    ' 量子デスクにより、今日の正確な一手も無料です。',
+    ' Ton bureau quantique a aussi préparé gratuitement le coup exact du jour.',
+    ' 量子桌还免费准备了今天的一步精确提示。',
+    ' La scrivania quantistica ha preparato gratis anche la mossa esatta di oggi.'
+  ):'';
+  const intro=freeRule+exactIntro+'<br><small>'+ml(
+    'Stratejik ipucu doğru atoma ve eksene yönlendirir ama kesin yönü söylemez. Kesin hamle doğru atom + yönü gösterir; hamleyi sen yaparsın. Kalan çözüm hamleleri otomatik oynar.',
+    'Strategic Clue points you to the correct atom and axis without revealing the exact direction. Exact Move shows the correct atom + direction; you make the move. Auto-Play the Rest performs the remaining moves.',
+    'Der strategische Hinweis zeigt auf das richtige Atom und die Achse, verrät aber nicht die genaue Richtung. Exakter Zug zeigt Atom + Richtung; du führst ihn aus. Restlösung spielt automatisch weiter.',
+    'La pista estratégica señala el átomo y el eje correctos sin revelar la dirección exacta. Movimiento exacto muestra átomo + dirección; tú haces el movimiento. Reproducir el resto ejecuta automáticamente lo que falta.',
+    'A dica estratégica indica o átomo e o eixo corretos sem revelar a direção exata. Movimento exato mostra átomo + direção; você faz a jogada. Jogar o restante executa automaticamente as jogadas restantes.',
+    '戦略ヒントは正しい原子と軸を示しますが、正確な向きは明かしません。正確な一手は原子＋方向を示し、操作は自分で行います。残りの解答は自動で操作します。',
+    'L’indice stratégique indique le bon atome et le bon axe sans révéler le sens exact. Coup exact montre l’atome + la direction ; vous jouez le coup. Jouer la suite exécute automatiquement les coups restants.',
+    '策略提示会指出正确原子和轴向，但不会透露确切方向。精确步骤会显示原子和方向，由你执行；自动完成剩余解法会执行余下步骤。',
+    'L’indizio strategico indica l’atomo e l’asse corretti senza rivelare la direzione esatta. Mossa esatta mostra atomo + direzione; la mossa la fai tu. Gioca il resto esegue automaticamente le mosse rimanenti.'
+  )+'</small>';
+  const freeWord=ml('ÜCRETSİZ','FREE','KOSTENLOS','GRATIS','GRÁTIS','無料','GRATUIT','免费','GRATIS');
+  const usedWord=ml('KULLANILDI ✓','USED ✓','BENUTZT ✓','USADA ✓','USADA ✓','使用済み ✓','UTILISÉ ✓','已使用 ✓','USATO ✓');
   openModal('<h3>'+t('paidHintTitle')+'</h3><div class="msub mxHintIntro">'+intro+'<div class="mxHintBalance">'+balance+'</div></div><div class="mrow mxHintBuyRows" style="flex-direction:column;gap:10px">'+
-    '<button class="btn green mxHintPriceBtn" id="mHintGeneral" '+(coinBalance()<costs.general?'disabled style="opacity:.45"':'')+'><span>💡 '+ml("STRATEJİK İPUCU","STRATEGIC CLUE","STRATEGISCHER HINWEIS","PISTA ESTRATÉGICA","DICA ESTRATÉGICA","戦略ヒント","INDICE STRATÉGIQUE","策略提示","INDIZIO STRATEGICO")+'</span><span>— '+moleCoinInline(costs.general)+'</span></button>'+ 
-    '<button class="btn blue mxHintPriceBtn" id="mHint50" '+(!free&&coinBalance()<costs.move?'disabled style="opacity:.45"':'')+'><span>'+ml("⚡ SONRAKİ KESİN HAMLE","⚡ NEXT EXACT MOVE","⚡ NÄCHSTER EXAKTER ZUG","⚡ SIGUIENTE MOVIMIENTO EXACTO","⚡ PRÓXIMO MOVIMENTO EXATO","⚡ 次の正確な手","⚡ PROCHAIN COUP EXACT","⚡ 下一个精确步骤","⚡ PROSSIMA MOSSA ESATTA")+'</span><span>— '+(free?'<b>'+ml("ÜCRETSİZ","FREE","KOSTENLOS","GRATIS","GRÁTIS","無料","GRATUIT","免费","GRATIS")+'</b>':moleCoinInline(costs.move))+'</span></button>'+ 
-    '<button class="btn amber mxHintPriceBtn" id="mHint200" '+(!fullOpen||coinBalance()<costs.full?'disabled style="opacity:.42"':'')+'><span>'+ml("🏆 KALAN ÇÖZÜMÜ GÖSTER","🏆 SHOW THE REST","🏆 RESTLICHE LÖSUNG ZEIGEN","🏆 MOSTRAR EL RESTO","🏆 MOSTRAR O RESTANTE","🏆 残りの解答を見る","🏆 MONTRER LA SUITE","🏆 显示剩余解法","🏆 MOSTRA IL RESTO")+'</span><span>— '+moleCoinInline(costs.full)+'</span></button>'+ 
+    '<button class="btn green mxHintPriceBtn" id="mHintGeneral" '+(!strategicFree?'disabled style="opacity:.52"':'')+'><span>💡 '+ml("STRATEJİK İPUCU","STRATEGIC CLUE","STRATEGISCHER HINWEIS","PISTA ESTRATÉGICA","DICA ESTRATÉGICA","戦略ヒント","INDICE STRATÉGIQUE","策略提示","INDIZIO STRATEGICO")+'</span><span>— <b>'+(strategicFree?freeWord:usedWord)+'</b></span></button>'+ 
+    '<button class="btn blue mxHintPriceBtn" id="mHint50" '+(!freeExact&&coinBalance()<costs.move?'disabled style="opacity:.45"':'')+'><span>'+ml("⚡ SONRAKİ KESİN HAMLE","⚡ NEXT EXACT MOVE","⚡ NÄCHSTER EXAKTER ZUG","⚡ SIGUIENTE MOVIMIENTO EXACTO","⚡ PRÓXIMO MOVIMENTO EXATO","⚡ 次の正確な手","⚡ PROCHAIN COUP EXACT","⚡ 下一个精确步骤","⚡ PROSSIMA MOSSA ESATTA")+'</span><span>— '+(freeExact?'<b>'+freeWord+'</b>':moleCoinInline(costs.move))+'</span></button>'+ 
+    '<button class="btn amber mxHintPriceBtn" id="mHint200" '+(!fullOpen||coinBalance()<costs.full?'disabled style="opacity:.42"':'')+'><span>'+ml("🏆 KALAN ÇÖZÜMÜ OTOMATİK OYNA","🏆 AUTO-PLAY THE REST","🏆 RESTLÖSUNG AUTOMATISCH SPIELEN","🏆 REPRODUCIR EL RESTO","🏆 JOGAR O RESTANTE AUTOMATICAMENTE","🏆 残りの解答を自動再生","🏆 JOUER AUTOMATIQUEMENT LA SUITE","🏆 自动完成剩余解法","🏆 GIOCA AUTOMATICAMENTE IL RESTO")+'</span><span>— '+moleCoinInline(costs.full)+'</span></button>'+ 
     (!fullOpen?'<small style="opacity:.72;text-align:center">🔒 '+fullLock+'</small>':'')+
     '<button class="btn ghost" id="mHintShop">🛒 '+ml("LAB MAĞAZA","LAB SHOP","LAB-SHOP","TIENDA LAB","LOJA LAB","ラボショップ","BOUTIQUE LAB","实验室商店","NEGOZIO LAB")+'</button>'+ 
     '<button class="btn ghost" id="mHintCancel">'+t('cancel')+'</button></div>');
-  bindTap('#mHintGeneral',()=>{if(coinBalance()>=costs.general)showGeneralHint(costs.general);});
-  bindTap('#mHint50',()=>{if(free){buyHint(0,false,true);}else if(coinBalance()>=costs.move)buyHint(costs.move,false);});
+  bindTap('#mHintGeneral',()=>{if(strategicFree)showGeneralHint(0,true);});
+  bindTap('#mHint50',()=>{if(freeExact){buyHint(0,false,true);}else if(coinBalance()>=costs.move)buyHint(costs.move,false);});
   bindTap('#mHint200',()=>{if(fullOpen&&coinBalance()>=costs.full)buyHint(costs.full,true);});
   bindTap('#mHintShop',()=>{closeModal();show('lab');setLabTab('shop');});
   bindTap('#mHintCancel',()=>closeModal());
@@ -10789,7 +11036,7 @@ function refundCurrentHintCharge(){
 }
 function autoSolveGateBlocked(i,d){
   if(!reactorActive()||!atoms[i])return false;
-  const linked=fusionMovePlan(i,d)||pairMovePlan(i,d),dest=linked?linked.main:slideDest(i,d);
+  const linked=fusionMovePlan(i,d)||pairMovePlan(i,d),dest=linked?linked.main:(atomHasMovementGroup(i)?null:slideDest(i,d));
   if(!dest)return false;
   const path=crystalPathBetween(atoms[i].x,atoms[i].y,dest.x,dest.y);
   return !!reactorFirstActiveGate(path);
@@ -10806,16 +11053,20 @@ function refundHintCoins(amount){
 function displayExactMove(nextMove,cost,useQuantum,resetToRoute){
   if(!nextMove)return false;
   const[i,d]=nextMove;
-  // Verify the selected atom before touching the player's economy. A stale UI
-  // callback can therefore never create a temporary charge/refund cycle.
-  if(!atoms[i]||d<0||d>3)return false;
+  // R195: validate the ACTUAL move before touching the player's economy.
+  // This covers stale callbacks as well as off-route smart-solver results.
+  const playable=atoms[i]&&!atoms[i].frozen&&d>=0&&d<=3&&
+    (legalMoveDestination(i,d)||(!atomHasMovementGroup(i)&&slidePlan(i,d).barrierHit));
+  if(!playable)return false;
   if(useQuantum){if(!consumeQuantumHint())return false;}
   else if(cost>0&&!spendCoins(cost))return false;
   assistanceUsed=true;attemptHintCount++;
   persist();updateCoins(false);
-  sel=i;hintMark={i,d};wink();prop('💡 '+DIRAR[d],3200);
+  sel=i;hintMark={i,d};wink();
+  const charge=cost>0?' · −'+cost+' 🪙 · '+ml('Kalan ','Balance ','Rest ','Saldo ','Saldo ','残高 ','Solde ','余额 ','Saldo ')+coinBalance():'';
+  prop('💡 '+atoms[i].e+' '+DIRAR[d]+charge,4300);
   const prefix=resetToRoute?(ml("Çözüm rotasına dönüldü. ","Solution route restored. ","Lösungsroute wiederhergestellt. ","Ruta de solución restaurada. ","Rota da solução restaurada. ","解答ルートに戻りました。")):'';
-  say(prefix+t('hintDir',atoms[i].e,DIRN_()[d],DIRAR[d]),'talk',6200,'glow');
+  say(prefix+t('hintDir',atoms[i].e,DIRN_()[d],DIRAR[d])+(cost>0?' <b>−'+cost+' MoleCoin</b> · '+ml('Kalan: ','Balance: ','Rest: ','Saldo: ','Saldo: ','残高: ','Solde : ','余额: ','Saldo: ')+coinBalance():''),'talk',7200,'glow');
   SFX.hint();updateHUD();
   return true;
 }
@@ -10823,14 +11074,15 @@ function startFullSolution(sol,startIdx,cost,resetToRoute){
   startIdx=Math.max(0,Math.floor(Number(startIdx)||0));
   if(!Array.isArray(sol)||!sol.length||startIdx>=sol.length){finishHintTransaction();say(ml("Gösterilecek başka hamle yok. MoleCoin alınmadı.","There are no remaining moves to show. No MoleCoins were charged.","Es gibt keine weiteren Züge. Es wurden keine MoleCoins berechnet.","No quedan movimientos por mostrar. No se cobraron MoleCoins.","Não há mais movimentos para mostrar. Nenhuma MoleCoin foi cobrada.","表示する手が残っていません。MoleCoinは消費されませんでした。"),'talk',3200,'glow');return false;}
   const first=sol[startIdx];
-  const firstPlayable=first&&atoms[first[0]]&&!atoms[first[0]].frozen&&(fusionMovePlan(first[0],first[1])||pairMovePlan(first[0],first[1])||slideDest(first[0],first[1])||slidePlan(first[0],first[1]).barrierHit);
+  const firstPlayable=first&&atoms[first[0]]&&!atoms[first[0]].frozen&&(legalMoveDestination(first[0],first[1])||(!atomHasMovementGroup(first[0])&&slidePlan(first[0],first[1]).barrierHit));
   if(!firstPlayable){finishHintTransaction();say(ml("Çözüm başlatılamadı; MoleCoin alınmadı.","The solution could not start; no MoleCoins were charged.","Die Lösung konnte nicht gestartet werden; keine MoleCoins wurden berechnet.","No se pudo iniciar la solución; no se cobraron MoleCoins.","A solução não pôde ser iniciada; nenhuma MoleCoin foi cobrada.","解答を開始できませんでした。MoleCoinは消費されませんでした。"),'sad',4200,'shk');return false;}
   if(cost>0&&!spendCoins(cost)){finishHintTransaction();return false;}
   activeHintCharge=Math.max(0,Math.floor(Number(cost)||0));
   assistanceUsed=true;attemptHintCount++;autoSolveInProgress=true;hintPurchaseBusy=true;
   persist();updateCoins(false);updateHUD();
   const runId=autoSolveRunId;
-  say(resetToRoute?(ml("Çözüm rotası baştan kuruluyor.","Restoring the verified solution route.","Die geprüfte Lösungsroute wird wiederhergestellt.","Restaurando la ruta de solución verificada.","Restaurando a rota de solução verificada.","検証済みの解答ルートを復元しています。")):t('paidHintPlaying'),'excited',3400,'glow');
+  if(cost>0)prop('−'+cost+' 🪙 · '+ml('Kalan ','Balance ','Rest ','Saldo ','Saldo ','残高 ','Solde ','余额 ','Saldo ')+coinBalance(),3200);
+  say((resetToRoute?(ml("Çözüm rotası baştan kuruluyor.","Restoring the verified solution route.","Die geprüfte Lösungsroute wird wiederhergestellt.","Restaurando la ruta de solución verificada.","Restaurando a rota de solução verificada.","検証済みの解答ルートを復元しています。")):t('paidHintPlaying'))+(cost>0?' <b>−'+cost+' MoleCoin</b> · '+ml('Kalan: ','Balance: ','Rest: ','Saldo: ','Saldo: ','残高: ','Solde : ','余额: ','Saldo: ')+coinBalance():''),'excited',4300,'glow');
   setTimeout(()=>playAutoSolve(sol,startIdx,{cost:activeHintCharge,retries:0,gateWaits:0,lastMoves:moves,runId}),700);
   return true;
 }
@@ -11014,7 +11266,7 @@ function mxLevelFxRecipe(levelIndex){
   const list=window.MX_LEVEL_FX_RECIPES;
   if(Array.isArray(list)&&list[levelIndex])return list[levelIndex];
   const seed=((Math.max(0,Number(levelIndex)||0)+1)*2654435761)>>>0;
-  return {level:Math.max(0,Number(levelIndex)||0)+1,molecule:curMol&&curMol.f||'',seed,motif:'radial',shape:'spark',boardMotion:'pulse',bannerMotion:'pop',tone:'rise',direction:'radial',count:22,spread:120,speed:1,twist:1.2,gravity:.28,waves:3,rings:2,bondStep:65,pulse:1,delay:0};
+  return {level:Math.max(0,Number(levelIndex)||0)+1,molecule:curMol&&curMol.f||'',seed,motif:'radial',shape:'spark',bannerMotion:'pop',tone:'rise',direction:'radial',count:22,spread:120,speed:1,twist:1.2,gravity:.28,waves:3,rings:2,bondStep:65,pulse:1,delay:0};
 }
 function mxFxRng(seed){
   let a=(Number(seed)||1)>>>0;
@@ -11063,15 +11315,6 @@ function mxLevelSignatureTone(recipe){
     osc(sfxG,f,t+i*.075,.18,'sine',.017,{atk:.008,f2:f*(1.006+(i*.002)),f2t:.15,lp:2600});
   });
 }
-function mxApplyLevelWinMotion(recipe){
-  if(!board||motionReduced())return;
-  board.dataset.winMotion=recipe.boardMotion||'pulse';
-  board.style.setProperty('--mx-level-spin',((recipe.twist||0)*7).toFixed(1)+'deg');
-  board.style.setProperty('--mx-level-spin-back',((recipe.twist||0)*-1.9).toFixed(1)+'deg');
-  board.style.setProperty('--mx-level-pulse',String(Math.max(.7,Math.min(2.4,recipe.pulse||1))));
-  board.classList.remove('mxLevelWin');void board.offsetWidth;board.classList.add('mxLevelWin');
-  setTimeout(()=>{board.classList.remove('mxLevelWin');delete board.dataset.winMotion;board.style.removeProperty('--mx-level-spin');board.style.removeProperty('--mx-level-spin-back');board.style.removeProperty('--mx-level-pulse');},1280);
-}
 function mxSpawnRecipeParticles(recipe,x,y,cols){
   if(!effectsAllowed())return;
   const rng=mxFxRng(recipe.seed),reduced=motionReduced()||performanceLow();
@@ -11101,11 +11344,10 @@ function spawnLevelSignatureFx(levelIndex,mol,x,y,cols,boardRect){
   setTimeout(()=>spawnWinFx(mol&&mol.fx||'glit',x,y,palette),90);
   // Beat 2 · structure: bonds illuminate just after the chemical reaction.
   setTimeout(()=>mxLevelBondFx(recipe,boardRect,palette),185);
-  // Beat 3 · level identity: deterministic particles, board motion and the
-  // quiet three-note signature arrive together, not on the impact frame.
+  // Beat 3 · level identity: deterministic particles and the quiet three-note
+  // signature arrive together. The board itself remains fixed in R186.
   setTimeout(()=>{
     mxSpawnRecipeParticles(recipe,x,y,palette);
-    mxApplyLevelWinMotion(recipe);
     mxLevelSignatureTone(recipe);
   },330);
   // Slight deterministic timing variation keeps all 301 clears from feeling
@@ -11164,8 +11406,26 @@ function mxDrawSigShape(ctx,p,x,y,q){
 }
 
 const MOLECULE_INFO_HOLD_MS=3000,MOLECULE_INFO_FADE_MS=340,RESULT_MODAL_DELAY_MS=3650;
-function completionFlowTiming(firstDiscovery){return firstDiscovery?{hold:3000,result:3650}:{hold:2200,result:2850};}
+function completionFlowTiming(firstDiscovery){return firstDiscovery?{hold:3000,result:3650}:{hold:650,result:950};}
 let completionResultTimer=null;
+
+/* R187: perfect-clear board celebration.
+   One short GPU-composited transform animation is chosen only for 3-star clears.
+   It never loops, never drives the canvas renderer, and is skipped when effects/reduced-motion
+   policy says to keep the device quiet. R186's old shake/impact state remains removed. */
+const MX_PERFECT_BOARD_CLASSES=['mxPerfectOrbit','mxPerfectWave','mxPerfectFloat','mxPerfectSnap'];
+let mxPerfectBoardTimer=0;
+function playPerfectBoardCelebration(stars){
+  if(stars!==3||tutorialActive||duelMode||crystalMode||chainMode||reactorMode||!effectsAllowed())return;
+  const bf=$('#boardFrame');if(!bf)return;
+  if(mxPerfectBoardTimer){clearTimeout(mxPerfectBoardTimer);mxPerfectBoardTimer=0;}
+  bf.classList.remove(...MX_PERFECT_BOARD_CLASSES);
+  // Force a fresh one-shot even if a result is replayed very quickly.
+  void bf.offsetWidth;
+  const cls=MX_PERFECT_BOARD_CLASSES[Math.floor(Math.random()*MX_PERFECT_BOARD_CLASSES.length)];
+  bf.classList.add(cls);
+  mxPerfectBoardTimer=setTimeout(()=>{bf.classList.remove(...MX_PERFECT_BOARD_CLASSES);mxPerfectBoardTimer=0;},920);
+}
 function gameFeelCompletionSnap(lastIdx){
   if(motionReduced()||!effectsAllowed()||!atoms||!atoms.length)return;
   const idx=(Number.isInteger(lastIdx)&&atoms[lastIdx])?lastIdx:((Number.isInteger(sel)&&atoms[sel])?sel:0);
@@ -11190,11 +11450,11 @@ function winSeq(lastMovedIdx){
   if(chainMode&&!duelMode&&Math.max(0,(duelWinNow-levelStartT)/1000)>=CHAIN_TIME_LIMIT){finishChainTimeout();return;}
   if(reactorMode&&!duelMode&&reactorElapsedSeconds(duelWinNow)>=REACTOR_TIME_LIMIT){finishReactorTimeout();return;}
   const elapsedSeconds=solveClockModeEligible()?stopSolveClock(duelWinNow):Math.max(0,(duelWinNow-levelStartT)/1000);
-  won=true;winT=duelWinNow;lastSolveSeconds=elapsedSeconds;shake=(motionReduced()||save.duelEffects===false)?0:.28;mxHaptic('success');hintMark=null;
+  won=true;winT=duelWinNow;lastSolveSeconds=elapsedSeconds;mxHaptic('success');hintMark=null;
   gameFeelCompletionSnap(lastMovedIdx);
   gameFeelWinBurst(240);
   const zeroStarLimit=Math.ceil(LV.p*2.3);
-  const stars=moves<=LV.p?3:(moves<=t2?2:(moves<=zeroStarLimit?1:0));
+  const stars=starsForMoves(moves,LV.p);
   previousSpeedRecord=(!dailyMode&&save.speedRuns)?Math.max(0,Number(save.speedRuns[lv])||0):0;
   lastSolveRecordEligible=stars>0&&!assistanceUsed&&!dailyMode&&!duelMode&&!crystalMode&&!chainMode&&!reactorMode;
   if(lastSolveRecordEligible){
@@ -11204,7 +11464,8 @@ function winSeq(lastMovedIdx){
   }else newSpeedRecord=null;
   const solveTimerEl=$('#duelTimer');if(solveTimerEl&&solveClock.eligible)solveTimerEl.textContent=solveTimeText(elapsedSeconds,true);
   updateHUD();
-  const bf=$('#boardFrame');bf.classList.remove('winzoom','moleculeComplete');void bf.offsetWidth;if(!motionReduced())bf.classList.add('winzoom');bf.classList.add('moleculeComplete');setTimeout(()=>bf.classList.remove('moleculeComplete'),1500);
+  playPerfectBoardCelebration(stars);
+  const bf=$('#boardFrame');bf.classList.remove('moleculeComplete');void bf.offsetWidth;bf.classList.add('moleculeComplete');setTimeout(()=>bf.classList.remove('moleculeComplete'),1500);
   // centroid -> screen coords
   const r=board.getBoundingClientRect();
   const cx=r.left+atoms.reduce((s,a)=>s+a.x+0.5,0)/atoms.length*T;
@@ -11231,7 +11492,7 @@ function winSeq(lastMovedIdx){
     const evt=(lv===NOBEL_LEVEL_INDEX)?'nobel':(stars===3?'perfect':((save.stars&&save.stars[lv])?'success':'discovery'));
     setTimeout(()=>playCharacterVoice('drE',evt,{force:true,duck:.28,cooldown:0}),Math.max(720,bannerAt));
   }
-  const completionVerb=(curMol.fx==='crys')
+  const completionVerb=curMol.researchPattern?ml('MODEL TAMAMLANDI','MODEL COMPLETE','MODELL FERTIG','MODELO COMPLETO','MODELO COMPLETO','モデル完成','MODÈLE TERMINÉ','模型完成','MODELLO COMPLETATO'):(curMol.fx==='crys')
     ?(ml("KRİSTALLEŞTİ","CRYSTALLIZED","KRISTALLISIERT","CRISTALIZADA","CRISTALIZADA","結晶化"))
     :(ml("SENTEZLENDİ","SYNTHESIZED","SYNTHETISIERT","SINTETIZADA","SINTETIZADA","合成完了"));
   $('#banner').textContent=curMol.n+' '+completionVerb+'!';
@@ -11628,6 +11889,33 @@ function openMoleculeInCollection(moleculeId){
   closeModal();save.collectionFilter='all';persist();setCollectionTab('molecules');show('collect');
   requestAnimationFrame(()=>requestAnimationFrame(()=>{const safe=window.CSS&&CSS.escape?CSS.escape(String(moleculeId)):String(moleculeId).replace(/["\\]/g,'\\$&');const card=document.querySelector('.molCard[data-molecule="'+safe+'"]');if(!card)return;card.classList.add('mxCompletionFocus');card.scrollIntoView({behavior:motionReduced()?'auto':'smooth',block:'center'});setTimeout(()=>card.classList.remove('mxCompletionFocus'),2800);}));
 }
+let resultIdleTimers=[];
+function clearResultIdleTimers(){
+  if(resultIdleTimers.length){for(const timer of resultIdleTimers)clearTimeout(timer);resultIdleTimers.length=0;}
+  const box=$('#modalBox');
+  if(box)box.classList.remove('mxResultIdleMid','mxResultIdleSlow');
+}
+function scheduleResultIdleSlowdown(){
+  clearResultIdleTimers();
+  const box=$('#modalBox'),modal=$('#modal');
+  if(!box||!modal||!box.classList.contains('winResultModal'))return;
+  // Keep the first six seconds at full celebration speed. Then decelerate in
+  // one intermediate step before settling into the low-cost long idle loop.
+  // These are CSS animations only; no per-frame JavaScript remains active.
+  if(typeof motionReduced==='function'&&motionReduced())return;
+  const stillOpen=()=>modal.classList.contains('on')&&box.classList.contains('winResultModal');
+  resultIdleTimers.push(setTimeout(()=>{
+    if(!stillOpen())return;
+    box.classList.remove('mxResultIdleSlow');
+    box.classList.add('mxResultIdleMid');
+  },6000));
+  resultIdleTimers.push(setTimeout(()=>{
+    if(!stillOpen())return;
+    box.classList.remove('mxResultIdleMid');
+    box.classList.add('mxResultIdleSlow');
+    resultIdleTimers.length=0;
+  },7000));
+}
 function winModal(stars,gained,rpGained){
   const finalCampaign=fullCampaignReady()&&lv===CAMPAIGN_FINAL_LEVEL_INDEX;
   const nobelMilestone=lv===NOBEL_LEVEL_INDEX;
@@ -11652,6 +11940,7 @@ function winModal(stars,gained,rpGained){
     '<button class="btn ghost" id="mLab">'+t('levels')+'</button></div>'
   );
   $('#modalBox').classList.add('winResultModal');$('#modalBox').classList.remove('mxResultArrive');void $('#modalBox').offsetWidth;$('#modalBox').classList.add('mxResultArrive');
+  scheduleResultIdleSlowdown();
   const sp=Array.from($('#modalBox .mstars').children);
   popStars(sp,stars);
   const scienceOpen=$('#mScienceOpen');if(scienceOpen)bindTap(scienceOpen,()=>{SFX.click();moleculeDetailModal(mid);});
@@ -11702,7 +11991,10 @@ function installModalScrollIndicator(){
 
 const modalActionQueue=[];
 let modalCloseTimer=null;
+let modalReturnFocus=null;
 function openModal(html){
+  clearResultIdleTimers();
+  if(!$('#modal').classList.contains('on'))modalReturnFocus=document.activeElement;
   pauseSolveClock('modal');
   clearTimeout(modalCloseTimer);
   const box=$('#modalBox');
@@ -11711,6 +12003,8 @@ function openModal(html){
   hydrateLabComponentCanvases(box);
   box.scrollTop=0;
   $('#modal').classList.add('on');
+  box.setAttribute('role','dialog');box.setAttribute('aria-modal','true');box.tabIndex=-1;
+  requestAnimationFrame(()=>{const el=box.querySelector('button:not([disabled]),input:not([disabled]),[tabindex="0"]');(el||box).focus({preventScroll:true});});
   requestAnimationFrame(()=>requestAnimationFrame(installModalScrollIndicator));
 }
 function runWhenModalFree(fn){
@@ -11725,7 +12019,9 @@ function runNextModalAction(){
   setTimeout(()=>{try{fn();}catch(e){console.warn('[modal] queued action failed',e);runNextModalAction();}},140);
 }
 function closeModal(){
+  clearResultIdleTimers();
   $('#modal').classList.remove('on');resumeSolveClock('modal');
+  if(modalReturnFocus&&modalReturnFocus.isConnected)modalReturnFocus.focus({preventScroll:true});modalReturnFocus=null;
   clearTimeout(modalCloseTimer);
   modalCloseTimer=setTimeout(()=>{
     $('#modalBox').className='card';
@@ -12668,13 +12964,13 @@ function trainingProgress(){
   return {total,done,pct:total?Math.round(done*100/total):0};
 }
 const SUPPORT_INFO={
-  hint:{icon:'💡',title:['İpucu','Hint','Hinweis','Pista','Dica','ヒント','Indice','提示','Suggerimento'],desc:['Tek dokunuşla ipucu menüsü açılır. Ücretsiz genel tavsiye, sonraki kesin hamle veya kalan çözüm arasından seçim yaparsın.','One tap opens the hint menu. Choose a free general clue, the next exact move, or the remaining solution.','Ein Tippen öffnet das Hinweismenü. Wähle einen kostenlosen allgemeinen Tipp, den nächsten exakten Zug oder die restliche Lösung.','Un toque abre el menú de pistas. Elige una orientación general gratis, el siguiente movimiento exacto o la solución restante.','Um toque abre o menu de dicas. Escolha uma orientação geral grátis, o próximo movimento exato ou a solução restante.','1回タップするとヒントメニューが開きます。無料の一般ヒント、次の正確な手、残りの解答から選べます。','Un toucher ouvre le menu des indices. Choisis un conseil général gratuit, le prochain coup exact ou la solution restante.','轻触一次即可打开提示菜单。你可以选择免费的总体提示、下一步精确操作或剩余完整解法。','Un tocco apre il menu dei suggerimenti. Puoi scegliere un consiglio generale gratuito, la prossima mossa esatta o la soluzione restante.']},
+  hint:{icon:'💡',title:['İpucu','Hint','Hinweis','Pista','Dica','ヒント','Indice','提示','Suggerimento'],desc:['Tek dokunuşla ipucu menüsü açılır. Her bölümün ilk Stratejik İpucu ücretsizdir ve yeniden başlatınca yenilenmez; daha güçlü kesin hamle ve kalan çözüm seçenekleri MoleCoin kullanır.','One tap opens the hint menu. Each level’s first Strategic Clue is free and does not reset on restart; stronger Exact Move and remaining-solution options use MoleCoin.','Ein Tippen öffnet das Hinweismenü. Der erste strategische Hinweis jedes Levels ist kostenlos und wird beim Neustart nicht erneuert; stärkere Hilfen kosten MoleCoin.','Un toque abre el menú de pistas. La primera pista estratégica de cada nivel es gratis y no se renueva al reiniciar; las ayudas más fuertes usan MoleCoin.','Um toque abre o menu de dicas. A primeira dica estratégica de cada fase é grátis e não volta ao reiniciar; ajudas mais fortes usam MoleCoin.','1回タップするとヒントメニューが開きます。各レベル最初の戦略ヒントは無料で、再スタートしても復活しません。より強いヒントにはMoleCoinを使います。','Un toucher ouvre le menu des indices. Le premier indice stratégique de chaque niveau est gratuit et ne revient pas après redémarrage ; les aides plus fortes utilisent des MoleCoin.','轻触一次即可打开提示菜单。每关第一次策略提示免费，重新开始也不会恢复；更强的提示会消耗MoleCoin。','Un tocco apre il menu dei suggerimenti. Il primo indizio strategico di ogni livello è gratis e non torna riavviando; gli aiuti più forti usano MoleCoin.']},
   undo:{icon:'↩️',title:['Geri Al','Undo','Rückgängig','Deshacer','Desfazer','元に戻す','Annuler','撤销','Annulla'],desc:['Son normal hamleyi geri çevirir. Kullanılmış Çekiç ve Tek Kare Hareket geri dönmez; yerleştirilmiş Nano Bariyer için harcanan MoleCoin iade edilmez.','Reverses the last normal move. Used Hammer and One-Square Move items are not restored; MoleCoin spent on a placed Nano Barrier is not refunded.','Macht den letzten normalen Zug rückgängig. Benutzter Hammer und Ein-Feld-Zug werden nicht zurückgegeben; MoleCoin für eine platzierte Nano-Barriere werden nicht erstattet.','Revierte el último movimiento normal. Los usos de Martillo y Movimiento de una casilla no se recuperan; los MoleCoin gastados en una Barrera nano colocada no se reembolsan.','Desfaz o último movimento normal. Martelo e Movimento de uma casa usados não são devolvidos; MoleCoin gastos em uma Barreira Nano colocada não são reembolsados.','直前の通常手を戻します。使用済みのハンマーと1マス移動は戻らず、設置済みナノバリアに使ったMoleCoinも返却されません。','Annule le dernier coup normal. Le Marteau et le déplacement d’une case consommés ne sont pas rendus ; les MoleCoin dépensés pour une Nano-Barrière placée ne sont pas remboursés.','撤销上一步普通移动。已使用的锤子和单格移动不会返还；已放置纳米屏障消耗的MoleCoin也不会退款。','Annulla l’ultima mossa normale. Martello e Mossa di una casella consumati non vengono restituiti; i MoleCoin spesi per una Nano Barriera già posizionata non vengono rimborsati.']},
   restart:{icon:'🔄',title:['Yeniden Başlat','Restart','Neu starten','Reiniciar','Reiniciar','やり直す','Recommencer','重新开始','Ricomincia'],desc:['Bölümü başlangıç düzenine döndürür. Harcanan destekler geri verilmez.','Returns the level to its starting layout. Consumed support items are not restored.','Setzt das Level auf die Startanordnung zurück. Verbrauchte Hilfen werden nicht erstattet.','Devuelve el nivel a su disposición inicial. Las ayudas gastadas no se recuperan.','Retorna a fase à configuração inicial. Os suportes gastos não são devolvidos.','レベルを開始時の配置に戻します。消費したサポートは戻りません。','Remet le niveau dans sa configuration de départ. Les aides déjà consommées ne sont pas restituées.','将关卡恢复到初始布局。已消耗的辅助道具不会返还。','Riporta il livello alla disposizione iniziale. I supporti già consumati non vengono restituiti.']},
   hammer:{icon:'🔨',title:['Çekiç','Hammer','Hammer','Martillo','Martelo','ハンマー','Marteau','锤子','Martello'],desc:['Çekiç yalnız çatlak duvar bulunan bölümlerde verilir. Aracı seç, ardından çatlak duvara dokun. Eğitim örneği ücretsizdir; gerçek kullanımda 1 çekiç harcanır.','Hammer is available only in levels with a cracked wall. Select it, then tap the cracked wall. The training example is free; real use consumes 1 hammer.','Der Hammer ist nur in Levels mit einer rissigen Wand verfügbar. Wähle ihn und tippe dann auf die rissige Wand. Das Training ist kostenlos; im echten Level wird 1 Hammer verbraucht.','El Martillo solo está disponible en niveles con una pared agrietada. Selecciónalo y toca esa pared. El ejemplo de práctica es gratis; el uso real consume 1 martillo.','O Martelo só fica disponível em fases com uma parede rachada. Selecione-o e toque nessa parede. O treino é grátis; o uso real consome 1 martelo.','ハンマーはひび割れ壁があるレベルでのみ使用できます。選択して壁をタップします。練習は無料ですが、実戦では1個消費します。','Le Marteau n’est disponible que dans les niveaux comportant un mur fissuré. Sélectionne-le puis touche ce mur. L’entraînement est gratuit ; l’usage réel consomme 1 Marteau.','锤子只会在存在裂纹墙的关卡中提供。选择锤子后点击裂纹墙。训练示例免费；实战每次消耗1把锤子。','Il Martello è disponibile solo nei livelli con un muro crepato. Selezionalo e tocca quel muro. L’esempio di allenamento è gratuito; l’uso reale consuma 1 Martello.']},
   precision:{icon:'↔️',title:['Tek Kare Hareket','One-Square Move','Ein-Feld-Zug','Movimiento de una casilla','Movimento de uma casa','1マス移動','Déplacement d’une case','单格移动','Mossa di una casella'],desc:['Aracı seç, atomu seç ve yön ver. Atom yalnızca 1 kare ilerler. Bu deney aracı desteklemiyorsa Einstein bunu açıkça söyler. Eğitim örneği ücretsizdir.','Select the tool, choose an atom and a direction. The atom moves exactly one square. If the experiment does not support the tool, Dr. E tells you clearly. The training example is free.','Wähle Werkzeug, Atom und Richtung. Das Atom bewegt sich genau ein Feld. Unterstützt das Experiment das Werkzeug nicht, sagt Dr. E es ausdrücklich. Das Training ist kostenlos.','Selecciona la herramienta, un átomo y una dirección. El átomo avanza exactamente una casilla. Si el experimento no admite la herramienta, Dr. E te lo dirá claramente. El ejemplo es gratis.','Selecione a ferramenta, um átomo e uma direção. O átomo avança exatamente uma casa. Se o experimento não aceitar a ferramenta, Dr. E avisará claramente. O exemplo é grátis.','ツール、原子、方向を選ぶと、原子がちょうど1マス移動します。この実験で使えない場合はDr. Eが明確に知らせます。練習は無料です。','Sélectionne l’outil, un atome et une direction. L’atome avance exactement d’une case. Si l’expérience n’autorise pas cet outil, Dr. E te le dira clairement. L’entraînement est gratuit.','选择工具、原子和方向后，原子会精确移动一格。如果本实验不支持该工具，Dr. E会明确告诉你。训练示例免费。','Seleziona lo strumento, un atomo e una direzione. L’atomo si muove esattamente di una casella. Se l’esperimento non supporta lo strumento, Dr. E te lo dirà chiaramente. L’allenamento è gratuito.']},
-  barrier:{icon:'🧱',title:['Nano Bariyer','Nano Barrier','Nano-Barriere','Barrera nano','Barreira nano','ナノバリア','Nano-Barrière','纳米屏障','Nano Barriera'],desc:['Nano Bariyer desteklenen bölümlerde boş ve normal bir kareye yerleştirilir. Onayda 300 MoleCoin harcanır; ilk atom çarpışmasında kırılır ve bölüm başına yalnızca bir kez kullanılabilir. Kullanılamayan deneylerde Einstein bunu açıkça söyler.','In supported levels, Nano Barrier is placed on an empty normal tile. Confirming costs 300 MoleCoin; it breaks on the first atom collision and can be used only once per level. Dr. E clearly tells you when an experiment does not allow it.','In unterstützten Levels wird die Nano-Barriere auf ein leeres normales Feld gesetzt. Die Bestätigung kostet 300 MoleCoin; sie zerbricht beim ersten Atomaufprall und ist nur einmal pro Level nutzbar. Dr. E sagt klar, wenn sie in einem Experiment nicht erlaubt ist.','En niveles compatibles, la Barrera nano se coloca en una casilla normal vacía. Confirmar cuesta 300 MoleCoin; se rompe con el primer choque y solo puede usarse una vez por nivel. Dr. E avisa claramente cuando un experimento no la permite.','Nas fases compatíveis, a Barreira Nano é colocada em uma casa normal vazia. Confirmar custa 300 MoleCoin; ela quebra na primeira colisão e só pode ser usada uma vez por fase. Dr. E avisa claramente quando o experimento não permite seu uso.','対応レベルでは、ナノバリアを空いている通常マスに設置します。確定時に300 MoleCoinを消費し、最初の原子衝突で壊れ、1レベルにつき1回だけ使えます。使えない実験ではDr. Eが明確に知らせます。','Dans les niveaux compatibles, la Nano-Barrière se place sur une case normale vide. La confirmation coûte 300 MoleCoin ; elle se brise au premier choc d’atome et n’est utilisable qu’une fois par niveau. Dr. E indique clairement lorsqu’une expérience ne l’autorise pas.','在支持的关卡中，纳米屏障可放在空的普通格子上。确认时消耗300 MoleCoin；第一次原子碰撞时破碎，每关只能使用一次。若实验不允许使用，Dr. E会明确说明。','Nei livelli compatibili, la Nano Barriera si posiziona su una casella normale vuota. La conferma costa 300 MoleCoin; si rompe al primo urto di un atomo e può essere usata una sola volta per livello. Dr. E avvisa chiaramente quando l’esperimento non la consente.']},
-  lab:{icon:'🧪',title:['Laboratuvar ve Destekler','Laboratory and Supports','Labor und Hilfen','Laboratorio y ayudas','Laboratório e suportes','ラボとサポート','Laboratoire et aides','实验室与辅助','Laboratorio e supporti'],desc:['Çekiç ve Tek Kare Hareket Laboratuvardan alınır. Nano Bariyer desteklenen tahtada yerleştirirken 300 MoleCoin karşılığında satın alınır. Kalıcı cihazlar ipucu fiyatını düşürür veya ödülleri artırır.','Hammer and One-Square Move are bought in the Laboratory. Nano Barrier is purchased for 300 MoleCoin when placed on a supported board. Permanent equipment reduces hint costs or increases rewards.','Hammer und Ein-Feld-Zug werden im Labor gekauft. Die Nano-Barriere kostet beim Platzieren auf einem unterstützten Brett 300 MoleCoin. Dauerhafte Geräte senken Hinweiskosten oder erhöhen Belohnungen.','Martillo y Movimiento de una casilla se compran en el Laboratorio. La Barrera nano cuesta 300 MoleCoin al colocarla en un tablero compatible. El equipo permanente reduce el coste de pistas o aumenta recompensas.','Martelo e Movimento de uma casa são comprados no Laboratório. A Barreira Nano custa 300 MoleCoin ao ser colocada em um tabuleiro compatível. Equipamentos permanentes reduzem custos de dicas ou aumentam recompensas.','ハンマーと1マス移動はラボで購入します。ナノバリアは対応盤面に設置するとき300 MoleCoinで購入します。常設装置はヒント費用を下げたり報酬を増やしたりします。','Le Marteau et le déplacement d’une case s’achètent au Laboratoire. La Nano-Barrière coûte 300 MoleCoin au moment de la placer sur un plateau compatible. Les équipements permanents réduisent le coût des indices ou augmentent les récompenses.','锤子和单格移动可在实验室购买。纳米屏障在支持的棋盘上放置时以300 MoleCoin购买。永久设备可降低提示费用或提高奖励。','Martello e Mossa di una casella si acquistano nel Laboratorio. La Nano Barriera costa 300 MoleCoin quando viene posizionata su una tavola compatibile. Le attrezzature permanenti riducono il costo dei suggerimenti o aumentano le ricompense.']}
+  barrier:{icon:'🧱',title:['Nano Bariyer','Nano Barrier','Nano-Barriere','Barrera nano','Barreira nano','ナノバリア','Nano-Barrière','纳米屏障','Nano Barriera'],desc:['Nano Bariyer desteklenen bölümlerde boş ve normal bir kareye yerleştirilir. Onayda 500 MoleCoin harcanır; ilk atom çarpışmasında kırılır ve bölüm başına yalnızca bir kez kullanılabilir. Kullanılamayan deneylerde Einstein bunu açıkça söyler.','In supported levels, Nano Barrier is placed on an empty normal tile. Confirming costs 500 MoleCoin; it breaks on the first atom collision and can be used only once per level. Dr. E clearly tells you when an experiment does not allow it.','In unterstützten Levels wird die Nano-Barriere auf ein leeres normales Feld gesetzt. Die Bestätigung kostet 500 MoleCoin; sie zerbricht beim ersten Atomaufprall und ist nur einmal pro Level nutzbar. Dr. E sagt klar, wenn sie in einem Experiment nicht erlaubt ist.','En niveles compatibles, la Barrera nano se coloca en una casilla normal vacía. Confirmar cuesta 500 MoleCoin; se rompe con el primer choque y solo puede usarse una vez por nivel. Dr. E avisa claramente cuando un experimento no la permite.','Nas fases compatíveis, a Barreira Nano é colocada em uma casa normal vazia. Confirmar custa 500 MoleCoin; ela quebra na primeira colisão e só pode ser usada uma vez por fase. Dr. E avisa claramente quando o experimento não permite seu uso.','対応レベルでは、ナノバリアを空いている通常マスに設置します。確定時に500 MoleCoinを消費し、最初の原子衝突で壊れ、1レベルにつき1回だけ使えます。使えない実験ではDr. Eが明確に知らせます。','Dans les niveaux compatibles, la Nano-Barrière se place sur une case normale vide. La confirmation coûte 500 MoleCoin ; elle se brise au premier choc d’atome et n’est utilisable qu’une fois par niveau. Dr. E indique clairement lorsqu’une expérience ne l’autorise pas.','在支持的关卡中，纳米屏障可放在空的普通格子上。确认时消耗500 MoleCoin；第一次原子碰撞时破碎，每关只能使用一次。若实验不允许使用，Dr. E会明确说明。','Nei livelli compatibili, la Nano Barriera si posiziona su una casella normale vuota. La conferma costa 500 MoleCoin; si rompe al primo urto di un atomo e può essere usata una sola volta per livello. Dr. E avvisa chiaramente quando l’esperimento non la consente.']},
+  lab:{icon:'🧪',title:['Laboratuvar ve Destekler','Laboratory and Supports','Labor und Hilfen','Laboratorio y ayudas','Laboratório e suportes','ラボとサポート','Laboratoire et aides','实验室与辅助','Laboratorio e supporti'],desc:['Çekiç Laboratuvardan alınır. Tek Kare Hareket onaylanan kullanımda 250 MoleCoin, Nano Bariyer ise desteklenen tahtada onaylanan yerleştirmede 500 MoleCoin’dir. Kalıcı cihazlar ipucu fiyatını düşürür veya ödülleri artırır.','Hammer is bought in the Laboratory. One-Square Move costs 250 MoleCoin per confirmed use, while Nano Barrier costs 500 MoleCoin per confirmed placement on a supported board. Permanent equipment reduces hint costs or increases rewards.','Der Hammer wird im Labor gekauft. Ein bestätigter Ein-Feld-Zug kostet 250 MoleCoin; eine bestätigte Nano-Barriere auf einem unterstützten Brett kostet 500 MoleCoin. Dauerhafte Geräte senken Hinweiskosten oder erhöhen Belohnungen.','El Martillo se compra en el Laboratorio. Un Movimiento de una casilla confirmado cuesta 250 MoleCoin; colocar una Barrera nano confirmada en un tablero compatible cuesta 500 MoleCoin. El equipo permanente reduce el coste de pistas o aumenta recompensas.','O Martelo é comprado no Laboratório. Um Movimento de uma casa confirmado custa 250 MoleCoin; uma Barreira Nano confirmada em um tabuleiro compatível custa 500 MoleCoin. Equipamentos permanentes reduzem custos de dicas ou aumentam recompensas.','ハンマーはラボで購入します。1マス移動は確定使用ごとに250 MoleCoin、ナノバリアは対応盤面で確定設置ごとに500 MoleCoinです。常設装置はヒント費用を下げたり報酬を増やしたりします。','Le Marteau s’achète au Laboratoire. Un déplacement d’une case confirmé coûte 250 MoleCoin ; une Nano-Barrière confirmée sur un plateau compatible coûte 500 MoleCoin. Les équipements permanents réduisent le coût des indices ou augmentent les récompenses.','锤子可在实验室购买。单格移动每次确认使用需250 MoleCoin；纳米屏障在支持的棋盘上每次确认放置需500 MoleCoin。永久设备可降低提示费用或提高奖励。','Il Martello si acquista nel Laboratorio. Una Mossa di una casella confermata costa 250 MoleCoin; una Nano Barriera confermata su una tavola compatibile costa 500 MoleCoin. Le attrezzature permanenti riducono il costo dei suggerimenti o aumentano le ricompense.']}
 };
 
 
@@ -12773,10 +13069,10 @@ function showMechanicFirstUse(ids,opts){
   const pose=MECHANIC_FIRST_USE_POSE[ids[0]]||'clipboard',src=DR_E_POSES[pose]||DR_E_POSES.clipboard;
   setDrEPose(pose,9000,6,true);
   const rows=ids.map(id=>{const info=MECHANIC_INFO[id],cue=mechanicVisualCue(id);return '<div class="mxFirstUseRow"><span class="mxFirstUseIcon">'+info.icon+'</span><div><b>'+mechanicTitleLabel(info)+'</b><small>'+t(info.descKey)+'</small>'+(cue?'<em class="mxFirstUseCue">'+cue+'</em>':'')+'</div></div>';}).join('');
-  const title=ml('Yeni kural · kısa bilgi','New rule · quick guide','Neue Regel · Kurzhilfe','Nueva regla · guía rápida','Nova regra · guia rápido','新ルール・クイックガイド');
-  const sub=ml('Sadece ilk karşılaşmada gösterilir. Uzun eğitim zorunlu değildir.','Shown only on first encounter. The long lesson is optional.','Wird nur beim ersten Auftreten gezeigt. Die lange Lektion ist optional.','Solo aparece la primera vez. La lección larga es opcional.','Aparece apenas no primeiro encontro. A lição longa é opcional.','最初の遭遇時にだけ表示されます。詳しい練習は任意です。');
-  const detail=ml('DETAYLI EĞİTİM','DETAILED TRAINING','DETAILTRAINING','ENTRENAMIENTO DETALLADO','TREINO DETALHADO','詳しい練習');
-  const go=ml('ANLADIM · DEVAM ▶','GOT IT · CONTINUE ▶','VERSTANDEN · WEITER ▶','ENTENDIDO · CONTINUAR ▶','ENTENDI · CONTINUAR ▶','理解した・続ける ▶');
+  const title=ml('Yeni kural · kısa bilgi','New rule · quick guide','Neue Regel · Kurzhilfe','Nueva regla · guía rápida','Nova regra · guia rápido','新ルール・クイックガイド','Nouvelle règle · guide rapide','新规则 · 快速说明','Nuova regola · guida rapida');
+  const sub=ml('Sadece ilk karşılaşmada gösterilir. Uzun eğitim zorunlu değildir.','Shown only on first encounter. The long lesson is optional.','Wird nur beim ersten Auftreten gezeigt. Die lange Lektion ist optional.','Solo aparece la primera vez. La lección larga es opcional.','Aparece apenas no primeiro encontro. A lição longa é opcional.','最初の遭遇時にだけ表示されます。詳しい練習は任意です。','Affiché uniquement lors de la première rencontre. La leçon détaillée reste facultative.','仅在首次遇到时显示。详细训练可选。','Mostrato solo al primo incontro. La lezione dettagliata è facoltativa.');
+  const detail=ml('DETAYLI EĞİTİM','DETAILED TRAINING','DETAILTRAINING','ENTRENAMIENTO DETALLADO','TREINO DETALHADO','詳しい練習','ENTRAÎNEMENT DÉTAILLÉ','详细训练','ALLENAMENTO DETTAGLIATO');
+  const go=ml('ANLADIM · DEVAM ▶','GOT IT · CONTINUE ▶','VERSTANDEN · WEITER ▶','ENTENDIDO · CONTINUAR ▶','ENTENDI · CONTINUAR ▶','理解した・続ける ▶','COMPRIS · CONTINUER ▶','明白 · 继续 ▶','CAPITO · CONTINUA ▶');
   openModal('<div class="modalScroll mxFirstUseBody"><div class="mxFirstUseHead"><img src="'+src+'" alt="Dr. E"><div><span>DR. E</span><h3>'+title+'</h3><p>'+sub+'</p></div></div>'+mechanicContextNote(opts)+'<div class="mxFirstUseList">'+rows+'</div></div><div class="mxFirstUseActions"><button class="btn ghost" id="mMechanicDetails">🔬 '+detail+'</button><button class="btn green mxGuidedTarget" id="mMechanicQuickGo">'+go+'</button></div>');
   bindTap('#mMechanicDetails',()=>{SFX.select();showMechanicBriefing(ids,opts);});
   bindTap('#mMechanicQuickGo',()=>{
@@ -12799,7 +13095,7 @@ const MECHANIC_INFO={
   frozen:{icon:'❄️',titleKey:'frozenTitle',descKey:'frozenDesc'},
   fire:{icon:'🔥',titleKey:'fireTitle',descKey:'fireDesc'},
   lightning:{icon:'⚡',titleKey:'lightningTitle',descKey:'lightningDesc'},
-  sticky:{icon:'🧲',titleKey:'stickyTitle',descKey:'stickyDesc'},
+  sticky:{icon:'🍯',titleKey:'stickyTitle',descKey:'stickyDesc'},
   zombie:{icon:'◎',titleKey:'zombieTitle',descKey:'zombieDesc'},
   oneWay:{icon:'↪️',titleKey:'oneWayTitle',descKey:'oneWayDesc'},
   hammer:{icon:'🧱',titleKey:'hammerTitle',descKey:'hammerDesc'},
@@ -12816,7 +13112,7 @@ const MECHANIC_INFO={
   enzymeGate:{icon:'🧬',titleKey:'enzymeGateTitle',descKey:'enzymeGateDesc'},
   bioAssembly:{icon:'🧬',titleKey:'bioAssemblyTitle',descKey:'bioAssemblyDesc'},
   classicCatalyst:{icon:'🧪',titleKey:'classicCatalystTitle',descKey:'classicCatalystDesc'},
-  classicChain:{icon:'⚡',titleKey:'classicChainTitle',descKey:'classicChainDesc'},
+  classicChain:{icon:'»',titleKey:'classicChainTitle',descKey:'classicChainDesc'},
   classicReactor:{icon:'☢️',titleKey:'classicReactorTitle',descKey:'classicReactorDesc'}
 };
 
@@ -12844,12 +13140,47 @@ function currentLevelMechanicIds(){
   if(typeof reactorActive==='function'&&reactorActive())ids.push('classicReactor');
   return [...new Set(ids)];
 }
+
+function updateLevelMechanicBar(){
+  const bar=$('#levelMechanicBar');if(!bar)return;
+  // R183: Catalyst/Chain/Reactor already have dedicated HUD counters. Repeating the
+  // same mode as a second mechanic chip made those levels' HUD taller, which in
+  // turn forced the 8x10 board and atoms to shrink. Keep the legend for genuine
+  // board mechanics, but remove only the redundant mode chip.
+  const ids=currentLevelMechanicIds().filter(id=>id!=='classicCatalyst'&&id!=='classicChain'&&id!=='classicReactor');
+  const legendOn=!!ids.length&&!duelMode;
+  if(scr.game)scr.game.classList.toggle('mxMechanicLegendOn',legendOn);
+  if(!legendOn){bar.hidden=true;bar.innerHTML='';return;}
+  bar.hidden=false;
+  bar.setAttribute('aria-label',ml('Bu deneydeki özel mekanikler','Special mechanics in this experiment','Spezielle Mechaniken in diesem Experiment','Mecánicas especiales de este experimento','Mecânicas especiais deste experimento','この実験の特殊メカニック','Mécaniques spéciales de cette expérience','本实验的特殊机制','Meccaniche speciali di questo esperimento'));
+  bar.innerHTML=ids.map(id=>{const info=MECHANIC_INFO[id];if(!info)return '';const title=mechanicTitleLabel(info);return '<button type="button" class="mxLevelMechanicChip" data-level-mechanic="'+id+'" title="'+String(title).replace(/&/g,'&amp;').replace(/"/g,'&quot;')+'" aria-label="'+String(title).replace(/&/g,'&amp;').replace(/"/g,'&quot;')+'"><span>'+info.icon+'</span></button>';}).join('');
+  bar.querySelectorAll('[data-level-mechanic]').forEach(btn=>bindTap(btn,()=>{SFX.select();showMechanicBriefing([btn.dataset.levelMechanic],{fromLevelBar:true});}));
+}
+function blockedMechanicExplanation(i,d){
+  if(!atoms[i])return '';
+  const g=fusionGroupFor(i);
+  if(g){
+    if(g.kind==='prebuilt')return ml('🧩 Bu atom hazır rijit modülün parçası. Tek başına hareket etmez; modülün bütün atomlarının yolu açık olmalı.','🧩 This atom belongs to a prebuilt rigid module. It cannot move alone; every atom in the module needs a clear path.','🧩 Dieses Atom gehört zu einem vorgefertigten starren Modul. Es bewegt sich nicht allein; der Weg muss für alle Atome des Moduls frei sein.','🧩 Este átomo pertenece a un módulo rígido preparado. No puede moverse solo; todos los átomos del módulo necesitan el camino libre.','🧩 Este átomo pertence a um módulo rígido pronto. Ele não se move sozinho; todos os átomos do módulo precisam ter o caminho livre.','🧩 この原子は完成済みの剛体モジュールの一部です。単独では動かず、モジュール全体の進路が空いている必要があります。','🧩 Cet atome appartient à un module rigide préassemblé. Il ne se déplace pas seul ; le trajet doit être libre pour tous les atomes du module.','🧩 这个原子属于预组装的刚性模块，不能单独移动；模块中所有原子的路径都必须畅通。','🧩 Questo atomo fa parte di un modulo rigido preassemblato. Non si muove da solo; il percorso deve essere libero per tutti gli atomi del modulo.');
+    return ml('🧬 Bu atom tamamlanmış bir Fusion grubunun parçası. Grup birlikte hareket eder; üyelerden birinin yolu kapalıysa tüm grup durur.','🧬 This atom is part of a completed Fusion group. The group moves together; if one member is blocked, the whole group stops.','🧬 Dieses Atom gehört zu einer fertigen Fusion-Gruppe. Die Gruppe bewegt sich gemeinsam; ist ein Mitglied blockiert, stoppt die gesamte Gruppe.','🧬 Este átomo forma parte de un grupo de Fusión completado. El grupo se mueve unido; si un miembro está bloqueado, se detiene todo el grupo.','🧬 Este átomo faz parte de um grupo de Fusão concluído. O grupo se move junto; se um membro estiver bloqueado, todo o grupo para.','🧬 この原子は完成したフュージョングループの一部です。グループは一体で動き、1つでも塞がれると全体が止まります。','🧬 Cet atome fait partie d’un groupe de Fusion terminé. Le groupe se déplace ensemble ; si un membre est bloqué, tout le groupe s’arrête.','🧬 这个原子属于已完成的融合刚性组。整个组一起移动；任一成员受阻，整个组都会停止。','🧬 Questo atomo fa parte di un gruppo di Fusione completato. Il gruppo si muove insieme; se un membro è bloccato, si ferma tutto il gruppo.');
+  }
+  if(stickyMate.has(i))return ml('🍯 Bu atom yapışkan bir çiftin parçası. İki atom birlikte kayar; ikisinden birinin yolu kapalıysa çift hareket etmez.','🍯 This atom is part of a sticky pair. Both atoms slide together; if either path is blocked, the pair cannot move.','🍯 Dieses Atom gehört zu einem Klebepaar. Beide gleiten gemeinsam; ist einer der Wege blockiert, bewegt sich das Paar nicht.','🍯 Este átomo forma parte de una pareja pegajosa. Ambos se deslizan juntos; si uno de los caminos está bloqueado, la pareja no se mueve.','🍯 Este átomo faz parte de um par pegajoso. Os dois deslizam juntos; se um dos caminhos estiver bloqueado, o par não se move.','🍯 この原子は粘着ペアの一部です。2つは一緒に滑り、どちらかの進路が塞がれると動けません。','🍯 Cet atome fait partie d’une paire collante. Les deux glissent ensemble ; si l’un des trajets est bloqué, la paire ne bouge pas.','🍯 这个原子属于黏性组合。两个原子一起滑动；任一路径受阻时，这一对都无法移动。','🍯 Questo atomo fa parte di una coppia adesiva. I due scorrono insieme; se uno dei percorsi è bloccato, la coppia non si muove.');
+  if(linkedMate.has(i))return ml('🔗 Bu atom bağlı eşine göre hareket eder. İki atomun hareket kuralını birlikte düşün; bağlantı tek atomluk normal kaydırma değildir.','🔗 This atom is linked to its partner. Plan the movement of both atoms together; the link is not a normal single-atom slide.','🔗 Dieses Atom ist mit seinem Partner verbunden. Plane beide Bewegungen zusammen; die Verbindung ist kein normaler Einzelzug.','🔗 Este átomo está enlazado con su pareja. Planifica el movimiento de ambos; el enlace no es un deslizamiento normal de un solo átomo.','🔗 Este átomo está ligado ao parceiro. Planeje o movimento dos dois; a ligação não é um deslizamento normal de um único átomo.','🔗 この原子は相方とリンクしています。2つの動きを一緒に考えてください。通常の単独スライドではありません。','🔗 Cet atome est lié à son partenaire. Planifiez le mouvement des deux ; ce lien n’est pas un glissement normal d’un seul atome.','🔗 这个原子与伙伴相连。请同时考虑两个原子的移动；这不是普通的单原子滑动。','🔗 Questo atomo è collegato al suo compagno. Pianifica il movimento di entrambi; il collegamento non è uno scorrimento normale di un singolo atomo.');
+  const [dx,dy]=DIRS[d],nx=atoms[i].x+dx,ny=atoms[i].y+dy;
+  if(!oneWayAllows(atoms[i].x,atoms[i].y,nx,ny,d))return ml('↪️ Tek yönlü zemin bu yöndeki geçişe izin vermiyor. Ok yönünü takip et.','↪️ The one-way floor does not allow movement in this direction. Follow the arrow.','↪️ Das Einbahnfeld erlaubt diese Richtung nicht. Folge dem Pfeil.','↪️ La casilla de un solo sentido no permite esta dirección. Sigue la flecha.','↪️ O piso de mão única não permite esta direção. Siga a seta.','↪️ 一方通行マスではこの方向へ進めません。矢印に従ってください。','↪️ La case à sens unique n’autorise pas cette direction. Suivez la flèche.','↪️ 单向地块不允许这个方向。请沿箭头方向移动。','↪️ La casella a senso unico non permette questa direzione. Segui la freccia.');
+  if(enzymeGate&&!enzymeGate.open&&enzymeGate.x===nx&&enzymeGate.y===ny)return ml('🧬 Enzim/Bio kapısı henüz kapalı. Üstte gösterilen gerekli biyolojik parçaları tamamlayınca açılacak.','🧬 The Enzyme/Bio gate is still closed. It opens after you complete the required biological components shown above.','🧬 Das Enzym-/Bio-Tor ist noch geschlossen. Es öffnet sich, sobald die oben gezeigten Bio-Komponenten vollständig sind.','🧬 La puerta Enzyme/Bio sigue cerrada. Se abrirá al completar los componentes biológicos indicados arriba.','🧬 O portal Enzyme/Bio ainda está fechado. Ele abre ao completar os componentes biológicos mostrados acima.','🧬 酵素／Bioゲートはまだ閉じています。上に表示された必要な生体パーツをそろえると開きます。','🧬 La porte Enzyme/Bio est encore fermée. Elle s’ouvrira lorsque les composants biologiques indiqués en haut seront complétés.','🧬 酶/Bio门仍然关闭。完成上方显示的所需生物组件后才会开启。','🧬 La porta Enzyme/Bio è ancora chiusa. Si aprirà quando completi i componenti biologici richiesti mostrati in alto.');
+  const ps=pressureSystems.find(sys=>sys.door&&sys.door.x===nx&&sys.door.y===ny);
+  if(ps&&!pressureOccupied(ps))return ml('🔘 Basınç kapısı kapalı. Aynı harfli düğmenin üzerinde bir atom tutarak kapıyı aç.','🔘 The pressure door is closed. Keep an atom on the switch with the same letter to open it.','🔘 Die Drucktür ist geschlossen. Halte ein Atom auf dem Schalter mit demselben Buchstaben, um sie zu öffnen.','🔘 La puerta de presión está cerrada. Mantén un átomo sobre el interruptor con la misma letra para abrirla.','🔘 A porta de pressão está fechada. Mantenha um átomo no botão com a mesma letra para abri-la.','🔘 圧力ドアは閉じています。同じ文字のスイッチ上に原子を置いて開けてください。','🔘 La porte à pression est fermée. Maintenez un atome sur l’interrupteur portant la même lettre pour l’ouvrir.','🔘 压力门关闭。让一个原子停在同字母开关上即可开启。','🔘 La porta a pressione è chiusa. Mantieni un atomo sull’interruttore con la stessa lettera per aprirla.');
+  if(movingWalls.some(w=>w.x===nx&&w.y===ny))return ml('🚧 Hareketli duvar şu anda yolu kapatıyor. Bir sonraki konumunu hesaba kat.','🚧 The moving wall is blocking the path right now. Plan around its next position.','🚧 Die bewegliche Wand blockiert gerade den Weg. Plane ihre nächste Position ein.','🚧 La pared móvil está bloqueando el camino ahora. Ten en cuenta su siguiente posición.','🚧 A parede móvel está bloqueando o caminho agora. Considere a próxima posição dela.','🚧 移動壁が現在進路を塞いでいます。次の位置を考えて動いてください。','🚧 Le mur mobile bloque actuellement le passage. Anticipez sa prochaine position.','🚧 移动墙当前挡住了路径。请考虑它的下一个位置。','🚧 Il muro mobile sta bloccando il percorso. Considera la sua prossima posizione.');
+  const bw=breakableWalls.get(breakableKey(nx,ny));
+  if(bw&&!bw.broken)return ml('🔨 Bu çatlak duvar normal kaydırmayla geçilmez. İstersen Hammer kullanarak kaldırabilirsin.','🔨 This cracked wall cannot be passed by a normal slide. You may remove it with the Hammer.','🔨 Diese rissige Wand kann nicht normal passiert werden. Du kannst sie mit dem Hammer entfernen.','🔨 Esta pared agrietada no se atraviesa con un deslizamiento normal. Puedes quitarla con el Martillo.','🔨 Esta parede rachada não pode ser atravessada com um deslizamento normal. Você pode removê-la com o Martelo.','🔨 このひび割れ壁は通常のスライドでは通れません。必要ならハンマーで壊せます。','🔨 Ce mur fissuré ne se traverse pas par un glissement normal. Vous pouvez le retirer avec le Marteau.','🔨 这面裂墙不能通过普通滑动穿过。你可以使用锤子将其移除。','🔨 Questo muro crepato non si supera con uno scorrimento normale. Puoi rimuoverlo con il Martello.');
+  return '';
+}
 function mechanicVisualCue(id){
   const cues={
     frozen:()=>ml('Görünüş: atomun üzerinde ❄️ buz işareti.','Look: ❄️ ice symbol on the atom.','Aussehen: ❄️-Symbol auf dem Atom.','Aspecto: símbolo ❄️ sobre el átomo.','Visual: símbolo ❄️ no átomo.','見た目：原子上の❄️印。'),
     fire:()=>ml('Görünüş: atomun üzerinde 🔥 alev.','Look: 🔥 flame on the atom.','Aussehen: 🔥 auf dem Atom.','Aspecto: 🔥 sobre el átomo.','Visual: 🔥 no átomo.','見た目：原子上の🔥。'),
     lightning:()=>ml('Görünüş: atomun üzerinde ⚡ yük simgesi.','Look: ⚡ charge symbol on the atom.','Aussehen: ⚡-Ladungssymbol.','Aspecto: símbolo ⚡ de carga.','Visual: símbolo ⚡ de carga.','見た目：原子上の⚡印。'),
-    sticky:()=>ml('Görünüş: atomun çevresinde yapışkan/mıknatıs işareti.','Look: sticky/magnet mark around the atom.','Aussehen: Klebe-/Magnetzeichen am Atom.','Aspecto: marca adhesiva/imán.','Visual: marca adesiva/ímã.','見た目：粘着／磁石の印。'),
+    sticky:()=>ml('Görünüş: atomun üzerinde 🍯 bal simgesi ve kehribar yapışkan halka. Temas ettiği ilk hareketli atomla birlikte kayar.','Look: 🍯 honey symbol on the atom with an amber sticky ring. The first movable atom it touches will then slide with it.','Aussehen: 🍯-Honigsymbol am Atom mit bernsteinfarbenem Klebering. Das erste bewegliche Atom, das es berührt, gleitet danach mit ihm.','Aspecto: símbolo 🍯 sobre el átomo y aro adhesivo ámbar. El primer átomo móvil que lo toque se deslizará después junto a él.','Visual: símbolo 🍯 no átomo e anel adesivo âmbar. O primeiro átomo móvel que o tocar passará a deslizar junto com ele.','見た目：原子上の🍯マークと琥珀色の粘着リング。最初に触れた移動可能な原子と、その後は一緒に滑ります。','Aspect : symbole 🍯 sur l’atome et anneau collant ambré. Le premier atome mobile qui le touche glissera ensuite avec lui.','外观：原子上有🍯蜂蜜标记和琥珀色黏性环。第一个接触它的可移动原子之后会与它一起滑动。','Aspetto: simbolo 🍯 sull’atomo e anello adesivo ambrato. Il primo atomo mobile che lo tocca poi scorrerà insieme a lui.'),
     zombie:()=>ml('Görünüş: sabit çift yörünge, iki faz düğümü ve çatlak enerji çekirdeği kararsız atomu işaretler.','Look: fixed twin orbits, two phase nodes and a fractured energy core mark an unstable atom.','Aussehen: feste Doppelbahnen, zwei Phasenknoten und ein gebrochener Energiekern markieren ein instabiles Atom.','Aspecto: órbitas dobles fijas, dos nodos de fase y un núcleo de energía fracturado marcan un átomo inestable.','Visual: órbitas duplas fixas, dois nós de fase e um núcleo de energia fraturado marcam um átomo instável.','見た目：固定された二重軌道、2つの位相ノード、亀裂の入ったエネルギー核が不安定原子の印です。','Aspect : deux orbites fixes, deux nœuds de phase et un noyau d’énergie fracturé signalent un atome instable.','外观：固定双轨道、两个相位节点与破裂能量核心表示不稳定原子。','Aspetto: doppie orbite fisse, due nodi di fase e un nucleo energetico fratturato indicano un atomo instabile.'),
     oneWay:()=>ml('Görünüş: zemindeki büyük ok; yalnız ok yönünde geçilir.','Look: large floor arrow; pass only with it.','Aussehen: großer Bodenpfeil; nur in Pfeilrichtung.','Aspecto: flecha grande en el suelo.','Visual: seta grande no chão.','見た目：床の大きな矢印。'),
     hammer:()=>ml('Görünüş: çatlak duvarın köşesinde küçük 🔨 işareti.','Look: cracked wall with a small 🔨 mark.','Aussehen: rissige Wand mit kleinem 🔨.','Aspecto: pared agrietada con 🔨.','Visual: parede rachada com 🔨.','見た目：ひび割れ壁と小さな🔨。'),
@@ -12906,7 +13237,7 @@ function mechanicTutorialDemo(id){
     fusion:{cells:['H—O','🧬','→','O—H','✅'],action:ml("ALT YAPILARI TAMAMLA","COMPLETE THE SUB-STRUCTURES","TEILSTRUKTUREN VERVOLLSTÄNDIGEN","COMPLETA LAS SUBESTRUCTURAS","COMPLETE AS SUBESTRUTURAS","部分構造を完成","COMPLÉTER LES SOUS-STRUCTURES","完成子结构","COMPLETA LE SOTTOSTRUTTURE"),result:ml("Geçerli alt yapı oluşunca rijit bir grup olur ve birlikte kayar. Son molekülü tahtanın istediğin yerinde tamamlayabilirsin.","Once a valid sub-structure forms, it becomes a rigid group and slides together. You may complete the final molecule anywhere on the board.","Sobald eine gültige Teilstruktur entsteht, wird sie zu einer starren Gruppe und gleitet gemeinsam. Das Endmolekül kann überall auf dem Brett entstehen.","Cuando se forma una subestructura válida, se convierte en un grupo rígido y se desliza unido. Puedes completar la molécula final en cualquier lugar del tablero.","Quando uma subestrutura válida se forma, ela vira um grupo rígido e desliza junto. Você pode completar a molécula final em qualquer lugar do tabuleiro.","有効な部分構造ができると剛体グループになり、一緒に滑ります。最終分子は盤面のどこで完成しても構いません。","Une sous-structure valide devient un groupe rigide qui glisse ensemble. La molécule finale peut être complétée n’importe où sur le plateau.","有效子结构形成后会成为刚性整体并一起滑动。最终分子可以在棋盘任意位置完成。","Quando si forma una sottostruttura valida, diventa un gruppo rigido e scorre insieme. Puoi completare la molecola finale in qualsiasi punto della tavola.")},
     enzymeGate:{cells:[labComponentTrainingToken('substrate'),labComponentTrainingToken('cofactor'),labComponentTrainingToken('atp'),'→','✓'],action:ml('ÜÇ BİYO PARÇAYI TOPLA','COLLECT ALL THREE BIO PARTS','ALLE DREI BIO-TEILE SAMMELN','RECOGE LAS TRES PIEZAS BIO','COLETE AS TRÊS PEÇAS BIO','3つの生体パーツを集める','COLLECTER LES TROIS ÉLÉMENTS BIO','收集三个生物要素','RACCOGLI I TRE ELEMENTI BIO'),result:ml('Substrat, kofaktör ve ATP tamamlanınca Enzim Kapısı açılır; sonra gerçek molekülü tamamla.','The Enzyme Gate opens after the substrate, cofactor and ATP are collected; then complete the real molecule.','Nach Substrat, Cofaktor und ATP öffnet sich das Enzym-Tor; vervollständige dann das echte Molekül.','La Puerta Enzimática se abre al reunir sustrato, cofactor y ATP; después completa la molécula real.','O Portal Enzimático abre após coletar substrato, cofator e ATP; então complete a molécula real.','基質、補因子、ATPを集めると酵素ゲートが開き、その後に実在分子を完成させます。','La Porte Enzymatique s’ouvre après le substrat, le cofacteur et l’ATP ; termine ensuite la vraie molécule.','收集底物、辅因子和ATP后酶门开启；然后完成真实分子。','La Porta Enzimatica si apre dopo substrato, cofattore e ATP; poi completa la molecola reale.')},
     bioAssembly:{cells:[labComponentTrainingToken('atPair'),labComponentTrainingToken('cgPair'),labComponentTrainingToken('backbone'),'→','✓'],action:ml('DNA PARÇALARINI TOPLA','COLLECT THE DNA PARTS','DNA-TEILE SAMMELN','RECOGE LAS PIEZAS DE ADN','COLETE AS PEÇAS DE DNA','DNAパーツを集める','COLLECTER LES ÉLÉMENTS ADN','收集DNA组件','RACCOGLI LE PARTI DEL DNA'),result:ml('A–T, C–G ve şeker–fosfat omurgası tamamlanınca Bio Assembly açılır; ardından hedef molekülü bitir.','Bio Assembly opens after A–T, C–G and the sugar–phosphate backbone are collected; then finish the target molecule.','Nach A–T, C–G und Zucker-Phosphat-Rückgrat öffnet sich Bio Assembly; vollende dann das Zielmolekül.','Bio Assembly se abre al reunir A–T, C–G y el esqueleto azúcar–fosfato; después completa la molécula objetivo.','Bio Assembly abre após coletar A–T, C–G e a espinha dorsal açúcar–fosfato; depois conclua a molécula-alvo.','A–T、C–G、糖–リン酸骨格を集めるとBio Assemblyが開き、続いて目標分子を完成させます。','Bio Assembly s’ouvre après A–T, C–G et le squelette sucre-phosphate ; termine ensuite la molécule cible.','收集A–T、C–G和糖磷酸骨架后，Bio Assembly开启；然后完成目标分子。','Bio Assembly si apre dopo A–T, C–G e lo scheletro zucchero–fosfato; poi completa la molecola obiettivo.')},
-    precision:{cells:['H','🎯','→','1 □'],action:ml("1 KARE TAŞI","MOVE 1 SQUARE","1 FELD BEWEGEN","MOVER 1 CASILLA","MOVER 1 CASA","1マス動かす"),result:ml("Bu isteğe bağlı araç atomu yalnızca bir kare ilerletir ve envanter harcar.","This optional tool moves an atom exactly one tile and consumes inventory.","Dieses optionale Werkzeug bewegt ein Atom genau ein Feld und verbraucht Inventar.","Esta herramienta opcional mueve un átomo exactamente una casilla y consume inventario.","Esta ferramenta opcional move um átomo exatamente uma casa e consome inventário.","この任意ツールは原子をちょうど1マス動かし、アイテムを消費します.")},
+    precision:{cells:['H','🎯','→','1 □'],action:ml("1 KARE TAŞI","MOVE 1 SQUARE","1 FELD BEWEGEN","MOVER 1 CASILLA","MOVER 1 CASA","1マス動かす","DÉPLACER D’UNE CASE","移动一格","SPOSTA DI UNA CASELLA"),result:ml("Bu isteğe bağlı araç atomu tam bir kare taşır. Yalnızca onaylanan kullanımda 250 MoleCoin harcanır.","This optional tool moves an atom exactly one tile. A confirmed use costs 250 MoleCoin.","Dieses optionale Werkzeug bewegt ein Atom genau ein Feld. Eine bestätigte Nutzung kostet 250 MoleCoin.","Esta herramienta opcional mueve un átomo exactamente una casilla. Un uso confirmado cuesta 250 MoleCoin.","Esta ferramenta opcional move um átomo exatamente uma casa. Um uso confirmado custa 250 MoleCoin.","この任意ツールは原子をちょうど1マス動かします。確定した使用には250 MoleCoinが必要です。","Cet outil facultatif déplace un atome exactement d’une case. Une utilisation confirmée coûte 250 MoleCoin.","此可选工具可让原子精确移动一格。确认使用时需花费250 MoleCoin。","Questo strumento facoltativo sposta un atomo esattamente di una casella. Un utilizzo confermato costa 250 MoleCoin.")},
     classicCatalyst:{cells:[labComponentTrainingToken('catalyst'),labComponentTrainingToken('energy'),labComponentTrainingToken('stabilizer'),'→','⚛️'],action:ml("ÜÇÜNÜ TOPLA","COLLECT ALL THREE","ALLE DREI SAMMELN","RECOGE LOS TRES","COLETE OS TRÊS","3つすべて集める"),result:ml("Önce üç laboratuvar bileşenini topla, sonra molekülü tamamla.","Collect all three lab components first, then complete the molecule.","Sammle zuerst alle drei Laborkomponenten und vervollständige dann das Molekül.","Recoge primero los tres componentes del laboratorio y luego completa la molécula.","Colete primeiro os três componentes do laboratório e depois complete a molécula.","先にラボ要素3つをすべて集め、その後分子を完成させます。")},
     classicChain:{cells:['✨','→','⚡','→','⚡'],action:ml("PARLAYAN HAMLEYİ YAP","MAKE THE GLOWING MOVE","LEUCHTENDEN ZUG MACHEN","HAZ EL MOVIMIENTO BRILLANTE","FAÇA O MOVIMENTO BRILHANTE","光る手を実行"),result:ml("Doğru hamle otomatik zincir reaksiyonunu başlatır.","The correct move starts the automatic chain reaction.","Der richtige Zug startet die automatische Kettenreaktion.","El movimiento correcto inicia la reacción en cadena automática.","O movimento correto inicia a reação em cadeia automática.","正しい手で自動連鎖反応が始まります。")},
     classicReactor:{cells:['H','☢️','▥','→'],action:ml("GÜVENLİ ANI BEKLE","WAIT FOR THE SAFE PHASE","SICHERE PHASE ABWARTEN","ESPERA LA FASE SEGURA","ESPERE A FASE SEGURA","安全なタイミングを待つ"),result:ml("Aktif lazere temas 1 hamle sayılır ve Darbe sayacını artırır. Reaktör Kaçışında ayrıca +3 saniye ceza verir.","Contact with an active laser counts as one move and increases the Impact counter. Reactor Escape also adds a 3-second penalty.","Kontakt mit einem aktiven Laser zählt als ein Zug und erhöht den Trefferzähler. Reaktor-Flucht gibt zusätzlich 3 Sekunden Strafe.","Tocar un láser activo cuenta como un movimiento y aumenta el contador de impactos. Escape del Reactor añade además 3 segundos.","Tocar um laser ativo conta como uma jogada e aumenta o contador de impactos. Fuga do Reator também adiciona 3 segundos.","作動中レーザーへの接触は1手として数えられ、衝突カウンターも増えます。リアクター脱出ではさらに3秒ペナルティ。")}
@@ -13108,7 +13439,9 @@ function restoreSettingsHostScreen(){
   scrPrev=host;
   if(host==='game')requestAnimationFrame(resize);
 }
+const OFFLINE_COPY={"tr": ["Çevrimdışı paketi indir", "Hikâye, görseller ve sesler · yaklaşık 60 MB", "Çevrimdışı paket hazır", "İndirme tamamlanmadı. Bağlantını kontrol edip tekrar dene."], "en": ["Download offline pack", "Story, artwork and audio · about 60 MB", "Offline pack ready", "Download incomplete. Check your connection and try again."], "de": ["Offline-Paket laden", "Geschichte, Bilder und Audio · etwa 60 MB", "Offline-Paket bereit", "Download unvollständig. Prüfe die Verbindung und versuche es erneut."], "es": ["Descargar paquete sin conexión", "Historia, imágenes y audio · unos 60 MB", "Paquete sin conexión listo", "Descarga incompleta. Revisa la conexión e inténtalo de nuevo."], "pt": ["Baixar pacote offline", "História, imagens e áudio · cerca de 60 MB", "Pacote offline pronto", "Download incompleto. Verifique a conexão e tente novamente."], "ja": ["オフラインパックを保存", "物語・画像・音声：約60 MB", "オフラインパックの準備完了", "保存できませんでした。接続を確認して再試行してください。"], "fr": ["Télécharger le pack hors ligne", "Histoire, images et audio · environ 60 Mo", "Pack hors ligne prêt", "Téléchargement incomplet. Vérifie la connexion et réessaie."], "zh": ["下载离线包", "故事、图像和音频：约60 MB", "离线包已就绪", "下载未完成。请检查网络后重试。"], "it": ["Scarica il pacchetto offline", "Storia, immagini e audio · circa 60 MB", "Pacchetto offline pronto", "Download incompleto. Controlla la connessione e riprova."]};
 function settingsModal(){
+  const offlineCopy=OFFLINE_COPY[LANG]||OFFLINE_COPY.en;
   const activeScreen=Object.keys(scr).find(key=>scr[key]&&scr[key].classList.contains('on'))||scrPrev||'splash';
   mxSettingsHostScreen=activeScreen;
   document.body.dataset.mxSettingsHost=activeScreen;
@@ -13117,11 +13450,13 @@ function settingsModal(){
   openModal(
     '<h3>'+t('settingsTitle')+'</h3>'+ 
     '<div class="settingsScroll">'+
+    '<div class="togRow"><span><b>'+offlineCopy[0]+'</b><small>'+offlineCopy[1]+'</small></span><button type="button" class="btn ghost" id="mOfflineDownload" aria-label="'+offlineCopy[0]+'">↓</button></div><div id="mOfflineStatus" role="status" class="msub"></div>'+
  
     '<button type="button" class="languageSettingRow" id="mLanguageOpen"><span class="languageSettingLabel"><b>'+t('language')+'</b><small>'+ml('Oyun dili','Game language','Spielsprache','Idioma del juego','Idioma do jogo','ゲーム言語')+'</small></span><span class="languageSettingValue"><strong>'+({en:'English',tr:'Türkçe',de:'Deutsch',es:'Español',pt:'Português',ja:'日本語',fr:'Français',zh:'简体中文',it:'Italiano'}[LANG]||'English')+'</strong><i>›</i></span></button>'+ 
     '<div class="vrow audioRow"><span class="vl">'+mxUiIcon('speaker','mxLabelIcon')+'<span>'+cleanUiLabel(t('master'))+'</span></span><input type="range" id="vM" min="0" max="100" value="'+Math.round(save.volM*100)+'"><button class="btn ghost mt'+((save.muM||save.externalMusic)?' off':'')+(save.externalMusic?' extDisabled':'')+'" id="mM" aria-label="'+ml('Ana sesi aç veya kapat','Turn master sound on or off','Gesamtton ein- oder ausschalten','Activar o desactivar el sonido general','Ativar ou desativar o som geral','全体サウンドのオン／オフ')+'"'+(save.externalMusic?' disabled':'')+'>'+mxAudioIcon(save.muM||save.externalMusic)+'</button></div>'+ 
     '<div class="vrow audioRow"><span class="vl">'+mxUiIcon('music','mxLabelIcon')+'<span>'+cleanUiLabel(t('music'))+'</span></span><input type="range" id="vMu" min="0" max="100" value="'+Math.round(save.volMu*100)+'"><button class="btn ghost mt'+(save.muMu?' off':'')+'" id="mMu" aria-label="'+ml('Müziği aç veya kapat','Turn music on or off','Musik ein- oder ausschalten','Activar o desactivar la música','Ativar ou desativar a música','音楽のオン／オフ')+'">'+mxAudioIcon(save.muMu)+'</button></div>'+ 
     '<div class="vrow audioRow"><span class="vl">'+mxUiIcon('bell','mxLabelIcon')+'<span>'+cleanUiLabel(t('sfx'))+'</span></span><input type="range" id="vS" min="0" max="100" value="'+Math.round(save.volS*100)+'"><button class="btn ghost mt'+(save.muS?' off':'')+'" id="mS" aria-label="'+ml('Efekt seslerini aç veya kapat','Turn effects sound on or off','Effektton ein- oder ausschalten','Activar o desactivar los efectos','Ativar ou desativar os efeitos','効果音のオン／オフ')+'">'+mxAudioIcon(save.muS)+'</button></div>'+ 
+    '<div class="vrow audioRow"><label class="vl" for="vV">'+ml("Diyalog","Dialogue","Dialog","Diálogo","Diálogo","会話","Dialogue","对白","Dialoghi")+'</label><input type="range" id="vV" min="0" max="100" value="'+Math.round(save.volV*100)+'"><button class="btn ghost mt" id="mV" aria-label="'+ml("Diyalog","Dialogue","Dialog","Diálogo","Diálogo","会話","Dialogue","对白","Dialoghi")+'">'+mxAudioIcon(save.muV)+'</button></div>'+
     '<div class="togRow externalMusicRow"><span><b>'+mxUiIcon('headphones','mxRowIcon')+cleanUiLabel(t('externalMusicLabel'))+'</b><small>'+t('externalMusicNote')+'</small></span><button class="tog'+(save.externalMusic?' on':'')+'" id="togExternalMusic"></button></div>'+ 
     '<div class="togRow"><span><b>'+mxUiIcon('dpad','mxRowIcon')+cleanUiLabel(t('showDpad'))+'</b></span><button class="tog'+(save.dpad?' on':'')+'" id="togDpad"></button></div>'+ 
     '<div class="togRow"><span><b>'+mxUiIcon('bulb','mxRowIcon')+t('tutorialTipsLabel')+'</b><small>'+t('tutorialTipsNote')+'</small></span><button class="tog'+(save.tutorialTips!==false?' on':'')+'" id="togTutorialTips"></button></div>'+ 
@@ -13176,7 +13511,7 @@ function settingsModal(){
     el.addEventListener('input',update,{passive:true});
     el.addEventListener('change',()=>{update();persist();if(preview&&!save.muS&&save.volM>0&&save.volS>0)SFX.click();},{passive:true});
   };
-  bindV('#vM','volM',true);bindV('#vMu','volMu',false);bindV('#vS','volS',true);
+  bindV('#vM','volM',true);bindV('#vMu','volMu',false);bindV('#vS','volS',true);bindV('#vV','volV',false);
   const bindM=(id,k)=>{$(id).addEventListener('pointerdown',e=>{e.preventDefault();
     save[k]=!save[k];persist();applyVol();
     e.currentTarget.innerHTML=mxAudioIcon(save[k]);
@@ -13191,7 +13526,7 @@ function settingsModal(){
     e.currentTarget.classList.toggle('off',save.muM);
     if(!save.muM)SFX.click();
   },{passive:false});
-  bindM('#mMu','muMu');bindM('#mS','muS');
+  bindM('#mMu','muMu');bindM('#mS','muS');bindM('#mV','muV');
   $('#togExternalMusic').addEventListener('pointerdown',e=>{
     e.preventDefault();
     save.externalMusic=!save.externalMusic;
@@ -13259,6 +13594,11 @@ function settingsModal(){
     },{passive:false});
     $('#mDelNoCloud').addEventListener('pointerdown',ev=>{ev.preventDefault();settingsModal();},{passive:false});
   },{passive:false});
+  bindTap('#mOfflineDownload',async e=>{
+    const button=e.currentTarget,status=$('#mOfflineStatus');if(button.disabled)return;button.disabled=true;
+    try{await window.MXOfflinePack.download(p=>{status.textContent=Math.round(100*p.completed/Math.max(1,p.total))+'%';});status.textContent=offlineCopy[2];}
+    catch(error){status.textContent=offlineCopy[3];}finally{button.disabled=false;}
+  });
   bindTap('#mClose',e=>{SFX.click();restoreSettingsHostScreen();closeModal();setTimeout(restoreSettingsHostScreen,260);});
 }
 function setStaticUiText(selector,text){
@@ -13349,7 +13689,7 @@ function applyLang(){
   if(scr.levels.classList.contains('on'))buildLevels();
   if(scr.collect.classList.contains('on'))buildCollection();
   if(scr.game.classList.contains('on')&&LV){
-    $('#goalName').textContent=curMol.n;
+    fitGoalNameNode($('#goalName'),curMol.shortName||curMol.n);$('#goalName').title=curMol.n;
     fitFormulaNode($('#goalFor'),curMol.f);
     $('#lvPill').textContent=dailyMode?t('todaysExpLabel'):t('level',lv+1);
     updateHUD();
@@ -13383,8 +13723,16 @@ function resize(){
   dpr=effectiveDpr();
   const wrap=$('#boardWrap');if(!wrap)return;
   const nodpad=document.body.classList.contains('nodpad');
-  const bw=Math.max(1,wrap.clientWidth-(nodpad?22:34)),bh=Math.max(1,wrap.clientHeight-30);
-  T=Math.max(22,Math.min(58,Math.floor(Math.min(bw/Math.max(1,W),bh/Math.max(1,H)))));
+
+  // R196: ALL campaign experiments use the same 8x10 geometry and therefore the
+  // same sizing rule. Catalyst/Chain/Reactor/Enzyme/Bio/mechanic-legend levels no
+  // longer receive extra overlap allowance. That old exception made the board and
+  // atoms visibly larger and could cover the objective counters above the board.
+  // The fixed HUD slot in CSS keeps boardWrap identical between level types.
+  const baseBW=Math.max(1,wrap.clientWidth-(nodpad?22:34));
+  const baseBH=Math.max(1,wrap.clientHeight-30);
+  const cell=Math.floor(Math.min(baseBW/Math.max(1,W),baseBH/Math.max(1,H)));
+  T=Math.max(22,Math.min(58,cell));
   const cssW=T*W,cssH=T*H,pixelW=Math.max(1,Math.round(cssW*dpr)),pixelH=Math.max(1,Math.round(cssH*dpr));
   board.style.width=cssW+'px';board.style.height=cssH+'px';
   // Avoid clearing and reallocating the large board buffer on every resize tick.
@@ -13433,26 +13781,69 @@ function currentStonePalette(){
   return TIER_STONE[tierOf(lv)]||TIER_STONE[0];
 }
 function stoneDoodle(cx,cy,r,seed,ctx=bctx){
-  // R136: decorative wall marks reuse the exact scientific-glyph renderer used by board mechanics.
-  // Low opacity keeps them readable as engravings rather than collectible/mechanic objects.
-  const kinds=['substrate','cofactor','atp','atPair','cgPair','backbone'];
-  const type=kinds[Math.abs(Number(seed)||0)%kinds.length];
-  const spr=componentTokenSprite(type),size=r*1.48;
-  ctx.save();
-  ctx.globalAlpha=.20;
+  // R200: larger menu-style science engravings directly on wall stones.
+  // Pure canvas line art keeps them crisp at every board scale and avoids
+  // introducing any new image assets. They stay decorative only.
+  const type=Math.abs(Number(seed)||0)%8;
+  const s=r*.82;
+  const lw=Math.max(1.15,r*.105);
+  const dot=Math.max(1.8,r*.14);
+  const hex=(x,y,rad)=>{ctx.beginPath();for(let i=0;i<6;i++){const a=-Math.PI/2+i*Math.PI/3,px=x+Math.cos(a)*rad,py=y+Math.sin(a)*rad;i?ctx.lineTo(px,py):ctx.moveTo(px,py);}ctx.closePath();ctx.stroke();};
+  const node=(x,y,rad=dot)=>{ctx.beginPath();ctx.arc(x,y,rad,0,Math.PI*2);ctx.stroke();};
+  ctx.save();ctx.translate(cx,cy);
+  ctx.globalAlpha=.36;
   ctx.globalCompositeOperation='screen';
-  ctx.drawImage(spr.cv,0,0,spr.cv.width,spr.cv.height,cx-size/2,cy-size/2,size,size);
+  ctx.strokeStyle='#f7fbff';ctx.fillStyle='#f7fbff';ctx.lineWidth=lw;
+  ctx.lineCap='round';ctx.lineJoin='round';
+  ctx.shadowColor='rgba(190,235,255,.55)';ctx.shadowBlur=Math.max(1,r*.08);
+  if(type===0){
+    // Atom/orbit icon — matches the visual language used by the menu doodles.
+    for(const a of [0,Math.PI/3,-Math.PI/3]){ctx.save();ctx.rotate(a);ctx.beginPath();ctx.ellipse(0,0,s*.82,s*.29,0,0,Math.PI*2);ctx.stroke();ctx.restore();}
+    ctx.beginPath();ctx.arc(0,0,dot*.72,0,Math.PI*2);ctx.fill();
+  }else if(type===1){
+    // Laboratory flask.
+    ctx.beginPath();ctx.moveTo(-s*.25,-s*.68);ctx.lineTo(s*.25,-s*.68);ctx.moveTo(-s*.10,-s*.68);ctx.lineTo(-s*.10,-s*.12);ctx.lineTo(-s*.56,s*.62);ctx.quadraticCurveTo(-s*.62,s*.75,-s*.40,s*.76);ctx.lineTo(s*.40,s*.76);ctx.quadraticCurveTo(s*.62,s*.75,s*.56,s*.62);ctx.lineTo(s*.10,-s*.12);ctx.lineTo(s*.10,-s*.68);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(-s*.39,s*.40);ctx.quadraticCurveTo(0,s*.24,s*.39,s*.40);ctx.stroke();
+  }else if(type===2){
+    // Molecule chain.
+    const pts=[[-.62,-.25],[-.12,.05],[.36,-.34],[.64,.30]];
+    ctx.beginPath();ctx.moveTo(pts[0][0]*s,pts[0][1]*s);for(let i=1;i<pts.length;i++)ctx.lineTo(pts[i][0]*s,pts[i][1]*s);ctx.stroke();
+    for(const [x,y] of pts)node(x*s,y*s,dot*.82);
+  }else if(type===3){
+    // Fused chemistry rings.
+    hex(-s*.28,0,s*.42);hex(s*.28,0,s*.42);
+  }else if(type===4){
+    // Small molecular lattice/grid.
+    const q=s*.31;for(const yy of [-q,q])for(const xx of [-q,q]){ctx.strokeRect(xx-s*.20,yy-s*.20,s*.40,s*.40);} 
+    ctx.beginPath();ctx.moveTo(-q,-q);ctx.lineTo(q,q);ctx.moveTo(q,-q);ctx.lineTo(-q,q);ctx.stroke();
+  }else if(type===5){
+    // DNA/backbone motif.
+    ctx.beginPath();ctx.moveTo(-s*.54,-s*.70);ctx.bezierCurveTo(s*.55,-s*.38,-s*.55,-s*.05,s*.54,s*.20);ctx.bezierCurveTo(-s*.55,s*.42,s*.55,s*.56,-s*.54,s*.72);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(s*.54,-s*.70);ctx.bezierCurveTo(-s*.55,-s*.38,s*.55,-s*.05,-s*.54,s*.20);ctx.bezierCurveTo(s*.55,s*.42,-s*.55,s*.56,s*.54,s*.72);ctx.stroke();
+    for(const y of [-.48,-.16,.18,.49]){ctx.beginPath();ctx.moveTo(-s*.30,y*s);ctx.lineTo(s*.30,y*s);ctx.stroke();}
+  }else if(type===6){
+    // Benzene-style ring.
+    hex(0,0,s*.68);ctx.beginPath();ctx.arc(0,0,s*.33,0,Math.PI*2);ctx.stroke();
+  }else{
+    // Four-node reaction diagram.
+    const pts=[[-.55,-.42],[.48,-.48],[-.30,.48],[.58,.36]];
+    ctx.beginPath();ctx.moveTo(pts[0][0]*s,pts[0][1]*s);ctx.lineTo(pts[1][0]*s,pts[1][1]*s);ctx.moveTo(pts[0][0]*s,pts[0][1]*s);ctx.lineTo(pts[2][0]*s,pts[2][1]*s);ctx.moveTo(pts[1][0]*s,pts[1][1]*s);ctx.lineTo(pts[3][0]*s,pts[3][1]*s);ctx.moveTo(pts[2][0]*s,pts[2][1]*s);ctx.lineTo(pts[3][0]*s,pts[3][1]*s);ctx.stroke();
+    for(const [x,y] of pts)node(x*s,y*s,dot*.75);
+  }
   ctx.restore();
 }
-function drawStone(x,y,gx,gy,ctx=bctx){
+function drawStone(x,y,gx,gy,ctx=bctx,allowDoodle=true){
   const p=2,s=T-4;
   const cs=currentStonePalette();
   const g=ctx.createLinearGradient(x,y,x,y+T);
   g.addColorStop(0,cs[0]);g.addColorStop(0.5,cs[1]);g.addColorStop(1,cs[2]);
   ctx.fillStyle=g;rrect(ctx,x+p,y+p,s,s,5);ctx.fill();
-  if(gx!==undefined){
-    const seed=(gx*7+gy*13)%6;
-    if(seed===0)stoneDoodle(x+T/2,y+T/2,T*0.42,(gx*3+gy*5)>>0,ctx);
+  if(allowDoodle&&gx!==undefined){
+    // Sparse, level-specific distribution. Symbols are large enough to read on
+    // phones, but only some stones receive one so mechanics remain unmistakable.
+    const levelSeed=(Number(lv)||0)*7;
+    const mark=(gx*5+gy*3+gx*gy+levelSeed)%4;
+    if(mark===0)stoneDoodle(x+T/2,y+T/2,T*.43,(gx*11+gy*7+(Number(lv)||0)*13)>>0,ctx);
   }
   ctx.strokeStyle='rgba(255,255,255,.35)';ctx.lineWidth=1.5;
   ctx.beginPath();ctx.moveTo(x+p+3,y+p+s-3);ctx.lineTo(x+p+3,y+p+3);ctx.lineTo(x+p+s-3,y+p+3);ctx.stroke();
@@ -13505,7 +13896,7 @@ function drawNanoBarrier(gx,gy,t,calm=false){
   bctx.restore();
 }
 function drawBreakableStone(x,y,gx,gy,t){
-  drawStone(x,y,gx,gy);
+  drawStone(x,y,gx,gy,bctx,false);
   const pulse=.55+.25*Math.sin(t/420+gx+gy);
   bctx.save();bctx.strokeStyle='rgba(255,214,153,'+pulse+')';bctx.lineWidth=Math.max(2,T*.045);bctx.shadowColor='#ffb45e';bctx.shadowBlur=7;
   bctx.beginPath();bctx.moveTo(x+T*.28,y+T*.16);bctx.lineTo(x+T*.45,y+T*.38);bctx.lineTo(x+T*.34,y+T*.55);bctx.lineTo(x+T*.53,y+T*.72);bctx.lineTo(x+T*.46,y+T*.88);bctx.stroke();
@@ -13591,8 +13982,8 @@ function rebuildBoardStatic(){
 }
 function drawBoardStatic(){
   if(boardStaticDirty||boardStatic.width!==board.width||boardStatic.height!==board.height)rebuildBoardStatic();
-  // Source pixels map 1:1 through the board DPR transform. Keeping this draw in
-  // logical coordinates also preserves the original whole-board shake effect.
+  // Source pixels map 1:1 through the board DPR transform.
+  // R186: the board camera is permanently stationary; no whole-board shake/tilt transform exists.
   bctx.drawImage(boardStatic,0,0,boardStatic.width,boardStatic.height,0,0,T*W,T*H);
 }
 function renderBoard(t){
@@ -13604,7 +13995,6 @@ function renderBoard(t){
   const expansionMotionCalm=advancedCampaignLevelActive()&&mobileGameplayRender()&&!!(anim||movingWallAnimating);
   bctx.clearRect(0,0,T*W,T*H);
   bctx.save();
-  if(shake>0){bctx.translate((Math.random()-0.5)*shake*9,(Math.random()-0.5)*shake*9);shake=Math.max(0,shake-0.045);}
   drawBoardStatic();
   // Only genuinely animated grid cells stay on the live layer.
   if(breakableWalls.size){for(const bw of breakableWalls.values())if(!bw.broken)drawBreakableStone(bw.x*T,bw.y*T,bw.x,bw.y,t);}
@@ -13704,6 +14094,7 @@ function renderBoard(t){
   // linked atom cable
   if(linkedPairs.length){bctx.save();bctx.lineCap='round';for(const [a,b] of linkedPairs){const pa=pos[a],pb=pos[b];if(!pa||!pb)continue;const pulse=expansionMotionCalm?.70:(.58+.22*Math.sin(t/210+a));bctx.strokeStyle='rgba(119,232,255,'+pulse+')';bctx.lineWidth=Math.max(3,T*.055);bctx.setLineDash([Math.max(5,T*.12),Math.max(4,T*.08)]);bctx.lineDashOffset=(motionReduced()||expansionMotionCalm)?0:-t/35;bctx.beginPath();bctx.moveTo(pa[0],pa[1]);bctx.lineTo(pb[0],pb[1]);bctx.stroke();}bctx.restore();}
   // bonds
+  bctx.setLineDash(curMol.researchPattern?[Math.max(3,T*.09),Math.max(2,T*.06)]:[]);
   const movingI=anim?anim.i:-1,movingMembers=new Set(anim&&Array.isArray(anim.members)?anim.members.map(m=>m.i):[]);if(movingI>=0)movingMembers.add(movingI);if(anim&&anim.partner)movingMembers.add(anim.partner.i);
   bctx.lineCap='round';
   for(let i=0;i<atoms.length;i++)for(let j=i+1;j<atoms.length;j++){
@@ -13718,6 +14109,7 @@ function renderBoard(t){
     bctx.beginPath();bctx.moveTo(pos[i][0],pos[i][1]);bctx.lineTo(pos[j][0],pos[j][1]);bctx.stroke();
     bctx.shadowBlur=0;
   }
+  bctx.setLineDash([]);
   // hint arrow
   if(hintMark){
     const a=atoms[hintMark.i],[dx,dy]=DIRS[hintMark.d];
@@ -13854,6 +14246,10 @@ function renderBoard(t){
     bctx.restore();
   }
   // atoms
+  // R196: one visual atom diameter everywhere. Special objectives and mechanic
+  // legends must never change atom size; only temporary selection/bounce feedback
+  // may animate around this shared 0.40-cell base radius.
+  const atomRadiusBase=T*0.4;
   for(let i=0;i<atoms.length;i++){
     let sc=1;
     if(bounce&&bounce.i===i){
@@ -13870,12 +14266,12 @@ function renderBoard(t){
       const q=Math.min(1,(t-impactBounce.t0)/190),wave=Math.sin(q*Math.PI);
       const sx=impactBounce.dx?1-wave*.18:1+wave*.10,sy=impactBounce.dy?1-wave*.18:1+wave*.10;
       bctx.save();bctx.translate(pos[i][0],pos[i][1]);bctx.scale(sx,sy);bctx.translate(-pos[i][0],-pos[i][1]);
-      drawAtom(pos[i][0],pos[i][1],atoms[i].e,T*0.4*sc,i===sel&&!won,t,undefined,fastMotion);
-      drawFragileAtomOverlay(pos[i][0],pos[i][1],T*0.4*sc,atoms[i],t);
+      drawAtom(pos[i][0],pos[i][1],atoms[i].e,atomRadiusBase*sc,i===sel&&!won,t,undefined,fastMotion);
+      drawFragileAtomOverlay(pos[i][0],pos[i][1],atomRadiusBase*sc,atoms[i],t);
       bctx.restore();
     }else{
-      drawAtom(pos[i][0],pos[i][1],atoms[i].e,T*0.4*sc,i===sel&&!won,t,undefined,fastMotion);
-      drawFragileAtomOverlay(pos[i][0],pos[i][1],T*0.4*sc,atoms[i],t);
+      drawAtom(pos[i][0],pos[i][1],atoms[i].e,atomRadiusBase*sc,i===sel&&!won,t,undefined,fastMotion);
+      drawFragileAtomOverlay(pos[i][0],pos[i][1],atomRadiusBase*sc,atoms[i],t);
     }
     if(pressed){
       const ec=EL[atoms[i].e]||{c:'#8fe9ff',hi:'#ffffff'},q=motionReduced()?1:(.72+.28*Math.sin(t/80));
@@ -13884,9 +14280,10 @@ function renderBoard(t){
     }
     if(atoms[i].linked){bctx.save();bctx.font='900 '+Math.round(T*.20)+'px system-ui';bctx.textAlign='center';bctx.textBaseline='middle';bctx.fillStyle='#e8fbff';bctx.strokeStyle='#123a52';bctx.lineWidth=3;bctx.strokeText('🔗',pos[i][0]+T*.27,pos[i][1]-T*.28);bctx.fillText('🔗',pos[i][0]+T*.27,pos[i][1]-T*.28);bctx.restore();}
     if(atoms[i].stickyBonded&&!atoms[i].sticky){bctx.save();bctx.font='900 '+Math.round(T*.18)+'px system-ui';bctx.textAlign='center';bctx.textBaseline='middle';bctx.fillStyle='#fff4b8';bctx.strokeStyle='#5f3b00';bctx.lineWidth=3;bctx.strokeText('🍯',pos[i][0]+T*.28,pos[i][1]-T*.28);bctx.fillText('🍯',pos[i][0]+T*.28,pos[i][1]-T*.28);bctx.restore();}
-    if(i===chainCharged&&!won){const pulse=1+Math.sin(t/130)*.08;bctx.save();bctx.strokeStyle='#ffd45a';bctx.lineWidth=3;bctx.shadowColor='#ff8f22';bctx.shadowBlur=17;bctx.setLineDash([6,4]);bctx.beginPath();bctx.arc(pos[i][0],pos[i][1],T*.49*pulse,0,7);bctx.stroke();bctx.setLineDash([]);bctx.font='900 '+Math.round(T*.28)+'px sans-serif';bctx.textAlign='center';bctx.textBaseline='middle';bctx.fillStyle='#fff4a4';bctx.fillText('⚡',pos[i][0]+T*.34,pos[i][1]-T*.34);bctx.restore();}
+    const rigidGroup=fusionGroupFor(i);if(rigidGroup){const rigidIcon=rigidGroup.kind==='prebuilt'?'🧩':'🧬';bctx.save();bctx.font='900 '+Math.round(T*.18)+'px system-ui';bctx.textAlign='center';bctx.textBaseline='middle';bctx.fillStyle='#ffffff';bctx.strokeStyle=rigidGroup.kind==='prebuilt'?'#6b4a00':'#2d235a';bctx.lineWidth=3;bctx.strokeText(rigidIcon,pos[i][0]-T*.29,pos[i][1]-T*.29);bctx.fillText(rigidIcon,pos[i][0]-T*.29,pos[i][1]-T*.29);bctx.restore();}
+    if(i===chainCharged&&!won){const pulse=1+Math.sin(t/130)*.08;bctx.save();bctx.strokeStyle='#ffd45a';bctx.lineWidth=3;bctx.shadowColor='#ff8f22';bctx.shadowBlur=17;bctx.setLineDash([6,4]);bctx.beginPath();bctx.arc(pos[i][0],pos[i][1],T*.49*pulse,0,7);bctx.stroke();bctx.setLineDash([]);bctx.font='900 '+Math.round(T*.28)+'px sans-serif';bctx.textAlign='center';bctx.textBaseline='middle';bctx.fillStyle='#fff4a4';bctx.fillText('»',pos[i][0]+T*.34,pos[i][1]-T*.34);bctx.restore();}
     const specialType=specialAtomType(atoms[i]);
-    if(specialType)drawSpecialAtomBadge(pos[i][0],pos[i][1],T*0.4*sc,specialType,t);
+    if(specialType)drawSpecialAtomBadge(pos[i][0],pos[i][1],atomRadiusBase*sc,specialType,t);
   }
   bctx.restore();
 }
@@ -14155,7 +14552,7 @@ function runTutorialDemo(){
         tutHandTo(0,0,false);
         setTimeout(()=>{
           atoms.forEach((a,k)=>{a.x=origAtoms[k].x;a.y=origAtoms[k].y;});
-          moves=origMoves;hist=[];demoMode=false;tut=0;shake=0;
+          moves=origMoves;hist=[];demoMode=false;tut=0;
           updateHUD();
           say(t('tutTurn'),'happy',5000);
         },1000);
@@ -14217,13 +14614,14 @@ function boardNeedsRealtime(t=performance.now()){
   // entire Reactor mission, a persistent hint and the whole result-modal stay
   // as realtime work, so the complete canvas could redraw forever at 60 fps.
   const winBurst=won&&t-winT<1350;
-  return !!(anim||bounce||nudge||shake>0||movingWallAnimating||chainAutoActive||winBurst);
+  // R186: whole-board shake/tilt state has been removed, so it cannot keep the renderer awake.
+  return !!(anim||bounce||nudge||movingWallAnimating||chainAutoActive||winBurst);
 }
 function advancedCampaignLevelActive(){
   return !dailyMode&&!duelMode&&!crystalMode&&!chainMode&&!reactorMode&&lv>=301;
 }
 function boardNeedsDecorativeCadence(){
-  // R177 UNIFIED 1–501: no expansion-only scheduling branch. The full campaign
+  // R179 UNIFIED 1–501: no expansion-only scheduling branch. The full campaign
   // follows the same cadence decision that Levels 1–301 already use.
   return !motionReduced()&&!!(hintMark||reactorActive()||boardNeedsBioCadence());
 }
@@ -14322,7 +14720,7 @@ function loop(t){
   const perfCadence=(realtimeBoard||realtimeFx)?ACTIVE_FRAME_MS:(gameVisible?Math.min(boardEvery,IDLE_GAME_FRAME_MS):IDLE_MENU_FRAME_MS);
   if(gameVisible||PARTS.length)updatePerformanceGovernor(t,perfCadence);else resetPerformanceSampling(t);
   if(gameVisible){
-    // R177 UNIFIED 1–501: one board scheduling path for the entire campaign.
+    // R179 UNIFIED 1–501: one board scheduling path for the entire campaign.
     // 302–501 no longer run a separate expansion-only redraw policy.
     if(t-lastBoardFrame>=boardEvery){
       lastBoardFrame=cadenceStamp(lastBoardFrame,t,boardEvery);renderBoard(t);
@@ -14450,23 +14848,23 @@ board.addEventListener('pointercancel',e=>{if(pd&&pd.id===e.pointerId){pd=null;a
     move(sel,d);
   },{passive:false});
 });
-$('#btnUndo').addEventListener('pointerdown',e=>{e.preventDefault();if(tutorialActive)return;if(!save.seenUndoSupport){save.seenUndoSupport=true;persist();showSupportTutorial('undo',undo);return;}undo();},{passive:false});
-$('#btnRestart').addEventListener('pointerdown',e=>{e.preventDefault();SFX.click();
+bindTap('#btnUndo',e=>{e.preventDefault();if(tutorialActive)return;if(!save.seenUndoSupport){save.seenUndoSupport=true;persist();showSupportTutorial('undo',undo);return;}undo();});
+bindTap('#btnRestart',e=>{e.preventDefault();SFX.click();
   if(tutorialActive){const phase=tutorialStep>=8?8:2;loadTutorialPuzzle(phase===8?TUT_LEVEL_2:TUT_LEVEL_1);tutorialGoStep(phase);return;}
   if(duelMode){say(duelCopy().noRestart,'sad',2200,'shk');return;}
   const doRestart=()=>{noteLabToolStress('restart');startLevel(lv,crystalMode?'crystal':(chainMode?'chain':(reactorMode?'reactor':(dailyMode?'daily':'campaign'))));};
-  const confirmRestart=()=>{openModal('<h3 class="mxProdRestartTitle">'+mxProdIcon('restart')+'<span>'+(ml("BÖLÜMÜ YENİDEN BAŞLAT?","RESTART LEVEL?","LEVEL NEU STARTEN?","¿REINICIAR NIVEL?","REINICIAR FASE?","レベルをやり直しますか？"))+'</span></h3><div class="msub">'+(ml("Bölüm başlangıç düzenine döner. Kullanılmış Çekiç ve Tek Kare Hareket geri verilmez; Nano Bariyer için harcanmış MoleCoin iade edilmez.","The level returns to its starting layout. Used Hammer and One-Square Move items are not restored; MoleCoin spent on Nano Barrier is not refunded.","Das Level kehrt zum Startlayout zurück. Benutzte Hämmer und Ein-Feld-Bewegungen werden nicht wiederhergestellt.","El nivel vuelve a su disposición inicial. Los Martillos y Movimientos de Una Casilla usados no se restauran.","A fase volta ao layout inicial. Martelos e Movimentos de Uma Casa usados não são restaurados.","レベルは開始時の配置に戻ります。使用したハンマーと1マス移動は戻りません。"))+'</div><div class="mrow"><button class="btn amber" id="mRestartYes">'+(ml("YENİDEN BAŞLAT","RESTART","NEU STARTEN","REINICIAR","REINICIAR","やり直す"))+'</button><button class="btn ghost" id="mRestartNo">'+t('cancel')+'</button></div>');bindTap('#mRestartYes',()=>{closeModal();playCharacterVoice('drE','failure',{force:true,duck:.30,cooldown:0});doRestart();});bindTap('#mRestartNo',()=>closeModal());};
+  const confirmRestart=()=>{openModal('<h3 class="mxProdRestartTitle">'+mxProdIcon('restart')+'<span>'+(ml("BÖLÜMÜ YENİDEN BAŞLAT?","RESTART LEVEL?","LEVEL NEU STARTEN?","¿REINICIAR NIVEL?","REINICIAR FASE?","レベルをやり直しますか？"))+'</span></h3><div class="msub">'+(ml("Bölüm başlangıç düzenine döner. Kullanılmış Çekiç geri verilmez; Tek Kare Hareket ve Nano Bariyer için harcanmış MoleCoin iade edilmez.","The level returns to its starting layout. Used Hammers are not restored; MoleCoin spent on One-Square Move or Nano Barrier is not refunded.","Das Level kehrt zum Startlayout zurück. Benutzte Hämmer werden nicht wiederhergestellt; für Ein-Feld-Bewegung oder Nano-Barriere ausgegebene MoleCoin werden nicht erstattet.","El nivel vuelve a su disposición inicial. Los Martillos usados no se restauran; los MoleCoin gastados en Movimiento de Una Casilla o Nano Barrera no se devuelven.","A fase volta ao layout inicial. Martelos usados não são restaurados; MoleCoin gastos em Movimento de Uma Casa ou Nano Barreira não são devolvidos.","レベルは開始時の配置に戻ります。使用したハンマーは戻らず、1マス移動やナノバリアに使ったMoleCoinも返却されません。","Le niveau revient à sa disposition initiale. Les Marteaux utilisés ne sont pas restaurés ; les MoleCoin dépensés pour le déplacement d’une case ou la Nano-Barrière ne sont pas remboursés.","关卡将恢复到初始布局。已使用的锤子不会返还；用于单格移动或纳米屏障的MoleCoin也不会退还。","Il livello torna alla disposizione iniziale. I Martelli usati non vengono ripristinati; i MoleCoin spesi per Mossa di una casella o Nano Barriera non vengono rimborsati."))+'</div><div class="mrow"><button class="btn amber" id="mRestartYes">'+(ml("YENİDEN BAŞLAT","RESTART","NEU STARTEN","REINICIAR","REINICIAR","やり直す"))+'</button><button class="btn ghost" id="mRestartNo">'+t('cancel')+'</button></div>');bindTap('#mRestartYes',()=>{closeModal();playCharacterVoice('drE','failure',{force:true,duck:.30,cooldown:0});doRestart();});bindTap('#mRestartNo',()=>closeModal());};
   if(!save.seenRestartSupport){save.seenRestartSupport=true;persist();showSupportTutorial('restart',confirmRestart);return;}
   confirmRestart();
-},{passive:false});
-$('#btnHint').addEventListener('pointerdown',e=>{e.preventDefault();if(tutorialActive)return;if(duelMode){say(duelCopy().noHint,'sad',2200,'shk');return;}if(chainMode){say(chainCopy().noHint,'sad',2200,'shk');return;}if(reactorMode){say(reactorCopy().noHint,'sad',2200,'shk');return;}if(!save.seenHintSupport){save.seenHintSupport=true;persist();showSupportTutorial('hint',hint);return;}hint();},{passive:false});
-$('#btnHammer').addEventListener('pointerdown',e=>{e.preventDefault();if(won||tutorialActive||autoSolveInProgress)return;if(!hammerLevelEligible()){cancelHammer();supportUnavailable('hammer');return;}if(!save.seenHammerSupport){save.seenHammerSupport=true;persist();showSupportTutorial('hammer',()=>$('#btnHammer').dispatchEvent(new PointerEvent('pointerdown',{bubbles:true})));return;}if(boosterCount('hammer')<1){buyBooster('hammer',()=>{syncHammerUi();say(ml("Çekiç satın alındı. Şimdi çatlak duvara dokun.","Hammer purchased. Now tap a cracked wall.","Hammer gekauft. Tippe jetzt auf eine rissige Wand.","Martillo comprado. Ahora toca una pared agrietada.","Martelo comprado. Agora toque em uma parede rachada.","ハンマーを購入しました。ひび割れた壁をタップしてください。"),'happy',3000,'glow');});return;}if(precisionMode)cancelPrecision();if(barrierMode)cancelBarrier();hammerMode=!hammerMode;SFX.select();mxHaptic('light');syncHammerUi();if(hammerMode)say(ml("Kırmak için çatlak duvara dokun.","Tap the cracked wall to break it.","Tippe auf die rissige Wand, um sie zu zerstören.","Toca la pared agrietada para romperla.","Toque na parede rachada para quebrá-la.","ひび割れた壁をタップして壊してください。"),'talk',2600,'glow');},{passive:false});
-$('#btnPrecision').addEventListener('pointerdown',e=>{e.preventDefault();if(won||tutorialActive||autoSolveInProgress)return;if(!precisionLevelEligible()){cancelPrecision();supportUnavailable('precision');return;}if(!save.seenPrecisionSupport){save.seenPrecisionSupport=true;persist();showSupportTutorial('precision',()=>$('#btnPrecision').dispatchEvent(new PointerEvent('pointerdown',{bubbles:true})));return;}if(boosterCount('precision')<1){buyBooster('precision',()=>{syncPrecisionUi();say(ml("Tek Kare Hareket satın alındı. Atomu seçip yön ver.","One-Square Move purchased. Select an atom and choose a direction.","Ein-Feld-Bewegung gekauft. Wähle ein Atom und eine Richtung.","Movimiento de Una Casilla comprado. Selecciona un átomo y una dirección.","Movimento de Uma Casa comprado. Selecione um átomo e uma direção.","1マス移動を購入しました。原子を選び、方向を指定してください。"),'happy',3200,'glow');});return;}if(hammerMode)cancelHammer();if(barrierMode)cancelBarrier();precisionMode=!precisionMode;SFX.select();mxHaptic('light');syncPrecisionUi();if(precisionMode)say(ml("Atomu seç, sonra yön ver. Atom yalnızca 1 kare ilerler.","Select an atom, then choose a direction. It will move exactly 1 square.","Wähle ein Atom und dann eine Richtung. Es bewegt sich genau 1 Feld.","Selecciona un átomo y luego una dirección. Se moverá exactamente 1 casilla.","Selecione um átomo e depois uma direção. Ele se moverá exatamente 1 casa.","原子を選び、方向を指定してください。ちょうど1マス移動します。"),'talk',3000,'glow');},{passive:false});
-$('#btnBarrier').addEventListener('pointerdown',e=>{e.preventDefault();if(won||tutorialActive||autoSolveInProgress)return;if(!barrierLevelEligible()){cancelBarrier();supportUnavailable('barrier');return;}if(barrierUsed){SFX.thunk();mxHaptic('light');say(ml("Bu deneyde Nano Bariyer zaten kullanıldı. Her bölümde yalnızca bir kez kullanabilirsin.","Nano Barrier has already been used in this experiment. You can use it only once per level.","Die Nano-Barriere wurde in diesem Experiment bereits benutzt. Du kannst sie nur einmal pro Level verwenden.","La Barrera nano ya se usó en este experimento. Solo puedes usarla una vez por nivel.","A Barreira Nano já foi usada neste experimento. Você pode usá-la apenas uma vez por fase.","この実験ではナノバリアをすでに使用しました。1レベルにつき1回だけ使えます。","La Nano-Barrière a déjà été utilisée dans cette expérience. Elle ne peut être utilisée qu’une fois par niveau.","本次实验已经使用过纳米屏障。每关只能使用一次。","La Nano Barriera è già stata usata in questo esperimento. Puoi usarla solo una volta per livello."),'talk',2800,'glow');return;}if(!save.seenBarrierSupport){save.seenBarrierSupport=true;persist();showSupportTutorial('barrier',()=>$('#btnBarrier').dispatchEvent(new PointerEvent('pointerdown',{bubbles:true})));return;}if(coinBalance()<BARRIER_USE_PRICE){SFX.thunk();mxHaptic('error');say(ml("Nano Bariyer için 300 MoleCoin gerekiyor.","Nano Barrier costs 300 MoleCoin.","Die Nano-Barriere kostet 300 MoleCoin.","La Barrera nano cuesta 300 MoleCoin.","A Barreira Nano custa 300 MoleCoin.","ナノバリアには300 MoleCoinが必要です。","La Nano-Barrière coûte 300 MoleCoin.","纳米屏障需要300 MoleCoin。","La Nano Barriera costa 300 MoleCoin."),'sad',3000,'shk');return;}if(hammerMode)cancelHammer();if(precisionMode)cancelPrecision();barrierMode=!barrierMode;SFX.select();mxHaptic('light');syncBarrierUi();if(barrierMode)say(ml("Boş bir kare seç. Onayladığında 300 MoleCoin harcanacak.","Choose an empty tile. 300 MoleCoin will be spent only after you confirm.","Wähle ein leeres Feld. 300 MoleCoin werden erst nach deiner Bestätigung ausgegeben.","Elige una casilla vacía. Los 300 MoleCoin se gastarán solo al confirmar.","Escolha uma casa vazia. Os 300 MoleCoin só serão gastos após a confirmação.","空いているマスを選んでください。確認後に300 MoleCoinを使用します。","Choisis une case vide. Les 300 MoleCoin ne seront dépensés qu'après confirmation.","选择一个空格。确认后才会花费300 MoleCoin。","Scegli una casella vuota. I 300 MoleCoin verranno spesi solo dopo la conferma."),'talk',3000,'glow');},{passive:false});
-$('#btnGear').addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();if(e.stopImmediatePropagation)e.stopImmediatePropagation();SFX.click();if(tutorialActive)return;settingsModal();},{passive:false});
+});
+bindTap('#btnHint',e=>{e.preventDefault();if(tutorialActive)return;if(duelMode){say(duelCopy().noHint,'sad',2200,'shk');return;}if(chainMode){say(chainCopy().noHint,'sad',2200,'shk');return;}if(reactorMode){say(reactorCopy().noHint,'sad',2200,'shk');return;}if(!save.seenHintSupport){save.seenHintSupport=true;persist();showSupportTutorial('hint',hint);return;}hint();});
+bindTap('#btnHammer',e=>{e.preventDefault();if(won||tutorialActive||autoSolveInProgress)return;if(!hammerLevelEligible()){cancelHammer();supportUnavailable('hammer');return;}if(!save.seenHammerSupport){save.seenHammerSupport=true;persist();showSupportTutorial('hammer',()=>$('#btnHammer').click());return;}if(boosterCount('hammer')<1){buyBooster('hammer',()=>{syncHammerUi();say(ml("Çekiç satın alındı. Şimdi çatlak duvara dokun.","Hammer purchased. Now tap a cracked wall.","Hammer gekauft. Tippe jetzt auf eine rissige Wand.","Martillo comprado. Ahora toca una pared agrietada.","Martelo comprado. Agora toque em uma parede rachada.","ハンマーを購入しました。ひび割れた壁をタップしてください。"),'happy',3000,'glow');});return;}if(precisionMode)cancelPrecision();if(barrierMode)cancelBarrier();hammerMode=!hammerMode;SFX.select();mxHaptic('light');syncHammerUi();if(hammerMode)say(ml("Kırmak için çatlak duvara dokun.","Tap the cracked wall to break it.","Tippe auf die rissige Wand, um sie zu zerstören.","Toca la pared agrietada para romperla.","Toque na parede rachada para quebrá-la.","ひび割れた壁をタップして壊してください。"),'talk',2600,'glow');});
+bindTap('#btnPrecision',e=>{e.preventDefault();if(won||tutorialActive||autoSolveInProgress)return;if(!precisionLevelEligible()){cancelPrecision();supportUnavailable('precision');return;}if(!save.seenPrecisionSupport){save.seenPrecisionSupport=true;persist();showSupportTutorial('precision',()=>$('#btnPrecision').click());return;}if(coinBalance()<PRECISION_USE_PRICE){SFX.thunk();mxHaptic('error');say(ml("Tek Kare Hareket için 250 MoleCoin gerekiyor.","One-Square Move costs 250 MoleCoin.","Die Ein-Feld-Bewegung kostet 250 MoleCoin.","Movimiento de Una Casilla cuesta 250 MoleCoin.","Movimento de Uma Casa custa 250 MoleCoin.","1マス移動には250 MoleCoinが必要です。","Le déplacement d’une case coûte 250 MoleCoin.","单格移动需要250 MoleCoin。","La Mossa di una casella costa 250 MoleCoin."),'sad',3000,'shk');return;}if(hammerMode)cancelHammer();if(barrierMode)cancelBarrier();precisionMode=!precisionMode;SFX.select();mxHaptic('light');syncPrecisionUi();if(precisionMode)say(ml("Atomu seç, sonra yön ver. Ücret yalnızca hareketi onayladığında alınır.","Select an atom, then choose a direction. You are charged only when you confirm the move.","Wähle ein Atom und dann eine Richtung. Bezahlt wird erst beim Bestätigen.","Selecciona un átomo y luego una dirección. Solo se cobra al confirmar el movimiento.","Selecione um átomo e depois uma direção. A cobrança ocorre somente ao confirmar o movimento.","原子を選び、方向を指定してください。料金は移動を確定した時だけ発生します。","Sélectionnez un atome puis une direction. Le coût n’est débité qu’après confirmation.","选择一个原子和方向。只有确认移动后才会扣费。","Seleziona un atomo e poi una direzione. Il costo viene addebitato solo alla conferma."),'talk',3000,'glow');});
+bindTap('#btnBarrier',e=>{e.preventDefault();if(won||tutorialActive||autoSolveInProgress)return;if(!barrierLevelEligible()){cancelBarrier();supportUnavailable('barrier');return;}if(barrierUsed){SFX.thunk();mxHaptic('light');say(ml("Bu deneyde Nano Bariyer zaten kullanıldı. Her bölümde yalnızca bir kez kullanabilirsin.","Nano Barrier has already been used in this experiment. You can use it only once per level.","Die Nano-Barriere wurde in diesem Experiment bereits benutzt. Du kannst sie nur einmal pro Level verwenden.","La Barrera nano ya se usó en este experimento. Solo puedes usarla una vez por nivel.","A Barreira Nano já foi usada neste experimento. Você pode usá-la apenas uma vez por fase.","この実験ではナノバリアをすでに使用しました。1レベルにつき1回だけ使えます。","La Nano-Barrière a déjà été utilisée dans cette expérience. Elle ne peut être utilisée qu’une fois par niveau.","本次实验已经使用过纳米屏障。每关只能使用一次。","La Nano Barriera è già stata usata in questo esperimento. Puoi usarla solo una volta per livello."),'talk',2800,'glow');return;}if(!save.seenBarrierSupport){save.seenBarrierSupport=true;persist();showSupportTutorial('barrier',()=>$('#btnBarrier').click());return;}if(coinBalance()<BARRIER_USE_PRICE){SFX.thunk();mxHaptic('error');say(ml("Nano Bariyer için 500 MoleCoin gerekiyor.","Nano Barrier costs 500 MoleCoin.","Die Nano-Barriere kostet 500 MoleCoin.","La Barrera nano cuesta 500 MoleCoin.","A Barreira Nano custa 500 MoleCoin.","ナノバリアには500 MoleCoinが必要です。","La Nano-Barrière coûte 500 MoleCoin.","纳米屏障需要500 MoleCoin。","La Nano Barriera costa 500 MoleCoin."),'sad',3000,'shk');return;}if(hammerMode)cancelHammer();if(precisionMode)cancelPrecision();barrierMode=!barrierMode;SFX.select();mxHaptic('light');syncBarrierUi();if(barrierMode)say(ml("Boş bir kare seç. Onayladığında 500 MoleCoin harcanacak.","Choose an empty tile. 500 MoleCoin will be spent only after you confirm.","Wähle ein leeres Feld. 500 MoleCoin werden erst nach deiner Bestätigung ausgegeben.","Elige una casilla vacía. Los 500 MoleCoin se gastarán solo al confirmar.","Escolha uma casa vazia. Os 500 MoleCoin só serão gastos após a confirmação.","空いているマスを選んでください。確認後に500 MoleCoinを使用します。","Choisis une case vide. Les 500 MoleCoin ne seront dépensés qu'après confirmation.","选择一个空格。确认后才会花费500 MoleCoin。","Scegli una casella vuota. I 500 MoleCoin verranno spesi solo dopo la conferma."),'talk',3000,'glow');});
+bindTap('#btnGear',e=>{e.preventDefault();e.stopPropagation();if(e.stopImmediatePropagation)e.stopImmediatePropagation();SFX.click();if(tutorialActive)return;settingsModal();});
 bindTap('#btnHome',e=>{SFX.click();if(autoSolveInProgress){say(ml("Çözüm oynatımı tamamlanıyor.","The solution playback is finishing.","Die Lösungswiedergabe wird beendet.","La reproducción de la solución está terminando.","A reprodução da solução está terminando.","解答の再生を終了しています。"),'talk',2200,'glow');return;}if(tutorialActive){endTutorial(false);return;}if(duelMode){confirmQuitDuel();return;}if(crystalMode){confirmQuitCrystal();return;}if(chainMode){confirmQuitChain();return;}if(reactorMode){confirmQuitReactor();return;}show('splash');});
-$('#lvHome').addEventListener('pointerdown',e=>{e.preventDefault();SFX.click();show('splash');},{passive:false});
-$('#coHome').addEventListener('pointerdown',e=>{e.preventDefault();SFX.click();show('splash');},{passive:false});
+bindTap('#lvHome',e=>{e.preventDefault();SFX.click();show('splash');});
+bindTap('#coHome',e=>{e.preventDefault();SFX.click();show('splash');});
 $('#tutorialSkip').addEventListener('pointerdown',e=>{e.preventDefault();SFX.back();endTutorial(false);},{passive:false});
 $('#tutGo').addEventListener('pointerdown',e=>{e.preventDefault();
   $('#tutOverlay').classList.remove('on');
@@ -14474,7 +14872,7 @@ $('#tutGo').addEventListener('pointerdown',e=>{e.preventDefault();
   $('#dpad').classList.add('pulse');
   say(t('goodLuck'),'happy',2500);
 },{passive:false});
-$('#splashGear').addEventListener('pointerdown',e=>{e.preventDefault();SFX.select();settingsModal();},{passive:false});
+bindTap('#splashGear',e=>{e.preventDefault();SFX.select();settingsModal();});
 function whatsNewContent(){
   const accountButton=accountState.isAnonymous
     ?ml('KAYIT OL / GİRİŞ YAP','SIGN UP / SIGN IN','REGISTRIEREN / ANMELDEN','REGISTRARSE / ENTRAR','CADASTRAR / ENTRAR','登録 / ログイン')
@@ -14582,10 +14980,10 @@ function setCollectionTab(tab){
   if(scr.collect.classList.contains('on'))buildCollection(tab);
 }
 document.querySelectorAll('[data-collection-tab]').forEach(b=>b.addEventListener('pointerdown',e=>{e.preventDefault();SFX.click();setCollectionTab(b.dataset.collectionTab);},{passive:false}));
-$('#btnMols').addEventListener('pointerdown',e=>{e.preventDefault();SFX.click();setCollectionTab('molecules');show('collect');},{passive:false});
-$('#btnAchv').addEventListener('pointerdown',e=>{e.preventDefault();SFX.click();setCollectionTab('achievements');show('collect');},{passive:false});
+bindTap('#btnMols',e=>{e.preventDefault();SFX.click();setCollectionTab('molecules');show('collect');});
+bindTap('#btnAchv',e=>{e.preventDefault();SFX.click();setCollectionTab('achievements');show('collect');});
 let __playGuard=false;
-$('#btnPlay').addEventListener('pointerdown',e=>{e.preventDefault();if(__playGuard)return;__playGuard=true;setTimeout(()=>{__playGuard=false;},800);SFX.play();startLevel(Math.min(save.cur,LEVELS.length-1));},{passive:false});
+bindTap('#btnPlay',e=>{e.preventDefault();if(__playGuard)return;__playGuard=true;setTimeout(()=>{__playGuard=false;},800);SFX.play();startLevel(Math.min(save.cur,LEVELS.length-1));});
 $('#btnDaily').addEventListener('pointerdown',e=>{e.preventDefault();SFX.click();startDaily();},{passive:false});
 $('#btnNew').addEventListener('pointerdown',e=>{e.preventDefault();SFX.click();
   openModal('<h3>👋 '+t('welcomeTitle')+'</h3><div class="msub">'+t('welcomeMsg')+'</div>'+
@@ -14623,38 +15021,45 @@ $('#btnNew').addEventListener('pointerdown',e=>{e.preventDefault();SFX.click();
   bindTap('#newNameCancel',ev=>{SFX.back();closeModal();});
   $('#newNameInput').addEventListener('keydown',ev=>{if(ev.key==='Enter'){ev.preventDefault();go();}});
 },{passive:false});
-$('#btnLevels').addEventListener('pointerdown',e=>{e.preventDefault();SFX.click();show('levels');},{passive:false});
+bindTap('#btnLevels',e=>{e.preventDefault();SFX.click();show('levels');});
 bindTap('#btnCrystalHunt',e=>{SFX.select();openBonusLab();});
 $('#lvScrollArea').addEventListener('scroll',updateLvScrollThumb,{passive:true});
-$('#btnCollect').addEventListener('pointerdown',e=>{e.preventDefault();SFX.click();setCollectionTab('molecules');show('collect');},{passive:false});
+bindTap('#btnCollect',e=>{e.preventDefault();SFX.click();setCollectionTab('molecules');show('collect');});
 bindTap('#btnLabMenu',()=>{SFX.click();const go=()=>show('lab');if(!save.seenLabSupport){save.seenLabSupport=true;persist();showSupportTutorial('lab',go);return;}go();});
 bindTap('#labBack',()=>{SFX.back();show(scrPrev==='game'?'game':'splash');});
 bindTap('#labHome',()=>{SFX.click();show('splash');});
 bindTap('#labCoinChip',()=>{SFX.click();setLabTab('shop');});
 document.querySelectorAll('.labTab').forEach(b=>bindTap(b,()=>{SFX.click();setLabTab(b.dataset.labtab);}));
-$('#btnDuel').addEventListener('pointerdown',e=>{e.preventDefault();SFX.select();openDuelSetup();},{passive:false});
-$('#btnHof').addEventListener('pointerdown',e=>{e.preventDefault();SFX.select();show('hof');},{passive:false});
+bindTap('#btnDuel',e=>{e.preventDefault();SFX.select();openDuelSetup();});
+bindTap('#btnHof',e=>{e.preventDefault();SFX.select();show('hof');});
 function commitHallPlayerName(input){const checked=validatedPublicPlayerName(input.value,18);if(!checked.ok){input.value=save.playerName||'';prop(publicPlayerNameError());return false;}input.value=checked.name;setCurrentProfileNickname(checked.name);return true;}
 $('#hofNameInput').addEventListener('change',e=>{commitHallPlayerName(e.target);});
 $('#hofNameInput').addEventListener('blur',e=>{commitHallPlayerName(e.target);});
 $('#hofNameEdit').addEventListener('pointerdown',e=>{e.preventDefault();$('#hofNameInput').focus();});
-$('#hofBack').addEventListener('pointerdown',e=>{e.preventDefault();SFX.back();show(scrPrev==='game'?'game':'splash');},{passive:false});
-$('#hofHome').addEventListener('pointerdown',e=>{e.preventDefault();SFX.click();show('splash');},{passive:false});
-$('#lvBack').addEventListener('pointerdown',e=>{e.preventDefault();SFX.back();show(scrPrev==='game'?'game':'splash');},{passive:false});
-$('#coBack').addEventListener('pointerdown',e=>{e.preventDefault();SFX.back();show(scrPrev==='game'?'game':'splash');},{passive:false});
+bindTap('#hofBack',e=>{e.preventDefault();SFX.back();show(scrPrev==='game'?'game':'splash');});
+bindTap('#hofHome',e=>{e.preventDefault();SFX.click();show('splash');});
+bindTap('#lvBack',e=>{e.preventDefault();SFX.back();show(scrPrev==='game'?'game':'splash');});
+bindTap('#coBack',e=>{e.preventDefault();SFX.back();show(scrPrev==='game'?'game':'splash');});
 document.addEventListener('keydown',e=>{
-  if(!scr.game.classList.contains('on'))return;
-  const k=e.key.toLowerCase();
-  if(k==='arrowup'||k==='w')move(sel,0);
-  else if(k==='arrowright'||k==='d')move(sel,1);
-  else if(k==='arrowdown'||k==='s')move(sel,2);
-  else if(k==='arrowleft'||k==='a')move(sel,3);
-  else if(k==='tab'||k===' '){e.preventDefault();sel=(sel+1)%atoms.length;SFX.select();}
-  else if(k==='u')undo();
-  else if(k==='r'){if(duelMode)say(duelCopy().noRestart,'sad',2200,'shk');else startLevel(lv,crystalMode?'crystal':(chainMode?'chain':(reactorMode?'reactor':(dailyMode?'daily':'campaign'))));}
-  else if(k==='h'){if(duelMode)say(duelCopy().noHint,'sad',2200,'shk');else if(chainMode)say(chainCopy().noHint,'sad',2200,'shk');else if(reactorMode)say(reactorCopy().noHint,'sad',2200,'shk');else hint();}
-  else if(k==='escape')closeModal();
+  const modal=$('#modal'),target=e.target;
+  if(modal.classList.contains('on')){
+    if(e.key==='Tab'){const items=[...$('#modalBox').querySelectorAll('button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),a[href],[tabindex="0"]')].filter(el=>!el.hidden&&el.getClientRects().length);const first=items[0],last=items[items.length-1];if(first&&((e.shiftKey&&document.activeElement===first)||(!e.shiftKey&&document.activeElement===last))){e.preventDefault();(e.shiftKey?last:first).focus();}}
+    if(e.key==='Escape'){e.preventDefault();closeModal();}
+    return;
+  }
+  if(!scr.game.classList.contains('on')||e.ctrlKey||e.metaKey||e.altKey||e.isComposing)return;
+  if(target&&(/^(INPUT|TEXTAREA|SELECT|BUTTON)$/.test(target.tagName)||target.isContentEditable||target.closest?.('[contenteditable="true"],[role="dialog"]')))return;
+  if(target!==board&&document.activeElement!==board)return;
+  const k=e.key.toLowerCase(),dirs={arrowup:0,w:0,arrowright:1,d:1,arrowdown:2,s:2,arrowleft:3,a:3};
+  if(k in dirs){e.preventDefault();move(sel,dirs[k]);}
+  else if(k===' '){e.preventDefault();sel=(sel+1)%atoms.length;SFX.select();}
+  else if(k==='u'){e.preventDefault();$('#btnUndo').click();}
+  else if(k==='r'){e.preventDefault();$('#btnRestart').click();}
+  else if(k==='h'){e.preventDefault();$('#btnHint').click();}
 });
+board.tabIndex=0;board.setAttribute('aria-label',ml('Oyun tahtası. Oklar: hareket. Boşluk: atom seç.','Game board. Arrows: move. Space: select atom.'));
+board.addEventListener('pointerdown',()=>board.focus({preventScroll:true}),{passive:true});
+
 function unlock(){
   audioGestureSeen=true;
   if(externalMusicMode)return null;
@@ -14756,7 +15161,7 @@ const MX_IOS_NATIVE=!!(window.Capacitor&&window.Capacitor.getPlatform&&window.Ca
 // Email-only until the native piece is wired up, then reappears on its own.
 const MX_ANDROID_NATIVE=!!(window.Capacitor&&window.Capacitor.getPlatform&&window.Capacitor.getPlatform()==='android');
 const MX_APPLE_NATIVE_READY=!!(window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.FirebaseAuthentication&&typeof window.Capacitor.Plugins.FirebaseAuthentication.signInWithApple==='function');
-const MX_SHOW_APPLE_BTN=false;
+const MX_SHOW_APPLE_BTN=MX_IOS_NATIVE&&MX_APPLE_NATIVE_READY;
 // Added 2026-07-26: on the plain web build (not the iOS app itself), only
 // show the Apple button to visitors actually on Apple hardware — checks
 // both navigator.platform and userAgent since platform is being frozen/
@@ -15018,7 +15423,7 @@ document.addEventListener('visibilitychange',()=>{if(!document.hidden)wakeMainLo
 // V8.4.3: #btnBootPlay is a real green button with its own click listener.
 // Once visible, the button and the remaining boot-screen area both enter the game.
 $('#profileBack').addEventListener('pointerdown',e=>{e.preventDefault();SFX.back();bootPlay();},{passive:false});
-$('#btnSwitchProfile').addEventListener('pointerdown',e=>{e.preventDefault();SFX.click();openAccountModal();},{passive:false});
+bindTap('#btnSwitchProfile',e=>{e.preventDefault();SFX.click();openAccountModal();});
 // Fast repeated taps remain available. CSS touch-action: manipulation prevents
 // browser double-tap zoom without swallowing legitimate game input.
 })();

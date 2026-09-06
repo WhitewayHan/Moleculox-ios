@@ -692,7 +692,7 @@ async function signInEmail(email, password) {
 }
 async function resetPassword(email, language) {
   if (!auth) throw new Error("auth/unavailable");
-  auth.languageCode = ["en","tr","de","es","pt","ja","fr","zh"].includes(language) ? language : "en";
+  auth.languageCode = ["en","tr","de","es","pt","ja","fr","zh","it"].includes(language) ? language : "en";
   await sendPasswordResetEmail(auth, String(email || "").trim().toLowerCase());
   return true;
 }
@@ -883,7 +883,7 @@ function leaderboardDocId(profileId, ownerUid = uid) {
   return id && owner ? owner + "_" + id : "";
 }
 function leaderboardMetrics(save) {
-  const stars = save && save.stars && typeof save.stars === "object" ? save.stars : {};
+  const stars = save ? plainMap(save.stars) : {};
   let totalStars = 0; let completedLevels = 0; let perfectLevels = 0;
   Object.keys(stars).forEach((key) => {
     const level = Number(key);
@@ -893,7 +893,10 @@ function leaderboardMetrics(save) {
     if (value === 3) perfectLevels += 1;
     totalStars += value;
   });
-  const speedRuns = save && save.speedRuns && typeof save.speedRuns === "object" ? save.speedRuns : {};
+  // R179: campaign cur is monotonic and equals the number of sequentially unlocked/completed levels.
+  // Use it as a floor so a previously damaged stars map cannot freeze Career Ranking at 301.
+  completedLevels = Math.max(completedLevels, Math.max(0, Math.min(LEADERBOARD_LEVEL_COUNT, Math.floor(Number(save && save.cur) || 0))));
+  const speedRuns = save ? plainMap(save.speedRuns) : {};
   let totalValidatedSolveTime = 0;
   LEADERBOARD_SPEED_LEVELS.forEach((level) => {
     const seconds = Number(speedRuns[level]);
@@ -1105,37 +1108,40 @@ async function executePendingSave(job, waiters) {
 const deletedProfileIds = new Set();
 let fullProfileWriteAllowed = null;
 let researchProfileWriteAllowed = null;
+function plainMap(value) {
+  return value && typeof value === "object" && !Array.isArray(value) ? value : {};
+}
 function profilePayload(save, profileId, includeFullProgress, includeResearch = true, ownerUid = uid) {
   const payload = {
     uid: ownerUid, profileId,
     playerName: cleanName(save.playerName),
     coins: Math.max(0, Math.floor(Number(save.coins) || 0)),
     maxCoins: Math.max(0, Math.floor(Number(save.maxCoins) || 0)),
-    disc: (save.disc && typeof save.disc === "object") ? save.disc : {},
-    achv: (save.achv && typeof save.achv === "object") ? save.achv : {},
-    speedRuns: (save.speedRuns && typeof save.speedRuns === "object") ? save.speedRuns : {},
-    bestMoves: (save.bestMoves && typeof save.bestMoves === "object") ? save.bestMoves : {},
+    disc: plainMap(save.disc),
+    achv: plainMap(save.achv),
+    speedRuns: plainMap(save.speedRuns),
+    bestMoves: plainMap(save.bestMoves),
     totalHints: Math.max(0, Math.floor(Number(save.totalHints) || 0)),
     dailyDate: String(save.dailyDate || ""),
     streak3: Math.max(0, Math.floor(Number(save.streak3) || 0)),
     // Store the complete supported UI language so a linked profile keeps its preference across devices.
-    lang: ["en","tr","de","es","pt","ja","fr","zh"].includes(save.lang) ? save.lang : "en",
+    lang: ["en","tr","de","es","pt","ja","fr","zh","it"].includes(save.lang) ? save.lang : "en",
     volM: Number(save.volM), volMu: Number(save.volMu), volS: Number(save.volS), volV: Number(save.volV),
     muM: !!save.muM, muMu: !!save.muMu, muS: !!save.muS, muV: !!save.muV, externalMusic: !!save.externalMusic, dpad: !!save.dpad,
     reduceMotion: !!save.reduceMotion, duelMessages: save.duelMessages !== false, duelEffects: save.duelEffects !== false,
     haptics: save.haptics !== false, effectLevel: ["low", "normal", "high"].includes(save.effectLevel) ? save.effectLevel : "normal",
     performanceMode: ["auto", "low", "high"].includes(save.performanceMode) ? save.performanceMode : "auto",
     largeText: !!save.largeText, colorBlind: !!save.colorBlind, highContrast: !!save.highContrast,
-    favoriteMolecules: (save.favoriteMolecules && typeof save.favoriteMolecules === "object") ? save.favoriteMolecules : {},
+    favoriteMolecules: plainMap(save.favoriteMolecules),
     collectionFilter: String(save.collectionFilter || "all").slice(0, 24),
-    storySeen: (save.storySeen && typeof save.storySeen === "object") ? save.storySeen : {},
+    storySeen: plainMap(save.storySeen),
     storySchema: Math.max(0, Math.floor(Number(save.storySchema) || 0)),
     accountMilestoneInviteSeen: !!save.accountMilestoneInviteSeen,
     accountMilestoneInviteLastLevel: Math.max(0, Math.floor(Number(save.accountMilestoneInviteLastLevel) || 0)),
     nobelCertificateShared: !!save.nobelCertificateShared,
-    duelRatedMatches: (save.duelRatedMatches && typeof save.duelRatedMatches === "object") ? save.duelRatedMatches : {},
-    duelRewards: (save.duelRewards && typeof save.duelRewards === "object") ? save.duelRewards : {},
-    duelRewardClaims: (save.duelRewardClaims && typeof save.duelRewardClaims === "object") ? save.duelRewardClaims : {},
+    duelRatedMatches: plainMap(save.duelRatedMatches),
+    duelRewards: plainMap(save.duelRewards),
+    duelRewardClaims: plainMap(save.duelRewardClaims),
     activeDuelFrame: String(save.activeDuelFrame || "frame_bronze").slice(0, 40),
     activeDuelTitle: String(save.activeDuelTitle || "").slice(0, 40),
     duelPeakRating: Math.max(800, Math.floor(Number(save.duelPeakRating) || 800)),
@@ -1149,9 +1155,9 @@ function profilePayload(save, profileId, includeFullProgress, includeResearch = 
     Object.assign(payload, {
       rpSchema: RP_SCHEMA,
       researchPoints: Math.max(0, Math.floor(Number(save.researchPoints) || 0)),
-      researchLevels: (save.researchLevels && typeof save.researchLevels === "object") ? save.researchLevels : {},
-      researchAchievements: (save.researchAchievements && typeof save.researchAchievements === "object") ? save.researchAchievements : {},
-      dailyScores: (save.dailyScores && typeof save.dailyScores === "object") ? save.dailyScores : {},
+      researchLevels: plainMap(save.researchLevels),
+      researchAchievements: plainMap(save.researchAchievements),
+      dailyScores: plainMap(save.dailyScores),
       dailyRPStreak: Math.max(0, Math.floor(Number(save.dailyRPStreak) || 0)),
       lastDailyRPDate: String(save.lastDailyRPDate || ""),
       seasonId: String(save.seasonId || ""),
@@ -1163,7 +1169,7 @@ function profilePayload(save, profileId, includeFullProgress, includeResearch = 
   if (includeFullProgress) {
     Object.assign(payload, {
       cur: Math.max(0, Math.floor(Number(save.cur) || 0)),
-      stars: (save.stars && typeof save.stars === "object") ? save.stars : {},
+      stars: plainMap(save.stars),
       seenFrozen: !!save.seenFrozen,
       seenFire: !!save.seenFire,
       seenSticky: !!save.seenSticky,
@@ -1202,8 +1208,8 @@ async function writeProgressTransaction(save, profileId, includeFullProgress, in
     const oldData = snap.exists() ? (snap.data() || {}) : {};
     const incoming = profilePayload(save, profileId, includeFullProgress, includeResearch, ownerUid);
     if (includeBestMoves) {
-      incoming.bonusClaims = (save.bonusClaims && typeof save.bonusClaims === "object") ? save.bonusClaims : {};
-      incoming.researchBonuses = (save.researchBonuses && typeof save.researchBonuses === "object") ? save.researchBonuses : {};
+      incoming.bonusClaims = plainMap(save.bonusClaims);
+      incoming.researchBonuses = plainMap(save.researchBonuses);
     } else delete incoming.bestMoves;
     const core = window.MXSyncCore;
     let merged = core && typeof core.mergeProfiles === "function" ?
