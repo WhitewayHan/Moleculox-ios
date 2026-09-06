@@ -8,7 +8,7 @@
     state='loading';
     promise=new Promise((resolve,reject)=>{
       const s=document.createElement('script');
-      s.src='js/expansion-science-bundle-r137.js?v=8.7.40-r143-ruthless-perf';
+      s.src='js/expansion-science-bundle-r137.js?v=8.7.96-r199-free-first-strategic-hint';
       s.async=true;
       s.onload=()=>{state='ready';window.MX_EXPANSION_SCIENCE_BUNDLE_READY=true;resolve(true);};
       s.onerror=()=>{state='error';promise=null;reject(new Error('Expansion science bundle failed to load'));};

@@ -628,8 +628,6 @@ body[data-mx-career-rank="xorigin-grand"]{--board-bg1:rgba(54,102,134,.72);--boa
   border:2px solid var(--board-border);
   box-shadow:0 0 0 1px rgba(0,0,0,.5),0 18px 40px rgba(0,0,0,.55),0 0 34px var(--board-glow),inset 0 0 22px rgba(0,0,0,.55);
 }
-@keyframes boardWinZoom{0%{transform:scale(1)}32%{transform:scale(1.035)}58%{transform:scale(1.035)}100%{transform:scale(1)}}
-#boardFrame.winzoom{animation:boardWinZoom .7s ease}
 #board{display:block;border-radius:15px;touch-action:none}
 #actionCol{
   position:absolute;right:4px;top:0;
@@ -2275,7 +2273,7 @@ body.bonusTier5 #logoSub{color:#ffe18a;text-shadow:0 0 14px rgba(255,208,80,.55)
 .effectLevelRow select{min-width:118px;border:1px solid rgba(130,210,255,.32);background:rgba(8,17,42,.82);color:#fff;border-radius:12px;padding:9px 30px 9px 11px;font-weight:850}
 .togRow span small{display:block;margin-top:3px;max-width:210px;font-size:9px;line-height:1.3;color:var(--dim)}
 .mxReduceMotion *,body.mxLowEffects *{scroll-behavior:auto!important}
-body.mxReduceMotion .winzoom,body.mxReduceMotion #lightRays,body.mxReduceMotion .breathe,body.mxReduceMotion .pulse,body.mxDuelEffectsOff #onlineMessageToast{animation:none!important;transform:none!important}
+body.mxReduceMotion #lightRays,body.mxReduceMotion .breathe,body.mxReduceMotion .pulse,body.mxDuelEffectsOff #onlineMessageToast{animation:none!important;transform:none!important}
 body.mxLowEffects .ambientParticle,body.mxLowEffects .labSteam,body.mxLowEffects .screenFx{display:none!important}
 body.mxAppPaused *{animation-play-state:paused!important}
 .onlineQuickMessages>div{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px!important}
@@ -2382,13 +2380,9 @@ body.mxMasterLab #boardFrame{border-color:rgba(255,210,82,.58);box-shadow:0 16px
 body.mxMasterLab #lvPill::before{content:"🏆 ";}
 body.mxMasterLab #lvPill{border-color:rgba(255,218,102,.55);color:#fff4bd;background:rgba(82,45,8,.72)}
 body.mxMasterLab #goalCard,body.mxMasterLab #goalBox{box-shadow:0 0 0 1px rgba(255,213,94,.2),0 8px 24px rgba(0,0,0,.28)}
-#boardFrame.winzoom{animation:mxFinalWinZoom .72s cubic-bezier(.18,.88,.24,1) both}
-@keyframes mxFinalWinZoom{0%{transform:scale(1)}38%{transform:scale(1.018);filter:brightness(1.14) saturate(1.08)}100%{transform:scale(1);filter:none}}
 #bannerWrap.on #banner{animation:mxBannerPop .65s cubic-bezier(.16,.9,.24,1) both}
 @keyframes mxBannerPop{0%{opacity:0;transform:translateY(12px) scale(.82);letter-spacing:.12em}52%{opacity:1;transform:translateY(-2px) scale(1.05)}100%{transform:none}}
 body.mxMasterLab #bannerWrap.on #banner{text-shadow:0 0 12px rgba(255,221,106,.8),0 2px 0 rgba(0,0,0,.35)}
-body.mxReduceMotion #boardFrame.winzoom,body.mxReduceMotion #bannerWrap.on #banner{animation:none!important}
-@media(prefers-reduced-motion:reduce){#boardFrame.winzoom,#bannerWrap.on #banner{animation:none!important}}
 
 
 /* V5.25 — adaptive performance and low-power rendering */
@@ -4426,35 +4420,9 @@ body.tutorialMode #coinChip{
 .mxTrainingCell{min-width:48px!important;height:48px!important;padding:0!important}
 
 
-/* V8.5.42 — 301 unique campaign completion choreographies.
-   The chemistry effect family remains recognizable while the board and title
-   receive a deterministic level-specific motion recipe. */
-#board.mxLevelWin{transform-origin:50% 50%;will-change:transform,filter}
-#board.mxLevelWin[data-win-motion="pulse"]{animation:mxLvlPulse 1.05s cubic-bezier(.2,.85,.25,1) both}
-#board.mxLevelWin[data-win-motion="tilt-left"]{animation:mxLvlTiltLeft 1.05s cubic-bezier(.2,.85,.25,1) both}
-#board.mxLevelWin[data-win-motion="tilt-right"]{animation:mxLvlTiltRight 1.05s cubic-bezier(.2,.85,.25,1) both}
-#board.mxLevelWin[data-win-motion="breathe"]{animation:mxLvlBreathe 1.12s ease both}
-#board.mxLevelWin[data-win-motion="snap"]{animation:mxLvlSnap .96s cubic-bezier(.12,.9,.22,1.18) both}
-#board.mxLevelWin[data-win-motion="float"]{animation:mxLvlFloat 1.12s ease both}
-#board.mxLevelWin[data-win-motion="prism"]{animation:mxLvlPrism 1.14s cubic-bezier(.18,.86,.24,1) both}
-#board.mxLevelWin[data-win-motion="charge"]{animation:mxLvlCharge 1.08s cubic-bezier(.18,.86,.24,1) both}
-#board.mxLevelWin[data-win-motion="wave"]{animation:mxLvlWave 1.04s ease both}
-#board.mxLevelWin[data-win-motion="elastic"]{animation:mxLvlElastic 1.08s cubic-bezier(.18,1.25,.3,1) both}
-#board.mxLevelWin[data-win-motion="focus"]{animation:mxLvlFocus 1.08s cubic-bezier(.18,.86,.24,1) both}
-#board.mxLevelWin[data-win-motion="orbit"]{animation:mxLvlOrbit 1.08s cubic-bezier(.18,.86,.24,1) both}
-@keyframes mxLvlPulse{0%{transform:scale(1)}28%{transform:scale(1.025)}52%{transform:scale(.992)}100%{transform:none}}
-@keyframes mxLvlTiltLeft{0%{transform:none}32%{transform:rotate(-1.4deg) scale(1.018)}58%{transform:rotate(.5deg) scale(.996)}100%{transform:none}}
-@keyframes mxLvlTiltRight{0%{transform:none}32%{transform:rotate(1.4deg) scale(1.018)}58%{transform:rotate(-.5deg) scale(.996)}100%{transform:none}}
-@keyframes mxLvlBreathe{0%{transform:scale(1);filter:none}42%{transform:scale(1.018);filter:brightness(1.16) saturate(1.12)}100%{transform:none;filter:none}}
-@keyframes mxLvlSnap{0%{transform:scale(1)}23%{transform:scale(.985,.965)}48%{transform:scale(1.028,1.04)}100%{transform:none}}
-@keyframes mxLvlFloat{0%{transform:none}36%{transform:translateY(-5px) scale(1.012)}66%{transform:translateY(2px) scale(.998)}100%{transform:none}}
-@keyframes mxLvlPrism{0%{transform:none;filter:none}35%{transform:scale(1.02) rotate(var(--mx-level-spin,1deg));filter:hue-rotate(18deg) brightness(1.14)}68%{transform:scale(.998) rotate(var(--mx-level-spin-back,-.3deg));filter:hue-rotate(-8deg)}100%{transform:none;filter:none}}
-@keyframes mxLvlCharge{0%{transform:none;filter:none}18%{filter:brightness(1.32) contrast(1.12)}38%{transform:scale(1.022);filter:brightness(1.12) saturate(1.28)}65%{transform:scale(.996)}100%{transform:none;filter:none}}
-@keyframes mxLvlWave{0%{transform:none}26%{transform:skewX(-.7deg) scale(1.012)}50%{transform:skewX(.7deg) scale(1.018)}76%{transform:skewX(-.25deg) scale(.998)}100%{transform:none}}
-@keyframes mxLvlElastic{0%{transform:none}24%{transform:scale(1.035,.975)}48%{transform:scale(.99,1.025)}70%{transform:scale(1.012,.994)}100%{transform:none}}
-@keyframes mxLvlFocus{0%{transform:scale(.992);filter:blur(.35px)}34%{transform:scale(1.026);filter:brightness(1.18)}100%{transform:none;filter:none}}
-@keyframes mxLvlOrbit{0%{transform:none}30%{transform:translate(2px,-2px) rotate(.65deg) scale(1.014)}58%{transform:translate(-2px,1px) rotate(-.55deg) scale(1.008)}100%{transform:none}}
-
+/* V8.5.42 / R186 — deterministic completion choreography.
+   Chemistry particles, title/banner motion and audio remain; the puzzle board
+   itself is deliberately stationary to avoid shake/tilt and compositor work. */
 #bannerWrap.on[data-motion="rise"] #banner{animation:mxLvlBannerRise .72s cubic-bezier(.16,.9,.24,1) both}
 #bannerWrap.on[data-motion="drop"] #banner{animation:mxLvlBannerDrop .72s cubic-bezier(.16,.9,.24,1) both}
 #bannerWrap.on[data-motion="tilt"] #banner{animation:mxLvlBannerTilt .74s cubic-bezier(.16,.9,.24,1) both}
@@ -4474,8 +4442,8 @@ body.tutorialMode #coinChip{
 @keyframes mxLvlBannerWave{0%{opacity:0;transform:translateX(-26px) skewX(-8deg) scale(.88)}56%{opacity:1;transform:translateX(4px) skewX(2deg) scale(1.04)}100%{transform:none}}
 @keyframes mxLvlBannerElastic{0%{opacity:0;transform:scale(.7,1.28)}45%{opacity:1;transform:scale(1.08,.94)}68%{transform:scale(.98,1.03)}100%{transform:none}}
 @keyframes mxLvlBannerFocus{0%{opacity:0;transform:scale(1.25);filter:blur(7px)}58%{opacity:1;transform:scale(.98);filter:blur(0)}100%{transform:none}}
-body.mxReduceMotion #board.mxLevelWin,body.mxReduceMotion #bannerWrap.on[data-motion] #banner{animation:none!important;transform:none!important;filter:none!important}
-@media(prefers-reduced-motion:reduce){#board.mxLevelWin,#bannerWrap.on[data-motion] #banner{animation:none!important;transform:none!important;filter:none!important}}
+body.mxReduceMotion #bannerWrap.on[data-motion] #banner{animation:none!important;transform:none!important;filter:none!important}
+@media(prefers-reduced-motion:reduce){#bannerWrap.on[data-motion] #banner{animation:none!important;transform:none!important;filter:none!important}}
 
 /* ================= V8.5.46 — EVENT-DRIVEN IN-GAME DR. E =================
    Main-menu Dr. E is untouched. Game poses share the approved 468x520 canvas,
@@ -11362,10 +11330,12 @@ body.mxGameplayActive.mxCrystalEra #bgB::after{
 .mxTrainingToken.backbone::after{left:8px;top:10px;width:22px;height:18px;border-bottom:2px solid #dffaff;transform:rotate(40deg);transform-origin:left top}
 
 
-/* ================= R136 ATOMIC LEVEL REVEAL ================= */
-/* Keep layout dimensions reserved while a level is being prepared. Visibility, not display,
-   prevents any right-column reflow and guarantees board + controls appear in one paint. */
-#gameScr.mxLevelPreparing #boardWrap{visibility:hidden!important}
+/* ================= R184 ATOMIC LEVEL REVEAL ================= */
+/* Keep board dimensions reserved while a level is prepared, but do not hide the action rail.
+   Tool availability is resolved synchronously before show('game'), so the right controls can
+   be visible immediately instead of appearing a frame or two after heavy special boards. */
+#gameScr.mxLevelPreparing #boardFrame{visibility:hidden!important}
+#gameScr.mxLevelPreparing #actionCol{visibility:visible!important;opacity:1!important}
 
 /* R140 · atomic action-column reveal + thermal budget.
    Controls keep their final geometry from the very first visible puzzle frame.
@@ -11812,3 +11782,363 @@ body.mxNative #campaign501Badge{font-size:9.5px;margin-top:6px}
 
 /* ================= R176 SUPPORT-RAIL UI HOTFIX ================= */
 #btnBarrier .barrierCount:empty{display:none!important}
+
+
+/* R179 REV4 · persistent per-level mechanic legend. Static, no idle animation. */
+.mxLevelMechanicBar{display:flex;align-items:center;justify-content:center;gap:4px;max-width:min(56vw,430px);min-height:30px;margin:3px auto 2px;padding:3px 5px;border-radius:12px;background:rgba(7,15,32,.48);border:1px solid rgba(122,229,255,.18);overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;white-space:nowrap}
+.mxLevelMechanicBar::-webkit-scrollbar{display:none}.mxLevelMechanicBar[hidden]{display:none!important}
+.mxLevelMechanicChip{flex:0 0 27px;width:27px;height:27px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.16);border-radius:9px;background:rgba(20,32,58,.88);box-shadow:inset 0 0 0 1px rgba(0,0,0,.14);padding:0;margin:0;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.mxLevelMechanicChip span{font-size:16px;line-height:1;filter:none}.mxLevelMechanicChip:active{transform:scale(.94)}
+@media(max-width:700px){.mxLevelMechanicBar{max-width:64vw;gap:3px;padding:2px 4px;min-height:28px}.mxLevelMechanicChip{flex-basis:25px;width:25px;height:25px;border-radius:8px}.mxLevelMechanicChip span{font-size:15px}}
+body.reduceMotion .mxLevelMechanicChip,body.performanceLow .mxLevelMechanicChip{transition:none!important;animation:none!important}
+
+
+/* R182 — retained safety/accessibility styles that do not alter the restored R179 game layout. */
+#gameScr #board:focus-visible,button:focus-visible,[role="button"]:focus-visible{
+  outline:3px solid #ffe78d;
+  outline-offset:3px;
+}
+#localSaveStatus{
+  position:fixed;
+  top:calc(var(--sat,0px) + 5px);
+  left:50%;
+  transform:translateX(-50%);
+  z-index:15000;
+  width:min(88vw,420px);
+  padding:10px 14px;
+  border-radius:12px;
+  background:#491d2b;
+  color:#fff4e7;
+  font:700 13px/1.35 system-ui;
+  box-shadow:0 4px 16px #0008;
+}
+#localSaveStatus[hidden]{display:none}
+#localSaveStatus button{
+  margin-left:8px;
+  min-height:36px;
+  border:1px solid #ffdab5;
+  border-radius:7px;
+  background:#762d44;
+  color:#fff;
+  padding:4px 10px;
+}
+.researchPatternLabel{font-size:11px;line-height:1.4;opacity:.9}
+
+/* ============================================================
+   R183 FINAL — paid-hint mobile layout repair.
+   Scope is intentionally limited to the paid-hint modal so the restored
+   R179 board / touch / Dr. E geometry cannot be disturbed.
+   ============================================================ */
+#modalBox .mrow.mxHintBuyRows{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  align-items:stretch!important;
+  justify-items:stretch!important;
+  gap:10px!important;
+  width:100%!important;
+}
+#modalBox .mrow.mxHintBuyRows>.btn.mxHintPriceBtn{
+  grid-column:1 / -1!important;
+  width:100%!important;
+  min-width:0!important;
+  min-height:60px!important;
+  height:60px!important;
+  max-height:60px!important;
+  margin:0!important;
+  padding:8px 12px!important;
+  box-sizing:border-box!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) auto!important;
+  align-items:center!important;
+  justify-items:stretch!important;
+  column-gap:10px!important;
+  text-align:left!important;
+  white-space:normal!important;
+}
+#modalBox .mrow.mxHintBuyRows>.btn.mxHintPriceBtn>span:first-child{
+  min-width:0!important;
+  max-width:100%!important;
+  font-size:clamp(12.5px,3.55vw,14.5px)!important;
+  line-height:1.08!important;
+  letter-spacing:.15px!important;
+  text-align:left!important;
+  white-space:normal!important;
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+  hyphens:none!important;
+  text-wrap:balance;
+}
+#modalBox .mrow.mxHintBuyRows>.btn.mxHintPriceBtn>span:last-child{
+  min-width:66px!important;
+  max-width:86px!important;
+  justify-self:end!important;
+  justify-content:flex-end!important;
+  font-size:clamp(12px,3.25vw,14px)!important;
+  line-height:1!important;
+  white-space:nowrap!important;
+}
+#modalBox .mrow.mxHintBuyRows>.btn.mxHintPriceBtn[disabled],
+#modalBox .mrow.mxHintBuyRows>.btn.mxHintPriceBtn.disabled{
+  min-height:60px!important;
+  height:60px!important;
+  max-height:60px!important;
+}
+#modalBox .mrow.mxHintBuyRows>small{
+  grid-column:1 / -1!important;
+  width:100%!important;
+  margin:0!important;
+  padding:0 6px!important;
+  box-sizing:border-box!important;
+}
+#modalBox .mrow.mxHintBuyRows>#mHintShop,
+#modalBox .mrow.mxHintBuyRows>#mHintCancel{
+  width:100%!important;
+  min-width:0!important;
+  min-height:52px!important;
+  height:52px!important;
+  max-height:52px!important;
+  margin:0!important;
+  padding:8px 8px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+  font-size:clamp(12px,3.35vw,14.5px)!important;
+  line-height:1.08!important;
+  white-space:normal!important;
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+}
+@media(max-width:340px){
+  #modalBox .mrow.mxHintBuyRows>.btn.mxHintPriceBtn{
+    min-height:64px!important;height:64px!important;max-height:64px!important;
+    padding-left:10px!important;padding-right:10px!important;column-gap:7px!important;
+  }
+  #modalBox .mrow.mxHintBuyRows>.btn.mxHintPriceBtn>span:first-child{font-size:11.8px!important}
+  #modalBox .mrow.mxHintBuyRows>.btn.mxHintPriceBtn>span:last-child{min-width:60px!important;font-size:11.5px!important}
+}
+
+
+/* ================= R187 PERFECT 3-STAR BOARD CELEBRATION =================
+   Short, one-shot, transform-only motion. No filter/blur, no infinite loop and no
+   JavaScript per-frame animation. R186's gameplay shake remains removed. */
+#boardFrame:is(.mxPerfectOrbit,.mxPerfectWave,.mxPerfectFloat,.mxPerfectSnap){
+  transform-origin:50% 50%;
+  will-change:transform;
+}
+#boardFrame.mxPerfectOrbit{animation:mxPerfectOrbit .82s cubic-bezier(.18,.78,.22,1) both}
+#boardFrame.mxPerfectWave{animation:mxPerfectWave .78s cubic-bezier(.2,.8,.22,1) both}
+#boardFrame.mxPerfectFloat{animation:mxPerfectFloat .84s cubic-bezier(.18,.82,.24,1) both}
+#boardFrame.mxPerfectSnap{animation:mxPerfectSnap .72s cubic-bezier(.16,.92,.22,1) both}
+@keyframes mxPerfectOrbit{
+  0%,100%{transform:translate3d(0,0,0) rotate(0deg) scale(1)}
+  24%{transform:translate3d(2px,-3px,0) rotate(.85deg) scale(1.008)}
+  50%{transform:translate3d(3px,1px,0) rotate(1.15deg) scale(1.012)}
+  74%{transform:translate3d(-2px,2px,0) rotate(-.7deg) scale(1.006)}
+}
+@keyframes mxPerfectWave{
+  0%,100%{transform:translate3d(0,0,0) rotate(0deg) scale(1)}
+  22%{transform:translate3d(-3px,0,0) rotate(-1deg) scale(1.006)}
+  48%{transform:translate3d(3px,-1px,0) rotate(1deg) scale(1.01)}
+  72%{transform:translate3d(-2px,0,0) rotate(-.55deg) scale(1.004)}
+}
+@keyframes mxPerfectFloat{
+  0%,100%{transform:translate3d(0,0,0) scale(1)}
+  38%{transform:translate3d(0,-5px,0) scale(1.012)}
+  68%{transform:translate3d(0,1px,0) scale(1.004)}
+}
+@keyframes mxPerfectSnap{
+  0%,100%{transform:translate3d(0,0,0) scale(1)}
+  32%{transform:translate3d(0,-1px,0) scale(1.024)}
+  58%{transform:translate3d(0,1px,0) scale(.994)}
+  78%{transform:translate3d(0,0,0) scale(1.008)}
+}
+@media (prefers-reduced-motion:reduce){
+  #boardFrame:is(.mxPerfectOrbit,.mxPerfectWave,.mxPerfectFloat,.mxPerfectSnap){animation:none!important;will-change:auto!important}
+}
+body.mxReduceMotion #boardFrame:is(.mxPerfectOrbit,.mxPerfectWave,.mxPerfectFloat,.mxPerfectSnap),
+body.mxPerfLow #boardFrame:is(.mxPerfectOrbit,.mxPerfectWave,.mxPerfectFloat,.mxPerfectSnap){animation:none!important;will-change:auto!important}
+
+
+/* ================= R188 RESULT MOLECULE — CELEBRATE, THEN IDLE =================
+   0–6 s: keep the existing lively atom/ring speeds exactly as authored.
+   6–7 s: one intermediate deceleration step.
+   7 s onward: slow, continuous transform-only idle motion.
+   The phase-matched negative delays avoid a visible angle snap when changing
+   speed. No filter/blur is added and no JavaScript runs per frame. */
+#modalBox.winResultModal.mxResultIdleMid .mxResultOrbit span{
+  animation-name:mxResultAtomGlyphSpinMid!important;
+  animation-duration:7.6s!important;
+  animation-timing-function:linear!important;
+  animation-delay:-4.4s!important;
+  animation-iteration-count:infinite!important;
+  animation-direction:normal!important;
+}
+#modalBox.winResultModal.mxResultIdleMid .mxResultMolecule::before{
+  animation-name:mxResultRingAMid!important;
+  animation-duration:9.2s!important;
+  animation-timing-function:linear!important;
+  animation-delay:-2.8s!important;
+  animation-iteration-count:infinite!important;
+  animation-direction:normal!important;
+}
+#modalBox.winResultModal.mxResultIdleMid .mxResultMolecule::after{
+  animation-name:mxResultRingBMid!important;
+  animation-duration:11.6s!important;
+  animation-timing-function:linear!important;
+  animation-delay:-.4s!important;
+  animation-iteration-count:infinite!important;
+  animation-direction:reverse!important;
+}
+#modalBox.winResultModal.mxResultIdleSlow .mxResultOrbit span{
+  animation-name:mxResultAtomGlyphSpinSlow!important;
+  animation-duration:11.4s!important;
+  animation-timing-function:linear!important;
+  animation-delay:-8.1s!important;
+  animation-iteration-count:infinite!important;
+  animation-direction:normal!important;
+}
+#modalBox.winResultModal.mxResultIdleSlow .mxResultMolecule::before{
+  animation-name:mxResultRingASlow!important;
+  animation-duration:13.8s!important;
+  animation-timing-function:linear!important;
+  animation-delay:-5.7s!important;
+  animation-iteration-count:infinite!important;
+  animation-direction:normal!important;
+}
+#modalBox.winResultModal.mxResultIdleSlow .mxResultMolecule::after{
+  animation-name:mxResultRingBSlow!important;
+  animation-duration:17.4s!important;
+  animation-timing-function:linear!important;
+  animation-delay:-2.1s!important;
+  animation-iteration-count:infinite!important;
+  animation-direction:reverse!important;
+}
+@keyframes mxResultAtomGlyphSpinMid{
+  from{transform:rotate(0deg) scale(1)}
+  50%{transform:rotate(180deg) scale(1.035)}
+  to{transform:rotate(360deg) scale(1)}
+}
+@keyframes mxResultRingAMid{from{transform:rotate(55deg)}to{transform:rotate(415deg)}}
+@keyframes mxResultRingBMid{from{transform:rotate(-55deg)}to{transform:rotate(305deg)}}
+@keyframes mxResultAtomGlyphSpinSlow{
+  from{transform:rotate(0deg) scale(1)}
+  50%{transform:rotate(180deg) scale(1.035)}
+  to{transform:rotate(360deg) scale(1)}
+}
+@keyframes mxResultRingASlow{from{transform:rotate(55deg)}to{transform:rotate(415deg)}}
+@keyframes mxResultRingBSlow{from{transform:rotate(-55deg)}to{transform:rotate(305deg)}}
+@media(prefers-reduced-motion:reduce){
+  #modalBox.winResultModal.mxResultIdleMid .mxResultOrbit span,
+  #modalBox.winResultModal.mxResultIdleSlow .mxResultOrbit span,
+  #modalBox.winResultModal.mxResultIdleMid .mxResultMolecule::before,
+  #modalBox.winResultModal.mxResultIdleMid .mxResultMolecule::after,
+  #modalBox.winResultModal.mxResultIdleSlow .mxResultMolecule::before,
+  #modalBox.winResultModal.mxResultIdleSlow .mxResultMolecule::after{animation:none!important}
+}
+body.mxReduceMotion #modalBox.winResultModal.mxResultIdleMid .mxResultOrbit span,
+body.mxReduceMotion #modalBox.winResultModal.mxResultIdleSlow .mxResultOrbit span,
+body.mxReduceMotion #modalBox.winResultModal.mxResultIdleMid .mxResultMolecule::before,
+body.mxReduceMotion #modalBox.winResultModal.mxResultIdleMid .mxResultMolecule::after,
+body.mxReduceMotion #modalBox.winResultModal.mxResultIdleSlow .mxResultMolecule::before,
+body.mxReduceMotion #modalBox.winResultModal.mxResultIdleSlow .mxResultMolecule::after{animation:none!important}
+\n\n/* ================= R196 · UNIFIED BOARD / ATOM / GOAL GEOMETRY =================\n   Every campaign level is an 8x10 board. The HUD now reserves one stable amount of\n   vertical space on a given device, so Catalyst/Chain/Reactor/Enzyme/Bio counters\n   cannot change board scale or cover the top of the board. Goal-card dimensions are\n   fixed per viewport breakpoint and all contents are clipped/fitted inside the card. */\n:root{--mx-game-hud-content-h:178px}\n@media(max-width:520px){:root{--mx-game-hud-content-h:166px}}\n@media(max-width:390px){:root{--mx-game-hud-content-h:162px}}\n\n#gameScr #hud{\n  flex:0 0 calc(var(--sat) + var(--mx-game-hud-content-h))!important;\n  height:calc(var(--sat) + var(--mx-game-hud-content-h))!important;\n  min-height:calc(var(--sat) + var(--mx-game-hud-content-h))!important;\n  max-height:calc(var(--sat) + var(--mx-game-hud-content-h))!important;\n  align-items:flex-start!important;\n  overflow:visible!important;\n}\n#gameScr #hudMid{\n  height:100%!important;min-height:0!important;max-height:100%!important;\n  justify-content:flex-start!important;gap:3px!important;overflow:visible!important;\n}\n#gameScr #lvPill{\n  flex:0 0 auto!important;max-height:2.2em!important;overflow:hidden!important;\n  display:-webkit-box!important;-webkit-box-orient:vertical!important;-webkit-line-clamp:2!important;\n}\n#gameScr #starRow{flex:0 0 auto!important}\n#gameScr #movePill,#gameScr #duelTimer{flex:0 0 auto!important;padding-top:3px!important;padding-bottom:3px!important}\n#gameScr #levelMechanicBar{flex:0 0 auto!important;margin:1px auto!important;min-height:26px!important;max-height:28px!important}\n#gameScr #crystalCounter,#gameScr #chainCounter,#gameScr #reactorCounter{\n  flex:0 0 auto!important;max-width:100%!important;box-sizing:border-box!important;margin:0 auto!important;\n}\n#gameScr #crystalCounter{padding:2px 4px!important;gap:3px!important}\n#gameScr #crystalCounter .mxComponentHudItem{min-width:36px!important;width:36px!important;height:32px!important;border-radius:9px!important}\n#gameScr #crystalCounter .mxComponentHudCanvas{max-width:30px!important;max-height:30px!important}\n#gameScr #crystalCounter .mxComponentHudItem b{width:12px!important;height:12px!important;font-size:9px!important}\n\n/* Goal frame: never stretches to the height of a special HUD objective. */\n#gameScr #goalCard{\n  flex:0 0 auto!important;align-self:flex-start!important;\n  width:122px!important;min-width:122px!important;height:152px!important;min-height:152px!important;max-height:152px!important;\n  padding:8px 7px 9px!important;gap:2px!important;overflow:hidden!important;\n}\n#gameScr #goalCv{\n  flex:0 0 76px!important;width:100px!important;height:76px!important;max-width:100%!important;max-height:76px!important;\n  object-fit:contain!important;overflow:hidden!important;\n}\n#gameScr #goalName{\n  flex:0 0 auto!important;width:100%!important;max-width:100%!important;min-width:0!important;\n  min-height:1.1em!important;max-height:2.2em!important;margin:0!important;padding:0 2px!important;\n  display:-webkit-box!important;-webkit-box-orient:vertical!important;-webkit-line-clamp:2!important;\n  overflow:hidden!important;text-overflow:clip!important;overflow-wrap:anywhere!important;hyphens:auto!important;\n  text-align:center!important;box-sizing:border-box!important;\n}\n#gameScr #goalName.mxGoalNameS{font-size:12.5px!important}\n#gameScr #goalName.mxGoalNameM{font-size:11.5px!important}\n#gameScr #goalName.mxGoalNameL{font-size:10.3px!important;line-height:1.04!important}\n#gameScr #goalName.mxGoalNameXL{font-size:9.2px!important;line-height:1.02!important;letter-spacing:-.15px!important}\n#gameScr #goalFor{\n  flex:0 0 auto!important;width:100%!important;max-width:100%!important;min-width:0!important;\n  margin:0!important;padding:0 2px!important;overflow:hidden!important;text-overflow:clip!important;\n  white-space:nowrap!important;text-align:center!important;box-sizing:border-box!important;\n}\n\n@media(max-width:520px){\n  #gameScr #goalCard{\n    width:108px!important;min-width:108px!important;height:138px!important;min-height:138px!important;max-height:138px!important;padding:6px!important;\n  }\n  #gameScr #goalCv{flex-basis:65px!important;width:88px!important;height:65px!important;max-height:65px!important}\n  #gameScr #goalName.mxGoalNameS{font-size:10.5px!important}\n  #gameScr #goalName.mxGoalNameM{font-size:10px!important}\n  #gameScr #goalName.mxGoalNameL{font-size:9px!important}\n  #gameScr #goalName.mxGoalNameXL{font-size:8.2px!important}\n}\n@media(max-width:390px){\n  #gameScr #goalCard{\n    width:96px!important;min-width:96px!important;height:128px!important;min-height:128px!important;max-height:128px!important;padding:6px 5px!important;\n  }\n  #gameScr #goalCv{flex-basis:56px!important;width:76px!important;height:56px!important;max-height:56px!important}\n  #gameScr #goalName.mxGoalNameS{font-size:10px!important}\n  #gameScr #goalName.mxGoalNameM{font-size:9.4px!important}\n  #gameScr #goalName.mxGoalNameL{font-size:8.5px!important}\n  #gameScr #goalName.mxGoalNameXL{font-size:7.7px!important;letter-spacing:-.2px!important}\n  #gameScr #lvPill{font-size:13.5px!important;line-height:1.04!important}\n  #gameScr #starRow{font-size:19px!important}\n  #gameScr #movePill,#gameScr #duelTimer{font-size:11px!important}\n  #gameScr #levelMechanicBar{min-height:24px!important;max-height:25px!important}\n  #gameScr #levelMechanicBar .mxLevelMechanicChip{width:22px!important;height:22px!important;flex-basis:22px!important}\n  #gameScr #crystalCounter .mxComponentHudItem{min-width:33px!important;width:33px!important;height:30px!important}\n  #gameScr #crystalCounter .mxComponentHudCanvas{max-width:28px!important;max-height:28px!important}\n}\n/* R196: the GOAL frame itself never changes scale/position during gameplay. */
+#gameScr #goalCard,
+#gameScr #goalCard.goalPop,
+#gameScr #goalCard.mxGoalBreath,
+#gameScr #goalCard.mxGoalNear,
+#gameScr #goalCard.mxGoalSuccess,
+#gameScr #goalCard.mxGoalLastMove,
+#gameScr #goalCard.mxGoalLastMove.mxGoalLastMovePulse{
+  transform:none!important;
+  animation:none!important;
+}
+
+
+/* ================= R197 · STANDARD GOAL CONTENT =================
+   GOAL card dimensions remain exactly the R196 fixed breakpoint sizes.
+   Typography is now uniform across all levels on the same device. Long localized
+   molecule names wrap inside a reserved area; they never trigger a smaller font or
+   a taller card. The molecule canvas also stays fixed; drawMol() uses one standard
+   atom scale and only scales the entire molecule DOWN when its geometry is too large. */
+#gameScr #goalCard{
+  overflow:hidden!important;
+}
+#gameScr #goalCv{
+  flex:0 0 70px!important;
+  width:100px!important;height:70px!important;max-height:70px!important;
+}
+#gameScr #goalName,
+#gameScr #goalName.mxGoalNameFixed,
+#gameScr #goalName.mxGoalNameS,
+#gameScr #goalName.mxGoalNameM,
+#gameScr #goalName.mxGoalNameL,
+#gameScr #goalName.mxGoalNameXL{
+  flex:0 0 30px!important;height:30px!important;min-height:30px!important;max-height:30px!important;
+  width:100%!important;max-width:100%!important;min-width:0!important;
+  margin:0!important;padding:0 2px!important;box-sizing:border-box!important;
+  font-size:10.5px!important;line-height:1.02!important;font-weight:900!important;letter-spacing:0!important;
+  display:-webkit-box!important;-webkit-box-orient:vertical!important;-webkit-line-clamp:3!important;
+  overflow:hidden!important;text-overflow:clip!important;overflow-wrap:anywhere!important;word-break:normal!important;hyphens:auto!important;
+  text-align:center!important;
+}
+#gameScr #goalFor,
+#gameScr #goalFor.mxFormulaFixed,
+#gameScr #goalFor.mxFormulaS,
+#gameScr #goalFor.mxFormulaM,
+#gameScr #goalFor.mxFormulaL,
+#gameScr #goalFor.mxFormulaXL{
+  flex:0 0 13px!important;height:13px!important;min-height:13px!important;max-height:13px!important;
+  width:100%!important;max-width:100%!important;min-width:0!important;
+  margin:0!important;padding:0 2px!important;box-sizing:border-box!important;
+  font-size:12px!important;line-height:13px!important;font-weight:800!important;letter-spacing:0!important;
+  white-space:nowrap!important;overflow:hidden!important;text-overflow:clip!important;text-align:center!important;
+}
+@media(max-width:520px){
+  #gameScr #goalCv{flex-basis:61px!important;width:88px!important;height:61px!important;max-height:61px!important}
+  #gameScr #goalName,
+  #gameScr #goalName.mxGoalNameFixed,
+  #gameScr #goalName.mxGoalNameS,
+  #gameScr #goalName.mxGoalNameM,
+  #gameScr #goalName.mxGoalNameL,
+  #gameScr #goalName.mxGoalNameXL{
+    flex-basis:27px!important;height:27px!important;min-height:27px!important;max-height:27px!important;
+    font-size:9.2px!important;line-height:1.02!important;
+  }
+  #gameScr #goalFor,
+  #gameScr #goalFor.mxFormulaFixed,
+  #gameScr #goalFor.mxFormulaS,
+  #gameScr #goalFor.mxFormulaM,
+  #gameScr #goalFor.mxFormulaL,
+  #gameScr #goalFor.mxFormulaXL{
+    flex-basis:11px!important;height:11px!important;min-height:11px!important;max-height:11px!important;
+    font-size:10.5px!important;line-height:11px!important;
+  }
+}
+@media(max-width:390px){
+  #gameScr #goalCv{flex-basis:52px!important;width:76px!important;height:52px!important;max-height:52px!important}
+  #gameScr #goalName,
+  #gameScr #goalName.mxGoalNameFixed,
+  #gameScr #goalName.mxGoalNameS,
+  #gameScr #goalName.mxGoalNameM,
+  #gameScr #goalName.mxGoalNameL,
+  #gameScr #goalName.mxGoalNameXL{
+    flex-basis:25px!important;height:25px!important;min-height:25px!important;max-height:25px!important;
+    font-size:8.4px!important;line-height:1.01!important;
+  }
+  #gameScr #goalFor,
+  #gameScr #goalFor.mxFormulaFixed,
+  #gameScr #goalFor.mxFormulaS,
+  #gameScr #goalFor.mxFormulaM,
+  #gameScr #goalFor.mxFormulaL,
+  #gameScr #goalFor.mxFormulaXL{
+    flex-basis:10px!important;height:10px!important;min-height:10px!important;max-height:10px!important;
+    font-size:9.5px!important;line-height:10px!important;
+  }
+}
+
+
+/* ================= R198 · GOAL MOLECULE SCALE =================
+   Frame dimensions, typography and reserved regions are intentionally unchanged
+   from R197. Only drawMol()'s standard GOAL molecule scale is larger; oversized
+   geometries still fit down proportionally inside the existing canvas. */

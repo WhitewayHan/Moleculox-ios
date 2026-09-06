@@ -1,0 +1,11 @@
+MOLECULOX R200 / v8.7.97 — IOS CODEMAGIC PAKETI
+
+- R200 web/gameplay kaynakları native pakete taşındı.
+- 501 bölüm kampanyası, R195 çözüm/hint bütünlüğü ve R199 bölüm başına ilk ücretsiz Stratejik İpucu korunur.
+- R196–R198 standart tahta / Goal / atom ölçeği korunur.
+- R200 büyük, seyrek, menü stilinde taş doodle sistemi korunur.
+- Bildirim runtime'ı yoktur.
+- Native PWA service worker derlenen uygulamadan kaldırılır.
+- iOS: Apple + Google + e-posta; Apple butonu yalnız native iOS'ta görünür.
+- Android: Google + e-posta; Apple girişi kapalıdır.
+- Codemagic, native projeyi temizden oluşturur.

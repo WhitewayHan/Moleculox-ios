@@ -3,6 +3,8 @@
    No Firebase / online access. */
 (function(root){
 'use strict';
+if(!root.MXMovementCore){if(typeof require==='function')root.MXMovementCore=require('./movement-core.js');else if(typeof importScripts==='function')importScripts('movement-core.js?v=r187');}
+const movement=root.MXMovementCore;
 const DIRS=[[0,-1],[1,0],[0,1],[-1,0]];
 const kxy=(x,y)=>x+','+y;
 const clone=o=>JSON.parse(JSON.stringify(o));
@@ -25,13 +27,30 @@ function targetAdjacency(targetKey){
   let n=0;for(let i=0;i<cells.length;i++)for(let j=i+1;j<cells.length;j++)if(Math.abs(cells[i].x-cells[j].x)+Math.abs(cells[i].y-cells[j].y)===1)n++;return n;
 }
 function adjacencyCount(atoms){let n=0;for(let i=0;i<atoms.length;i++)for(let j=i+1;j<atoms.length;j++)if(Math.abs(atoms[i].x-atoms[j].x)+Math.abs(atoms[i].y-atoms[j].y)===1)n++;return n;}
-function heuristic(s,targetKey,targetAdj){
-  if(normGoal(s.atoms)===targetKey){const miss=(s.crystals||[]).reduce((n,c)=>n+(c.collected?0:1),0);return miss;}
-  const adj=adjacencyCount(s.atoms),missCrystal=(s.crystals||[]).reduce((n,c)=>n+(c.collected?0:1),0);
-  return Math.max(1,Math.abs(targetAdj-adj))+missCrystal;
+let goalLayoutCache=null;
+function goalLayouts(targetKey,w,h){
+  const key=targetKey+'@'+w+','+h;if(goalLayoutCache?.key===key)return goalLayoutCache.layouts;
+  const cells=targetKey.split('|').map(v=>{const[e,x,y]=v.split(',');return{e,x:+x,y:+y};});
+  const mx=Math.max(...cells.map(a=>a.x)),my=Math.max(...cells.map(a=>a.y)),layouts=[];
+  for(let y=0;y<h-my;y++)for(let x=0;x<w-mx;x++){const m=new Map();for(const a of cells){if(!m.has(a.e))m.set(a.e,[]);m.get(a.e).push({x:a.x+x,y:a.y+y});}layouts.push(m);}
+  goalLayoutCache={key,layouts};return layouts;
 }
-function setup(raw){
-  const s=clone(raw);
+function heuristic(s,targetKey,targetAdj){
+  let best=Infinity;
+  for(const layout of goalLayouts(targetKey,s.grid[0].length,s.grid.length)){
+    let cost=0;
+    for(let i=0;i<s.atoms.length;i++){
+      const a=s.atoms[i],dest=layout.get(a.e)||[];let min=Infinity;
+      for(const b of dest)min=Math.min(min,(a.x!==b.x?1:0)+(a.y!==b.y?1:0)+.045*(Math.abs(a.x-b.x)+Math.abs(a.y-b.y)));
+      const group=groupFor(s,i);cost+=min/(group?group.members.length:1);
+      if(cost>=best)break;
+    }
+    best=Math.min(best,cost);
+  }
+  return best+(s.crystals||[]).filter(c=>!c.collected).length*.7+s.atoms.filter(a=>a.frozen).length*.3;
+}
+function setup(raw,fresh=false){
+  const s=fresh?raw:clone(raw);
   s.grid=s.grid.map(r=>r.slice());
   s.portals=new Map((s.portals||[]).map(p=>[kxy(p.x,p.y),p]));
   s.rifts=new Map((s.rifts||[]).map(p=>[kxy(p.x,p.y),p]));
@@ -49,42 +68,15 @@ function setup(raw){
   return s;
 }
 function serializable(s){
-  return {grid:s.grid.map(r=>r.slice()),atoms:s.atoms.map(a=>({...a})),portals:[...s.portals.values()].map(p=>({...p})),rifts:[...s.rifts.values()].map(p=>({...p})),oneWays:[...s.oneWays.values()].map(o=>({...o})),rotationPads:[...s.rotationPads.values()].map(p=>({...p})),movingWalls:(s.movingWalls||[]).map(w=>({...w,path:(w.path||[]).map(c=>({...c}))})),pressureSystems:(s.pressureSystems||[]).map(p=>({plate:{...p.plate},door:{...p.door}})),linkedPairs:(s.linkedPairs||[]).map(p=>p.slice()),stickyPairs:(s.stickyPairs||[]).map(p=>p.slice()),fusionGroups:(s.fusionGroups||[]).map(g=>({part:g.part,members:g.members.slice()})),fusionDefs:(s.fusionDefs||[]).map(d=>({part:d.part,cells:d.cells.map(c=>c.slice())})),barriers:[...s.barrierSet].map(k=>{const [x,y]=k.split(',').map(Number);return{x,y};}),crystals:(s.crystals||[]).map(c=>({...c})),enzymeGate:s.enzymeGate?{x:+s.enzymeGate.x,y:+s.enzymeGate.y,open:!!s.enzymeGate.open}:null,targetKey:s.targetKey};
+  return {grid:s.grid.map(r=>r.slice()),atoms:s.atoms.map(a=>({...a})),portals:[...s.portals.values()].map(p=>({...p})),rifts:[...s.rifts.values()].map(p=>({...p})),oneWays:[...s.oneWays.values()].map(o=>({...o})),rotationPads:[...s.rotationPads.values()].map(p=>({...p})),movingWalls:(s.movingWalls||[]).map(w=>({...w,path:(w.path||[]).map(c=>({...c}))})),pressureSystems:(s.pressureSystems||[]).map(p=>({plate:{...p.plate},door:{...p.door}})),linkedPairs:(s.linkedPairs||[]).map(p=>p.slice()),stickyPairs:(s.stickyPairs||[]).map(p=>p.slice()),fusionGroups:(s.fusionGroups||[]).map(g=>({part:g.part,members:g.members.slice()})),fusionDefs:(s.fusionDefs||[]).map(d=>({part:d.part,cells:d.cells.map(c=>c.slice())})),barriers:[...s.barrierSet].map(k=>{const [x,y]=k.split(',').map(Number);return{x,y};}),crystals:(s.crystals||[]).map(c=>({...c})),enzymeGate:s.enzymeGate?{x:+s.enzymeGate.x,y:+s.enzymeGate.y,open:!!s.enzymeGate.open}:null,reactorGates:(s.reactorGates||[]).map(g=>({...g})),rulesVersion:180,targetKey:s.targetKey};
 }
 function groupFor(s,i){const gi=s.fusionGroupByAtom.get(i);return gi===undefined?null:s.fusionGroups[gi];}
 function oneWayAllows(s,fx,fy,tx,ty,d){const a=s.oneWays.get(kxy(fx,fy)),b=s.oneWays.get(kxy(tx,ty));return !(a&&+a.d!==d)&&!(b&&+b.d!==d);}
 function blocked(s,excluded,who,nx,ny,d){return s.grid[ny]?.[nx]!==false||s.barrierSet.has(kxy(nx,ny))||s.atoms.some((a,k)=>!excluded.has(k)&&a.x===nx&&a.y===ny)||!oneWayAllows(s,who.x,who.y,nx,ny,d);}
-function fusionMovePlan(s,i,d){
-  const g=groupFor(s,i);if(!g)return null;const members=g.members.slice(),set=new Set(members);if(members.some(k=>s.atoms[k]?.frozen))return null;
-  const [dx,dy]=DIRS[d],cur=new Map(members.map(k=>[k,{x:s.atoms[k].x,y:s.atoms[k].y}]));let moved=false,barrierHit=null;
-  for(let guard=0;guard<32;guard++){
-    const nxt=new Map();let stop=false;
-    for(const k of members){const p=cur.get(k),nx=p.x+dx,ny=p.y+dy;if(s.barrierSet.has(kxy(nx,ny))){barrierHit=kxy(nx,ny);stop=true;break;}if(s.grid[ny]?.[nx]!==false||s.atoms.some((a,j)=>!set.has(j)&&a.x===nx&&a.y===ny)||!oneWayAllows(s,p.x,p.y,nx,ny,d)){stop=true;break;}nxt.set(k,{x:nx,y:ny});}
-    if(stop||new Set([...nxt.values()].map(q=>kxy(q.x,q.y))).size!==members.length)break;for(const [k,p] of nxt)cur.set(k,p);moved=true;
-  }
-  return moved?{fusion:true,members,main:cur.get(i),aux:members.filter(k=>k!==i).map(k=>({i:k,pos:cur.get(k)})),barrierHit}:null;
-}
-function stickyPlan(s,i,d){
-  const j=s.stickyMate.get(i);if(j===undefined||s.atoms[i]?.frozen||s.atoms[j]?.frozen)return null;
-  const [dx,dy]=DIRS[d],ex=new Set([i,j]);let pi={x:s.atoms[i].x,y:s.atoms[i].y},pj={x:s.atoms[j].x,y:s.atoms[j].y},m=false,barrierHit=null;
-  for(let z=0;z<32;z++){
-    const ni={x:pi.x+dx,y:pi.y+dy},nj={x:pj.x+dx,y:pj.y+dy};
-    if(s.barrierSet.has(kxy(ni.x,ni.y))||s.barrierSet.has(kxy(nj.x,nj.y))){barrierHit=s.barrierSet.has(kxy(ni.x,ni.y))?kxy(ni.x,ni.y):kxy(nj.x,nj.y);break;}
-    if(blocked(s,ex,pi,ni.x,ni.y,d)||blocked(s,ex,pj,nj.x,nj.y,d)||(ni.x===nj.x&&ni.y===nj.y))break;pi=ni;pj=nj;m=true;
-  }
-  return m?{j,main:pi,mate:pj,sticky:true,barrierHit}:null;
-}
-function linkedPlan(s,i,d){
-  const j=s.linkedMate.get(i);if(j===undefined)return null;const [dx,dy]=DIRS[d],ex=new Set([i,j]),base=[{x:s.atoms[i].x,y:s.atoms[i].y},{x:s.atoms[j].x,y:s.atoms[j].y}];let pi={...base[0]},pj={...base[1]},ai=true,aj=true,barrierHit=null;
-  for(let z=0;z<32&&(ai||aj);z++){
-    const ni={x:pi.x+dx,y:pi.y+dy},nj={x:pj.x+dx,y:pj.y+dy};
-    if((ai&&s.barrierSet.has(kxy(ni.x,ni.y)))||(aj&&s.barrierSet.has(kxy(nj.x,nj.y)))){barrierHit=ai&&s.barrierSet.has(kxy(ni.x,ni.y))?kxy(ni.x,ni.y):kxy(nj.x,nj.y);break;}
-    let ci=ai&&!blocked(s,ex,pi,ni.x,ni.y,d),cj=aj&&!blocked(s,ex,pj,nj.x,nj.y,d);
-    if(ci&&cj&&ni.x===nj.x&&ni.y===nj.y)ci=cj=false;if(ci&&ni.x===pj.x&&ni.y===pj.y&&!cj)ci=false;if(cj&&nj.x===pi.x&&nj.y===pi.y&&!ci)cj=false;
-    if(ci)pi=ni;else ai=false;if(cj)pj=nj;else aj=false;
-  }
-  return (pi.x!==base[0].x||pi.y!==base[0].y||pj.x!==base[1].x||pj.y!==base[1].y)?{j,main:pi,mate:pj,barrierHit}:null;
-}
+function movementContext(s){return {atoms:s.atoms,grid:s.grid,barriers:s.barrierSet,oneWay:(fx,fy,tx,ty,d)=>oneWayAllows(s,fx,fy,tx,ty,d)};}
+function fusionMovePlan(s,i,d){const g=groupFor(s,i);return g?movement.rigid(movementContext(s),g.members,i,d,false):null;}
+function stickyPlan(s,i,d){return movement.sticky(movementContext(s),i,s.stickyMate.get(i),d);}
+function linkedPlan(s,i,d){return movement.linked(movementContext(s),i,s.linkedMate.get(i),d);}
 function slidePlan(s,i,d){
   const [dx,dy]=DIRS[d],sx=s.atoms[i].x,sy=s.atoms[i].y;let x=sx,y=sy,barrierHit=null,riftUsed=false;const path=[];
   while(true){const nx=x+dx,ny=y+dy;if(s.barrierSet.has(kxy(nx,ny))){barrierHit=kxy(nx,ny);break;}if(s.grid[ny]?.[nx]!==false||s.atoms.some((a,k)=>k!==i&&a.x===nx&&a.y===ny)||!oneWayAllows(s,x,y,nx,ny,d))break;
@@ -117,8 +109,8 @@ function pressure(s){for(const p of s.pressureSystems||[]){const open=s.atoms.so
 function moveWalls(s){const plans=[];for(const w of s.movingWalls||[]){const ni=((w.index||0)+1)%w.path.length,to=w.path[ni];if(!to||s.atoms.some(a=>a.x===to.x&&a.y===to.y))continue;if(s.grid[to.y]?.[to.x]&&!(to.x===w.x&&to.y===w.y))continue;plans.push({w,ni,to,from:{x:w.x,y:w.y}});}for(const p of plans){s.grid[p.from.y][p.from.x]=false;s.grid[p.to.y][p.to.x]=true;}for(const p of plans){p.w.x=p.to.x;p.w.y=p.to.y;p.w.index=p.ni;}}
 function goal(s,targetKey){return normGoal(s.atoms)===targetKey&&(!(s.crystals||[]).length||(s.crystals||[]).every(c=>c.collected));}
 function applyAction(raw,i,d,targetKey){
-  const s=setup(serializable(raw));if(!s.atoms[i]||s.atoms[i].frozen)return null;
-  const from={x:s.atoms[i].x,y:s.atoms[i].y};const pair=fusionMovePlan(s,i,d)||stickyPlan(s,i,d)||linkedPlan(s,i,d);const normal=pair?null:slidePlan(s,i,d);const dest=pair?pair.main:normal.dest;const barrierHit=(pair&&pair.barrierHit)||(normal&&normal.barrierHit);
+  const s=setup(serializable(raw),true);if(!s.atoms[i]||s.atoms[i].frozen)return null;
+  const from={x:s.atoms[i].x,y:s.atoms[i].y};const pair=fusionMovePlan(s,i,d)||stickyPlan(s,i,d)||linkedPlan(s,i,d);const bound=!!groupFor(s,i)||s.stickyMate.has(i)||s.linkedMate.has(i);const normal=pair||bound?null:slidePlan(s,i,d);const dest=pair?pair.main:normal?.dest;const barrierHit=(pair&&pair.barrierHit)||(normal&&normal.barrierHit);
   if(!dest){if(barrierHit){s.barrierSet.delete(barrierHit);return s;}return null;}
   s.atoms[i].x=dest.x;s.atoms[i].y=dest.y;if(pair?.fusion){for(const m of pair.aux){s.atoms[m.i].x=m.pos.x;s.atoms[m.i].y=m.pos.y;}}else if(pair&&pair.j!==undefined){s.atoms[pair.j].x=pair.mate.x;s.atoms[pair.j].y=pair.mate.y;}
   collectCrystals(s,normal&&normal.path&&normal.path.length?normal.path:linePath(from.x,from.y,dest.x,dest.y));updateEnzymeGate(s);if(barrierHit)s.barrierSet.delete(barrierHit);

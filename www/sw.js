@@ -1,64 +1,75 @@
-// Moleculox v8.7.73 — R177 FINAL cache identity; R173 gameplay preserved.
-// Core code is precached; large audio/story assets are cached only after use.
-// Firebase and Google traffic is never intercepted.
-const CACHE_NAME = 'moleculox-8.7.73-r177-final-ios';
-const CACHE_PREFIX = 'moleculox-';
-const CORE_SHELL = [
-  './index.html','./css/app.css','./js/sync-core.js','./js/daily-levels.js',
-  './js/campaign-levels.js','./js/campaign-expansion-loader-r137.js','./js/campaign-levels-expansion-r137.js',
-  './js/early-campaign-quality-r137.js','./js/campaign-integrity-r139.js','./js/campaign-uniqueness-r140.js','./js/campaign-completion-r142.js','./js/campaign-hardcore-r143.js','./js/campaign-quality-r144.js','./js/campaign-polish-r145.js','./js/campaign-feel-r146.js','./js/campaign-choreography-r147.js','./js/campaign-final-r148.js','./js/campaign-final-r149.js','./js/campaign-final-r150.js','./js/campaign-final-r151.js','./js/level-fx-recipes.js','./js/story-universe.js','./js/story-art-completion-r142.js','./js/story-art-completion-r152.js','./js/story-continuity-r153.js','./js/story-main-campaign-art-r154.js',
-  './js/v2-locales-generated.js','./js/v2-story-quality.js','./js/it-locale-generated.js','./js/voice-locales-generated.js','./js/voice-it-generated.js',
-  './js/game.js','./js/expansion-science-loader-r137.js','./js/expansion-science-bundle-r137.js','./js/smart-hint-worker.js',
-  './manifest.webmanifest','./privacy-policy.html','./terms-of-use.html',
-  './player-name-rules.html','./delete-data.html',
-  './assets/icons/icon-192.png','./assets/icons/icon-512.png',
-  './assets/icons/apple-touch-icon.png',
-  './assets/images/bg-default.webp','./assets/images/boot-splash.webp',
-  './assets/images/whiteway-studio-intro.webp','./assets/images/button-doodle-left.svg',
-  './assets/images/button-doodle-right.svg','./assets/images/einstein.webp',
-];
-
-self.addEventListener('install', event => {
-  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(CORE_SHELL)).then(() => self.skipWaiting()));
+/* R200 FINAL: R199 gameplay/hints preserved; larger menu-style science doodles restored on sparse wall stones. */
+importScripts('./offline-manifest-r193.js');
+const CACHE_NAME='moleculox-8.7.97-r200-final-ios';
+const MEDIA_CACHE='moleculox-media-v1';
+const core=self.MX_OFFLINE_CORE,media=self.MX_OFFLINE_MEDIA;
+const localPath=url=>new URL(url,self.location.href).pathname;
+const mediaPaths=new Set(media.map(localPath));
+self.addEventListener('install',event=>{
+  event.waitUntil((async()=>{const cache=await caches.open(CACHE_NAME);await cache.addAll(core);await self.skipWaiting();})());
 });
-
-self.addEventListener('activate', event => {
-  event.waitUntil(caches.keys().then(names => Promise.all(
-    names.filter(name => name.startsWith(CACHE_PREFIX) && name !== CACHE_NAME).map(name => caches.delete(name))
-  )).then(() => self.clients.claim()));
-});
-
-function isFirebaseOrRemote(url) {
-  return /firebaseio\.com|firebaseapp\.com|googleapis\.com|gstatic\.com|cloudfunctions\.net|run\.app/.test(url);
-}
-function isVersionSensitive(url) {
-  try {
-    const path = new URL(url).pathname;
-    return /\.html$|\.js$|\.css$|manifest\.webmanifest$/.test(path) || path.endsWith('/');
-  } catch (_) {
-    return /\.html(?:\?|$)|\.js(?:\?|$)|\.css(?:\?|$)|manifest\.webmanifest(?:\?|$)/.test(url) || url.endsWith('/');
-  }
-}
-
-self.addEventListener('fetch', event => {
-  const req = event.request;
-  if (req.method !== 'GET' || isFirebaseOrRemote(req.url)) return;
-
-  if (isVersionSensitive(req.url)) {
-    event.respondWith(fetch(req).then(res => {
-      if (res && res.ok && new URL(req.url).origin === self.location.origin) {
-        caches.open(CACHE_NAME).then(cache => cache.put(req, res.clone()));
+self.addEventListener('activate',event=>{
+  event.waitUntil((async()=>{
+    const target=await caches.open(MEDIA_CACHE);
+    for(const name of await caches.keys()){
+      if(!name.startsWith('moleculox-')||name===CACHE_NAME||name===MEDIA_CACHE)continue;
+      const old=await caches.open(name);
+      for(const request of await old.keys()){
+        if(!mediaPaths.has(localPath(request.url)))continue;
+        if(!(await target.match(request,{ignoreSearch:true}))){const response=await old.match(request);if(response?.ok)await target.put(request,response);}
       }
-      return res;
-    }).catch(async () => (await caches.match(req, {ignoreSearch:true})) ||
-      (req.mode === 'navigate' ? caches.match('./index.html') : Response.error())));
-    return;
-  }
-
-  event.respondWith(caches.match(req, {ignoreSearch:true}).then(cached => cached || fetch(req).then(res => {
-    if (res && res.ok && res.type === 'basic') {
-      caches.open(CACHE_NAME).then(cache => cache.put(req, res.clone()));
+      await caches.delete(name);
     }
-    return res;
-  }).catch(() => cached || Response.error())));
+    await self.clients.claim();
+  })());
+});
+async function rangeResponse(request,response){
+  const range=request.headers.get('range');
+  if(!range||!response||!/^audio\//.test(response.headers.get('content-type')||''))return response;
+  const match=/^bytes=(\d*)-(\d*)$/.exec(range);if(!match)return response;
+  const bytes=await response.arrayBuffer(),length=bytes.byteLength;
+  const start=match[1]?Number(match[1]):Math.max(0,length-Number(match[2]));
+  const end=match[1]&&match[2]?Math.min(length-1,Number(match[2])):length-1;
+  if(start>end||start>=length)return new Response(null,{status:416,headers:{'Content-Range':'bytes */'+length}});
+  const headers=new Headers(response.headers);headers.set('Content-Range',`bytes ${start}-${end}/${length}`);headers.set('Content-Length',String(end-start+1));headers.set('Accept-Ranges','bytes');
+  return new Response(bytes.slice(start,end+1),{status:206,headers});
+}
+self.addEventListener('fetch',event=>{
+  const req=event.request,url=new URL(req.url);
+  if(req.method!=='GET'||url.origin!==self.location.origin)return;
+  const isMedia=mediaPaths.has(url.pathname),isCode=/\.(html|js|css)$|\.webmanifest$/.test(url.pathname)||req.mode==='navigate';
+  if(!isMedia&&!isCode)return;
+  event.respondWith((async()=>{
+    const cache=await caches.open(isMedia?MEDIA_CACHE:CACHE_NAME);
+    const cached=await cache.match(req,{ignoreSearch:true});
+    if(cached)return rangeResponse(req,cached);
+    if(req.mode==='navigate'){const shell=await cache.match('./index.html');if(shell)return shell;}
+    try{
+      const response=await fetch(req);
+      if(response.ok&&response.status!==206){const copy=response.clone();event.waitUntil(cache.put(req,copy).catch(()=>{}));}
+      return response;
+    }catch(e){
+      if(cached)return rangeResponse(req,cached);
+      if(req.mode==='navigate'){const index=await cache.match('./index.html');if(index)return index;}
+      if(isMedia&&req.destination==='image'){
+        const shell=await caches.open(CACHE_NAME);const fallback=await shell.match('./assets/images/bg-default.webp');if(fallback)return fallback;
+      }
+      return Response.error();
+    }
+  })());
+});
+self.addEventListener('message',event=>{
+  if(event.data?.type!=='DOWNLOAD_OFFLINE_PACK'||event.data.version!==182)return;
+  const port=event.ports[0];if(!port)return;
+  event.waitUntil((async()=>{
+    const cache=await caches.open(MEDIA_CACHE);let index=0,completed=0,failed=0;
+    const report=done=>port.postMessage({completed,total:media.length,failed,done});report(false);
+    const heartbeat=setInterval(()=>report(false),5000);
+    try{
+      async function lane(){while(index<media.length){const url=media[index++];try{
+        if(!(await cache.match(url,{ignoreSearch:true}))){const response=await fetch(url);if(!response.ok)throw new Error('asset-unavailable');await cache.put(url,response);}
+      }catch(e){failed++;}completed++;report(false);}}
+      await Promise.all([lane(),lane(),lane()]);
+    }finally{clearInterval(heartbeat);report(true);port.close();}
+  })());
 });

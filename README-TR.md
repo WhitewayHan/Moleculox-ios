@@ -1,3 +1,7 @@
+# Moleculox R200 / v8.7.97 — iOS Codemagic Paketi
+
+> Güncel kaynak: R200. R177 native wrapper/Firebase/Codemagic yapılandırması korunarak R200 web oyun dosyalarıyla yenilenmiştir.
+
 ## R171 / v8.7.67 — GOAL Sinyalleri
 
 HEDEF normal oyunda tamamen statik. Çözüm bir hamle uzaktaysa iki kısa altın sinyal verir ve altın kalır. Doğrulanmış çıkmazda tahta sabit kırmızı olur; Einstein uyarır fakat oyun otomatik yeniden başlamaz. Nasıl Oynanır 9 dilde açıklanmıştır.

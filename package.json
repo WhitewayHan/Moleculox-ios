@@ -1,13 +1,13 @@
 {
   "name": "moleculox-ios",
-  "version": "8.7.73",
+  "version": "8.7.97",
   "private": true,
-  "description": "Moleculox IOS R177 / v8.7.73 FINAL: unified 1–501 render/cadence policy with interaction-priority advanced mechanics; 501 cloud progress and support economy preserved; no notification runtime.",
+  "description": "Moleculox IOS R200 / v8.7.97: R199 verified hint integrity + free first strategic hint, R200 standardized board/GOAL and larger sparse menu-style stone doodles; 501-level campaign and native auth preserved.",
   "scripts": {
     "ios:prepare": "bash scripts/prepare-ios.sh",
     "ios:sync": "npx cap sync ios",
     "ios:open": "npx cap open ios",
-    "check": "node scripts/verify-all-js.js && node scripts/verify-language-completion-matrix.js && node scripts/verify-ui-localization.js && node scripts/verify-r177-final.js && node scripts/verify-native-cache-version.js && node scripts/verify-r176-support-rail.js"
+    "check": "node scripts/verify-all-js.js && node scripts/verify-language-completion-matrix.js && node scripts/verify-r200-mobile.js && node scripts/verify-r200-www-integrity.js && node scripts/verify-native-cache-version.js"
   },
   "dependencies": {
     "@capacitor/core": "7.4.2",

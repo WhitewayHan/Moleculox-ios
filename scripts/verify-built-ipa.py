@@ -23,16 +23,16 @@ if normalized != [1]:
     raise SystemExit(f'Built IPA is not strictly iPhone-only: UIDeviceFamily={normalized!r}')
 if info.get('CFBundleIdentifier') != 'com.whitewayhan.moleculox':
     raise SystemExit(f'Unexpected bundle identifier in built IPA: {info.get("CFBundleIdentifier")!r}')
-if info.get('CFBundleShortVersionString') != '8.7.73':
+if info.get('CFBundleShortVersionString') != '8.7.97':
     raise SystemExit(
         'Built IPA marketing version mismatch: '
-        f'CFBundleShortVersionString={info.get("CFBundleShortVersionString")!r}, expected 8.7.73'
+        f'CFBundleShortVersionString={info.get("CFBundleShortVersionString")!r}, expected 8.7.97'
     )
 build_version = str(info.get('CFBundleVersion') or '')
 if not build_version.isdigit() or int(build_version) < 1:
     raise SystemExit(f'Built IPA has an invalid CFBundleVersion: {build_version!r}')
 
 print(
-    f'Validated built IPA: {ipa.name}, version=8.7.73, '
+    f'Validated built IPA: {ipa.name}, version=8.7.97, '
     f'build={build_version}, UIDeviceFamily={normalized}.'
 )
