@@ -1,7 +1,7 @@
-/* Moleculox R371 Science Legends release · current offline cache namespace. */
+/* Moleculox R372 Science Legends release · current offline cache namespace. */
 importScripts('./offline-manifest-r193.js');
-const CACHE_NAME='moleculox-r371-science-legends-itch';
-const MEDIA_CACHE='moleculox-media-v2-r371-science-legends-itch';
+const CACHE_NAME='moleculox-r372-ios-responsive-fit';
+const MEDIA_CACHE='moleculox-media-v2-r372-ios-responsive-fit';
 const REFRESH_MEDIA_PATHS=new Set([
   './assets/images/boot-splash.webp',
   './assets/images/moleculox-logo-r220.png',

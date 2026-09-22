@@ -1,6 +1,6 @@
 workflows:
   moleculox-ios-app-store:
-    name: Moleculox R371 v8.7.203 iOS App Store
+    name: Moleculox R372 v8.7.204 iOS App Store
     instance_type: mac_mini_m2
     max_build_duration: 120
     integrations:
@@ -16,13 +16,13 @@ workflows:
       xcode: latest
       cocoapods: default
     scripts:
-      - name: Restore R371 web bundle
+      - name: Restore R372 web bundle
         script: bash scripts/restore-www.sh
       - name: Install dependencies
         script: npm install
       - name: Install Python icon library
         script: pip3 install --user Pillow
-      - name: Validate R371 iOS source
+      - name: Validate R372 iOS source
         script: npm run check
       - name: Generate and prepare iOS project
         script: npm run ios:prepare
@@ -34,7 +34,7 @@ workflows:
         script: |
           BUILD_NUMBER="$(date +%s)"
           /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD_NUMBER" ios/App/App/Info.plist
-          /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString 8.7.203" ios/App/App/Info.plist
+          /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString 8.7.204" ios/App/App/Info.plist
           cd ios/App
           agvtool new-version -all "$BUILD_NUMBER"
       - name: Apply App Store signing profiles

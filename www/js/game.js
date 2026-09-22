@@ -1,6 +1,6 @@
 // R347 TEST: R346 Edward voice/visual pass + clean main-menu Edward without floating prop icons.
 /* Moleculox v8.7.177 R347 · clean main-menu Edward props + R346 voice/visual consistency retained. */
-const APP_VERSION="v8.7.203 · R371 SCIENCE LEGENDS";
+const APP_VERSION="v8.7.204 · R372 SCIENCE LEGENDS";
 const mxReducedMotionQuery=window.matchMedia?window.matchMedia('(prefers-reduced-motion: reduce)'):null;
 let mxSystemReducedMotion=!!(mxReducedMotionQuery&&mxReducedMotionQuery.matches);
 if(mxReducedMotionQuery){
