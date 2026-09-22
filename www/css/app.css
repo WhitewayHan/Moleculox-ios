@@ -13559,3 +13559,82 @@ body.reduceMotion .scienceLegendRevealStage::after,
   .scienceLegendRewardItems{gap:5px}
   .scienceLegendRewardItem{gap:3px}
 }
+
+/* ================= R371 iOS UNIVERSAL PHONE FIT — 2026-09-22 =================
+   App Store/TestFlight responsive correction:
+   1) Main-menu Dr. Edward is anchored to the physical bottom edge (behind the
+      Home-indicator safe area) instead of floating above it.
+   2) Boot art is always shown at its native aspect ratio with no horizontal
+      cropping, so the MOLECULOX wordmark is complete on every iPhone ratio.
+   The blurred/covered screen background fills any letterbox area without
+   distorting the approved artwork. */
+body.iosStandalone #splash #einBoxS{
+  right:calc(0px - var(--sar) - 2px)!important;
+  bottom:calc(0px - var(--sab) - 2px)!important;
+  height:clamp(250px,43vh,410px)!important;
+  max-height:none!important;
+  width:auto!important;
+  aspect-ratio:468/520!important;
+  transform:none!important;
+  transform-origin:right bottom!important;
+  overflow:visible!important;
+}
+body.iosStandalone #splash #einBoxS .einImg{
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain!important;
+  object-position:right bottom!important;
+}
+@supports(height:100svh){
+  body.iosStandalone #splash #einBoxS{height:clamp(250px,43svh,410px)!important}
+}
+@media(max-height:760px){
+  body.iosStandalone #splash #einBoxS{height:clamp(235px,40vh,350px)!important}
+}
+@media(max-height:620px){
+  body.iosStandalone #splash #einBoxS{height:clamp(210px,37vh,285px)!important}
+}
+
+/* The approved source art is 941×1672. Use CONTAIN geometry for the foreground
+   artwork; never crop its left/right edge on tall/narrow phones. */
+#bootScr{
+  background-color:#06112b!important;
+  background-image:linear-gradient(rgba(2,8,25,.38),rgba(2,8,25,.38)),url('../assets/images/boot-splash.webp')!important;
+  background-position:center!important;
+  background-size:cover!important;
+  background-repeat:no-repeat!important;
+}
+#bootStage{
+  --boot-src-w:941!important;
+  --boot-src-h:1672!important;
+  --boot-ratio:calc(var(--boot-src-w) / var(--boot-src-h))!important;
+  --boot-w:min(100vw, calc(100vh * var(--boot-ratio)))!important;
+  --boot-h:min(100vh, calc(100vw / var(--boot-ratio)))!important;
+  --boot-x:calc((100vw - var(--boot-w)) / 2)!important;
+  --boot-y:calc((100vh - var(--boot-h)) / 2)!important;
+}
+@supports(height:100dvh){
+  #bootStage{
+    --boot-w:min(100vw, calc(100dvh * var(--boot-ratio)))!important;
+    --boot-h:min(100dvh, calc(100vw / var(--boot-ratio)))!important;
+    --boot-x:calc((100vw - var(--boot-w)) / 2)!important;
+    --boot-y:calc((100dvh - var(--boot-h)) / 2)!important;
+  }
+}
+#bootBg{
+  left:var(--boot-x)!important;
+  top:var(--boot-y)!important;
+  width:var(--boot-w)!important;
+  height:var(--boot-h)!important;
+  object-fit:fill!important;
+  object-position:center!important;
+  transform:none;
+}
+/* Keep the reveal polish, but do not zoom the foreground image after fitting it. */
+#bootScr.mxBootReveal #bootBg{
+  animation:mxBootImageSettleFit .86s cubic-bezier(.18,.82,.22,1) both!important;
+}
+@keyframes mxBootImageSettleFit{
+  0%{filter:brightness(.72) saturate(.78) contrast(1.06)}
+  100%{filter:brightness(1) saturate(1) contrast(1)}
+}
