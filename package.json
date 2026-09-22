@@ -1,13 +1,13 @@
 {
   "name": "moleculox-ios",
-  "version": "8.7.97",
+  "version": "8.7.203",
   "private": true,
-  "description": "Moleculox IOS R200 / v8.7.97: R199 verified hint integrity + free first strategic hint, R200 standardized board/GOAL and larger sparse menu-style stone doodles; 501-level campaign and native auth preserved.",
+  "description": "Moleculox iOS R371 / v8.7.203 App Store source. Current 801-level R371 web game with the proven R200 Capacitor/Codemagic native shell, Firebase auth/App Check and iPhone-only release setup.",
   "scripts": {
+    "check": "node scripts/verify-r371-native.js ios",
     "ios:prepare": "bash scripts/prepare-ios.sh",
     "ios:sync": "npx cap sync ios",
-    "ios:open": "npx cap open ios",
-    "check": "node scripts/verify-all-js.js && node scripts/verify-language-completion-matrix.js && node scripts/verify-r200-mobile.js && node scripts/verify-r200-www-integrity.js && node scripts/verify-native-cache-version.js"
+    "ios:open": "npx cap open ios"
   },
   "dependencies": {
     "@capacitor/core": "7.4.2",

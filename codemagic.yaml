@@ -1,6 +1,6 @@
 workflows:
   moleculox-ios-app-store:
-    name: Moleculox R200 v8.7.97 iOS App Store
+    name: Moleculox R371 v8.7.203 iOS App Store
     instance_type: mac_mini_m2
     max_build_duration: 120
     integrations:
@@ -16,26 +16,14 @@ workflows:
       xcode: latest
       cocoapods: default
     scripts:
+      - name: Restore R371 web bundle
+        script: bash scripts/restore-www.sh
       - name: Install dependencies
         script: npm install
       - name: Install Python icon library
         script: pip3 install --user Pillow
-      - name: Validate R200 iOS source
-        script: |
-          npm run check
-          grep -Fq 'const APP_VERSION="v8.7.97";' www/js/game.js
-          grep -Fq 'R162 DOUBLE-TAP ZOOM LOCK' www/js/game.js
-          grep -Fq 'const BARRIER_USE_PRICE=300;' www/js/game.js
-          grep -Fq 'spendCoins(BARRIER_USE_PRICE)' www/js/game.js
-          ! grep -Fq '@capacitor/local-notifications' package.json
-          ! grep -Fq 'LocalNotifications' www/js/game.js
-          grep -Fq 'async function nativeGoogleSignIn(button)' www/js/game.js
-          grep -Fq 'async function nativeAppleSignIn(button)' www/js/game.js
-          grep -Fq 'const MX_SHOW_APPLE_BTN=MX_IOS_NATIVE&&MX_APPLE_NATIVE_READY;' www/js/game.js
-          grep -Fq 'FirebaseAppCheck' www/js/firebase.js
-          grep -Fq 'R200 STONE DOODLE PASS' www/js/game.js
-          grep -Fq 'R199: one verified STRATEGIC clue is free per eligible level' www/js/game.js
-          for lang in en tr de es pt ja fr zh it; do test -f "www/assets/audio/voices/dre-voice-sprite-$lang.mp3"; done
+      - name: Validate R371 iOS source
+        script: npm run check
       - name: Generate and prepare iOS project
         script: npm run ios:prepare
       - name: Verify generated App Store icon
@@ -46,7 +34,7 @@ workflows:
         script: |
           BUILD_NUMBER="$(date +%s)"
           /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD_NUMBER" ios/App/App/Info.plist
-          /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString 8.7.97" ios/App/App/Info.plist
+          /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString 8.7.203" ios/App/App/Info.plist
           cd ios/App
           agvtool new-version -all "$BUILD_NUMBER"
       - name: Apply App Store signing profiles
