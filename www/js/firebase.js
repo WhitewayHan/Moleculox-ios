@@ -1,4 +1,4 @@
-import {initializeApp} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+import {initializeApp, getApps, getApp} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
 import {initializeAppCheck, ReCaptchaV3Provider, CustomProvider} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app-check.js";
 import {
   getAuth, initializeAuth, setPersistence, indexedDBLocalPersistence, browserLocalPersistence,
@@ -284,7 +284,7 @@ async function restorePersistentAuth() {
 }
 
 try {
-  const app = initializeApp(firebaseConfig);
+  const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
   // Native WKWebView gets a deterministic localStorage-backed Auth instance at
   // construction time. This avoids leaving a timed-out setPersistence() request
   // running in the background while a Google/email credential is being applied.
@@ -692,7 +692,7 @@ async function signInEmail(email, password) {
 }
 async function resetPassword(email, language) {
   if (!auth) throw new Error("auth/unavailable");
-  auth.languageCode = ["en","tr","de","es","pt","ja","fr","zh","it"].includes(language) ? language : "en";
+  auth.languageCode = ["en","tr","de","es","pt","ja","fr","zh","it","ko","ru"].includes(language) ? language : "en";
   await sendPasswordResetEmail(auth, String(email || "").trim().toLowerCase());
   return true;
 }
@@ -862,7 +862,7 @@ async function cleanupPlaceholderRankingRows() {
 // Firestore rules validate identity, field types, sensible limits and
 // monotonic progress. This deters casual tampering, but a client-written
 // leaderboard cannot provide the same anti-cheat guarantees as a server.
-const LEADERBOARD_LEVEL_COUNT = 501;
+const LEADERBOARD_LEVEL_COUNT = 801;
 const RP_SCHEMA = 3;
 const SAVE_SCHEMA = 5;
 const LEADERBOARD_SPEED_LEVELS = [2, 15, 35, 45, 55, 65];
@@ -1123,9 +1123,11 @@ function profilePayload(save, profileId, includeFullProgress, includeResearch = 
     bestMoves: plainMap(save.bestMoves),
     totalHints: Math.max(0, Math.floor(Number(save.totalHints) || 0)),
     dailyDate: String(save.dailyDate || ""),
+    dailyLoginDate: String(save.dailyLoginDate || ""),
+    dailyLoginStreak: Math.max(0, Math.min(7, Math.floor(Number(save.dailyLoginStreak) || 0))),
     streak3: Math.max(0, Math.floor(Number(save.streak3) || 0)),
     // Store the complete supported UI language so a linked profile keeps its preference across devices.
-    lang: ["en","tr","de","es","pt","ja","fr","zh","it"].includes(save.lang) ? save.lang : "en",
+    lang: ["en","tr","de","es","pt","ja","fr","zh","it","ko","ru"].includes(save.lang) ? save.lang : "en",
     volM: Number(save.volM), volMu: Number(save.volMu), volS: Number(save.volS), volV: Number(save.volV),
     muM: !!save.muM, muMu: !!save.muMu, muS: !!save.muS, muV: !!save.muV, externalMusic: !!save.externalMusic, dpad: !!save.dpad,
     reduceMotion: !!save.reduceMotion, duelMessages: save.duelMessages !== false, duelEffects: save.duelEffects !== false,
@@ -1571,6 +1573,50 @@ async function claimDailyExperiment(profileId) {
   } catch (e) {
     console.warn("[MXCloud] claimDailyExperiment failed:", e && e.code);
     return {alreadyClaimed: false, offline: true};
+  }
+}
+
+async function claimDailyLogin(profileId) {
+  try {
+    await readyPromise;
+    const cleanId = safeProfileId(profileId);
+    if (!db || !uid || !cleanId || !currentUser || currentUser.isAnonymous) {
+      return {ok: false, accountRequired: true, reward: 0};
+    }
+    if (CLOUD_FUNCTIONS_ENABLED && fx) {
+      const call = httpsCallable(fx, "claimDailyLogin");
+      const res = await call({profileId: cleanId});
+      return res.data;
+    }
+    const now = new Date();
+    const day = now.toISOString().slice(0, 10);
+    const yesterdayDate = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() - 1));
+    const yesterday = yesterdayDate.toISOString().slice(0, 10);
+    const rewards = [10, 15, 20, 25, 30, 40, 60];
+    const ref = doc(db, "players", uid, "profiles", cleanId);
+    return await runTransaction(db, async (tx) => {
+      const snap = await tx.get(ref);
+      const data = snap.exists() ? (snap.data() || {}) : {};
+      if (String(data.dailyLoginDate || "") === day) {
+        return {ok: true, alreadyClaimed: true, reward: 0, day, streak: Math.max(1, Math.min(7, Number(data.dailyLoginStreak) || 1))};
+      }
+      const previousStreak = Math.max(0, Math.min(7, Math.floor(Number(data.dailyLoginStreak) || 0)));
+      const streak = String(data.dailyLoginDate || "") === yesterday ? (previousStreak >= 7 ? 1 : previousStreak + 1) : 1;
+      const reward = rewards[streak - 1];
+      const achievements = Object.assign({}, data.researchAchievements && typeof data.researchAchievements === "object" ? data.researchAchievements : {});
+      const earned = Math.max(0, Math.floor(Number(achievements.__coinEarned) || Number(data.coins) || 0)) + reward;
+      const spent = Math.max(0, Math.min(earned, Math.floor(Number(achievements.__coinSpent) || 0)));
+      const balance = Math.max(0, earned - spent);
+      achievements.__coinEarned = earned;
+      achievements.__coinSpent = spent;
+      tx.set(ref, {dailyLoginDate: day, dailyLoginStreak: streak, researchAchievements: achievements,
+        coins: balance, maxCoins: Math.max(balance, Math.floor(Number(data.maxCoins) || 0)),
+        economySchema: Math.max(1, Math.floor(Number(data.economySchema) || 0)), updatedAt: serverTimestamp()}, {merge: true});
+      return {ok: true, alreadyClaimed: false, reward, day, streak, earned, spent, balance};
+    });
+  } catch (e) {
+    console.warn("[MXCloud] claimDailyLogin failed:", e && e.code);
+    return {ok: false, offline: true, reward: 0};
   }
 }
 
@@ -2806,7 +2852,7 @@ window.MXCloud = {
   isSkippedSaveResult: (value) => !!(value && value.__mxSaveSkipped),
   refreshPersistence, connectGoogle, connectGoogleIdToken, connectApple, connectAppleIdToken, registerEmail, signInEmail, resetPassword, signOutToGuest, deleteCurrentAuthAccount, deleteAccountAndData, setAuthDisplayName,
   saveProgress, saveProgressNow, getLastSaveError, loadProfile, listProfiles, syncLeaderboard, repairLeaderboard,
-  startLevelAttempt, submitLevelResult, updateDisplayName, claimDailyExperiment,
+  startLevelAttempt, submitLevelResult, updateDisplayName, claimDailyExperiment, claimDailyLogin,
   deleteCloudProfile, cleanupOrphanRankingRows, cleanupPlaceholderRankingRows, reportPlayerName,
   getLeaderboard, getWeeklyLeaderboard, getMonthlyLeaderboard, getMyRankingStatus, clearLeaderboardCache: clearLeaderboardCaches, getChampions,
   syncDuelLeaderboard, getDuelLeaderboard,

@@ -2,9 +2,10 @@
 (function(root){
   'use strict';
 
-  const MAX_LEVELS=501;
+  const MAX_LEVELS=801;
+  const MAX_MOLECULE_MAP_ENTRIES=1200;
   const MAX_DAILY_SCORES=130;
-  const SUPPORTED_LANGS=['en','tr','de','es','pt','ja','fr','zh','it'];
+  const SUPPORTED_LANGS=['en','tr','de','es','pt','ja','fr','zh','it','ko','ru'];
   function cleanLang(v){v=String(v||'');return SUPPORTED_LANGS.includes(v)?v:'en';}
 
   function obj(v){return v&&typeof v==='object'&&!Array.isArray(v)?v:{};}
@@ -112,7 +113,7 @@
     out.playerName=cleanName(preferField(left,right,settingsSide,'playerName','Player'));
 
     out.stars=mergeMaxMap(left.stars,right.stars,MAX_LEVELS,3);
-    out.disc=mergeTruthMap(left.disc,right.disc,501);
+    out.disc=mergeTruthMap(left.disc,right.disc,MAX_MOLECULE_MAP_ENTRIES);
     out.achv=mergeTruthMap(left.achv,right.achv,80);
     out.speedRuns=mergeMinPositiveMap(left.speedRuns,right.speedRuns,MAX_LEVELS);
     out.bestMoves=mergeMinPositiveMap(left.bestMoves,right.bestMoves,MAX_LEVELS);
@@ -136,6 +137,10 @@
     out.streak3=Math.max(int(left.streak3,0,MAX_LEVELS),int(right.streak3,0,MAX_LEVELS));
     out.accountMilestoneInviteLastLevel=Math.max(int(left.accountMilestoneInviteLastLevel,0,MAX_LEVELS),int(right.accountMilestoneInviteLastLevel,0,MAX_LEVELS));
     out.dailyDate=String(left.dailyDate||'')>String(right.dailyDate||'')?String(left.dailyDate||''):String(right.dailyDate||'');
+    out.dailyLoginDate=String(left.dailyLoginDate||'')>String(right.dailyLoginDate||'')?String(left.dailyLoginDate||''):String(right.dailyLoginDate||'');
+    if(String(left.dailyLoginDate||'')>String(right.dailyLoginDate||''))out.dailyLoginStreak=int(left.dailyLoginStreak,0,7);
+    else if(String(right.dailyLoginDate||'')>String(left.dailyLoginDate||''))out.dailyLoginStreak=int(right.dailyLoginStreak,0,7);
+    else out.dailyLoginStreak=Math.max(int(left.dailyLoginStreak,0,7),int(right.dailyLoginStreak,0,7));
     out.lastDailyRPDate=String(left.lastDailyRPDate||'')>String(right.lastDailyRPDate||'')?String(left.lastDailyRPDate||''):String(right.lastDailyRPDate||'');
     out.dailyRPStreak=latestStreak(left,right);
 
@@ -157,7 +162,7 @@
     out.effectLevel=['low','normal','high'].includes(preferField(left,right,settingsSide,'effectLevel','normal'))?preferField(left,right,settingsSide,'effectLevel','normal'):'normal';
     out.performanceMode=['auto','low','high'].includes(preferField(left,right,settingsSide,'performanceMode','auto'))?preferField(left,right,settingsSide,'performanceMode','auto'):'auto';
     out.collectionFilter=String(preferField(left,right,settingsSide,'collectionFilter','all')||'all').slice(0,24);
-    out.favoriteMolecules=mergeTruthMap(left.favoriteMolecules,right.favoriteMolecules,501);
+    out.favoriteMolecules=mergeTruthMap(left.favoriteMolecules,right.favoriteMolecules,MAX_MOLECULE_MAP_ENTRIES);
     out.storySeen=mergeTruthMap(left.storySeen,right.storySeen,128);
     out.storySchema=Math.max(0,int(left.storySchema,0,10),int(right.storySchema,0,10));
     out.labTheme=String(preferField(left,right,settingsSide,'labTheme','basic')||'basic').slice(0,32);
