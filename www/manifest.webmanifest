@@ -1,7 +1,7 @@
 {
-  "name": "Moleculox — Dr. E's Lab",
+  "name": "Moleculox — Dr. Edward Atom's Lab",
   "short_name": "Moleculox",
-  "description": "Slide atoms, build molecules, master evolving laboratory mechanics, and explore 501 handcrafted puzzle experiments with Dr. E.",
+  "description": "Slide atoms, build molecules, master 27 mechanics, and explore 801 chemistry-inspired puzzle experiments with Dr. Edward Atom.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
@@ -34,5 +34,5 @@
     "games",
     "education"
   ],
-  "version": "8.7.97"
+  "version": "8.7.203-r371-science-legends"
 }

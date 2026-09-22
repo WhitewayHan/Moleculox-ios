@@ -710,7 +710,7 @@ body.nodpad #navBtns{left:10px}
 /* The original round blink is restored at 92% size, with its centre preserved. */
 .eyeW.eye2{left:61.34%;top:24.02%;width:7.82%;height:7.27%}
 
-/* --- Dr. E: classic round blink, one step smaller --- */
+/* --- Dr. Edward Atom: classic round blink, one step smaller --- */
 .einFx{position:absolute;inset:0;pointer-events:none;z-index:20;overflow:visible}
 .eyeW{position:absolute;left:49.67%;top:23.33%;width:8.46%;height:7.54%;overflow:visible;border-radius:50%}
 .lid{position:absolute;left:-14%;top:-16%;width:128%;height:124%;background:linear-gradient(180deg,#ffbf86,#e9a76e);border-bottom:2px solid #a8662d;border-radius:46% 46% 50% 50%;transform:scaleY(0);transform-origin:50% 6%;transition:transform .07s ease-in;opacity:0}
@@ -1113,7 +1113,7 @@ body.tutorialMode #bubble{z-index:65}
 .hofWorldNotice.member{background:rgba(69,213,148,.1);color:#bff6dc}
 
 
-/* V3.5.9 — side-only button doodles, foreground Dr. E, refined daily notification dot */
+/* V3.5.9 — side-only button doodles, foreground Dr. Edward Atom, refined daily notification dot */
 #hofComingSoon{min-height:190px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:9px;padding:24px 18px;border-radius:16px;background:rgba(10,10,20,.56);box-shadow:inset 0 0 0 1px rgba(255,255,255,.13)}
 #hofComingSoon .hofSoonIcon{font-size:38px;filter:drop-shadow(0 4px 10px rgba(0,0,0,.45))}
 #hofSoonTitle{font-size:17px;font-weight:950;letter-spacing:.7px;color:#d8ccff}
@@ -1173,7 +1173,7 @@ body.keyboardOpen{overscroll-behavior:none}
 .externalMusicRow>span{display:flex;flex-direction:column;gap:3px;min-width:0}
 .externalMusicRow small{display:block;max-width:235px;color:var(--dim);font-size:10.5px;font-weight:650;line-height:1.3}
 
-/* V3.6.8 — iPhone Add to Home Screen / standalone Dr. E sizing */
+/* V3.6.8 — iPhone Add to Home Screen / standalone Dr. Edward Atom sizing */
 body.iosStandalone #einBoxS{
   height:min(35dvh,310px);
   max-height:35dvh;
@@ -1269,14 +1269,14 @@ body.iosStandalone #einBoxG{animation:einIdle 3.6s ease-in-out infinite}
 
 
 
-/* V3.7.0 — Dr. E menu fit + boot animation alignment
-   - Dr. E is slightly smaller, anchored to the bottom edge and placed behind the menu buttons.
+/* V3.7.0 — Dr. Edward Atom menu fit + boot animation alignment
+   - Dr. Edward Atom is slightly smaller, anchored to the bottom edge and placed behind the menu buttons.
    - The boot artwork uses its real 864×1821 source ratio.
    - White bond streak overlays are removed.
    - Bubbles are clipped inside the actual glass vessels and appear only when the lab is revealed. */
 #bootStage{
-  --boot-src-w:864;
-  --boot-src-h:1821;
+  --boot-src-w:941;
+  --boot-src-h:1672;
 }
 
 /* Keep the lamp as the only visible effect in the dark phase. */
@@ -1360,7 +1360,7 @@ body.iosStandalone #einBoxG{animation:einIdle 3.6s ease-in-out infinite}
 .bootBubTube span:nth-child(2){left:48%}
 .bootBubTube span:nth-child(3){left:66%}
 
-/* Main menu Dr. E: about 10% smaller, flush with the lower edge, never over the menu text. */
+/* Main menu Dr. Edward Atom: about 10% smaller, flush with the lower edge, never over the menu text. */
 #einBoxS{
   height:min(46vh,410px);
   right:calc(var(--sar) - 23px);
@@ -1747,6 +1747,23 @@ body.bonusTier5 #logoSub{color:#ffe18a;text-shadow:0 0 14px rgba(255,208,80,.55)
   .labShopVisual{height:90px}
   .labAsset{transform:scale(.92)}
 }
+
+/* ================= R307 · CROSS-PLATFORM UI ICON PASS ================= */
+.mxUiSvgWrap{display:inline-flex;width:28px;height:28px;flex:0 0 28px;align-items:center;justify-content:center;vertical-align:middle;border-radius:9px;background:linear-gradient(145deg,rgba(255,255,255,.12),rgba(91,67,190,.16));border:1px solid rgba(143,233,255,.34);box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 0 12px rgba(65,211,255,.1)}
+.mxUiSvg{display:block;width:78%;height:78%;overflow:visible}.mxUiSvg g{fill:rgba(91,218,244,.08);stroke:#c9f8ff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 3px rgba(79,216,255,.5))}
+.mxUiSvgWrap[data-ui-art="trophy"] .mxUiSvg g,.mxUiSvgWrap[data-ui-art="medal"] .mxUiSvg g,.mxUiSvgWrap[data-ui-art="crown"] .mxUiSvg g{fill:rgba(255,205,78,.13);stroke:#ffe17c;filter:drop-shadow(0 0 3px rgba(255,205,78,.5))}
+[data-mx-ui-icon]{font-style:normal}.collectionTab>[data-mx-ui-icon],.labTab>[data-mx-ui-icon]{display:flex;align-items:center;justify-content:center}
+.collectionTab .mxUiSvgWrap,.labTab .mxUiSvgWrap{width:27px;height:27px;flex-basis:27px;border-radius:9px}.collectionTab,.labTab,#hofTopTabs .hofTopTab{align-items:center!important;justify-content:center!important}
+#hofTopTabs .hofTopTab{display:flex!important;gap:6px!important}.hofTopTab .mxUiSvgWrap{width:25px;height:25px;flex-basis:25px;border-radius:8px}
+.sectionHead{display:flex;align-items:center;gap:8px}.sectionHead>.mxUiSvgWrap{width:28px;height:28px;flex-basis:28px;border-radius:9px}.sectionHead>span{min-width:0}
+.shopBot>.mxUiSvgWrap{width:58px;height:58px;flex-basis:58px}.labScientistBadge #labScientistIcon .mxUiSvgWrap{width:30px;height:30px;flex-basis:30px}
+.nobelCup .mxUiSvgWrap{width:54px;height:54px;flex-basis:54px;border-radius:17px}.nobelLeader>span .mxUiSvgWrap{width:34px;height:34px;flex-basis:34px;border-radius:11px}.nobelPlayerTop>span .mxUiSvgWrap{width:38px;height:38px;flex-basis:38px;border-radius:12px}.nobelArchiveRow>span .mxUiSvgWrap{width:34px;height:34px;flex-basis:34px;border-radius:11px}
+#hofSeal .mxUiSvgWrap{width:58px;height:58px;flex-basis:58px;border-radius:18px}#hofNameEdit .mxUiSvgWrap{width:25px;height:25px;flex-basis:25px;border:0;background:transparent;box-shadow:none}
+#labNobelPane .nobelLeader,#labNobelPane #nobelPlayerCard,#labNobelPane .nobelArchiveRow{background:linear-gradient(135deg,rgba(15,22,59,.92),rgba(31,42,85,.88));border-color:rgba(130,222,255,.22);box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 8px 22px rgba(0,0,0,.16)}
+#labNobelPane .nobelArchiveEmpty{color:rgba(231,241,255,.78);background:rgba(14,21,55,.67);border-color:rgba(143,233,255,.25)}
+#labNobelPane .nobelLeader small{max-width:46%;text-align:right;line-height:1.25;padding-left:5px}
+@media(max-width:430px){.collectionTab .mxUiSvgWrap,.labTab .mxUiSvgWrap{width:24px;height:24px;flex-basis:24px}.collectionTab,.labTab{gap:3px!important}#hofTopTabs .hofTopTab{gap:3px!important}.hofTopTab .mxUiSvgWrap{width:21px;height:21px;flex-basis:21px}.nobelLeader small{max-width:none!important;text-align:left!important;padding-left:0!important}}
+#bannerDiscover{display:flex;align-items:center;justify-content:center;gap:7px}#bannerDiscover .mxUiSvgWrap{width:25px;height:25px;flex-basis:25px;border-radius:8px}
 
 /* V4.0.2 — floating LAB button + premium placed lab items */
 #splashBtns #btnLabMenu{
@@ -2186,6 +2203,12 @@ body.bonusTier5 #logoSub{color:#ffe18a;text-shadow:0 0 14px rgba(255,208,80,.55)
 @media(max-width:920px){.duelRankStats{grid-template-columns:repeat(3,minmax(0,1fr))}#duelRewardRoadmap{grid-template-columns:1fr}.duelCupShelf{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:620px){.duelRankStats{grid-template-columns:repeat(2,minmax(0,1fr))}.duelCupShelf{grid-template-columns:1fr 1fr}.rewardCardTop{flex-direction:column;align-items:flex-start}.rewardState{align-self:flex-start}}
 
+/* R357 · Mobile rewards layout: later desktop cabinet rules must not override
+   the narrow-screen stack. 430px-class iPhones also need single-column reward
+   cards so Turkish labels and actions remain fully visible. */
+@media(max-width:920px){#duelRewardCabinet{grid-template-columns:minmax(0,1fr)}#duelRewardSpotlight{min-width:0}.rewardSpotlightCard{width:100%;height:auto;box-sizing:border-box}}
+@media(max-width:520px){.duelRewardGrid{grid-template-columns:minmax(0,1fr)}.duelRewardCard{min-width:0}.duelCupShelf{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
 
 /* V4.8.7 Sign in with Apple */
 .accountActions .btn.apple{background:#050505;color:#fff;border:1px solid rgba(255,255,255,.82);box-shadow:0 5px 0 #252525,0 9px 22px rgba(0,0,0,.42);display:flex;align-items:center;justify-content:center;gap:9px;font-weight:800}
@@ -2393,7 +2416,7 @@ body.mxPerfLow .specialAtomFx,
 body.mxPerfLow .portalGlow{filter:none!important;box-shadow:none!important}
 body.mxAppPaused *{animation-play-state:paused!important}
 
-/* V6.1 — Dr. E comic story strip */
+/* V6.1 — Dr. Edward Atom comic story strip */
 #levelStoryPanel{position:fixed;z-index:10060;left:50%;top:max(10px,env(safe-area-inset-top));width:min(94vw,720px);min-height:118px;transform:translate(-50%,-130%);opacity:0;pointer-events:none;display:grid;grid-template-columns:108px 1fr;gap:12px;align-items:center;padding:12px 42px 12px 12px;border:4px solid #17243a;border-radius:18px;background:linear-gradient(135deg,#fff7c8,#fff 54%,#dff7ff);box-shadow:0 9px 0 #17243a,0 18px 36px #0008;transition:transform .28s cubic-bezier(.2,.9,.25,1.2),opacity .2s ease;font-family:inherit}
 #levelStoryPanel.on{transform:translate(-50%,0);opacity:1;pointer-events:auto}
 #levelStoryPanel:before{content:"";position:absolute;inset:5px;border:2px dashed #ff8a00;border-radius:11px;pointer-events:none}
@@ -2427,7 +2450,7 @@ body.mxReduceMotion #levelStoryPanel{transition:none}
 @media(max-width:620px){#levelStoryPanel{width:96vw;padding:12px 38px 12px 10px;border-width:4px}#levelStoryPanel .comicStrip{grid-template-columns:1fr;gap:7px}#levelStoryPanel .comicPanel{min-height:150px}#levelStoryPanel .comicHero{grid-template-columns:36% 64%}#levelStoryPanel .comicHero img{height:145px}#levelStoryPanel .speechBubble{font-size:12px;margin-top:25px;padding:10px 9px}#levelStoryPanel .comicReaction{min-height:118px;padding:10px}#levelStoryPanel .reactionMolecule{font-size:26px;padding:5px 10px}#levelStoryPanel .reactionText{font-size:11px;margin-top:8px;padding:6px}#levelStoryPanel .comicBang{font-size:13px}}
 
 
-/* V6.7 — minimalist settings actions and refined menu Dr. E */
+/* V6.7 — minimalist settings actions and refined menu Dr. Edward Atom */
 #modalBox.settingsModal .settingsActions{display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:2px 0}
 #modalBox.settingsModal .settingsActions>.btn{min-height:42px;padding:8px 9px;border-radius:12px;font-size:12.5px;line-height:1.15;box-shadow:none;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.14);text-align:left}
 #modalBox.settingsModal .settingsActions>.btn:active{transform:scale(.98);background:rgba(255,255,255,.1)}
@@ -2547,7 +2570,7 @@ body.mxReduceMotion #einBoxS{animation:none!important}
   #modalBox.settingsModal .togRow>span>b{font-size:14px}
 }
 
-/* V6.20 clean opening: removed top power rail and corner Dr. E peek. */
+/* V6.20 clean opening: removed top power rail and corner Dr. Edward Atom peek. */
 #bootPowerRail,#bootDrEPeek{display:none!important}
 
 /* V6.23 — locked bonus progression, cleaner tutorial guidance */
@@ -2567,7 +2590,7 @@ body.mxReduceMotion #einBoxS{animation:none!important}
 .bonusNextHint{padding:8px 10px;border-radius:10px;background:rgba(255,204,72,.13);border:1px solid rgba(255,214,94,.45);font-size:12px;font-weight:800;text-align:center}
 @media(max-width:430px){.bonusMissionGrid{grid-template-columns:repeat(2,minmax(0,1fr));max-height:46vh}.bonusMissionCard.bonusSlot{min-height:124px}}
 
-/* V6.23 — story-specific art and clean Dr. E thought icons */
+/* V6.23 — story-specific art and clean Dr. Edward Atom thought icons */
 #levelStoryPanel .comicHero img#storyHeroArt{width:46%;height:100%;max-height:260px;object-fit:cover;object-position:center;border-right:4px solid #17243a;filter:saturate(1.05) contrast(1.03)}
 @media(max-width:620px){#levelStoryPanel .comicHero img#storyHeroArt{width:100%;height:145px;max-height:145px;border-right:0;border-bottom:3px solid #17243a}}
 /* V6.23 final story art: original characters, varied chapter compositions */
@@ -2810,7 +2833,7 @@ body.mxReduceMotion #einBoxS{animation:none!important}
 @keyframes mxResultMoleculeRise{from{opacity:0;transform:translateY(34px) scale(.55) rotate(-22deg)}to{opacity:1;transform:translateY(0) scale(1) rotate(0)}}
 @keyframes mxResultMoleculeFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}@keyframes mxResultCoreSpin{to{transform:rotate(360deg)}}@keyframes mxResultOrbitSpin{to{transform:rotate(415deg)}}
 .guideSection.guideFx{border-color:rgba(79,216,255,.38);background:linear-gradient(145deg,rgba(26,82,126,.22),rgba(91,56,154,.2))}
-/* Keep the main action stack calm and aligned. Foreground online controls stay above Dr. E. */
+/* Keep the main action stack calm and aligned. Foreground online controls stay above Dr. Edward Atom. */
 #splashBtns{width:min(70vw,278px);gap:7px;z-index:12}
 #splashBtns .btn{min-height:43px;padding:9px 10px;font-size:15px}
 #btnLabMenu.labDockBtn,#btnDuel.duelBtn,#btnHof.trophyBtn{left:14px;z-index:16}
@@ -2823,7 +2846,7 @@ body.mxReduceMotion #einBoxS{animation:none!important}
 
 
 /* ================= V8.0.4 — responsive main-menu dock correction =================
-   Restore Dr. E to the original background layer, keep online presence visible at
+   Restore Dr. Edward Atom to the original background layer, keep online presence visible at
    bottom-center on every phone, and promote How to Play above the LAB SHOP dock. */
 #einBoxS{
   z-index:5;
@@ -2925,7 +2948,7 @@ body.mxReduceMotion #einBoxS{animation:none!important}
 
 /* ================= V8.0.6 — final lower-menu alignment =================
    Preserve dock button sizes; lift the stack slightly, align About with it,
-   seat Dr. E flush in the lower-right corner, and shift online presence left. */
+   seat Dr. Edward Atom flush in the lower-right corner, and shift online presence left. */
 #btnGuide.guideDockBtn{bottom:calc(var(--sab) + 272px)}
 #btnLabMenu.labDockBtn{bottom:calc(var(--sab) + 202px)}
 #btnDuel.duelBtn{bottom:calc(var(--sab) + 132px)}
@@ -2969,7 +2992,7 @@ body.mxReduceMotion #einBoxS{animation:none!important}
   .onlinePlayerCount{left:36%}
 }
 
-/* ================= V8.0.6 — Dr. E true bottom-right anchor =================
+/* ================= V8.0.6 — Dr. Edward Atom true bottom-right anchor =================
    Override the generic small-screen Einstein cap only on the main menu.
    The character's right edge and feet stay flush with the visible game frame. */
 #splash #einBoxS{
@@ -3006,7 +3029,7 @@ body.iosStandalone #splash #einBoxS{
 }
 
 
-/* V8.0.7: language always visible and Dr. E seated in the actual lower-right crop. */
+/* V8.0.7: language always visible and Dr. Edward Atom seated in the actual lower-right crop. */
 #modalBox.settingsModal .settingsScroll > .togRow:first-child{position:sticky;top:0;z-index:4;margin-bottom:4px;padding:8px 5px;background:rgba(23,18,62,.98);border-bottom:1px solid rgba(157,123,255,.24)}
 #splash #einBoxS{right:-7.5vw!important;bottom:-8.5vh!important;height:min(58vh,510px)!important;max-height:none!important;overflow:visible!important}
 @media(max-height:760px){#splash #einBoxS{right:-8vw!important;bottom:-9vh!important;height:min(55vh,455px)!important}}
@@ -3014,7 +3037,7 @@ body.iosStandalone #splash #einBoxS{
 body.iosStandalone #splash #einBoxS{right:-7.5vw!important;bottom:-8vh!important;height:min(56dvh,470px)!important}
 
 
-/* ================= V8.0.8 — bilingual UI preserved; Dr. E old scale =================
+/* ================= V8.0.8 — bilingual UI preserved; Dr. Edward Atom old scale =================
    Language content remains conditional: Turkish for LANG=tr, English for LANG=en.
    Do not enlarge the character; only anchor the original proportion at lower-right. */
 #splash #einBoxS{
@@ -3047,7 +3070,7 @@ body.iosStandalone #splash #einBoxS{
 }
 
 /* ================= V8.1.0 RC — final menu, guide and dialogue safety ================= */
-/* Preserve the approved dock/online/about layout. Seat Dr. E at the lower-right at the old scale. */
+/* Preserve the approved dock/online/about layout. Seat Dr. Edward Atom at the lower-right at the old scale. */
 #splash #einBoxS{
   right:-2px!important;
   bottom:-18px!important;
@@ -3060,7 +3083,7 @@ body.iosStandalone #splash #einBoxS{
 }
 @media(max-height:760px){#splash #einBoxS{right:-2px!important;bottom:-16px!important;height:min(42vh,350px)!important}}
 @media(max-height:620px){#splash #einBoxS{right:-2px!important;bottom:-14px!important;height:min(38vh,285px)!important}}
-/* Keep both Dr. E and his text visible during levels. */
+/* Keep both Dr. Edward Atom and his text visible during levels. */
 #gameScr .einSpeech,#gameScr .speech,#playScr .einSpeech,#playScr .speech{
   right:auto!important;
   left:clamp(92px,14vw,132px)!important;
@@ -3087,7 +3110,7 @@ body.iosStandalone #splash #einBoxS{
 #modalBox.guideModal .mrow{flex:0 0 auto;margin-top:10px}
 
 
-/* ================= V8.1.2 — universal mobile modal scrolling and fixed Dr. E layout ================= */
+/* ================= V8.1.2 — universal mobile modal scrolling and fixed Dr. Edward Atom layout ================= */
 #modalBox{position:relative;max-height:calc(100dvh - max(20px,var(--sat)) - max(20px,var(--sab)))!important;overscroll-behavior:contain}
 #modalBox.card:not(.settingsModal):not(.guideModal):not(.musicModal){overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:#9d7bff rgba(255,255,255,.08)}
 #modalBox::-webkit-scrollbar,#modalBox .settingsScroll::-webkit-scrollbar,#modalBox .guideScroll::-webkit-scrollbar{width:7px}
@@ -3347,7 +3370,7 @@ button,.btn,[role="button"],canvas,#board,#dpad{touch-action:manipulation!import
 #modalBox .mechanicGuideList.settingsScroll::-webkit-scrollbar-thumb{background:rgba(157,123,255,.58)!important;border-radius:999px!important}
 
 #collectScr{display:flex;flex-direction:column}
-.collectionTabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:7px 10px 8px;flex:0 0 auto;background:rgba(10,10,35,.72);border-bottom:1px solid rgba(157,123,255,.25)}
+.collectionTabs{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;padding:7px 10px 8px;flex:0 0 auto;background:rgba(10,10,35,.72);border-bottom:1px solid rgba(157,123,255,.25)}
 .collectionTab{min-width:0;border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:8px 4px;background:rgba(255,255,255,.06);color:rgba(255,255,255,.72);font:inherit;font-size:10px;font-weight:900;display:flex;align-items:center;justify-content:center;gap:4px;touch-action:manipulation}
 .collectionTab.on{color:#fff;background:linear-gradient(135deg,rgba(126,88,255,.75),rgba(56,196,255,.32));border-color:rgba(184,166,255,.72);box-shadow:0 0 14px rgba(126,88,255,.22)}
 .collectionPanel{display:none}.collectionPanel.on{display:block}
@@ -3685,7 +3708,7 @@ button,.btn,[role="button"],canvas,#board,#dpad{touch-action:manipulation!import
   70%,100%{opacity:0;transform:scale(1.16)}
 }
 
-/* V8.4.11 — Main-menu Dr. E tongue fitted into the mouth opening. */
+/* V8.4.11 — Main-menu Dr. Edward Atom tongue fitted into the mouth opening. */
 #einBoxS .tongue{
   left:58.3%!important;
   top:41.8%!important;
@@ -3696,7 +3719,7 @@ button,.btn,[role="button"],canvas,#board,#dpad{touch-action:manipulation!import
   height:7.6%!important;
 }
 
-/* V8.4.12 — Apply the approved mouth-fit tongue alignment to in-game Dr. E too. */
+/* V8.4.12 — Apply the approved mouth-fit tongue alignment to in-game Dr. Edward Atom too. */
 #einBoxG .tongue{
   left:58.3%!important;
   top:41.8%!important;
@@ -4008,7 +4031,7 @@ body.mxReduceMotion #mxSmallToast{transition:none}
 @media(max-width:430px){#btnHammer .badgeIcon,#btnBarrier .badgeIcon{width:28px;height:28px}#mxToolFx.hammer{width:82px;height:82px}#mxToolFx.hammer svg{width:80px;height:80px}}
 
 
-/* V8.5.17 — Dr. E miniature molecule-bond signature */
+/* V8.5.17 — Dr. Edward Atom miniature molecule-bond signature */
 #einBoxG .prop.mxBondProp{
   width:52px;height:40px;max-width:none;font-size:0;left:48%;top:-12%;
   filter:drop-shadow(0 3px 5px rgba(0,0,0,.5));
@@ -4046,21 +4069,21 @@ body.mxReduceMotion #mxSmallToast{transition:none}
 /* V8.5.18 — laboratory victory and promotion electron signature */
 #victoryLabFx{position:fixed;inset:0;z-index:68;display:grid;place-items:center;opacity:0;pointer-events:none;overflow:hidden;transition:opacity .2s ease}
 #victoryLabFx.on{opacity:1}
-.victoryLabDim{position:absolute;inset:0;background:radial-gradient(circle at 50% 48%,rgba(28,112,169,.22),rgba(5,7,25,.42) 45%,rgba(3,4,16,.68));opacity:0;animation:vlfDim 2.25s ease both}
+.victoryLabDim{position:absolute;inset:0;background:radial-gradient(circle at 50% 48%,rgba(28,112,169,.22),rgba(5,7,25,.42) 45%,rgba(3,4,16,.68));opacity:0;animation:vlfDim 1.2s ease both}
 .victoryLabAtom{position:relative;width:clamp(126px,36vw,210px);aspect-ratio:1;filter:drop-shadow(0 0 18px rgba(79,216,255,.9));transform:scale(.25);opacity:0}
-#victoryLabFx.on .victoryLabAtom{animation:vlfAtom 2.15s cubic-bezier(.18,.82,.2,1) both}
+#victoryLabFx.on .victoryLabAtom{animation:vlfAtom 1.1s cubic-bezier(.18,.82,.2,1) both}
 .vlaCore{position:absolute;top:50%;width:23%;aspect-ratio:1;border-radius:50%;transform:translateY(-50%);box-shadow:inset -5px -6px 12px rgba(0,0,0,.25),inset 4px 4px 9px rgba(255,255,255,.65),0 0 24px currentColor}
 .vlaCoreA{left:22%;color:#4fd8ff;background:radial-gradient(circle at 35% 30%,#fff,#7ee9ff 25%,#218bd2 72%)}
 .vlaCoreB{right:22%;color:#9d7bff;background:radial-gradient(circle at 35% 30%,#fff,#c6b6ff 25%,#7054d7 72%)}
 .vlaBond{position:absolute;left:42%;right:42%;top:47%;height:6%;border-radius:999px;background:linear-gradient(90deg,#78e7ff,#fff,#c0a9ff);box-shadow:0 0 18px #fff;transform:scaleX(0)}
-#victoryLabFx.on .vlaBond{animation:vlfBond .48s .48s ease-out forwards}
+#victoryLabFx.on .vlaBond{animation:vlfBond .24s .18s ease-out forwards}
 .vlaOrbit{position:absolute;inset:11%;border:2px solid rgba(164,234,255,.78);border-radius:50%;transform:rotate(24deg)}
 .vlaOrbit2{inset:20% 5%;transform:rotate(-34deg);border-color:rgba(203,184,255,.74)}
 .vlaOrbit i{position:absolute;left:50%;top:-5px;width:10px;height:10px;border-radius:50%;background:#fff;box-shadow:0 0 12px 4px #4fd8ff}
-#victoryLabFx.on .vlaOrbit1{animation:vlfSpin 1s .42s linear 2}
-#victoryLabFx.on .vlaOrbit2{animation:vlfSpinBack 1.25s .38s linear 1.7}
+#victoryLabFx.on .vlaOrbit1{animation:vlfSpin .56s .12s linear 2}
+#victoryLabFx.on .vlaOrbit2{animation:vlfSpinBack .68s .10s linear 1.65}
 .vlaFlash{position:absolute;inset:33%;border-radius:50%;background:#fff;opacity:0;box-shadow:0 0 55px 28px rgba(111,224,255,.9)}
-#victoryLabFx.on .vlaFlash{animation:vlfFlash .55s .72s ease-out both}
+#victoryLabFx.on .vlaFlash{animation:vlfFlash .32s .26s ease-out both}
 #victoryLabParticles{position:absolute;inset:0}
 .vlfParticle{position:absolute;left:50%;top:48%;width:var(--w);height:var(--h);border-radius:2px;background:var(--c);opacity:0;transform:translate(-50%,-50%) rotate(var(--r));box-shadow:0 0 8px color-mix(in srgb,var(--c),transparent 35%)}
 #victoryLabFx.on .vlfParticle{animation:vlfConf var(--d) var(--delay) cubic-bezier(.15,.7,.3,1) forwards}
@@ -4068,13 +4091,13 @@ body.mxReduceMotion #mxSmallToast{transition:none}
 #victoryLabFx.mini .victoryLabDim{background:transparent}
 #victoryLabFx.mini .victoryLabAtom{width:clamp(72px,20vw,112px);position:absolute;top:12%}
 #victoryLabFx.mini .vlfParticle{top:35%}
-@keyframes vlfDim{0%,100%{opacity:0}15%,75%{opacity:1}}
-@keyframes vlfAtom{0%{opacity:0;transform:scale(.2) rotate(-12deg)}28%{opacity:1;transform:scale(1.08) rotate(2deg)}58%{transform:scale(.98)}82%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.28)}}
+@keyframes vlfDim{0%,100%{opacity:0}14%,68%{opacity:1}}
+@keyframes vlfAtom{0%{opacity:0;transform:scale(.28) rotate(-10deg)}26%{opacity:1;transform:scale(1.1) rotate(2deg)}56%{transform:scale(.98)}78%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.18)}}
 @keyframes vlfBond{to{transform:scaleX(1)}}
 @keyframes vlfSpin{to{transform:rotate(744deg)}}
 @keyframes vlfSpinBack{to{transform:rotate(-754deg)}}
-@keyframes vlfFlash{0%{opacity:0;transform:scale(.2)}35%{opacity:1}100%{opacity:0;transform:scale(2.2)}}
-@keyframes vlfConf{0%{opacity:0;transform:translate(-50%,-50%) scale(.4) rotate(var(--r))}12%{opacity:1}100%{opacity:0;transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) rotate(calc(var(--r) + 520deg))}}
+@keyframes vlfFlash{0%{opacity:0;transform:scale(.35)}32%{opacity:1}100%{opacity:0;transform:scale(1.85)}}
+@keyframes vlfConf{0%{opacity:0;transform:translate(-50%,-50%) scale(.55) rotate(var(--r))}9%{opacity:1}100%{opacity:0;transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) rotate(calc(var(--r) + 760deg))}}
 @media(max-width:360px){#bubble{font-size:12.5px;padding:9px 10px 12px}#gameScr #bubble,#playScr #bubble{width:min(57vw,205px)!important;max-width:min(57vw,205px)!important}}
 @media(prefers-reduced-motion:reduce){#bubble.on #bubbleTimer{animation:none;transform:scaleX(.7)}#victoryLabFx.on .victoryLabAtom{animation:vlfReduced 1.25s ease both}.vlaOrbit{animation:none!important}.vlfParticle{display:none}@keyframes vlfReduced{0%,100%{opacity:0;transform:scale(.7)}25%,75%{opacity:1;transform:scale(1)}}}
 
@@ -4160,7 +4183,7 @@ body.mxReduceMotion #mxSmallToast{transition:none}
 #modalBox.settingsModal .vrow.audioRow .vl{gap:9px}
 .mxAudioSvg{width:25px;height:25px;padding:3px;border-radius:8px;background:linear-gradient(145deg,rgba(255,255,255,.16),rgba(117,87,214,.14));border:1px solid rgba(190,177,255,.4);box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 0 8px rgba(116,91,255,.2)}
 
-/* Dr. E no longer displays OS-dependent coin / silver-medal emojis. */
+/* Dr. Edward Atom no longer displays OS-dependent coin / silver-medal emojis. */
 .einFx .prop.mxDiscoveryProp{font-size:0!important;background:transparent!important;box-shadow:none!important}
 .einFx .prop.mxDiscoveryProp::before{
   content:'';display:block;width:42px;height:42px;border-radius:50%;
@@ -4177,7 +4200,7 @@ body.mxReduceMotion #mxSmallToast{transition:none}
 
 @media(prefers-reduced-motion:reduce){.coinIcon{animation:none!important}.einFx .prop.mxDiscoveryProp::before{animation:none!important}}
 
-/* V8.5.26 — premium code-drawn Dr. E reaction icons */
+/* V8.5.26 — premium code-drawn Dr. Edward Atom reaction icons */
 .einFx .prop.mxPremiumProp{width:46px;height:46px;max-width:none;font-size:0!important;display:grid!important;place-items:center;color:#eafcff;filter:drop-shadow(0 5px 7px rgba(0,0,0,.46))}
 .mxEinIcon{display:grid;place-items:center;width:42px;height:42px;padding:8px;border-radius:14px;background:radial-gradient(circle at 30% 20%,rgba(255,255,255,.34),transparent 26%),linear-gradient(145deg,rgba(29,225,255,.25),rgba(119,82,236,.3) 56%,rgba(18,11,54,.88));border:1px solid rgba(185,244,255,.76);box-shadow:inset 0 1px 0 rgba(255,255,255,.48),inset 0 -3px 8px rgba(21,8,70,.55),0 0 12px rgba(88,224,255,.55),0 0 20px rgba(139,93,255,.28);animation:mxEinIconFloat 1.5s ease-in-out infinite}
 .mxEinIcon svg{display:block;width:100%;height:100%;overflow:visible}
@@ -4206,7 +4229,7 @@ body.mxReduceMotion #mxSmallToast{transition:none}
 #dC{display:grid;place-items:center;border-radius:15px;background:radial-gradient(circle at 35% 28%,rgba(255,255,255,.24),transparent 27%),linear-gradient(145deg,#172f56,#130f36);border:1px solid rgba(143,226,255,.33);box-shadow:inset 0 2px 8px rgba(0,0,0,.45),0 0 12px rgba(95,89,255,.18)}
 .dpadCore{width:17px;height:17px;border-radius:50%;background:radial-gradient(circle at 35% 28%,#fff 0 10%,#8ff4ff 24%,#7457f3 62%,#211055 100%);border:1px solid rgba(255,255,255,.85);box-shadow:0 0 8px rgba(91,224,255,.8),0 0 16px rgba(118,78,255,.45)}
 .tutGoal{border:1px solid rgba(137,236,255,.72)!important;background:linear-gradient(145deg,rgba(10,38,70,.97),rgba(34,20,78,.97))!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.17),0 0 0 3px rgba(89,208,255,.12),0 0 26px rgba(76,211,255,.45)!important;animation:tutGoalBeacon 1.35s ease-in-out infinite}
-.tutGoal .tutBubble::before{content:'DR. E';display:block;font-size:.68rem;letter-spacing:.12em;color:#91efff;margin-bottom:4px;font-weight:800}
+.tutGoal .tutBubble::before{content:'DR. EDWARD ATOM';display:block;font-size:.68rem;letter-spacing:.12em;color:#91efff;margin-bottom:4px;font-weight:800}
 .tutArrow svg{width:42px;height:42px;overflow:visible;filter:drop-shadow(0 0 7px rgba(93,225,255,.78))}
 .tutArrow svg path,.tutArrow svg circle{fill:none;stroke:#fff2a0;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
 @keyframes tutGoalBeacon{50%{transform:scale(1.025);box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 0 0 5px rgba(89,208,255,.08),0 0 38px rgba(115,88,255,.56)}}
@@ -4445,8 +4468,8 @@ body.tutorialMode #coinChip{
 body.mxReduceMotion #bannerWrap.on[data-motion] #banner{animation:none!important;transform:none!important;filter:none!important}
 @media(prefers-reduced-motion:reduce){#bannerWrap.on[data-motion] #banner{animation:none!important;transform:none!important;filter:none!important}}
 
-/* ================= V8.5.46 — EVENT-DRIVEN IN-GAME DR. E =================
-   Main-menu Dr. E is untouched. Game poses share the approved 468x520 canvas,
+/* ================= V8.5.46 — EVENT-DRIVEN IN-GAME DR. EDWARD ATOM =================
+   Main-menu Dr. Edward Atom is untouched. Game poses share the approved 468x520 canvas,
    stay at the original 150px game size and remain anchored to the safe-area
    lower-right corner. */
 #gameScr #einWrap{left:auto!important;top:auto!important;right:calc(var(--sar) - 2px)!important;bottom:calc(var(--sab) - 12px)!important;pointer-events:none!important}
@@ -4580,7 +4603,7 @@ body.mxNative #logoTitle{font-size:clamp(40px,11.7vw,56px)!important;letter-spac
 body.mxNative #logoTop{font-size:14px!important;letter-spacing:4.4px!important}
 body.mxNative #logoSub{font-size:13px!important;margin-top:5px!important}
 body.mxNative #splashBtns{width:min(69vw,278px)!important;transform:translateX(8px)!important}
-/* Keep Dr. E seated instead of visually floating above the floor. */
+/* Keep Dr. Edward Atom seated instead of visually floating above the floor. */
 body.mxNative #splash #einBoxS{right:-4px!important;bottom:-20px!important;height:clamp(245px,41svh,392px)!important;animation:none!important}
 body.mxNative #splash #einBoxS .einImg{object-position:right bottom!important}
 /* Compact the in-level tool rail and return a little board space. */
@@ -4604,7 +4627,7 @@ body.mxNative #modalBox.accountModal .accountUtilityRow{width:100%!important}
 }
 
 
-/* ================= V8.5.54 R8 — Dr. E final position ================= */
+/* ================= V8.5.54 R8 — Dr. Edward Atom final position ================= */
 /* Slightly larger and a few pixels left, preserving the visible feet/pants. */
 body.mxNative #gameScr #einWrap{right:4px!important;bottom:-2px!important;width:230px!important}
 body.mxNative #einBoxG{width:200px!important;animation:none!important;transform:none!important;transform-origin:right bottom!important}
@@ -4631,7 +4654,7 @@ body.mxIOSNative #gameScr #bubble,body.mxIOSNative #playScr #bubble,body.mxIOSNa
 }
 
 
-/* ================= V8.5.62 R17 — all-player voice + iOS board/Dr. E ================= */
+/* ================= V8.5.62 R17 — all-player voice + iOS board/Dr. Edward Atom ================= */
 /* The injected responsive-safety rule capped #einBoxG at 108–126px on tall,
    narrow iPhones. These more specific iOS rules remove that cap. */
 body.mxIOSNative #boardWrap{
@@ -4679,7 +4702,7 @@ body.mxIOSNative #playScr .speech{
   body.mxIOSNative #gameScr #einBoxG.mxEinResponsive{width:324px!important;max-width:none!important;max-height:none!important}
 }
 
-/* ================= V8.5.63 R18 — Web-proportioned iOS Dr. E + voice sprite ================= */
+/* ================= V8.5.63 R18 — Web-proportioned iOS Dr. Edward Atom + voice sprite ================= */
 /* R17 was intentionally oversized for diagnosis. Return the in-game professor
    to the approved Web-like proportion, anchor his feet to the lower-right floor,
    and move the board only a few pixels closer to the GOAL area. */
@@ -5128,7 +5151,7 @@ body.mxIOSNative #moxyGameCompanion{right:clamp(184px,43vw,274px);width:clamp(70
 }
 
 /* Moxy lives on the upper-left rim of the board after Experiment 50.
-   It stays outside playable cells and balances Dr. E on the lower-right. */
+   It stays outside playable cells and balances Dr. Edward Atom on the lower-right. */
 #boardFrame>#moxyGameCompanion{
   position:absolute!important;left:clamp(5px,1.6vw,10px)!important;right:auto!important;
   top:clamp(-43px,-5.2vw,-31px)!important;bottom:auto!important;
@@ -5165,7 +5188,7 @@ body.mxReduceMotion #boardFrame>#moxyGameCompanion img{animation:none!important}
 @media(max-height:700px){#boardFrame>#moxyGameCompanion{top:-24px!important}}
 
 /* ================= CHARACTER LIFE PASS 1 =================
-   Moxy: organic wordless idle reactions. Dr. E: subtle idle life only.
+   Moxy: organic wordless idle reactions. Dr. Edward Atom: subtle idle life only.
    No gameplay geometry is affected. */
 #boardFrame>#moxyGameCompanion b{
   position:absolute;z-index:4;pointer-events:none;
@@ -5483,7 +5506,7 @@ body.mxReduceMotion #mxMoxyEmojiBubble{display:none!important}
   84%{transform:translateY(-1px) rotate(-2deg) scale(.99,1.02)}
 }
 
-/* Curved, buoyant trip to Dr. E instead of a straight UI translation. */
+/* Curved, buoyant trip to Dr. Edward Atom instead of a straight UI translation. */
 #boardFrame>#moxyGameCompanion.mx-visit-dre{
   animation:mxMoxyVisitArc .82s cubic-bezier(.18,.82,.2,1) both!important;
   transition:filter .3s ease!important;
@@ -5494,7 +5517,7 @@ body.mxReduceMotion #mxMoxyEmojiBubble{display:none!important}
   100%{transform:translate(var(--mx-visit-x,0px),var(--mx-visit-y,0px)) scale(1.055)}
 }
 
-/* Dr. E: tiny human-like weight shifts. Existing pose system remains authoritative. */
+/* Dr. Edward Atom: tiny human-like weight shifts. Existing pose system remains authoritative. */
 #einBoxG:not(.mxPoseAsset).mx-life-focus .einImg{animation:mxDrEFocus 1.45s cubic-bezier(.25,.72,.2,1)!important}
 #einBoxG:not(.mxPoseAsset).mx-life-think .einImg{animation:mxDrEThink 1.65s cubic-bezier(.25,.72,.2,1)!important}
 #einBoxG:not(.mxPoseAsset).mx-life-settle .einImg{animation:mxDrESettle 1.45s ease-in-out!important}
@@ -5512,7 +5535,7 @@ body.mxReduceMotion #mxMoxyEmojiBubble{display:none!important}
   68%{transform:translateY(-1px) scale(.997,1.005)}
 }
 
-/* Gentle optical polish around Dr. E, not an extra sprite. */
+/* Gentle optical polish around Dr. Edward Atom, not an extra sprite. */
 #einBoxG::after{
   content:'';position:absolute;inset:9% 10% 8%;pointer-events:none;z-index:0;border-radius:48%;
   opacity:0;background:radial-gradient(ellipse at 50% 62%,rgba(114,226,255,.13),rgba(130,113,255,.035) 52%,transparent 72%);
@@ -5800,7 +5823,7 @@ html body #boardFrame canvas#board{
 #mxMoxyExpression svg{width:58px!important;height:58px!important}
 #mxMoxyExpression.on{opacity:1}
 
-/* During a Dr. E line, keep Moxy optically above the board and never behind the legacy bubble. */
+/* During a Dr. Edward Atom line, keep Moxy optically above the board and never behind the legacy bubble. */
 #boardFrame>#moxyGameCompanion.mx-look-dre,
 #boardFrame>#moxyGameCompanion.mxCinemaFocus{opacity:1!important;visibility:visible!important}
 
@@ -6129,7 +6152,7 @@ body.mxNative #modalBox.settingsModal .settingsActions{
 body.mxReduceMotion #mxNextMoleculeTransition *{animation:none!important}
 
 
-/* ================= DR. E-ONLY GAMEPLAY ================= */
+/* ================= DR. EDWARD ATOM-ONLY GAMEPLAY ================= */
 #moxyGameCompanion,#mxMoxyExpression,#mxCharacterBeatBubble.fromMoxy{display:none!important}
 
 /* Restore the pre-Moxy target-card sizing behavior. The original responsive
@@ -6266,7 +6289,7 @@ body.mxNative #modalBox.settingsModal .settingsActions{
   button,.btn,.iconBadge,.accountCloseX{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 }
 
-/* ================= DR. E · CINEMATIC POSE TRANSITIONS ================= */
+/* ================= DR. EDWARD ATOM · CINEMATIC POSE TRANSITIONS ================= */
 #einBoxG{isolation:isolate;overflow:visible}
 #einBoxG .einImg{transform-origin:52% 86%;will-change:transform,opacity,filter}
 #einBoxG .mxDrEPoseGhost{
@@ -6753,7 +6776,7 @@ body.mxReduceMotion #einBoxG .einImg{transition:none!important;animation:none!im
 }
 
 /* C) First-use mechanic briefing: freeze all frames in one coordinate system.
-   This prevents borders from sliding/clipping during Dr. E/UI transitions. */
+   This prevents borders from sliding/clipping during Dr. Edward Atom/UI transitions. */
 #modal:has(.mxFirstUseHead){
   align-items:center!important;
   justify-content:center!important;
@@ -6952,7 +6975,7 @@ body.mxReduceMotion #einBoxG .einImg{transition:none!important;animation:none!im
 }
 
 
-/* ================= MODAL RHYTHM + DR. E SUPPORT FIX ================= */
+/* ================= MODAL RHYTHM + DR. EDWARD ATOM SUPPORT FIX ================= */
 /* A consistent spacing system for all modal/card stacks without changing gameplay geometry. */
 #modalBox{
   --mx-modal-gap:12px;
@@ -6981,7 +7004,7 @@ body.mxReduceMotion #einBoxG .einImg{transition:none!important;animation:none!im
   margin-left:0!important;
 }
 
-/* Player Support Dr. E card — the missing layout that caused image/text overlap. */
+/* Player Support Dr. Edward Atom card — the missing layout that caused image/text overlap. */
 .mxDrETrainingCard{
   display:grid!important;
   grid-template-columns:64px minmax(0,1fr) 34px!important;
@@ -7286,7 +7309,7 @@ body.mxReduceMotion #einBoxG .einImg{transition:none!important;animation:none!im
   margin-top:12px!important;
 }
 
-/* ================= PLAYER SUPPORT · CHARACTERFUL DR. E ================= */
+/* ================= PLAYER SUPPORT · CHARACTERFUL DR. EDWARD ATOM ================= */
 .mxDrETrainingCard{
   grid-template-columns:78px minmax(0,1fr) 34px!important;
   gap:13px!important;
@@ -8319,7 +8342,7 @@ html[lang="it"] #modalBox .btn{
   to{opacity:1;transform:translateY(0)}
 }
 
-/* ---------------- DR. E MOTION ---------------- */
+/* ---------------- DR. EDWARD ATOM MOTION ---------------- */
 .mxFirstUseHead img,
 .mxDrETrainingAvatar>img,
 #tutorialEinFace,
@@ -8989,11 +9012,11 @@ body.mxReduceMotion #reactorCounter.hit{animation:none!important}
 
 
 /* =====================================================================
-   FINAL R45 POLISH 8 · DR. E SCENE COMPOSITING + PREMIUM TOOLS
-   Presentation-only integration. Existing Dr. E assets and gameplay remain intact.
+   FINAL R45 POLISH 8 · DR. EDWARD ATOM SCENE COMPOSITING + PREMIUM TOOLS
+   Presentation-only integration. Existing Dr. Edward Atom assets and gameplay remain intact.
    ===================================================================== */
 
-/* Main-menu Dr. E is now composited into the laboratory instead of reading as
+/* Main-menu Dr. Edward Atom is now composited into the laboratory instead of reading as
    a hard-cut transparent PNG. The bottom haze deliberately hides the crop edge. */
 #splash #einBoxS{
   isolation:isolate!important;
@@ -9025,7 +9048,7 @@ body.mxReduceMotion #reactorCounter.hit{animation:none!important}
 }
 @keyframes mxDrEMenuScene{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.8px)}}
 
-/* In-game Dr. E: less cut-out, more embedded laboratory companion. */
+/* In-game Dr. Edward Atom: less cut-out, more embedded laboratory companion. */
 #einBoxG{isolation:isolate!important}
 #einBoxG::before{
   content:"";position:absolute;pointer-events:none;z-index:0;
@@ -9941,7 +9964,7 @@ html[lang="pt"] :is(#modalBox button,#modalBox .btn,#splashBtns .btn,.collection
 .onlineQuickMessages>div{align-items:stretch!important}
 .onlineQuickMsgBtn{height:auto!important;min-height:40px!important}
 
-/* Dr. E text should always remain readable without pushing the character or
+/* Dr. Edward Atom text should always remain readable without pushing the character or
    board. Vertical scrolling is only used as a last resort for very long copy. */
 .speechBubble,.einSpeech,#einBoxG .speech,#einBoxS .speech{
   max-width:100%!important;
@@ -10984,7 +11007,7 @@ body.mxNative #bgParticles{
 
 
 /* ================= R118 PLAYER-FLOW + UI POLISH ================= */
-/* Dr. E is commentary, not an input blocker. During normal gameplay pointer
+/* Dr. Edward Atom is commentary, not an input blocker. During normal gameplay pointer
    events pass through his bubble to the board; tutorial bubbles remain tappable. */
 body:not(.tutorialMode) #bubble.on{pointer-events:none!important}
 body:not(.tutorialMode) #bubble:active{transform:scale(1) translateY(0)!important}
@@ -11088,7 +11111,7 @@ body.mxLowEffects.mxCrystalEra #bgA::after,
 body.mxLowEffects.mxCrystalEra #bgB::after{opacity:.22!important;animation-duration:9s!important}
 
 /* ================= R124 · QA STORY / EINSTEIN / FOCUS POLISH ================= */
-/* Dr. E commentary is intentionally tappable during gameplay and stays visible
+/* Dr. Edward Atom commentary is intentionally tappable during gameplay and stays visible
    until dismissed. Keep it compact so it never dominates the board. */
 body:not(.tutorialMode) #bubble.on{
   pointer-events:auto!important;
@@ -11622,8 +11645,8 @@ body.mxReduceMotion #actionCol .btn.iconBadge .badgeIcon{animation:none!importan
 
 
 /* ================= R159 — MOBILE TUTORIAL BUBBLE HOTFIX =================
-   Keep the first Dr. E tutorial message readable on narrow mobile Safari/Chrome.
-   Gameplay geometry and regular Dr. E speech bubbles are intentionally untouched. */
+   Keep the first Dr. Edward Atom tutorial message readable on narrow mobile Safari/Chrome.
+   Gameplay geometry and regular Dr. Edward Atom speech bubbles are intentionally untouched. */
 @media (orientation:portrait) and (max-width:430px){
   #tutorialDialogue{
     left:max(9px,calc(var(--sal) + 7px))!important;
@@ -11827,7 +11850,7 @@ body.reduceMotion .mxLevelMechanicChip,body.performanceLow .mxLevelMechanicChip{
 /* ============================================================
    R183 FINAL — paid-hint mobile layout repair.
    Scope is intentionally limited to the paid-hint modal so the restored
-   R179 board / touch / Dr. E geometry cannot be disturbed.
+   R179 board / touch / Dr. Edward Atom geometry cannot be disturbed.
    ============================================================ */
 #modalBox .mrow.mxHintBuyRows{
   display:grid!important;
@@ -12142,3 +12165,1397 @@ body.mxReduceMotion #modalBox.winResultModal.mxResultIdleSlow .mxResultMolecule:
    Frame dimensions, typography and reserved regions are intentionally unchanged
    from R197. Only drawMol()'s standard GOAL molecule scale is larger; oversized
    geometries still fit down proportionally inside the existing canvas. */
+
+/* =====================================================================
+   R203 · MAIN MENU DR. EDWARD ATOM MIRROR
+   User-requested presentation-only change.
+   - Keep the approved Dr. Edward Atom artwork untouched.
+   - Preserve the R200/R202 main-menu size, anchor and bottom crop.
+   - Mirror only the mascot artwork + facial FX so he faces the opposite side.
+   - No gameplay geometry, board rules, story, economy or controls changed.
+   ===================================================================== */
+#splash #einBoxS{
+  position:absolute!important;
+  left:auto!important;
+  top:auto!important;
+  right:max(-2px,calc(var(--sar) - 2px))!important;
+  bottom:max(-3px,calc(var(--sab) - 3px))!important;
+  height:clamp(250px,43vh,410px)!important;
+  width:auto!important;
+  max-height:none!important;
+  aspect-ratio:468/520!important;
+  transform-origin:right bottom!important;
+  overflow:visible!important;
+  z-index:5!important;
+}
+#splash #einBoxS>.einImg{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain!important;
+  object-position:right bottom!important;
+  transform:scaleX(-1)!important;
+  transform-origin:50% 50%!important;
+}
+#splash #einBoxS>.einFx{
+  transform:scaleX(-1)!important;
+  transform-origin:50% 50%!important;
+}
+@media(max-height:760px){
+  #splash #einBoxS{height:clamp(235px,40vh,350px)!important}
+}
+@media(max-height:620px){
+  #splash #einBoxS{height:clamp(210px,37vh,285px)!important}
+}
+@supports(height:100svh){
+  #splash #einBoxS{height:clamp(250px,43svh,410px)!important}
+}
+
+/* =====================================================================
+   R207 · EXACT SUPPLIED DR. EDWARD ATOM — FINGER LEFT / TABLET RIGHT
+   The user's supplied full-body character replaces the former, different model.
+   Only deterministic background removal, horizontal orientation and menu framing
+   are applied; no generated or alternate character artwork is used.
+   ===================================================================== */
+#splash #einBoxS{
+  left:auto!important;
+  top:auto!important;
+  right:calc(var(--sar) - 23px)!important;
+  bottom:calc(var(--sab) - 20px)!important;
+  height:min(46svh,410px)!important;
+  width:auto!important;
+  max-height:none!important;
+  aspect-ratio:468/520!important;
+  transform-origin:right bottom!important;
+  overflow:visible!important;
+  z-index:5!important;
+}
+/* The R207 asset is stored in the requested orientation. */
+#splash #einBoxS>.einImg{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:none!important;
+  max-height:none!important;
+  object-fit:contain!important;
+  object-position:right bottom!important;
+  transform:none!important;
+  transform-origin:50% 50%!important;
+}
+/* Preserve the supplied face exactly; legacy overlays target the former model. */
+#splash #einBoxS>.einFx{
+  display:none!important;
+}
+@media(max-height:760px){
+  #splash #einBoxS{height:min(40svh,330px)!important;right:calc(var(--sar) - 20px)!important;bottom:calc(var(--sab) - 18px)!important}
+}
+@media(max-height:620px){
+  #splash #einBoxS{height:min(35svh,260px)!important;right:calc(var(--sar) - 17px)!important;bottom:calc(var(--sab) - 15px)!important}
+}
+@supports not (height:1svh){
+  #splash #einBoxS{height:min(46vh,410px)!important}
+  @media(max-height:760px){#splash #einBoxS{height:min(40vh,330px)!important}}
+  @media(max-height:620px){#splash #einBoxS{height:min(35vh,260px)!important}}
+}
+body.iosStandalone #splash #einBoxS{
+  height:min(33dvh,285px)!important;
+  max-height:33dvh!important;
+  right:calc(var(--sar) - 17px)!important;
+  bottom:0!important;
+}
+@supports (-webkit-touch-callout:none){
+  @media (display-mode:standalone){
+    #splash #einBoxS{
+      height:min(33dvh,285px)!important;
+      max-height:33dvh!important;
+      right:calc(var(--sar) - 17px)!important;
+      bottom:0!important;
+    }
+  }
+}
+@media(max-height:700px){
+  body.iosStandalone #splash #einBoxS{height:min(30dvh,225px)!important;max-height:30dvh!important;bottom:0!important}
+}
+
+/* R208 · IN-GAME DR. EDWARD ATOM — R200 GEOMETRY PRESERVED
+   The existing #einBoxG width rules are intentionally unchanged from R200.
+   Each new 468x520 pose is normalized to the matching R200 alpha bounds,
+   so the lower torso crop, apparent size and screen-left attention remain identical. */
+
+/* =====================================================================
+   R209 · MAIN-MENU DR. EDWARD ATOM — REFERENCE UPPER-BODY FRAMING
+   Keep the approved artwork unchanged. Magnify it inside a viewport-height
+   crop so the head starts at the same vertical point while legs and shoes
+   remain outside the visible menu, matching the supplied second reference.
+   ===================================================================== */
+#splash #einBoxS{
+  left:auto!important;
+  top:54svh!important;
+  right:calc(var(--sar) - 23px)!important;
+  bottom:auto!important;
+  height:46svh!important;
+  width:auto!important;
+  max-height:none!important;
+  aspect-ratio:468/520!important;
+  overflow:hidden!important;
+  transform-origin:right top!important;
+}
+#splash #einBoxS>.einImg{
+  width:100%!important;
+  height:100%!important;
+  max-width:none!important;
+  max-height:none!important;
+  object-fit:contain!important;
+  object-position:right top!important;
+  transform:scale(1.70)!important;
+  transform-origin:right top!important;
+}
+body.iosStandalone #splash #einBoxS{
+  top:54dvh!important;
+  bottom:auto!important;
+  height:46dvh!important;
+  max-height:none!important;
+  right:calc(var(--sar) - 23px)!important;
+}
+@media (display-mode:standalone){
+  #splash #einBoxS{
+    top:54dvh!important;
+    bottom:auto!important;
+    height:46dvh!important;
+    max-height:none!important;
+  }
+}
+@supports not (height:1svh){
+  #splash #einBoxS{top:54vh!important;height:46vh!important}
+}
+
+/* =====================================================================
+   R212 · DR. EDWARD ATOM EYE REACTIONS
+   - Tongue reaction is completely removed.
+   - Blink + one-eye wink are enabled and aligned for main menu and every
+     in-game pose asset on the shared 468×520 canvas.
+   - Eyelids sit inside the glasses so the frames remain visible.
+   ===================================================================== */
+.tongue,.tongue.out{display:none!important;opacity:0!important;height:0!important}
+
+/* Main menu: R209 enlarges the artwork 1.70× from the top-right corner.
+   The eye values below are the real source-eye positions after that crop. */
+#splash #einBoxS>.einFx{
+  display:block!important;
+  position:absolute!important;
+  inset:0!important;
+  z-index:32!important;
+  pointer-events:none!important;
+  transform:none!important;
+  overflow:hidden!important;
+}
+#splash #einBoxS .eyeW{
+  display:block!important;
+  left:37.5%!important;
+  top:27.2%!important;
+  width:10.9%!important;
+  height:11.6%!important;
+}
+#splash #einBoxS .eyeW.eye2{
+  left:50.4%!important;
+  top:25.8%!important;
+  width:10.9%!important;
+  height:11.6%!important;
+}
+#splash #einBoxS .lid,
+#einBoxG .lid{
+  left:0!important;top:0!important;width:100%!important;height:100%!important;
+  border:0!important;border-bottom:2px solid #744229!important;
+  border-radius:48% 48% 50% 50%!important;
+  background:linear-gradient(180deg,#ffc18d 0%,#efa971 72%,#dc8f5e 100%)!important;
+  box-shadow:inset 0 -1px 0 rgba(255,224,190,.36)!important;
+  transform-origin:50% 8%!important;
+}
+
+/* In-game: pose-aware eye geometry. The values map the real eye centers in
+   each normalized 468×520 Dr. Edward Atom pose asset. */
+#einBoxG{
+  --mx-e1x:50.2%;--mx-e1y:29.0%;
+  --mx-e2x:61.9%;--mx-e2y:29.2%;
+  --mx-ew:6.4%;--mx-eh:6.8%;
+}
+#einBoxG[data-dr-e-pose="thinking"]{--mx-e1x:55.7%;--mx-e1y:27.6%;--mx-e2x:66.7%;--mx-e2y:28.8%}
+#einBoxG[data-dr-e-pose="victory"]{--mx-e1x:51.0%;--mx-e1y:28.9%;--mx-e2x:63.3%;--mx-e2y:30.1%}
+#einBoxG[data-dr-e-pose="surprised"]{--mx-e1x:49.8%;--mx-e1y:29.0%;--mx-e2x:61.2%;--mx-e2y:29.5%}
+#einBoxG[data-dr-e-pose="clipboard"]{--mx-e1x:50.2%;--mx-e1y:31.5%;--mx-e2x:62.9%;--mx-e2y:31.1%}
+#einBoxG[data-dr-e-pose="magnifier"]{--mx-e1x:50.7%;--mx-e1y:30.0%;--mx-e2x:63.5%;--mx-e2y:29.8%}
+#einBoxG[data-dr-e-pose="clap"]{--mx-e1x:56.1%;--mx-e1y:29.2%;--mx-e2x:67.7%;--mx-e2y:29.0%}
+#einBoxG[data-dr-e-pose="medal"]{--mx-e1x:50.7%;--mx-e1y:29.6%;--mx-e2x:62.6%;--mx-e2y:29.3%}
+#einBoxG[data-dr-e-pose="molecule"]{--mx-e1x:45.5%;--mx-e1y:30.6%;--mx-e2x:59.0%;--mx-e2y:30.5%}
+#einBoxG[data-dr-e-pose="confused"]{--mx-e1x:39.1%;--mx-e1y:35.0%;--mx-e2x:50.4%;--mx-e2y:36.7%}
+#einBoxG[data-dr-e-pose="experiment"]{--mx-e1x:50.0%;--mx-e1y:29.1%;--mx-e2x:63.0%;--mx-e2y:30.3%}
+#einBoxG[data-dr-e-pose="celebrate"]{--mx-e1x:39.6%;--mx-e1y:30.0%;--mx-e2x:49.9%;--mx-e2y:31.2%}
+#einBoxG>.einFx{display:block!important;position:absolute!important;inset:0!important;z-index:68!important;pointer-events:none!important;overflow:visible!important}
+#einBoxG .eyeW,
+#einBoxG.mxPoseAsset .eyeW{
+  display:block!important;
+  left:var(--mx-e1x)!important;
+  top:var(--mx-e1y)!important;
+  width:var(--mx-ew)!important;
+  height:var(--mx-eh)!important;
+}
+#einBoxG .eyeW.eye2,
+#einBoxG.mxPoseAsset .eyeW.eye2{
+  left:var(--mx-e2x)!important;
+  top:var(--mx-e2y)!important;
+}
+/* Avoid an eye overlay during the 0.39s cross-fade between different poses. */
+#einBoxG.mxDrETransitionFocus .einFx,
+#einBoxG.mxDrETransitionLift .einFx,
+#einBoxG.mxDrETransitionSnap .einFx,
+#einBoxG.mxDrETransitionLab .einFx,
+#einBoxG.mxDrETransitionEnter .einFx,
+#einBoxG.mxDrETransitionCross .einFx{opacity:0}
+
+/* =====================================================================
+   R213 · MAIN-MENU WINK LID SIZE FIX
+   Keep the R212 eye centres exactly aligned, but shrink only the main-menu
+   eyelid masks so they stay comfortably inside Dr. Edward Atom's glasses.
+   In-game pose eyelids are intentionally unchanged.
+   ===================================================================== */
+#splash #einBoxS .eyeW{
+  left:38.95%!important;
+  top:29.10%!important;
+  width:8.00%!important;
+  height:7.80%!important;
+}
+#splash #einBoxS .eyeW.eye2{
+  left:51.85%!important;
+  top:27.70%!important;
+  width:8.00%!important;
+  height:7.80%!important;
+}
+#splash #einBoxS .lid{
+  border-bottom-width:1px!important;
+  border-radius:50%!important;
+}
+
+/* =====================================================================
+   R214 · DR. EDWARD ATOM CLEAN COMPOSITING FIX
+   Remove the haze / white reflection around Dr. Edward Atom and keep a
+   clean, crisp presentation in both main menu and gameplay.
+   ===================================================================== */
+#splash #einBoxS,
+#einBoxG{
+  isolation:auto!important;
+  filter:none!important;
+}
+#splash #einBoxS::before,
+#splash #einBoxS::after,
+#einBoxG::before,
+#gameScr #einBoxG .einFx::after,
+#playScr #einBoxG .einFx::after{
+  content:none!important;
+  display:none!important;
+}
+#splash #einBoxS .einImg{
+  filter:drop-shadow(0 8px 14px rgba(0,0,0,.42))!important;
+  -webkit-mask-image:none!important;
+  mask-image:none!important;
+  opacity:1!important;
+  image-rendering:auto!important;
+}
+#einBoxG .einImg{
+  filter:drop-shadow(0 7px 12px rgba(0,0,0,.40))!important;
+  -webkit-mask-image:none!important;
+  mask-image:none!important;
+  opacity:1!important;
+  image-rendering:auto!important;
+}
+
+/* =====================================================================
+   R215 · CRISP MENU / SINGLE-LAYER GAMEPLAY
+   The approved Dr. Edward artwork remains the same design. Remove all
+   compositing blur and prohibit the legacy pose ghost from rendering.
+   ===================================================================== */
+#splash #einBoxS{
+  isolation:auto!important;
+  filter:none!important;
+  animation:none!important;
+  will-change:auto!important;
+}
+#splash #einBoxS::before,
+#splash #einBoxS::after{
+  content:none!important;
+  display:none!important;
+  background:none!important;
+  box-shadow:none!important;
+  filter:none!important;
+}
+#splash #einBoxS>.einImg{
+  filter:none!important;
+  -webkit-mask-image:none!important;
+  mask-image:none!important;
+  opacity:1!important;
+  will-change:auto!important;
+  backface-visibility:hidden!important;
+}
+#einBoxG,
+#einBoxG .einImg{
+  filter:none!important;
+}
+#einBoxG .mxDrEPoseGhost{
+  display:none!important;
+  visibility:hidden!important;
+  opacity:0!important;
+}
+
+/* R216 · CLEAN LEFT-POINTING DR. EDWARD
+   High-resolution transparent menu asset: finger screen-left, tablet
+   screen-right, readable Dr.E label. R209 framing remains unchanged. */
+
+/* =====================================================================
+   R217 · DR. EDWARD EYE-ALIGNMENT PASS
+   Eye overlays use measured iris centres. Main-menu geometry accounts for
+   the 1.70x top-right crop; gameplay geometry is calibrated per pose.
+   ===================================================================== */
+#splash #einBoxS .eyeW,
+#splash #einBoxS .eyeW.eye2,
+#einBoxG .eyeW,
+#einBoxG .eyeW.eye2{
+  transform:translate(-50%,-50%)!important;
+}
+
+/* Main-menu source-eye centres after the responsive character crop. */
+#splash #einBoxS .eyeW{
+  left:48.68%!important;
+  top:30.92%!important;
+  width:8.00%!important;
+  height:7.20%!important;
+}
+#splash #einBoxS .eyeW.eye2{
+  left:60.65%!important;
+  top:30.67%!important;
+}
+
+/* Every game pose has its own measured eye centres on the 468x520 canvas. */
+#einBoxG{
+  --mx-e1x:53.39%;--mx-e1y:32.30%;
+  --mx-e2x:65.10%;--mx-e2y:32.43%;
+  --mx-ew:5.00%;--mx-eh:5.20%;
+}
+#einBoxG[data-dr-e-pose="thinking"]{--mx-e1x:58.85%;--mx-e1y:30.94%;--mx-e2x:69.98%;--mx-e2y:31.91%}
+#einBoxG[data-dr-e-pose="victory"]{--mx-e1x:54.07%;--mx-e1y:32.03%;--mx-e2x:66.74%;--mx-e2y:33.14%}
+#einBoxG[data-dr-e-pose="surprised"]{--mx-e1x:52.88%;--mx-e1y:31.91%;--mx-e2x:64.81%;--mx-e2y:32.52%}
+#einBoxG[data-dr-e-pose="clipboard"]{--mx-e1x:53.43%;--mx-e1y:34.37%;--mx-e2x:66.00%;--mx-e2y:34.26%}
+#einBoxG[data-dr-e-pose="magnifier"]{--mx-e1x:53.78%;--mx-e1y:33.07%;--mx-e2x:66.59%;--mx-e2y:32.99%}
+#einBoxG[data-dr-e-pose="clap"]{--mx-e1x:59.18%;--mx-e1y:32.24%;--mx-e2x:70.96%;--mx-e2y:32.22%}
+#einBoxG[data-dr-e-pose="medal"]{--mx-e1x:53.71%;--mx-e1y:32.24%;--mx-e2x:65.73%;--mx-e2y:32.56%}
+#einBoxG[data-dr-e-pose="molecule"]{--mx-e1x:48.57%;--mx-e1y:33.59%;--mx-e2x:62.14%;--mx-e2y:33.75%}
+#einBoxG[data-dr-e-pose="confused"]{--mx-e1x:42.33%;--mx-e1y:38.28%;--mx-e2x:53.80%;--mx-e2y:39.84%}
+#einBoxG[data-dr-e-pose="experiment"]{--mx-e1x:53.30%;--mx-e1y:32.26%;--mx-e2x:66.45%;--mx-e2y:33.21%}
+#einBoxG[data-dr-e-pose="celebrate"]{--mx-e1x:42.77%;--mx-e1y:32.93%;--mx-e2x:53.34%;--mx-e2y:34.24%}
+
+/* Compact curved lids stay inside the glasses and close without a flash. */
+#splash #einBoxS .lid,
+#einBoxG .lid{
+  left:0!important;
+  top:0!important;
+  width:100%!important;
+  height:100%!important;
+  border:0!important;
+  border-bottom:1px solid rgba(103,55,31,.82)!important;
+  border-radius:50% 50% 54% 54% / 43% 43% 64% 64%!important;
+  background:linear-gradient(180deg,#ffc18d 0%,#efa971 70%,#dc8f5e 100%)!important;
+  box-shadow:inset 0 -1px 0 rgba(255,227,198,.34)!important;
+  transform:scaleY(0)!important;
+  transform-origin:50% 8%!important;
+  transition:transform 58ms cubic-bezier(.30,0,.55,1),opacity 34ms linear!important;
+  opacity:0!important;
+}
+#splash #einBoxS .lid.on,
+#einBoxG .lid.on{
+  transform:scaleY(1)!important;
+  opacity:1!important;
+}
+
+/* =====================================================================
+   R218 · PREMIUM MAIN-MENU LOGO + CTA BUTTONS
+   Scope is intentionally limited to the MOLECULOX wordmark and the five
+   central main-menu buttons. Dr. Edward Atom, dock buttons, background,
+   positions, gameplay and all other UI remain untouched.
+   ===================================================================== */
+
+/* Premium cyan/white brand treatment, without changing logoWrap geometry. */
+#splash #logoTitle{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:0!important;
+  width:100%!important;
+  color:transparent!important;
+  background:none!important;
+  -webkit-background-clip:initial!important;
+  background-clip:initial!important;
+  font-weight:1000!important;
+  letter-spacing:-.045em!important;
+  line-height:1!important;
+  white-space:nowrap!important;
+  filter:drop-shadow(0 3px 0 rgba(0,46,111,.95)) drop-shadow(0 0 12px rgba(75,211,255,.48))!important;
+}
+#splash #logoTitle>span{
+  display:inline-block;
+  position:relative;
+  color:transparent;
+  background:linear-gradient(180deg,#ffffff 0%,#e9fbff 25%,#7edcff 63%,#39a9ff 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-stroke:.7px rgba(20,116,190,.82);
+  text-shadow:0 1px 0 rgba(255,255,255,.34);
+}
+#splash #logoTitle .mxLogoM{margin-right:.01em}
+#splash #logoTitle .mxLogoAtomO{
+  margin:0 .01em;
+  z-index:1;
+}
+/* The first O keeps its glyph but gets the warm nucleus from the approved concept. */
+#splash #logoTitle .mxLogoAtomO::after{
+  content:"";
+  position:absolute;
+  left:50%;top:50%;
+  width:.34em;height:.34em;
+  transform:translate(-50%,-49%);
+  border-radius:50%;
+  background:radial-gradient(circle at 34% 30%,#fff5a4 0 10%,#ffd43b 24%,#ffad12 58%,#dc6c00 100%);
+  border:.035em solid rgba(255,243,164,.92);
+  box-shadow:0 0 .16em rgba(255,181,22,.95),0 0 .28em rgba(61,218,255,.68);
+  z-index:4;
+}
+#splash #logoTitle .mxLogoAtomO::before{
+  content:"";
+  position:absolute;
+  left:50%;top:50%;
+  width:.78em;height:.52em;
+  transform:translate(-50%,-50%) rotate(-16deg);
+  border:.038em solid rgba(123,237,255,.86);
+  border-radius:50%;
+  box-shadow:0 0 .12em rgba(77,215,255,.76);
+  z-index:3;
+  pointer-events:none;
+}
+#splash #logoTitle .mxLogoX{
+  margin-left:.005em;
+  z-index:1;
+}
+/* Small orbital accent around the X, visually contained inside the logo lane. */
+#splash #logoTitle .mxLogoX::before,
+#splash #logoTitle .mxLogoX::after{
+  content:"";
+  position:absolute;
+  left:50%;top:50%;
+  width:.86em;height:.38em;
+  border:.035em solid rgba(100,230,255,.88);
+  border-radius:50%;
+  pointer-events:none;
+  box-shadow:0 0 .10em rgba(74,209,255,.62);
+}
+#splash #logoTitle .mxLogoX::before{transform:translate(-50%,-50%) rotate(28deg)}
+#splash #logoTitle .mxLogoX::after{transform:translate(-50%,-50%) rotate(-28deg)}
+
+/* Keep the current chemistry doodles, but lift the buttons to a glossy premium finish. */
+#splash #splashBtns .btn:not(.iconBadge){
+  position:relative!important;
+  border:1.5px solid rgba(205,245,255,.62)!important;
+  border-radius:17px!important;
+  color:#fff!important;
+  font-weight:950!important;
+  letter-spacing:.012em!important;
+  text-shadow:0 2px 3px rgba(3,16,54,.48)!important;
+  box-shadow:
+    0 4px 0 rgba(7,34,85,.72),
+    0 8px 16px rgba(1,8,31,.32),
+    inset 0 1.5px 0 rgba(255,255,255,.62),
+    inset 0 -2px 0 rgba(0,24,76,.20)!important;
+  background-repeat:no-repeat,no-repeat,no-repeat!important;
+  background-position:left 8px center,right 8px center,center!important;
+  background-size:58px auto,58px auto,100% 100%!important;
+  background-blend-mode:screen,screen,normal!important;
+  overflow:hidden;
+}
+#splash #splashBtns .btn:not(.iconBadge)::before{
+  content:"";
+  position:absolute;
+  pointer-events:none;
+  left:4px;right:4px;top:3px;height:38%;
+  border-radius:14px 14px 45% 45%;
+  background:linear-gradient(180deg,rgba(255,255,255,.30),rgba(255,255,255,.08) 58%,transparent 100%);
+  opacity:.78;
+  z-index:0;
+}
+#splash #splashBtns .btn:not(.iconBadge)>*{position:relative;z-index:1}
+
+#splash #splashBtns #btnPlay{
+  background-image:url("../assets/images/button-doodle-left.svg"),url("../assets/images/button-doodle-right.svg"),linear-gradient(180deg,#66ed5e 0%,#29cf61 48%,#10a84f 100%)!important;
+  border-color:rgba(191,255,184,.78)!important;
+  box-shadow:0 4px 0 #087c3d,0 8px 17px rgba(0,61,31,.30),inset 0 1.5px 0 rgba(255,255,255,.70),inset 0 -2px 0 rgba(0,75,39,.24)!important;
+}
+#splash #splashBtns #btnNew{
+  background-image:url("../assets/images/button-doodle-left.svg"),url("../assets/images/button-doodle-right.svg"),linear-gradient(180deg,#8d72ff 0%,#6b4eea 50%,#5132c9 100%)!important;
+  border-color:rgba(211,197,255,.76)!important;
+  box-shadow:0 4px 0 #3f28a7,0 8px 17px rgba(47,26,130,.27),inset 0 1.5px 0 rgba(255,255,255,.64),inset 0 -2px 0 rgba(34,17,112,.25)!important;
+}
+#splash #splashBtns #btnDaily{
+  background-image:url("../assets/images/button-doodle-left.svg"),url("../assets/images/button-doodle-right.svg"),linear-gradient(180deg,#ffd65e 0%,#ffb52c 46%,#e88b19 100%)!important;
+  border-color:rgba(255,235,154,.82)!important;
+  color:#251804!important;
+  text-shadow:0 1px 0 rgba(255,247,203,.46)!important;
+  box-shadow:0 4px 0 #b66710,0 8px 17px rgba(111,59,5,.25),inset 0 1.5px 0 rgba(255,255,255,.72),inset 0 -2px 0 rgba(142,75,7,.20)!important;
+  overflow:visible!important;
+}
+#splash #splashBtns #btnLevels{
+  background-image:url("../assets/images/button-doodle-left.svg"),url("../assets/images/button-doodle-right.svg"),linear-gradient(180deg,#31c8ff 0%,#168eea 50%,#1761c9 100%)!important;
+  border-color:rgba(174,236,255,.80)!important;
+  box-shadow:0 4px 0 #0d4eaa,0 8px 17px rgba(2,70,148,.27),inset 0 1.5px 0 rgba(255,255,255,.66),inset 0 -2px 0 rgba(8,65,145,.24)!important;
+}
+#splash #splashBtns #btnCollect{
+  background-image:url("../assets/images/button-doodle-left.svg"),url("../assets/images/button-doodle-right.svg"),linear-gradient(180deg,#42e0e9 0%,#18bed1 48%,#1186a9 100%)!important;
+  border-color:rgba(180,251,255,.82)!important;
+  box-shadow:0 4px 0 #0b6381,0 8px 17px rgba(1,92,112,.27),inset 0 1.5px 0 rgba(255,255,255,.67),inset 0 -2px 0 rgba(7,83,105,.22)!important;
+}
+
+/* Smaller viewports preserve existing layout dimensions; only the doodle scale follows. */
+@media(max-height:760px){
+  #splash #splashBtns .btn:not(.iconBadge){background-size:54px auto,54px auto,100% 100%!important}
+}
+@media(max-height:620px){
+  #splash #splashBtns .btn:not(.iconBadge){background-size:48px auto,48px auto,100% 100%!important}
+}
+
+/* =====================================================================
+   R220 · APPROVED LOGO ASSET — LAYOUT-SAFE INTEGRATION
+   Only the logo artwork is replaced. Existing logo flow space is retained,
+   so Dr. Edward Atom and every menu button stay at their R218 positions.
+   ===================================================================== */
+#splash #logoWrap{
+  position:relative!important;
+}
+#splash #logoTitle,
+#splash #logoSub{
+  visibility:hidden!important; /* preserve their exact layout footprint */
+}
+#splash #mainMenuLogoImage{
+  position:absolute!important;
+  left:50%!important;
+  top:clamp(16px,2.1vh,22px)!important;
+  width:min(58vw,270px)!important;
+  height:auto!important;
+  max-width:none!important;
+  transform:translateX(-50%)!important;
+  transform-origin:center center!important;
+  z-index:2!important;
+  pointer-events:none!important;
+  object-fit:contain!important;
+  image-rendering:auto!important;
+  filter:drop-shadow(0 3px 4px rgba(0,13,57,.45)) drop-shadow(0 0 8px rgba(55,211,255,.28))!important;
+}
+@media(max-height:700px){
+  #splash #mainMenuLogoImage{top:13px!important;width:min(55vw,248px)!important}
+}
+@media(max-height:610px){
+  #splash #mainMenuLogoImage{top:11px!important;width:min(52vw,228px)!important}
+}
+
+
+/* ================= R156 COMPACT GOAL + HIGHER ACTION RAIL ================= */
+/* User-approved tweak: keep Dr. Edward and speech bubble as-is, but tighten
+   the GOAL card's lower empty space and lift the right action rail slightly so
+   Hint/Hammer/1 Square/Barrier remain clear on portrait phones. */
+#goalCard{
+  padding:8px 7px 6px!important;
+  gap:1px!important;
+}
+@media(max-width:520px){
+  #goalCard{
+    padding:6px 6px 4px!important;
+    gap:1px!important;
+  }
+}
+@media(max-width:390px){
+  #goalCard{
+    padding:5px 5px 3px!important;
+  }
+}
+/* Lift the gameplay action rail a touch without changing Edward. */
+#gameScr #actionCol{
+  top:-8px!important;
+}
+@media (orientation:portrait) and (max-width:430px){
+  #gameScr #actionCol{
+    top:-14px!important;
+  }
+}
+@media (orientation:portrait) and (max-width:390px){
+  #gameScr #actionCol{
+    top:-16px!important;
+  }
+}
+
+
+/* ================= R157 GOAL SHRINK + HIGHER RIGHT TOOLS ================= */
+/* The GOAL card looked tall because #hud stretches its children vertically.
+   Pin the card to its content height, then trim its lower padding a bit more.
+   Also raise the gameplay tool rail another step on portrait phones. */
+#goalCard{
+  align-self:flex-start!important;
+  padding:7px 6px 3px!important;
+  gap:1px!important;
+}
+#goalCv{margin-bottom:0!important}
+#goalName{margin-bottom:0!important}
+#goalFor{margin-bottom:0!important}
+@media(max-width:520px){
+  #goalCard{
+    align-self:flex-start!important;
+    padding:5px 5px 2px!important;
+  }
+}
+@media(max-width:390px){
+  #goalCard{
+    padding:4px 4px 1px!important;
+  }
+}
+/* Raise the right gameplay tool rail more aggressively, without touching Edward. */
+#gameScr #actionCol{
+  top:-18px!important;
+}
+@media (orientation:portrait) and (max-width:430px){
+  #gameScr #actionCol{
+    top:-26px!important;
+  }
+}
+@media (orientation:portrait) and (max-width:390px){
+  #gameScr #actionCol{
+    top:-30px!important;
+  }
+}
+body.mxIOSNative #actionCol{
+  top:10px!important;
+}
+
+
+/* ================= R279 MOBILE ACTION-RAIL CLEARANCE =================
+   Browser portrait: keep the right tool rail below the HOME button. Native
+   iOS keeps its existing safe-area position. This is deliberately appended
+   after R156/R157 so it wins the cascade without disturbing board geometry. */
+#gameScr #actionCol{top:4px!important;}
+@media (orientation:portrait) and (max-width:430px){
+  #gameScr #actionCol{top:8px!important;}
+}
+@media (orientation:portrait) and (max-width:390px){
+  #gameScr #actionCol{top:8px!important;}
+}
+body.mxIOSNative #actionCol{top:10px!important;}
+/* R284 MOBILE THERMAL PASS
+   Hidden screens and closed overlays must not retain compositor animations.
+   This changes no visible motion: active screens keep their authored timing. */
+.screen:not(.on) *,#modal:not(.on) *,#rankUpWrap:not(.on) *,#bannerWrap:not(.on) *{
+  animation-play-state:paused!important;
+}
+body.mxThermalMobile.mxUiTransitioning #bgParticles span{
+  animation-play-state:paused!important;
+}
+
+/* ================= R289 TEST · RESPONSIVE GAMEPLAY CLEARANCE =================
+   Final cascade guard for portrait phones. R279's late generic action-rail rule
+   unintentionally overrode the older iOS Home/Undo clearance. Keep the test UI
+   inside safe areas, preserve board/GOAL geometry, and keep Dr. Edward's speech
+   above the bottom controls without changing puzzle physics or artwork. */
+#gameScr #hud{
+  padding-left:max(8px,calc(var(--sal) + 8px))!important;
+  padding-right:max(8px,calc(var(--sar) + 8px))!important;
+}
+#gameScr #hudRight{
+  position:relative!important;
+  z-index:9!important;
+  flex:0 0 auto!important;
+  align-items:flex-end!important;
+}
+#gameScr #btnGear,#gameScr #btnHome{
+  min-width:44px!important;
+  min-height:44px!important;
+}
+
+/* Browser/Android: leave a real visual gap after the HUD before Undo. */
+#gameScr #actionCol{
+  right:max(6px,calc(var(--sar) + 4px))!important;
+  top:14px!important;
+}
+@media (orientation:portrait) and (max-width:430px){
+  #gameScr #actionCol{top:18px!important}
+}
+
+/* iOS WKWebView shifts boardWrap upward. Counter that shift here so the action
+   rail can never climb back into the Gear/Home stack. This intentionally wins
+   over the late R279 top:10px override. */
+body.mxIOSNative #gameScr #actionCol{
+  right:max(6px,calc(var(--sar) + 4px))!important;
+  top:clamp(28px,3.8svh,36px)!important;
+}
+@media (max-height:720px){
+  body.mxIOSNative #gameScr #actionCol{top:clamp(24px,3.5svh,30px)!important}
+}
+
+/* Keep the D-pad and bottom navigation inside physical safe areas. Their authored
+   scale/size remains unchanged. */
+#gameScr #dpad{
+  left:max(8px,calc(var(--sal) + 8px))!important;
+  bottom:max(10px,calc(var(--sab) + 10px))!important;
+}
+#gameScr #navBtns{
+  bottom:max(12px,calc(var(--sab) + 10px))!important;
+}
+@media(max-height:620px){
+  #gameScr #dpad{left:max(5px,calc(var(--sal) + 5px))!important;bottom:max(5px,calc(var(--sab) + 5px))!important}
+  #gameScr #navBtns{bottom:max(7px,calc(var(--sab) + 7px))!important}
+}
+
+/* Dr. Edward's temporary speech used to sit across the D-pad/navigation region
+   on tall portrait phones. Lift only the speech panel; the character pose/size
+   and board remain unchanged. */
+@media (orientation:portrait) and (max-width:430px){
+  body:not(.tutorialMode) #gameScr #bubble,
+  body:not(.tutorialMode) #playScr #bubble{
+    bottom:clamp(145px,20svh,182px)!important;
+    max-width:min(52vw,220px)!important;
+  }
+  body.mxIOSNative:not(.tutorialMode) #gameScr #bubble,
+  body.mxIOSNative:not(.tutorialMode) #playScr #bubble{
+    bottom:clamp(153px,23svh,205px)!important;
+  }
+}
+
+/* GOAL keeps the fixed R196/R197 geometry; only guarantee it cannot be squeezed
+   by localized HUD content or cutout-safe padding. */
+#gameScr #goalCard{flex-shrink:0!important;max-width:42vw!important}
+
+
+/* ================= R290 TEST · MODAL SCROLL CLEANUP =================
+   Long dialogs use one native scroll surface only. The duplicate custom modal
+   rail is removed in JS; this fallback prevents a stale rail after interrupted
+   transitions. Existing screen-specific scroll areas remain unchanged. */
+#modalBox>.mxModalScrollRail{display:none!important}
+
+/* =====================================================================
+   R287 QA · DR. EDWARD ATOM SOURCE-ASSET EYE ALIGNMENT
+   The approved full-body menu/tutorial asset is 936x1040. Its actual iris
+   centres are ~654.7/190.8 and 719.2/190.5 source pixels. The previous
+   menu values belonged to an older crop and placed eyelids away from the
+   glasses. Keep the already calibrated per-pose gameplay geometry intact.
+   ===================================================================== */
+#splash #einBoxS .eyeW,
+#tutEinBox .eyeW{
+  display:block!important;
+  left:69.95%!important;
+  top:18.35%!important;
+  width:5.30%!important;
+  height:5.20%!important;
+  transform:translate(-50%,-50%)!important;
+}
+#splash #einBoxS .eyeW.eye2,
+#tutEinBox .eyeW.eye2{
+  left:76.84%!important;
+  top:18.32%!important;
+}
+#tutEinBox>.einFx{
+  display:block!important;
+  position:absolute!important;
+  inset:0!important;
+  z-index:32!important;
+  pointer-events:none!important;
+  overflow:hidden!important;
+  transform:none!important;
+}
+#tutEinBox .lid{
+  left:0!important;top:0!important;width:100%!important;height:100%!important;
+  border:0!important;border-bottom:1px solid rgba(103,55,31,.82)!important;
+  border-radius:50% 50% 54% 54% / 43% 43% 64% 64%!important;
+  background:linear-gradient(180deg,#ffc18d 0%,#efa971 70%,#dc8f5e 100%)!important;
+  box-shadow:inset 0 -1px 0 rgba(255,227,198,.34)!important;
+  transform:scaleY(0)!important;
+  transform-origin:50% 8%!important;
+  transition:transform 58ms cubic-bezier(.30,0,.55,1),opacity 34ms linear!important;
+  opacity:0!important;
+}
+#tutEinBox .lid.on{transform:scaleY(1)!important;opacity:1!important}
+
+/* ================= R302 TEST · RESTORE SPEECH + DISPLAY-SPACE BLINK =================
+   Restore the pre-checkpoint gameplay speech position. The menu character image
+   is magnified 1.70x from the top-right; therefore its source-space iris values
+   must be converted to display-space coordinates for the unscaled FX overlay. */
+@media (orientation:portrait) and (max-width:430px){
+  body:not(.tutorialMode) #gameScr #bubble,
+  body:not(.tutorialMode) #playScr #bubble{
+    bottom:clamp(44px,7vh,72px)!important;
+    max-width:min(54vw,230px)!important;
+  }
+  body.mxIOSNative:not(.tutorialMode) #gameScr #bubble,
+  body.mxIOSNative:not(.tutorialMode) #playScr #bubble{
+    bottom:clamp(78px,10vh,112px)!important;
+  }
+}
+
+/* Exact pre-R287-QA display-space eyelid alignment for the 1.70x menu crop. */
+#splash #einBoxS .eyeW{
+  left:48.68%!important;
+  top:30.92%!important;
+  width:8.00%!important;
+  height:7.20%!important;
+}
+#splash #einBoxS .eyeW.eye2{
+  left:60.65%!important;
+  top:30.67%!important;
+}
+
+/* ================= R303 TEST · MICRO MENU + TOOL LIFT =================
+   Move only the five central menu actions a few pixels away from Edward's
+   hair, without touching the left shortcut dock, Edward, speech, or blink.
+   Raise only the in-game right action rail by one small step. */
+@media (orientation:portrait){
+  #splash #splashBtns{transform:translate(7px,-6px)!important}
+  #gameScr #actionCol{top:12px!important}
+}
+@media (orientation:portrait) and (max-width:390px){
+  #gameScr #actionCol{top:10px!important}
+}
+@media (orientation:portrait){
+  body.mxIOSNative #gameScr #actionCol{top:clamp(18px,3.0svh,30px)!important}
+}
+
+/* ================= R304 · LINKED-ACCOUNT DAILY LOGIN REWARD ================= */
+#mxDailyLoginReward{
+  position:absolute;z-index:34;left:50%;top:max(calc(var(--sat) + 66px),76px);
+  display:grid;grid-template-columns:auto auto;align-items:center;gap:3px 12px;
+  min-width:190px;padding:10px 15px;border-radius:18px;pointer-events:none;
+  color:#fff;background:linear-gradient(145deg,rgba(59,30,126,.96),rgba(17,106,154,.96));
+  border:1.5px solid rgba(169,241,255,.82);box-shadow:0 12px 28px rgba(0,0,0,.48),0 0 22px rgba(98,220,255,.32);
+  opacity:0;transform:translate(-50%,-14px) scale(.9);transition:opacity .28s ease,transform .42s cubic-bezier(.2,1.12,.3,1);
+}
+#mxDailyLoginReward.on{opacity:1;transform:translate(-50%,0) scale(1)}
+#mxDailyLoginReward.leaving{opacity:0;transform:translate(-50%,-9px) scale(.96)}
+#mxDailyLoginReward b{font-size:11px;letter-spacing:1.2px;color:#aef4ff}
+#mxDailyLoginReward>span{justify-self:end;padding:2px 7px;border-radius:999px;background:rgba(255,255,255,.14);font-size:11px;font-weight:900}
+#mxDailyLoginReward strong{grid-column:1/3;display:flex;align-items:center;justify-content:center;gap:7px;font-size:22px;color:#fff0a0;text-shadow:0 2px 8px rgba(0,0,0,.5)}
+#mxDailyLoginReward .coinIcon{width:25px;height:25px;flex:0 0 25px}
+@media(max-height:650px){#mxDailyLoginReward{top:max(calc(var(--sat) + 48px),58px);padding:7px 13px}}
+
+/* ================= R305 · MOBILE POPUP + DR. EDWARD CONSISTENCY =================
+   Use one geometric centre for every ordinary dialog on Android/iOS. Earlier
+   native tuning added a one-sided 7px offset to action rows; that made popup
+   headings, copy and buttons appear to sit on different vertical axes.
+   Purpose-built left-aligned lists/forms keep their own local alignment. */
+#modalBox{
+  box-sizing:border-box!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+#modalBox>h3,
+#modalBox>.msub,
+#modalBox>.mcoins{
+  box-sizing:border-box!important;
+  width:100%!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  text-align:center!important;
+}
+#modalBox>.mrow,
+body.mxNative #modalBox>.mrow,
+body.mxNative #modalBox.accountModal .accountActions,
+body.mxNative #modalBox.settingsModal .settingsActions{
+  box-sizing:border-box!important;
+  width:100%!important;
+  margin-left:0!important;
+  margin-right:0!important;
+  align-items:stretch!important;
+}
+#modalBox>.mrow>.btn,
+#modalBox>.mrow>a.btn,
+#modalBox>.mrow>button,
+#modalBox>.modalFixedClose>.btn{
+  box-sizing:border-box!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:100%!important;
+  min-width:0!important;
+  text-align:center!important;
+}
+#modalBox>.mrow>.btn>span,
+#modalBox>.mrow>button>span{
+  text-align:center!important;
+}
+
+/* Every gameplay pose, including idle, now uses the same intrinsic aspect-ratio
+   path. Previously idle inherited height:100% while the other eleven poses used
+   height:auto, so switching poses could make Edward look thin/tall or wide. */
+#gameScr #einBoxG .einImg,
+#playScr #einBoxG .einImg,
+#gameScr #einBoxG.mxPoseAsset .einImg,
+#playScr #einBoxG.mxPoseAsset .einImg{
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  max-width:100%!important;
+  max-height:none!important;
+  aspect-ratio:auto!important;
+  object-fit:contain!important;
+  object-position:right bottom!important;
+}
+
+/* ================= R306 · MOLECULOX LAB + REWARD SVG FAMILY =================
+   Device emoji are replaced in the laboratory and core reward presentation by
+   one authored glass/metal icon system. The artwork is inline SVG, so it stays
+   identical on iOS, Android, Web and Steam without new bitmap assets. */
+.mxLabSvgWrap{
+  display:inline-flex;width:76px;height:76px;flex:0 0 76px;
+  align-items:center;justify-content:center;vertical-align:middle;
+  filter:drop-shadow(0 8px 13px rgba(0,0,0,.34));
+}
+.mxLabSvgWrap.small{width:42px;height:42px;flex-basis:42px;filter:drop-shadow(0 4px 7px rgba(0,0,0,.3))}
+.mxLabSvg{display:block;width:100%;height:100%;overflow:visible}
+.mxLabSvgPlate rect{
+  fill:rgba(15,28,67,.94);stroke:rgba(157,226,255,.64);stroke-width:1.7;
+}
+.mxLabSvgArt{
+  fill:rgba(77,216,246,.13);stroke:url(#mxLabMetal);stroke-width:3;
+  stroke-linecap:round;stroke-linejoin:round;
+}
+.mxLabSvgWrap[data-lab-art="gold_scope"] .mxLabSvgArt,
+.mxLabSvgWrap[data-lab-art="nobel_case"] .mxLabSvgArt{fill:rgba(255,203,73,.14);stroke:#ffd978}
+.mxLabSvgWrap[data-lab-art="arctic"] .mxLabSvgArt{fill:rgba(185,247,255,.17);stroke:#bdf7ff}
+.mxLabSvgWrap[data-lab-art="mars"] .mxLabSvgArt{fill:rgba(255,111,74,.13);stroke:#ff9b70}
+.mxLabModalTitle{display:flex!important;align-items:center!important;justify-content:center!important;gap:9px!important;line-height:1.15!important}
+.mxLabModalTitle .mxLabSvgWrap{width:43px;height:43px;flex-basis:43px}
+.labGuideItem>.mxLabSvgWrap{margin-right:2px}
+.labShopVisual{height:92px!important}
+.labShopVisual>.mxLabSvgWrap{width:84px;height:84px;flex-basis:84px}
+.labPlaced .mxLabSvgWrap{width:64px;height:64px;flex-basis:64px}
+.labMissionTop>.mxLabSvgWrap{width:46px;height:46px;flex-basis:46px}
+
+.mxRewardSvgWrap{
+  display:inline-flex;width:46px;height:46px;flex:0 0 46px;align-items:center;justify-content:center;
+  border-radius:15px;background:linear-gradient(145deg,rgba(255,255,255,.13),rgba(82,67,180,.16),rgba(31,190,222,.12));
+  border:1px solid rgba(157,226,255,.42);box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 0 16px rgba(79,216,255,.13);
+}
+.mxRewardSvg{display:block;width:78%;height:78%;overflow:visible}
+.mxRewardSvg g{fill:rgba(91,218,244,.10);stroke:#c7f7ff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 4px rgba(79,216,255,.55))}
+.mxRewardSvgWrap[data-reward-art="trophy"] .mxRewardSvg g,
+.mxRewardSvgWrap[data-reward-art="medal"] .mxRewardSvg g{fill:rgba(255,205,78,.14);stroke:#ffe17c;filter:drop-shadow(0 0 4px rgba(255,205,78,.55))}
+.mxRewardSvgWrap[data-reward-art="flame"] .mxRewardSvg g{fill:rgba(255,97,67,.15);stroke:#ffb06d}
+.mxRewardSvgWrap[data-reward-art="diamond"] .mxRewardSvg g{fill:rgba(116,231,255,.14);stroke:#bff8ff}
+.duelStatCard>.mxRewardSvgWrap{width:34px;height:34px;flex-basis:34px;margin:0 auto 5px;border-radius:11px}
+.duelRewardCard>.mxRewardSvgWrap.rewardIcon{width:54px;height:54px;flex-basis:54px;margin:5px auto 3px}
+.duelRoadCard>.mxRewardSvgWrap{width:42px;height:42px;flex-basis:42px}
+.rewardSpotIcon>.mxRewardSvgWrap{width:52px;height:52px;flex-basis:52px;border:0;background:transparent;box-shadow:none}
+.rewardSpotDr{position:relative!important;overflow:hidden!important;padding:0!important;background:linear-gradient(145deg,#31439f,#0f1d52)!important}
+.rewardSpotDr img{position:absolute;width:112px;height:auto;right:-2px;top:-1px;max-width:none;filter:drop-shadow(0 5px 7px rgba(0,0,0,.35))}
+@media(max-width:390px){
+  .mxLabSvgWrap{width:68px;height:68px;flex-basis:68px}
+  .labShopVisual>.mxLabSvgWrap{width:76px;height:76px;flex-basis:76px}
+  .mxLabModalTitle{gap:7px!important}
+}
+
+/* ================= R308 · TAB LABEL + COMPLETE MODAL ICON FIX ================= */
+#labTabs .labTab,#collectionTabs .collectionTab{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:3px!important;text-align:center!important}
+#labTabs .labTab>i,#collectionTabs .collectionTab>i{display:flex!important;height:27px!important;align-items:center!important;justify-content:center!important;line-height:1!important}
+#labTabs .labTab>span,#collectionTabs .collectionTab>span{display:block!important;width:100%!important;min-width:0!important;margin:0!important;line-height:1.05!important;text-align:center!important;white-space:normal!important;overflow-wrap:normal!important;word-break:normal!important;hyphens:none!important}
+.mxModalIconTitle{display:flex!important;align-items:center!important;justify-content:center!important;gap:9px!important}.mxModalIconTitle>.mxUiSvgWrap{width:35px;height:35px;flex-basis:35px;border-radius:11px}.mxModalIconTitle>span{min-width:0}
+.duelChoice>.duelChoiceIcon{display:flex!important;align-items:center!important;justify-content:center!important;gap:2px!important;width:46px!important;height:38px!important;font-size:0!important}.duelChoice>.duelChoiceIcon .mxUiSvgWrap{width:34px;height:34px;flex:0 0 34px;border-radius:11px}.duelChoice>.duelChoiceIcon.duo .mxUiSvgWrap{width:27px;height:27px;flex-basis:27px}.duelChoice>.duelChoiceIcon.duo .mxUiSvgWrap+ .mxUiSvgWrap{margin-left:-8px;margin-top:10px}
+.settingsScroll :is(.togRow,.languageSettingRow,.settingsPickerRow) b{display:flex;align-items:center;gap:7px}.settingsScroll .mxRowIcon{width:22px;height:22px;flex:0 0 22px;color:#8feaff}.settingsScroll #mOfflineDownload svg{width:22px;height:22px}
+@media(max-width:390px){#labTabs .labTab>span{font-size:7.2px!important}.duelChoice>.duelChoiceIcon{width:38px!important}.duelChoice>.duelChoiceIcon .mxUiSvgWrap{width:30px;height:30px;flex-basis:30px}.duelChoice>.duelChoiceIcon.duo .mxUiSvgWrap{width:24px;height:24px;flex-basis:24px}}
+
+/* ================= R330 — TRUE FRAMED-CONTENT CENTERING FIX =================
+   Root cause: mobile modal scroll areas reserved space only on the RIGHT for
+   scrollbars (padding-right + scrollbar-gutter:stable). That reduced the usable
+   content box asymmetrically, so whole inner groups rendered ~8–12px left of
+   the visual frame center. Keep the outer frame fixed; make the scroll/content
+   lane symmetric instead. */
+
+/* Never reserve a one-sided native scrollbar gutter on the modal frame. */
+#modalBox.mxUniversalScroll,
+#modalBox.mxUniversalScroll.mxHasFixedNav,
+#modalBox.mxUniversalScroll.mxTouchScrollModal{
+  scrollbar-gutter:auto!important;
+}
+
+/* All modal scroll bodies use equal left/right breathing room. The custom/
+   overlay scrollbar can still render at the right edge without moving content. */
+#modalBox.mxUniversalScroll.settingsModal > .settingsScroll,
+#modalBox.guideModal > .guideScroll,
+#modalBox.mxUniversalScroll.mxHasFixedNav > .settingsScroll,
+#modalBox.mxUniversalScroll.mxHasFixedNav > .guideScroll,
+#modalBox.mxUniversalScroll.mxHasFixedNav > .modalScroll,
+#modalBox.mxUniversalScroll.mxHasFixedNav > .scrollArea,
+#modalBox.mxUniversalScroll.mxHasFixedNav > .mxUniversalBody,
+#modalBox.mxUniversalScroll.mxTouchScrollModal > .guideScroll,
+#modalBox.mxUniversalScroll.mxTouchScrollModal > .modalScroll,
+#modalBox.mxUniversalScroll.mxTouchScrollModal > .scrollArea,
+#modalBox.mxUniversalScroll.mxTouchScrollModal > .mxUniversalBody,
+#modalBox.mxTouchScrollModal > .supportTutorialScroll,
+#modalBox.mxTouchScrollModal > .mechanicGuideList,
+#modalBox .mtlist{
+  padding-left:8px!important;
+  padding-right:8px!important;
+  scrollbar-gutter:auto!important;
+}
+
+/* Generic wrapped modal bodies (Foundation briefings, short info dialogs,
+   language/account sub-panels, etc.) must remain mathematically centered too. */
+#modalBox > .mxUniversalBody{
+  width:100%!important;
+  padding-left:8px!important;
+  padding-right:8px!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  scrollbar-gutter:auto!important;
+}
+
+/* A scroll rail is visual only; it must never steal horizontal layout space. */
+#modalBox > .mxModalScrollRail{
+  pointer-events:none!important;
+}
+
+/* Keep fixed Close/action rows on the exact frame center. */
+#modalBox > .modalFixedClose,
+#modalBox > .settingsFixedNav,
+#modalBox > .mxUniversalFixedNav,
+#modalBox > .mrow{
+  width:100%!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+
+/* Result modal already uses a deliberate two-edge gutter; preserve it. */
+#modalBox.winResultModal{
+  scrollbar-gutter:stable both-edges!important;
+}
+
+
+/* ================= R336 SCIENCE LEGENDS ================= */
+#collectionTabs .scienceLegendsTab{position:relative;overflow:hidden}
+#collectionTabs .scienceLegendsTab.on{box-shadow:inset 0 0 0 1px rgba(255,218,115,.52),0 0 18px rgba(255,199,78,.16)}
+#collectionTabs .scienceLegendsTab i{filter:drop-shadow(0 0 7px rgba(255,216,108,.34))}
+.scienceLegendGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:5px 2px 20px}
+.scienceLegendCard{position:relative;display:flex;flex-direction:column;min-width:0;border:1px solid rgba(255,220,132,.26);border-radius:18px;overflow:hidden;background:linear-gradient(160deg,rgba(20,43,62,.98),rgba(18,19,46,.98));box-shadow:0 9px 25px rgba(0,0,0,.25);text-align:left;color:#fff;cursor:pointer;isolation:isolate;touch-action:pan-y;-webkit-tap-highlight-color:transparent}
+.scienceLegendCard.unlocked{border-color:rgba(255,215,112,.58);box-shadow:0 10px 30px rgba(0,0,0,.28),0 0 18px rgba(255,205,86,.10)}
+.scienceLegendArtWrap{position:relative;aspect-ratio:3/4;overflow:hidden;background:radial-gradient(circle at 50% 35%,rgba(70,125,160,.26),rgba(9,12,31,.98) 68%)}
+.scienceLegendArt{width:100%;height:100%;display:block;object-fit:cover;object-position:center;transition:transform .22s ease,filter .22s ease,opacity .22s ease}
+.scienceLegendCard.unlocked:active .scienceLegendArt{transform:scale(1.018)}
+.scienceLegendCard.locked .scienceLegendArt{filter:grayscale(1) brightness(.24) contrast(1.2);opacity:.82;transform:scale(1.015)}
+.scienceLegendLock{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:7px;background:linear-gradient(180deg,rgba(5,8,18,.08),rgba(5,8,20,.55));font-weight:950;text-shadow:0 2px 10px #000}
+.scienceLegendLock b{font-size:1.45rem}.scienceLegendLock small{font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:#f2dc9c}
+.scienceLegendBody{display:flex;flex:1;flex-direction:column;padding:10px 11px 12px;gap:5px}
+.scienceLegendTop{display:flex;align-items:center;gap:7px;justify-content:space-between}
+.scienceLegendName{font-size:.9rem;font-weight:950;line-height:1.08;min-width:0}
+.scienceLegendYears{font-size:.67rem;color:#b8cce1;font-weight:800}
+.scienceLegendRarity{font-size:.59rem;font-weight:950;letter-spacing:.08em;padding:4px 6px;border-radius:999px;border:1px solid rgba(255,215,115,.35);background:rgba(255,204,85,.10);color:#ffe7a6;white-space:nowrap}
+.scienceLegendField{font-size:.69rem;color:#8fe4ef;font-weight:850;line-height:1.15}
+.scienceLegendProgress{margin-top:auto;padding-top:4px}
+.scienceLegendProgressLine{display:flex;justify-content:space-between;gap:7px;font-size:.62rem;font-weight:850;color:#dcecff;margin-bottom:5px}
+.scienceLegendBar{height:7px;border-radius:999px;overflow:hidden;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.08)}
+.scienceLegendBar>i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#46cde2,#ffd16c);box-shadow:0 0 9px rgba(91,221,236,.35)}
+.scienceLegendUnlockText{font-size:.62rem;line-height:1.2;color:#cbd4e2;margin-top:6px}
+.scienceLegendEmpty{grid-column:1/-1;padding:24px;text-align:center;color:#c7d2e4}
+.scienceLegendDetail{display:grid;grid-template-columns:minmax(150px,.8fr) minmax(0,1.2fr);gap:16px;align-items:start}
+.scienceLegendDetailArt{position:relative;border-radius:18px;overflow:hidden;border:1px solid rgba(255,217,116,.4);background:#080d1c;box-shadow:0 12px 28px rgba(0,0,0,.32)}
+.scienceLegendDetailArt img{display:block;width:100%;height:auto;max-height:62vh;object-fit:contain;background:#080d1c}
+.scienceLegendDetail.locked .scienceLegendDetailArt img{filter:grayscale(1) brightness(.22) contrast(1.18)}
+.scienceLegendDetailCopy h3{margin:0 0 3px;font-size:1.28rem}.scienceLegendDetailYears{font-size:.76rem;color:#a8bbd2;font-weight:800}.scienceLegendDetailField{margin:8px 0 11px;color:#8ee8f2;font-weight:900}.scienceLegendInfoBlock{padding:10px 11px;border-radius:14px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);margin:8px 0}.scienceLegendInfoBlock b{display:block;font-size:.66rem;letter-spacing:.09em;text-transform:uppercase;color:#f6d889;margin-bottom:4px}.scienceLegendInfoBlock p{margin:0;font-size:.82rem;line-height:1.38;color:#e8eef8}.scienceLegendDetailUnlock{padding:11px 12px;border-radius:14px;background:rgba(255,209,102,.08);border:1px solid rgba(255,209,102,.24);font-size:.78rem;line-height:1.35;color:#f5e5b7}
+.scienceLegendReveal{position:fixed;inset:0;z-index:13000;display:flex;align-items:center;justify-content:center;padding:max(16px,env(safe-area-inset-top)) 14px max(16px,env(safe-area-inset-bottom));background:radial-gradient(circle at 50% 42%,rgba(40,22,84,.36),rgba(2,6,16,.94) 62%);backdrop-filter:blur(12px);overflow:hidden;animation:scienceLegendFade .28s ease both}
+.scienceLegendRevealStage{position:relative;width:min(88vw,390px);display:grid;place-items:center;perspective:1000px;isolation:isolate}
+.scienceLegendRevealAura{position:absolute;z-index:0;width:132%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(255,222,118,.3) 0,rgba(121,83,255,.2) 28%,rgba(72,220,255,.1) 52%,transparent 70%);filter:blur(7px);animation:scienceLegendAura 1.25s ease-out both}
+.scienceLegendRevealRays{position:absolute;z-index:0;width:122%;aspect-ratio:1;left:50%;top:44%;transform:translate(-50%,-50%);opacity:.92;pointer-events:none}
+.scienceLegendRevealRays i{position:absolute;left:50%;top:50%;width:3px;height:47%;border-radius:99px;transform-origin:50% 100%;transform:translate(-50%,-100%) rotate(var(--r)) scaleY(.15);background:linear-gradient(180deg,transparent 0,rgba(255,229,139,.85) 46%,rgba(99,228,255,.18) 100%);filter:drop-shadow(0 0 8px rgba(255,221,110,.55));opacity:0;animation:scienceLegendRay 1.05s cubic-bezier(.15,.72,.2,1) var(--d) both}
+.scienceLegendRevealSparks{position:absolute;z-index:3;left:50%;top:45%;width:1px;height:1px;pointer-events:none}
+.scienceLegendRevealSparks b{position:absolute;left:0;top:0;color:#ffe793;font:900 18px/1 system-ui;text-shadow:0 0 10px rgba(255,231,147,.95),0 0 20px rgba(75,224,255,.5);opacity:0;animation:scienceLegendSpark 1.15s cubic-bezier(.12,.7,.2,1) var(--d) both}
+.scienceLegendRevealCard{z-index:2;width:min(84vw,350px);text-align:center;position:relative;padding:12px 12px 14px;border:1px solid rgba(255,224,132,.48);border-radius:28px;background:linear-gradient(180deg,rgba(18,18,48,.98),rgba(7,10,27,.98));box-shadow:0 0 0 1px rgba(123,223,255,.11) inset,0 0 64px rgba(255,205,74,.24),0 28px 68px rgba(0,0,0,.62);animation:scienceLegendRevealPop .95s cubic-bezier(.12,.86,.22,1.18) both;transform-style:preserve-3d}
+.scienceLegendRevealCard::before{content:'';position:absolute;inset:-2px;border-radius:29px;padding:2px;background:conic-gradient(from 0deg,#ffe393,#6fe5ff,#a98cff,#ffe393);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.82;animation:scienceLegendBorderSpin 2.4s linear infinite;pointer-events:none}
+.scienceLegendRevealCard::after{content:'';position:absolute;z-index:5;top:7%;bottom:7%;left:-34%;width:20%;transform:skewX(-18deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.58),transparent);filter:blur(1px);opacity:0;animation:scienceLegendShine 1.2s ease .35s both;pointer-events:none}
+.scienceLegendRevealMedallion{position:absolute;z-index:6;left:50%;top:-22px;transform:translateX(-50%);width:48px;height:48px;border-radius:50%;display:grid;place-items:center;color:#18264f;font-size:25px;font-weight:950;background:radial-gradient(circle at 35% 30%,#fff9cf,#ffd45d 58%,#c98b19 100%);border:2px solid rgba(255,248,196,.92);box-shadow:0 0 0 5px rgba(255,210,75,.12),0 0 28px rgba(255,216,88,.7);animation:scienceLegendMedallion .8s cubic-bezier(.2,.85,.2,1.2) .22s both}
+.scienceLegendRevealKicker{margin:18px 0 7px;font-size:.63rem;font-weight:1000;letter-spacing:.18em;color:#8eefff;text-transform:uppercase;text-shadow:0 0 10px rgba(102,224,255,.42)}
+.scienceLegendRevealArt{position:relative;overflow:hidden;border-radius:21px;border:2px solid rgba(255,220,127,.78);background:#080d1c;box-shadow:0 0 38px rgba(255,207,92,.28),0 14px 34px rgba(0,0,0,.48)}
+.scienceLegendRevealArt::after{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent 20%,rgba(255,255,255,.14) 42%,transparent 58%);transform:translateX(-130%);animation:scienceLegendArtGlint 1.25s ease .48s both;pointer-events:none}
+.scienceLegendRevealArt img{display:block;width:100%;height:auto;max-height:min(51vh,430px);object-fit:contain;background:#080d1c}
+.scienceLegendRevealTitle{margin-top:13px;font-size:.78rem;font-weight:1000;letter-spacing:.15em;color:#ffdf85;text-transform:uppercase;text-shadow:0 0 10px rgba(255,216,114,.28)}
+.scienceLegendRevealName{margin-top:4px;font-size:1.28rem;font-weight:1000;color:#fff;line-height:1.08;text-shadow:0 3px 16px rgba(0,0,0,.5)}
+.scienceLegendRevealReward{margin-top:8px;font-size:.82rem;text-align:center;font-weight:900;color:#ffe08a;letter-spacing:.01em}
+.scienceLegendRevealClose{width:100%;margin-top:12px;min-height:44px;font-size:.8rem;letter-spacing:.06em;position:relative;z-index:8}
+.scienceLegendReveal.closing{animation:scienceLegendClose .28s ease both}.scienceLegendReveal.closing .scienceLegendRevealCard{animation:scienceLegendCardOut .28s ease both}
+@keyframes scienceLegendFade{from{opacity:0}to{opacity:1}}
+@keyframes scienceLegendRevealPop{0%{opacity:0;transform:translateY(56px) scale(.46) rotateY(-74deg) rotateZ(-3deg)}52%{opacity:1;transform:translateY(-8px) scale(1.055) rotateY(7deg) rotateZ(.7deg)}76%{transform:translateY(2px) scale(.992) rotateY(-2deg)}100%{transform:translateY(0) scale(1) rotateY(0) rotateZ(0)}}
+@keyframes scienceLegendAura{0%{opacity:0;transform:scale(.35)}55%{opacity:1}100%{opacity:.68;transform:scale(1)}}
+@keyframes scienceLegendRay{0%{opacity:0;transform:translate(-50%,-100%) rotate(var(--r)) scaleY(.08)}35%{opacity:.95}100%{opacity:0;transform:translate(-50%,-100%) rotate(var(--r)) scaleY(1)}}
+@keyframes scienceLegendSpark{0%{opacity:0;transform:translate(-50%,-50%) scale(.2) rotate(0)}24%{opacity:1}100%{opacity:0;transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) scale(1.15) rotate(190deg)}}
+@keyframes scienceLegendMedallion{0%{opacity:0;transform:translateX(-50%) translateY(20px) scale(.25) rotate(-80deg)}70%{opacity:1;transform:translateX(-50%) translateY(-3px) scale(1.12) rotate(8deg)}100%{transform:translateX(-50%) translateY(0) scale(1) rotate(0)}}
+@keyframes scienceLegendBorderSpin{to{transform:rotate(360deg)}}
+@keyframes scienceLegendShine{0%{left:-34%;opacity:0}20%{opacity:.78}75%{opacity:.55}100%{left:116%;opacity:0}}
+@keyframes scienceLegendArtGlint{0%{transform:translateX(-130%);opacity:0}25%{opacity:.8}100%{transform:translateX(130%);opacity:0}}
+@keyframes scienceLegendClose{to{opacity:0}}@keyframes scienceLegendCardOut{to{opacity:0;transform:translateY(24px) scale(.92)}}
+@media(max-width:540px){.scienceLegendGrid{gap:8px}.scienceLegendBody{padding:8px 8px 10px}.scienceLegendName{font-size:.78rem}.scienceLegendDetail{grid-template-columns:1fr;gap:11px}.scienceLegendDetailArt{width:min(70vw,280px);margin:0 auto}.scienceLegendDetailArt img{max-height:45vh}#collectionTabs.collectionTabs{grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:4px!important;padding-inline:5px!important}#collectionTabs .collectionTab{min-width:0!important;padding-inline:3px!important}#collectionTabs .collectionTab span{font-size:clamp(.46rem,2vw,.62rem)!important}.scienceLegendRevealStage{width:min(92vw,370px)}.scienceLegendRevealCard{width:min(88vw,340px);padding:10px}.scienceLegendRevealArt img{max-height:48vh}}
+@media(max-width:370px){#collectionTabs .collectionTab i{transform:scale(.88)}#collectionTabs .collectionTab span{font-size:.45rem!important}.scienceLegendGrid{grid-template-columns:1fr 1fr;gap:6px}.scienceLegendUnlockText{font-size:.57rem}.scienceLegendRevealCard{width:91vw}.scienceLegendRevealName{font-size:1.12rem}.scienceLegendRevealArt img{max-height:43vh}}
+body.reduceMotion .scienceLegendReveal,body.reduceMotion .scienceLegendRevealCard,body.reduceMotion .scienceLegendRevealCard::before,body.reduceMotion .scienceLegendRevealCard::after,body.reduceMotion .scienceLegendRevealAura,body.reduceMotion .scienceLegendRevealRays i,body.reduceMotion .scienceLegendRevealSparks b,body.reduceMotion .scienceLegendRevealMedallion,body.reduceMotion .scienceLegendRevealArt::after{animation:none!important;transition:none!important}
+
+
+/* R339: Daily Experiment notification dot remains anchored to button top-right. */
+#btnDaily>#dailyDot{position:absolute!important;right:8px!important;top:6px!important;transform:none!important}
+
+
+/* R341 · Science Legends Series I + II · 16 active cards / Easter-egg discovery */
+.scienceLegendEgg{position:absolute;z-index:28;width:46px;height:46px;transform:translate(-50%,-50%);border:1px solid rgba(122,231,255,.38);border-radius:50%;background:radial-gradient(circle,rgba(16,41,68,.76),rgba(4,12,26,.42));box-shadow:0 0 14px rgba(78,216,255,.18),inset 0 0 12px rgba(255,255,255,.05);display:grid;place-items:center;color:#8cecff;opacity:.42;cursor:pointer;-webkit-tap-highlight-color:transparent;animation:mxLegendEggPulse 3.4s ease-in-out infinite;touch-action:manipulation}
+.scienceLegendEgg::after{content:'';position:absolute;inset:-7px;border:1px dashed rgba(127,232,255,.16);border-radius:50%;animation:mxLegendEggOrbit 8s linear infinite}
+.scienceLegendEggAtom{font-size:24px;line-height:1;text-shadow:0 0 10px rgba(105,227,255,.45)}
+.scienceLegendEggQ{position:absolute;right:3px;bottom:1px;font:900 10px/1 system-ui;color:#ffd86b;text-shadow:0 0 6px rgba(255,216,107,.55)}
+.scienceLegendEgg:active,.scienceLegendEgg.found{opacity:1;transform:translate(-50%,-50%) scale(1.1);border-color:#ffe07a;box-shadow:0 0 24px rgba(255,224,122,.62),0 0 44px rgba(85,224,255,.42)}
+.scienceLegendEgg.settled{opacity:.12;pointer-events:none;animation:none}
+.scienceLegendCardReward,.scienceLegendDetailReward,.scienceLegendRevealReward{margin-top:8px;font-weight:850;color:#ffe08a;letter-spacing:.01em}
+.scienceLegendRevealReward{font-size:.83rem;text-align:center}
+@keyframes mxLegendEggPulse{0%,100%{opacity:.28;filter:brightness(.9)}50%{opacity:.62;filter:brightness(1.18)}}
+@keyframes mxLegendEggOrbit{to{transform:rotate(360deg)}}
+body.reduceMotion .scienceLegendEgg,.reduceMotion .scienceLegendEgg{animation:none!important}.reduceMotion .scienceLegendEgg::after{animation:none!important}
+@media(max-width:600px){.scienceLegendEgg{width:44px;height:44px}.scienceLegendEggAtom{font-size:22px}}
+
+
+/* ================= R346 · EDWARD FOREGROUND + VISUAL CONSISTENCY =================
+   1) Dr. Edward is painted in front of MY MOLECULES, while every CTA remains
+      tappable because the mascot rectangle itself is pointer-transparent.
+   2) The twelve 468x520 gameplay drawings use tiny pose-specific width
+      corrections so Edward no longer appears alternately thin/heavy.
+   3) Menu, gameplay and tutorial lids share the same close/open timing. */
+#splash #einBoxS{z-index:13!important;pointer-events:none!important}
+#splash #splashBtns{z-index:12!important}
+#splash #splashBtns #btnPlay,
+#splash #splashBtns #btnNew,
+#splash #splashBtns #btnDaily,
+#splash #splashBtns #btnLevels{position:relative!important;z-index:14!important}
+#splash #splashBtns #btnCollect{position:relative!important;z-index:12!important}
+
+/* Right-bottom anchored optical width normalization. Values stay deliberately
+   subtle (<=4.5%) so pose anatomy is not stretched noticeably. */
+#gameScr #einBoxG,#playScr #einBoxG{--mx-dre-x:1;transform:scaleX(var(--mx-dre-x))!important;transform-origin:right bottom!important}
+#gameScr #einBoxG[data-dr-e-pose="thinking"],#playScr #einBoxG[data-dr-e-pose="thinking"]{--mx-dre-x:1.045}
+#gameScr #einBoxG[data-dr-e-pose="clap"],#playScr #einBoxG[data-dr-e-pose="clap"]{--mx-dre-x:1.035}
+#gameScr #einBoxG[data-dr-e-pose="clipboard"],#playScr #einBoxG[data-dr-e-pose="clipboard"]{--mx-dre-x:1.015}
+#gameScr #einBoxG[data-dr-e-pose="confused"],#playScr #einBoxG[data-dr-e-pose="confused"]{--mx-dre-x:1.035}
+#gameScr #einBoxG[data-dr-e-pose="medal"],#playScr #einBoxG[data-dr-e-pose="medal"]{--mx-dre-x:1.015}
+#gameScr #einBoxG[data-dr-e-pose="surprised"],#playScr #einBoxG[data-dr-e-pose="surprised"]{--mx-dre-x:1.035}
+#gameScr #einBoxG[data-dr-e-pose="victory"],#playScr #einBoxG[data-dr-e-pose="victory"]{--mx-dre-x:1.005}
+
+#splash #einBoxS .lid,#gameScr #einBoxG .lid,#playScr #einBoxG .lid,#tutEinBox .lid{
+  transition:transform 64ms cubic-bezier(.28,0,.52,1),opacity 38ms linear!important;
+}
+
+
+/* ================= R347 · CLEAN MAIN-MENU EDWARD =================
+   Remove only the floating science prop icons above main-menu Edward.
+   Blink/wink, foreground layering, size and My Molecules placement stay unchanged. */
+#splash #einBoxS .prop{display:none!important;opacity:0!important;visibility:hidden!important}
+
+/* ================= R349 · MOLECULOX MECHANIC SVG + EDWARD CLEARANCE ================= */
+/* Top mechanic legend: authored vector glyphs only; no platform emoji rendering. */
+#gameScr #levelMechanicBar .mxLevelMechanicChip{
+  color:#b9f4ff!important;
+  background:linear-gradient(155deg,rgba(19,39,72,.96),rgba(8,18,42,.96))!important;
+  border-color:rgba(124,231,255,.34)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 0 9px rgba(70,205,255,.11)!important;
+}
+#gameScr #levelMechanicBar .mxMechanicSvg{
+  width:20px;height:20px;display:block;overflow:visible;
+  filter:drop-shadow(0 0 3px rgba(93,225,255,.35));
+}
+@media(max-width:390px){#gameScr #levelMechanicBar .mxMechanicSvg{width:18px;height:18px}}
+
+/* The rail is normally unchanged. JS measures the real Edward box and only adds
+   the lift required when a tall/special HUD pushes the rail into the character. */
+#gameScr #actionCol{top:calc(12px - var(--mx-action-rail-lift,0px))!important}
+@media (orientation:portrait) and (max-width:390px){
+  #gameScr #actionCol{top:calc(10px - var(--mx-action-rail-lift,0px))!important}
+}
+@media (orientation:portrait){
+  body.mxIOSNative #gameScr #actionCol{top:calc(clamp(18px,3.0svh,30px) - var(--mx-action-rail-lift,0px))!important}
+}
+
+
+/* ================= R369 · GAMEPLAY LIDS + MEANINGFUL MECHANIC ICONS =================
+   1) Enlarge ONLY in-game eyelid masks one more step for better visibility.
+   2) Keep mechanic legend clean, but add subtle color coding and more explicit glyph semantics. */
+#einBoxG{--mx-ew:6.70%;--mx-eh:7.00%;}
+#gameScr #levelMechanicBar .mxLevelMechanicChip,#playScr #levelMechanicBar .mxLevelMechanicChip{position:relative;color:var(--mx-mech-color,#b9f4ff)!important;border-color:color-mix(in srgb,var(--mx-mech-color,#7cecff) 42%, rgba(255,255,255,.12))!important;background:linear-gradient(155deg,color-mix(in srgb,var(--mx-mech-color,#67dfff) 10%, rgba(18,36,68,.96)),rgba(7,17,39,.97))!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.11),0 0 10px color-mix(in srgb,var(--mx-mech-color,#67dfff) 24%, rgba(0,0,0,0))!important}
+#gameScr #levelMechanicBar .mxLevelMechanicChip::after,#playScr #levelMechanicBar .mxLevelMechanicChip::after{content:'';position:absolute;left:4px;right:4px;bottom:2px;height:2px;border-radius:2px;background:color-mix(in srgb,var(--mx-mech-color,#7cecff) 88%, #ffffff 12%);opacity:.92}
+#gameScr #levelMechanicBar .mxMechanicSvg,#playScr #levelMechanicBar .mxMechanicSvg{filter:drop-shadow(0 0 3px color-mix(in srgb,var(--mx-mech-color,#7cecff) 38%, rgba(0,0,0,0)));}
+#gameScr #levelMechanicBar .mxLevelMechanicChip--frozen{--mx-mech-color:#8fe8ff}
+#gameScr #levelMechanicBar .mxLevelMechanicChip--fire{--mx-mech-color:#ffab63}
+#gameScr #levelMechanicBar .mxLevelMechanicChip--lightning{--mx-mech-color:#ffe06c}
+#gameScr #levelMechanicBar .mxLevelMechanicChip--sticky{--mx-mech-color:#ffc86f}
+#gameScr #levelMechanicBar .mxLevelMechanicChip--zombie{--mx-mech-color:#f48ad7}
+#gameScr #levelMechanicBar .mxLevelMechanicChip--portal,#gameScr #levelMechanicBar .mxLevelMechanicChip--rift{--mx-mech-color:#b69aff}
+#gameScr #levelMechanicBar .mxLevelMechanicChip--movingWall,#gameScr #levelMechanicBar .mxLevelMechanicChip--pressureDoor,#gameScr #levelMechanicBar .mxLevelMechanicChip--oneWay{--mx-mech-color:#7ef0c0}
+#gameScr #levelMechanicBar .mxLevelMechanicChip--fragile{--mx-mech-color:#ffd990}
+#gameScr #levelMechanicBar .mxLevelMechanicChip--linked,#gameScr #levelMechanicBar .mxLevelMechanicChip--fusion,#gameScr #levelMechanicBar .mxLevelMechanicChip--prebuilt,#gameScr #levelMechanicBar .mxLevelMechanicChip--enzymeGate,#gameScr #levelMechanicBar .mxLevelMechanicChip--bioAssembly{--mx-mech-color:#87f1de}
+#gameScr #levelMechanicBar .mxLevelMechanicChip--rotation,#gameScr #levelMechanicBar .mxLevelMechanicChip--rotatingChamber,#gameScr #levelMechanicBar .mxLevelMechanicChip--repulsor,#gameScr #levelMechanicBar .mxLevelMechanicChip--synthesizer,#gameScr #levelMechanicBar .mxLevelMechanicChip--replicator,#gameScr #levelMechanicBar .mxLevelMechanicChip--photonBoost{--mx-mech-color:#8fcfff}
+#gameScr #levelMechanicBar .mxLevelMechanicChip--precision{--mx-mech-color:#ffd76b}
+#gameScr #levelMechanicBar .mxLevelMechanicChip--classicCatalyst,#gameScr #levelMechanicBar .mxLevelMechanicChip--classicReactor{--mx-mech-color:#ffb06f}
+#gameScr #levelMechanicBar .mxLevelMechanicChip--classicChain{--mx-mech-color:#8fe3ff}
+.srOnly{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+
+/* ================= R371 TEST · SCIENCE LEGENDS REVEAL V3 =================
+   Clean premium celebration pass requested after device review.
+   - Remove the long diagonal/radial light streaks crossing the card.
+   - Keep a compact gold/cyan halo behind the card only.
+   - Add one short energy-ring burst on arrival.
+   - Keep a small number of one-shot edge sparkles.
+   - Let the card settle into a calm, readable state after the entrance. */
+.scienceLegendRevealRays{display:none!important}
+.scienceLegendRevealStage{isolation:isolate!important}
+.scienceLegendRevealAura{
+  left:50%!important;top:50%!important;
+  width:106%!important;height:94%!important;aspect-ratio:auto!important;
+  transform:translate(-50%,-50%);
+  border-radius:42px!important;
+  overflow:hidden;
+  background:
+    radial-gradient(ellipse at 50% 48%,rgba(255,220,116,.25) 0,rgba(255,220,116,.12) 24%,rgba(87,226,255,.10) 46%,rgba(109,78,231,.07) 58%,transparent 74%)!important;
+  filter:blur(9px)!important;
+  opacity:.78;
+  animation:scienceLegendAuraV3 1.05s cubic-bezier(.16,.8,.22,1) both!important;
+}
+.scienceLegendRevealAura::before{
+  content:'';position:absolute;inset:9% 8%;border-radius:50%;padding:2px;
+  background:conic-gradient(from 0deg,
+    transparent 0 19%,rgba(255,224,126,.58) 27%,transparent 35% 56%,
+    rgba(101,226,255,.52) 65%,transparent 74% 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  opacity:.58;filter:blur(.35px);
+  animation:scienceLegendHaloOrbitV3 8.5s linear infinite;
+}
+.scienceLegendRevealAura::after{
+  content:'';position:absolute;inset:16% 13%;border-radius:50%;
+  border:1px solid rgba(137,235,255,.20);
+  box-shadow:0 0 18px rgba(92,224,255,.15),inset 0 0 16px rgba(255,217,111,.08);
+  opacity:.52;
+}
+.scienceLegendRevealStage::before,
+.scienceLegendRevealStage::after{
+  content:'';position:absolute;z-index:1;left:50%;top:47%;pointer-events:none;
+  width:86%;height:58%;border-radius:50%;transform:translate(-50%,-50%) scale(.54);
+  opacity:0;
+}
+.scienceLegendRevealStage::before{
+  border:2px solid rgba(255,222,120,.72);
+  box-shadow:0 0 22px rgba(255,210,82,.40),0 0 42px rgba(90,224,255,.18);
+  animation:scienceLegendEnergyRingV3 .92s cubic-bezier(.12,.72,.18,1) .08s both;
+}
+.scienceLegendRevealStage::after{
+  width:73%;height:49%;
+  border:1px solid rgba(111,230,255,.66);
+  box-shadow:0 0 18px rgba(79,216,255,.32);
+  animation:scienceLegendEnergyRingV3 1.02s cubic-bezier(.12,.72,.18,1) .16s both;
+}
+.scienceLegendRevealSparks{z-index:1!important;top:46%!important}
+.scienceLegendRevealSparks b{
+  font-size:14px!important;
+  text-shadow:0 0 8px rgba(255,231,147,.88),0 0 15px rgba(75,224,255,.34)!important;
+  animation-duration:.92s!important;
+}
+.scienceLegendRevealSparks b:nth-child(n+11){display:none!important}
+.scienceLegendRevealCard::before{
+  opacity:.72!important;
+  animation:scienceLegendBorderSettleV3 1.45s cubic-bezier(.16,.76,.2,1) .12s both!important;
+}
+.scienceLegendRevealCard{
+  box-shadow:0 0 0 1px rgba(123,223,255,.10) inset,0 0 42px rgba(255,205,74,.20),0 28px 68px rgba(0,0,0,.62)!important;
+}
+.scienceLegendRevealMedallion{
+  box-shadow:0 0 0 5px rgba(255,210,75,.10),0 0 22px rgba(255,216,88,.58)!important;
+}
+@keyframes scienceLegendAuraV3{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.62)}
+  62%{opacity:.9;transform:translate(-50%,-50%) scale(1.025)}
+  100%{opacity:.78;transform:translate(-50%,-50%) scale(1)}
+}
+@keyframes scienceLegendHaloOrbitV3{to{transform:rotate(360deg)}}
+@keyframes scienceLegendEnergyRingV3{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.54)}
+  26%{opacity:.82}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(1.12)}
+}
+@keyframes scienceLegendBorderSettleV3{
+  0%{opacity:0;transform:rotate(-22deg)}
+  38%{opacity:.92}
+  100%{opacity:.72;transform:rotate(0)}
+}
+body.reduceMotion .scienceLegendRevealAura::before,
+body.reduceMotion .scienceLegendRevealStage::before,
+body.reduceMotion .scienceLegendRevealStage::after,
+.reduceMotion .scienceLegendRevealAura::before,
+.reduceMotion .scienceLegendRevealStage::before,
+.reduceMotion .scienceLegendRevealStage::after{animation:none!important}
+
+/* =====================================================================
+   R371 SCIENCE LEGENDS REVEAL V4 · NATIVE SVG REWARD ICONS
+   Keep Science Legends reward rows on the Moleculox SVG icon language.
+   No OS/device emoji glyphs for Hammer / Exact Move / One-Square / Gift.
+   ===================================================================== */
+.scienceLegendRevealReward,
+.scienceLegendCardReward,
+.scienceLegendDetailReward{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:7px!important;
+  flex-wrap:wrap!important;
+}
+.scienceLegendRewardItems{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  flex-wrap:wrap;
+  min-width:0;
+}
+.scienceLegendRewardItem{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  white-space:nowrap;
+}
+.scienceLegendRewardLead,
+.scienceLegendRewardHeading{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+}
+.scienceLegendRewardHeading{width:100%;margin-bottom:2px}
+.scienceLegendRewardSvg{
+  width:1.18em;
+  height:1.18em;
+  display:inline-block;
+  flex:0 0 auto;
+  overflow:visible;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  color:#88efff;
+  filter:drop-shadow(0 0 5px rgba(87,225,255,.38));
+}
+.scienceLegendRewardSvg--gift{color:#ffd96d;filter:drop-shadow(0 0 6px rgba(255,211,90,.38))}
+.scienceLegendRewardSvg--hammer{color:#9eefff}
+.scienceLegendRewardSvg--hint{color:#ffd96d;fill:currentColor;stroke:none}
+.scienceLegendRewardSvg--precision{color:#bda7ff}
+.scienceLegendRewardDivider{opacity:.58;margin:0 1px}
+.scienceLegendRevealReward .scienceLegendRewardSvg{width:1.22em;height:1.22em}
+.scienceLegendCardReward .scienceLegendRewardSvg{width:1.08em;height:1.08em}
+.scienceLegendDetailReward .scienceLegendRewardSvg{width:1.15em;height:1.15em}
+@media(max-width:390px){
+  .scienceLegendRevealReward,.scienceLegendCardReward,.scienceLegendDetailReward{gap:5px!important}
+  .scienceLegendRewardItems{gap:5px}
+  .scienceLegendRewardItem{gap:3px}
+}
