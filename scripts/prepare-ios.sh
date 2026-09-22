@@ -38,7 +38,7 @@ npx cap copy ios
 
 # Native WebViews must never ship the PWA service worker. Capacitor loads the
 # bundled files directly, so keeping sw.js only adds stale-cache risk and bytes.
-rm -f ios/App/App/public/sw.js
+rm -f ios/App/App/public/sw.js ios/App/App/public/sw-r160.js
 
 python3 scripts/patch-ios.py
 

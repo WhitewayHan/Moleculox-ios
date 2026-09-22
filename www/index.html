@@ -10,29 +10,33 @@
 <meta name="apple-mobile-web-app-title" content="Moleculox">
 <meta name="format-detection" content="telephone=no">
 
-<title>Moleculox — Dr. E's Lab</title>
+<title>Moleculox — Chemistry Puzzle Game</title>
 <script>
-window.__MX_BUILD_ID__='8.7.97-r200-final-ios';
+window.__MX_BUILD_ID__='8.7.203-r371-science-legends-ios';
+window.MX_QA_TEST_GAME=false;
+window.MX_QA_ALL_LEVELS_OPEN=false;
+window.MX_QA_NO_CLOUD=false;
 window.__MX_DISTRIBUTION__='ios';
 window.__MX_NATIVE_SHELL__=true;
 </script>
 
 <script>
-/* V8.0.2: sw.js existed in every build but was never registered, so offline campaign play —
-   already advertised in this page's own meta description — has not actually been working.
-   Safe to call every load: the browser only reinstalls when sw.js's bytes actually change.
-   Deferred to 'load' so it never competes with first paint. */
-if(!window.__MX_NATIVE_SHELL__&&'serviceWorker' in navigator){
-  window.addEventListener('load',function(){
-    var registerMoleculoxWorker=function(){navigator.serviceWorker.register('./sw.js',{updateViaCache:'none'}).catch(function(){});};
-    // Cache setup must never compete with the first menu/game frames. Modern
-    // browsers get an idle slot; older WebViews receive a short delayed start.
-    if('requestIdleCallback' in window)requestIdleCallback(registerMoleculoxWorker,{timeout:5000});
-    else setTimeout(registerMoleculoxWorker,2200);
-  });
-}
+/* Early Studio tap capture without blocking startup on Storage Access. */
+window.__MX_STUDIO_EARLY_TAP__=false;
+(function(){
+  function arm(){window.__MX_STUDIO_EARLY_TAP__=true;}
+  document.addEventListener('pointerdown',function(e){
+    const t=e.target;if(t&&t.closest&&t.closest('#studioScr'))arm();
+  },{capture:true,passive:true});
+  document.addEventListener('keydown',function(e){
+    if(e.key!=='Enter'&&e.key!==' ')return;
+    const studio=document.getElementById('studioScr');
+    if(studio&&studio.classList.contains('on'))arm();
+  },{capture:true});
+})();
 </script>
-<link rel="stylesheet" href="css/app.css?v=8.7.97-r200-final-ios">
+
+<link rel="stylesheet" href="css/app-r160.css?v=8.7.203-r371-science-legends">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
 
@@ -52,6 +56,10 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
 .mlxIconShell{display:inline-grid;place-items:center;border:1px solid rgba(124,236,255,.34);border-radius:9px;background:linear-gradient(145deg,rgba(22,49,82,.86),rgba(8,20,42,.9));box-shadow:inset 0 1px 0 rgba(255,255,255,.13),0 0 10px rgba(65,208,255,.13);padding:.16em}
 .tutSwipeHand .mlxIcon{width:2.45em;height:2.45em;color:#fff1c8;filter:drop-shadow(0 4px 8px rgba(0,0,0,.34))}
 </style>
+
+
+
+
 </head>
 <body>
 <svg id="mlxIconSprite" aria-hidden="true" width="0" height="0" style="position:absolute;overflow:hidden;pointer-events:none">
@@ -80,6 +88,111 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
 <symbol id="mlx-atom" viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="9" ry="3.5" fill="none" stroke="currentColor" stroke-width="1.7"/><ellipse cx="12" cy="12" rx="9" ry="3.5" transform="rotate(60 12 12)" fill="none" stroke="currentColor" stroke-width="1.7"/><ellipse cx="12" cy="12" rx="9" ry="3.5" transform="rotate(120 12 12)" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></symbol>
 <symbol id="mlx-bolt" viewBox="0 0 24 24"><path d="m13 2-8 12h7l-1 8 8-12h-7l1-8z" fill="currentColor"/></symbol>
 <symbol id="mlx-radiation" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2" fill="currentColor"/><path d="M10 9 7 4a8 8 0 0 1 5-1v6m4 2 5 1a8 8 0 0 1-3 5l-4-4m-4 1-3 5a8 8 0 0 1-3-5l6-1" fill="currentColor" opacity=".9"/></symbol>
+<symbol id="mlx-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3m-4 4v3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+<symbol id="mlx-cloud" viewBox="0 0 24 24"><path d="M6 18h12a4 4 0 0 0 .6-8A7 7 0 0 0 5.2 9 4.5 4.5 0 0 0 6 18z" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+<symbol id="mlx-user" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 21c1-5 4-7 8-7s7 2 8 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+<symbol id="mlx-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17" cy="9" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M2 21c1-5 3-7 7-7s6 2 7 7m0-6c3 0 5 2 6 6" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+<symbol id="mlx-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M7 7l1 14h8l1-14M10 11v6M14 11v6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+<symbol id="mlx-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 11v6m0-10h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+<symbol id="mlx-game" viewBox="0 0 24 24"><path d="M7 8h10c4 0 6 9 3 11-2 1-4-3-6-3h-4c-2 0-4 4-6 3C1 17 3 8 7 8zM8 11v4m-2-2h4m6-1h.01m2 2h.01" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+<symbol id="mlx-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="m15 9-2 5-5 2 2-5 5-2z" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+<symbol id="mlx-toolbox" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 8V5h8v3M3 13h18M10 12v3h4v-3" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+<symbol id="mlx-wifi" viewBox="0 0 24 24"><path d="M3 9c5-5 13-5 18 0M6 13c3-3 9-3 12 0m-9 4c2-2 4-2 6 0m-3 3h.01" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+<symbol id="mlx-dice" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="8" cy="8" r="1" fill="currentColor"/><circle cx="16" cy="8" r="1" fill="currentColor"/><circle cx="12" cy="12" r="1" fill="currentColor"/><circle cx="8" cy="16" r="1" fill="currentColor"/><circle cx="16" cy="16" r="1" fill="currentColor"/></symbol>
+<symbol id="mlx-fire" viewBox="0 0 24 24"><path d="M13 2c2 5-2 6 1 10 1-3 4-3 4-7 5 6 4 16-4 17-7 1-12-5-9-11 1-2 3-4 5-5 0 3 1 4 3 6 2-4-1-6 0-10z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+<symbol id="mlx-snow" viewBox="0 0 24 24"><path d="M12 2v20M4 7l16 10M20 7 4 17M9 4l3 3 3-3M9 20l3-3 3 3M5 10l4-1-1-4m11 9-4 1 1 4M19 10l-4-1 1-4M5 14l4 1-1 4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="mlx-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v6l4 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+<symbol id="mlx-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15 8c-1-2-6-1-6 2 0 3 6 1 6 4 0 3-5 4-7 1m4-9v12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+<symbol id="mlx-star" viewBox="0 0 24 24"><path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+<symbol id="mlx-crown" viewBox="0 0 24 24"><path d="m3 7 5 4 4-7 4 7 5-4-2 11H5L3 7zm3 14h12" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+<symbol id="mlx-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="m7 12 3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="mlx-wall" viewBox="0 0 24 24"><path d="M3 4h18v16H3zM3 9h18M3 15h18M8 4v5m8-5v5M6 9v6m8-6v6m5 0v5M10 15v5" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+<symbol id="mlx-restart" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.3-5.7L4 8.6M4 4v4.6h4.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="mlx-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M19 13.5v-3l2-1.5-2-3.4-2.4 1a8 8 0 0 0-2.6-1.5L13.5 2h-3L10 5a8 8 0 0 0-2.6 1.5l-2.4-1L3 9l2 1.5v3L3 15l2 3.4 2.4-1A8 8 0 0 0 10 19l.5 3h3l.5-3a8 8 0 0 0 2.6-1.5l2.4 1 2-3.4-2-1.6z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+<symbol id="mlx-bell" viewBox="0 0 24 24"><path d="M6 16h12l-1.5-2V10a4.5 4.5 0 0 0-9 0v4L6 16zm4 3h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+<symbol id="mlx-dna" viewBox="0 0 24 24"><path d="M7 3c0 7 10 11 10 18M17 3C17 10 7 14 7 21M8 7h8M8 12h8M8 17h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+<symbol id="mlx-puzzle" viewBox="0 0 24 24"><path d="M4 4h6a3 3 0 1 1 4 0h6v6a3 3 0 1 1 0 4v6h-6a3 3 0 1 0-4 0H4v-6a3 3 0 1 1 0-4V4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+<symbol id="mlx-portal" viewBox="0 0 24 24"><path d="M12 3c6 0 9 4 9 9s-4 9-9 9-9-3-9-7 3-7 7-7 7 2 7 5-3 5-6 5-5-2-5-4 2-3 4-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+<symbol id="mlx-drop" viewBox="0 0 24 24"><path d="M12 3S6 10 6 15a6 6 0 0 0 12 0c0-5-6-12-6-12z" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+<symbol id="mlx-key" viewBox="0 0 24 24"><circle cx="8" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 12h9m-3 0v3m-3-3v2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+<symbol id="mlx-hammer" viewBox="0 0 24 24"><path d="m14 4 6 6-4 4-6-6zM12 10 4 21l-3-3 9-10M16 2l6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+<symbol id="mlx-magnet" viewBox="0 0 24 24"><path d="M6 4v9a6 6 0 0 0 12 0V4h-5v9a1 1 0 0 1-2 0V4H6zM6 8h5m2 0h5" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+<symbol id="mlx-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="m4 7 8 6 8-6" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+<symbol id="mlx-camera" viewBox="0 0 24 24"><path d="M4 7h4l2-3h4l2 3h4v13H4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="13" r="4" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+<symbol id="mlx-gift" viewBox="0 0 24 24"><path d="M3 9h18v4H3zM5 13h14v8H5zM12 9v12M7 9c-4-4 2-7 5 0m5 0c4-4-2-7-5 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+<symbol id="mlx-warning" viewBox="0 0 24 24"><path d="m12 3 10 18H2L12 3zM12 9v5m0 3h.01" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="mlx-chat" viewBox="0 0 24 24"><path d="M4 5h16v12H9l-5 4V5zM8 9h8M8 13h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+<symbol id="mlx-share" viewBox="0 0 24 24"><path d="M12 16V3m-5 5 5-5 5 5M5 12v8h14v-8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="mlx-brain" viewBox="0 0 24 24"><path d="M9 4a3 3 0 0 0-5 3 3 3 0 0 0 0 5 3 3 0 0 0 3 5c0 3 3 4 5 2V5C11 3 10 3 9 4zm6 0a3 3 0 0 1 5 3 3 3 0 0 1 0 5 3 3 0 0 1-3 5c0 3-3 4-5 2V5c1-2 2-2 3-1zM7 9h3m4 4h3M8 15l2-2m4-4 2-2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+<symbol id="mlx-red-dot" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="#ff596a" stroke="#ffd7dc" stroke-width="2"/></symbol>
+<symbol id="mlx-blue-dot" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="#55bfff" stroke="#d7f2ff" stroke-width="2"/></symbol>
+<symbol id="mlx-top-back" viewBox="0 0 24 24">
+  <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8" opacity=".28"/>
+  <path d="M14.8 7.2 9.2 12l5.6 4.8" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="7.2" cy="12" r="1.4" fill="currentColor"/>
+  <path d="M15.6 5.8a8.4 8.4 0 0 1 2.9 2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".8"/>
+</symbol>
+<symbol id="mlx-top-home" viewBox="0 0 24 24">
+  <path d="M4.2 11.2 12 4.7l7.8 6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M6.2 10.7V19a1.1 1.1 0 0 0 1.1 1.1h9.4a1.1 1.1 0 0 0 1.1-1.1v-8.3" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M9.2 20v-4.2a2.8 2.8 0 0 1 5.6 0V20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+  <circle cx="12" cy="11.6" r="1.3" fill="currentColor" opacity=".9"/>
+</symbol>
+<symbol id="mlx-top-gear" viewBox="0 0 24 24">
+  <circle cx="12" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="1.9"/>
+  <path d="M12 3.2 13.5 5l2.3.5 1.8-1 1.9 1.9-1 1.8.5 2.3 1.8 1.5-1.8 1.5-.5 2.3 1 1.8-1.9 1.9-1.8-1-2.3.5-1.5 1.8-1.5-1.8-2.3-.5-1.8 1-1.9-1.9 1-1.8-.5-2.3-1.8-1.5 1.8-1.5.5-2.3-1-1.8L6.4 4.5l1.8 1 2.3-.5L12 3.2Z" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linejoin="round"/>
+  <path d="M12 6.4a5.6 5.6 0 0 1 0 11.2" fill="none" stroke="currentColor" stroke-width="1.25" opacity=".7"/>
+</symbol>
+<symbol id="mlx-top-restart" viewBox="0 0 24 24">
+  <circle cx="12" cy="12" r="8.4" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".26"/>
+  <path d="M8.1 8.6A5.5 5.5 0 1 1 7.6 15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M8.2 4.8v4.8H13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="16.8" cy="9" r="1.1" fill="currentColor"/>
+</symbol>
+<symbol id="mlx-top-exit" viewBox="0 0 24 24">
+  <path d="M5 5.5h8.2a1.3 1.3 0 0 1 1.3 1.3v10.4a1.3 1.3 0 0 1-1.3 1.3H5.8A1.8 1.8 0 0 1 4 16.7V7.3A1.8 1.8 0 0 1 5.8 5.5Z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/>
+  <path d="M12 12h7.3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="m16 8.2 3.8 3.8L16 15.8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="8.2" cy="12" r="1.2" fill="currentColor" opacity=".9"/>
+</symbol>
+<symbol id="mlx-top-gem" viewBox="0 0 24 24">
+  <path d="M7 5h10l4 5-9 10L3 10l4-5Z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/>
+  <path d="M7 5 12 20M17 5 12 20M3 10h18M9.4 10 12 5l2.6 5" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="12" cy="12.2" r="1.15" fill="currentColor" opacity=".9"/>
+</symbol>
+<symbol id="mlx-top-coin" viewBox="0 0 24 24">
+  <circle cx="12" cy="12" r="8.7" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <ellipse cx="12" cy="12" rx="6.2" ry="2.4" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".72"/>
+  <path d="M9 15.5V8.5l3 3 3-3v7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</symbol>
+<symbol id="mlx-mech-rotatingChamber" viewBox="0 0 32 32"><rect x="10" y="10" width="12" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M7 12V6h6M25 20v6h-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.2 10.2a11 11 0 0 1 15.8-2M23.8 21.8a11 11 0 0 1-15.8 2" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><path d="m22.8 7.6 2.6.4-.8 2.5M9.2 24.4l-2.6-.4.8-2.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="mlx-mech-repulsor" viewBox="0 0 32 32"><circle cx="11" cy="16" r="4.8" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="11" cy="16" r="1.4" fill="currentColor"/><path d="M16 16h9.2" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="m21.5 11.5 4.7 4.5-4.7 4.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M15.5 11.5 18 16l-2.5 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="mlx-mech-synthesizer" viewBox="0 0 32 32"><circle cx="8" cy="10" r="3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="8" cy="22" r="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M11 10h5M11 22h5M16 10l4 6-4 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="16" r="4.2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M23 14h2m-1-1v2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+<symbol id="mlx-mech-photonBoost" viewBox="0 0 32 32"><path d="M4 16h8m8 0h8M16 4v8m0 8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="m16 10 2.2 4 4 2.2-4 2.2-2.2 4-2.2-4-4-2.2 4-2.2 2.2-4Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="16" cy="16" r="2" fill="currentColor"/></symbol>
+<symbol id="mlx-mech-replicator" viewBox="0 0 32 32"><circle cx="9.5" cy="16" r="4.7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M14.5 16h4.5m-2.2-2.2 2.2 2.2-2.2 2.2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="23.2" cy="12" r="3.6" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="23.2" cy="20" r="3.6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M19.3 16h2.8" stroke="currentColor" stroke-width="1.5" opacity=".8"/></symbol>
+<symbol id="mlx-mech-frozen" viewBox="0 0 32 32"><path d="M16 4v24M6 10l20 12M26 10 6 22M12 6l4 4 4-4M12 26l4-4 4 4M7 15l5-1-1-5M25 17l-5 1 1 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="16" r="2.4" fill="currentColor"/></symbol>
+<symbol id="mlx-mech-fire" viewBox="0 0 32 32"><path d="M17 4c2 6-3 8 1 13 1-4 5-4 5-9 6 7 4 19-6 20C8 29 4 21 8 14c1-3 4-5 6-6 0 4 1 6 3 9 3-5-1-8 0-13Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M16 17c3 3 3 7 0 9-3-2-3-6 0-9Z" fill="currentColor" opacity=".75"/></symbol>
+<symbol id="mlx-mech-lightning" viewBox="0 0 32 32"><path d="m18 3-9 15h7l-2 11 10-16h-7l1-10Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><circle cx="7" cy="9" r="1.3" fill="currentColor"/><circle cx="25" cy="23" r="1.3" fill="currentColor"/></symbol>
+<symbol id="mlx-mech-sticky" viewBox="0 0 32 32"><circle cx="11" cy="16" r="4.2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="21" cy="16" r="4.2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15 14.5c1.8-2.2 4.2-2.2 5.8 0M15.2 17.3c1.6 1.8 4 1.8 5.6 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M14.7 12.2c.9-1.2 2.1-2.1 3.4-2.6 1.9 1.3 3 3.6 2.8 5.8" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity=".75"/><circle cx="16" cy="16" r="1.2" fill="currentColor"/></symbol>
+<symbol id="mlx-mech-zombie" viewBox="0 0 32 32"><circle cx="16" cy="16" r="8.7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 4v4M16 24v4M4 16h4M24 16h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M10 10l3 3m6-3-3 3m-6 9 3-3m6 3-3-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity=".8"/><circle cx="13" cy="16" r="1.2" fill="currentColor"/><circle cx="19" cy="16" r="1.2" fill="currentColor"/><path d="M13 21c1.5-1 4.5-1 6 0" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+<symbol id="mlx-mech-oneWay" viewBox="0 0 32 32"><rect x="5" y="8" width="22" height="16" rx="4" fill="none" stroke="currentColor" stroke-width="1.7" opacity=".72"/><path d="M9 16h11.5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><path d="m17 11.5 4.5 4.5-4.5 4.5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M11 12.5v7" stroke="currentColor" stroke-width="1.2" opacity=".55" stroke-linecap="round"/></symbol>
+<symbol id="mlx-mech-hammer" viewBox="0 0 32 32"><rect x="6" y="7" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.9"/><path d="M10 11h3m-1.5-1.5v3M9 15l5-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M18 10.5h7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".65"/><path d="m16 14 4 4-3.2 3.2 4 4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="mlx-mech-portal" viewBox="0 0 32 32"><ellipse cx="10.5" cy="16" rx="4.2" ry="7" fill="none" stroke="currentColor" stroke-width="2"/><ellipse cx="21.5" cy="16" rx="4.2" ry="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M13.8 11.2c3.2 1.2 5.2 3 7 4.8-1.8 1.8-3.8 3.6-7 4.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="2.1 2.1"/><circle cx="10.5" cy="16" r="1.3" fill="currentColor" opacity=".8"/><circle cx="21.5" cy="16" r="1.3" fill="currentColor" opacity=".8"/></symbol>
+<symbol id="mlx-mech-rift" viewBox="0 0 32 32"><path d="M7 16c0-5 4.2-8 9-8 5.3 0 9 3.3 9 8 0 5.1-3.9 8-9 8-5 0-9-3.1-9-8Z" fill="none" stroke="currentColor" stroke-width="1.8" opacity=".55"/><path d="M16 6c-2.5 3-1 5.3-3.2 8-2.4 2.8-1.3 5.5-3.4 9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M18.2 8.2c-.9 1.5-.8 2.9.3 4.2M21.4 14.8c-.9 1.4-1 2.8-.2 4.2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".8"/></symbol>
+<symbol id="mlx-mech-movingWall" viewBox="0 0 32 32"><rect x="10" y="7" width="12" height="18" rx="1.8" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10 13h12M10 19h12M14 7v6m4 0v6m-4 0v6" fill="none" stroke="currentColor" stroke-width="1.4" opacity=".82"/><path d="M4 16h4m-2-2.5 2 2.5-2 2.5M28 16h-4m2-2.5-2 2.5 2 2.5" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="mlx-mech-pressureDoor" viewBox="0 0 32 32"><rect x="17" y="5" width="10" height="22" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M22 5v22" stroke="currentColor" stroke-width="1.4" opacity=".7"/><circle cx="8" cy="16" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="8" cy="16" r="1.7" fill="currentColor"/><path d="M12 16h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+<symbol id="mlx-mech-fragile" viewBox="0 0 32 32"><rect x="8" y="8" width="16" height="16" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.9"/><path d="M16 8v16M8 16h16" stroke="currentColor" stroke-width="1.2" opacity=".4"/><path d="M17 9c-1.2 2.2-.4 3.4-2.5 5.2-1.8 1.6-1.5 2.8-3.3 4.3m6.4-4c1.2 1.2 2.4 1.8 4.6 2.4M14 21l3-3 4 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="mlx-mech-linked" viewBox="0 0 32 32"><circle cx="8" cy="16" r="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="16" r="5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M13 16h6" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><circle cx="16" cy="16" r="1.5" fill="currentColor"/></symbol>
+<symbol id="mlx-mech-fusion" viewBox="0 0 32 32"><circle cx="10" cy="11" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="10" cy="21" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M14 11h4l4 5-4 5h-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="25" cy="16" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="25" cy="16" r="1.5" fill="currentColor"/></symbol>
+<symbol id="mlx-mech-prebuilt" viewBox="0 0 32 32"><path d="M6 6h8v4a3 3 0 1 0 6 0V6h6v8h-4a3 3 0 1 0 0 6h4v6h-8v-4a3 3 0 1 0-6 0v4H6v-8h4a3 3 0 1 0 0-6H6V6Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+<symbol id="mlx-mech-rotation" viewBox="0 0 32 32"><circle cx="16" cy="16" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M7 12a10 10 0 0 1 17-4l2 2m0-5v5h-5M25 20a10 10 0 0 1-17 4l-2-2m0 5v-5h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="mlx-mech-precision" viewBox="0 0 32 32"><circle cx="14" cy="17" r="8.8" fill="none" stroke="currentColor" stroke-width="1.9"/><circle cx="14" cy="17" r="4.6" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="14" cy="17" r="1.6" fill="currentColor"/><path d="M14 5v3.3M14 25.7V29M2 17h3.3M24.7 17H28" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="m20 10 7-3-3 7-1.8-2.2L18 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="mlx-mech-enzymeGate" viewBox="0 0 32 32"><path d="M8 27V10l8-5 8 5v17M8 19h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="m12 13 4 3 4-3M12 22l4-3 4 3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="mlx-mech-bioAssembly" viewBox="0 0 32 32"><path d="M10 5c0 8 12 14 12 22M22 5c0 8-12 14-12 22M11 10h10M10 16h12M11 22h10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="16" cy="16" r="2" fill="currentColor"/></symbol>
+<symbol id="mlx-mech-classicCatalyst" viewBox="0 0 32 32"><path d="M12 4h8M14 4v8L7 24a3 3 0 0 0 2.6 4h12.8a3 3 0 0 0 2.6-4l-7-12V4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 21h12" stroke="currentColor" stroke-width="1.7"/><circle cx="13" cy="23" r="1.4" fill="currentColor"/><circle cx="19" cy="20" r="1.2" fill="currentColor"/></symbol>
+<symbol id="mlx-mech-classicChain" viewBox="0 0 32 32"><circle cx="7" cy="16" r="3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="16" r="3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="25" cy="16" r="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 16h3m6 0h3" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><path d="M6 9 9 6m14 3 3-3M6 23l3 3m14-3 3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".8"/></symbol>
+<symbol id="mlx-mech-classicReactor" viewBox="0 0 32 32"><circle cx="16" cy="16" r="3" fill="currentColor"/><path d="M13 12 9 5a11 11 0 0 1 7-2v9m4 2 9 2a11 11 0 0 1-4 7l-7-7m-4 4-5 8a11 11 0 0 1-5-7l10-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+
 </defs></svg>
 
 <div id="bgA"></div><div id="bgB"></div>
@@ -99,7 +212,7 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
 <!-- BOOT / LOADING -->
 <div id="bootScr" class="screen">
   <div id="bootStage">
-    <img id="bootBg" src="assets/images/boot-splash.webp" alt="Dr. E's Lab">
+    <img id="bootBg" src="assets/images/boot-splash.webp" alt="Dr. Edward Atom's Lab">
     <div id="bootDarkScrim"></div>
     <div id="bootBulbGlow"></div>
     <div id="bootLogoHalo"></div>
@@ -124,7 +237,7 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
 <!-- PROFILE SELECT -->
 <div id="profileScr" class="screen">
   <div id="profileWrap">
-    <div id="profileTop">DR. E's LAB</div>
+    <div id="profileTop">DR. EDWARD ATOM's LAB</div>
     <div id="profileTitle" data-i18n="whosPlaying">KİM OYNUYOR?</div>
     <div id="profileListWrap" class="scrollArea"><div id="profileList"></div></div>
     <button id="profileBack" class="btn ghost" data-i18n="cancel">CANCEL</button>
@@ -138,10 +251,11 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
   <div id="splashCoinChip" class="chip" aria-label="MoleCoin"><span class="coinIcon" aria-hidden="true"></span><span>0</span></div>
   <button id="splashGear" class="btn iconBadge tint-silver"><span class="badgeIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 13.5a7.6 7.6 0 0 0 0-3l2-1.5-2-3.4-2.3.9a7.6 7.6 0 0 0-2.6-1.5L14 2h-4l-.5 2.4a7.6 7.6 0 0 0-2.6 1.5l-2.3-.9-2 3.4 2 1.5a7.6 7.6 0 0 0 0 3l-2 1.6 2 3.4 2.3-.9c.75.65 1.63 1.16 2.6 1.5L10 22h4l.4-2.4a7.6 7.6 0 0 0 2.6-1.5l2.3.9 2-3.4-2-1.6z"/></svg></span><span id="syncDot" class="syncDot" title="Cloud sync status"></span></button>
   <div id="logoWrap">
-    <div id="logoTop">DR. E's LAB</div>
-    <div id="logoTitle">MOLECULOX</div>
+    <div id="logoTop">DR. EDWARD ATOM's LAB</div>
+    <img id="mainMenuLogoImage" src="assets/images/moleculox-logo-r220.png" alt="MOLECULOX — Small Atoms · Big Discoveries!">
+    <div id="logoTitle" aria-label="MOLECULOX"><span class="mxLogoM">M</span><span class="mxLogoAtomO">O</span><span class="mxLogoMid">LECUL</span><span class="mxLogoSecondO">O</span><span class="mxLogoX">X</span></div>
     <div id="logoSub">Push atoms · Build molecules · Save science!</div>
-    <div id="campaign501Badge" role="note" aria-label="501 experiments">501 EXPERIMENTS</div>
+    <div id="campaign501Badge" role="note" aria-label="801 experiments">801 EXPERIMENTS</div>
   </div>
   <div id="splashBtns">
     <span id="btnPlayIntroWrap"><button id="btnPlay" class="btn green breathe">▶︎ CONTINUE</button></span>
@@ -157,11 +271,11 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
   <button id="btnMoleculopediaDock" type="button" class="learningDockBtn moleculopediaDockBtn" title="Moleculopedia" aria-label="Moleculopedia"><span class="learningDockIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5.5A3.5 3.5 0 0 1 7.5 2H11v17H7.5A3.5 3.5 0 0 0 4 22V5.5zM20 5.5A3.5 3.5 0 0 0 16.5 2H13v17h3.5A3.5 3.5 0 0 1 20 22V5.5z"/></svg></span><span class="learningDockMain">MOLECULO</span><span class="learningDockMini">PEDIA</span></button>
   <button id="btnGuide" type="button" class="guideDockBtn" title="Nasıl Oynanır" aria-label="Moleculox nasıl oynanır"><span class="guideDockIcon">?</span><span class="guideDockMain">HOW TO</span><span class="guideDockMini">PLAY</span></button>
   <div id="splashBubble" role="status" aria-live="polite" aria-atomic="true">
-    <span class="splashBubbleWho">DR. E</span>
+    <span class="splashBubbleWho">DR. EDWARD ATOM</span>
     <span id="splashBubbleText"></span>
   </div>
   <div class="einBox" id="einBoxS">
-    <img class="einImg" src="assets/images/einstein.webp" alt="Dr. E">
+    <img class="einImg" src="assets/images/dr-edward-atom.png" alt="Dr. Edward Atom">
     <div class="einFx">
       <div class="eyeW"><div class="lid"></div></div><div class="eyeW eye2"><div class="lid"></div></div>
       <div class="tongue"></div><div class="prop"></div>
@@ -189,15 +303,16 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
 <div id="collectScr" class="screen">
   <div class="listHead">
     <button id="coBack" class="btn iconBadge tint-silver"><span class="badgeIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></span></button>
-    <h2 data-i18n="myMolecules">MY MOLECULES</h2>
+    <h2 id="coTitle" data-i18n="myMolecules">MY MOLECULES</h2>
     <div id="coCount" class="chip">0/17</div>
     <button id="coHome" class="btn iconBadge tint-amber"><span class="badgeIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.5 12 4l8 7.5"/><path d="M6 10v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-9"/><path d="M10 20v-6h4v6"/></svg></span></button>
   </div>
   <div id="collectionTabs" class="collectionTabs" role="tablist" aria-label="Collection sections">
-    <button type="button" class="collectionTab on" data-collection-tab="molecules">🧬 <span>MOLEKÜLLER</span></button>
-    <button type="button" class="collectionTab" data-collection-tab="elements">⚛️ <span>ELEMENTLER</span></button>
-    <button type="button" class="collectionTab" data-collection-tab="achievements">🏆 <span>BAŞARI</span></button>
-    <button type="button" class="collectionTab" data-collection-tab="diplomas">🎓 <span>DİPLOMA</span></button>
+    <button type="button" class="collectionTab on" data-collection-tab="molecules"><i data-mx-ui-icon="molecule"></i><span>MOLEKÜLLER</span></button>
+    <button type="button" class="collectionTab" data-collection-tab="elements"><i data-mx-ui-icon="atom"></i><span>ELEMENTLER</span></button>
+    <button type="button" class="collectionTab" data-collection-tab="achievements"><i data-mx-ui-icon="trophy"></i><span>BAŞARI</span></button>
+    <button type="button" class="collectionTab" data-collection-tab="diplomas"><i data-mx-ui-icon="cap"></i><span>DİPLOMA</span></button>
+    <button type="button" class="collectionTab scienceLegendsTab" data-collection-tab="legends" aria-label="Science Legends"><i data-mx-ui-icon="sparkle"></i><span>LEGENDS</span></button>
   </div>
   <div class="scrollArea collectionScroll">
     <section class="collectionPanel on" data-collection-panel="molecules">
@@ -212,6 +327,9 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
     <section class="collectionPanel" data-collection-panel="diplomas">
       <div id="diplomaGrid"></div>
     </section>
+    <section class="collectionPanel" data-collection-panel="legends">
+      <div id="legendGrid" class="scienceLegendGrid"></div>
+    </section>
   </div>
 </div>
 
@@ -224,10 +342,10 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
     <button id="labHome" class="btn iconBadge tint-amber" aria-label="Home"><span class="badgeIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.5 12 4l8 7.5"/><path d="M6 10v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-9"/><path d="M10 20v-6h4v6"/></svg></span></button>
   </div>
   <div id="labTabs" role="tablist" aria-label="Laboratory sections">
-    <button class="labTab on" data-labtab="overview" type="button">🔬 <span>LAB</span></button>
-    <button class="labTab" data-labtab="shop" type="button">🛒 <span>SHOP</span></button>
-    <button class="labTab" data-labtab="nobel" type="button">🏆 <span>NOBEL RACE</span></button>
-    <button class="labTab" data-labtab="rewards" type="button">✨ <span>REWARDS</span></button>
+    <button class="labTab on" data-labtab="overview" type="button"><i data-mx-ui-icon="microscope"></i><span>LAB</span></button>
+    <button class="labTab" data-labtab="shop" type="button"><i data-mx-ui-icon="cart"></i><span>SHOP</span></button>
+    <button class="labTab" data-labtab="nobel" type="button"><i data-mx-ui-icon="trophy"></i><span>NOBEL RACE</span></button>
+    <button class="labTab" data-labtab="rewards" type="button"><i data-mx-ui-icon="sparkle"></i><span>REWARDS</span></button>
   </div>
   <div class="scrollArea" id="labScrollArea">
     <section id="labOverviewPane" class="labPane on">
@@ -236,41 +354,41 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
         <div class="labShelf"><i></i><i></i><i></i><i></i></div>
         <div class="labBench"></div>
         <div id="labPlacedItems"></div>
-        <div class="labScientistBadge"><span id="labScientistIcon">🧪</span><b id="labScientistTitle">LAB ASSISTANT</b><small id="labScientistName">PLAYER</small></div>
+        <div class="labScientistBadge"><span id="labScientistIcon" data-mx-ui-icon="flask"></span><b id="labScientistTitle">LAB ASSISTANT</b><small id="labScientistName">PLAYER</small></div>
       </div>
       <div id="labCareerStrip"></div>
-      <div class="sectionHead" id="labPurposeHead">🎯 WHY YOU PLAY</div>
+      <div class="sectionHead" id="labPurposeHead"><i data-mx-ui-icon="target"></i><span>WHY YOU PLAY</span></div>
       <div id="labPurposeGrid"></div>
-      <div class="sectionHead" id="labMissionHead">🚀 RESEARCH EXPEDITIONS</div>
+      <div class="sectionHead" id="labMissionHead"><i data-mx-ui-icon="rocket"></i><span>RESEARCH EXPEDITIONS</span></div>
       <div id="labMissionGrid"></div>
     </section>
     <section id="labShopPane" class="labPane">
-      <div class="labShopHero"><div class="shopBot">🤖</div><div><b id="labShopTitle">DR. E'S EQUIPMENT SHOP</b><small id="labShopSub">Spend MoleCoins on useful equipment and laboratory upgrades.</small></div></div>
+      <div class="labShopHero"><div class="shopBot" data-mx-ui-icon="robot"></div><div><b id="labShopTitle">DR. EDWARD ATOM'S EQUIPMENT SHOP</b><small id="labShopSub">Spend MoleCoins on useful equipment and laboratory upgrades.</small></div></div>
       <div id="labShopGrid"></div>
     </section>
     <section id="labNobelPane" class="labPane">
       <div id="nobelRaceHero"></div>
-      <div class="sectionHead" id="nobelLeadersHead">🌍 LIVE NOBEL RACE</div>
+      <div class="sectionHead" id="nobelLeadersHead"><i data-mx-ui-icon="globe"></i><span>LIVE NOBEL RACE</span></div>
       <div id="nobelLeaderGrid"></div>
-      <div class="sectionHead" id="nobelPositionHead">📊 YOUR POSITION</div>
+      <div class="sectionHead" id="nobelPositionHead"><i data-mx-ui-icon="chart"></i><span>YOUR POSITION</span></div>
       <div id="nobelPlayerCard"></div>
-      <div class="sectionHead" id="nobelArchiveHead">🏛️ NOBEL HALL</div>
+      <div class="sectionHead" id="nobelArchiveHead"><i data-mx-ui-icon="hall"></i><span>NOBEL HALL</span></div>
       <div id="nobelArchiveGrid"></div>
     </section>
     <section id="labRewardsPane" class="labPane">
       <div id="duelRewardHero"></div>
       <div id="duelRewardStats" class="duelRankStats"></div>
       <div id="duelRewardRoadmap"></div>
-      <div class="sectionHead" id="duelFramesHead">🖼️ PROFILE FRAMES</div>
+      <div class="sectionHead" id="duelFramesHead"><i data-mx-ui-icon="frame"></i><span>PROFILE FRAMES</span></div>
       <div id="duelFramesGrid" class="duelRewardGrid"></div>
-      <div class="sectionHead" id="duelTitlesHead">🏷️ TITLES</div>
+      <div class="sectionHead" id="duelTitlesHead"><i data-mx-ui-icon="tag"></i><span>TITLES</span></div>
       <div id="duelTitlesGrid" class="duelRewardGrid"></div>
-      <div class="sectionHead" id="duelCupsHead">🏆 TROPHY CABINET</div>
+      <div class="sectionHead" id="duelCupsHead"><i data-mx-ui-icon="trophy"></i><span>TROPHY CABINET</span></div>
       <div id="duelRewardCabinet">
         <div id="duelCupsGrid" class="duelCupShelf"></div>
         <div id="duelRewardSpotlight"></div>
       </div>
-      <div class="sectionHead" id="duelBadgesHead">🛡️ LEAGUE BADGES</div>
+      <div class="sectionHead" id="duelBadgesHead"><i data-mx-ui-icon="shield"></i><span>LEAGUE BADGES</span></div>
       <div id="duelBadgesGrid" class="duelBadgeShelf"></div>
       <div id="duelRewardStatus"></div>
     </section>
@@ -285,18 +403,18 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
     <button id="hofHome" class="btn iconBadge tint-amber"><span class="badgeIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.5 12 4l8 7.5"/><path d="M6 10v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-9"/><path d="M10 20v-6h4v6"/></svg></span></button>
   </div>
   <div id="hofTopTabs">
-    <button class="hofTopTab on" id="hofTopRecords" data-i18n="hofMyRecordsTab">🏅 MY RECORDS</button>
-    <button class="hofTopTab" id="hofTopRankings" data-i18n="hofRankingsTab">🌍 RANKINGS</button>
-    <button class="hofTopTab" id="hofTopDuel">⚔️ DUEL RANK</button>
+    <button class="hofTopTab on" id="hofTopRecords"><i data-mx-ui-icon="medal"></i><span data-i18n="hofMyRecordsTab">MY RECORDS</span></button>
+    <button class="hofTopTab" id="hofTopRankings"><i data-mx-ui-icon="globe"></i><span data-i18n="hofRankingsTab">RANKINGS</span></button>
+    <button class="hofTopTab" id="hofTopDuel"><i data-mx-ui-icon="duel"></i><span>DUEL RANK</span></button>
   </div>
 
   <div class="scrollArea" id="hofRecordsPane">
     <div id="hofCert">
-      <div id="hofSeal">🎓</div>
+      <div id="hofSeal" data-mx-ui-icon="cap"></div>
       <div id="hofCertTitle" data-i18n="hofCertTitle">CERTIFICATE OF EXCELLENCE</div>
       <div id="hofNameRow">
         <input id="hofNameInput" maxlength="18" data-i18n-ph="hofNamePh">
-        <button id="hofNameEdit" title="İsmi düzenle" aria-label="İsmi düzenle">✏️</button>
+        <button id="hofNameEdit" title="İsmi düzenle" aria-label="İsmi düzenle" data-mx-ui-icon="edit"></button>
       </div>
       <div id="hofRankLine">—</div>
     </div>
@@ -370,7 +488,7 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
     <div id="actionCol">
       <button id="btnUndo" class="btn iconBadge"><span class="badgeIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.6 5.6 0 0 1 0 11H11"/></svg></span><small data-i18n="undo">UNDO</small></button>
       <button id="btnHint" class="btn iconBadge"><span class="badgeIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21h6"/><path d="M10 23h4"/><path d="M12 3a6.5 6.5 0 0 0-3.9 11.7c.6.65 1 1.2 1.1 2.05a.8.8 0 0 0 .8.75h4a.8.8 0 0 0 .8-.75c.1-.85.6-1.6 1.1-2.05A6.5 6.5 0 0 0 12 3z"/><path d="M12 7.5v6"/><path d="M9.5 10 12 7.5 14.5 10"/></svg></span><small data-i18n="hint">HINT</small></button>
-      <button id="btnHammer" class="btn iconBadge hammerBtn" hidden><span class="badgeIcon mxHammerIcon" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none"><defs><linearGradient id="mhMetal" x1="12" y1="10" x2="48" y2="42" gradientUnits="userSpaceOnUse"><stop stop-color="#EAFBFF"/><stop offset=".42" stop-color="#7EDCF2"/><stop offset="1" stop-color="#265B79"/></linearGradient><linearGradient id="mhCore" x1="22" y1="16" x2="43" y2="35" gradientUnits="userSpaceOnUse"><stop stop-color="#FFF6A8"/><stop offset="1" stop-color="#FF9F2E"/></linearGradient></defs><path d="M15 13.5 25.5 7l22 7.5 2 13.5-10.5 7-22-7.5-2-14Z" fill="url(#mhMetal)" stroke="#DDF8FF" stroke-width="2.4"/><path d="m23 17 18 6" stroke="#123A50" stroke-width="3" stroke-linecap="round" opacity=".75"/><rect x="25.5" y="25" width="10" height="33" rx="4" transform="rotate(-18 25.5 25)" fill="#17384B" stroke="#8EEBFF" stroke-width="2.2"/><path d="M24 46.5 33 43l3.5 9-9 3.5-3.5-9Z" fill="#0D2432"/><circle cx="31.5" cy="21" r="6.5" fill="url(#mhCore)" stroke="#FFFBD4" stroke-width="1.8"/><path d="m29 17.5 5 3.5-5 3.5" stroke="#6A3A00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><small>HAMMER</small><span class="hammerCount">0</span></button>
+<button id="btnHammer" class="btn iconBadge hammerBtn" hidden><span class="badgeIcon mxHammerIcon" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none"><defs><linearGradient id="mhMetal" x1="12" y1="10" x2="48" y2="42" gradientUnits="userSpaceOnUse"><stop stop-color="#EAFBFF"/><stop offset=".42" stop-color="#7EDCF2"/><stop offset="1" stop-color="#265B79"/></linearGradient><linearGradient id="mhCore" x1="22" y1="16" x2="43" y2="35" gradientUnits="userSpaceOnUse"><stop stop-color="#FFF6A8"/><stop offset="1" stop-color="#FF9F2E"/></linearGradient></defs><path d="M15 13.5 25.5 7l22 7.5 2 13.5-10.5 7-22-7.5-2-14Z" fill="url(#mhMetal)" stroke="#DDF8FF" stroke-width="2.4"/><path d="m23 17 18 6" stroke="#123A50" stroke-width="3" stroke-linecap="round" opacity=".75"/><rect x="25.5" y="25" width="10" height="33" rx="4" transform="rotate(-18 25.5 25)" fill="#17384B" stroke="#8EEBFF" stroke-width="2.2"/><path d="M24 46.5 33 43l3.5 9-9 3.5-3.5-9Z" fill="#0D2432"/><circle cx="31.5" cy="21" r="6.5" fill="url(#mhCore)" stroke="#FFFBD4" stroke-width="1.8"/><path d="m29 17.5 5 3.5-5 3.5" stroke="#6A3A00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><small>HAMMER</small><span class="hammerCount">0</span></button>
       <button id="btnPrecision" class="btn iconBadge precisionBtn"><span class="badgeIcon mxPrecisionIcon" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none"><defs><linearGradient id="mpFrame" x1="9" y1="8" x2="55" y2="56" gradientUnits="userSpaceOnUse"><stop stop-color="#E9FCFF"/><stop offset=".42" stop-color="#74E8FF"/><stop offset="1" stop-color="#7659F4"/></linearGradient><radialGradient id="mpCore" cx="0" cy="0" r="1" gradientTransform="translate(25 32) rotate(90) scale(15)"><stop stop-color="#FFFCE2"/><stop offset=".28" stop-color="#7EF2FF"/><stop offset="1" stop-color="#2458A8"/></radialGradient><linearGradient id="mpArrow" x1="34" y1="22" x2="53" y2="42" gradientUnits="userSpaceOnUse"><stop stop-color="#FFF6A4"/><stop offset="1" stop-color="#FFB12B"/></linearGradient></defs><rect x="8.5" y="8.5" width="47" height="47" rx="13" fill="#081D36" stroke="url(#mpFrame)" stroke-width="3"/><rect x="14" y="14" width="36" height="36" rx="9" fill="#102E50" stroke="#8DEEFF" stroke-width="1.4" opacity=".95"/><path d="M32 14v36M14 32h36" stroke="#B8F7FF" stroke-width="1" opacity=".28"/><circle cx="25" cy="32" r="8.5" fill="url(#mpCore)" stroke="#E9FFFF" stroke-width="2"/><ellipse cx="25" cy="32" rx="12" ry="4.2" stroke="#B9F8FF" stroke-width="1.5"/><ellipse cx="25" cy="32" rx="12" ry="4.2" transform="rotate(60 25 32)" stroke="#B9F8FF" stroke-width="1.5"/><circle cx="25" cy="32" r="2.1" fill="#FFF7A4"/><path d="M36 32h13" stroke="url(#mpArrow)" stroke-width="4" stroke-linecap="round"/><path d="m44 25 7 7-7 7" stroke="url(#mpArrow)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M38 20h11" stroke="#D9FBFF" stroke-width="1.7" stroke-linecap="round" opacity=".75"/><path d="M38 44h11" stroke="#D9FBFF" stroke-width="1.7" stroke-linecap="round" opacity=".75"/></svg></span><small>1 SQUARE</small><span class="precisionCount"></span></button>
       <button id="btnBarrier" class="btn iconBadge barrierBtn" hidden><span class="badgeIcon mxBarrierIcon" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none"><defs><linearGradient id="mbFrame" x1="10" y1="8" x2="54" y2="56" gradientUnits="userSpaceOnUse"><stop stop-color="#D9FBFF"/><stop offset=".45" stop-color="#56D9F5"/><stop offset="1" stop-color="#12688C"/></linearGradient><radialGradient id="mbCore" cx="0" cy="0" r="1" gradientTransform="translate(32 32) rotate(90) scale(18)"><stop stop-color="#E9FFFF" stop-opacity=".95"/><stop offset=".5" stop-color="#41E5FF" stop-opacity=".6"/><stop offset="1" stop-color="#0AA5D7" stop-opacity=".08"/></radialGradient></defs><path d="M14 10h36l4 8v28l-8 8H18l-8-8V18l4-8Z" fill="#0A2638" stroke="url(#mbFrame)" stroke-width="3"/><path d="M18 16h28l2 4v22l-5 5H21l-5-5V20l2-4Z" fill="url(#mbCore)" stroke="#8DF3FF" stroke-width="1.6"/><path d="M20 23h24M20 32h24M20 41h24M23 20v24M32 20v24M41 20v24" stroke="#B7F8FF" stroke-width="1" opacity=".48"/><path d="m32 21 7 11-7 11-7-11 7-11Z" fill="#62EDFF" fill-opacity=".5" stroke="#E7FFFF" stroke-width="1.8"/><circle cx="32" cy="32" r="3.2" fill="#FFF7A4"/></svg></span><small>BARRIER</small><span class="barrierCount"></span></button>
       <button id="btnRestart" class="btn iconBadge"><span class="badgeIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 14.5-4.5"/><path d="M20 12a8 8 0 0 1-14.5 4.5"/><polyline points="18.5 3 18.5 7.5 14 7.5"/><polyline points="5.6 21 5.6 16.5 10 16.5"/></svg></span><small data-i18n="restart">RESTART</small></button>
@@ -392,7 +510,7 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
     <div id="einWrap">
       <div id="bubble" role="status" aria-live="polite" aria-atomic="true"><span id="bubbleText"></span><span id="bubbleTimer" aria-hidden="true"></span></div>
       <div class="einBox" id="einBoxG">
-        <img class="einImg" src="assets/images/einstein.webp" alt="Dr. E">
+        <img class="einImg" src="assets/images/dr-edward-atom.png" alt="Dr. Edward Atom">
         <div class="einFx">
       <div class="eyeW"><div class="lid"></div></div><div class="eyeW eye2"><div class="lid"></div></div>
       <div class="tongue"></div><div class="prop"></div>
@@ -405,7 +523,7 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
 
 <!-- BANNER -->
 <div id="lightRays"></div>
-<div id="bannerWrap"><div id="banner">WATER SYNTHESIZED!</div><div id="bannerSub">H₂O</div><div id="bannerFact">Essential for all known life.</div><button id="bannerDiscover" type="button">📘 DISCOVER MORE → MOLECULOPEDIA</button></div>
+<div id="bannerWrap"><div id="banner">WATER SYNTHESIZED!</div><div id="bannerSub">H₂O</div><div id="bannerFact">Essential for all known life.</div><button id="bannerDiscover" type="button"><i data-mx-ui-icon="book"></i><span>DISCOVER MORE → MOLECULOPEDIA</span></button></div>
 
 
 <!-- LABORATORY VICTORY / PROMOTION ELECTRON EFFECT -->
@@ -430,7 +548,7 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
   <div id="nobelGlow"></div>
   <div id="nobelTrophy">🏆</div>
   <div id="nobelTitle" data-i18n="nobelTitle">YOU ARE A NOBEL LAUREATE!</div>
-  <div id="nobelSub" data-i18n="nobelSub">You completed the 301st final experiment. The Nobel Prize and your permanent laboratory display are unlocked. — Dr. E</div>
+  <div id="nobelSub" data-i18n="nobelSub">You completed the 301st final experiment. The Nobel Prize and your permanent laboratory display are unlocked. — Dr. Edward Atom</div>
 </div>
 
 <div id="rankUpWrap">
@@ -450,11 +568,11 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
 <div id="tutOverlay">
   <div class="tutGoal">
     <div class="tutArrow" aria-hidden="true"><svg viewBox="0 0 64 64"><path d="M50 14 16 48M16 48h22M16 48V26"/><circle cx="50" cy="14" r="5"/></svg></div>
-    <div class="tutBubble" data-i18n="tutGoal">Dr. E: First, look here — GOAL shows the molecule you must build.</div>
+    <div class="tutBubble" data-i18n="tutGoal">Dr. Edward Atom: First, look here — GOAL shows the molecule you must build.</div>
   </div>
   <div class="tutEinWrap">
     <div class="einBox" id="tutEinBox">
-      <img class="einImg" src="assets/images/einstein.webp" alt="Dr. E">
+      <img class="einImg" src="assets/images/dr-edward-atom.png" alt="Dr. Edward Atom">
       <div class="einFx">
         <div class="eyeW"><div class="lid"></div></div>
         <div class="eyeW eye2"><div class="lid"></div></div>
@@ -474,7 +592,7 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
   <div id="tutorialArrowHint"></div>
   <button id="tutorialSkip" data-i18n="skipTutorial">SKIP ›</button>
   <div id="tutorialDialogue">
-    <img id="tutorialEinFace" src="assets/images/einstein.webp" alt="Dr. E">
+    <img id="tutorialEinFace" src="assets/images/dr-edward-atom.png" alt="Dr. Edward Atom">
     <div id="tutorialBubble"></div>
   </div>
 </div>
@@ -483,56 +601,69 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
 <div id="levelTransition"></div>
 <canvas id="fx"></canvas>
 
-<script src="js/sync-core.js?v=8.7.97-r200-final-ios" defer></script>
-<script src="js/daily-levels.js?v=8.7.97-r200-final-ios" defer></script>
-<script src="js/campaign-levels.js?v=8.7.97-r200-final-ios" defer></script>
-<script src="js/campaign-expansion-loader-r137.js?v=8.7.97-r200-final-ios" defer></script>
-<script src="js/level-fx-recipes.js?v=8.7.97-r200-final-ios" defer></script>
-<script src="js/story-universe.js?v=8.7.97-r200-final-ios" defer></script>
-<script src="js/story-art-completion-r142.js?v=8.7.97-r200-final-ios" defer></script>
-<script src="js/v2-locales-generated.js?v=8.7.97-r200-final-ios" defer></script>
-<script src="js/v2-story-quality.js?v=8.7.97-r200-final-ios" defer></script>
-<script src="js/story-art-completion-r152.js?v=8.7.97-r200-final-ios" defer></script>
-<script src="js/it-locale-generated.js?v=8.7.97-r200-final-ios" defer></script>
-<script src="js/story-continuity-r153.js?v=8.7.97-r200-final-ios" defer></script>
-<script src="js/story-main-campaign-art-r154.js?v=8.7.97-r200-final-ios" defer></script>
-<script src="js/voice-locales-generated.js?v=8.7.97-r200-final-ios" defer></script>
-<script src="js/voice-it-generated.js?v=8.7.97-r200-final-ios" defer></script>
-<script src="js/offline-pack.js?v=8.7.97-r200-final-ios" defer></script>
-<script src="js/campaign-targets-r180.js?v=8.7.97-r200-final-ios" defer></script>
-<script src="js/movement-core.js?v=8.7.97-r200-final-ios" defer></script>
-<script src="js/game.js?v=8.7.97-r200-final-ios" defer></script>
-<script src="js/expansion-science-loader-r137.js?v=8.7.97-r200-final-ios" defer></script>
+<script src="js/sync-core.js?v=8.7.165-r335-semantic-voice" defer></script>
+<script src="js/daily-levels.js?v=8.7.165-r335-semantic-voice" defer></script>
+<script src="js/campaign-levels.js?v=8.7.165-r335-semantic-voice" defer></script>
+<script src="js/campaign-expansion-loader-r137.js?v=8.7.165-r335-semantic-voice" defer></script>
+<script src="js/level-fx-recipes.js?v=8.7.165-r335-semantic-voice" defer></script>
+<script src="js/story-universe.js?v=8.7.165-r335-semantic-voice" defer></script>
+<script src="js/story-502-801-r282.js?v=8.7.165-r335-semantic-voice" defer></script>
+<script src="js/story-art-completion-r142.js?v=8.7.165-r335-semantic-voice" defer></script>
+<script src="js/v2-locales-generated.js?v=8.7.165-r335-semantic-voice" defer></script>
+<script src="js/v2-story-quality.js?v=8.7.165-r335-semantic-voice" defer></script>
+<script src="js/story-art-completion-r152.js?v=8.7.165-r335-semantic-voice" defer></script>
+<script src="js/it-locale-generated.js?v=8.7.165-r335-semantic-voice" defer></script>
+<script src="js/ko-locale-generated.js?v=8.7.165-r335-semantic-voice" defer></script>
+<script src="js/story-continuity-r153.js?v=8.7.165-r335-semantic-voice" defer></script>
+<script src="js/story-main-campaign-art-r154.js?v=8.7.165-r335-semantic-voice" defer></script>
+<script src="js/ru-locale-generated.js?v=8.7.165-r335-semantic-voice" defer></script>
+<script src="js/voice-locales-generated.js?v=8.7.165-r335-semantic-voice" defer></script>
+<script src="js/voice-it-generated.js?v=8.7.165-r335-semantic-voice" defer></script>
+<script src="js/voice-ru-generated.js?v=8.7.165-r335-semantic-voice" defer></script>
+<script src="js/offline-pack.js?v=8.7.165-r335-semantic-voice" defer></script>
+<script src="js/campaign-targets-r180.js?v=8.7.165-r335-semantic-voice" defer></script>
+<script src="js/movement-core.js?v=8.7.165-r335-semantic-voice" defer></script>
+<script src="js/game-r160.js?v=8.7.203-r371-science-legends" defer></script>
+<script src="js/expansion-science-loader-r137.js?v=8.7.165-r335-semantic-voice" defer></script>
 
-<!-- ================= FIREBASE (cloud save + world leaderboard) ================= -->
-<!-- R158 public web release: existing Firebase bridge enabled without changing
-     authentication, cloud-save, leaderboard, Firestore, or duel implementation. -->
-<script type="module" src="js/firebase.js?v=8.7.97-r200-final-ios"></script>
+<!-- ================= FIREBASE (account + cloud + ranking + Atom Duel) ================= -->
+<!-- R371 public release: load the real Firebase bridge. The game remains fully
+     playable offline; account/cloud/leaderboard/online features activate when online. -->
+<script type="module" src="js/firebase.js?v=8.7.203-r371-science-legends"></script>
 
 <script>
 /* V8.5.17: convert functional UI emoji glyphs to one cross-platform SVG family.
-   Dr. E's expressive dialogue emojis remain untouched by selector design. */
+   Dr. Edward Atom's expressive dialogue emojis remain untouched by selector design. */
 (function(){
  const ICONS={
-  '🔊':'volume','🔬':'microscope','🧪':'flask','🏆':'trophy','🎓':'cap','📘':'book','🛒':'cart','✨':'spark','🎯':'target','🚀':'rocket','🌍':'globe','📊':'chart','🏛️':'hall','🏛':'hall','🖼️':'frame','🖼':'frame','🏷️':'tag','🏷':'tag','🛡️':'shield','🛡':'shield','🏅':'medal','⚔️':'duel','⚔':'duel','✏️':'edit','✏':'edit','📱':'phone','👆':'hand','⚛️':'atom','⚛':'atom','⚡':'bolt','☢️':'radiation','☢':'radiation'
+  '🔊':'volume','🔇':'volume','🔬':'microscope','🔭':'microscope','🧪':'flask','⚗️':'flask','⚗':'flask','🏆':'trophy','🎓':'cap','📘':'book','📚':'book','🛒':'cart','✨':'spark','💡':'spark','🎯':'target','🚀':'rocket','🌍':'globe','📊':'chart','📈':'chart','🏛️':'hall','🏛':'hall','🖼️':'frame','🖼':'frame','🏷️':'tag','🏷':'tag','🛡️':'shield','🛡':'shield','🏅':'medal','🥇':'medal','🥈':'medal','🥉':'medal','🎖️':'medal','🎖':'medal','⚔️':'duel','⚔':'duel','✏️':'edit','✏':'edit','📱':'phone','👆':'hand','👉':'hand','👋':'hand','⚛️':'atom','⚛':'atom','⚡':'bolt','☢️':'radiation','☢':'radiation','🔒':'lock','🔐':'lock','☁️':'cloud','☁':'cloud','👤':'user','👥':'users','🥼':'user','🗑️':'trash','🗑':'trash','ℹ️':'info','ℹ':'info','❔':'info','🎮':'game','🧭':'compass','🧰':'toolbox','📡':'wifi','📶':'wifi','🌐':'globe','🎲':'dice','🔥':'fire','❄️':'snow','❄':'snow','🧊':'snow','⏱️':'clock','⏱':'clock','⏰':'clock','📅':'clock','🪙':'coin','⭐':'star','🌟':'star','👑':'crown','✅':'check','🧱':'wall','🔄':'restart','⚙️':'gear','⚙':'gear','🔔':'bell','🎵':'volume','🎧':'volume','🔋':'bolt','💎':'star','🧬':'dna','🧩':'puzzle','🌀':'portal','💧':'drop','🍯':'drop','🔑':'key','🔨':'hammer','🧲':'magnet','🧟':'radiation','🧟‍♂️':'radiation','📧':'mail','✉️':'mail','✉':'mail','📸':'camera','🎁':'gift','⚠️':'warning','⚠':'warning','💬':'chat','🤝':'duel','📤':'share','🧠':'brain','🔴':'red-dot','🔵':'blue-dot'
  };
- const COLOR={trophy:'gold',medal:'gold',cap:'violet',book:'violet',spark:'gold',rocket:'red',shield:'green'};
+ const COLOR={trophy:'gold',medal:'gold',coin:'gold',star:'gold',crown:'gold',cap:'violet',book:'violet',spark:'gold',rocket:'red',fire:'red',shield:'green',check:'green'};
  const SELECTORS=[
   '#studioTap span','.btn','.learningDockIcon','.labDockIcon','.trophyIcon','.sectionHead','.labTab',
   '.labScientistBadge span','.shopBot','.hofTopTab','#hofSeal','#hofNameEdit','.spTitle','.hofSoonIcon',
-  '#crystalCounter','#chainCounter','#reactorCounter','#nobelTrophy','#rotate span','.tutSwipeHand'
+  '#crystalCounter','#chainCounter','#reactorCounter','#nobelTrophy','#rotate span','.tutSwipeHand',
+  '#modalBox h3','.trainingChoiceIcon','.trainingProgressTop span','.mechanicGuideIcon','.languageSheetGlobe',
+  '.guideIntro b','.guideSection h4','.guideDuelNote','.bonusModeCard','.bonusMissionCard','.duelChoice',
+  '#modalBox','#hofScr','#labScr','#collectScr','#levelsScr','#profileScr','#splash',
+  '#gameScr :is(.hud,.pill,.chip,.toolBtn,.actionBtn,#lvPill,#bannerWrap)',
+  '#bubbleText','#storyText','#storyNarration','#storyReaction'
  ].join(',');
  function svg(name){const el=document.createElementNS('http://www.w3.org/2000/svg','svg');el.setAttribute('class','mlxIcon '+(COLOR[name]||''));el.setAttribute('viewBox','0 0 24 24');el.setAttribute('aria-hidden','true');const u=document.createElementNS('http://www.w3.org/2000/svg','use');u.setAttribute('href','#mlx-'+name);el.appendChild(u);return el}
  function replaceIn(root){
   if(!root || root.nodeType!==1 || !root.matches(SELECTORS)) return;
   const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT); const nodes=[]; while(walker.nextNode()) nodes.push(walker.currentNode);
-  nodes.forEach(n=>{let text=n.nodeValue, found=false, frag=document.createDocumentFragment(), pos=0; const re=/(🔊|🔬|🧪|🏆|🎓|📘|🛒|✨|🎯|🚀|🌍|📊|🏛️?|🖼️?|🏷️?|🛡️?|🏅|⚔️?|✏️?|📱|👆|⚛️?|⚡|☢️?)/gu; let m;
+  nodes.forEach(n=>{let text=n.nodeValue, found=false, frag=document.createDocumentFragment(), pos=0; const re=/(🧟‍♂️|🔊|🔇|🔬|🔭|🧪|⚗️?|🏆|🎓|📘|📚|🛒|✨|💡|🎯|🚀|🌍|📊|📈|🏛️?|🖼️?|🏷️?|🛡️?|🏅|🥇|🥈|🥉|🎖️?|⚔️?|✏️?|📱|👆|👉|👋|⚛️?|⚡|☢️?|🔒|🔐|☁️?|👤|👥|🥼|🗑️?|ℹ️?|❔|🎮|🧭|🧰|📡|📶|🌐|🎲|🔥|❄️?|🧊|⏱️?|⏰|📅|🪙|⭐|🌟|👑|✅|🧱|🔄|⚙️?|🔔|🎵|🎧|🔋|💎|🧬|🧩|🌀|💧|🍯|🔑|🔨|🧲|🧟|📧|✉️?|📸|🎁|⚠️?|💬|🤝|📤|🧠|🔴|🔵)/gu; let m;
    while((m=re.exec(text))){found=true;if(m.index>pos)frag.append(text.slice(pos,m.index));frag.append(svg(ICONS[m[0]]||ICONS[m[0].replace(/️/g,'')]));pos=m.index+m[0].length}
    if(found){if(pos<text.length)frag.append(text.slice(pos));n.replaceWith(frag)}
   });
+  if(root.matches&&root.matches('#bubbleText,#storyText,#storyNarration,#storyReaction')){
+   const clean=document.createTreeWalker(root,NodeFilter.SHOW_TEXT),left=[];while(clean.nextNode())left.push(clean.currentNode);
+   left.forEach(n=>{n.nodeValue=n.nodeValue.replace(/[\u{1F300}-\u{1FAFF}\u2600-\u27BF](?:\uFE0F|\u200D[\u{1F300}-\u{1FAFF}\u2600-\u27BF])*\s*/gu,'');});
+  }
  }
  function scan(){document.querySelectorAll(SELECTORS).forEach(replaceIn)}
- document.addEventListener('DOMContentLoaded',()=>{scan();new MutationObserver(ms=>{for(const m of ms)for(const n of m.addedNodes){if(n.nodeType===1){replaceIn(n);n.querySelectorAll&&n.querySelectorAll(SELECTORS).forEach(replaceIn)}}}).observe(document.body,{childList:true,subtree:true});});
+ document.addEventListener('DOMContentLoaded',()=>{scan();new MutationObserver(ms=>{const surfaces=new Set();for(const m of ms){const host=m.target&&m.target.nodeType===1?m.target:null;if(host){const surface=host.closest&&host.closest('#modalBox,#hofScr,#labScr,#collectScr,#levelsScr,#profileScr,#splash,#bubbleText,#storyText,#storyNarration,#storyReaction');if(surface)surfaces.add(surface);}for(const n of m.addedNodes){if(n.nodeType===1){replaceIn(n);n.querySelectorAll&&n.querySelectorAll(SELECTORS).forEach(replaceIn)}}}surfaces.forEach(replaceIn);}).observe(document.body,{childList:true,subtree:true});});
 })();
 </script>
 
