@@ -13638,3 +13638,50 @@ body.iosStandalone #splash #einBoxS .einImg{
   0%{filter:brightness(.72) saturate(.78) contrast(1.06)}
   100%{filter:brightness(1) saturate(1) contrast(1)}
 }
+
+/* ================= R373 iOS NATIVE · TRUE PHYSICAL BOTTOM ANCHOR =================
+   TestFlight/WKWebView is a Capacitor native shell, not Safari standalone mode.
+   R209 leaves a top:54svh crop anchor on #einBoxS; if top is not explicitly
+   cleared, a later bottom value is over-constrained and Safari keeps the top.
+   This native-only final override clears top, anchors from the lower edge, and
+   intentionally seats Edward slightly behind the Home-indicator safe area so
+   the visible artwork reaches the physical bottom on every iPhone ratio. */
+body.mxIOSNative #splash #einBoxS,
+body.mxNative.mxIOSNative #splash #einBoxS{
+  left:auto!important;
+  top:auto!important;
+  right:calc(0px - var(--sar) - 2px)!important;
+  bottom:calc(0px - var(--sab) - clamp(14px,2.2svh,22px))!important;
+  height:46svh!important;
+  width:auto!important;
+  max-height:none!important;
+  aspect-ratio:468/520!important;
+  overflow:hidden!important;
+  transform:none!important;
+  transform-origin:right bottom!important;
+  z-index:5!important;
+}
+body.mxIOSNative #splash #einBoxS>.einImg,
+body.mxNative.mxIOSNative #splash #einBoxS>.einImg{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:none!important;
+  max-height:none!important;
+  object-fit:contain!important;
+  object-position:right top!important;
+  transform:scale(1.70)!important;
+  transform-origin:right top!important;
+}
+body.mxIOSNative #splash #einBoxS>.einFx,
+body.mxNative.mxIOSNative #splash #einBoxS>.einFx{
+  /* Keep R212+ blink overlay aligned with the same cropped artwork. */
+  display:block!important;
+}
+@supports not (height:1svh){
+  body.mxIOSNative #splash #einBoxS,
+  body.mxNative.mxIOSNative #splash #einBoxS{
+    bottom:calc(0px - var(--sab) - clamp(14px,2.2vh,22px))!important;
+    height:46vh!important;
+  }
+}
