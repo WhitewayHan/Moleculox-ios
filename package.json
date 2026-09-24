@@ -1,10 +1,10 @@
 {
   "name": "moleculox-ios",
-  "version": "8.7.205",
+  "version": "8.7.208",
   "private": true,
-  "description": "Moleculox iOS R373 / v8.7.205 App Store source. Current 801-level R373 web game with the proven R200 Capacitor/Codemagic native shell, Firebase auth/App Check and iPhone-only release setup.",
+  "description": "Moleculox iOS R376 / v8.7.208 App Store source. Current 801-level PAR hard-reset game with Science Legends, 11 languages, Apple-only native sign-in, Firebase cloud/App Check and iPhone-only release setup.",
   "scripts": {
-    "check": "node scripts/verify-r373-native.js ios",
+    "check": "node scripts/verify-r376-native.js ios",
     "ios:prepare": "bash scripts/prepare-ios.sh",
     "ios:sync": "npx cap sync ios",
     "ios:open": "npx cap open ios"

@@ -24,9 +24,7 @@ fi
 
 python3 scripts/patch-podfile.py
 
-# `npx cap add ios` creates a Podfile.lock before the Google auth subspec is added.
-# That lock can pin GTMSessionFetcher 4.x, while GoogleSignIn 7.x needs a compatible
-# 3.x release. Resolve the complete Podfile from scratch and refresh specs.
+# Resolve the Apple-only native dependency graph from a clean Podfile lock.
 rm -f ios/App/Podfile.lock
 (
   cd ios/App
