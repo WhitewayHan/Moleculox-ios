@@ -1,6 +1,6 @@
 // R347 TEST: R346 Edward voice/visual pass + clean main-menu Edward without floating prop icons.
 /* Moleculox v8.7.177 R347 · clean main-menu Edward props + R346 voice/visual consistency retained. */
-const APP_VERSION="v8.7.205 · R373 SCIENCE LEGENDS";
+const APP_VERSION="v8.7.208 · R376 PAR HARD RESET";
 const mxReducedMotionQuery=window.matchMedia?window.matchMedia('(prefers-reduced-motion: reduce)'):null;
 let mxSystemReducedMotion=!!(mxReducedMotionQuery&&mxReducedMotionQuery.matches);
 if(mxReducedMotionQuery){
@@ -5226,7 +5226,7 @@ Math.min(save.cur,300)+'/300 レベル・まずノーベル候補になろう。
   mxSetUiLabel('#nobelPositionHead','chart',ui6('SENİN KONUMUN','YOUR POSITION','DEINE POSITION','TU POSICIÓN','SUA POSIÇÃO','あなたの順位'));
   let position='';
   if(!window.MXCloud||!window.MXCloud.uid)position=ml("Sıralamayı görmek için çevrimiçi ol.","Go online to view your ranking.","Gehe online, um deine Platzierung zu sehen.","Conéctate para ver tu clasificación.","Fique online para ver sua classificação.","ランキングを見るにはオンラインに接続してください。");
-  else if(window.MXCloud.account&&window.MXCloud.account.isAnonymous)position=ml("Puanını yayımlamak için Google veya e-posta hesabını bağla.","Connect Google or email to publish your score.","Verbinde Google oder E-Mail, um deine Punktzahl zu veröffentlichen.","Conecta Google o correo electrónico para publicar tu puntuación.","Conecte Google ou e-mail para publicar sua pontuação.","スコアを公開するにはGoogleまたはメールを連携してください。");
+  else if(window.MXCloud.account&&window.MXCloud.account.isAnonymous)position=MX_IOS_NATIVE?ml("Puanını yayımlamak için Apple hesabını bağla.","Connect your Apple account to publish your score.","Verbinde dein Apple-Konto, um deine Punktzahl zu veröffentlichen.","Conecta tu cuenta de Apple para publicar tu puntuación.","Conecte sua conta Apple para publicar sua pontuação.","スコアを公開するにはAppleアカウントを連携してください。"):ml("Puanını yayımlamak için Google veya e-posta hesabını bağla.","Connect Google or email to publish your score.","Verbinde Google oder E-Mail, um deine Punktzahl zu veröffentlichen.","Conecta Google o correo electrónico para publicar tu puntuación.","Conecte Google ou e-mail para publicar sua pontuação.","スコアを公開するにはGoogleまたはメールを連携してください。");
   else position=(ml("Dünya: ","World: ","Welt: ","Mundo: ","Mundo: ","世界："))+(wRank?'#'+wRank:'—')+' · '+(ml("Hafta: ","Week: ","Woche: ","Semana: ","Semana: ","週間："))+(wkRank?'#'+wkRank:'—')+' · '+(ml("Ay: ","Month: ","Monat: ","Mes: ","Mês: ","月間："))+(mRank?'#'+mRank:'—');
   const leader=nobelIntel.world&&nobelIntel.world[0],gap=leader&&!worldLeader?Math.max(0,(Number(leader.researchPoints)||0)-(Number(save.researchPoints)||0)):0;
   $('#nobelPlayerCard').innerHTML='<div class="nobelPlayerTop"><span>'+mxUiIconHtml(worldLeader?'crown':'scientist')+'</span><div><b>'+esc((save.playerName||curProfile||playerFallbackLabel()).slice(0,18))+'</b><small>'+position+'</small></div></div><div class="nobelPlayerStats"><span>'+(save.researchPoints||0).toLocaleString()+' RP</span><span>'+(worldLeader?(ml("DÜNYA LİDERİ","WORLD LEADER","WELTFÜHRENDER","LÍDER MUNDIAL","LÍDER MUNDIAL","世界1位")):(gap?ml('Lidere '+gap.toLocaleString()+' RP','Leader gap: '+gap.toLocaleString()+' RP','Abstand zur Spitze: '+gap.toLocaleString()+' RP','Distancia al líder: '+gap.toLocaleString()+' RP','Distância do líder: '+gap.toLocaleString()+' RP','首位まで '+gap.toLocaleString()+' RP'):(ml("Sıralama bekleniyor","Waiting for ranking","Warte auf Rangliste","Esperando clasificación","Aguardando classificação","ランキング待機中"))))+'</span></div>';
@@ -6326,7 +6326,7 @@ function rankingResetCountdownHtml(tab){
 function rankingGuestAccountNotice(){
   const iosNative=!!(window.Capacitor&&window.Capacitor.getPlatform&&window.Capacitor.getPlatform()==='ios');
   return iosNative
-    ?ml('Sıralamaları görebilirsin. Puanını yayımlamak için profil ikonundan Apple, Google veya e-posta hesabını bağla.','You can view rankings. Connect an Apple, Google, or email account from the profile icon to publish your score.','Du kannst die Ranglisten ansehen. Verbinde über das Profilsymbol Apple, Google oder E-Mail, um deine Punktzahl zu veröffentlichen.','Puedes ver las clasificaciones. Vincula Apple, Google o correo desde el icono de perfil para publicar tu puntuación.','Você pode ver os rankings. Vincule Apple, Google ou e-mail pelo ícone do perfil para publicar sua pontuação.','ランキングは閲覧できます。スコアを公開するにはプロフィールアイコンからApple、Google、またはメールアカウントを連携してください。')
+    ?ml('Sıralamaları görebilirsin. Puanını yayımlamak için profil ikonundan Apple hesabını bağla.','You can view rankings. Connect your Apple account from the profile icon to publish your score.','Du kannst die Ranglisten ansehen. Verbinde über das Profilsymbol dein Apple-Konto, um deine Punktzahl zu veröffentlichen.','Puedes ver las clasificaciones. Vincula tu cuenta de Apple desde el icono de perfil para publicar tu puntuación.','Você pode ver os rankings. Vincule sua conta Apple pelo ícone de perfil para publicar sua pontuação.','ランキングは閲覧できます。スコアを公開するにはプロフィールアイコンからAppleアカウントを連携してください。')
     :ml('Sıralamaları görebilirsin. Puanını yayımlamak için profil ikonundan Google veya e-posta hesabını bağla.','You can view rankings. Connect a Google or email account from the profile icon to publish your score.','Du kannst die Ranglisten ansehen. Verbinde über das Profilsymbol ein Google- oder E-Mail-Konto, um deine Punktzahl zu veröffentlichen.','Puedes ver las clasificaciones. Vincula una cuenta de Google o correo desde el icono de perfil para publicar tu puntuación.','Você pode ver os rankings. Vincule uma conta Google ou e-mail pelo ícone do perfil para publicar sua pontuação.','ランキングは閲覧できます。スコアを公開するにはプロフィールアイコンからGoogleまたはメールアカウントを接続してください。');
 }
 async function refreshHofWorldTabs(tab){
@@ -11543,63 +11543,78 @@ function endTutorial(completed){
 
 function starsForMoves(count,par){return count<=par?3:count<=Math.ceil(par*1.7)?2:count<=Math.ceil(par*2.3)?1:0;}
 
-// R227 · Campaign Hard Move Cap
-// Uses each campaign level's solver-certified referenceMoves. The cap is 1.75x
-// the reference route: enough room for mistakes and learning, but tight enough
-// to prevent long brute-force runs. Warning appears at roughly 80% of the cap.
+// R376 · Campaign PAR / zero-star hard reset
+// Stars are calculated from PAR. Once the 1-star band is exhausted, the
+// player gets exactly THREE zero-star moves. A solve during those three moves
+// clears the level with 0 stars. If the third zero-star move does not solve the
+// target, the same campaign level restarts automatically — there is no Continue
+// bypass and no modal that can extend the attempt.
+function campaignOneStarLimit(){
+  if(!LV)return 0;
+  const par=Math.max(1,Math.floor(Number(LV.p)||1));
+  return Math.ceil(par*2.3);
+}
 function campaignHardMoveCap(){
   if(!LV||lv<0||dailyMode||duelMode||crystalMode||chainMode||reactorMode||demoMode||tutorialActive)return 0;
-  const ref=Math.max(1,Math.floor(Number(LV.referenceMoves||LV.mn||LV.p)||1));
-  const par=Math.max(1,Math.floor(Number(LV.p)||ref));
-  return Math.max(par,Math.ceil(ref*1.75));
+  return campaignOneStarLimit()+3;
 }
 function hardMoveCapRemaining(){const cap=campaignHardMoveCap();return cap?Math.max(0,cap-moves):0;}
-function hardMoveCapWarningThreshold(){const cap=campaignHardMoveCap();return cap?Math.max(1,Math.ceil(cap*.80)):0;}
+function hardMoveCapWarningThreshold(){const oneStarLimit=campaignOneStarLimit();return oneStarLimit?oneStarLimit+1:0;}
+function zeroStarWindowCopy(left){
+  return slMl(
+    'Yıldız sınırını geçtin. 0 yıldız bölgesindesin; bu deneyi tamamlamak için '+left+' hamlen kaldı.',
+    'You passed the star limit. You are in the 0-star zone; '+left+' moves remain to finish this experiment.',
+    'Du hast die Sterngrenze überschritten. Du bist im 0-Sterne-Bereich; noch '+left+' Züge bleiben für dieses Experiment.',
+    'Superaste el límite de estrellas. Estás en la zona de 0 estrellas; te quedan '+left+' movimientos para terminar este experimento.',
+    'Você passou do limite de estrelas. Está na zona de 0 estrelas; restam '+left+' jogadas para concluir este experimento.',
+    '星の範囲を超えました。現在は0スター領域です。この実験を完了するには残り'+left+'手です。',
+    'Vous avez dépassé la limite des étoiles. Vous êtes dans la zone 0 étoile ; il reste '+left+' coups pour terminer cette expérience.',
+    '你已超过星级范围，进入0星区域；本次实验还剩'+left+'步可完成。',
+    'Hai superato il limite delle stelle. Sei nella zona 0 stelle; restano '+left+' mosse per completare questo esperimento.',
+    '별 획득 구간을 넘었습니다. 지금은 0별 구간이며, 이 실험을 끝내려면 '+left+'번의 이동이 남았습니다.',
+    'Вы вышли за предел звёзд. Сейчас зона 0 звёзд; осталось '+left+' хода, чтобы завершить эксперимент.'
+  );
+}
+function zeroStarCapResetCopy(){
+  return slMl(
+    'Hamle sınırına dayandın. Hedef tamamlanmadı; deneyi otomatik olarak yeniden başlattım.',
+    'You reached the move limit. The target was not complete, so I restarted the experiment automatically.',
+    'Du hast das Zuglimit erreicht. Das Ziel war nicht vollständig; ich habe das Experiment automatisch neu gestartet.',
+    'Llegaste al límite de movimientos. El objetivo no estaba completo, así que reinicié el experimento automáticamente.',
+    'Você chegou ao limite de jogadas. O objetivo não estava completo, então reiniciei o experimento automaticamente.',
+    '手数上限に達しました。目標が完成していないため、実験を自動で再スタートしました。',
+    'Vous avez atteint la limite de coups. La cible n’était pas complète ; j’ai redémarré automatiquement l’expérience.',
+    '你已到达步数上限。目标尚未完成，因此实验已自动重新开始。',
+    'Hai raggiunto il limite di mosse. L’obiettivo non era completo, quindi ho riavviato automaticamente l’esperimento.',
+    '이동 한도에 도달했습니다. 목표가 완성되지 않아 실험을 자동으로 다시 시작했습니다.',
+    'Вы достигли лимита ходов. Цель не была собрана, поэтому я автоматически перезапустил эксперимент.'
+  );
+}
 function maybeWarnHardMoveCap(){
-  const cap=campaignHardMoveCap();if(!cap||hardMoveCapWarned||won||moves<hardMoveCapWarningThreshold())return;
+  const cap=campaignHardMoveCap(),threshold=hardMoveCapWarningThreshold();
+  if(!cap||!threshold||hardMoveCapWarned||won||moves<threshold)return;
   hardMoveCapWarned=true;
   const left=Math.max(0,cap-moves);
-  mxTrack('hard_move_cap_warning',mxTelemetryLevelParams({moves:moves,move_cap:cap,moves_remaining:left,attempt_seconds:mxTelemetryAttemptSeconds()}));
-  setTimeout(()=>{if(!won&&lv>=0)say(ml(
-    'Deney uzadı. Bu bölümde en fazla '+cap+' hamle var; '+left+' hamlen kaldı. GERİ AL ile hamle geri kazanabilir veya YENİDEN başlayabilirsin.',
-    'The experiment is running long. This level allows up to '+cap+' moves; '+left+' remain. UNDO gives moves back, or you can RESTART.',
-    'Das Experiment dauert länger. In diesem Level sind höchstens '+cap+' Züge erlaubt; '+left+' bleiben. RÜCKGÄNGIG gibt Züge zurück oder du kannst NEU STARTEN.',
-    'El experimento se está alargando. Este nivel permite hasta '+cap+' movimientos; quedan '+left+'. DESHACER recupera movimientos o puedes REINICIAR.',
-    'O experimento está demorando. Esta fase permite até '+cap+' jogadas; restam '+left+'. DESFAZER devolve jogadas ou você pode REINICIAR.',
-    '実験が長引いています。このレベルは最大'+cap+'手で、残り'+left+'手です。「元に戻す」で手数を戻すか、やり直せます。',
-    'L’expérience se prolonge. Ce niveau autorise au maximum '+cap+' coups ; il en reste '+left+'. ANNULER rend des coups, ou vous pouvez RECOMMENCER.',
-    '实验进行得有些久。本关最多允许'+cap+'步，还剩'+left+'步。撤销可以拿回步数，也可以重新开始。',
-    'L’esperimento si sta allungando. Questo livello consente al massimo '+cap+' mosse; ne restano '+left+'. ANNULLA restituisce mosse oppure puoi RICOMINCIARE.'
-  ),'talk',5600,'glow');},300);
+  mxTrack('zero_star_window_entered',mxTelemetryLevelParams({moves:moves,move_cap:cap,moves_remaining:left,attempt_seconds:mxTelemetryAttemptSeconds()}));
+  setTimeout(()=>{if(!won&&lv>=0&&moves<cap)say(zeroStarWindowCopy(left),'talk',4600,'glow');},180);
 }
-function showHardMoveCapModal(){
-  const cap=campaignHardMoveCap();if(!cap||won||hardMoveCapModalOpen)return false;
-  hardMoveCapModalOpen=true;
-  mxTrack('hard_move_cap_reached',mxTelemetryLevelParams({moves:moves,move_cap:cap,reference_moves:Number(LV.referenceMoves||LV.mn||LV.p)||0,attempt_seconds:mxTelemetryAttemptSeconds()}));
-  openModal('<h3>🧪 '+ml('HAMLE SINIRI','MOVE LIMIT','ZUGLIMIT','LÍMITE DE MOVIMIENTOS','LIMITE DE JOGADAS','手数上限','LIMITE DE COUPS','步数上限','LIMITE MOSSE')+'</h3><div class="msub">'+ml(
-    'Bu deney için '+cap+' hamlelik sınırına ulaştın. Rastgele denemeye devam etmek yerine GERİ AL ile son hamleni geri alabilir veya bölümü temiz şekilde YENİDEN başlatabilirsin.',
-    'You reached this experiment’s '+cap+'-move limit. Instead of brute-forcing further, UNDO the last move or RESTART the level cleanly.',
-    'Du hast das Limit von '+cap+' Zügen erreicht. Statt weiter zu raten, kannst du den letzten Zug RÜCKGÄNGIG machen oder das Level sauber NEU STARTEN.',
-    'Alcanzaste el límite de '+cap+' movimientos. En lugar de seguir probando al azar, DESHAZ el último movimiento o REINICIA el nivel.',
-    'Você atingiu o limite de '+cap+' jogadas. Em vez de continuar tentando ao acaso, DESFAÇA a última jogada ou REINICIE a fase.',
-    'この実験の'+cap+'手上限に達しました。総当たりを続ける代わりに、最後の手を「元に戻す」か、レベルをやり直してください。',
-    'Vous avez atteint la limite de '+cap+' coups. Au lieu de continuer au hasard, ANNULEZ le dernier coup ou RECOMMENCEZ le niveau.',
-    '你已达到本实验'+cap+'步的上限。不要继续盲试，可以撤销最后一步或重新开始本关。',
-    'Hai raggiunto il limite di '+cap+' mosse. Invece di continuare a tentativi, ANNULLA l’ultima mossa oppure RICOMINCIA il livello.'
-  )+'</div><div class="mrow"><button class="btn" id="mHardCapUndo">↶ '+ml('GERİ AL','UNDO','RÜCKGÄNGIG','DESHACER','DESFAZER','元に戻す','ANNULER','撤销','ANNULLA')+'</button><button class="btn amber" id="mHardCapRestart">↻ '+ml('YENİDEN','RESTART','NEU STARTEN','REINICIAR','REINICIAR','やり直す','RECOMMENCER','重新开始','RICOMINCIA')+'</button></div>');
-  bindTap('#mHardCapUndo',e=>{e.preventDefault();hardMoveCapModalOpen=false;closeModal();if(hist&&hist.length)undo();else startLevel(lv,'campaign');});
-  bindTap('#mHardCapRestart',e=>{e.preventDefault();hardMoveCapModalOpen=false;closeModal();startLevel(lv,'campaign');});
+function showHardMoveCapModal(){return false;}
+function autoResetCampaignAtMoveCap(){
+  const cap=campaignHardMoveCap();
+  if(!cap||won||moves<cap)return false;
+  const restartLevel=lv;
+  mxTrack('hard_move_cap_auto_reset',mxTelemetryLevelParams({moves:moves,move_cap:cap,reference_moves:Number(LV.referenceMoves||LV.mn||LV.p)||0,attempt_seconds:mxTelemetryAttemptSeconds()}));
+  hardMoveCapModalOpen=false;
+  closeSayBubble();
+  startLevel(restartLevel,'campaign');
+  setTimeout(()=>{if(lv===restartLevel&&!won)say(zeroStarCapResetCopy(),'talk',5200,'shk');},140);
   return true;
 }
 function hardMoveCapBlocksNextMove(){
   if(chainAutoExecuting||autoSolveInProgress||autoSolveExecutingStep)return false;
   const cap=campaignHardMoveCap();
   if(!cap||moves<cap)return false;
-  // Escape/backdrop-style modal closing must never bypass the hard cap.
-  const modal=$('#modal');
-  if(hardMoveCapModalOpen&&(!modal||!modal.classList.contains('on')))hardMoveCapModalOpen=false;
-  if(!hardMoveCapModalOpen)showHardMoveCapModal();
-  return true;
+  return autoResetCampaignAtMoveCap();
 }
 
 function mxFitActionRailToEdward(){
@@ -12187,6 +12202,7 @@ function afterMove(movedIdx){
 
   if(movedIdx!==undefined&&checkFragileImpact(movedIdx))return;
   if(movedIdx!==undefined){checkStick(movedIdx);checkZombie(movedIdx);}
+  if(autoResetCampaignAtMoveCap())return;
   updatePressureDoors(true);
   advanceMovingWalls();
   updateIntensity();
@@ -13295,17 +13311,17 @@ function winSeq(lastMovedIdx){
     else setTimeout(()=>say(stars===3?rnd(LN.perfect):rnd(LN.win),'happy',5200),430);
   }else setTimeout(()=>say(stars===3?rnd(LN.perfect):rnd(LN.win),'happy',5200),430);
   const prev=save.stars[lv]||0;
+  const zeroStarCampaignClear=!dailyMode&&stars===0;
   let gained=0;
   let rpGained=0;
   let isNewDiscovery=false;
   if(!dailyMode){
-    gained=stars>prev?(stars-prev)*10:0;
+    gained=!zeroStarCampaignClear&&stars>prev?(stars-prev)*10:0;
     const campaignScore=stars>0?campaignResearchScore(stars,moves,LV.p,LV.mn||LV.p,elapsedSeconds,attemptHintCount,assistanceUsed):0;
-    // Campaign and move-performance bonuses grow Career RP only. The fair
-    // weekly/monthly tables use the same daily challenge for every player.
-    rpGained=awardLevelResearch(lv,campaignScore);
+    // A 0-star campaign clear is progress-only: no MoleCoin and no RP.
+    rpGained=zeroStarCampaignClear?0:awardLevelResearch(lv,campaignScore);
     isNewDiscovery=!save.disc[mid];
-    if(isNewDiscovery){save.disc[mid]=1;gained+=5+(labOwned('gold_scope')?5:0);}
+    if(isNewDiscovery){save.disc[mid]=1;if(!zeroStarCampaignClear)gained+=5+(labOwned('gold_scope')?5:0);}
     if(isNewDiscovery){
       const bEl=$('#banner');bEl.classList.remove('newDiscovery');void bEl.offsetWidth;bEl.classList.add('newDiscovery');
       setTimeout(()=>SFX.sparkle(),150);
@@ -13352,7 +13368,7 @@ function winSeq(lastMovedIdx){
   const oldCur=save.cur;
   save.cur=Math.max(save.cur,Math.min(lv+1,LEVELS.length));
   addCoins(gained);
-  const postNobelAward=claimPostNobelCareer(oldCur,save.cur);
+  const postNobelAward=zeroStarCampaignClear?null:claimPostNobelCareer(oldCur,save.cur);
   if(postNobelAward){gained+=postNobelAward.coins;rpGained+=postNobelAward.rp;}
   // R173: commit progress locally immediately, then perform one authoritative
   // background checkpoint. This avoids duplicate saveProgress + leaderboard
@@ -13371,7 +13387,7 @@ function winSeq(lastMovedIdx){
   }catch(e){}
   updateBadge();
   const oldTier=tierOf(oldCur), newTier=tierOf(save.cur);
-  checkAchievements();
+  if(!zeroStarCampaignClear)checkAchievements();
   const normalCompletion=lv!==NOBEL_LEVEL_INDEX&&newTier<=oldTier&&!postNobelAward;
   const resultDiscover=$('#bannerDiscover');
   if(resultDiscover&&normalCompletion){
@@ -13390,7 +13406,7 @@ function winSeq(lastMovedIdx){
       if(lv===NOBEL_LEVEL_INDEX){
         nobelCelebration();
         setTimeout(()=>showNobelEpilogue(()=>winModal(stars,gained,rpGained)),4200);
-      }else if(newTier>oldTier){
+      }else if(newTier>oldTier&&!zeroStarCampaignClear){
         addCoins(200);gained+=200;persist();queueLevelCloudCheckpoint('rank-up-'+String(newTier));updateCoins(true);
         rankUpCelebration(newTier);
         setTimeout(()=>winModal(stars,gained,rpGained),3700);
@@ -14421,7 +14437,7 @@ function resetViewportZoomIOS(){
 }
 function openAccountModal(message,good){
   if(good)setTimeout(resetViewportZoomIOS,120);
-  const c=accountCopy();const member=!accountState.isAnonymous;const cloudReady=!!(window.MXCloud&&window.MXCloud.connectGoogle);
+  const c=accountCopy();const member=!accountState.isAnonymous;const cloudReady=!!(window.MXCloud&&(MX_IOS_APPLE_ONLY?window.MXCloud.connectAppleIdToken:window.MXCloud.connectGoogle));
   if(!cloudReady&&!message)message=ml("Firebase bağlantısı hazırlanıyor…","Preparing Firebase connection…","Firebase-Verbindung wird vorbereitet…","Preparando conexión con Firebase…","Preparando conexão com Firebase…","Firebase接続を準備中…");
   const avatar=accountState.photoURL?'<img src="'+escAttr(accountState.photoURL)+'" alt="">':'👤';
   const identity=member?(accountState.displayName||accountState.email||c.cloudGood):c.guestTitle;
@@ -14429,12 +14445,12 @@ function openAccountModal(message,good){
   openModal('<button type="button" class="accountCloseX" id="accCloseTop" aria-label="'+c.close+'">×</button><h3>👤 '+c.title+'</h3><div class="accountHero"><div class="accountAvatar">'+avatar+'</div><div><strong>'+esc(identity)+'</strong><small>'+sub+'</small></div></div>'+
     (message?'<div class="accountNotice '+(good?'good':'')+'">'+esc(message)+'</div>':'')+
     '<div class="accountNotice '+(member?'good':'')+'">'+(member?'✓ '+c.cloudGood:'⚠ '+c.guestWarn)+'</div><div class="accountActions">'+
-    (!member?(MX_SHOW_APPLE_BTN?'<button class="btn apple" id="accApple">'+appleLogoHtml()+'<span>'+c.apple+'</span></button>':'')+'<button class="btn google" id="accGoogle">'+c.google+'</button>'+'<div class="accountDivider">'+c.or+'</div><button class="btn blue" id="accEmailLogin">✉ '+c.emailLogin+'</button><button class="btn ghost" id="accEmailCreate">＋ '+c.emailCreate+'</button>':'')+
+    (!member?(MX_SHOW_APPLE_BTN?'<button class="btn apple" id="accApple">'+appleLogoHtml()+'<span>'+c.apple+'</span></button>':'')+(!MX_IOS_APPLE_ONLY?'<button class="btn google" id="accGoogle">'+c.google+'</button><div class="accountDivider">'+c.or+'</div><button class="btn blue" id="accEmailLogin">✉ '+c.emailLogin+'</button><button class="btn ghost" id="accEmailCreate">＋ '+c.emailCreate+'</button>':''):'')+
     (member&&MX_SHOW_APPLE_BTN&&!accountState.providers.includes('apple.com')?'<button class="btn apple" id="accApple">'+appleLogoHtml()+'<span>'+c.linkApple+'</span></button>':'')+
-    (member?(accountState.providers.includes('google.com')?'<button class="btn google googleLinked" id="accGoogleLinked" disabled>✓ '+(ml("Google hesabı bağlı","Google account linked","Google-Konto verbunden","Cuenta de Google vinculada","Conta Google vinculada","Googleアカウント接続済み"))+'</button>':'<button class="btn google" id="accGoogle">'+(ml("Google hesabını bağla","Link Google account","Google-Konto verbinden","Vincular cuenta de Google","Vincular conta Google","Googleアカウントを接続"))+'</button>'):'')+
-    (member&&!accountState.providers.includes('password')?'<button class="btn ghost" id="accEmailCreate">✉ '+c.linkEmail+'</button>':'')+
+    (member&&!MX_IOS_APPLE_ONLY?(accountState.providers.includes('google.com')?'<button class="btn google googleLinked" id="accGoogleLinked" disabled>✓ '+(ml("Google hesabı bağlı","Google account linked","Google-Konto verbunden","Cuenta de Google vinculada","Conta Google vinculada","Googleアカウント接続済み"))+'</button>':'<button class="btn google" id="accGoogle">'+(ml("Google hesabını bağla","Link Google account","Google-Konto verbinden","Vincular cuenta de Google","Vincular conta Google","Googleアカウントを接続"))+'</button>'):'')+
+    (member&&!MX_IOS_APPLE_ONLY&&!accountState.providers.includes('password')?'<button class="btn ghost" id="accEmailCreate">✉ '+c.linkEmail+'</button>':'')+
     '<div class="accountUtilityRow"><button class="btn blue accountCloudBtn" id="accCloudStatus">'+c.cloudPanel+'</button><button class="btn ghost" id="accManage">'+c.manage+'</button></div>'+
-    (member&&accountState.providers.includes('password')?'<button class="btn ghost" id="accReset">🔑 '+c.reset+'</button>':'')+
+    (member&&!MX_IOS_APPLE_ONLY&&accountState.providers.includes('password')?'<button class="btn ghost" id="accReset">🔑 '+c.reset+'</button>':'')+
     (member?'<button class="btn danger" id="accLogout">↪ '+c.logout+'</button><button class="btn danger" id="accDeleteAccount">🗑 '+c.deleteAccount+'</button>':'')+
     '<button class="btn" id="accClose">'+c.close+'</button></div><div class="authTiny">'+c.localProfiles+'</div>');
   $('#modalBox').classList.add('accountModal');installModalScrollIndicator();
@@ -16924,10 +16940,47 @@ function r240RotatingChamberGuideHtml(){return ml(
   '<section class="guideSection"><h4>↻ CAMERA ROTANTE · 542+</h4><ul><li>Tocca ↻ per ruotare l’area di 90° in senso orario.</li><li>Pareti e atomi cambiano davvero casella.</li><li>Ogni rotazione di 90° costa 1 mossa.</li></ul></section>'
 );}
 
+function zeroStarCampaignGuideHtml(){return '<section class="guideSection"><h4>⭐ '+slMl(
+  'YILDIZ & HAMLE SINIRI','STARS & MOVE LIMIT','STERNE & ZUGLIMIT','ESTRELLAS Y LÍMITE DE MOVIMIENTOS','ESTRELAS E LIMITE DE JOGADAS','スターと手数上限','ÉTOILES ET LIMITE DE COUPS','星级与步数上限','STELLE E LIMITE MOSSE','별과 이동 한도','ЗВЁЗДЫ И ЛИМИТ ХОДОВ')+'</h4><ul><li>'+slMl(
+  'PAR veya altında tamamlarsan 3 yıldız alırsın; daha fazla hamlede yıldız sayısı kademeli düşer.',
+  'Finish at or below PAR for 3 stars; using more moves lowers the star rating step by step.',
+  'Beende das Level mit PAR oder weniger für 3 Sterne; zusätzliche Züge senken die Sterne stufenweise.',
+  'Termina en PAR o menos para obtener 3 estrellas; más movimientos reducen la puntuación por etapas.',
+  'Conclua no PAR ou abaixo para ganhar 3 estrelas; mais jogadas reduzem a classificação por etapas.',
+  'PAR以下で完成すると3スター。手数が増えるとスター評価は段階的に下がります。',
+  'Terminez au PAR ou en dessous pour 3 étoiles ; davantage de coups réduit progressivement la note.',
+  '在PAR或更少步数内完成可得3星；使用更多步数会逐级降低星级。',
+  'Completa entro il PAR per ottenere 3 stelle; più mosse riducono gradualmente la valutazione.',
+  'PAR 이하로 완료하면 3별을 얻고, 더 많은 이동을 사용하면 별점이 단계적으로 내려갑니다.',
+  'Завершите уровень за PAR или меньше, чтобы получить 3 звезды; дополнительные ходы постепенно снижают оценку.')+'</li><li><b>'+slMl(
+  '0 yıldız kuralı:','0-star rule:','0-Sterne-Regel:','Regla de 0 estrellas:','Regra de 0 estrelas:','0スターのルール：','Règle 0 étoile :','0星规则：','Regola 0 stelle:','0별 규칙:','Правило 0 звёзд:')+'</b> '+slMl(
+  '1 yıldız eşiğini aştıktan sonra yalnızca 3 ek hamlen vardır. Bu üç hamleden birinde hedefi tamamlarsan bölüm geçilir ama yıldız, MoleCoin ve RP verilmez.',
+  'After you pass the 1-star threshold, you have exactly 3 extra moves. Solve during those three moves to clear the level, but you receive no stars, MoleCoin, or RP.',
+  'Nach Überschreiten der 1-Stern-Grenze hast du genau 3 zusätzliche Züge. Löst du das Ziel in diesen drei Zügen, gilt das Level als geschafft, aber ohne Sterne, MoleCoin oder RP.',
+  'Tras superar el umbral de 1 estrella, tienes exactamente 3 movimientos extra. Si resuelves el objetivo durante ellos, superas el nivel, pero sin estrellas, MoleCoin ni RP.',
+  'Depois de passar do limite de 1 estrela, você tem exatamente 3 jogadas extras. Se concluir o objetivo nessas três jogadas, a fase é liberada, mas sem estrelas, MoleCoin ou RP.',
+  '1スターの境界を超えた後は、追加で使えるのは3手だけです。その3手以内に完成すればレベルはクリアできますが、スター・MoleCoin・RPは獲得できません。',
+  'Après avoir dépassé le seuil d’1 étoile, vous disposez exactement de 3 coups supplémentaires. Si vous terminez pendant ces trois coups, le niveau est validé, mais sans étoile, MoleCoin ni RP.',
+  '超过1星阈值后，你只有3步额外机会。在这3步内完成目标即可过关，但不会获得星星、MoleCoin或RP。',
+  'Dopo aver superato la soglia di 1 stella hai esattamente 3 mosse extra. Se completi l’obiettivo entro queste tre mosse, superi il livello ma non ricevi stelle, MoleCoin o RP.',
+  '1별 구간을 넘은 뒤에는 정확히 3번의 추가 이동만 가능합니다. 그 3번 안에 목표를 완성하면 레벨은 통과하지만 별, MoleCoin, RP는 받지 않습니다.',
+  'После выхода за предел 1 звезды даётся ровно 3 дополнительных хода. Если решить уровень за эти три хода, он будет пройден, но без звёзд, MoleCoin и RP.')+'</li><li>'+slMl(
+  'Üçüncü ek hamle sonunda hedef hâlâ tamamlanmadıysa Dr. Edward sınırı bildirir ve aynı bölüm anında otomatik yeniden başlar. DEVAM ET seçeneği yoktur.',
+  'If the target is still incomplete after the third extra move, Dr. Edward announces the limit and the same level restarts automatically at once. There is no CONTINUE option.',
+  'Ist das Ziel nach dem dritten Zusatzzug noch nicht fertig, meldet Dr. Edward das Limit und dasselbe Level startet sofort automatisch neu. Es gibt keine WEITER-Option.',
+  'Si el objetivo sigue incompleto tras el tercer movimiento extra, Dr. Edward avisa del límite y el mismo nivel se reinicia automáticamente de inmediato. No hay opción CONTINUAR.',
+  'Se o objetivo ainda não estiver completo após a terceira jogada extra, Dr. Edward avisa o limite e a mesma fase reinicia automaticamente na hora. Não existe opção CONTINUAR.',
+  '3手目の追加手でも目標が未完成なら、Dr. Edwardが上限を知らせ、同じレベルが直ちに自動リスタートします。「続ける」はありません。',
+  'Si la cible reste incomplète après le troisième coup supplémentaire, Dr. Edward annonce la limite et le même niveau redémarre immédiatement. Il n’y a pas d’option CONTINUER.',
+  '如果第3步额外机会结束后目标仍未完成，Dr. Edward会提示已到上限，并立即自动重开当前关卡。没有“继续”选项。',
+  'Se dopo la terza mossa extra l’obiettivo non è ancora completo, Dr. Edward segnala il limite e lo stesso livello riparte subito automaticamente. Non esiste l’opzione CONTINUA.',
+  '세 번째 추가 이동 후에도 목표가 완성되지 않으면 Dr. Edward가 한도 도달을 알리고 같은 레벨이 즉시 자동으로 다시 시작됩니다. 계속 옵션은 없습니다.',
+  'Если после третьего дополнительного хода цель не собрана, Dr. Edward сообщает о лимите, и тот же уровень немедленно перезапускается автоматически. Кнопки «Продолжить» нет.')+'</li></ul></section>';}
+
 function openGuideModal(){
   const c=guideContent(),campaignCount=Array.isArray(LEVELS)?LEVELS.length:511;
   const dynamicGuide=String(c.html||'').replace(/\b501\b/g,String(campaignCount));
-  openModal('<h3>📘 '+c.title+'</h3><div class="guideScroll">'+currentLevelMechanicsGuideHtml()+goalSignalGuideHtml()+r230Post501GuideHtml()+r237SynthesizerGuideHtml()+r239RepulsorGuideHtml()+r240RotatingChamberGuideHtml()+dynamicGuide+allMechanicsGuideHtml()+onlineDuelGuideRulesHtml()+'</div><div class="mrow"><button class="btn green" id="mGuideClose">'+c.close+'</button></div>');
+  openModal('<h3>📘 '+c.title+'</h3><div class="guideScroll">'+currentLevelMechanicsGuideHtml()+zeroStarCampaignGuideHtml()+goalSignalGuideHtml()+r230Post501GuideHtml()+r237SynthesizerGuideHtml()+r239RepulsorGuideHtml()+r240RotatingChamberGuideHtml()+dynamicGuide+allMechanicsGuideHtml()+onlineDuelGuideRulesHtml()+'</div><div class="mrow"><button class="btn green" id="mGuideClose">'+c.close+'</button></div>');
   $('#modalBox').classList.add('guideModal');
   document.querySelectorAll('[data-guide-mechanic]').forEach(b=>bindTap(b,()=>{SFX.select();showMechanicBriefing([b.dataset.guideMechanic]);}));
   bindTap('#mGuideClose',()=>closeModal());
@@ -17142,8 +17195,8 @@ window.addEventListener('pageshow',()=>{if(navigator.onLine!==false)setTimeout((
 document.addEventListener('touchmove',e=>{if(!e.target.closest('.scrollArea,.settingsScroll,.guideScroll,.modalScroll,.mxUniversalBody,.mtlist,input[type=\"range\"],textarea,select'))e.preventDefault();},{passive:false});
 const MX_NATIVE=!!(window.Capacitor&&window.Capacitor.isNativePlatform&&window.Capacitor.isNativePlatform());
 // Added 2026-07-26: iOS-specific flag (not just "any native platform"), so we
-// can hide sign-in options that would otherwise force App Store Review
-// Guideline 4.8 (Sign in with Apple parity) without touching Android/web.
+// iOS App Store build exposes Apple as the only account sign-in method.
+// Google/email auth code remains shared for web/Android but is not rendered in native iOS.
 const MX_IOS_NATIVE=!!(window.Capacitor&&window.Capacitor.getPlatform&&window.Capacitor.getPlatform()==='ios');
 // Added 2026-07-26: Android has no native "Sign in with Apple" concept, and
 // there's no Google Play equivalent of Apple's Guideline 4.8, so we simply
@@ -17155,6 +17208,7 @@ const MX_IOS_NATIVE=!!(window.Capacitor&&window.Capacitor.getPlatform&&window.Ca
 const MX_ANDROID_NATIVE=!!(window.Capacitor&&window.Capacitor.getPlatform&&window.Capacitor.getPlatform()==='android');
 const MX_APPLE_NATIVE_READY=!!(window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.FirebaseAuthentication&&typeof window.Capacitor.Plugins.FirebaseAuthentication.signInWithApple==='function');
 const MX_SHOW_APPLE_BTN=MX_IOS_NATIVE&&MX_APPLE_NATIVE_READY;
+const MX_IOS_APPLE_ONLY=MX_IOS_NATIVE;
 // Added 2026-07-26: on the plain web build (not the iOS app itself), only
 // show the Apple button to visitors actually on Apple hardware — checks
 // both navigator.platform and userAgent since platform is being frozen/
