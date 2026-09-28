@@ -1,6 +1,6 @@
 // R347 TEST: R346 Edward voice/visual pass + clean main-menu Edward without floating prop icons.
 /* Moleculox v8.7.177 R347 · clean main-menu Edward props + R346 voice/visual consistency retained. */
-const APP_VERSION="v8.7.211 · R379 RELEASE SYNC";
+const APP_VERSION="v8.7.212 · R380 ITCH PARITY";
 const mxReducedMotionQuery=window.matchMedia?window.matchMedia('(prefers-reduced-motion: reduce)'):null;
 let mxSystemReducedMotion=!!(mxReducedMotionQuery&&mxReducedMotionQuery.matches);
 if(mxReducedMotionQuery){
@@ -5226,7 +5226,7 @@ Math.min(save.cur,300)+'/300 レベル・まずノーベル候補になろう。
   mxSetUiLabel('#nobelPositionHead','chart',ui6('SENİN KONUMUN','YOUR POSITION','DEINE POSITION','TU POSICIÓN','SUA POSIÇÃO','あなたの順位'));
   let position='';
   if(!window.MXCloud||!window.MXCloud.uid)position=ml("Sıralamayı görmek için çevrimiçi ol.","Go online to view your ranking.","Gehe online, um deine Platzierung zu sehen.","Conéctate para ver tu clasificación.","Fique online para ver sua classificação.","ランキングを見るにはオンラインに接続してください。");
-  else if(window.MXCloud.account&&window.MXCloud.account.isAnonymous)position=MX_IOS_NATIVE?ml("Puanını yayımlamak için Apple hesabını bağla.","Connect your Apple account to publish your score.","Verbinde dein Apple-Konto, um deine Punktzahl zu veröffentlichen.","Conecta tu cuenta de Apple para publicar tu puntuación.","Conecte sua conta Apple para publicar sua pontuação.","スコアを公開するにはAppleアカウントを連携してください。"):ml("Puanını yayımlamak için Google veya e-posta hesabını bağla.","Connect Google or email to publish your score.","Verbinde Google oder E-Mail, um deine Punktzahl zu veröffentlichen.","Conecta Google o correo electrónico para publicar tu puntuación.","Conecte Google ou e-mail para publicar sua pontuação.","スコアを公開するにはGoogleまたはメールを連携してください。");
+  else if(window.MXCloud.account&&window.MXCloud.account.isAnonymous)position=ml("Puanını yayımlamak için Google veya e-posta hesabını bağla.","Connect Google or email to publish your score.","Verbinde Google oder E-Mail, um deine Punktzahl zu veröffentlichen.","Conecta Google o correo electrónico para publicar tu puntuación.","Conecte Google ou e-mail para publicar sua pontuação.","スコアを公開するにはGoogleまたはメールを連携してください。");
   else position=(ml("Dünya: ","World: ","Welt: ","Mundo: ","Mundo: ","世界："))+(wRank?'#'+wRank:'—')+' · '+(ml("Hafta: ","Week: ","Woche: ","Semana: ","Semana: ","週間："))+(wkRank?'#'+wkRank:'—')+' · '+(ml("Ay: ","Month: ","Monat: ","Mes: ","Mês: ","月間："))+(mRank?'#'+mRank:'—');
   const leader=nobelIntel.world&&nobelIntel.world[0],gap=leader&&!worldLeader?Math.max(0,(Number(leader.researchPoints)||0)-(Number(save.researchPoints)||0)):0;
   $('#nobelPlayerCard').innerHTML='<div class="nobelPlayerTop"><span>'+mxUiIconHtml(worldLeader?'crown':'scientist')+'</span><div><b>'+esc((save.playerName||curProfile||playerFallbackLabel()).slice(0,18))+'</b><small>'+position+'</small></div></div><div class="nobelPlayerStats"><span>'+(save.researchPoints||0).toLocaleString()+' RP</span><span>'+(worldLeader?(ml("DÜNYA LİDERİ","WORLD LEADER","WELTFÜHRENDER","LÍDER MUNDIAL","LÍDER MUNDIAL","世界1位")):(gap?ml('Lidere '+gap.toLocaleString()+' RP','Leader gap: '+gap.toLocaleString()+' RP','Abstand zur Spitze: '+gap.toLocaleString()+' RP','Distancia al líder: '+gap.toLocaleString()+' RP','Distância do líder: '+gap.toLocaleString()+' RP','首位まで '+gap.toLocaleString()+' RP'):(ml("Sıralama bekleniyor","Waiting for ranking","Warte auf Rangliste","Esperando clasificación","Aguardando classificação","ランキング待機中"))))+'</span></div>';
@@ -6327,7 +6327,7 @@ function rankingResetCountdownHtml(tab){
 function rankingGuestAccountNotice(){
   const iosNative=!!(window.Capacitor&&window.Capacitor.getPlatform&&window.Capacitor.getPlatform()==='ios');
   return iosNative
-    ?ml('Sıralamaları görebilirsin. Puanını yayımlamak için profil ikonundan Apple hesabını bağla.','You can view rankings. Connect your Apple account from the profile icon to publish your score.','Du kannst die Ranglisten ansehen. Verbinde über das Profilsymbol dein Apple-Konto, um deine Punktzahl zu veröffentlichen.','Puedes ver las clasificaciones. Vincula tu cuenta de Apple desde el icono de perfil para publicar tu puntuación.','Você pode ver os rankings. Vincule sua conta Apple pelo ícone de perfil para publicar sua pontuação.','ランキングは閲覧できます。スコアを公開するにはプロフィールアイコンからAppleアカウントを連携してください。')
+    ?ml('Sıralamaları görebilirsin. Puanını yayımlamak için profil ikonundan Apple, Google veya e-posta hesabını bağla.','You can view rankings. Connect an Apple, Google, or email account from the profile icon to publish your score.','Du kannst die Ranglisten ansehen. Verbinde über das Profilsymbol Apple, Google oder E-Mail, um deine Punktzahl zu veröffentlichen.','Puedes ver las clasificaciones. Vincula Apple, Google o correo desde el icono de perfil para publicar tu puntuación.','Você pode ver os rankings. Vincule Apple, Google ou e-mail pelo ícone do perfil para publicar sua pontuação.','ランキングは閲覧できます。スコアを公開するにはプロフィールアイコンからApple、Google、またはメールアカウントを連携してください。')
     :ml('Sıralamaları görebilirsin. Puanını yayımlamak için profil ikonundan Google veya e-posta hesabını bağla.','You can view rankings. Connect a Google or email account from the profile icon to publish your score.','Du kannst die Ranglisten ansehen. Verbinde über das Profilsymbol ein Google- oder E-Mail-Konto, um deine Punktzahl zu veröffentlichen.','Puedes ver las clasificaciones. Vincula una cuenta de Google o correo desde el icono de perfil para publicar tu puntuación.','Você pode ver os rankings. Vincule uma conta Google ou e-mail pelo ícone do perfil para publicar sua pontuação.','ランキングは閲覧できます。スコアを公開するにはプロフィールアイコンからGoogleまたはメールアカウントを接続してください。');
 }
 async function refreshHofWorldTabs(tab){
@@ -7971,7 +7971,7 @@ const boardStatic=document.createElement('canvas'),boardStaticCtx=boardStatic.ge
 let boardStaticDirty=true,boardStaticKey='';
 function invalidateBoardStatic(){boardStaticDirty=true;}
 let lv=-1,LV=null,mid='',curMol=null,grid=[],atoms=[],sel=0,selT0=0,atomPressIdx=-1,atomPressAt=0,moves=0,t2=0,hist=[],levelStartT=0;
-let hardMoveCapWarned=false,hardMoveCapModalOpen=false;
+let hardMoveCapWarned=false,hardMoveCapModalOpen=false,hardMoveCapBypassed=false;
 
 /* R24 · fair count-up solve clock.
    Campaign and Daily Experiment count upward without a failure limit. The clock
@@ -11364,7 +11364,7 @@ function startLevel(i,mode='campaign',expectedKey=''){
       }
     }
   }
-  sel=0;moves=0;hist=[];won=false;winT=0;hintStep=0;attemptHintCount=0;lastSolveSeconds=0;previousSpeedRecord=0;newSpeedRecord=null;lastSolveRecordEligible=false;hintMark=null;bumpN=0;stuckAtomIdx=-1;stuckAtomCount=0;strugglingSaid=false;slowSaid=false;hardMoveCapWarned=false;hardMoveCapModalOpen=false;crystalGoalWarned=false;clearTimeout(autoHintT);
+  sel=0;moves=0;hist=[];won=false;winT=0;hintStep=0;attemptHintCount=0;lastSolveSeconds=0;previousSpeedRecord=0;newSpeedRecord=null;lastSolveRecordEligible=false;hintMark=null;bumpN=0;stuckAtomIdx=-1;stuckAtomCount=0;strugglingSaid=false;slowSaid=false;hardMoveCapWarned=false;hardMoveCapModalOpen=false;hardMoveCapBypassed=false;crystalGoalWarned=false;clearTimeout(autoHintT);
   anim=null;bounce=null;nudge=null;tut=(duelMode||crystalMode||chainMode||reactorMode)?9:((i===0&&!save.stars[0]&&!save.tutorialDone)?0:9);
   t2=Math.ceil(LV.p*1.7);
   setTheme(Math.floor(i/20));lastBondLine=false;prevB=0;mxReactionStreak=0;mxReactionAt=0;setExcited(false);updateIntensity();einMood('enter',650);if(Math.random()<0.6)prop('👋',1300);
@@ -11478,7 +11478,7 @@ function loadTutorialPuzzle(tl){
   levelStartT=performance.now();
   grid=tl.g.map(r=>[...r].map(c=>c==='1'));
   atoms=tl.a.map(a=>({x:a[0],y:a[1],e:a[2],ph:Math.random()*6.28,frozen:false,fire:false,sticky:false,zombie:false,zombieGen:0}));
-  sel=0;moves=0;hist=[];won=false;winT=0;hintStep=0;attemptHintCount=0;hintMark=null;bumpN=0;stuckAtomIdx=-1;stuckAtomCount=0;strugglingSaid=false;slowSaid=false;hardMoveCapWarned=false;hardMoveCapModalOpen=false;assistanceUsed=false;routeAssistUsed=false;clearTimeout(autoHintT);
+  sel=0;moves=0;hist=[];won=false;winT=0;hintStep=0;attemptHintCount=0;hintMark=null;bumpN=0;stuckAtomIdx=-1;stuckAtomCount=0;strugglingSaid=false;slowSaid=false;hardMoveCapWarned=false;hardMoveCapModalOpen=false;hardMoveCapBypassed=false;assistanceUsed=false;routeAssistUsed=false;clearTimeout(autoHintT);
   anim=null;setAtomMotionActive(false);landingResolutionBusy=false;landingResolutionToken++;bounce=null;nudge=null;tut=9;
   t2=Math.ceil(tl.p*1.7);
   $('#lvPill').textContent=t('howToPlay');
@@ -11622,8 +11622,8 @@ function endTutorial(completed){
 
 function starsForMoves(count,par){return count<=par?3:count<=Math.ceil(par*1.7)?2:count<=Math.ceil(par*2.3)?1:0;}
 
-// R376 · Campaign PAR / zero-star hard reset
-// Stars are calculated from PAR. Once the 1-star band is exhausted, the
+// R372 · Campaign PAR / zero-star hard reset
+// Stars are still calculated from PAR. Once the 1-star band is exhausted, the
 // player gets exactly THREE zero-star moves. A solve during those three moves
 // clears the level with 0 stars. If the third zero-star move does not solve the
 // target, the same campaign level restarts automatically — there is no Continue
@@ -11683,7 +11683,7 @@ function autoResetCampaignAtMoveCap(){
   if(!cap||won||moves<cap)return false;
   const restartLevel=lv;
   mxTrack('hard_move_cap_auto_reset',mxTelemetryLevelParams({moves:moves,move_cap:cap,reference_moves:Number(LV.referenceMoves||LV.mn||LV.p)||0,attempt_seconds:mxTelemetryAttemptSeconds()}));
-  hardMoveCapModalOpen=false;
+  hardMoveCapModalOpen=false;hardMoveCapBypassed=false;
   closeSayBubble();
   startLevel(restartLevel,'campaign');
   setTimeout(()=>{if(lv===restartLevel&&!won)say(zeroStarCapResetCopy(),'talk',5200,'shk');},140);
@@ -14498,9 +14498,16 @@ function openCloudStatusModal(message,good){
     '<div id="cloudLiveState" class="cloudState cloud-'+state.key+'"><span>'+state.icon+'</span><div><b>'+state.label+'</b><small>'+(accountState.isAnonymous?c.syncGuest:c.cloudGood)+'</small></div></div>'+
     '<div class="cloudInfoGrid"><div><span>'+c.playerLabel+'</span><b>'+player+'</b></div><div><span>'+c.providersLabel+'</span><b>'+esc(providerDisplayList())+'</b></div><div class="cloudWide"><span>'+c.lastSync+'</span><b id="cloudLastSync">'+(readLastCloudSync()?formatCloudDate(readLastCloudSync()):c.neverSynced)+'</b></div></div>'+
     '<div class="cloudRankGrid"><div class="cloudRankCard"><span>🌍 '+c.classicRankLabel+'</span><div id="cloudClassicRank"><b>…</b><small>'+c.rankLoading+'</small></div></div><div class="cloudRankCard"><span>⚔️ '+c.duelRankLabel+'</span><div id="cloudDuelRank"><b>…</b><small>'+c.rankLoading+'</small></div></div></div>'+
+    (MX_NATIVE&&!accountState.isAnonymous&&(!accountState.providers.includes('google.com')||!accountState.providers.includes('password'))?
+      '<div class="cloudAuthLinks">'+
+      (!accountState.providers.includes('google.com')?'<button class="btn google" id="cloudLinkGoogle">'+ml('Google hesabını bağla','Link Google account','Google-Konto verbinden','Vincular cuenta de Google','Vincular conta Google','Googleアカウントを接続')+'</button>':'')+
+      (!accountState.providers.includes('password')?'<button class="btn ghost" id="cloudLinkEmail">✉ '+c.linkEmail+'</button>':'')+
+      '</div>':'')+
     '<div class="accountActions">'+(!accountState.isAnonymous?'<button class="btn green" id="cloudSyncNow">↻ '+c.syncNow+'</button>':'')+'<button class="btn blue" id="cloudBackAccount">'+c.backAccount+'</button><button class="btn" id="cloudClose">'+c.close+'</button></div>');
   $('#modalBox').classList.add('accountModal','cloudStatusModal');
   const sync=$('#cloudSyncNow');if(sync)sync.addEventListener('pointerdown',e=>{e.preventDefault();runManualCloudSync(e.currentTarget);},{passive:false});
+  const cloudGoogle=$('#cloudLinkGoogle');if(cloudGoogle)cloudGoogle.addEventListener('click',e=>{e.preventDefault();SFX.click();void nativeGoogleSignIn(cloudGoogle);},{passive:false});
+  const cloudEmail=$('#cloudLinkEmail');if(cloudEmail)cloudEmail.addEventListener('pointerdown',e=>{e.preventDefault();SFX.click();openEmailCreate();},{passive:false});
   bindTap('#cloudBackAccount',()=>openAccountModal());bindTap('#cloudCloseTop',()=>closeModal());bindTap('#cloudClose',()=>closeModal());
   updateCloudStatusHeader();refreshCloudRankStatus(false);
 }
@@ -14522,7 +14529,7 @@ function resetViewportZoomIOS(){
 }
 function openAccountModal(message,good){
   if(good)setTimeout(resetViewportZoomIOS,120);
-  const c=accountCopy();const member=!accountState.isAnonymous;const cloudReady=!!(window.MXCloud&&(MX_IOS_APPLE_ONLY?window.MXCloud.connectAppleIdToken:window.MXCloud.connectGoogle));
+  const c=accountCopy();const member=!accountState.isAnonymous;const cloudReady=!!(window.MXCloud&&window.MXCloud.connectGoogle);
   if(!cloudReady&&!message)message=ml("Firebase bağlantısı hazırlanıyor…","Preparing Firebase connection…","Firebase-Verbindung wird vorbereitet…","Preparando conexión con Firebase…","Preparando conexão com Firebase…","Firebase接続を準備中…");
   const avatar=accountState.photoURL?'<img src="'+escAttr(accountState.photoURL)+'" alt="">':'👤';
   const identity=member?(accountState.displayName||accountState.email||c.cloudGood):c.guestTitle;
@@ -14530,12 +14537,12 @@ function openAccountModal(message,good){
   openModal('<button type="button" class="accountCloseX" id="accCloseTop" aria-label="'+c.close+'">×</button><h3>👤 '+c.title+'</h3><div class="accountHero"><div class="accountAvatar">'+avatar+'</div><div><strong>'+esc(identity)+'</strong><small>'+sub+'</small></div></div>'+
     (message?'<div class="accountNotice '+(good?'good':'')+'">'+esc(message)+'</div>':'')+
     '<div class="accountNotice '+(member?'good':'')+'">'+(member?'✓ '+c.cloudGood:'⚠ '+c.guestWarn)+'</div><div class="accountActions">'+
-    (!member?(MX_SHOW_APPLE_BTN?'<button class="btn apple" id="accApple">'+appleLogoHtml()+'<span>'+c.apple+'</span></button>':'')+(!MX_IOS_APPLE_ONLY?'<button class="btn google" id="accGoogle">'+c.google+'</button><div class="accountDivider">'+c.or+'</div><button class="btn blue" id="accEmailLogin">✉ '+c.emailLogin+'</button><button class="btn ghost" id="accEmailCreate">＋ '+c.emailCreate+'</button>':''):'')+
+    (!member?(MX_SHOW_APPLE_BTN?'<button class="btn apple" id="accApple">'+appleLogoHtml()+'<span>'+c.apple+'</span></button>':'')+'<button class="btn google" id="accGoogle">'+c.google+'</button>'+'<div class="accountDivider">'+c.or+'</div><button class="btn blue" id="accEmailLogin">✉ '+c.emailLogin+'</button><button class="btn ghost" id="accEmailCreate">＋ '+c.emailCreate+'</button>':'')+
     (member&&MX_SHOW_APPLE_BTN&&!accountState.providers.includes('apple.com')?'<button class="btn apple" id="accApple">'+appleLogoHtml()+'<span>'+c.linkApple+'</span></button>':'')+
-    (member&&!MX_IOS_APPLE_ONLY?(accountState.providers.includes('google.com')?'<button class="btn google googleLinked" id="accGoogleLinked" disabled>✓ '+(ml("Google hesabı bağlı","Google account linked","Google-Konto verbunden","Cuenta de Google vinculada","Conta Google vinculada","Googleアカウント接続済み"))+'</button>':'<button class="btn google" id="accGoogle">'+(ml("Google hesabını bağla","Link Google account","Google-Konto verbinden","Vincular cuenta de Google","Vincular conta Google","Googleアカウントを接続"))+'</button>'):'')+
-    (member&&!MX_IOS_APPLE_ONLY&&!accountState.providers.includes('password')?'<button class="btn ghost" id="accEmailCreate">✉ '+c.linkEmail+'</button>':'')+
+    (member?(accountState.providers.includes('google.com')?'<button class="btn google googleLinked" id="accGoogleLinked" disabled>✓ '+(ml("Google hesabı bağlı","Google account linked","Google-Konto verbunden","Cuenta de Google vinculada","Conta Google vinculada","Googleアカウント接続済み"))+'</button>':'<button class="btn google" id="accGoogle">'+(ml("Google hesabını bağla","Link Google account","Google-Konto verbinden","Vincular cuenta de Google","Vincular conta Google","Googleアカウントを接続"))+'</button>'):'')+
+    (member&&!accountState.providers.includes('password')?'<button class="btn ghost" id="accEmailCreate">✉ '+c.linkEmail+'</button>':'')+
     '<div class="accountUtilityRow"><button class="btn blue accountCloudBtn" id="accCloudStatus">'+c.cloudPanel+'</button><button class="btn ghost" id="accManage">'+c.manage+'</button></div>'+
-    (member&&!MX_IOS_APPLE_ONLY&&accountState.providers.includes('password')?'<button class="btn ghost" id="accReset">🔑 '+c.reset+'</button>':'')+
+    (member&&accountState.providers.includes('password')?'<button class="btn ghost" id="accReset">🔑 '+c.reset+'</button>':'')+
     (member?'<button class="btn danger" id="accLogout">↪ '+c.logout+'</button><button class="btn danger" id="accDeleteAccount">🗑 '+c.deleteAccount+'</button>':'')+
     '<button class="btn" id="accClose">'+c.close+'</button></div><div class="authTiny">'+c.localProfiles+'</div>');
   $('#modalBox').classList.add('accountModal');installModalScrollIndicator();
@@ -17280,8 +17287,8 @@ window.addEventListener('pageshow',()=>{if(navigator.onLine!==false){setTimeout(
 document.addEventListener('touchmove',e=>{if(!e.target.closest('.scrollArea,.settingsScroll,.guideScroll,.modalScroll,.mxUniversalBody,.mtlist,input[type=\"range\"],textarea,select'))e.preventDefault();},{passive:false});
 const MX_NATIVE=!!(window.Capacitor&&window.Capacitor.isNativePlatform&&window.Capacitor.isNativePlatform());
 // Added 2026-07-26: iOS-specific flag (not just "any native platform"), so we
-// iOS App Store build exposes Apple as the only account sign-in method.
-// Google/email auth code remains shared for web/Android but is not rendered in native iOS.
+// can hide sign-in options that would otherwise force App Store Review
+// Guideline 4.8 (Sign in with Apple parity) without touching Android/web.
 const MX_IOS_NATIVE=!!(window.Capacitor&&window.Capacitor.getPlatform&&window.Capacitor.getPlatform()==='ios');
 // Added 2026-07-26: Android has no native "Sign in with Apple" concept, and
 // there's no Google Play equivalent of Apple's Guideline 4.8, so we simply
@@ -17293,7 +17300,6 @@ const MX_IOS_NATIVE=!!(window.Capacitor&&window.Capacitor.getPlatform&&window.Ca
 const MX_ANDROID_NATIVE=!!(window.Capacitor&&window.Capacitor.getPlatform&&window.Capacitor.getPlatform()==='android');
 const MX_APPLE_NATIVE_READY=!!(window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.FirebaseAuthentication&&typeof window.Capacitor.Plugins.FirebaseAuthentication.signInWithApple==='function');
 const MX_SHOW_APPLE_BTN=MX_IOS_NATIVE&&MX_APPLE_NATIVE_READY;
-const MX_IOS_APPLE_ONLY=false; // R378: Apple + Google + email/password on iOS.
 // Added 2026-07-26: on the plain web build (not the iOS app itself), only
 // show the Apple button to visitors actually on Apple hardware — checks
 // both navigator.platform and userAgent since platform is being frozen/
@@ -17529,7 +17535,10 @@ document.addEventListener('visibilitychange',()=>{if(!document.hidden)wakeMainLo
   // R328: startup must never wait on third-party Storage Access.
   // The game enters immediately from the real user gesture; cloud persistence can recover later.
   studio.addEventListener('pointerdown',e=>{
-    e.preventDefault();tryUnlockAudio();startStudio();
+    e.preventDefault();tryUnlockAudio();
+    // iOS iframe storage permission requires the same direct user gesture.
+    if(!MX_NATIVE)void ensureItchPersistentStorage();
+    startStudio();
   },{passive:false});
   studio.addEventListener('keydown',e=>{
     if(e.key==='Enter'||e.key===' '){e.preventDefault();tryUnlockAudio();startStudio();}
