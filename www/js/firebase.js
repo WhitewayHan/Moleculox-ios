@@ -1549,7 +1549,7 @@ async function claimDailyExperiment(profileId) {
   try {
     await readyPromise;
     const cleanId = safeProfileId(profileId);
-    if (!db || !uid || !cleanId) return {alreadyClaimed: false, offline: true, disabled: true};
+    if (!db || !uid || !cleanId) return {alreadyClaimed: false, offline: true, disabled: true, errorCode: "auth/not-ready"};
     if (CLOUD_FUNCTIONS_ENABLED && fx) {
       const call = httpsCallable(fx, "claimDailyExperiment");
       const res = await call({profileId: cleanId});
@@ -1572,7 +1572,7 @@ async function claimDailyExperiment(profileId) {
     });
   } catch (e) {
     console.warn("[MXCloud] claimDailyExperiment failed:", e && e.code);
-    return {alreadyClaimed: false, offline: true};
+    return {alreadyClaimed: false, offline: true, errorCode: String(e && e.code || "cloud/unknown")};
   }
 }
 
@@ -1616,7 +1616,7 @@ async function claimDailyLogin(profileId) {
     });
   } catch (e) {
     console.warn("[MXCloud] claimDailyLogin failed:", e && e.code);
-    return {ok: false, offline: true, reward: 0};
+    return {ok: false, offline: true, reward: 0, errorCode: String(e && e.code || "cloud/unknown")};
   }
 }
 
