@@ -1,6 +1,6 @@
 // R347 TEST: R346 Edward voice/visual pass + clean main-menu Edward without floating prop icons.
 /* Moleculox v8.7.177 R347 · clean main-menu Edward props + R346 voice/visual consistency retained. */
-const APP_VERSION="v8.7.208 · R376 PAR HARD RESET";
+const APP_VERSION="v8.7.211 · R379 RELEASE SYNC";
 const mxReducedMotionQuery=window.matchMedia?window.matchMedia('(prefers-reduced-motion: reduce)'):null;
 let mxSystemReducedMotion=!!(mxReducedMotionQuery&&mxReducedMotionQuery.matches);
 if(mxReducedMotionQuery){
@@ -5484,6 +5484,7 @@ function providerDisplayList(){
   return ids.map(id=>map[id]||id).join(' · ')|| (accountState.isAnonymous?(ml("Misafir","Guest","Gast","Invitado","Convidado","ゲスト")):'—');
 }
 function cloudErrorCode(err){
+  if(typeof err==='string')return err.trim()||'cloud/unknown';
   return String(err&&err.code||err&&err.reason||err&&err.message||'cloud/unknown').trim();
 }
 function isIndeterminateCloudTimeout(err){
@@ -6911,8 +6912,8 @@ function showScienceLegendReveal(card,onClose){
     setTimeout(()=>{
       wrap.remove();
       if(typeof onClose==='function'){onClose();return;}
-      const next=pendingScienceLegendReveals()[0];
-      if(next&&collectionActiveTab()==='legends'&&scr.collect.classList.contains('on'))setTimeout(()=>showScienceLegendReveal(next),180);
+      // The reveal belongs to the actual new discovery only. Never queue old
+      // cards when navigating the collection; the album is not a replay screen.
     },motionReduced()?40:280);
   };
   const onKey=e=>{if(e.key==='Escape')close();};
@@ -6942,7 +6943,9 @@ function buildScienceLegendCollection(){
   SCIENCE_LEGENDS.forEach(card=>{const unlocked=!!save.scienceLegends[card.id],p=scienceLegendProgress(card,stats),b=document.createElement('button');b.type='button';b.className='scienceLegendCard '+(unlocked?'unlocked':'locked');b.setAttribute('aria-label',card.name+' · '+scienceLegendUi(unlocked?'unlocked':'locked'));
     b.innerHTML='<div class="scienceLegendArtWrap"><img class="scienceLegendArt" loading="lazy" src="assets/images/science-legends/'+card.art+'-thumb.webp" alt=""><div class="scienceLegendLock" '+(unlocked?'hidden':'')+'><b>?</b><small>'+scienceLegendUi('locked')+'</small></div></div><div class="scienceLegendBody"><div class="scienceLegendTop"><div><div class="scienceLegendName">'+esc(card.name)+'</div><div class="scienceLegendYears">'+esc(card.years)+'</div></div><span class="scienceLegendRarity">'+scienceLegendRarity(card.rarity)+'</span></div><div class="scienceLegendField">'+card.field()+'</div><div class="scienceLegendProgress"><div class="scienceLegendProgressLine"><span>'+scienceLegendUi('progress')+'</span><span>'+Math.min(p.raw,p.target)+' / '+p.target+'</span></div><div class="scienceLegendBar"><i style="width:'+p.pct.toFixed(1)+'%"></i></div><div class="scienceLegendUnlockText">'+scienceLegendUnlockText(card)+'</div><div class="scienceLegendCardReward">'+scienceLegendRewardHtml(card,true)+'</div></div></div>';
     bindTap(b,()=>{SFX.select();openScienceLegendDetail(card,p);});frag.appendChild(b);
-  });g.appendChild(frag);const next=pendingScienceLegendReveals()[0];if(next)setTimeout(()=>showScienceLegendReveal(next),120);
+  });g.appendChild(frag);
+  // Collection navigation must not replay discovery rewards. Newly earned
+  // Legends still reveal once from the actual level-completion path.
 }
 function updateCollectionHeader(tab){
   const title=$('#coTitle'),count=$('#coCount');if(!title||!count)return;
@@ -7778,6 +7781,79 @@ function showDailyLoginReward(streak,reward){
   setTimeout(()=>card.classList.add('leaving'),3600);
   setTimeout(()=>{card.remove();if(splashBubble)splashBubble.classList.remove('on');startSplashConversation(false,650);},4300);
 }
+/* R378: Device-local, UID-scoped pending Daily Experiment receipt.
+   A pending completion is never a granted reward; the server must confirm first.
+   Drop a receipt after the UTC day changes; do not claim yesterday as today. */
+const MX_DAILY_PENDING_KEY='mxPendingDailyClaimR378';
+let mxDailyReplayBusy=false;
+function mxDailyPendingGet(){
+  try{const x=JSON.parse(localStorage.getItem(MX_DAILY_PENDING_KEY)||'null');return x&&typeof x==='object'?x:null;}catch(_){return null;}
+}
+function mxDailyPendingSet(day,attempt){
+  const acc=accountState;
+  if(!acc||!acc.signedIn||acc.isAnonymous||!acc.uid||!save||!save.profileId||!attempt)return;
+  const previous=mxDailyPendingGet();
+  const entry={uid:String(acc.uid),profileId:String(save.profileId),day:String(day),
+    moves:Math.max(0,Number(attempt.moves)||0),par:Math.max(1,Number(attempt.par)||1),
+    minimum:Math.max(1,Number(attempt.minimum)||1),seconds:Math.max(0,Number(attempt.seconds)||0),
+    hints:Math.max(0,Number(attempt.hints)||0),assisted:!!attempt.assisted};
+  // Keep the stronger completed run during the day, not simply the last one.
+  if(previous&&previous.uid===entry.uid&&previous.profileId===entry.profileId&&previous.day===entry.day){
+    const score=a=>dailyResearchScore(a.moves,a.par,a.minimum,a.seconds,a.hints,1,a.assisted);
+    if(score(previous)>=score(entry))return;
+  }
+  try{localStorage.setItem(MX_DAILY_PENDING_KEY,JSON.stringify(entry));}catch(_){ }
+}
+function mxDailyPendingClear(day,uid,profileId){
+  const entry=mxDailyPendingGet();
+  if(entry&&entry.day===String(day)&&entry.uid===String(uid)&&entry.profileId===String(profileId)){
+    try{localStorage.removeItem(MX_DAILY_PENDING_KEY);}catch(_){ }
+  }
+}
+async function mxRetryPendingDailyClaim(){
+  if(mxDailyReplayBusy||navigator.onLine===false)return false;
+  const entry=mxDailyPendingGet(),acc=accountState;
+  if(!entry||!acc||acc.isAnonymous||!acc.signedIn||!window.MXCloud||!window.MXCloud.claimDailyExperiment)return false;
+  if(entry.day!==utcDayId()){
+    // Never reinterpret an old result as a new UTC day's result.
+    mxDailyPendingClear(entry.day,entry.uid,entry.profileId);return false;
+  }
+  if(entry.uid!==String(acc.uid||'')||entry.profileId!==String(save&&save.profileId||''))return false;
+  const context=captureCloudOperationContext(entry.profileId);
+  mxDailyReplayBusy=true;
+  try{
+    const res=await Promise.race([
+      window.MXCloud.claimDailyExperiment(entry.profileId),
+      new Promise(resolve=>setTimeout(()=>resolve({offline:true,errorCode:'cloud/timeout'}),16000))
+    ]);
+    if(!cloudOperationContextIsCurrent(context))return false;
+    if(!res||res.offline||(!res.alreadyClaimed&&!(Number(res.reward)>0))){
+      if(res&&res.errorCode)recordCloudDiagnostic('daily-claim-retry',res.errorCode);
+      return false;
+    }
+    const oldClaimDate=String(save.dailyDate||'');
+    const rp=awardDailyResearch(entry.day,entry.moves,entry.par,entry.minimum,entry.seconds,entry.hints,entry.assisted);
+    let coins=0;
+    if(oldClaimDate!==entry.day&&Number(res.reward)>0){
+      coins=Math.max(0,Math.floor(Number(res.reward)||0));
+      if(labOwned('robot'))coins+=5;
+      addCoins(coins);
+    }
+    save.dailyDate=entry.day;
+    persist();updateCoins(coins>0);updateBadge();
+    mxDailyPendingClear(entry.day,entry.uid,entry.profileId);
+    if(window.MXCloud&&typeof window.MXCloud.syncLeaderboard==='function'){
+      window.MXCloud.syncLeaderboard(save,save.profileId,true).catch(()=>{});
+    }
+    if(typeof queueLevelCloudCheckpoint==='function')queueLevelCloudCheckpoint('daily-reward-recovered');
+    if(coins||rp.delta){
+      showSmallToast(ml('Günlük ödül doğrulandı','Daily reward verified','Tägliche Belohnung bestätigt','Recompensa diaria verificada','Recompensa diária verificada','デイリー報酬が確認されました')+' · +'+rp.delta+' RP'+(coins?' · +'+coins+' MoleCoin':''),3000);
+    }
+    return true;
+  }catch(e){recordCloudDiagnostic('daily-claim-retry',e);return false;}
+  finally{mxDailyReplayBusy=false;}
+}
+
 async function maybeClaimDailyLoginReward(){
   if(dailyLoginClaimBusy||!scr.splash.classList.contains('on')||!save||!save.profileId)return;
   const acc=typeof accountState!=='undefined'?accountState:null;
@@ -7788,7 +7864,10 @@ async function maybeClaimDailyLoginReward(){
   dailyLoginClaimBusy=true;
   try{
     const res=await window.MXCloud.claimDailyLogin(save.profileId);
-    if(!res||!res.ok||res.accountRequired||res.offline)return;
+    if(!res||!res.ok||res.accountRequired||res.offline){
+      if(res&&res.errorCode)recordCloudDiagnostic('daily-login',res.errorCode);
+      return;
+    }
     dailyLoginClaimSignature=signature;
     const reward=Math.max(0,Math.floor(Number(res.reward)||0)),streak=Math.max(1,Math.min(7,Math.floor(Number(res.streak)||1)));
     save.dailyLoginDate=String(res.day||utcDayId());save.dailyLoginStreak=streak;
@@ -13245,7 +13324,7 @@ function winSeq(lastMovedIdx){
     drEGameEvent(drEWinEvent,true);characterMoment(drEWinEvent);
     setTimeout(()=>{showPerformanceGrade(lastPerformance);showFinalWow(lastPerformance,stars);},completionTiming.hold+180);
   }else{lastPerformance=null;moxyGameEvent('win',true);drEGameEvent('win',true);characterMoment('win');}
-  if(!assistanceUsed&&!dailyMode&&currentAttemptId&&window.MXCloud&&window.MXCloud.submitLevelResult){
+  if(stars>0&&!assistanceUsed&&!dailyMode&&currentAttemptId&&window.MXCloud&&window.MXCloud.submitLevelResult){
     const verifiedAttemptId=currentAttemptId;
     const verifiedMoves=moveLog.map(m=>({i:m.i,d:m.d}));
     currentAttemptId=null;
@@ -13331,21 +13410,26 @@ function winSeq(lastMovedIdx){
   if(dailyMode){
     const localDay=currentDailyId||utcDayId();
     const claimPromise=(window.MXCloud&&save.profileId&&window.MXCloud.claimDailyExperiment)?window.MXCloud.claimDailyExperiment(save.profileId):Promise.resolve({offline:true});
-    let practiceShown=false,verifiedSettled=false,practiceModalTimer=null;
+    let practiceShown=false,verifiedSettled=false,practiceModalTimer=null,dailyFailureCode="cloud/pending";
+    mxDailyPendingSet(localDay,{moves,par:LV.p,minimum:LV.mn||LV.p,seconds:elapsedSeconds,hints:attemptHintCount,assisted:assistanceUsed});
     const rewardStartedAt=performance.now();
     const showPractice=()=>{
       if(verifiedSettled||practiceShown)return;
       practiceShown=true;
       const delay=Math.max(0,RESULT_MODAL_DELAY_MS-(performance.now()-rewardStartedAt));
-      practiceModalTimer=setTimeout(()=>{if(!verifiedSettled)scienceLegendRevealDone.then(()=>{if(!verifiedSettled)dailyModal(stars,0,false,true,0,Math.max(0,save.dailyRPStreak||0));});},delay);
+      practiceModalTimer=setTimeout(()=>{if(!verifiedSettled)scienceLegendRevealDone.then(()=>{if(!verifiedSettled)dailyModal(stars,0,false,true,0,Math.max(0,save.dailyRPStreak||0),dailyFailureCode);});},delay);
     };
     const waitTimer=setTimeout(showPractice,6000);
     prop(ml('Günlük ödül hesapta doğrulanıyor…','Verifying today’s account reward…','Die heutige Kontobelohnung wird geprüft…','Verificando la recompensa diaria de la cuenta…','Verificando a recompensa diária da conta…','本日のアカウント報酬を確認中…'),2200);
     Promise.resolve(claimPromise).then(res=>{
       let verified=false,already=false,dailyGained=0,claimDay=localDay;
       if(res&&res.offline&&res.disabled){
+        dailyFailureCode=res.errorCode||'auth/not-ready';
+        recordCloudDiagnostic('daily-experiment',dailyFailureCode);
         clearTimeout(waitTimer);showPractice();return;
       }else if(res&&res.offline){
+        dailyFailureCode=res.errorCode||'cloud/unavailable';
+        recordCloudDiagnostic('daily-experiment',dailyFailureCode);
         clearTimeout(waitTimer);showPractice();return;
       }else if(res&&res.alreadyClaimed){
         verified=true;already=true;claimDay=res.day||localDay;
@@ -13354,6 +13438,7 @@ function winSeq(lastMovedIdx){
       }
       if(!verified){clearTimeout(waitTimer);showPractice();return;}
       clearTimeout(waitTimer);if(practiceModalTimer)clearTimeout(practiceModalTimer);verifiedSettled=true;
+      mxDailyPendingClear(localDay,String(accountState&&accountState.uid||''),String(save.profileId||''));
       save.dailyDate=claimDay;
       const dailyRP=awardDailyResearch(localDay,moves,LV.p,LV.mn||LV.p,elapsedSeconds,attemptHintCount,assistanceUsed);
       if(dailyGained>0&&labOwned('robot'))dailyGained+=5;
@@ -13361,7 +13446,7 @@ function winSeq(lastMovedIdx){
       checkAchievementsSilent();persist();updateBadge();
       try{if(window.MXCloud&&save.profileId&&window.MXCloud.syncLeaderboard)window.MXCloud.syncLeaderboard(save,save.profileId,true);}catch(e){}
       setTimeout(()=>{scienceLegendRevealDone.then(()=>{updateCoins(dailyGained>0);dailyModal(stars,dailyGained,already,false,dailyRP.delta,dailyRP.streak);});},practiceShown?180:RESULT_MODAL_DELAY_MS);
-    }).catch(()=>{clearTimeout(waitTimer);showPractice();});
+    }).catch(e=>{dailyFailureCode=String(e&&e.code||'cloud/unknown');recordCloudDiagnostic('daily-experiment',e);clearTimeout(waitTimer);showPractice();});
     return;
   }
   save.stars[lv]=Math.max(prev,stars);
@@ -13424,10 +13509,10 @@ function winSeq(lastMovedIdx){
     });
   },completionTiming.result);
 }
-function dailyModal(stars,gained,already,practiceOnly,rpGained,streak){
+function dailyModal(stars,gained,already,practiceOnly,rpGained,streak,failureCode){
   openModal(
   '<h3>'+t('dailyTitle')+'</h3>'+
-    '<div class="msub">'+(practiceOnly?t('dailyOffline'):already?t('dailyAlready'):t('dailySolved'))+'</div>'+
+    '<div class="msub">'+(practiceOnly?((failureCode&&failureCode!=='cloud/pending')?cloudDiagnosticText(failureCode):ml('Bulut doğrulaması beklemede. Ödül henüz yazılmadı.','Cloud verification is pending. No reward was credited yet.','Cloud-Prüfung ausstehend. Noch keine Belohnung.','Verificación en la nube pendiente.','Verificação da nuvem pendente.','クラウドの確認中です。')):already?t('dailyAlready'):t('dailySolved'))+'</div>'+
     performanceResultHtml(lastPerformance)+
     solveTimeResultHtml({daily:true,practice:practiceOnly})+
     '<div class="mstars"><span>⭐</span><span>⭐</span><span>⭐</span></div>'+
@@ -13658,7 +13743,7 @@ function winModal(stars,gained,rpGained){
     speedLine+
     (rpGained>0?'<div class="mcoins" style="color:#78e7ff">+'+rpGained+' RP</div>':'')+
     '<div class="mstars"><span>⭐</span><span>⭐</span><span>⭐</span></div>'+
-    (gained>0?'<div class="mcoins">+<span class="mxCoinCountFlow">0</span> <span class="coinIcon"></span></div>':'<div class="mcoins" style="opacity:.4">'+t('bestClaimed')+'</div>')+
+    (gained>0?'<div class="mcoins">+<span class="mxCoinCountFlow">0</span> <span class="coinIcon"></span></div>':(stars===0?'<div class="mcoins mxZeroStarNoReward" style="opacity:.72">'+slMl('0 yıldız geçişi · MoleCoin yok · RP yok','0-star clear · no MoleCoin · no RP','0-Sterne-Abschluss · keine MoleCoin · keine RP','Nivel superado con 0 estrellas · sin MoleCoin · sin RP','Fase concluída com 0 estrelas · sem MoleCoin · sem RP','0スタークリア · MoleCoinなし · RPなし','Réussite à 0 étoile · aucun MoleCoin · aucun RP','0星通关 · 无MoleCoin · 无RP','Completato con 0 stelle · niente MoleCoin · niente RP','0별 통과 · MoleCoin 없음 · RP 없음','Прохождение с 0 звёзд · без MoleCoin · без RP')+'</div>':'<div class="mcoins" style="opacity:.4">'+t('bestClaimed')+'</div>'))+
     '<div class="mrow">'+
     (BONUS_MILESTONES.includes(lv+1)&&!isBonusClaimed(lv+1)?'<button class="btn amber" id="mBonusNow">🎁 '+(ml("BONUSU OYNA","PLAY BONUS","BONUS SPIELEN","JUGAR BONUS","JOGAR BÔNUS","ボーナスを遊ぶ"))+'</button>':'')+
     (finalCampaign?'':'<button class="btn green" id="mNext">'+t('nextLevel')+'</button>')+
@@ -13816,7 +13901,7 @@ function setAccountState(next){
   if(b)b.title=accountState.isAnonymous?(ml("Misafir hesap · Hesap ve oyuncular","Guest account · Account & players","Gastkonto · Konto & Spieler","Cuenta de invitado · Cuenta y jugadores","Conta de convidado · Conta e jogadores","ゲストアカウント・アカウントとプレイヤー")):(accountState.email||accountState.displayName||ml('Hesap','Account','Konto','Cuenta','Conta','アカウント'));
   if(scr.splash.classList.contains('on')){
     startSplashConversation(true,420);
-    if(accountState.signedIn&&!accountState.isAnonymous)setTimeout(maybeClaimDailyLoginReward,760);
+    if(accountState.signedIn&&!accountState.isAnonymous){setTimeout(maybeClaimDailyLoginReward,760);setTimeout(mxRetryPendingDailyClaim,1700);}
   }
   if(accountState.signedIn&&typeof runLevelCloudCheckpoint==='function')setTimeout(runLevelCloudCheckpoint,120);
 }
@@ -14526,7 +14611,7 @@ function bindAccountAuth(){
       // guest→member transition. Embedded hosts can restore auth before this
       // listener binds, which previously skipped profile import on itch.io.
       reconcileAccountProfiles().then(ok=>{
-        if(ok)scheduleLeaderboardRepair(wasGuest?'account-connected':'auth-restored',250,true);
+        if(ok){scheduleLeaderboardRepair(wasGuest?'account-connected':'auth-restored',250,true);setTimeout(mxRetryPendingDailyClaim,1000);if(scr.splash.classList.contains('on'))setTimeout(maybeClaimDailyLoginReward,1200);}
       });
     }
   });
@@ -17172,7 +17257,7 @@ async function runConnectivityCloudSync(reason){
         }
       }
       if(cloudOperationContextIsCurrent(connectionContext))await syncFromCloud();
-      if(cloudOperationContextIsCurrent(connectionContext))setSyncStatus('saved');
+      if(cloudOperationContextIsCurrent(connectionContext)){setSyncStatus('saved');setTimeout(mxRetryPendingDailyClaim,250);if(scr.splash.classList.contains('on'))setTimeout(maybeClaimDailyLoginReward,350);}
       return true;
     }catch(e){
       console.warn('[sync] connectivity reconciliation failed:',reason,e&&e.code||e);
@@ -17188,10 +17273,10 @@ async function runConnectivityCloudSync(reason){
 }
 window.addEventListener('online',()=>{
   scheduleLeaderboardRepair('network-restored',500,true);
-  setTimeout(()=>runConnectivityCloudSync('network-restored'),250);
+  setTimeout(()=>runConnectivityCloudSync('network-restored'),250);setTimeout(mxRetryPendingDailyClaim,1100);if(scr.splash.classList.contains('on'))setTimeout(maybeClaimDailyLoginReward,1400);
 },{passive:true});
 window.addEventListener('offline',()=>setSyncStatus('offline'),{passive:true});
-window.addEventListener('pageshow',()=>{if(navigator.onLine!==false)setTimeout(()=>runConnectivityCloudSync('pageshow'),500);},{passive:true});
+window.addEventListener('pageshow',()=>{if(navigator.onLine!==false){setTimeout(()=>runConnectivityCloudSync('pageshow'),500);setTimeout(mxRetryPendingDailyClaim,1800);if(scr.splash.classList.contains('on'))setTimeout(maybeClaimDailyLoginReward,2100);}},{passive:true});
 document.addEventListener('touchmove',e=>{if(!e.target.closest('.scrollArea,.settingsScroll,.guideScroll,.modalScroll,.mxUniversalBody,.mtlist,input[type=\"range\"],textarea,select'))e.preventDefault();},{passive:false});
 const MX_NATIVE=!!(window.Capacitor&&window.Capacitor.isNativePlatform&&window.Capacitor.isNativePlatform());
 // Added 2026-07-26: iOS-specific flag (not just "any native platform"), so we
@@ -17208,7 +17293,7 @@ const MX_IOS_NATIVE=!!(window.Capacitor&&window.Capacitor.getPlatform&&window.Ca
 const MX_ANDROID_NATIVE=!!(window.Capacitor&&window.Capacitor.getPlatform&&window.Capacitor.getPlatform()==='android');
 const MX_APPLE_NATIVE_READY=!!(window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.FirebaseAuthentication&&typeof window.Capacitor.Plugins.FirebaseAuthentication.signInWithApple==='function');
 const MX_SHOW_APPLE_BTN=MX_IOS_NATIVE&&MX_APPLE_NATIVE_READY;
-const MX_IOS_APPLE_ONLY=MX_IOS_NATIVE;
+const MX_IOS_APPLE_ONLY=false; // R378: Apple + Google + email/password on iOS.
 // Added 2026-07-26: on the plain web build (not the iOS app itself), only
 // show the Apple button to visitors actually on Apple hardware — checks
 // both navigator.platform and userAgent since platform is being frozen/
