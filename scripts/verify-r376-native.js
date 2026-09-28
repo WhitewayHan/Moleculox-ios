@@ -12,13 +12,13 @@ const idx=read('www/index.html');
 const game=read('www/js/game-r160.js');
 const firebase=read('www/js/firebase.js');
 const css=read('www/css/app-r160.css');
-must(idx.includes("window.__MX_BUILD_ID__='8.7.208-r376-par-hard-reset-"+platform+"';"),'wrong native build id');
+must(idx.includes("window.__MX_BUILD_ID__='8.7.211-r379-cloud-auth-"+platform+"';"),'wrong native build id');
 must(idx.includes("window.__MX_DISTRIBUTION__='"+platform+"';"),'wrong distribution');
 must(idx.includes('window.__MX_NATIVE_SHELL__=true;'),'native shell flag not enabled');
 must(idx.includes('window.MX_QA_TEST_GAME=false;'),'QA test-game flag must be false');
 must(idx.includes('window.MX_QA_ALL_LEVELS_OPEN=false;'),'all-levels QA flag must be false');
 must(idx.includes('window.MX_QA_NO_CLOUD=false;'),'cloud must be enabled');
-must(game.includes('const APP_VERSION="v8.7.208 · R376 PAR HARD RESET";'),'R373 visible version mismatch');
+must(game.includes('const APP_VERSION="v8.7.211 · R379 RELEASE SYNC";'),'R373 visible version mismatch');
 must(css.includes('R376 iOS NATIVE · TRUE PHYSICAL BOTTOM ANCHOR'),'R376 iOS physical-bottom CSS marker missing');
 must(css.includes('body.mxIOSNative #splash #einBoxS'),'native iOS Edward selector missing');
 must(css.includes('top:auto!important;'),'native iOS Edward top anchor was not cleared');
@@ -34,12 +34,12 @@ must(firebase.includes('FirebaseAppCheck'),'native/web App Check bridge missing'
 if(platform==='ios'){
   must(game.includes('async function nativeAppleSignIn(button)'),'native Apple Sign-In missing');
   must(game.includes('const MX_SHOW_APPLE_BTN=MX_IOS_NATIVE&&MX_APPLE_NATIVE_READY;'),'iOS Apple button not enabled');
-  must(game.includes('const MX_IOS_APPLE_ONLY=MX_IOS_NATIVE;'),'iOS Apple-only policy flag missing');
+  must(game.includes('const MX_IOS_APPLE_ONLY=false;'),'iOS multiple sign-in methods not restored');
   must(game.includes("!MX_IOS_APPLE_ONLY?'<button class=\"btn google\" id=\"accGoogle\""),'Google/email UI is not gated off for native iOS');
   const capCfg=JSON.parse(read('capacitor.config.json'));
-  must(JSON.stringify(capCfg.plugins.FirebaseAuthentication.providers)===JSON.stringify(['apple.com']),'Capacitor auth providers must be Apple-only');
+  must(JSON.stringify(capCfg.plugins.FirebaseAuthentication.providers)===JSON.stringify(['apple.com','google.com']),'iOS must keep Apple and restore Google provider');
   const podPatch=read('scripts/patch-podfile.py');
-  must(!podPatch.includes("pod 'CapacitorFirebaseAuthentication/Google'"),'Google auth CocoaPod must not be added in iOS Apple-only build');
+  must(podPatch.includes("pod 'CapacitorFirebaseAuthentication/Google'"),'Google iOS CocoaPod missing');
 }else{
   must(game.includes('const MX_SHOW_APPLE_BTN=false;'),'Android must not expose Apple button');
 }

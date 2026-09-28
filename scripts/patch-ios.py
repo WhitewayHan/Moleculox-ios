@@ -104,7 +104,7 @@ pbx=IOS/'App.xcodeproj'/'project.pbxproj'
 p=pbx.read_text()
 settings={
     'CODE_SIGN_ENTITLEMENTS':'App/App.entitlements',
-    'MARKETING_VERSION':'8.7.208',
+    'MARKETING_VERSION':'8.7.211',
     'CURRENT_PROJECT_VERSION':'1',
     'ASSETCATALOG_COMPILER_APPICON_NAME':'AppIcon',
     # iPhone only. Xcode writes UIDeviceFamily=[1] into the built app.
@@ -203,36 +203,24 @@ if (APP/'GoogleService-Info.plist').exists():
 
 pbx.write_text(p)
 
-# Apple is the only sign-in method exposed by the iOS app. Firebase still uses
-# GoogleService-Info.plist as its standard project-configuration filename, but
-# no Google Sign-In URL scheme is registered in this build.
+# iOS supports Apple, Google, and email/password. The native Google callback
+# must register the iOS REVERSED_CLIENT_ID from GoogleService-Info.plist.
 info=APP/'Info.plist'
 if info.exists():
     import plistlib
-    with info.open('rb') as f:
-        ip=plistlib.load(f)
+    with info.open('rb') as f: ip=plistlib.load(f)
     ip['ITSAppUsesNonExemptEncryption']=False
     ip.pop('UISupportedInterfaceOrientations~ipad', None)
-    # Remove a stale Google reversed-client URL scheme if this script is rerun
-    # on a previously generated project. Keep unrelated application schemes.
     google_plist=APP/'GoogleService-Info.plist'
-    reversed_id=None
-    if google_plist.exists():
-        with google_plist.open('rb') as f:
-            gp=plistlib.load(f)
-        reversed_id=gp.get('REVERSED_CLIENT_ID')
-    if reversed_id and isinstance(ip.get('CFBundleURLTypes'), list):
-        cleaned=[]
-        for item in ip['CFBundleURLTypes']:
-            schemes=list(item.get('CFBundleURLSchemes',[]) or [])
-            schemes=[x for x in schemes if x != reversed_id]
-            if schemes:
-                item=dict(item); item['CFBundleURLSchemes']=schemes; cleaned.append(item)
-        if cleaned: ip['CFBundleURLTypes']=cleaned
-        else: ip.pop('CFBundleURLTypes',None)
-    with info.open('wb') as f:
-        plistlib.dump(ip,f,sort_keys=False)
-else:
-    raise SystemExit(f'Info.plist missing: {info}')
+    if not google_plist.exists():raise SystemExit('GoogleService-Info.plist required for iOS Google Sign-In')
+    with google_plist.open('rb') as f: gp=plistlib.load(f)
+    reversed_id=gp.get('REVERSED_CLIENT_ID')
+    if not reversed_id:raise SystemExit('REVERSED_CLIENT_ID missing in iOS GoogleService-Info.plist')
+    types=ip.setdefault('CFBundleURLTypes',[])
+    if not any(reversed_id in (item.get('CFBundleURLSchemes') or []) for item in types):
+        types.append({'CFBundleURLSchemes':[reversed_id]})
+    if gp.get('CLIENT_ID'): ip['GIDClientID']=gp['CLIENT_ID']
+    with info.open('wb') as f: plistlib.dump(ip,f,sort_keys=False)
+else:raise SystemExit(f'Info.plist missing: {info}')
 
-print('Patched icon, Firebase initialization, Apple-only entitlement/auth metadata, iPhone-only target and iOS metadata.')
+print('Patched icon, Firebase initialization, Apple + Google entitlement/auth metadata, iPhone-only target and iOS metadata.')

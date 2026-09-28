@@ -7,10 +7,27 @@ if not PODFILE.exists():
     raise SystemExit("Podfile not found after npx cap add ios")
 
 s = PODFILE.read_text()
-# Apple is the only native sign-in provider in this iOS build. Do not add the
-# Google authentication subspec. The Firebase base plugin provides Apple auth.
-if "CapacitorFirebaseAuthentication/Google" in s:
-    raise SystemExit("Unexpected Google authentication pod in Apple-only iOS Podfile")
+# Apple and Google native providers are both required on iOS. Install the
+# Google subspec after capacitor_pods, outside def capacitor_pods (Capawesome docs).
+google_pod="pod 'CapacitorFirebaseAuthentication/Google', :path => '../../node_modules/@capacitor-firebase/authentication'"
+if google_pod not in s:
+    # Capacitor templates use varying indentation: usually two spaces, not four.
+    marker=re.search(r'(?m)^(?P<indent>[ \t]*)# Add your Pods here[ \t]*$',s)
+    if marker:
+        indent=marker.group('indent')
+        insertion=marker.group(0)+'\n'+indent+google_pod
+        s=s[:marker.start()]+insertion+s[marker.end():]
+    else:
+        # Capacitor versions without the comment still declare capacitor_pods
+        # inside target 'App' do. Insert directly after that invocation.
+        target=re.search(r"(?m)^[ \t]*target ['\"]App['\"] do[ \t]*\n",s)
+        if not target:
+            raise SystemExit('Could not locate Capacitor App target in Podfile')
+        anchor=re.search(r'(?m)^(?P<indent>[ \t]+)capacitor_pods[ \t]*$',s[target.end():])
+        if not anchor:
+            raise SystemExit('Could not locate capacitor_pods in App target')
+        pos=target.end()+anchor.end()
+        s=s[:pos]+'\n'+anchor.group('indent')+google_pod+s[pos:]
 
 if "CODE_SIGNING_ALLOWED'] = 'NO'" not in s:
     bundle_fix = """  installer.pods_project.targets.each do |target|
@@ -28,4 +45,4 @@ if "CODE_SIGNING_ALLOWED'] = 'NO'" not in s:
         s += "\npost_install do |installer|\n" + bundle_fix + "end\n"
 
 PODFILE.write_text(s)
-print("Patched Podfile for Apple-only auth build and resource-bundle signing.")
+print("Patched Podfile for Apple + Google auth build and resource-bundle signing.")

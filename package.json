@@ -1,8 +1,8 @@
 {
   "name": "moleculox-ios",
-  "version": "8.7.208",
+  "version": "8.7.211",
   "private": true,
-  "description": "Moleculox iOS R376 / v8.7.208 App Store source. Current 801-level PAR hard-reset game with Science Legends, 11 languages, Apple-only native sign-in, Firebase cloud/App Check and iPhone-only release setup.",
+  "description": "Moleculox iOS R378 / v8.7.211 App Store source. Current 801-level PAR hard-reset game with Science Legends, 11 languages, Apple + Google + email/password native sign-in, Firebase cloud/App Check and iPhone-only release setup. Collection responsive fixes preserved; cloud diagnostics, daily reward retry, and auth provider recovery.",
   "scripts": {
     "check": "node scripts/verify-r376-native.js ios",
     "ios:prepare": "bash scripts/prepare-ios.sh",
