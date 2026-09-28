@@ -3,12 +3,12 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 shopt -s nullglob
-PARTS=(payload/www-r378-ios.tar.gz.part-*)
+PARTS=(payload/www-r380-ios.tar.gz.part-*)
 if [ "${#PARTS[@]}" -eq 0 ]; then
-  echo "ERROR: R378 www payload parts missing." >&2
+  echo "ERROR: R380 www payload parts missing." >&2
   exit 11
 fi
-TMP_ARCHIVE="$(mktemp -t moleculox-www-r378.XXXXXX.tar.gz)"
+TMP_ARCHIVE="$(mktemp -t moleculox-www-r380.XXXXXX.tar.gz)"
 trap 'rm -f "$TMP_ARCHIVE"' EXIT
 cat "${PARTS[@]}" > "$TMP_ARCHIVE"
 rm -rf www
@@ -17,4 +17,4 @@ test -f www/index.html
 test -f www/js/game-r160.js
 test -f www/js/firebase.js
 test -f www/css/app-r160.css
-echo "R378 www payload restored successfully (${#PARTS[@]} parts)."
+echo "R380 www payload restored successfully (${#PARTS[@]} parts)."

@@ -12,13 +12,13 @@ const idx=read('www/index.html');
 const game=read('www/js/game-r160.js');
 const firebase=read('www/js/firebase.js');
 const css=read('www/css/app-r160.css');
-must(idx.includes("window.__MX_BUILD_ID__='8.7.211-r379-cloud-auth-"+platform+"';"),'wrong native build id');
+must(idx.includes("window.__MX_BUILD_ID__='8.7.212-r380-itch-parity-"+platform+"';"),'wrong native build id');
 must(idx.includes("window.__MX_DISTRIBUTION__='"+platform+"';"),'wrong distribution');
 must(idx.includes('window.__MX_NATIVE_SHELL__=true;'),'native shell flag not enabled');
 must(idx.includes('window.MX_QA_TEST_GAME=false;'),'QA test-game flag must be false');
 must(idx.includes('window.MX_QA_ALL_LEVELS_OPEN=false;'),'all-levels QA flag must be false');
 must(idx.includes('window.MX_QA_NO_CLOUD=false;'),'cloud must be enabled');
-must(game.includes('const APP_VERSION="v8.7.211 · R379 RELEASE SYNC";'),'R373 visible version mismatch');
+must(game.includes('const APP_VERSION="v8.7.212 · R380 ITCH PARITY";'),'R373 visible version mismatch');
 must(css.includes('R376 iOS NATIVE · TRUE PHYSICAL BOTTOM ANCHOR'),'R376 iOS physical-bottom CSS marker missing');
 must(css.includes('body.mxIOSNative #splash #einBoxS'),'native iOS Edward selector missing');
 must(css.includes('top:auto!important;'),'native iOS Edward top anchor was not cleared');
@@ -34,8 +34,10 @@ must(firebase.includes('FirebaseAppCheck'),'native/web App Check bridge missing'
 if(platform==='ios'){
   must(game.includes('async function nativeAppleSignIn(button)'),'native Apple Sign-In missing');
   must(game.includes('const MX_SHOW_APPLE_BTN=MX_IOS_NATIVE&&MX_APPLE_NATIVE_READY;'),'iOS Apple button not enabled');
-  must(game.includes('const MX_IOS_APPLE_ONLY=false;'),'iOS multiple sign-in methods not restored');
-  must(game.includes("!MX_IOS_APPLE_ONLY?'<button class=\"btn google\" id=\"accGoogle\""),'Google/email UI is not gated off for native iOS');
+  must(!game.includes('MX_IOS_APPLE_ONLY'),'iOS Google/email sign-in must not be gated by Apple-only mode');
+  must(game.includes('id="accGoogle"')&&game.includes('id="accEmailLogin"')&&game.includes('id="accEmailCreate"'),'iOS Google/email buttons missing');
+  must(game.includes('async function nativeGoogleSignIn(button)'),'iOS native Google bridge missing');
+
   const capCfg=JSON.parse(read('capacitor.config.json'));
   must(JSON.stringify(capCfg.plugins.FirebaseAuthentication.providers)===JSON.stringify(['apple.com','google.com']),'iOS must keep Apple and restore Google provider');
   const podPatch=read('scripts/patch-podfile.py');
@@ -60,10 +62,15 @@ for(const m of idx.matchAll(/(?:src|href)="([^"]+)"/g)){
   u=u.replace(/^\.\//,'');
   must(fs.existsSync(path.join(root,'www',u)),'index local reference missing: '+u);
 }
-must(game.includes('// R376 · Campaign PAR / zero-star hard reset'),'R376 PAR hard-reset section missing');
+must(game.includes('// R372 · Campaign PAR / zero-star hard reset'),'R376 PAR hard-reset section missing');
 must(game.includes('return campaignOneStarLimit()+3;'),'three-move zero-star cap missing');
 must(game.includes('gained=!zeroStarCampaignClear&&stars>prev?(stars-prev)*10:0;'),'zero-star MoleCoin guard missing');
 must(game.includes('rpGained=zeroStarCampaignClear?0:awardLevelResearch'),'zero-star RP guard missing');
 must(game.includes('if(!zeroStarCampaignClear)checkAchievements();'),'zero-star achievement guard missing');
 must(game.includes('DEVAM ET seçeneği yoktur.'),'How to Play no-Continue rule missing');
-console.log('R376 '+platform+' native source verification PASS');
+// R380 parity checks: native platform flags are intentionally different.
+must(game.includes('id="cloudLinkGoogle"') && game.includes('id="cloudLinkEmail"'),'native account-status links missing');
+must(!idx.includes('8.7.165-r335'),'stale R335 script cache version');
+must(css.includes('R377 / 8.7.209: Collection phone-width'),'itch collection CSS missing');
+
+console.log('R380 '+platform+' native source verification PASS');
