@@ -1,6 +1,6 @@
 // R347 TEST: R346 Edward voice/visual pass + clean main-menu Edward without floating prop icons.
 /* Moleculox v8.7.177 R347 · clean main-menu Edward props + R346 voice/visual consistency retained. */
-const APP_VERSION="v8.7.212 · R380 ITCH PARITY";
+const APP_VERSION="v8.7.215 · R383 iOS CLOUD REPAIR";
 const mxReducedMotionQuery=window.matchMedia?window.matchMedia('(prefers-reduced-motion: reduce)'):null;
 let mxSystemReducedMotion=!!(mxReducedMotionQuery&&mxReducedMotionQuery.matches);
 if(mxReducedMotionQuery){
@@ -14384,6 +14384,7 @@ function recordCloudDiagnostic(stage,err,extra){
     at:new Date().toISOString(),
     stage:String(stage||'unknown'),
     code:cloudErrorCode(err),
+    writeStage:String(err&&err.mxStage||err&&err.stage||'unknown'),
     profileId:String(save&&save.profileId||''),
     accountSuffix:currentCloudAuthUid().slice(-6),
   },extra||{});
@@ -14404,7 +14405,9 @@ function cloudDiagnosticText(err){
   const code=cloudErrorCode(err);
   const lower=code.toLowerCase();
   let base;
-  if(lower==='permission-denied'||lower==='firestore/permission-denied'){
+  if(lower==='cloud/app-check-failed'){
+    base=ml('iOS uygulama doğrulaması başarısız oldu. Hesap girişi tamam, bulut kaydı henüz doğrulanmadı.','iOS app verification failed. Your account is signed in, but cloud saving is not confirmed.','iOS-App-Prüfung fehlgeschlagen. Das Konto ist angemeldet, der Cloud-Speicher nicht bestätigt.','Falló la verificación de la app iOS. La cuenta está conectada, pero el guardado no está confirmado.','A verificação do app iOS falhou. A conta está conectada, mas o salvamento não foi confirmado.','iOSアプリの検証に失敗しました。ログイン済みですが、クラウド保存は未確認です。');
+  }else if(lower==='permission-denied'||lower==='firestore/permission-denied'){
     base=ml('Bulut kaydına Firebase/Firestore tarafından izin verilmedi.','Firebase/Firestore denied the cloud save.','Firebase/Firestore hat die Cloud-Speicherung abgelehnt.','Firebase/Firestore rechazó el guardado en la nube.','Firebase/Firestore negou o salvamento na nuvem.','Firebase/Firestore がクラウド保存を拒否しました。');
   }else if(lower==='unauthenticated'||lower==='firestore/unauthenticated'){
     base=ml('Bulut oturumu doğrulanamadı. Hesap bağlı olsa da Firebase yazma oturumu yenilenmelidir.','The cloud session could not be authenticated even though the account is connected.','Die Cloud-Sitzung konnte trotz verbundenem Konto nicht authentifiziert werden.','La sesión en la nube no pudo autenticarse aunque la cuenta está conectada.','A sessão na nuvem não pôde ser autenticada apesar da conta conectada.','アカウントは接続されていますがクラウドセッションを認証できませんでした。');
@@ -14413,7 +14416,8 @@ function cloudDiagnosticText(err){
   }else{
     base=ml('Bulut senkronizasyonu tamamlanamadı.','Cloud synchronization could not be completed.','Die Cloud-Synchronisierung konnte nicht abgeschlossen werden.','No se pudo completar la sincronización en la nube.','Não foi possível concluir a sincronização na nuvem.','クラウド同期を完了できませんでした。');
   }
-  return base+' ['+code+']';
+  const phase=String(err&&err.mxStage||err&&err.stage||'');
+  return base+' ['+code+(phase?' / '+phase:'')+']';
 }
 async function runManualCloudSync(btn){
   const c=accountCopy();
