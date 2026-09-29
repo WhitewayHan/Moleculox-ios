@@ -89,6 +89,33 @@ if 'ApplicationDelegateProxy.shared.application(app, open: url' not in s:
         raise SystemExit('Could not patch AppDelegate URL callback')
     s=s[:last_brace]+open_url_fn+'\n'+s[last_brace:]
 
+# R383: App Check must be configured before FirebaseApp.configure(), not when
+# the WebView later calls the Capacitor plugin. Keep the class in AppDelegate
+# so Xcode needs no additional source-file registration.
+if 'import FirebaseAppCheck' not in s:
+    s=s.replace('import FirebaseCore', 'import FirebaseCore\nimport FirebaseAppCheck')
+factory = """
+// R383: same production provider as @capacitor-firebase/app-check 7.3.1.
+final class MXAppCheckProviderFactory: NSObject, AppCheckProviderFactory {
+    func createProvider(with app: FirebaseApp) -> AppCheckProvider? {
+        if #available(iOS 14.0, *) {
+            return AppAttestProvider(app: app)
+        }
+        return DeviceCheckProvider(app: app)
+    }
+}
+"""
+if 'final class MXAppCheckProviderFactory:' not in s:
+    s += '\n' + factory
+install='AppCheck.setAppCheckProviderFactory(MXAppCheckProviderFactory())'
+if install not in s:
+    needle='if FirebaseApp.app() == nil {'
+    if needle not in s:
+        raise SystemExit('Cannot install App Check before Firebase configuration')
+    s=s.replace(needle, install+'\n        '+needle, 1)
+if s.index(install) > s.index('FirebaseApp.configure('):
+    raise SystemExit('App Check provider was installed too late')
+
 appdelegate.write_text(s)
 
 
@@ -104,7 +131,7 @@ pbx=IOS/'App.xcodeproj'/'project.pbxproj'
 p=pbx.read_text()
 settings={
     'CODE_SIGN_ENTITLEMENTS':'App/App.entitlements',
-    'MARKETING_VERSION':'8.7.212',
+    'MARKETING_VERSION':'8.7.215',
     'CURRENT_PROJECT_VERSION':'1',
     'ASSETCATALOG_COMPILER_APPICON_NAME':'AppIcon',
     # iPhone only. Xcode writes UIDeviceFamily=[1] into the built app.

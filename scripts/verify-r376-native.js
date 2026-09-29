@@ -12,13 +12,13 @@ const idx=read('www/index.html');
 const game=read('www/js/game-r160.js');
 const firebase=read('www/js/firebase.js');
 const css=read('www/css/app-r160.css');
-must(idx.includes("window.__MX_BUILD_ID__='8.7.212-r380-itch-parity-"+platform+"';"),'wrong native build id');
+must(idx.includes("window.__MX_BUILD_ID__='8.7.215-r383-ios-app-attest-sync';"),'wrong native build id');
 must(idx.includes("window.__MX_DISTRIBUTION__='"+platform+"';"),'wrong distribution');
 must(idx.includes('window.__MX_NATIVE_SHELL__=true;'),'native shell flag not enabled');
 must(idx.includes('window.MX_QA_TEST_GAME=false;'),'QA test-game flag must be false');
 must(idx.includes('window.MX_QA_ALL_LEVELS_OPEN=false;'),'all-levels QA flag must be false');
 must(idx.includes('window.MX_QA_NO_CLOUD=false;'),'cloud must be enabled');
-must(game.includes('const APP_VERSION="v8.7.212 · R380 ITCH PARITY";'),'R373 visible version mismatch');
+must(game.includes('const APP_VERSION="v8.7.215 · R383 iOS CLOUD REPAIR";'),'R373 visible version mismatch');
 must(css.includes('R376 iOS NATIVE · TRUE PHYSICAL BOTTOM ANCHOR'),'R376 iOS physical-bottom CSS marker missing');
 must(css.includes('body.mxIOSNative #splash #einBoxS'),'native iOS Edward selector missing');
 must(css.includes('top:auto!important;'),'native iOS Edward top anchor was not cleared');
@@ -31,6 +31,8 @@ must(JSON.stringify(unique)===JSON.stringify(expected),'Science Legends 24-level
 must(fs.existsSync(path.join(root,'www/js/story-502-801-r282.js')),'502-801 story file missing');
 must(read('www/js/story-502-801-r282.js').includes('lastLevel:801'),'801 story endpoint missing');
 must(firebase.includes('FirebaseAppCheck'),'native/web App Check bridge missing');
+must(firebase.includes('normalizeProfileForRules'),'rules-compatible profile projection missing');
+must(fs.existsSync(path.join(root,'www/js/profile-rules-compat.js')),'R383 profile validation module missing');
 if(platform==='ios'){
   must(game.includes('async function nativeAppleSignIn(button)'),'native Apple Sign-In missing');
   must(game.includes('const MX_SHOW_APPLE_BTN=MX_IOS_NATIVE&&MX_APPLE_NATIVE_READY;'),'iOS Apple button not enabled');
@@ -68,9 +70,21 @@ must(game.includes('gained=!zeroStarCampaignClear&&stars>prev?(stars-prev)*10:0;
 must(game.includes('rpGained=zeroStarCampaignClear?0:awardLevelResearch'),'zero-star RP guard missing');
 must(game.includes('if(!zeroStarCampaignClear)checkAchievements();'),'zero-star achievement guard missing');
 must(game.includes('DEVAM ET seçeneği yoktur.'),'How to Play no-Continue rule missing');
-// R380 parity checks: native platform flags are intentionally different.
+// R383 parity checks: native platform flags are intentionally different.
 must(game.includes('id="cloudLinkGoogle"') && game.includes('id="cloudLinkEmail"'),'native account-status links missing');
 must(!idx.includes('8.7.165-r335'),'stale R335 script cache version');
 must(css.includes('R377 / 8.7.209: Collection phone-width'),'itch collection CSS missing');
 
-console.log('R380 '+platform+' native source verification PASS');
+console.log('R383 '+platform+' native source verification PASS');
+
+for(const rel of ['index.html','js/firebase.js','js/game-r160.js','js/profile-rules-compat.js']) {
+  must(read('www/'+rel)===read('r383-overrides/'+rel),'restored overlay mismatch: '+rel);
+}
+const nativePatch=read('scripts/patch-ios.py');
+must(nativePatch.includes('AppCheck.setAppCheckProviderFactory(MXAppCheckProviderFactory())'),'early native App Check installation missing');
+must(read('ios-config/App.entitlements').includes('com.apple.developer.devicecheck.appattest-environment'),'App Attest entitlement missing');
+must(firebase.includes('experimentalForceLongPolling: true'),'iOS cloud transport configuration missing');
+
+for(const [alias,canonical] of [['js/game.js','js/game-r160.js'],['css/app.css','css/app-r160.css'],['sw.js','sw-r160.js']]) {
+  must(read('www/'+alias)===read('www/'+canonical),'Game Hub alias missing or stale: '+alias);
+}

@@ -1,0 +1,30 @@
+{
+  "release": "R383",
+  "version": "8.7.215",
+  "javascript_tests": {
+    "passed": 11,
+    "failed": 0,
+    "firebase": "mocked, not live"
+  },
+  "native_patcher_fixture_tests": {
+    "passed": 1,
+    "failed": 0,
+    "xcode_compile": false
+  },
+  "source_syntax_and_references": "passed",
+  "restored_payload_files_checked": 346,
+  "changed_from_payload": [
+    "www/index.html",
+    "www/js/firebase.js",
+    "www/js/game-r160.js"
+  ],
+  "native_device_test": "not performed",
+  "live_firebase_test": "not performed",
+  "signed_ipa_build": "not performed",
+  "game_hub_compatibility": {
+    "game.js": "byte-identical to game-r160.js",
+    "app.css": "byte-identical to app-r160.css",
+    "sw.js": "byte-identical to sw-r160.js",
+    "checked_before_and_after_restore": true
+  }
+}

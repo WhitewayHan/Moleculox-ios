@@ -1,8 +1,5 @@
-Moleculox R380/v8.7.212 IOS - WWW preview compatibility.
-This archive adds the R376-style directly visible www entry files.
-The unmodified complete 343-file game asset bundle is in payload/ and is restored by
-Codemagic script scripts/restore-www.sh before native build.
-The www preview files are copies of that payload (plus harmless app.css/game.js/sw.js aliases).
-Neither the game logic nor authentication behavior changes in this repack.
-No independently named WhitewayHub component was found in the R376 input archives.
-Cloud sync still needs correct server-side Firestore permissions.
+Moleculox iOS R383 / v8.7.215
+Run bash scripts/restore-www.sh before inspecting/building the complete web app.
+The payload is the original R380 asset archive. r383-overrides is authoritative
+for the four patched web entry files. Codemagic runs restore before npm check.
+Read R383-READ-ME-FIRST-TR.md for changes and verification limits.

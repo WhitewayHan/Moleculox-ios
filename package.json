@@ -1,10 +1,10 @@
 {
   "name": "moleculox-ios",
-  "version": "8.7.212",
+  "version": "8.7.215",
   "private": true,
-  "description": "Moleculox IOS R380/8.7.212; itch.io R379 game feature parity with native provider bridge, responsive Legends/Molecules, daily rewards, Firebase cloud retry (server Firestore rules not changed).",
+  "description": "Moleculox iOS R383 / 8.7.215 - early native App Attest initialization, production entitlement and cloud sync diagnostics",
   "scripts": {
-    "check": "node scripts/verify-r376-native.js ios",
+    "check": "node scripts/verify-r376-native.js ios && node --test tests/*.test.mjs && python3 tests/test_ios_native.py",
     "ios:prepare": "bash scripts/prepare-ios.sh",
     "ios:sync": "npx cap sync ios",
     "ios:open": "npx cap open ios"
