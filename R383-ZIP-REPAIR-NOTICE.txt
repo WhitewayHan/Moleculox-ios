@@ -1,0 +1,6 @@
+Moleculox R383 / 8.7.215 iOS source ZIP repair.
+The original upload was truncated while writing www/js/game-r160.js, and lacked the ZIP directory.
+The corrupt final copy was recovered from the fully CRC-checked r383-overrides/js/game-r160.js.
+Game Hub expected aliases (www/js/game.js, www/css/app.css and www/sw.js) are directly visible.
+Remaining www content is restored by scripts/restore-www.sh during Codemagic build.
+This repairs ZIP structure only; a signed IPA and live Firebase sync are not tested here.
