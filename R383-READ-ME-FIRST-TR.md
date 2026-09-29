@@ -9,20 +9,19 @@ kaynak ZIP'e eklendi. Restore işlemi bunları güncel dosyalardan tekrar üreti
 böylece R380 payload eski kodu geri getiremez. index.html oyunu yalnız bir kez
 (game-r160.js üzerinden) yükler. R382 senkronizasyon değişiklikleri korunur.
 
-## Korunan senkronizasyon düzeltmesi
-R381, App Attest kullanan @capacitor-firebase/app-check 7.3.1 eklentisini
-çalıştırıyor, ancak App.entitlements içinde App Attest üretim yetkisi yoktu.
-App Check sağlayıcısı da FirebaseApp.configure çağrısından sonra, WebView'den
-kuruluyordu. R383 üretim yetkisini ekler ve sağlayıcıyı Firebase başlamadan kurar.
-Bu eksiklikler giriş başarılıyken bulutun reddedilmesini açıklayabilir; mevcut
-canlı hatanın tek nedeni oldukları cihaz/log olmadan kesinleştirilmemiştir.
+## iOS imzalama düzeltmesi (29 Eylül)
+Xcode 65 logu: Mevcut Apple "Moleculox App Store Profile" profilinde
+App Attest yetkisi olmadığı için Archive duruyordu. Profil değiştirilmeden
+App Attest entitlement ve erken native factory kurulumu kaldırıldı.
+Sign in with Apple / Google / email kodları ve Firebase Authentication saklandı.
 
-- Google, Apple ve mail aynı mevcut Firebase JS oturumunu kullanmaya devam eder.
-- iOS Firestore bağlantısı long polling kullanır; akış bağlantısına bağımlılık azalır.
-- App Attest token alma hatası artık ayrı app-check/token aşamasıyla gösterilir.
-- Mevcut oyun, bölümler, yerel kayıt anahtarları ve hesap UID'leri korunur.
-- Firebase rules değiştirilmedi; bulut belgeleri silinmedi.
-- Codemagic restore-www ve IPA kontrolü R383 dosyalarını doğrular.
+Cloud Firestore App Check konsolda UNENFORCED olduğundan, iOS'ta henüz kayıtlı
+olmayan native App Check token isteme yolu beklemeye alındı; Firestore Security
+Rules olduğu gibi çalışır. Gelecekte App Check zorunlu yapılmadan önce hem
+Firebase iOS kaydı hem de imza yetkisi açılmalı ve bu davranış güncellenmelidir.
+
+Bu değişiklik kesin olarak Xcode logundaki App Attest imzalama engelini hedefler;
+canlı iOS bulut senkronizasyonu bu ortamda doğrulanmadı.
 
 ## Kullanım
 ZIP'i kaynak deponun köküne aç; mevcut codemagic.yaml akışını çalıştır.
@@ -36,9 +35,9 @@ birleştirme -> aynı UID'ye yazma akışı sahte Firebase servisleriyle test ed
 Gerçek Apple/Google giriş pencereleri, imzalı iOS derlemesi, gerçek cihaz ve
 canlı Firebase senkronizasyonu bu ortamda test edilmedi.
 
-App Attest'in Firebase'de iOS uygulaması için kayıtlı olması ve imza profilinin
-App Attest yetkisini desteklemesi gerekir. ZIP sunucu kaydını veya Apple hesabını
-değiştirmez. Bu nedenle canlı cihaz doğrulaması olmadan “kesin çalışıyor” denmez.
+Bu sürüm App Attest entitlement gerektirmez; Firebase'de App Check zorunlu
+olursa tekrar yapılandırılması gerekir. ZIP sunucu kaydını veya Apple hesabını
+değiştirmez. Canlı cihaz doğrulaması olmadan "senkronizasyon kesin çalışıyor" denmez.
 
 TestFlight: mevcut Google hesabıyla giriş yapıp webdeki profili yükle, bir bölüm
 ilerle, Senkronize Et'e bas ve webde güncellendiğini kontrol et. Aynı kontrolü

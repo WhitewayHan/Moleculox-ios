@@ -30,7 +30,7 @@ async function boot({badAttestation=false}={}) {
     getDocs:async path=>({forEach:cb=>{for(const [key,value] of records)if(key.startsWith(path+'/'))cb({id:key.split('/').at(-1),data:()=>value});}}),
     getDoc:async path=>({exists:()=>records.has(path),data:()=>records.get(path)}),
     runTransaction:async(_,callback)=>{
-      try{await provider.getToken();}catch{throw Object.assign(new Error('Rejected attestation'),{code:'permission-denied'});}
+      if(provider){try{await provider.getToken();}catch{throw Object.assign(new Error('Rejected attestation'),{code:'permission-denied'});}}
       const staged=[];
       await callback({get:async path=>{calls.push(['read',path]);return {exists:()=>records.has(path),data:()=>records.get(path)};},set:(path,data,options)=>staged.push([path,data,options])});
       for(const [path,data,options] of staged){calls.push(['write',path]);records.set(path,options.merge?{...records.get(path),...data}:data);}
@@ -66,13 +66,16 @@ for(const method of ['password','google.com','apple.com'])test(`${method}: login
     assert.equal(saved.cur,42);assert.equal(saved.stars[1],3);assert.equal(saved.stars[2],3);assert.equal(saved.stars[3],3);
     assert.equal(saved.uid,'account-A');assert.equal(h.records.size,1);
     assert.equal(h.settings.experimentalForceLongPolling,true);
-    assert(h.calls.some(x=>x[0]==='attest'&&x[1]===true));
+    assert(!h.calls.some(x=>x[0]==='attest'), 'Native unregistered App Check must not be called');
     assert.deepEqual(h.calls.filter(x=>x[0]==='write'),[['write','players/account-A/profiles/profile_1']]);
   }finally{h.close();}
 });
-test('failed native attestation reports its own stage and never confirms/writes a save',async()=>{
+test('unregistered unenforced native App Check does not block Firebase Authentication and profile write',async()=>{
  const h=await boot({badAttestation:true});try{
-   await assert.rejects(h.cloud.saveProgressNow({playerName:'Orhan'},'profile_1'),e=>e.code==='cloud/app-check-failed'&&e.mxStage==='app-check/token');
-   assert.equal(h.records.size,0);assert(!h.calls.some(x=>x[0]==='write'));
+   const saved = await h.cloud.saveProgressNow({playerName:'Orhan',coins:10,maxCoins:10},'profile_1');
+   assert.equal(saved.uid,'account-A');
+   assert.equal(h.records.size,1);
+   assert(!h.calls.some(x=>x[0]==='attest'));
+   assert.deepEqual(h.calls.filter(x=>x[0]==='write'),[['write','players/account-A/profiles/profile_1']]);
  }finally{h.close();}
 });

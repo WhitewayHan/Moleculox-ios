@@ -64,6 +64,12 @@ const authListeners = new Set();
 const CLOUD_OPERATION_TIMEOUT_MS = 15000;
 const MX_NATIVE_PLATFORM = !!(window.Capacitor && typeof window.Capacitor.isNativePlatform === "function" && window.Capacitor.isNativePlatform()) || /^(capacitor|ionic):$/i.test(location.protocol);
 const MX_NATIVE_AUTH_HOST = MX_NATIVE_PLATFORM || (location.hostname === "localhost" && /iPhone|iPad|iPod/i.test(navigator.userAgent || ""));
+// Native App Check is currently UNENFORCED in the project's Cloud Firestore
+// console. Do not request App Attest until the iOS app is registered and its
+// provisioning profile includes the capability. Firestore Security Rules are
+// unchanged and still authorize every profile read/write independently.
+const MX_NATIVE_APP_CHECK_ENABLED = false;
+
 function withBootstrapTimeout(promise, timeoutMs = 6500) {
   let timer = null;
   const timeout = new Promise((resolve) => { timer = setTimeout(resolve, Math.max(1000, Number(timeoutMs) || 6500)); });
@@ -94,6 +100,7 @@ function nativeFirebaseAppCheckPlugin() {
   return null;
 }
 async function configureAppCheck(app) {
+  if (MX_NATIVE_PLATFORM && !MX_NATIVE_APP_CHECK_ENABLED) return false;
   try {
     const nativePlugin = nativeFirebaseAppCheckPlugin();
     if (nativePlugin && typeof nativePlugin.initialize === "function" && typeof nativePlugin.getToken === "function") {
@@ -314,8 +321,8 @@ try {
     auth = getAuth(app);
   }
   fx = getFunctions(app, FUNCTIONS_REGION);
-  // Native attestation is initialized through the Capacitor plugin and bridged
-  // into the Firebase JS SDK. Failure is non-fatal until console enforcement is enabled.
+  // App Check only initializes on web for now; iOS App Check enforcement is OFF
+  // and the current App Store profile lacks the App Attest entitlement.
   await configureAppCheck(app);
   // R36 native reliability: iOS already has a synchronous UID-scoped local
   // progress vault and a persistent retry checkpoint. Do not layer Firestore's

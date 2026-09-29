@@ -81,8 +81,10 @@ for(const rel of ['index.html','js/firebase.js','js/game-r160.js','js/profile-ru
   must(read('www/'+rel)===read('r383-overrides/'+rel),'restored overlay mismatch: '+rel);
 }
 const nativePatch=read('scripts/patch-ios.py');
-must(nativePatch.includes('AppCheck.setAppCheckProviderFactory(MXAppCheckProviderFactory())'),'early native App Check installation missing');
-must(read('ios-config/App.entitlements').includes('com.apple.developer.devicecheck.appattest-environment'),'App Attest entitlement missing');
+must(!nativePatch.includes('AppCheck.setAppCheckProviderFactory(MXAppCheckProviderFactory())'),'unprovisioned App Attest factory must not be installed');
+must(!read('ios-config/App.entitlements').includes('com.apple.developer.devicecheck.appattest-environment'),'App Attest entitlement cannot be signed by current provisioning profile');
+must(read('ios-config/App.entitlements').includes('com.apple.developer.applesignin'),'native Apple sign-in entitlement missing');
+must(firebase.includes('const MX_NATIVE_APP_CHECK_ENABLED = false;'),'unenforced iOS App Check gate must be disabled');
 must(firebase.includes('experimentalForceLongPolling: true'),'iOS cloud transport configuration missing');
 
 for(const [alias,canonical] of [['js/game.js','js/game-r160.js'],['css/app.css','css/app-r160.css'],['sw.js','sw-r160.js']]) {
