@@ -1,6 +1,6 @@
-// R347 TEST: R346 Edward voice/visual pass + clean main-menu Edward without floating prop icons.
-/* Moleculox v8.7.177 R347 · clean main-menu Edward props + R346 voice/visual consistency retained. */
-const APP_VERSION="v8.7.215 · R383 iOS CLOUD REPAIR";
+// R384: Dr. Edward voice and main-menu art retained.
+/* Moleculox R391 · production web distribution. */
+const APP_VERSION="v8.7.237 · R391 · IOS";
 const mxReducedMotionQuery=window.matchMedia?window.matchMedia('(prefers-reduced-motion: reduce)'):null;
 let mxSystemReducedMotion=!!(mxReducedMotionQuery&&mxReducedMotionQuery.matches);
 if(mxReducedMotionQuery){
@@ -136,7 +136,10 @@ const EL={
   As:{c:'#c07ec9',hi:'#f0c8f5',t:'#2a132c'},
   Se:{c:'#e67e22',hi:'#ffd4a8',t:'#3d1c00'},
   Te:{c:'#c8a46b',hi:'#f3dfae',t:'#2d2108'},
-  Pb:{c:'#7d8597',hi:'#d8dde7',t:'#10151c'}
+  Pb:{c:'#7d8597',hi:'#d8dde7',t:'#10151c'},
+  Ti:{c:'#819fb5',hi:'#dbeaf5',t:'#102333'},
+  Bi:{c:'#be8fa9',hi:'#f5ddeb',t:'#351a2c'},
+  Sb:{c:'#91afa8',hi:'#dcefe9',t:'#17352d'}
 };
 const ELINFO_EN={
   H :{n:'Hydrogen',z:1, fa:'Hydrogen is the lightest element and the most abundant element in the universe.'},
@@ -164,9 +167,15 @@ const ELINFO_EN={
   As:{n:'Arsenic',z:33,fa:'Arsenic is toxic in many forms, while some arsenic compounds are useful in semiconductor materials.'},
   Se:{n:'Selenium',z:34,fa:'Selenium is an essential trace nutrient in small amounts and is also used in electronic and optical materials.'},
   Te:{n:'Tellurium',z:52,fa:'Tellurium is a rare metalloid used in alloys, thermoelectric materials and some semiconductor technologies.'},
-  Pb:{n:'Lead',z:82,fa:'Lead is a dense metal with important industrial history; exposure to lead is toxic and must be carefully controlled.'}
+  Pb:{n:'Lead',z:82,fa:'Lead is a dense metal with important industrial history; exposure to lead is toxic and must be carefully controlled.'},
+  Ti:{n:'Titanium',z:22,fa:'Titanium is a lightweight, corrosion-resistant metal used in aircraft and medical implants.'},
+  Bi:{n:'Bismuth',z:83,fa:'Bismuth is a brittle metal that can form colorful stepped crystals.'},
+  Sb:{n:'Antimony',z:51,fa:'Antimony is a metalloid used in alloys and semiconductor materials.'}
 };
 const ELINFO_TR_TXT={
+  Ti:{n:'Titanyum',fa:'Titanyum hafif ve korozyona dayanıklı bir metaldir; uçaklarda ve tıbbi implantlarda kullanılır.'},
+  Bi:{n:'Bizmut',fa:'Bizmut, renkli basamaklı kristaller oluşturabilen kırılgan bir metaldir.'},
+  Sb:{n:'Antimon',fa:'Antimon alaşımlarda ve yarı iletken malzemelerde kullanılan bir yarı metaldir.'},
   H :{n:'Hidrojen', fa:'Hidrojen en hafif elementtir ve evrendeki en bol elementtir.'},
   O :{n:'Oksijen', fa:'Oksijen insan solunumu için gereklidir ve yanmayı destekler.'},
   C :{n:'Karbon', fa:'Karbon organik kimyanın temelini oluşturur ve bildiğimiz yaşamın merkezindedir.'},
@@ -1098,7 +1107,7 @@ const EXPANSION_STORY_ART={
   480:'assets/images/story-expansion/story-480-r122.webp',
   501:'assets/images/story-expansion/story-501-r123.webp'
 };
-const EXPANSION_FINAL_EPILOGUE_ART='assets/images/story-expansion/story-501-epilogue-r123.webp';
+const EXPANSION_FINAL_EPILOGUE_ART='assets/images/story-canon-r386/801-epilogue-p1.webp';
 const EXPANSION_STORY_PANEL_ART={
   302:['assets/images/story-expansion-panels/302-p1.webp','assets/images/story-expansion-panels/302-p2.webp','assets/images/story-expansion-panels/302-p3.webp'],
   306:['assets/images/story-expansion-panels/306-p1.webp','assets/images/story-expansion-panels/306-p2.webp','assets/images/story-expansion-panels/306-p3.webp'],
@@ -1118,6 +1127,7 @@ const EXPANSION_STORY_PANEL_ART={
   480:['assets/images/story-expansion-panels/480-p1.webp','assets/images/story-expansion-panels/480-p2.webp','assets/images/story-expansion-panels/480-p3.webp'],
   501:['assets/images/story-expansion-panels/501-p1.webp','assets/images/story-expansion-panels/501-p2.webp','assets/images/story-expansion-panels/501-p3.webp'],
   '501-epilogue':['assets/images/story-expansion-panels/501-epilogue-p1.webp','assets/images/story-expansion-panels/501-epilogue-p2.webp','assets/images/story-expansion-panels/501-epilogue-p3.webp'],
+  '801-epilogue':['assets/images/story-canon-r386/801-epilogue-p1.webp','assets/images/story-canon-r386/801-epilogue-p2.webp','assets/images/story-canon-r386/801-epilogue-p3.webp'],
 };
 function expansionStoryPanelArt(levelNumber,epilogue=false){const key=epilogue?(''+Math.max(1,Math.floor(Number(levelNumber)||0))+'-epilogue'):String(Math.max(1,Math.floor(Number(levelNumber)||0)));return EXPANSION_STORY_PANEL_ART[key]||EXPANSION_STORY_PANEL_ART[Number(key)]||null;}
 function expansionStoryArt(index){return EXPANSION_STORY_ART[Math.max(1,Math.floor(Number(index)||0)+1)]||'';}
@@ -2866,13 +2876,13 @@ function postNobelCareerCelebration(award){
 
 /* ================= SAVE / PROFILES ================= */
 // R180 stable local keys with migration from the known R179 QA namespace.
-const SKEY=window.MX_QA_TEST_GAME?'moleculox_test_save_r220':'moleculox_save_v1';
+const SKEY=window.MX_QA_TEST_GAME?'moleculox_test_save_r385':'moleculox_save_v1';
 const LEGACY_SKEY='moleculox_qa_save_r131';
-const PKEY=window.MX_QA_TEST_GAME?'moleculox_test_profiles_r220':'moleculox_profiles_v1';
+const PKEY=window.MX_QA_TEST_GAME?'moleculox_test_profiles_r385':'moleculox_profiles_v1';
 const LEGACY_PKEY='moleculox_qa_profiles_r131';
 const PROFILE_BACKUP_KEY=PKEY+'_backup';
 function readProfileStore(){
-  for(const key of [PKEY,PROFILE_BACKUP_KEY,LEGACY_PKEY]){
+  for(const key of (window.MX_QA_TEST_GAME?[PKEY,PROFILE_BACKUP_KEY]:[PKEY,PROFILE_BACKUP_KEY,LEGACY_PKEY])){
     try{const v=JSON.parse(localStorage.getItem(key)||'null');if(v&&typeof v==='object'&&!Array.isArray(v))return v;}catch(e){}
   }return null;
 }
@@ -2888,7 +2898,7 @@ const COIN_EARN_KEY='__coinEarned',COIN_SPEND_KEY='__coinSpent';
 const HINT_ESCROW_STORAGE_VERSION=1;
 function hintEscrowStorageKeyForSave(s){
   const raw=String((s&&s.profileId)||curProfile||(s&&s.playerName)||'guest').trim()||'guest';
-  const ns=window.MX_QA_TEST_GAME?'moleculox_test_hint_escrow_v':'moleculox_hint_escrow_v';
+  const ns=window.MX_QA_TEST_GAME?'moleculox_test_r385_hint_escrow_v':'moleculox_hint_escrow_v';
   return ns+HINT_ESCROW_STORAGE_VERSION+'_'+raw.replace(/[^A-Za-z0-9_.-]/g,'_').slice(0,72);
 }
 function beginHintEscrow(amount){
@@ -3499,8 +3509,9 @@ function stopAllGameAudio(){
   MP.started=false;MP.src=null;
 }
 function syncExternalMusicMode(){
-  externalMusicMode=!!save.externalMusic;
-  if(externalMusicMode)stopAllGameAudio();
+  // Retired setting: old local/cloud profiles must not silently mute game audio.
+  save.externalMusic=false;
+  externalMusicMode=false;
 }
 
 let audioGestureSeen=false,audioPrimed=false,bootIntroStartedAt=0,bootPlayBusy=false;
@@ -4195,11 +4206,38 @@ function setIntensity(n){
   if(n===2)startNearWinLayer();else stopNearWinLayer();
 }
 const MP={mode:'menu',idx:0,started:false,src:null,err:0,blocked:false};
+const MUSIC_SHUFFLE_KEY='moleculox_music_shuffle_v1';
+let musicBag=[],musicLast=-1;
+try{
+  const state=JSON.parse(localStorage.getItem(MUSIC_SHUFFLE_KEY)||'null');
+  if(state&&state.signature===TRACKS.join('|')&&Array.isArray(state.remaining)&&
+    state.remaining.every(i=>Number.isInteger(i)&&i>=0&&i<TRACKS.length)&&
+    new Set(state.remaining).size===state.remaining.length){
+    musicBag=state.remaining.slice();
+    musicLast=Number.isInteger(state.last)&&state.last>=0&&state.last<TRACKS.length?state.last:-1;
+  }
+}catch(e){}
+function saveMusicShuffle(){
+  try{localStorage.setItem(MUSIC_SHUFFLE_KEY,JSON.stringify({signature:TRACKS.join('|'),remaining:musicBag,last:musicLast}));}catch(e){}
+}
 function randomTrackIdx(avoid){
-  if(TRACKS.length<=1)return 0;
-  let ni=Math.floor(Math.random()*TRACKS.length);
-  if(ni===avoid)ni=(ni+1)%TRACKS.length;
-  return ni;
+  if(!TRACKS.length)return 0;
+  if(!musicBag.length){
+    musicBag=TRACKS.map((_,i)=>i);
+    for(let i=musicBag.length-1;i>0;i--){
+      const j=Math.floor(Math.random()*(i+1));
+      [musicBag[i],musicBag[j]]=[musicBag[j],musicBag[i]];
+    }
+    const previous=Number.isInteger(avoid)&&avoid>=0?avoid:musicLast;
+    if(musicBag.length>1&&musicBag[0]===previous){
+      const j=1+Math.floor(Math.random()*(musicBag.length-1));
+      [musicBag[0],musicBag[j]]=[musicBag[j],musicBag[0]];
+    }
+  }
+  const next=musicBag.shift();musicLast=next;saveMusicShuffle();return next;
+}
+function rememberMusicTrack(i){
+  musicBag=musicBag.filter(n=>n!==i);musicLast=i;saveMusicShuffle();
 }
 function trackUrl(i){return TRACKS[Math.max(0,Math.min(TRACKS.length-1,Number(i)||0))];}
 function isCurrentTrack(i){
@@ -4209,11 +4247,12 @@ function isCurrentTrack(i){
 function setMusicTrack(i){
   i=Math.max(0,Math.min(TRACKS.length-1,Number(i)||0));
   MP.idx=i;musicTrimIndex=i;
+  rememberMusicTrack(i);
   if(!isCurrentTrack(i)){
     musicAudio.src=trackUrl(i);
     musicAudio.load();
   }
-  musicAudio.loop=MP.mode==='menu';
+  musicAudio.loop=false;
 }
 function playTrack(i,restart,attempt){
   if(externalMusicMode){try{musicAudio.pause();}catch(e){} return Promise.resolve(false);}
@@ -4230,7 +4269,7 @@ function playTrack(i,restart,attempt){
     if(p&&p.then)return p.then(()=>{MP.src=musicAudio;MP.blocked=false;MP.err=0;return true;}).catch((err)=>{
       MP.src=null;MP.blocked=true;
       console.warn('[audio] music play blocked/failed',trackUrl(i),err&&err.name||err);
-      if(attempt<1&&err&&err.name==='NotSupportedError')return playTrack((i+1)%TRACKS.length,true,attempt+1);
+      if(attempt<1&&err&&err.name==='NotSupportedError')return playTrack(randomTrackIdx(i),true,attempt+1);
       return false;
     });
     MP.src=musicAudio;MP.blocked=false;MP.err=0;return Promise.resolve(true);
@@ -4246,18 +4285,15 @@ musicAudio.addEventListener('error',()=>{
 });
 musicAudio.addEventListener('ended',()=>{
   MP.src=null;
-  if(MP.mode==='game'&&bootDone){
-    let ni=Math.floor(Math.random()*TRACKS.length);
-    if(TRACKS.length>1&&ni===MP.idx)ni=(ni+1)%TRACKS.length;
-    playTrack(ni,true);
+  if(MP.started&&bootDone&&!externalMusicMode){
+    playTrack(randomTrackIdx(MP.idx),true);
   }
 });
 function setTheme(){
   const changed=MP.mode!=='game';
   MP.mode='game';musicAudio.loop=false;
   if(MP.started&&bootDone){
-    let ni=changed?(TRACKS.length>1?randomTrackIdx(MENU_TRACK_INDEX):0):MP.idx;
-    playTrack(ni,changed);
+    playTrack(MP.idx,false);
   }
 }
 let bootDone=false;
@@ -4265,8 +4301,8 @@ function musicStart(){
   if(MP.started)return;
   MP.started=true;
   if(!MP.mode)MP.mode='menu';
-  if(MP.mode==='menu')MP.idx=MENU_TRACK_INDEX;
-  if(bootDone)playTrack(MP.mode==='menu'?MENU_TRACK_INDEX:MP.idx,false);
+  MP.idx=randomTrackIdx(musicLast);
+  if(bootDone)playTrack(MP.idx,false);
 }
 function musKick(){
   if(!MP.started||!bootDone)return;
@@ -4827,7 +4863,7 @@ function consumeQuantumHint(){
 const FREE_STRATEGIC_STORAGE_VERSION=1;
 function freeStrategicStorageKey(){
   const raw=String((save&&save.profileId)||curProfile||(save&&save.playerName)||'guest').trim()||'guest';
-  const ns=window.MX_QA_TEST_GAME?'moleculox_test_free_strategic_v':'moleculox_free_strategic_v';
+  const ns=window.MX_QA_TEST_GAME?'moleculox_test_r385_free_strategic_v':'moleculox_free_strategic_v';
   return ns+FREE_STRATEGIC_STORAGE_VERSION+'_'+raw.replace(/[^A-Za-z0-9_.-]/g,'_').slice(0,72);
 }
 function readFreeStrategicState(){
@@ -5327,12 +5363,33 @@ function refresh501CampaignBadge(){
   const label=ml(n+' DENEY',n+' EXPERIMENTS',n+' EXPERIMENTE',n+' EXPERIMENTOS',n+' EXPERIMENTOS',n+'の実験',n+' EXPÉRIENCES',n+'项实验',n+' ESPERIMENTI');
   badge.textContent=label;badge.setAttribute('aria-label',label);
 }
+/* R385 / reviewer feedback: Continue resumes a campaign level left mid-play,
+   without adding new Firestore fields or changing unlocked progress. Only the
+   current browser tab keeps this temporary pause marker. */
+const MX_PAUSED_CAMPAIGN_KEY='moleculox_paused_campaign_r385';
+function mxResumeProfile(){return String((save&&save.profileId)||curProfile||'local');}
+function mxPausedCampaign(){
+  try{
+    const data=JSON.parse(sessionStorage.getItem(MX_PAUSED_CAMPAIGN_KEY)||'null');
+    if(data&&data.profile===mxResumeProfile()&&Number.isInteger(data.index)&&data.index>=0&&data.index<LEVELS.length&&data.index<=Math.max(0,Number(save.cur)||0))return data.index;
+  }catch(_e){}
+  return -1;
+}
+function mxClearPausedCampaign(){try{sessionStorage.removeItem(MX_PAUSED_CAMPAIGN_KEY)}catch(_e){}}
+function mxRememberPausedCampaign(){
+  if(dailyMode||duelMode||crystalMode||chainMode||reactorMode||won||!Number.isInteger(lv)||lv<0||lv>=LEVELS.length)return;
+  try{sessionStorage.setItem(MX_PAUSED_CAMPAIGN_KEY,JSON.stringify({profile:mxResumeProfile(),index:lv}));}catch(_e){}
+}
+
 function refreshSplash(){
   applyBonusCosmetics();
   refresh501CampaignBadge();
   const p=$('#btnPlay');
-  if(save.cur>0){p.disabled=false;p.textContent=t('continueLevel',Math.min(save.cur,LEVELS.length-1)+1);}
+  const pausedLevel=mxPausedCampaign();
+  if(pausedLevel>=0){p.disabled=false;p.textContent=t('continueLevel',pausedLevel+1);}
+  else if(save.cur>0){p.disabled=false;p.textContent=t('continueLevel',Math.min(save.cur,LEVELS.length-1)+1);}
   else{p.disabled=true;p.textContent=t('continueBtn');}
+  p.title=mxPausedCampaign()>=0?ml('Kaldığın deneye geri dön.','Resume the level you left.','Setze dein unterbrochenes Level fort.','Retoma el nivel que dejaste.','Retome a fase interrompida.','中断したレベルに戻る。'):ml('Sonraki tamamlanmamış bölüme devam et. Önceki bölümler için BÖLÜMLER menüsünü kullan.','Continue from the next unfinished level. Replay older levels via LEVELS.','Setze beim nächsten offenen Level fort. Wiederholungen unter LEVEL.','Sigue desde el siguiente nivel pendiente. Repite niveles en NIVELES.','Continue no próximo nível não concluído. Revise níveis em NÍVEIS.','次の未完了レベルから続行します。過去のレベルはレベル画面で再挑戦できます。');
   const today=utcDayId();
   const dailyDot=$('#dailyDot');
   if(dailyDot)dailyDot.classList.toggle('on',save.dailyDate!==today);
@@ -5897,8 +5954,8 @@ function bootPlay(){
     forceMainMenuVisible();
     stopStartupAudio();
     unlock();
-    MP.mode='menu';MP.idx=MENU_TRACK_INDEX;musicAudio.loop=true;
-    playTrack(MENU_TRACK_INDEX,true);
+    MP.mode='menu';musicAudio.loop=false;
+    playTrack(MP.started?MP.idx:randomTrackIdx(musicLast),false);
     const continueBoot=()=>{
     try{
       const names=Object.keys(profiles||{});
@@ -6674,13 +6731,20 @@ const SCIENCE_LEGENDS=Object.freeze([
     contribution:()=>slTri('Çok ciltli Geschichte des Arabischen Schrifttums çalışması ve bilimsel alet rekonstrüksiyonları, İslam medeniyetinin bilim tarihindeki katkılarının kaynaklarla görünür hâle gelmesine yardımcı oldu.','His multi-volume Geschichte des Arabischen Schrifttums and reconstructions of scientific instruments helped document and make visible contributions of Islamic civilization to the history of science.','Его многотомный труд Geschichte des Arabischen Schrifttums и реконструкции научных приборов помогли документировать и показать вклад исламской цивилизации в историю науки.'),
     connection:()=>slTri('Moleculox bağlantısı: yeni deneyler üretirken geçmişte biriken bilgiyi koru, karşılaştır ve geleceğin çözümlerine dönüştür.','Moleculox connection: preserve and compare accumulated knowledge, then turn it into new solutions for future experiments.','Связь с Moleculox: сохранять и сопоставлять накопленные знания, превращая их в новые решения для будущих экспериментов.'),
     sources:['Fuat Sezgin Research Foundation','Dokuz Eylül University']},
+  {id:'jang-yeong-sil',name:'Jang Yeong-sil',years:'15th century',rarity:'LEGEND',art:'jang-yeong-sil',unlockType:'campaignDailyEasterEgg',unlockTarget:1,
+    field:()=>slMl('Zaman Ölçümü · Alet Mühendisliği','Timekeeping · Instrument Engineering','Zeitmessung · Instrumentenbau','Medición del tiempo · Ingeniería de instrumentos','Medição do tempo · Engenharia de instrumentos','時間計測・計測器工学','Mesure du temps · Ingénierie des instruments','计时 · 仪器工程','Misurazione del tempo · Ingegneria degli strumenti','시간 측정 · 기계 공학','Измерение времени · Приборостроение'),
+    bio:()=>slMl('Jang Yeong-sil, 15. yüzyılda Joseon Kore’sinde Kral Sejong döneminde çalışan bir mucit ve mühendisti. Kesin doğum ve ölüm tarihleri bilinmiyor.','Jang Yeong-sil was an inventor and engineer working in 15th-century Joseon Korea during King Sejong’s reign. His exact birth and death dates are unknown.','Jang Yeong-sil war ein Erfinder und Ingenieur im Korea der Joseon-Zeit des 15. Jahrhunderts unter König Sejong. Seine genauen Lebensdaten sind unbekannt.','Jang Yeong-sil fue un inventor e ingeniero de la Corea de Joseon del siglo XV, durante el reinado de Sejong. Se desconocen sus fechas exactas de nacimiento y muerte.','Jang Yeong-sil foi um inventor e engenheiro da Coreia de Joseon no século XV, durante o reinado de Sejong. Suas datas exatas de nascimento e morte são desconhecidas.','張英実は15世紀の朝鮮で世宗の時代に活躍した発明家・技術者です。正確な生没年は不明です。','Jang Yeong-sil était un inventeur et ingénieur de la Corée de Joseon au XVe siècle, sous le roi Sejong. Ses dates exactes de naissance et de décès sont inconnues.','蒋英实是15世纪朝鲜王朝世宗时期的发明家和工程师，确切生卒年不详。','Jang Yeong-sil fu un inventore e ingegnere della Corea di Joseon del XV secolo, durante il regno di Sejong. Le date esatte di nascita e morte sono sconosciute.','장영실은 15세기 조선 세종 시대에 활동한 발명가이자 기술자입니다. 정확한 출생 및 사망 연도는 알려져 있지 않습니다.','Чан Ён Силь был изобретателем и инженером в Корее эпохи Чосон XV века при короле Седжоне. Точные даты его рождения и смерти неизвестны.'),
+    contribution:()=>slMl('1434’te ülkenin standart zamanını gösteren otomatik su saati Jagyeongnu’nun geliştirilmesinde görev aldı.','He helped develop the self-striking water clock Jagyeongnu, which became the national time standard in 1434.','Er wirkte an der automatisch schlagenden Wasseruhr Jagyeongnu mit, die 1434 zum nationalen Zeitstandard wurde.','Participó en el desarrollo del reloj de agua automático Jagyeongnu, que se convirtió en el patrón horario nacional en 1434.','Participou do desenvolvimento do relógio de água automático Jagyeongnu, que se tornou o padrão nacional de tempo em 1434.','自動で時を知らせる水時計「自撃漏」の開発に携わり、1434年に国の時刻基準となりました。','Il participa au développement de la clepsydre automatique Jagyeongnu, devenue la référence horaire nationale en 1434.','他参与研制了自动报时水钟自击漏，该水钟于1434年成为国家计时标准。','Contribuì allo sviluppo dell’orologio ad acqua automatico Jagyeongnu, divenuto riferimento orario nazionale nel 1434.','자동으로 시각을 알리는 물시계 자격루의 제작에 참여했으며, 자격루는 1434년 국가의 표준 시계가 되었습니다.','Он участвовал в разработке автоматически отбивающих время водяных часов Чагённу, ставших национальным эталоном времени в 1434 году.'),
+    connection:()=>slMl('Moleculox bağlantısı: mekanizmayı gözlemle, adımları planla ve doğru konuma hassas bir hamle yap.','Moleculox connection: observe the mechanism, plan the sequence, and make a precise move into the right position.','Moleculox: Beobachte den Mechanismus, plane die Abfolge und bewege dich präzise an die richtige Position.','Moleculox: observa el mecanismo, planifica la secuencia y realiza un movimiento preciso.','Moleculox: observe o mecanismo, planeje a sequência e faça um movimento preciso.','Moleculox：仕組みを観察し、手順を考え、正しい位置へ正確に動かしましょう。','Moleculox : observe le mécanisme, planifie la séquence et effectue un déplacement précis.','Moleculox：观察机制、规划步骤，精确移动到正确位置。','Moleculox: osserva il meccanismo, pianifica la sequenza e compi una mossa precisa.','Moleculox: 작동 원리를 살펴보고 순서를 계획하여 정확한 위치로 이동하세요.','Moleculox: наблюдай за механизмом, планируй последовательность и делай точный ход.'),
+    sources:['National Palace Museum of Korea — Scientific Achievement of the Joseon Dynasty','Academy of Korean Studies — Korea100']},
 ]);
 const SCIENCE_LEGEND_SERIES_PLAN=Object.freeze({
-  totalCards:24,seriesSize:8,
+  totalCards:25,seriesSize:8,
   series1:Object.freeze(['ibn-sina','jabir','al-razi','lavoisier','avogadro','mendeleev','faraday','remziye-hisar']),
   // R342: Series I + Series II + Series III are active (24/24).
   series2:Object.freeze(['dalton','robert-boyle','berzelius','humphry-davy','marie-curie','oktay-sinanoglu','cahit-arf','feza-gursey']),
   series3:Object.freeze(['gilbert-lewis','linus-pauling','dorothy-hodgkin','rosalind-franklin','ahmed-zewail','rutherford','niels-bohr','fuat-sezgin']),
+  series4:Object.freeze(['jang-yeong-sil']),
   reservedTurkish:Object.freeze(['remziye-hisar','oktay-sinanoglu','cahit-arf','feza-gursey','fuat-sezgin'])
 });
 function scienceLegendUi(key){
@@ -6737,7 +6801,8 @@ const SCIENCE_LEGEND_EASTER=Object.freeze({
   'ahmed-zewail':{campaignLevel:366,reward:{hammer:1,hint:1,precision:1}},
   'rutherford':{campaignLevel:470,reward:{hammer:1,precision:1}},
   'niels-bohr':{campaignLevel:570,reward:{hammer:1,hint:1,precision:1}},
-  'fuat-sezgin':{campaignLevel:770,reward:{hammer:1,hint:1}}
+  'fuat-sezgin':{campaignLevel:770,reward:{hammer:1,hint:1}},
+  'jang-yeong-sil':{campaignLevel:736,reward:{hammer:1,hint:1,precision:1}}
 });
 let activeScienceLegendEgg=null;
 function scienceLegendCfg(card){return card&&SCIENCE_LEGEND_EASTER[card.id]||null;}
@@ -7553,27 +7618,49 @@ if(gameEin){gameEin.style.pointerEvents='none';}
   microLoop();
 },4300+Math.random()*4700);})();
 let sayT=null;
-function closeSayBubble(){
+let edwardMessage='',edwardReading=false,edwardLong=false,edwardQueue=[];
+function edwardCopy(){
+  const labels={tr:'Kapat',en:'Close',de:'Schließen',es:'Cerrar',pt:'Fechar',ja:'閉じる',fr:'Fermer',zh:'关闭',it:'Chiudi',ko:'닫기',ru:'Закрыть'};
+  return labels[LANG]||labels.en;
+}
+function closeSayBubble(advance=false){
   clearTimeout(sayT);
-  bub.classList.remove('on','shk','glow','long');
+  bub.classList.remove('on','shk','glow','long','reading');
+  edwardReading=false;edwardLong=false;
+  if(advance===true){
+    const next=edwardQueue.shift();
+    if(next&&Date.now()-next.at<30000)say(...next.args);
+    else edwardQueue=[];
+  }else edwardQueue=[];
 }
 function sayDuration(txt,requested){
   const plain=String(txt||'').replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim();
   const words=plain?plain.split(' ').length:0;
-  // R48: readable on phones and across longer translations; never flashes away.
-  const calculated=5100+words*430+Math.max(0,plain.length-70)*24;
-  const natural=Math.min(14000,Math.max(7000,calculated));
-  return Math.min(14000,Math.max(Number(requested)||0,natural));
+  return Math.min(40000,Math.max(8000,Number(requested)||0,5500+words*450+plain.length*12));
 }
 function say(txt,mood,dur,fx){
+  if(bub.classList.contains('on')&&edwardReading&&fx!=='shk'){
+    if(String(txt)!==edwardMessage){
+      edwardQueue.push({args:[txt,mood,dur,fx],at:Date.now()});
+      if(edwardQueue.length>3)edwardQueue.shift();
+    }
+    return;
+  }
+  edwardMessage=String(txt||'');
+  const parsed=document.createElement('div');parsed.innerHTML=edwardMessage;
+  const plain=(parsed.textContent||'').replace(/\s+/g,' ').trim();
+  edwardLong=plain.length>160;
   const bubbleText=$('#bubbleText');
-  if(bubbleText)bubbleText.innerHTML=txt;else bub.innerHTML=txt;
+  bubbleText.innerHTML=edwardMessage;bubbleText.scrollTop=0;
+  $('#bubbleClose').hidden=!edwardLong;
+  $('#bubbleClose').setAttribute('aria-label',edwardCopy());
   const readMs=sayDuration(txt,dur);
-  bub.classList.remove('on','shk','glow','long');
+  bub.classList.remove('on','shk','glow','long','reading');
+  edwardReading=false;
+  if(edwardLong)bub.classList.add('long');
   if(fx)bub.classList.add(fx);
-  if(String(txt||'').replace(/<[^>]*>/g,'').length>96)bub.classList.add('long');
   bub.style.setProperty('--bubble-duration',readMs+'ms');
-  bub.setAttribute('aria-label',String(txt||'').replace(/<[^>]*>/g,' ')+(ml(" — kapatmak için dokun"," — tap to dismiss"," — zum Schließen tippen"," — toca para cerrar"," — toque para fechar"," — タップして閉じる")));
+  bub.setAttribute('aria-label',plain);
   void bub.offsetWidth;bub.classList.add('on');
   einMood(mood||'talk',Math.min(readMs,2200));
   const speechMoxy=document.getElementById('moxyGameCompanion');
@@ -7585,14 +7672,26 @@ function say(txt,mood,dur,fx){
     moxyPose('dre',false);
   }
   clearTimeout(sayT);
-  // R181: restore the classic thin read-timer behavior. The line finishes, then
-  // the bubble closes; the player can dismiss it immediately by tapping it.
-  sayT=setTimeout(closeSayBubble,readMs);
+  sayT=setTimeout(()=>closeSayBubble(true),readMs);
 }
 if(bub){
-  const dismiss=e=>{if(!bub.classList.contains('on'))return;if(e&&e.cancelable)e.preventDefault();closeSayBubble();};
-  bub.addEventListener('pointerdown',dismiss,{passive:false});
-  bub.addEventListener('click',dismiss,{passive:false});
+  let pointerStart=null,dragged=false;
+  bub.addEventListener('pointerdown',e=>{
+    e.stopPropagation();pointerStart={x:e.clientX,y:e.clientY};dragged=false;
+    if(edwardLong){clearTimeout(sayT);edwardReading=true;bub.classList.add('reading');}
+  });
+  bub.addEventListener('pointermove',e=>{
+    if(pointerStart&&(Math.abs(e.clientX-pointerStart.x)>8||Math.abs(e.clientY-pointerStart.y)>8))dragged=true;
+  });
+  bub.addEventListener('pointercancel',()=>{dragged=true;pointerStart=null;});
+  bub.addEventListener('click',e=>{
+    e.stopPropagation();
+    if(edwardLong){clearTimeout(sayT);edwardReading=true;bub.classList.add('reading');}
+    else if(!dragged&&bub.classList.contains('on'))closeSayBubble(true);
+    pointerStart=null;
+  });
+  $('#bubbleText').addEventListener('scroll',()=>{if(edwardLong&&bub.classList.contains('on')){clearTimeout(sayT);edwardReading=true;bub.classList.add('reading');}},{passive:true});
+  $('#bubbleClose').addEventListener('click',e=>{e.stopPropagation();closeSayBubble(true);});
 }
 
 
@@ -8506,10 +8605,14 @@ function drawMovingWall(w,t){
 function advanceMovingWalls(){
   if(!movingWalls.length||won||movingWallAnimating)return;
   const plans=[];
+  const reserved=new Set();
   for(const w of movingWalls){
     const ni=(w.index+1)%w.path.length,to=w.path[ni];
     if(!to||atoms.some(a=>a.x===to.x&&a.y===to.y))continue;
     if(grid[to.y]?.[to.x]&&!(to.x===w.x&&to.y===w.y))continue;
+    const destination=to.x+','+to.y;
+    if(reserved.has(destination))continue;
+    reserved.add(destination);
     plans.push({w,ni,to,from:{x:w.x,y:w.y}});
   }
   if(!plans.length)return;
@@ -8528,7 +8631,13 @@ function advanceMovingWalls(){
   for(const p of plans){grid[p.from.y][p.from.x]=false;grid[p.to.y][p.to.x]=true;p.w.anim={fx:p.from.x,fy:p.from.y,tx:p.to.x,ty:p.to.y,t0:performance.now(),dur:wallDuration};}
   invalidateBoardStatic();
   (SFX.movingWall?SFX.movingWall():(SFX.thunk&&SFX.thunk()));mxHaptic('light');
-  setTimeout(()=>{for(const p of plans){p.w.x=p.to.x;p.w.y=p.to.y;p.w.index=p.ni;p.w.anim=null;}movingWallAnimating=false;invalidateBoardStatic();},wallUnlockDelay);
+  const activeWalls=movingWalls;
+  const activeAnimations=plans.map(p=>p.w.anim);
+  setTimeout(()=>{
+    if(movingWalls!==activeWalls||plans.some((p,i)=>p.w.anim!==activeAnimations[i]))return;
+    for(const p of plans){p.w.x=p.to.x;p.w.y=p.to.y;p.w.index=p.ni;p.w.anim=null;}
+    movingWallAnimating=false;invalidateBoardStatic();
+  },wallUnlockDelay);
 }
 function portalKey(x,y){return x+','+y;}
 function oneWayKey(x,y){return x+','+y;}
@@ -10899,7 +11008,7 @@ function ensureStoryPanel(){
   panel=document.createElement('section');panel.id='levelStoryPanel';panel.setAttribute('aria-live','polite');panel.setAttribute('role','dialog');panel.setAttribute('aria-modal','true');
   panel.innerHTML='<button id="storySkip" type="button" aria-label="'+storyUi('skip')+'">×</button><div class="storyPageHead"><div id="storyChapter"></div><div id="storyPageCounter"></div></div><div class="comicStrip"><div class="comicPanel comicHero"><div class="comicBang" id="storyBang"></div><div class="storyScene"><img id="storyHeroArt" src="assets/images/dr-edward-atom.png" alt="Dr. Edward Atom"><img id="nullStoryArt" src="assets/images/characters/dr-null-canon-r40.webp" alt="Dr. Null"><img id="storyCatArt" src="assets/images/characters/null-cat-canon-r40.webp" alt="Dr. Null cat"><img id="storyMoxyArt" src="assets/images/characters/moxy-canon-r40.webp" alt="Moxy"></div></div><div class="comicPanel comicReaction"><div class="speechBubble"><div class="storySpeakerName" id="storySpeaker"></div><div id="storyText"></div></div><div class="reactionMolecule" id="storyMolecule">⚛</div><div class="storyNarration"><div class="storyNarratorLabel" id="storyNarratorLabel"></div><div id="storyNarration"></div></div><div class="reactionText" id="storyReaction"></div></div></div><div class="storyNav"><button id="storyBack" class="btn" type="button">◀</button><button id="storyContinue" class="btn green" type="button"></button></div><button id="storySkipText" class="storySkipText" type="button"></button>';
   document.body.appendChild(panel);
-  const finish=()=>{panel.classList.remove('on');resumeSolveClock('story');clearTimeout(showLevelStory.timer);const cb=storyContinueAction;storyContinueAction=null;storyPageList=[];storyPageIndex=0;storyActiveLevel=null;storyActiveIndex=-1;if(cb)setTimeout(cb,180);};
+  const finish=()=>{if(storyActiveIndex>=0&&storyPageList[0]?.episodeId!=='grandmaster-801-epilogue')markStorySeen(storyActiveIndex);panel.classList.remove('on');resumeSolveClock('story');clearTimeout(showLevelStory.timer);const cb=storyContinueAction;storyContinueAction=null;storyPageList=[];storyPageIndex=0;storyActiveLevel=null;storyActiveIndex=-1;if(cb)setTimeout(cb,180);};
   panel.querySelector('#storySkip').addEventListener('pointerdown',e=>{e.preventDefault();finish();},{passive:false});
   panel.querySelector('#storySkipText').addEventListener('pointerdown',e=>{e.preventDefault();SFX.back();finish();},{passive:false});
   panel.querySelector('#storyBack').addEventListener('pointerdown',e=>{e.preventDefault();if(storyPageIndex>0){storyPageIndex--;SFX.back();renderStoryPage(panel);}},{passive:false});
@@ -11012,7 +11121,7 @@ function queueLevelStory(level,index,playMode){
   if(index!==0||playMode!=='campaign'||!level)return;
   ensureStorySeenSchema();
   if(save.storySeen['1'])return;
-  setTimeout(()=>{if(lv!==index||won)return;markStorySeen(0);showLevelStory(level,index,()=>{if(lv===index&&!won&&level.onboard&&!onboardingSeen(index))runWhenModalFree(()=>showFoundationBriefing(level,index));});},420);
+  setTimeout(()=>{if(lv!==index||won)return;showLevelStory(level,index,()=>{if(lv===index&&!won&&level.onboard&&!onboardingSeen(index))runWhenModalFree(()=>showFoundationBriefing(level,index));});},420);
 }
 
 let mxNextMolTransitionTimer=0,levelNavigationBusy=false;
@@ -11094,9 +11203,8 @@ function directAdvanceToNextLevel(index){
 
   const episode=storyEpisodeForIndex(targetIndex);
   ensureStorySeenSchema();
-  if(episode&&targetIndex!==NOBEL_LEVEL_INDEX&&!save.storySeen[String(targetIndex+1)]){
+  if(episode&&targetIndex!==NOBEL_LEVEL_INDEX&&(!save.storySeen[String(targetIndex+1)]||qaStoryArtReplay(targetIndex))){
     setTimeout(()=>{
-      markStorySeen(targetIndex);
       showLevelStory(target,targetIndex,()=>{
         launch();
       });
@@ -11106,6 +11214,7 @@ function directAdvanceToNextLevel(index){
     setTimeout(launch,60);
   }
 }
+function qaStoryArtReplay(index){return window.MX_QA_TEST_GAME===true&&window.MX_QA_STORY_ART_REPLAY===true&&[502,622,712,772,792,801].includes(Number(index)+1);}
 function goToLevelWithStory(index,expectedKey=''){
   if(levelNavigationBusy)return;
   levelNavigationBusy=true;
@@ -11120,7 +11229,7 @@ function goToLevelWithStory(index,expectedKey=''){
   }
 
   ensureStorySeenSchema();
-  if(save.storySeen[String(index+1)]){
+  if(save.storySeen[String(index+1)]&&!qaStoryArtReplay(index)){
     goToLevel(index,expectedKey);
     return;
   }
@@ -11129,7 +11238,6 @@ function goToLevelWithStory(index,expectedKey=''){
   // Story is the only thing allowed to precede the level.
   // When the player finishes/skips it, goToLevel starts gameplay immediately.
   setTimeout(()=>{
-    markStorySeen(index);
     showLevelStory(target,index,()=>{
       goToLevel(index,expectedKey);
     });
@@ -11209,6 +11317,7 @@ function revealPreparedLevel(levelIndex,token){
   });
 }
 function startLevel(i,mode='campaign',expectedKey=''){
+  clearTimeout(startLevel.mechanicBriefingTimer);
   closeSayBubble();
   // R136: hide the entire board/action region during synchronous level preparation.
   // This also covers Restart/Next Level when #gameScr is already visible: the board and
@@ -11241,6 +11350,7 @@ function startLevel(i,mode='campaign',expectedKey=''){
   crystalMode=mode==='crystal'||!!(duelMode&&activeDuelRound&&activeDuelRound.gameType==='crystal');
   chainMode=mode==='chain'||!!(duelMode&&activeDuelRound&&activeDuelRound.gameType==='chain');
   reactorMode=mode==='reactor'||!!(duelMode&&activeDuelRound&&activeDuelRound.gameType==='reactor');
+  if(mode==='campaign')mxClearPausedCampaign();
   lv=i;LV=(dailyMode&&currentDailyLevel)?currentDailyLevel:LEVELS[i];
   if(!LV||!LV.m||!MOLS[LV.m]){
     console.error('[Moleculox] Invalid campaign level selection',{index:i,expectedKey,level:LV});
@@ -11349,7 +11459,11 @@ function startLevel(i,mode='campaign',expectedKey=''){
     }
     if(newMechanics.length){
       unifiedBriefingQueued=true;
-      setTimeout(()=>showMechanicFirstUse(newMechanics,{automatic:true,level:i,mode,context:mechanicContext,afterClose:announceLevelStartAfterBriefing}),350);
+      clearTimeout(startLevel.mechanicBriefingTimer);
+      startLevel.mechanicBriefingTimer=setTimeout(()=>{
+        if(revealToken!==preparedLevelRevealToken||!scr.game.classList.contains('on'))return;
+        showMechanicFirstUse(newMechanics,{automatic:true,level:i,mode,context:mechanicContext,afterClose:announceLevelStartAfterBriefing});
+      },350);
     }
   }
   for(const f of atoms){
@@ -13502,7 +13616,7 @@ function winSeq(lastMovedIdx){
             showExpansionFinalEpilogue(()=>winModal(stars,gained,rpGained));
           }else winModal(stars,gained,rpGained);
         },3900);
-      }else if(lv===LEVELS.length-1&&!(save.storySeen&&save.storySeen['801-epilogue'])){
+      }else if(lv===LEVELS.length-1&&(!(save.storySeen&&save.storySeen['801-epilogue'])||qaStoryArtReplay(lv))){
         // Also serves an older completed save that predates the R123 epilogue.
         showExpansionFinalEpilogue(()=>winModal(stars,gained,rpGained));
       }else winModal(stars,gained,rpGained);
@@ -13583,7 +13697,7 @@ function showExpansionFinalEpilogue(onContinue){
   const panel=ensureStoryPanel();
   storyActiveLevel=LEVELS[LEVELS.length-1]||null;
   storyActiveIndex=LEVELS.length-1;
-  const epilogueTitle=storyChapterLabel(32,ml(
+  const epilogueTitle=storyChapterLabel(36,ml(
     'GRAND FINAL TAMAMLANDI','GRAND FINAL COMPLETE','GRAND FINAL ABGESCHLOSSEN',
     'GRAND FINAL COMPLETADO','GRAND FINAL CONCLUÍDO','グランドファイナル完了',
     'GRAND FINAL ACCOMPLI','终极实验完成','GRAND FINAL COMPLETATO'
@@ -13610,7 +13724,7 @@ function showExpansionFinalEpilogue(onContinue){
     '801/801完成。诺贝尔荣誉永久保留；你现在是Moleculox Grandmaster。',
     '801/801 completati. Il tuo Nobel resta per sempre; ora sei Grandmaster di Moleculox.'
   );
-  storyPageList=expansionTriptychPages(800,storyActiveLevel,EXPANSION_FINAL_EPILOGUE_ART,{levelNumber:801,narration:epilogueNarration,formula:'C₄H₅BrFOPSi₃Xe',finalCaption:epilogueCaption,epilogue:true,finale:true}).map((page,pageIndex)=>({...page,title:epilogueTitle,text:page.dialogue,worldArt:'',episodeId:'grandmaster-801-epilogue',chapter:32,pageNumber:pageIndex+1}));
+  storyPageList=expansionTriptychPages(800,storyActiveLevel,EXPANSION_FINAL_EPILOGUE_ART,{levelNumber:801,narration:epilogueNarration,formula:'C₄H₅BrFOPSi₃Xe',finalCaption:epilogueCaption,epilogue:true,finale:true}).map((page,pageIndex)=>({...page,title:epilogueTitle,text:page.dialogue,worldArt:'',episodeId:'grandmaster-801-epilogue',chapter:36,pageNumber:pageIndex+1}));
   storyPageIndex=0;
   storyContinueAction=()=>{
     save.storySeen['801-epilogue']=1;persist();
@@ -13937,7 +14051,7 @@ function createAutoGuestProfile(preserveSettings){
     playerName:visible,profileId:genProfileId(),tutorialDone:true,autoGuest:true,
     lang:old.lang||LANG,volM:Number.isFinite(old.volM)?old.volM:1,
     volMu:Number.isFinite(old.volMu)?old.volMu:.8,volS:Number.isFinite(old.volS)?old.volS:1,volV:Number.isFinite(old.volV)?old.volV:1,
-    muM:!!old.muM,muMu:!!old.muMu,muS:!!old.muS,muV:!!old.muV,externalMusic:typeof old.externalMusic==='boolean'?old.externalMusic:false,dpad:!!old.dpad
+    muM:!!old.muM,muMu:!!old.muMu,muS:!!old.muS,muV:!!old.muV,externalMusic:false,dpad:!!old.dpad
   });
   profiles[key]=next;curProfile=key;lastProfile=key;save=next;persistAll();
   return key;
@@ -14640,11 +14754,9 @@ function bindAccountAuth(){
 })();
 
 function freshMenuTrack(){
-  const ni=MENU_TRACK_INDEX;
-  const changed=MP.mode!=='menu'||MP.idx!==ni;
-  MP.mode='menu';MP.idx=ni;musicAudio.loop=true;
+  MP.mode='menu';musicAudio.loop=false;
   if(!MP.started||!bootDone)return;
-  playTrack(ni,changed);
+  playTrack(MP.idx,false);
 }
 function musicListModal(){
   const rows=TRACKS.map((_,i)=>{
@@ -14662,7 +14774,7 @@ function musicListModal(){
       if(alreadyPlayingThis){
         musicAudio.pause();
       }else{
-        MP.mode='menu';musicAudio.loop=true;
+        MP.mode='menu';musicAudio.loop=false;
         playTrack(i,true);
       }
       document.querySelectorAll('.mtplay').forEach(b=>{
@@ -14895,6 +15007,11 @@ function finishMechanicContext(opts){
   if(opts&&typeof opts.afterClose==='function')setTimeout(()=>opts.afterClose(),260);
 }
 function showMechanicFirstUse(ids,opts){
+  // Ignore duplicate automatic requests for the same prepared board.
+  if(opts&&opts.automatic){
+    if(showMechanicFirstUse.boardToken===preparedLevelRevealToken)return;
+    showMechanicFirstUse.boardToken=preparedLevelRevealToken;
+  }
   ids=[...new Set((ids||[]).filter(id=>MECHANIC_INFO[id]))];
   if(!ids.length)return;
   const pose=MECHANIC_FIRST_USE_POSE[ids[0]]||'clipboard',src=DR_E_POSES[pose]||DR_E_POSES.clipboard;
@@ -14994,10 +15111,32 @@ function updateLevelMechanicBar(){
   const ids=currentLevelMechanicIds().filter(id=>id!=='classicCatalyst'&&id!=='classicChain'&&id!=='classicReactor');
   const legendOn=!!ids.length&&!duelMode;
   if(scr.game)scr.game.classList.toggle('mxMechanicLegendOn',legendOn);
-  if(!legendOn){bar.hidden=true;bar.innerHTML='';return;}
   bar.hidden=false;
+  const left=$('#mechanicsLeft'),right=$('#mechanicsRight');
+  [left,right].forEach(rail=>{if(rail.mxResizeObserver){rail.mxResizeObserver.disconnect();rail.mxResizeObserver=null;}});
+  if(!legendOn){left.innerHTML='';right.innerHTML='';return;}
   bar.setAttribute('aria-label',ml('Bu deneydeki özel mekanikler','Special mechanics in this experiment','Spezielle Mechaniken in diesem Experiment','Mecánicas especiales de este experimento','Mecânicas especiais deste experimento','この実験の特殊メカニック','Mécaniques spéciales de cette expérience','本实验的特殊机制','Meccaniche speciali di questo esperimento'));
-  bar.innerHTML=ids.map(id=>{const info=MECHANIC_INFO[id];if(!info)return '';const title=mechanicTitleLabel(info);return '<button type="button" class="mxLevelMechanicChip mxLevelMechanicChip--'+id+'" data-level-mechanic="'+id+'" title="'+String(title).replace(/&/g,'&amp;').replace(/"/g,'&quot;')+'" aria-label="'+String(title).replace(/&/g,'&amp;').replace(/"/g,'&quot;')+'">'+mxMechanicSvg(id)+'<span class="srOnly">'+String(title).replace(/&/g,'&amp;').replace(/"/g,'&quot;')+'</span></button>';}).join('');
+  const chips=ids.map(id=>{const info=MECHANIC_INFO[id];if(!info)return '';const title=mechanicTitleLabel(info);return '<button type="button" class="mxLevelMechanicChip mxLevelMechanicChip--'+id+'" data-level-mechanic="'+id+'" title="'+String(title).replace(/&/g,'&amp;').replace(/"/g,'&quot;')+'" aria-label="'+String(title).replace(/&/g,'&amp;').replace(/"/g,'&quot;')+'">'+mxMechanicSvg(id)+'<span class="srOnly">'+String(title).replace(/&/g,'&amp;').replace(/"/g,'&quot;')+'</span></button>';});
+  const half=Math.ceil(chips.length/2);
+  [left,right].forEach((rail,i)=>{
+    rail.innerHTML='<div class="mxMechanicScroll">'+chips.slice(i?half:0,i?chips.length:half).join('')+'</div><span class="mxMechanicMore" aria-hidden="true">›</span>';
+    const track=rail.querySelector('.mxMechanicScroll'),arrow=rail.querySelector('.mxMechanicMore');
+    const refresh=()=>{
+      // Reserve the hint separately and expose only complete 32px cards.
+      // Measuring the rail (not the track) avoids ResizeObserver feedback loops.
+      const chip=Math.max(20,Math.min(32,rail.clientWidth-10));
+      rail.style.setProperty('--mx-rail-chip',chip+'px');
+      const step=chip+3;
+      const slots=Math.max(1,Math.floor((rail.clientWidth-10+3)/step));
+      const width=Math.min(rail.clientWidth-10,slots*step-3);
+      track.style.width=width+'px';
+      const overflow=track.scrollWidth>track.clientWidth+2;
+      arrow.hidden=!overflow||track.scrollLeft+track.clientWidth>=track.scrollWidth-2;
+    };
+    track.addEventListener('scroll',refresh,{passive:true});
+    if(window.ResizeObserver){rail.mxResizeObserver=new ResizeObserver(refresh);rail.mxResizeObserver.observe(rail);}
+    requestAnimationFrame(refresh);
+  });
   bar.querySelectorAll('[data-level-mechanic]').forEach(btn=>bindTap(btn,()=>{SFX.select();showMechanicBriefing([btn.dataset.levelMechanic],{fromLevelBar:true});}));
 }
 function blockedMechanicExplanation(i,d){
@@ -15334,7 +15473,6 @@ function settingsModal(){
     '<div class="vrow audioRow"><span class="vl">'+mxUiIcon('music','mxLabelIcon')+'<span>'+cleanUiLabel(t('music'))+'</span></span><input type="range" id="vMu" min="0" max="100" value="'+Math.round(save.volMu*100)+'"><button class="btn ghost mt'+(save.muMu?' off':'')+'" id="mMu" aria-label="'+ml('Müziği aç veya kapat','Turn music on or off','Musik ein- oder ausschalten','Activar o desactivar la música','Ativar ou desativar a música','音楽のオン／オフ')+'">'+mxAudioIcon(save.muMu)+'</button></div>'+ 
     '<div class="vrow audioRow"><span class="vl">'+mxUiIcon('bell','mxLabelIcon')+'<span>'+cleanUiLabel(t('sfx'))+'</span></span><input type="range" id="vS" min="0" max="100" value="'+Math.round(save.volS*100)+'"><button class="btn ghost mt'+(save.muS?' off':'')+'" id="mS" aria-label="'+ml('Efekt seslerini aç veya kapat','Turn effects sound on or off','Effektton ein- oder ausschalten','Activar o desactivar los efectos','Ativar ou desativar os efeitos','効果音のオン／オフ')+'">'+mxAudioIcon(save.muS)+'</button></div>'+ 
     '<div class="vrow audioRow"><label class="vl" for="vV">'+ml("Diyalog","Dialogue","Dialog","Diálogo","Diálogo","会話","Dialogue","对白","Dialoghi")+'</label><input type="range" id="vV" min="0" max="100" value="'+Math.round(save.volV*100)+'"><button class="btn ghost mt" id="mV" aria-label="'+ml("Diyalog","Dialogue","Dialog","Diálogo","Diálogo","会話","Dialogue","对白","Dialoghi")+'">'+mxAudioIcon(save.muV)+'</button></div>'+
-    '<div class="togRow externalMusicRow"><span><b>'+mxUiIcon('headphones','mxRowIcon')+cleanUiLabel(t('externalMusicLabel'))+'</b><small>'+t('externalMusicNote')+'</small></span><button class="tog'+(save.externalMusic?' on':'')+'" id="togExternalMusic"></button></div>'+ 
     '<div class="togRow"><span><b>'+mxUiIcon('dpad','mxRowIcon')+cleanUiLabel(t('showDpad'))+'</b></span><button class="tog'+(save.dpad?' on':'')+'" id="togDpad"></button></div>'+ 
     '<div class="togRow"><span><b>'+mxUiIcon('bulb','mxRowIcon')+t('tutorialTipsLabel')+'</b><small>'+t('tutorialTipsNote')+'</small></span><button class="tog'+(save.tutorialTips!==false?' on':'')+'" id="togTutorialTips"></button></div>'+ 
     '<div class="togRow"><span><b>'+mxUiIcon('motion','mxRowIcon')+cleanUiLabel(t('reduceMotionLabel'))+'</b><small>'+t('reduceMotionNote')+'</small></span><button class="tog'+(save.reduceMotion?' on':'')+'" id="togReduceMotion"></button></div>'+ 
@@ -15399,48 +15537,26 @@ function settingsModal(){
   },{passive:false});};
   $('#mM').addEventListener('pointerdown',e=>{
     e.preventDefault();
-    if(save.externalMusic)return;
     save.muM=!save.muM;persist();applyVol();
     e.currentTarget.textContent=save.muM?'🔇':'🔊';
     e.currentTarget.classList.toggle('off',save.muM);
     if(!save.muM)SFX.click();
   },{passive:false});
   bindM('#mMu','muMu');bindM('#mS','muS');bindM('#mV','muV');
-  $('#togExternalMusic').addEventListener('pointerdown',e=>{
-    e.preventDefault();
-    save.externalMusic=!save.externalMusic;
-    externalMusicMode=!!save.externalMusic;
-    persist();
-    e.currentTarget.classList.toggle('on',save.externalMusic);
-    if(externalMusicMode){
-      stopAllGameAudio();
-    }else{
-      configureAudioSession();
-      unlock();
-      applyVol();
-      if(bootDone){
-        MP.mode=scr.game.classList.contains('on')?'game':'menu';
-        if(MP.mode==='menu'){MP.idx=MENU_TRACK_INDEX;musicAudio.loop=true;}
-        playTrack(MP.idx||MENU_TRACK_INDEX,false);
-      }
-      SFX.click();
-    }
-    settingsModal();
-  },{passive:false});
-  $('#togDpad').addEventListener('pointerdown',e=>{e.preventDefault();
+  bindTap('#togDpad',e=>{e.preventDefault();
     save.dpad=!save.dpad;persist();
     document.body.classList.toggle('nodpad',!save.dpad);
     e.currentTarget.classList.toggle('on',save.dpad);
     SFX.click();
     setTimeout(resize,260);
-  },{passive:false});
-  $('#togTutorialTips').addEventListener('pointerdown',e=>{e.preventDefault();
+  });
+  bindTap('#togTutorialTips',e=>{e.preventDefault();
     save.tutorialTips=save.tutorialTips===false;persist();
     e.currentTarget.classList.toggle('on',save.tutorialTips!==false);
     SFX.click();
     prop(save.tutorialTips!==false?(ml("Eğitim ipuçları açıldı.","Tutorial tips enabled.","Tutorial-Hinweise aktiviert.","Consejos del tutorial activados.","Dicas do tutorial ativadas.","チュートリアルヒントをオンにしました。")):(ml("Eğitim ipuçları kapatıldı. Moleculopedia her zaman açık.","Tutorial tips disabled. Moleculopedia remains available.","Tutorial-Hinweise deaktiviert. Moleculopedia bleibt verfügbar.","Consejos del tutorial desactivados. Moleculopedia sigue disponible.","Dicas do tutorial desativadas. A Moleculopedia continua disponível.","チュートリアルヒントをオフにしました。Moleculopediaはいつでも利用できます。")),2200);
-  },{passive:false});
-  const bindSettingToggle=(id,key)=>{$(id).addEventListener('pointerdown',e=>{e.preventDefault();save[key]=!save[key];persist();applyMotionPrefs();e.currentTarget.classList.toggle('on',!!save[key]);SFX.click();},{passive:false});};
+  });
+  const bindSettingToggle=(id,key)=>{bindTap(id,e=>{e.preventDefault();save[key]=!save[key];persist();applyMotionPrefs();e.currentTarget.classList.toggle('on',!!save[key]);SFX.click();});};
   bindSettingToggle('#togReduceMotion','reduceMotion');
   bindSettingToggle('#togDuelEffects','duelEffects');
   bindSettingToggle('#togDuelMessages','duelMessages');
@@ -15608,10 +15724,30 @@ function resize(){
   // longer receive extra overlap allowance. That old exception made the board and
   // atoms visibly larger and could cover the objective counters above the board.
   // The fixed HUD slot in CSS keeps boardWrap identical between level types.
-  const baseBW=Math.max(1,wrap.clientWidth-(nodpad?22:34));
-  const baseBH=Math.max(1,wrap.clientHeight-30);
+  const compactLandscape=window.innerWidth>520&&window.innerWidth>window.innerHeight&&window.innerHeight<=500;
+  if(compactLandscape){
+    const mid=$('#hudMid');
+    const rows=mid?Array.from(mid.children).filter(el=>getComputedStyle(el).display!=='none'&&!el.hidden):[];
+    const content=rows.reduce((sum,el)=>{const s=getComputedStyle(el);return sum+el.offsetHeight+(parseFloat(s.marginTop)||0)+(parseFloat(s.marginBottom)||0);},0)+Math.max(0,rows.length-1)*2+6;
+    scr.game.style.setProperty('--mx-compact-hud-height',Math.max(96,Math.ceil(content))+'px');
+  }
+  const landscape=window.innerWidth>520&&window.innerWidth>window.innerHeight;
+  const wrapStyle=getComputedStyle(wrap),frameStyle=getComputedStyle($('#boardFrame'));
+  const px=(style,key)=>parseFloat(style[key])||0;
+  const frameX=px(frameStyle,'paddingLeft')+px(frameStyle,'paddingRight')+px(frameStyle,'borderLeftWidth')+px(frameStyle,'borderRightWidth');
+  const frameY=px(frameStyle,'paddingTop')+px(frameStyle,'paddingBottom')+px(frameStyle,'borderTopWidth')+px(frameStyle,'borderBottomWidth');
+  const baseBW=Math.max(1,wrap.clientWidth-(landscape?px(wrapStyle,'paddingLeft')+px(wrapStyle,'paddingRight')+frameX:(nodpad?22:34)));
+  const baseBH=Math.max(1,wrap.clientHeight-(landscape?px(wrapStyle,'paddingTop')+px(wrapStyle,'paddingBottom')+frameY:30));
   const cell=Math.floor(Math.min(baseBW/Math.max(1,W),baseBH/Math.max(1,H)));
-  T=Math.max(22,Math.min(58,cell));
+  // A minimum 22px tile could make an 8x10 board taller than a short phone.
+  T=Math.max(1,Math.min(58,cell));
+  wrap.style.setProperty('--mx-board-half',(T*W/2+9)+'px');
+  const desktopRail=window.innerWidth>=900&&window.innerWidth>window.innerHeight&&window.innerHeight>500;
+  if(compactLandscape||desktopRail){
+    const boardCentre=wrap.clientWidth/2-(compactLandscape?54:0);
+    const toolRight=boardCentre+T*W/2+9+(compactLandscape?116:90);
+    scr.game.style.setProperty('--mx-side-room',Math.max(72,Math.floor(wrap.clientWidth-toolRight-20))+'px');
+  }
   const cssW=T*W,cssH=T*H,pixelW=Math.max(1,Math.round(cssW*dpr)),pixelH=Math.max(1,Math.round(cssH*dpr));
   board.style.width=cssW+'px';board.style.height=cssH+'px';
   // Avoid clearing and reallocating the large board buffer on every resize tick.
@@ -15850,7 +15986,7 @@ function rebuildBoardStatic(){
   const pixelW=Math.max(1,board.width),pixelH=Math.max(1,board.height);
   if(boardStatic.width!==pixelW||boardStatic.height!==pixelH){boardStatic.width=pixelW;boardStatic.height=pixelH;}
   const c=boardStaticCtx;c.setTransform(dpr,0,0,dpr,0,0);c.clearRect(0,0,T*W,T*H);
-  const movingWallCells=movingWalls.length?new Set(movingWalls.map(w=>w.x+','+w.y)):null;
+  const movingWallCells=movingWalls.length?new Set(movingWalls.flatMap(w=>w.anim?[w.anim.fx+','+w.anim.fy,w.anim.tx+','+w.anim.ty]:[w.x+','+w.y])):null;
   const pressureDoorCells=pressureSystems.length?new Set(pressureSystems.map(sys=>sys.door.x+','+sys.door.y)):null;
   const enzymeGateCell=enzymeGate?(enzymeGate.x+','+enzymeGate.y):null;
   for(let y=0;y<H;y++)for(let x=0;x<W;x++){
@@ -16916,7 +17052,7 @@ bindTap('#btnPrecision',e=>{
 bindTap('#btnBarrier',e=>{e.preventDefault();if(won||tutorialActive||autoSolveInProgress)return;if(!barrierLevelEligible()){cancelBarrier();supportUnavailable('barrier');return;}if(barrierUsed){SFX.thunk();mxHaptic('light');say(ml("Bu deneyde Nano Bariyer zaten kullanıldı. Her bölümde yalnızca bir kez kullanabilirsin.","Nano Barrier has already been used in this experiment. You can use it only once per level.","Die Nano-Barriere wurde in diesem Experiment bereits benutzt. Du kannst sie nur einmal pro Level verwenden.","La Barrera nano ya se usó en este experimento. Solo puedes usarla una vez por nivel.","A Barreira Nano já foi usada neste experimento. Você pode usá-la apenas uma vez por fase.","この実験ではナノバリアをすでに使用しました。1レベルにつき1回だけ使えます。","La Nano-Barrière a déjà été utilisée dans cette expérience. Elle ne peut être utilisée qu’une fois par niveau.","本次实验已经使用过纳米屏障。每关只能使用一次。","La Nano Barriera è già stata usata in questo esperimento. Puoi usarla solo una volta per livello."),'talk',2800,'glow');return;}if(!save.seenBarrierSupport){save.seenBarrierSupport=true;persist();showSupportTutorial('barrier',()=>$('#btnBarrier').click());return;}if(coinBalance()<BARRIER_USE_PRICE){SFX.thunk();mxHaptic('error');say(ml("Nano Bariyer için 500 MoleCoin gerekiyor.","Nano Barrier costs 500 MoleCoin.","Die Nano-Barriere kostet 500 MoleCoin.","La Barrera nano cuesta 500 MoleCoin.","A Barreira Nano custa 500 MoleCoin.","ナノバリアには500 MoleCoinが必要です。","La Nano-Barrière coûte 500 MoleCoin.","纳米屏障需要500 MoleCoin。","La Nano Barriera costa 500 MoleCoin."),'sad',3000,'shk');return;}if(hammerMode)cancelHammer();if(precisionMode)cancelPrecision();barrierMode=!barrierMode;SFX.select();mxHaptic('light');syncBarrierUi();if(barrierMode)say(ml("Boş bir kare seç. Onayladığında 500 MoleCoin harcanacak.","Choose an empty tile. 500 MoleCoin will be spent only after you confirm.","Wähle ein leeres Feld. 500 MoleCoin werden erst nach deiner Bestätigung ausgegeben.","Elige una casilla vacía. Los 500 MoleCoin se gastarán solo al confirmar.","Escolha uma casa vazia. Os 500 MoleCoin só serão gastos após a confirmação.","空いているマスを選んでください。確認後に500 MoleCoinを使用します。","Choisis une case vide. Les 500 MoleCoin ne seront dépensés qu'après confirmation.","选择一个空格。确认后才会花费500 MoleCoin。","Scegli una casella vuota. I 500 MoleCoin verranno spesi solo dopo la conferma."),'talk',3000,'glow');});
 bindTap('#btnGear',e=>{e.preventDefault();e.stopPropagation();if(e.stopImmediatePropagation)e.stopImmediatePropagation();SFX.click();if(tutorialActive)return;settingsModal();});
 bindTap('#btnHome',e=>{SFX.click();if(autoSolveInProgress){say(ml("Çözüm oynatımı tamamlanıyor.","The solution playback is finishing.","Die Lösungswiedergabe wird beendet.","La reproducción de la solución está terminando.","A reprodução da solução está terminando.","解答の再生を終了しています。"),'talk',2200,'glow');return;}if(tutorialActive){endTutorial(false);return;}if(duelMode){confirmQuitDuel();return;}if(crystalMode){confirmQuitCrystal();return;}if(chainMode){confirmQuitChain();return;}if(reactorMode){confirmQuitReactor();return;}if(!won&&Number.isInteger(lv)&&lv>=0)mxTrack('level_exit',mxTelemetryLevelParams({exit_reason:'home',moves:Number(moves)||0,elapsed_seconds:mxTelemetryAttemptSeconds(),hints:Number(attemptHintCount)||0}));show('splash');});
-bindTap('#lvHome',e=>{e.preventDefault();SFX.click();show('splash');});
+bindTap('#lvHome',e=>{e.preventDefault();mxRememberPausedCampaign();SFX.click();show('splash');});
 bindTap('#coHome',e=>{e.preventDefault();SFX.click();show('splash');});
 $('#tutorialSkip').addEventListener('pointerdown',e=>{e.preventDefault();SFX.back();endTutorial(false);},{passive:false});
 $('#tutGo').addEventListener('pointerdown',e=>{e.preventDefault();
@@ -17125,7 +17261,7 @@ document.querySelectorAll('[data-collection-tab]').forEach(b=>b.addEventListener
 bindTap('#btnMols',e=>{e.preventDefault();SFX.click();setCollectionTab('molecules');show('collect');});
 bindTap('#btnAchv',e=>{e.preventDefault();SFX.click();setCollectionTab('achievements');show('collect');});
 let __playGuard=false;
-bindTap('#btnPlay',e=>{e.preventDefault();if(__playGuard)return;__playGuard=true;setTimeout(()=>{__playGuard=false;},800);SFX.play();startLevel(Math.min(save.cur,LEVELS.length-1));});
+bindTap('#btnPlay',e=>{e.preventDefault();if(__playGuard)return;__playGuard=true;setTimeout(()=>{__playGuard=false;},800);SFX.play();const pausedLevel=mxPausedCampaign();mxClearPausedCampaign();startLevel(pausedLevel>=0?pausedLevel:Math.min(save.cur,LEVELS.length-1));});
 $('#btnDaily').addEventListener('pointerdown',e=>{e.preventDefault();SFX.click();startDaily();},{passive:false});
 $('#btnNew').addEventListener('pointerdown',e=>{e.preventDefault();SFX.click();
   openModal('<h3>👋 '+t('welcomeTitle')+'</h3><div class="msub">'+t('welcomeMsg')+'</div>'+
@@ -17288,7 +17424,7 @@ window.addEventListener('online',()=>{
 },{passive:true});
 window.addEventListener('offline',()=>setSyncStatus('offline'),{passive:true});
 window.addEventListener('pageshow',()=>{if(navigator.onLine!==false){setTimeout(()=>runConnectivityCloudSync('pageshow'),500);setTimeout(mxRetryPendingDailyClaim,1800);if(scr.splash.classList.contains('on'))setTimeout(maybeClaimDailyLoginReward,2100);}},{passive:true});
-document.addEventListener('touchmove',e=>{if(!e.target.closest('.scrollArea,.settingsScroll,.guideScroll,.modalScroll,.mxUniversalBody,.mtlist,input[type=\"range\"],textarea,select'))e.preventDefault();},{passive:false});
+document.addEventListener('touchmove',e=>{if(!e.target.closest('.scrollArea,.settingsScroll,.guideScroll,.modalScroll,.mxUniversalBody,.mtlist,.mxMechanicRail,#bubbleText,input[type=\"range\"],textarea,select'))e.preventDefault();},{passive:false});
 const MX_NATIVE=!!(window.Capacitor&&window.Capacitor.isNativePlatform&&window.Capacitor.isNativePlatform());
 // Added 2026-07-26: iOS-specific flag (not just "any native platform"), so we
 // can hide sign-in options that would otherwise force App Store Review
