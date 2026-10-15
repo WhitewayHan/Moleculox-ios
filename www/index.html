@@ -12,14 +12,14 @@
 
 <title>Moleculox — Chemistry Puzzle Game</title>
 <script>
-window.__MX_BUILD_ID__='8.7.215-r383-ios-app-attest-sync';
+window.__MX_BUILD_ID__='8.7.237-r391-ios-release';
+window.__MX_DISTRIBUTION__='ios';
+window.__MX_NATIVE_SHELL__=true;
 window.MX_QA_TEST_GAME=false;
 window.MX_QA_ALL_LEVELS_OPEN=false;
 window.MX_QA_NO_CLOUD=false;
-window.__MX_DISTRIBUTION__='ios';
-window.__MX_NATIVE_SHELL__=true;
 </script>
-
+<!-- Responsive web release: mobile and desktop browsers. -->
 <script>
 /* Early Studio tap capture without blocking startup on Storage Access. */
 window.__MX_STUDIO_EARLY_TAP__=false;
@@ -36,7 +36,7 @@ window.__MX_STUDIO_EARLY_TAP__=false;
 })();
 </script>
 
-<link rel="stylesheet" href="css/app-r160.css?v=8.7.215-r383-ios-app-attest-sync">
+<link rel="stylesheet" href="css/app-r160.css?v=8.7.237-r391-ios-release">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
 
@@ -469,8 +469,7 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
     </div>
     <div id="hudMid">
       <div id="lvPill">LEVEL 1</div>
-      <div id="levelMechanicBar" class="mxLevelMechanicBar" hidden aria-live="off"></div>
-      <div id="starRow"><span>★</span><span>★</span><span>★</span></div>
+      <div id="levelMechanicBar" class="mxLevelMechanicBar" aria-live="off"><div id="mechanicsLeft" class="mxMechanicRail"></div><div id="starRow"><span>★</span><span>★</span><span>★</span></div><div id="mechanicsRight" class="mxMechanicRail"></div></div>
       <div id="movePill" class="chip">MOVES 0 · PAR 4</div>
       <div id="duelTimer" class="chip" aria-live="off">00:00.0</div>
       <div id="crystalCounter" class="chip" aria-live="polite" aria-label=""></div>
@@ -508,7 +507,7 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
       <button id="btnAchv" class="btn iconBadge navB tint-amber"><span class="badgeIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8v5a4 4 0 0 1-8 0V4z"/><path d="M8 5H5a3 3 0 0 0 3 4"/><path d="M16 5h3a3 3 0 0 1-3 4"/><path d="M12 13v3"/><path d="M9.5 16.5h5l.5 3.5h-6z"/></svg></span><small data-i18n="achvShort">AWARDS</small><span id="achvBadge">0</span></button>
     </div>
     <div id="einWrap">
-      <div id="bubble" role="status" aria-live="polite" aria-atomic="true"><span id="bubbleText"></span><span id="bubbleTimer" aria-hidden="true"></span></div>
+      <div id="bubble" role="status" aria-live="polite" aria-atomic="true"><button id="bubbleClose" type="button" aria-label="Close">×</button><span id="bubbleText"></span><span id="bubbleTimer" aria-hidden="true"></span></div>
       <div class="einBox" id="einBoxG">
         <img class="einImg" src="assets/images/dr-edward-atom.png" alt="Dr. Edward Atom">
         <div class="einFx">
@@ -601,35 +600,35 @@ button .mlxIcon,.sectionHead .mlxIcon,.chip .mlxIcon{margin-right:.22em}
 <div id="levelTransition"></div>
 <canvas id="fx"></canvas>
 
-<script src="js/sync-core.js?v=8.7.215-r383-ios-app-attest-sync" defer></script>
-<script src="js/daily-levels.js?v=8.7.215-r383-ios-app-attest-sync" defer></script>
-<script src="js/campaign-levels.js?v=8.7.215-r383-ios-app-attest-sync" defer></script>
-<script src="js/campaign-expansion-loader-r137.js?v=8.7.215-r383-ios-app-attest-sync" defer></script>
-<script src="js/level-fx-recipes.js?v=8.7.215-r383-ios-app-attest-sync" defer></script>
-<script src="js/story-universe.js?v=8.7.215-r383-ios-app-attest-sync" defer></script>
-<script src="js/story-502-801-r282.js?v=8.7.215-r383-ios-app-attest-sync" defer></script>
-<script src="js/story-art-completion-r142.js?v=8.7.215-r383-ios-app-attest-sync" defer></script>
-<script src="js/v2-locales-generated.js?v=8.7.215-r383-ios-app-attest-sync" defer></script>
-<script src="js/v2-story-quality.js?v=8.7.215-r383-ios-app-attest-sync" defer></script>
-<script src="js/story-art-completion-r152.js?v=8.7.215-r383-ios-app-attest-sync" defer></script>
-<script src="js/it-locale-generated.js?v=8.7.215-r383-ios-app-attest-sync" defer></script>
-<script src="js/ko-locale-generated.js?v=8.7.215-r383-ios-app-attest-sync" defer></script>
-<script src="js/story-continuity-r153.js?v=8.7.215-r383-ios-app-attest-sync" defer></script>
-<script src="js/story-main-campaign-art-r154.js?v=8.7.215-r383-ios-app-attest-sync" defer></script>
-<script src="js/ru-locale-generated.js?v=8.7.215-r383-ios-app-attest-sync" defer></script>
-<script src="js/voice-locales-generated.js?v=8.7.215-r383-ios-app-attest-sync" defer></script>
-<script src="js/voice-it-generated.js?v=8.7.215-r383-ios-app-attest-sync" defer></script>
-<script src="js/voice-ru-generated.js?v=8.7.215-r383-ios-app-attest-sync" defer></script>
-<script src="js/offline-pack.js?v=8.7.215-r383-ios-app-attest-sync" defer></script>
-<script src="js/campaign-targets-r180.js?v=8.7.215-r383-ios-app-attest-sync" defer></script>
-<script src="js/movement-core.js?v=8.7.215-r383-ios-app-attest-sync" defer></script>
-<script src="js/game-r160.js?v=8.7.215-r383-ios-app-attest-sync" defer></script>
-<script src="js/expansion-science-loader-r137.js?v=8.7.215-r383-ios-app-attest-sync" defer></script>
+<script src="js/sync-core.js?v=8.7.237-r391-ios-release" defer></script>
+<script src="js/daily-levels.js?v=8.7.237-r391-ios-release" defer></script>
+<script src="js/campaign-levels.js?v=8.7.237-r391-ios-release" defer></script>
+<script src="js/campaign-expansion-loader-r137.js?v=8.7.237-r391-ios-release" defer></script>
+<script src="js/level-fx-recipes.js?v=8.7.237-r391-ios-release" defer></script>
+<script src="js/story-universe.js?v=8.7.237-r391-ios-release" defer></script>
+<script src="js/story-502-801-r282.js?v=8.7.237-r391-ios-release" defer></script>
+<script src="js/story-continuity-r385.js?v=8.7.237-r391-ios-release" defer></script>
+<script src="js/story-art-completion-r142.js?v=8.7.237-r391-ios-release" defer></script>
+<script src="js/v2-locales-generated.js?v=8.7.237-r391-ios-release" defer></script>
+<script src="js/v2-story-quality.js?v=8.7.237-r391-ios-release" defer></script>
+<script src="js/story-art-completion-r152.js?v=8.7.237-r391-ios-release" defer></script>
+<script src="js/it-locale-generated.js?v=8.7.237-r391-ios-release" defer></script>
+<script src="js/ko-locale-generated.js?v=8.7.237-r391-ios-release" defer></script>
+<script src="js/story-continuity-r153.js?v=8.7.237-r391-ios-release" defer></script>
+<script src="js/story-main-campaign-art-r154.js?v=8.7.237-r391-ios-release" defer></script>
+<script src="js/ru-locale-generated.js?v=8.7.237-r391-ios-release" defer></script>
+<script src="js/voice-locales-generated.js?v=8.7.237-r391-ios-release" defer></script>
+<script src="js/voice-it-generated.js?v=8.7.237-r391-ios-release" defer></script>
+<script src="js/voice-ru-generated.js?v=8.7.237-r391-ios-release" defer></script>
+<script src="js/offline-pack.js?v=8.7.237-r391-ios-release" defer></script>
+<script src="js/campaign-targets-r180.js?v=8.7.237-r391-ios-release" defer></script>
+<script src="js/movement-core.js?v=8.7.237-r391-ios-release" defer></script>
+<script src="js/story-art-canon-r386.js?v=8.7.237" defer></script>
+<script src="js/game-r160.js?v=8.7.237-r391-ios-release" defer></script>
+<script src="js/expansion-science-loader-r137.js?v=8.7.237-r391-ios-release" defer></script>
 
 <!-- ================= FIREBASE (account + cloud + ranking + Atom Duel) ================= -->
-<!-- R372 public release: load the real Firebase bridge. The game remains fully
-     playable offline; account/cloud/leaderboard/online features activate when online. -->
-<script type="module" src="js/firebase.js?v=8.7.215-r383-ios-app-attest-sync"></script>
+<script type="module" src="js/firebase.js?v=8.7.237-r391-ios-release"></script>
 
 <script>
 /* V8.5.17: convert functional UI emoji glyphs to one cross-platform SVG family.

@@ -13399,6 +13399,183 @@ body.reduceMotion .scienceLegendEgg,.reduceMotion .scienceLegendEgg{animation:no
 #gameScr #levelMechanicBar .mxLevelMechanicChip--precision{--mx-mech-color:#ffd76b}
 #gameScr #levelMechanicBar .mxLevelMechanicChip--classicCatalyst,#gameScr #levelMechanicBar .mxLevelMechanicChip--classicReactor{--mx-mech-color:#ffb06f}
 #gameScr #levelMechanicBar .mxLevelMechanicChip--classicChain{--mx-mech-color:#8fe3ff}
+
+/* R384 v8.7.219 — real accessibility pass.
+   These rules intentionally live late in the file so the settings toggles have
+   a visible, testable effect on both mobile and web builds. */
+body.mxLargeText{
+  font-size:118%!important;
+  --mx-readable-line:1.32;
+}
+body.mxLargeText #modalBox h3,
+body.mxLargeText .listHead h2{
+  font-size:clamp(24px,6.7vw,32px)!important;
+  line-height:1.08!important;
+}
+body.mxLargeText #modalBox.settingsModal .togRow,
+body.mxLargeText #modalBox.settingsModal .settingsPickerRow,
+body.mxLargeText #modalBox.settingsModal .languageSettingRow{
+  min-height:76px!important;
+  padding-top:13px!important;
+  padding-bottom:13px!important;
+}
+body.mxLargeText #modalBox.settingsModal .togRow>span>b,
+body.mxLargeText #modalBox.settingsModal .settingsPickerLabel b,
+body.mxLargeText #modalBox.settingsModal .languageSettingLabel b{
+  font-size:clamp(18px,4.9vw,22px)!important;
+  line-height:1.12!important;
+}
+body.mxLargeText #modalBox.settingsModal .togRow>span>small,
+body.mxLargeText #modalBox.settingsModal .settingsPickerLabel small,
+body.mxLargeText #modalBox.settingsModal .languageSettingLabel small,
+body.mxLargeText .msub,
+body.mxLargeText .guideSection p,
+body.mxLargeText .guideSection li{
+  font-size:clamp(13.5px,3.8vw,16px)!important;
+  line-height:var(--mx-readable-line)!important;
+}
+body.mxLargeText #modalBox.settingsModal .settingsPickerValue strong,
+body.mxLargeText #modalBox.settingsModal .languageSettingValue strong{
+  font-size:clamp(16px,4.4vw,20px)!important;
+}
+body.mxLargeText .btn,
+body.mxLargeText #modalBox.settingsModal .settingsClose{
+  font-size:clamp(17px,4.7vw,21px)!important;
+  line-height:1.12!important;
+}
+body.mxLargeText .lvBtn .lvNum{font-size:22px!important}
+body.mxLargeText .lvBtn .st{font-size:12px!important}
+body.mxLargeText .molCard .mn,
+body.mxLargeText .elCard .en,
+body.mxLargeText .scienceLegendName{font-size:1.05rem!important}
+body.mxLargeText #goalName{font-size:clamp(13.5px,3.8vw,17px)!important}
+body.mxLargeText #movePill,
+body.mxLargeText #duelTimer{font-size:clamp(13px,3.5vw,16px)!important}
+
+body.mxHighContrast{
+  --ink:#02030b!important;
+  --card:rgba(3,5,17,.96)!important;
+  --card2:rgba(5,8,24,.98)!important;
+  --line:rgba(255,255,255,.72)!important;
+  --txt:#ffffff!important;
+  --dim:#edf4ff!important;
+  --cyan:#7df3ff!important;
+  --amber:#ffe36f!important;
+  --green:#70ff9d!important;
+}
+body.mxHighContrast #app,
+body.mxHighContrast .screen::before{
+  filter:contrast(1.12) saturate(.92)!important;
+}
+body.mxHighContrast #modalBox,
+body.mxHighContrast .card,
+body.mxHighContrast .levelCard,
+body.mxHighContrast .molCard,
+body.mxHighContrast .achvCard,
+body.mxHighContrast .scienceLegendCard,
+body.mxHighContrast .settingsPickerRow,
+body.mxHighContrast .languageSettingRow,
+body.mxHighContrast .togRow{
+  background:linear-gradient(180deg,rgba(2,4,14,.98),rgba(5,8,24,.98))!important;
+  border-color:rgba(255,255,255,.78)!important;
+  box-shadow:0 0 0 2px rgba(0,0,0,.95),0 0 0 4px rgba(125,243,255,.16),0 10px 24px rgba(0,0,0,.72)!important;
+}
+body.mxHighContrast h1,
+body.mxHighContrast h2,
+body.mxHighContrast h3,
+body.mxHighContrast b,
+body.mxHighContrast strong,
+body.mxHighContrast .btn,
+body.mxHighContrast .lvNum{
+  color:#fff!important;
+  text-shadow:0 2px 3px #000,0 0 12px rgba(125,243,255,.35)!important;
+}
+body.mxHighContrast small,
+body.mxHighContrast .msub,
+body.mxHighContrast .settingsPickerLabel small,
+body.mxHighContrast .languageSettingLabel small,
+body.mxHighContrast .togRow>span>small{
+  color:#edf4ff!important;
+  opacity:1!important;
+}
+body.mxHighContrast .btn{
+  border:2px solid rgba(255,255,255,.78)!important;
+}
+body.mxHighContrast .btn.green,
+body.mxHighContrast .tog.on{
+  background:linear-gradient(180deg,#79ff9c,#13b95a)!important;
+  color:#021208!important;
+}
+body.mxHighContrast .tog:not(.on){
+  background:linear-gradient(180deg,#171931,#090b18)!important;
+  border:2px solid rgba(255,255,255,.62)!important;
+}
+body.mxHighContrast .settingsFixedNav{
+  background:linear-gradient(180deg,rgba(2,4,14,0),rgba(2,4,14,.98) 26%)!important;
+}
+
+body.mxColorBlind .tog::before,
+body.mxHighContrast .tog::before{
+  content:"OFF";
+  position:absolute;
+  left:10px;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:1;
+  color:#fff;
+  font-size:9px;
+  font-weight:1000;
+  letter-spacing:.04em;
+  opacity:.9;
+  pointer-events:none;
+}
+body.mxColorBlind .tog.on::before,
+body.mxHighContrast .tog.on::before{
+  content:"ON";
+  left:11px;
+  color:#062814;
+}
+body.mxColorBlind .btn,
+body.mxColorBlind .iconBadge,
+body.mxColorBlind .levelCard,
+body.mxColorBlind .molCard,
+body.mxColorBlind .scienceLegendCard,
+body.mxColorBlind .settingsPickerRow,
+body.mxColorBlind .languageSettingRow{
+  outline:2px solid rgba(255,255,255,.34)!important;
+  outline-offset:-3px!important;
+}
+body.mxColorBlind .btn.green,
+body.mxColorBlind .tog.on{
+  background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.18) 0 6px,rgba(255,255,255,0) 6px 12px),linear-gradient(180deg,#54ef8d,#18b95b)!important;
+}
+body.mxColorBlind .btn.blue,
+body.mxColorBlind .settingsPickerRow,
+body.mxColorBlind .languageSettingRow{
+  background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.09) 0 5px,rgba(255,255,255,0) 5px 11px)!important;
+}
+body.mxColorBlind #starRow .off,
+body.mxColorBlind .lvBtn .st .off{
+  color:#fff!important;
+  opacity:.35!important;
+  filter:grayscale(1)!important;
+}
+body.mxColorBlind .duelP1 #boardFrame{border-style:solid!important}
+body.mxColorBlind .duelP2 #boardFrame{border-style:dashed!important}
+
+@media(max-width:390px){
+  body.mxLargeText{font-size:114%!important}
+  body.mxLargeText #modalBox.settingsModal .togRow>span>b,
+  body.mxLargeText #modalBox.settingsModal .settingsPickerLabel b,
+  body.mxLargeText #modalBox.settingsModal .languageSettingLabel b{
+    font-size:clamp(17px,4.8vw,20px)!important;
+  }
+  body.mxLargeText #modalBox.settingsModal .togRow>span>small,
+  body.mxLargeText #modalBox.settingsModal .settingsPickerLabel small,
+  body.mxLargeText #modalBox.settingsModal .languageSettingLabel small{
+    font-size:clamp(12.5px,3.7vw,15px)!important;
+  }
+}
 .srOnly{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
 
 /* ================= R371 TEST · SCIENCE LEGENDS REVEAL V3 =================
@@ -13621,6 +13798,351 @@ body.reduceMotion .scienceLegendRevealStage::after,
   #collectScr #molGrid{grid-template-columns:minmax(0,1fr)!important;}
 }
 
+/* R384 v8.7.220: short readable speech, explicit close, full-text reader. */
+#bubble,#gameScr #bubble,#playScr #bubble,
+#gameScr #bubble.long,#playScr #bubble.long{
+  width:min(55vw,260px)!important;max-width:min(55vw,260px)!important;
+  max-height:none!important;height:auto!important;overflow:visible!important;
+  padding:14px 30px 14px 14px!important;font-size:clamp(13px,3.3vw,16px)!important;
+  line-height:1.42!important;cursor:default!important;
+}
+#bubbleText{max-height:min(26dvh,180px);overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+#bubbleClose{position:absolute;right:1px;top:1px;width:30px;height:34px;border:0;border-radius:12px;background:transparent;color:#30234f;font:700 24px/1 sans-serif;cursor:pointer}
+#bubbleMore{display:block;margin-top:10px;padding:9px 10px;min-height:38px;border:1px solid #7360b8;border-radius:10px;background:#eee9ff;color:#30234f;font:inherit;font-weight:800;cursor:pointer}
+#bubbleMore[hidden]{display:none!important}
+#bubble.reading #bubbleTimer{animation-play-state:paused;opacity:0}
+#bubble:active{transform:scale(1) translateY(0)!important}
+#modalBox.edwardReadModal{max-width:620px!important}
+.edwardFullText{font-size:clamp(16px,4vw,19px);line-height:1.65;overflow-wrap:anywhere;color:#f7f5ff}
+.edwardFullText *{color:inherit!important;font-size:inherit!important;line-height:inherit!important;max-height:none!important;overflow:visible!important}
+body.mxLargeText #bubble,body.mxLargeText #gameScr #bubble,body.mxLargeText #gameScr #bubble.long{font-size:clamp(16px,4vw,19px)!important;line-height:1.5!important}
+body.mxLargeText .edwardFullText{font-size:clamp(20px,4.8vw,23px)!important}
+#bubble button:focus-visible{outline:3px solid #1c709c;outline-offset:2px}
+
+/* R384 v8.7.221: fixed stars, one-row mechanic rails within the middle HUD. */
+#gameScr #levelMechanicBar{
+  display:grid!important;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr)!important;
+  width:100%!important;max-width:100%!important;min-width:0!important;
+  height:36px!important;min-height:36px!important;max-height:36px!important;
+  box-sizing:border-box!important;gap:4px!important;padding:0!important;margin:2px 0!important;
+  background:transparent!important;border:0!important;overflow:hidden!important;
+}
+#gameScr #levelMechanicBar #starRow{white-space:nowrap;font-size:20px!important;letter-spacing:1px!important;filter:none!important}
+.mxMechanicRail{display:flex;min-width:0;align-items:center;gap:1px;overflow:hidden}
+.mxMechanicScroll{display:flex;justify-content:flex-start;min-width:0;flex:1;gap:3px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;touch-action:pan-x;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.mxMechanicScroll::-webkit-scrollbar{display:none}
+#gameScr #levelMechanicBar .mxLevelMechanicChip{flex:0 0 29px!important;width:29px!important;height:29px!important;padding:3px!important;margin:0!important}
+.mxMechanicMore{flex:0 0 15px;width:15px;min-height:34px;border:0;padding:0;background:transparent;color:#c0f5ff;font:900 22px/1 sans-serif;cursor:pointer}
+.mxMechanicMore[hidden]{display:none!important}
+#gameScr #bubble,#gameScr #bubble.long,#playScr #bubble,#playScr #bubble.long{
+  width:min(51vw,235px)!important;max-width:min(51vw,235px)!important;
+  bottom:104px!important;font-size:clamp(13px,3.2vw,15px)!important;line-height:1.38!important;
+  padding:12px 28px 12px 12px!important;
+}
+#bubbleText>b{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;margin-bottom:5px}
+#bubbleText>span{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}
+#bubble.readerOpen{opacity:0!important;visibility:hidden!important;pointer-events:none!important}
+#bubbleMore{font-size:13px;margin-top:8px;min-height:34px;padding:7px 9px}
+.edwardFullText{text-align:left!important}
+@media(max-width:360px){#gameScr #levelMechanicBar #starRow{font-size:17px!important}#gameScr #levelMechanicBar{gap:2px!important}}
+
+/* R384 v8.7.222: swipe hints are decorative, not arrow buttons. */
+.mxMechanicRail{position:relative;gap:0}
+.mxMechanicScroll{padding-right:10px}
+.mxMechanicMore{position:absolute;right:0;top:50%;transform:translateY(-50%);width:10px;min-height:0;padding:0;pointer-events:none;font:900 15px/1 sans-serif;background:linear-gradient(90deg,transparent,#12203c);text-shadow:0 1px 4px #061324;opacity:.85}
+#gameScr #bubble,#gameScr #bubble.long,#playScr #bubble,#playScr #bubble.long{overflow:hidden!important;cursor:default!important}
+#bubbleText{max-height:min(29dvh,235px)!important;overflow-y:auto!important;overflow-x:hidden!important;touch-action:pan-y!important;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:#998ac0 transparent}
+#bubbleText>b,#bubbleText>span{display:block!important;-webkit-line-clamp:unset!important;overflow:visible!important}
+#bubbleText .mxScienceBrief,#bubbleText .mxScienceFact{font-size:inherit!important;line-height:inherit!important;color:inherit!important}
+#bubbleClose[hidden]{display:none!important}
+#bubble:not(.long){padding-right:14px!important;cursor:pointer!important}
+#bubble.on #bubbleTimer{opacity:.85!important;animation:bubbleReadTime var(--bubble-duration,8s) linear forwards}
+#bubble.on.reading #bubbleTimer{animation-play-state:paused!important;opacity:.65!important}
+#bubbleTimer{z-index:2;pointer-events:none}
+
+/* R384 v8.7.223: icon cards must fit their 36px rail, independent of generic buttons. */
+#gameScr #levelMechanicBar{
+  max-width:min(100%,460px)!important;margin:2px auto!important;gap:6px!important;
+  align-items:center!important;justify-content:normal!important;
+}
+#gameScr #levelMechanicBar .mxMechanicRail{
+  height:36px;min-height:0;max-height:36px;align-items:center;
+}
+#gameScr #levelMechanicBar .mxMechanicRail:first-child{justify-content:flex-end}
+#gameScr #levelMechanicBar .mxMechanicRail:last-child{justify-content:flex-start}
+#gameScr #levelMechanicBar .mxMechanicScroll{
+  flex:0 1 auto;max-width:100%;box-sizing:border-box;padding:0 8px 0 0;
+  height:32px;min-height:0;align-items:center;
+}
+#gameScr #levelMechanicBar .mxLevelMechanicChip{
+  flex:0 0 32px!important;width:32px!important;min-width:32px!important;max-width:32px!important;
+  height:32px!important;min-height:32px!important;max-height:32px!important;
+  box-sizing:border-box!important;padding:3px!important;touch-action:pan-x!important;
+}
+#gameScr #levelMechanicBar #starRow{
+  min-width:58px;max-width:58px;text-align:center;box-sizing:border-box;
+  position:relative;z-index:1;letter-spacing:1px!important;
+}
+#gameScr #levelMechanicBar .mxMechanicMore{z-index:2}
+
+/* Small landscape embeds retain every central action without shrinking touch targets. */
+@media (orientation:landscape) and (min-width:521px) and (max-height:500px){
+  #splash{
+    padding-top:calc(var(--sat) + 6px)!important;padding-bottom:calc(var(--sab) + 30px)!important;
+    box-sizing:border-box!important;overflow-y:auto!important;overflow-x:hidden!important;
+  }
+  #splash #logoWrap{
+    flex:0 0 104px!important;height:104px!important;min-height:104px!important;
+    margin:0!important;animation:none!important;
+  }
+  #splash #logoTop{font-size:9px!important;line-height:12px!important;margin:0!important}
+  #splash #logoTitle,#splash #logoSub{display:none!important}
+  #splash #mainMenuLogoImage{top:14px!important;width:min(30vw,190px)!important;max-height:67px!important;object-fit:contain!important}
+  #splash #campaign501Badge{position:absolute!important;top:84px!important;left:50%!important;transform:translateX(-50%)!important;margin:0!important}
+  #splash #splashBtns{
+    display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    flex:0 0 auto!important;width:min(60vw,480px)!important;gap:8px!important;
+    margin:4px auto 12px!important;transform:none!important;
+  }
+  #splash #btnPlayIntroWrap{grid-column:1/-1;display:block!important;margin:0!important}
+  #splash #splashBtns .btn:not(.iconBadge){
+    width:100%!important;min-width:0!important;min-height:48px!important;height:auto!important;
+    box-sizing:border-box!important;margin:0!important;padding:8px 6px!important;
+    font-size:14px!important;line-height:1.2!important;white-space:normal!important;
+    overflow-wrap:anywhere!important;
+  }
+  #splash #onlinePlayerCount{position:relative!important;flex:0 0 auto!important;top:auto!important;bottom:auto!important;margin:0 auto 6px!important}
+  #splash #copyLine{font-size:8px!important;bottom:3px!important}
+  #splash #splashBubble{max-width:min(23vw,150px)!important;max-height:95px!important;overflow-y:auto!important;font-size:10px!important;bottom:28px!important}
+}
+@media (orientation:landscape) and (min-width:521px) and (max-height:500px){
+  body.mxLargeText #splash #splashBtns .btn:not(.iconBadge){font-size:18px!important;min-height:52px!important}
+}
+
+/* R384 v8.7.224: isolated swipe rails, stable star width on Safari. */
+#gameScr #levelMechanicBar{
+  grid-template-columns:minmax(0,1fr) 64px minmax(0,1fr)!important;
+  column-gap:6px!important;isolation:isolate;
+}
+#gameScr #levelMechanicBar #starRow{
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  width:64px!important;min-width:64px!important;max-width:64px!important;
+  gap:2px!important;letter-spacing:0!important;overflow:hidden!important;
+  font-size:20px!important;line-height:1!important;
+}
+#gameScr #levelMechanicBar #starRow>span{flex:0 0 20px;width:20px;text-align:center}
+#gameScr #levelMechanicBar .mxMechanicRail{
+  width:100%;max-width:100%;min-width:0;contain:paint;
+  overflow:hidden;position:relative;padding:0 12px 0 0;box-sizing:border-box;
+}
+#gameScr #levelMechanicBar .mxMechanicScroll{
+  flex:0 0 auto!important;max-width:100%;padding:0!important;gap:3px!important;
+  scroll-snap-type:x mandatory;scroll-padding:0;overflow-x:auto;
+}
+#gameScr #levelMechanicBar .mxLevelMechanicChip{scroll-snap-align:start;scroll-snap-stop:always}
+#gameScr #levelMechanicBar .mxMechanicMore{right:0;width:10px;cursor:default}
+
+/* Menu speech belongs beside Edward, outside the central action column. */
+#splash #splashBubble{
+  overflow-x:hidden!important;overflow-wrap:anywhere!important;
+}
+#splash #splashBubbleText{min-width:0;white-space:normal!important;overflow-wrap:anywhere!important}
+@media (orientation:landscape) and (min-width:521px){
+  #splash #splashBubble{
+    left:auto!important;right:12px!important;bottom:calc(var(--sab) + 145px)!important;
+    width:min(205px,calc(20vw - 24px))!important;max-width:205px!important;max-height:140px!important;
+    overflow-y:auto!important;pointer-events:auto;touch-action:pan-y;
+  }
+  #splash #splashBubble::after{right:18px;bottom:-10px;border-left:10px solid transparent;border-right:10px solid transparent;border-top:10px solid #eff6ff;border-bottom:0}
+}
+
+/* Short landscape windows: fit the complete HUD and all six tools. */
+@media (orientation:landscape) and (min-width:521px) and (max-height:500px){
+  #gameScr #hud{
+    flex:0 0 110px!important;height:110px!important;min-height:110px!important;max-height:110px!important;
+    padding:6px 8px 0!important;transform:none!important;margin:0!important;
+  }
+  #gameScr #hudMid{height:100%!important;position:static!important;transform:none!important;margin:0!important;gap:2px!important}
+  #gameScr #lvPill{font-size:16px!important;line-height:20px!important;padding:0!important;transform:none!important;margin:0!important}
+  #gameScr #movePill,#gameScr #duelTimer{font-size:10px!important;line-height:12px!important;padding:2px 8px!important;margin:0!important}
+  #gameScr #goalCard{width:88px!important;min-width:88px!important;height:100px!important;min-height:100px!important;max-height:100px!important;padding:4px!important;transform:none!important}
+  #gameScr #goalCv{width:64px!important;height:42px!important;max-height:42px!important;flex-basis:42px!important}
+  #gameScr #goalName{font-size:8px!important;line-height:9px!important}
+  #gameScr #goalFor{font-size:10px!important}
+  #gameScr #hudRight{gap:3px!important;transform:none!important}
+  #gameScr #coinChip{font-size:10px!important}
+  #gameScr #btnGear,#gameScr #btnHome{width:44px!important;height:36px!important;min-height:36px!important;padding:3px!important}
+  #gameScr #bottomBar{height:54px!important;min-height:54px!important;flex:0 0 54px!important}
+  #gameScr #boardWrap{transform:none!important;margin:0!important;padding:6px 116px 6px 8px!important}
+  #gameScr #actionCol{
+    top:50%!important;bottom:auto!important;right:8px!important;left:auto!important;
+    transform:translateY(-50%)!important;width:104px!important;display:grid!important;
+    grid-template-columns:repeat(2,48px)!important;gap:7px 8px!important;
+  }
+  #gameScr #actionCol .btn{width:48px!important;height:46px!important;min-height:46px!important;padding:3px!important;margin:0!important}
+  #gameScr #actionCol .badgeIcon{width:21px!important;height:21px!important}
+  #gameScr #actionCol small{font-size:7px!important;line-height:9px!important}
+  #gameScr #navBtns{bottom:6px!important;gap:7px!important;transform:none!important}
+  #gameScr #navBtns .btn{width:44px!important;height:44px!important;min-height:44px!important;padding:4px!important}
+  #gameScr #dpad{width:96px!important;height:96px!important;grid-template-columns:repeat(3,30px)!important;grid-template-rows:repeat(3,30px)!important;bottom:4px!important}
+  #gameScr #dpad .dbtn{width:28px!important;height:28px!important;min-width:28px!important;min-height:28px!important;margin:1px!important}
+  #gameScr #dpad .mxDpadGlyph{font-size:22px!important}
+  #gameScr #einBoxG{width:85px!important;height:92px!important}
+  #gameScr #bubble{bottom:56px!important;max-width:220px!important;font-size:12px!important}
+  #gameScr #bubbleText{max-height:110px!important}
+  #splash #splashBubble{bottom:145px!important;width:min(112px,calc(20vw - 24px))!important;max-width:112px!important;max-height:120px!important;font-size:10px!important}
+}
+
+/* Wide desktop: keep controls close to the board and increase label legibility. */
+@media (orientation:landscape) and (min-width:900px) and (min-height:501px){
+  #gameScr{max-width:1080px!important;margin-inline:auto!important}
+  #gameScr #actionCol{right:max(8px,calc(50% - var(--mx-board-half,249px) - 90px))!important;top:50%!important;transform:translateY(-50%)!important;gap:9px!important;width:72px!important}
+  #gameScr #actionCol .btn{width:72px!important;height:64px!important;min-height:64px!important;padding:7px 4px!important}
+  #gameScr #actionCol .badgeIcon{width:30px!important;height:30px!important}
+  #gameScr #actionCol small,#gameScr #navBtns small{font-size:11px!important;line-height:13px!important}
+  #gameScr #lvPill{font-size:22px!important}
+  #gameScr #movePill,#gameScr #duelTimer{font-size:14px!important}
+}
+
+/* R384 v8.7.225: viewport-root containment and compact screen layouts. */
+html,body{overflow:clip!important}
+.screen{position:fixed!important;height:var(--app-h)!important}
+.screen:not(.on){visibility:hidden!important}
+.screen.on{visibility:visible!important}
+#collectScr #collectionTabs.collectionTabs,
+#labScr #labTabs{
+ display:flex!important;flex-wrap:nowrap!important;gap:6px!important;
+ overflow-x:auto!important;overflow-y:hidden!important;min-width:0!important;
+ flex:0 0 auto!important;scroll-snap-type:x proximity;touch-action:pan-x;
+ overscroll-behavior-x:contain;scrollbar-width:none;padding:6px 10px!important;
+ margin:0!important;
+}
+#collectionTabs::-webkit-scrollbar,#labTabs::-webkit-scrollbar{display:none}
+#collectScr #collectionTabs .collectionTab,#labScr #labTabs .labTab{
+ flex:1 0 92px!important;min-width:92px!important;min-height:48px!important;
+ height:auto!important;scroll-snap-align:start;touch-action:pan-x!important;
+ padding:6px!important;box-sizing:border-box!important;
+}
+#collectScr #collectionTabs .collectionTab span{font-size:11px!important;line-height:1.15!important;white-space:normal!important}
+body.mxLargeText #collectScr #collectionTabs .collectionTab span{font-size:14px!important}
+#bubble.long{padding-right:48px!important}
+#bubbleClose{width:44px!important;min-width:44px!important;max-width:44px!important;height:44px!important;min-height:44px!important;right:0!important;top:0!important}
+@media(orientation:landscape) and (min-width:521px){
+ #splash #splashBubble{overflow:visible!important;max-height:none!important;min-height:0!important;right:24px!important;bottom:calc(var(--sab) + 165px)!important;width:205px!important;max-width:205px!important}
+ .scienceLegendGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .scienceLegendCard{display:grid!important;grid-template-columns:82px minmax(0,1fr)!important;align-items:stretch}
+ .scienceLegendArtWrap{aspect-ratio:auto!important;width:82px!important;height:110px!important;align-self:start}
+ .scienceLegendBody{padding:9px!important;gap:5px!important;min-width:0}
+ .scienceLegendTop{flex-wrap:wrap;gap:4px}
+ .scienceLegendUnlockText{display:none}
+ .scienceLegendName{font-size:14px!important;line-height:1.2!important}
+ .scienceLegendLock small{font-size:9px!important}
+ .scienceLegendProgressLine{font-size:10px!important}
+ .scienceLegendDetailArt img{max-height:min(55vh,330px)!important}
+}
+@media(orientation:landscape) and (min-width:900px) and (min-height:501px){
+ #gameScr #bubble{right:12px!important;left:auto!important;width:min(235px,var(--mx-side-room,190px))!important;max-width:min(235px,var(--mx-side-room,190px))!important;bottom:185px!important}
+ .scienceLegendGrid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+}
+@media(orientation:landscape) and (min-width:521px) and (max-height:500px){
+ #gameScr #hud{flex-basis:var(--mx-compact-hud-height,96px)!important;height:var(--mx-compact-hud-height,96px)!important;min-height:var(--mx-compact-hud-height,96px)!important;max-height:var(--mx-compact-hud-height,96px)!important}
+ #gameScr #goalCard{height:90px!important;min-height:90px!important;max-height:90px!important}
+ #gameScr #actionCol{right:max(8px,calc(50% - var(--mx-board-half,85px) - 62px))!important}
+ #gameScr #bubble{right:12px!important;left:auto!important;width:min(180px,var(--mx-side-room,140px))!important;max-width:min(180px,var(--mx-side-room,140px))!important;bottom:100px!important;font-size:12px!important;padding:10px!important}
+ #gameScr #bubble.long{padding-right:44px!important}
+ #gameScr #bubbleText{max-height:110px!important}
+ #splash #splashBubble{right:110px!important;bottom:24px!important;width:min(34vw,220px)!important;max-width:220px!important;font-size:10px!important;padding:7px 10px!important;line-height:1.25!important}
+ #splash #splashBubbleText{display:-webkit-box!important;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden!important}
+ #splash .splashBubbleWho{font-size:8px!important;letter-spacing:.5px!important}
+ #splash #splashBubble::after{right:-9px;bottom:12px;border:9px solid transparent;border-left-color:#eff6ff;border-right:0}
+ #collectScr .scroll,#labScr .scroll{min-height:0!important}
+}
+@media(orientation:portrait) and (max-width:360px){
+ #gameScr #levelMechanicBar{grid-template-columns:minmax(0,1fr) 54px minmax(0,1fr)!important;gap:4px!important}
+ #gameScr #levelMechanicBar #starRow{width:54px!important;min-width:54px!important;max-width:54px!important;font-size:17px!important}
+ #gameScr #levelMechanicBar #starRow>span{width:16px!important;flex-basis:16px!important}
+}
+#gameScr #levelMechanicBar .mxMechanicRail{padding-right:10px!important}
+#gameScr #levelMechanicBar .mxLevelMechanicChip{
+ flex-basis:var(--mx-rail-chip,32px)!important;width:var(--mx-rail-chip,32px)!important;
+ min-width:var(--mx-rail-chip,32px)!important;max-width:var(--mx-rail-chip,32px)!important;
+}
+#gameScr #levelMechanicBar .mxMechanicSvg{max-width:100%!important}
+@media(orientation:landscape) and (min-width:521px) and (max-height:500px){
+ #gameScr #levelMechanicBar{height:32px!important;min-height:32px!important;max-height:32px!important}
+ #gameScr #levelMechanicBar .mxMechanicRail{height:32px!important;max-height:32px!important}
+ #splash #splashBubble{bottom:14px!important}
+ #splash #onlinePlayerCount{position:absolute!important;left:70px!important;right:auto!important;bottom:24px!important;margin:0!important;width:max-content!important}
+}
+@media(orientation:landscape) and (min-width:900px) and (min-height:501px){
+ #splash #splashBubble{right:240px!important;width:235px!important;max-width:235px!important}
+}
+body.mxIOSNative:not(.tutorialMode) #gameScr #boardWrap{transform:none!important}
+
+/* R384 v8.7.226: restore all five collection tabs on portrait phones. */
+@media(max-width:540px){
+ #collectScr #collectionTabs.collectionTabs{
+  display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;
+  width:100%!important;max-width:100%!important;gap:4px!important;
+  padding:6px 5px!important;overflow:visible!important;scroll-snap-type:none!important;
+  box-sizing:border-box!important;transform:none!important;
+ }
+ #collectScr #collectionTabs .collectionTab{
+  flex:none!important;min-width:0!important;width:100%!important;max-width:100%!important;
+  padding:6px 2px!important;min-height:48px!important;gap:3px!important;
+ }
+ #collectScr #collectionTabs .collectionTab span{
+  display:block!important;min-width:0!important;max-width:100%!important;
+  font-size:clamp(8px,2.25vw,11px)!important;letter-spacing:0!important;
+  line-height:1.15!important;white-space:normal!important;overflow-wrap:anywhere!important;
+ }
+ body.mxLargeText #collectScr #collectionTabs .collectionTab span{
+  font-size:clamp(10px,2.55vw,13px)!important;
+ }
+ #collectScr #collectionTabs .collectionTab i,
+ #collectScr #collectionTabs .collectionTab .mxUiIcon{width:20px!important;height:20px!important}
+}
+#gameScr #bubble.long,#playScr #bubble.long{padding-right:48px!important}
+@media(orientation:landscape) and (min-width:521px) and (max-height:500px){
+ #gameScr #bubble{position:fixed!important;left:16px!important;right:auto!important;width:220px!important;max-width:220px!important;bottom:60px!important}
+}
+
+
+/* Moleculox R385 / Nye Digital Games legibility + non-destructive accessibility.
+   The entire story panel scrolls when needed; no cramped nested text scrollbars. */
+#levelStoryPanel{box-sizing:border-box!important;overflow-y:auto!important;overscroll-behavior:contain!important;max-height:min(92dvh,860px)!important;scrollbar-gutter:stable!important}
+#levelStoryPanel .comicStrip{min-height:0!important;align-items:start!important}
+#levelStoryPanel .comicReaction{min-width:0!important;overflow:visible!important;height:auto!important;max-height:none!important;padding:14px!important}
+#levelStoryPanel .comicReaction .speechBubble{width:100%!important;max-width:100%!important;max-height:none!important;overflow:visible!important;font-size:clamp(14px,1.45vw,17px)!important;line-height:1.38!important}
+#levelStoryPanel #storyText{font-size:inherit!important;line-height:inherit!important;overflow:visible!important}
+#levelStoryPanel .storyNarration{font-size:clamp(13.5px,1.45vw,16px)!important;line-height:1.45!important;max-height:none!important;overflow:visible!important;padding:11px 12px!important}
+#levelStoryPanel #storyNarration{overflow:visible!important;white-space:normal!important;line-height:inherit!important}
+#levelStoryPanel .reactionText,#levelStoryPanel #storyReaction{font-size:clamp(12.5px,1.26vw,15px)!important;line-height:1.36!important;max-height:none!important;overflow:visible!important}
+#levelStoryPanel .storyNav{position:sticky!important;bottom:0!important;z-index:10!important;background:#f6d84deb!important;padding:9px 4px!important;backdrop-filter:blur(8px)}
+#levelStoryPanel #storyChapter{font-size:clamp(14px,1.5vw,19px)!important;line-height:1.2!important;overflow:visible!important}
+body.mxLargeText #levelStoryPanel .comicReaction .speechBubble{font-size:clamp(17px,1.8vw,21px)!important;line-height:1.45!important}
+body.mxLargeText #levelStoryPanel .storyNarration{font-size:clamp(16px,1.75vw,20px)!important;line-height:1.5!important}
+body.mxLargeText #levelStoryPanel .reactionText{font-size:clamp(15px,1.6vw,18px)!important}
+body.mxLargeText #levelStoryPanel #storyChapter{font-size:clamp(17px,1.8vw,22px)!important}
+/* Contrast mode: retain the story's cream panel and dark lettering, not dark cards with dark text. */
+body.mxHighContrast #levelStoryPanel .comicReaction{background:#fffdf3!important;border-color:#061327!important}
+body.mxHighContrast #levelStoryPanel .storyNarration{background:#071b33!important;color:#fff!important;border-color:#071b33!important}
+body.mxHighContrast #levelStoryPanel .comicReaction .speechBubble{background:#fff!important;color:#071b33!important;border-color:#071b33!important}
+body.mxHighContrast #levelStoryPanel .comicReaction :is(#storyText,#storySpeaker,#storyReaction){color:#091b34!important;text-shadow:none!important}
+body.mxHighContrast #levelStoryPanel :is(#storyChapter,#storyPageCounter){color:#071b33!important;text-shadow:none!important}
+body.mxHighContrast #levelStoryPanel #storyNarration{color:#fff!important}
+@media(max-width:620px){
+ #levelStoryPanel{width:min(97vw,550px)!important;max-height:94dvh!important;padding:12px!important;}
+ #levelStoryPanel .comicReaction{padding:10px!important;min-height:0!important}
+ #levelStoryPanel .comicReaction .speechBubble{font-size:15px!important;line-height:1.37!important}
+ #levelStoryPanel .storyNarration{font-size:14px!important;line-height:1.4!important}
+ #levelStoryPanel .reactionText{font-size:13px!important;line-height:1.35!important}
+ #levelStoryPanel.hasSceneArt .comicPanel.comicHero{height:clamp(170px,25dvh,260px)!important}
+ body.mxLargeText #levelStoryPanel .comicReaction .speechBubble{font-size:18px!important}
+ body.mxLargeText #levelStoryPanel .storyNarration{font-size:17px!important}
+}
+
+/* R391 retained native layout overrides */
 /* ================= R371 iOS UNIVERSAL PHONE FIT — 2026-09-22 =================
    App Store/TestFlight responsive correction:
    1) Main-menu Dr. Edward is anchored to the physical bottom edge (behind the
