@@ -1,8 +1,8 @@
 {
   "name": "moleculox-ios",
-  "version": "8.7.215",
+  "version": "8.7.237",
   "private": true,
-  "description": "Moleculox iOS R383 / 8.7.215 - early native App Attest initialization, production entitlement and cloud sync diagnostics",
+  "description": "Moleculox R391 native ios release; canon story panels, music shuffle, mobile UI parity; native auth preserved.",
   "scripts": {
     "check": "node scripts/verify-r376-native.js ios && node --test tests/*.test.mjs && python3 tests/test_ios_native.py",
     "ios:prepare": "bash scripts/prepare-ios.sh",
