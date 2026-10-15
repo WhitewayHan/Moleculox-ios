@@ -5,7 +5,7 @@
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "orientation": "portrait",
+  "orientation": "any",
   "background_color": "#0e0c26",
   "theme_color": "#0e0c26",
   "icons": [
@@ -34,5 +34,5 @@
     "games",
     "education"
   ],
-  "version": "8.7.212-r380-itch-parity-ios"
+  "version": "8.7.231-r385-itch-mobile-801-open-test"
 }

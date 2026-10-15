@@ -1,7 +1,7 @@
-/* Moleculox R372 PAR hard-reset release · current offline cache namespace. */
+/* Moleculox v8.7.237 R391 ios production distribution. */
 importScripts('./offline-manifest-r193.js');
-const CACHE_NAME='moleculox-r380-native-ios';
-const MEDIA_CACHE='moleculox-media-r380-native-ios';
+const CACHE_NAME='moleculox-r391-ios-v8-7-237';
+const MEDIA_CACHE='moleculox-media-r391-ios';
 const REFRESH_MEDIA_PATHS=new Set([
   './assets/images/boot-splash.webp',
   './assets/images/moleculox-logo-r220.png',
