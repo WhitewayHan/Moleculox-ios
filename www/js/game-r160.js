@@ -1,6 +1,6 @@
 // R384: Dr. Edward voice and main-menu art retained.
-/* Moleculox R391 · production web distribution. */
-const APP_VERSION="v8.7.237 · R391 · IOS";
+/* Moleculox R392 · production web distribution. */
+const APP_VERSION="v8.7.238 · R392 · IOS";
 const mxReducedMotionQuery=window.matchMedia?window.matchMedia('(prefers-reduced-motion: reduce)'):null;
 let mxSystemReducedMotion=!!(mxReducedMotionQuery&&mxReducedMotionQuery.matches);
 if(mxReducedMotionQuery){
@@ -14645,6 +14645,44 @@ function resetViewportZoomIOS(){
     setTimeout(()=>{vp.setAttribute('content',original);},50);
   }catch(e){}
 }
+// R392: Native iOS account-method safety. A previous iPhone build showed only
+// the Apple option despite the full provider template. Heal absent provider
+// controls BEFORE attaching their original event listeners. This cannot touch
+// Firebase UIDs, profiles or authentication state.
+function mxEnsureIOSAuthChoices(c,member){
+  if(!MX_IOS_NATIVE||member)return;
+  const root=$('#modalBox');
+  const actions=root&&root.querySelector('.accountActions');
+  if(!actions)return;
+  const utility=actions.querySelector('.accountUtilityRow');
+  const options=[
+    ['accGoogle','btn google',c.google],
+    ['accEmailLogin','btn blue','✉ '+c.emailLogin],
+    ['accEmailCreate','btn ghost','＋ '+c.emailCreate]
+  ];
+  for(const [id,cls,label] of options){
+    let button=actions.querySelector('#'+id);
+    if(!button){
+      button=document.createElement('button');
+      button.type='button';button.id=id;button.className=cls;
+      button.textContent=label;
+      if(utility)actions.insertBefore(button,utility);
+      else actions.appendChild(button);
+    }
+    button.hidden=false;
+    button.style.removeProperty('display');
+    button.style.removeProperty('visibility');
+    button.style.removeProperty('opacity');
+  }
+  let divider=actions.querySelector('.accountDivider');
+  if(!divider){
+    divider=document.createElement('div');divider.className='accountDivider';
+    divider.textContent=c.or;
+    actions.insertBefore(divider,actions.querySelector('#accEmailLogin'));
+  }
+  actions.classList.add('mxIOSAllAuthChoices');
+}
+
 function openAccountModal(message,good){
   if(good)setTimeout(resetViewportZoomIOS,120);
   const c=accountCopy();const member=!accountState.isAnonymous;const cloudReady=!!(window.MXCloud&&window.MXCloud.connectGoogle);
@@ -14662,8 +14700,10 @@ function openAccountModal(message,good){
     '<div class="accountUtilityRow"><button class="btn blue accountCloudBtn" id="accCloudStatus">'+c.cloudPanel+'</button><button class="btn ghost" id="accManage">'+c.manage+'</button></div>'+
     (member&&accountState.providers.includes('password')?'<button class="btn ghost" id="accReset">🔑 '+c.reset+'</button>':'')+
     (member?'<button class="btn danger" id="accLogout">↪ '+c.logout+'</button><button class="btn danger" id="accDeleteAccount">🗑 '+c.deleteAccount+'</button>':'')+
-    '<button class="btn" id="accClose">'+c.close+'</button></div><div class="authTiny">'+c.localProfiles+'</div>');
+    '<button class="btn" id="accClose">'+c.close+'</button></div><div class="authTiny">'+c.localProfiles+'</div>'+
+    (MX_IOS_NATIVE?'<div class="mxAuthBuildStamp">v8.7.238 · R392 · Apple / Google / Email</div>':'') );
   $('#modalBox').classList.add('accountModal');installModalScrollIndicator();
+  mxEnsureIOSAuthChoices(c,member);
   const apple=$('#accApple');if(apple)apple.addEventListener('click',e=>{e.preventDefault();SFX.click();if(MX_IOS_NATIVE)nativeAppleSignIn(apple);else confirmAppleConnection();},{passive:false});
   const google=$('#accGoogle');if(google)google.addEventListener('click',async e=>{e.preventDefault();
     if(MX_IOS_NATIVE||MX_ANDROID_NATIVE)return nativeGoogleSignIn(google);
