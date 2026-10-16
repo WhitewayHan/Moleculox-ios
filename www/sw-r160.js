@@ -1,7 +1,7 @@
-/* Moleculox v8.7.237 R391 ios production distribution. */
+/* Moleculox v8.7.238 R392 ios production distribution. */
 importScripts('./offline-manifest-r193.js');
-const CACHE_NAME='moleculox-r391-ios-v8-7-237';
-const MEDIA_CACHE='moleculox-media-r391-ios';
+const CACHE_NAME='moleculox-r392-ios-v8-7-238';
+const MEDIA_CACHE='moleculox-media-r392-ios';
 const REFRESH_MEDIA_PATHS=new Set([
   './assets/images/boot-splash.webp',
   './assets/images/moleculox-logo-r220.png',
