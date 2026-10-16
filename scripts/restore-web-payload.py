@@ -28,4 +28,4 @@ with tempfile.TemporaryFile() as joined:
   if actual!=expected:raise SystemExit('Restored web bundle is incomplete or changed')
   shutil.rmtree(root/'www',ignore_errors=True)
   shutil.move(str(stage/'www'),str(root/'www'))
-print('R391 complete web bundle restored and verified:',len(expected),'files')
+print('R392 complete web bundle restored and verified:',len(expected),'files')

@@ -12,13 +12,13 @@ const idx=read('www/index.html');
 const game=read('www/js/game-r160.js');
 const firebase=read('www/js/firebase.js');
 const css=read('www/css/app-r160.css');
-must(idx.includes("window.__MX_BUILD_ID__='8.7.237-r391-ios-release';"),'wrong native build id');
+must(idx.includes("window.__MX_BUILD_ID__='8.7.238-r392-ios-auth3-release';"),'wrong native build id');
 must(idx.includes("window.__MX_DISTRIBUTION__='"+platform+"';"),'wrong distribution');
 must(idx.includes('window.__MX_NATIVE_SHELL__=true;'),'native shell flag not enabled');
 must(idx.includes('window.MX_QA_TEST_GAME=false;'),'QA test-game flag must be false');
 must(idx.includes('window.MX_QA_ALL_LEVELS_OPEN=false;'),'all-levels QA flag must be false');
 must(idx.includes('window.MX_QA_NO_CLOUD=false;'),'cloud must be enabled');
-must(game.includes('const APP_VERSION="v8.7.237 · R391 · IOS";'),'visible version mismatch');
+must(game.includes('const APP_VERSION="v8.7.238 · R392 · IOS";'),'visible version mismatch');
 must(css.includes('R376 iOS NATIVE · TRUE PHYSICAL BOTTOM ANCHOR'),'R376 iOS physical-bottom CSS marker missing');
 must(css.includes('body.mxIOSNative #splash #einBoxS'),'native iOS Edward selector missing');
 must(css.includes('top:auto!important;'),'native iOS Edward top anchor was not cleared');
@@ -39,6 +39,9 @@ if(platform==='ios'){
   must(!game.includes('MX_IOS_APPLE_ONLY'),'iOS Google/email sign-in must not be gated by Apple-only mode');
   must(game.includes('id="accGoogle"')&&game.includes('id="accEmailLogin"')&&game.includes('id="accEmailCreate"'),'iOS Google/email buttons missing');
   must(game.includes('async function nativeGoogleSignIn(button)'),'iOS native Google bridge missing');
+  must(game.includes('mxEnsureIOSAuthChoices(c,member);'),'native iOS auth visibility guard not invoked');
+  must(game.includes('v8.7.238 · R392 · Apple / Google / Email'),'iOS auth build identifier not on account modal');
+  must(css.includes('R392 iOS · THREE SIGN-IN METHODS MUST BE VISIBLE'),'iOS native auth CSS guard missing');
 
   const capCfg=JSON.parse(read('capacitor.config.json'));
   must(JSON.stringify(capCfg.plugins.FirebaseAuthentication.providers)===JSON.stringify(['apple.com','google.com']),'iOS must keep Apple and restore Google provider');
@@ -75,7 +78,7 @@ must(game.includes('id="cloudLinkGoogle"') && game.includes('id="cloudLinkEmail"
 must(!idx.includes('8.7.165-r335'),'stale R335 script cache version');
 must(css.includes('R377 / 8.7.209: Collection phone-width'),'itch collection CSS missing');
 
-console.log('R391 '+platform+' native source verification PASS');
+console.log('R392 '+platform+' native source verification PASS');
 
 cp.execFileSync('python3',[path.join(root,'scripts/verify-web-bundle.py')],{stdio:'inherit'});
 const nativePatch=read('scripts/patch-ios.py');

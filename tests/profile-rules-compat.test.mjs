@@ -45,7 +45,7 @@ test('clamps bad legacy numeric values but never awards coins',()=>{
 test('auth account mismatch fails locally before touching Firestore',()=>{
  assert.throws(()=>normalizeProfileForRules({playerName:'wHiTeWaY'},uid,'bad profile id!',stamp),e=>e.code==='cloud/invalid-profile-id');
 });
-test('Codemagic validates the complete R391 web bundle and preserves profile schema',()=>{
+test('Codemagic validates the complete R392 web bundle and preserves profile schema',()=>{
  const source=fs.readFileSync(new URL('../www/js/firebase.js',import.meta.url),'utf8');
  const restore=fs.readFileSync(new URL('../scripts/restore-www.sh',import.meta.url),'utf8');
  assert.ok(source.includes('merged=normalizeProfileForRules(merged, ownerUid, profileId, serverTimestamp());'));

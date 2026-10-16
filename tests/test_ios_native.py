@@ -42,5 +42,5 @@ isa = PBXResourcesBuildPhase;
    ent=plistlib.loads((app/'App.entitlements').read_bytes())
    self.assertNotIn('com.apple.developer.devicecheck.appattest-environment', ent)
    self.assertEqual(ent['com.apple.developer.applesignin'],['Default'])
-   self.assertIn('MARKETING_VERSION = 8.7.237;', (project/'project.pbxproj').read_text())
+   self.assertIn('MARKETING_VERSION = 8.7.238;', (project/'project.pbxproj').read_text())
 if __name__=='__main__':unittest.main()
