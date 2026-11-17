@@ -17737,3 +17737,34 @@ bindTap('#btnSwitchProfile',e=>{e.preventDefault();SFX.click();openAccountModal(
 
 /* R349: rail/Edward viewport clearance after orientation or viewport changes. */
 window.addEventListener('resize',()=>{try{setTimeout(mxFitActionRailToEdward,50);}catch(_){ }},{passive:true});
+
+/* Performance: reveal nearby level cards with their original button rendering. */
+(function deferOffscreenLevelCards() {
+  'use strict';
+  const grid = document.getElementById('lvGrid');
+  if (!grid || !window.CSS || !CSS.supports('content-visibility', 'auto')) return;
+  const scrollRoot = document.getElementById('lvScrollArea');
+  const observer = scrollRoot && typeof IntersectionObserver === 'function'
+    ? new IntersectionObserver(entries => {
+        for (const entry of entries) if (entry.isIntersecting) reveal(entry.target);
+      }, {root: scrollRoot, rootMargin: '200px 0px'})
+    : null;
+  function reveal(card) {
+    card.style.contentVisibility = 'visible';
+    if (observer) observer.unobserve(card);
+  }
+  function observeCards() {
+    if (observer) observer.disconnect();
+    for (const card of grid.children) {
+      if (!card.matches('.lvBtn')) continue;
+      if (!observer) reveal(card);
+      else if (card.style.contentVisibility !== 'visible') observer.observe(card);
+    }
+  }
+  new MutationObserver(observeCards).observe(grid, {childList: true});
+  grid.addEventListener('focusin', event => {
+    const card = event.target.closest('.lvBtn');
+    if (card && card.parentElement === grid) reveal(card);
+  });
+  observeCards();
+})();

@@ -1,5 +1,6 @@
 from pathlib import Path, PurePosixPath
 import hashlib, json, shutil, tarfile, tempfile
+from web_bundle_patches import apply_patches, verify_bundle
 root=Path(__file__).resolve().parents[1]
 parts=json.loads((root/'PAYLOAD-SHA256.json').read_text())
 expected=json.loads((root/'WEB-BUNDLE-SHA256.json').read_text())
@@ -26,6 +27,9 @@ with tempfile.TemporaryFile() as joined:
      with archive.extractfile(item) as src,target.open('wb') as dest:shutil.copyfileobj(src,dest)
   actual={p.relative_to(stage/'www').as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in (stage/'www').rglob('*') if p.is_file()}
   if actual!=expected:raise SystemExit('Restored web bundle is incomplete or changed')
+  # The archive remains immutable; apply only the reviewed delta after its hashes pass.
+  apply_patches(stage/'www',expected)
+  verify_bundle(stage/'www',expected)
   shutil.rmtree(root/'www',ignore_errors=True)
   shutil.move(str(stage/'www'),str(root/'www'))
-print('R392 complete web bundle restored and verified:',len(expected),'files')
+print('R392 complete web bundle restored and verified with level-card patch:',len(expected),'files')

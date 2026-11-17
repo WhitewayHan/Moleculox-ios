@@ -1,0 +1,924 @@
+{
+  "environment": {
+    "node": "v24.22.1",
+    "cpuRate": 4,
+    "trials": 12,
+    "browser": "156.0.8078.79",
+    "baselineManifest": "WEB-BUNDLE-SHA256.json",
+    "baselineSources": {
+      "css/app-r160.css": "c15ece20c830e4556449808ca5465fb06a4c54c404a1d3ac41f19c7fad2f93da",
+      "js/game-r160.js": "ae1ba96d66ae91cbcbd9c31104c10ba961f8d7e276d3a55d7612c5b7f1fcc635"
+    },
+    "baselineMode": "independent original files (/tmp/moleculox-baseline/www), hash checked before instrumentation"
+  },
+  "checks": [
+    {
+      "viewport": "320x852",
+      "state": "new-player",
+      "cardGeometryCount": 801,
+      "accessibleNamesEqual": true,
+      "screenshotsEqual": [
+        true,
+        true,
+        true
+      ],
+      "rasterDifferences": [
+        {
+          "changedPixels": 0,
+          "pixelFraction": 0,
+          "meanChannelError": 0,
+          "maxChannelError": 0
+        },
+        {
+          "changedPixels": 0,
+          "pixelFraction": 0,
+          "meanChannelError": 0,
+          "maxChannelError": 0
+        },
+        {
+          "changedPixels": 0,
+          "pixelFraction": 0,
+          "meanChannelError": 0,
+          "maxChannelError": 0
+        }
+      ],
+      "rasterLimits": {
+        "pixelFraction": 0.005,
+        "meanChannelError": 0.015,
+        "maxChannelError": 32
+      }
+    },
+    {
+      "viewport": "320x852",
+      "state": "unlocked",
+      "cardGeometryCount": 801,
+      "accessibleNamesEqual": true,
+      "screenshotsEqual": [
+        true,
+        false,
+        true
+      ],
+      "rasterDifferences": [
+        {
+          "changedPixels": 0,
+          "pixelFraction": 0,
+          "meanChannelError": 0,
+          "maxChannelError": 0
+        },
+        {
+          "changedPixels": 4568,
+          "pixelFraction": 0.002017953067571388,
+          "meanChannelError": 0.004774820940533409,
+          "maxChannelError": 24
+        },
+        {
+          "changedPixels": 0,
+          "pixelFraction": 0,
+          "meanChannelError": 0,
+          "maxChannelError": 0
+        }
+      ],
+      "rasterLimits": {
+        "pixelFraction": 0.005,
+        "meanChannelError": 0.015,
+        "maxChannelError": 32
+      }
+    },
+    {
+      "viewport": "393x852",
+      "state": "new-player",
+      "cardGeometryCount": 801,
+      "accessibleNamesEqual": true,
+      "screenshotsEqual": [
+        true,
+        true,
+        true
+      ],
+      "rasterDifferences": [
+        {
+          "changedPixels": 0,
+          "pixelFraction": 0,
+          "meanChannelError": 0,
+          "maxChannelError": 0
+        },
+        {
+          "changedPixels": 0,
+          "pixelFraction": 0,
+          "meanChannelError": 0,
+          "maxChannelError": 0
+        },
+        {
+          "changedPixels": 0,
+          "pixelFraction": 0,
+          "meanChannelError": 0,
+          "maxChannelError": 0
+        }
+      ],
+      "rasterLimits": {
+        "pixelFraction": 0.005,
+        "meanChannelError": 0.015,
+        "maxChannelError": 32
+      }
+    },
+    {
+      "viewport": "393x852",
+      "state": "unlocked",
+      "cardGeometryCount": 801,
+      "accessibleNamesEqual": true,
+      "screenshotsEqual": [
+        true,
+        false,
+        false
+      ],
+      "rasterDifferences": [
+        {
+          "changedPixels": 0,
+          "pixelFraction": 0,
+          "meanChannelError": 0,
+          "maxChannelError": 0
+        },
+        {
+          "changedPixels": 4528,
+          "pixelFraction": 0.001632883857529441,
+          "meanChannelError": 0.004295335606676938,
+          "maxChannelError": 32
+        },
+        {
+          "changedPixels": 4304,
+          "pixelFraction": 0.0015521051507965357,
+          "meanChannelError": 0.0038580246913580245,
+          "maxChannelError": 28
+        }
+      ],
+      "rasterLimits": {
+        "pixelFraction": 0.005,
+        "meanChannelError": 0.015,
+        "maxChannelError": 32
+      }
+    },
+    {
+      "viewport": "430x852",
+      "state": "new-player",
+      "cardGeometryCount": 801,
+      "accessibleNamesEqual": true,
+      "screenshotsEqual": [
+        true,
+        true,
+        true
+      ],
+      "rasterDifferences": [
+        {
+          "changedPixels": 0,
+          "pixelFraction": 0,
+          "meanChannelError": 0,
+          "maxChannelError": 0
+        },
+        {
+          "changedPixels": 0,
+          "pixelFraction": 0,
+          "meanChannelError": 0,
+          "maxChannelError": 0
+        },
+        {
+          "changedPixels": 0,
+          "pixelFraction": 0,
+          "meanChannelError": 0,
+          "maxChannelError": 0
+        }
+      ],
+      "rasterLimits": {
+        "pixelFraction": 0.005,
+        "meanChannelError": 0.015,
+        "maxChannelError": 32
+      }
+    },
+    {
+      "viewport": "430x852",
+      "state": "unlocked",
+      "cardGeometryCount": 801,
+      "accessibleNamesEqual": true,
+      "screenshotsEqual": [
+        true,
+        false,
+        false
+      ],
+      "rasterDifferences": [
+        {
+          "changedPixels": 0,
+          "pixelFraction": 0,
+          "meanChannelError": 0,
+          "maxChannelError": 0
+        },
+        {
+          "changedPixels": 6276,
+          "pixelFraction": 0.002068501819332384,
+          "meanChannelError": 0.004265213837472973,
+          "maxChannelError": 20
+        },
+        {
+          "changedPixels": 6727,
+          "pixelFraction": 0.0022171465485418974,
+          "meanChannelError": 0.0050112939232540565,
+          "maxChannelError": 17
+        }
+      ],
+      "rasterLimits": {
+        "pixelFraction": 0.005,
+        "meanChannelError": 0.015,
+        "maxChannelError": 32
+      }
+    },
+    {
+      "viewport": "852x393",
+      "state": "new-player",
+      "cardGeometryCount": 801,
+      "accessibleNamesEqual": true,
+      "screenshotsEqual": [
+        true,
+        true,
+        true
+      ],
+      "rasterDifferences": [
+        {
+          "changedPixels": 0,
+          "pixelFraction": 0,
+          "meanChannelError": 0,
+          "maxChannelError": 0
+        },
+        {
+          "changedPixels": 0,
+          "pixelFraction": 0,
+          "meanChannelError": 0,
+          "maxChannelError": 0
+        },
+        {
+          "changedPixels": 0,
+          "pixelFraction": 0,
+          "meanChannelError": 0,
+          "maxChannelError": 0
+        }
+      ],
+      "rasterLimits": {
+        "pixelFraction": 0.005,
+        "meanChannelError": 0.015,
+        "maxChannelError": 32
+      }
+    },
+    {
+      "viewport": "852x393",
+      "state": "unlocked",
+      "cardGeometryCount": 801,
+      "accessibleNamesEqual": true,
+      "screenshotsEqual": [
+        true,
+        true,
+        true
+      ],
+      "rasterDifferences": [
+        {
+          "changedPixels": 0,
+          "pixelFraction": 0,
+          "meanChannelError": 0,
+          "maxChannelError": 0
+        },
+        {
+          "changedPixels": 0,
+          "pixelFraction": 0,
+          "meanChannelError": 0,
+          "maxChannelError": 0
+        },
+        {
+          "changedPixels": 0,
+          "pixelFraction": 0,
+          "meanChannelError": 0,
+          "maxChannelError": 0
+        }
+      ],
+      "rasterLimits": {
+        "pixelFraction": 0.005,
+        "meanChannelError": 0.015,
+        "maxChannelError": 32
+      }
+    },
+    {
+      "viewport": "393x852-large-text",
+      "state": "new-player",
+      "cardGeometryCount": 801,
+      "accessibleNamesEqual": true,
+      "screenshotsEqual": [
+        true,
+        true,
+        true
+      ],
+      "rasterDifferences": [
+        {
+          "changedPixels": 0,
+          "pixelFraction": 0,
+          "meanChannelError": 0,
+          "maxChannelError": 0
+        },
+        {
+          "changedPixels": 0,
+          "pixelFraction": 0,
+          "meanChannelError": 0,
+          "maxChannelError": 0
+        },
+        {
+          "changedPixels": 0,
+          "pixelFraction": 0,
+          "meanChannelError": 0,
+          "maxChannelError": 0
+        }
+      ],
+      "rasterLimits": {
+        "pixelFraction": 0.005,
+        "meanChannelError": 0.015,
+        "maxChannelError": 32
+      }
+    },
+    {
+      "viewport": "393x852-large-text",
+      "state": "unlocked",
+      "cardGeometryCount": 801,
+      "accessibleNamesEqual": true,
+      "screenshotsEqual": [
+        true,
+        false,
+        false
+      ],
+      "rasterDifferences": [
+        {
+          "changedPixels": 0,
+          "pixelFraction": 0,
+          "meanChannelError": 0,
+          "maxChannelError": 0
+        },
+        {
+          "changedPixels": 4527,
+          "pixelFraction": 0.0016325232383029547,
+          "meanChannelError": 0.004298581179715312,
+          "maxChannelError": 32
+        },
+        {
+          "changedPixels": 4308,
+          "pixelFraction": 0.0015535476277024804,
+          "meanChannelError": 0.003860188406716942,
+          "maxChannelError": 28
+        }
+      ],
+      "rasterLimits": {
+        "pixelFraction": 0.005,
+        "meanChannelError": 0.015,
+        "maxChannelError": 32
+      }
+    },
+    {
+      "mobileInputs": {
+        "baseline": {
+          "tapLevel1": 0,
+          "tapLevel801": 800,
+          "listScrollDidNotNavigate": true,
+          "lockedDidNotNavigate": true,
+          "up": {
+            "lv": 0,
+            "moves": 1,
+            "won": false,
+            "sel": 0,
+            "atoms": [
+              {
+                "x": 6,
+                "y": 2,
+                "e": "H"
+              },
+              {
+                "x": 6,
+                "y": 1,
+                "e": "H"
+              }
+            ],
+            "anim": false
+          },
+          "right": {
+            "lv": 0,
+            "moves": 0,
+            "won": false,
+            "sel": 0,
+            "atoms": [
+              {
+                "x": 6,
+                "y": 3,
+                "e": "H"
+              },
+              {
+                "x": 6,
+                "y": 1,
+                "e": "H"
+              }
+            ],
+            "anim": false
+          },
+          "down": {
+            "lv": 0,
+            "moves": 1,
+            "won": false,
+            "sel": 0,
+            "atoms": [
+              {
+                "x": 6,
+                "y": 8,
+                "e": "H"
+              },
+              {
+                "x": 6,
+                "y": 1,
+                "e": "H"
+              }
+            ],
+            "anim": false
+          },
+          "left": {
+            "lv": 0,
+            "moves": 1,
+            "won": false,
+            "sel": 0,
+            "atoms": [
+              {
+                "x": 1,
+                "y": 3,
+                "e": "H"
+              },
+              {
+                "x": 6,
+                "y": 1,
+                "e": "H"
+              }
+            ],
+            "anim": false
+          },
+          "tap": {
+            "lv": 0,
+            "moves": 0,
+            "won": false,
+            "sel": 0,
+            "atoms": [
+              {
+                "x": 6,
+                "y": 3,
+                "e": "H"
+              },
+              {
+                "x": 6,
+                "y": 1,
+                "e": "H"
+              }
+            ],
+            "anim": false
+          },
+          "cancel": {
+            "lv": 0,
+            "moves": 0,
+            "won": false,
+            "sel": 0,
+            "atoms": [
+              {
+                "x": 6,
+                "y": 3,
+                "e": "H"
+              },
+              {
+                "x": 6,
+                "y": 1,
+                "e": "H"
+              }
+            ],
+            "anim": false
+          }
+        },
+        "candidate": {
+          "tapLevel1": 0,
+          "tapLevel801": 800,
+          "listScrollDidNotNavigate": true,
+          "lockedDidNotNavigate": true,
+          "up": {
+            "lv": 0,
+            "moves": 1,
+            "won": false,
+            "sel": 0,
+            "atoms": [
+              {
+                "x": 6,
+                "y": 2,
+                "e": "H"
+              },
+              {
+                "x": 6,
+                "y": 1,
+                "e": "H"
+              }
+            ],
+            "anim": false
+          },
+          "right": {
+            "lv": 0,
+            "moves": 0,
+            "won": false,
+            "sel": 0,
+            "atoms": [
+              {
+                "x": 6,
+                "y": 3,
+                "e": "H"
+              },
+              {
+                "x": 6,
+                "y": 1,
+                "e": "H"
+              }
+            ],
+            "anim": false
+          },
+          "down": {
+            "lv": 0,
+            "moves": 1,
+            "won": false,
+            "sel": 0,
+            "atoms": [
+              {
+                "x": 6,
+                "y": 8,
+                "e": "H"
+              },
+              {
+                "x": 6,
+                "y": 1,
+                "e": "H"
+              }
+            ],
+            "anim": false
+          },
+          "left": {
+            "lv": 0,
+            "moves": 1,
+            "won": false,
+            "sel": 0,
+            "atoms": [
+              {
+                "x": 1,
+                "y": 3,
+                "e": "H"
+              },
+              {
+                "x": 6,
+                "y": 1,
+                "e": "H"
+              }
+            ],
+            "anim": false
+          },
+          "tap": {
+            "lv": 0,
+            "moves": 0,
+            "won": false,
+            "sel": 0,
+            "atoms": [
+              {
+                "x": 6,
+                "y": 3,
+                "e": "H"
+              },
+              {
+                "x": 6,
+                "y": 1,
+                "e": "H"
+              }
+            ],
+            "anim": false
+          },
+          "cancel": {
+            "lv": 0,
+            "moves": 0,
+            "won": false,
+            "sel": 0,
+            "atoms": [
+              {
+                "x": 6,
+                "y": 3,
+                "e": "H"
+              },
+              {
+                "x": 6,
+                "y": 1,
+                "e": "H"
+              }
+            ],
+            "anim": false
+          }
+        }
+      },
+      "notes": "Board gestures use trusted CDP touchStart/touchMove/touchEnd/touchCancel; list scroll-drift threshold uses synthetic PointerEvents. Chromium emulation, not physical iOS."
+    }
+  ],
+  "benchmark": {
+    "raw": {
+      "baseline": [
+        {
+          "jsMs": 268.9000000001397,
+          "layoutMs": 1010.8000000000466,
+          "firstFrameMs": 1879.4000000001397,
+          "toFrameMs": 2224.7000000001863,
+          "height": 12097,
+          "cdpLayoutMs": 824.16,
+          "cdpTaskMs": 2297.5750000000003
+        },
+        {
+          "jsMs": 308,
+          "layoutMs": 973.5,
+          "firstFrameMs": 1793.8000000000466,
+          "toFrameMs": 2116.899999999907,
+          "height": 12097,
+          "cdpLayoutMs": 706.6050000000001,
+          "cdpTaskMs": 2119.720000000001
+        },
+        {
+          "jsMs": 255.5999999998603,
+          "layoutMs": 1238.9000000001397,
+          "firstFrameMs": 2135.5999999998603,
+          "toFrameMs": 2440.899999999907,
+          "height": 12097,
+          "cdpLayoutMs": 892.1170000000003,
+          "cdpTaskMs": 2442.6489999999994
+        },
+        {
+          "jsMs": 333.5,
+          "layoutMs": 920.5,
+          "firstFrameMs": 1708.8000000000466,
+          "toFrameMs": 2000.8999999999069,
+          "height": 12097,
+          "cdpLayoutMs": 711.0889999999998,
+          "cdpTaskMs": 2011.6379999999997
+        },
+        {
+          "jsMs": 234.19999999995343,
+          "layoutMs": 926.1000000000931,
+          "firstFrameMs": 1606.8999999999069,
+          "toFrameMs": 1922,
+          "height": 12097,
+          "cdpLayoutMs": 719.532,
+          "cdpTaskMs": 1925.0439999999999
+        },
+        {
+          "jsMs": 306.60000000009313,
+          "layoutMs": 933.3999999999069,
+          "firstFrameMs": 1687.3000000000466,
+          "toFrameMs": 1958.6000000000931,
+          "height": 12097,
+          "cdpLayoutMs": 730.6150000000002,
+          "cdpTaskMs": 2000.9850000000001
+        },
+        {
+          "jsMs": 277,
+          "layoutMs": 991.8000000000466,
+          "firstFrameMs": 2042.5999999998603,
+          "toFrameMs": 2472.1999999999534,
+          "height": 12097,
+          "cdpLayoutMs": 757.4309999999995,
+          "cdpTaskMs": 2478.491000000002
+        },
+        {
+          "jsMs": 369,
+          "layoutMs": 906.6000000000931,
+          "firstFrameMs": 1740.2000000001863,
+          "toFrameMs": 2062.3000000000466,
+          "height": 12097,
+          "cdpLayoutMs": 703.7740000000001,
+          "cdpTaskMs": 2062.265
+        },
+        {
+          "jsMs": 304.4000000001397,
+          "layoutMs": 975.5999999998603,
+          "firstFrameMs": 1820.7000000001863,
+          "toFrameMs": 2261.5,
+          "height": 12097,
+          "cdpLayoutMs": 757.416,
+          "cdpTaskMs": 2263.909000000002
+        },
+        {
+          "jsMs": 504.79999999981374,
+          "layoutMs": 1541,
+          "firstFrameMs": 2693.5999999998603,
+          "toFrameMs": 3126.399999999907,
+          "height": 12097,
+          "cdpLayoutMs": 1244.104,
+          "cdpTaskMs": 3145.5210000000025
+        },
+        {
+          "jsMs": 359.9000000001397,
+          "layoutMs": 1361.1999999999534,
+          "firstFrameMs": 2504.5,
+          "toFrameMs": 2798,
+          "height": 12097,
+          "cdpLayoutMs": 1087.6219999999996,
+          "cdpTaskMs": 2830.6049999999987
+        },
+        {
+          "jsMs": 367.89999999990687,
+          "layoutMs": 955.3000000000466,
+          "firstFrameMs": 1782.1999999999534,
+          "toFrameMs": 2063.100000000093,
+          "height": 12097,
+          "cdpLayoutMs": 743.0520000000005,
+          "cdpTaskMs": 2067.667999999998
+        }
+      ],
+      "candidate": [
+        {
+          "jsMs": 300.30000000004657,
+          "layoutMs": 96.5,
+          "firstFrameMs": 625.1999999999534,
+          "toFrameMs": 943.8000000000466,
+          "height": 12097,
+          "cdpLayoutMs": 110.11300000000001,
+          "cdpTaskMs": 982.8110000000004
+        },
+        {
+          "jsMs": 227.4000000001397,
+          "layoutMs": 97.0999999998603,
+          "firstFrameMs": 542.1999999999534,
+          "toFrameMs": 893.6999999999534,
+          "height": 12097,
+          "cdpLayoutMs": 140.582,
+          "cdpTaskMs": 999.994
+        },
+        {
+          "jsMs": 161,
+          "layoutMs": 61,
+          "firstFrameMs": 407.29999999981374,
+          "toFrameMs": 626.8999999999069,
+          "height": 12097,
+          "cdpLayoutMs": 64.66399999999994,
+          "cdpTaskMs": 634.525
+        },
+        {
+          "jsMs": 149.9000000001397,
+          "layoutMs": 66,
+          "firstFrameMs": 359.9000000001397,
+          "toFrameMs": 689.3000000000466,
+          "height": 12097,
+          "cdpLayoutMs": 83.61400000000008,
+          "cdpTaskMs": 785.1470000000003
+        },
+        {
+          "jsMs": 120.19999999995343,
+          "layoutMs": 42.5999999998603,
+          "firstFrameMs": 294.5999999998603,
+          "toFrameMs": 452.69999999995343,
+          "height": 12097,
+          "cdpLayoutMs": 52.081999999999965,
+          "cdpTaskMs": 460.0789999999986
+        },
+        {
+          "jsMs": 132,
+          "layoutMs": 50.10000000009313,
+          "firstFrameMs": 296.30000000004657,
+          "toFrameMs": 457.89999999990687,
+          "height": 12097,
+          "cdpLayoutMs": 62.80700000000006,
+          "cdpTaskMs": 548.5439999999996
+        },
+        {
+          "jsMs": 273.4000000001397,
+          "layoutMs": 75.69999999995343,
+          "firstFrameMs": 540,
+          "toFrameMs": 871.3000000000466,
+          "height": 12097,
+          "cdpLayoutMs": 119.01499999999999,
+          "cdpTaskMs": 927.6710000000002
+        },
+        {
+          "jsMs": 174,
+          "layoutMs": 74.19999999995343,
+          "firstFrameMs": 411.9000000001397,
+          "toFrameMs": 596.6000000000931,
+          "height": 12097,
+          "cdpLayoutMs": 80.38499999999993,
+          "cdpTaskMs": 663.805
+        },
+        {
+          "jsMs": 214.89999999990687,
+          "layoutMs": 89.70000000018626,
+          "firstFrameMs": 498.69999999995343,
+          "toFrameMs": 746.3999999999069,
+          "height": 12097,
+          "cdpLayoutMs": 79.71100000000008,
+          "cdpTaskMs": 770.8600000000008
+        },
+        {
+          "jsMs": 240.69999999995343,
+          "layoutMs": 91.89999999990687,
+          "firstFrameMs": 476,
+          "toFrameMs": 673.3999999999069,
+          "height": 12097,
+          "cdpLayoutMs": 118.75999999999998,
+          "cdpTaskMs": 813.3210000000001
+        },
+        {
+          "jsMs": 235.10000000009313,
+          "layoutMs": 78.19999999995343,
+          "firstFrameMs": 697.6999999999534,
+          "toFrameMs": 919.6000000000931,
+          "height": 12097,
+          "cdpLayoutMs": 91.09299999999988,
+          "cdpTaskMs": 991.1539999999999
+        },
+        {
+          "jsMs": 139.5999999998603,
+          "layoutMs": 57,
+          "firstFrameMs": 338.5999999998603,
+          "toFrameMs": 540.3999999999069,
+          "height": 12097,
+          "cdpLayoutMs": 72.38600000000007,
+          "cdpTaskMs": 552.579999999999
+        }
+      ]
+    },
+    "summary": {
+      "baseline": {
+        "jsMs": {
+          "median": 307.30000000004657,
+          "p95": 504.79999999981374,
+          "min": 234.19999999995343,
+          "max": 504.79999999981374
+        },
+        "layoutMs": {
+          "median": 974.5499999999302,
+          "p95": 1541,
+          "min": 906.6000000000931,
+          "max": 1541
+        },
+        "toFrameMs": {
+          "median": 2170.8000000000466,
+          "p95": 3126.399999999907,
+          "min": 1922,
+          "max": 3126.399999999907
+        },
+        "cdpLayoutMs": {
+          "median": 750.2340000000003,
+          "p95": 1244.104,
+          "min": 703.7740000000001,
+          "max": 1244.104
+        },
+        "cdpTaskMs": {
+          "median": 2191.8145000000013,
+          "p95": 3145.5210000000025,
+          "min": 1925.0439999999999,
+          "max": 3145.5210000000025
+        }
+      },
+      "candidate": {
+        "jsMs": {
+          "median": 194.44999999995343,
+          "p95": 300.30000000004657,
+          "min": 120.19999999995343,
+          "max": 300.30000000004657
+        },
+        "layoutMs": {
+          "median": 74.94999999995343,
+          "p95": 97.0999999998603,
+          "min": 42.5999999998603,
+          "max": 97.0999999998603
+        },
+        "toFrameMs": {
+          "median": 681.3499999999767,
+          "p95": 943.8000000000466,
+          "min": 452.69999999995343,
+          "max": 943.8000000000466
+        },
+        "cdpLayoutMs": {
+          "median": 81.99950000000001,
+          "p95": 140.582,
+          "min": 52.081999999999965,
+          "max": 140.582
+        },
+        "cdpTaskMs": {
+          "median": 778.0035000000005,
+          "p95": 999.994,
+          "min": 460.0789999999986,
+          "max": 999.994
+        }
+      }
+    }
+  },
+  "pageErrors": [],
+  "blockedOrigins": [
+    "https://www.gstatic.com"
+  ],
+  "passed": true,
+  "visualSummary": {
+    "pairs": 30,
+    "pixelIdenticalPairs": 23,
+    "maxChangedPixelFraction": 0.0022171465485418974,
+    "maxMeanChannelError": 0.0050112939232540565,
+    "maxChannelError": 32,
+    "geometryCardComparisons": 8010
+  }
+}

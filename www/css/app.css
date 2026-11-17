@@ -14299,3 +14299,6 @@ body.mxIOSNative #modalBox.accountModal .accountActions .accountDivider{
   margin-top:6px;text-align:center;font:600 10px/1.3 system-ui,sans-serif;
   letter-spacing:.3px;color:#a6bad9;opacity:.9;
 }
+
+/* Performance: defer rendering level cards outside the scroll viewport. */
+#lvGrid > .lvBtn { content-visibility: auto; }
