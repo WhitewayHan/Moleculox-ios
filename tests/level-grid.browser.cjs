@@ -29,7 +29,7 @@ const API = `window.__levelGridQA={buildLevels,startLevel,show,bootPlay,closeMod
  save.storySeen=Object.fromEntries(LEVELS.map((_,i)=>[String(i+1),true]));
  save.researchAchievements=Object.fromEntries(LEVELS.map((_,i)=>['__onboarding_level_'+i,1]));}
 };\n`;
-const results = { environment: { node: process.version, cpuRate: CPU_RATE, trials: TRIALS, baselineManifest:'WEB-BUNDLE-SHA256.json',baselineSources:Object.fromEntries(['css/app-r160.css','js/game-r160.js'].map(f=>[f,MANIFEST[f]])),baselineMode:process.env.BASELINE_WWW?'independent original files, hash checked before instrumentation':'exact approved suffix removal, hash checked before instrumentation' }, checks: [], benchmark: {}, pageErrors: [], blockedOrigins: [] };
+const results = { environment: { node: process.version, cpuRate: CPU_RATE, trials: TRIALS, baselineManifest:'WEB-BUNDLE-SHA256.json',baselineSources:Object.fromEntries(['css/app-r160.css','js/game-r160.js'].map(f=>[f,MANIFEST[f]])),baselineMode:process.env.BASELINE_WWW?'independent original files, hash checked before instrumentation':'original git revision 11637bb5 for game; approved CSS suffix removal; original hashes checked' }, checks: [], benchmark: {}, pageErrors: [], blockedOrigins: [] };
 function serve() {
   const types = {'.html':'text/html','.js':'application/javascript','.css':'text/css','.svg':'image/svg+xml','.webp':'image/webp','.png':'image/png','.mp3':'audio/mpeg','.json':'application/json'};
   const server = http.createServer((req,res) => {
@@ -51,7 +51,7 @@ async function open(browser, url, variant, viewport) {
     if(u.pathname==='/js/game-r160.js') {
       const sourceRoot=variant==='baseline'&&process.env.BASELINE_WWW?process.env.BASELINE_WWW:path.join(ROOT,'www');
       let source = fs.readFileSync(path.join(sourceRoot,u.pathname),'utf8');
-      if(variant==='baseline'&&!process.env.BASELINE_WWW){const suffix=PATCHES[u.pathname.slice(1)];assert(source.endsWith(suffix));source=source.slice(0,-suffix.length);}
+      if(variant==='baseline'&&!process.env.BASELINE_WWW)source=execFileSync('git',['show','11637bb5:www/js/game-r160.js'],{cwd:ROOT,encoding:'utf8'});
       if(variant==='baseline')assertOriginal(u.pathname.slice(1),source);
       assert(source.includes('/* ================= INIT ================= */'));
       await route.fulfill({contentType:'application/javascript',body:source.replace('/* ================= INIT ================= */',API+'/* ================= INIT ================= */')});return;

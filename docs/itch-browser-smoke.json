@@ -1,0 +1,203 @@
+{
+  "itch-first-party-smoke.json": {
+    "mode": "exact ZIP first-party smoke",
+    "webRoot": "/workspace/artifacts/Moleculox-Itch-Smooth",
+    "browser": "156.0.8078.79",
+    "errors": [],
+    "checks": [
+      "guest boot, 801 cards, first level, trusted swipe, cancel, next swipe",
+      "level1 won by real up-left-up touch route and cur/stars saved",
+      "service worker controlled, optional complete media download, offline iframe reload and first level"
+    ],
+    "consoleWarnings": [
+      "Failed to load resource: net::ERR_FAILED",
+      "Failed to load resource: net::ERR_FAILED",
+      "Failed to load resource: net::ERR_FAILED",
+      "Failed to load resource: net::ERR_FAILED",
+      "Failed to load resource: net::ERR_FAILED",
+      "Failed to load resource: net::ERR_FAILED",
+      "Failed to load resource: net::ERR_FAILED",
+      "Failed to load resource: net::ERR_FAILED",
+      "Failed to load resource: net::ERR_FAILED",
+      "Failed to load resource: net::ERR_FAILED",
+      "Failed to load resource: net::ERR_FAILED",
+      "Failed to load resource: net::ERR_FAILED"
+    ],
+    "storageProbe": {
+      "saved": "ok"
+    },
+    "build": {
+      "id": "8.7.239-web-smooth1",
+      "distribution": "web",
+      "native": false,
+      "qa": false,
+      "open": false,
+      "version": "v8.7.239 · WEB · Smooth 1"
+    },
+    "savedProgress": [
+      {
+        "name": "Player 1",
+        "cur": 1,
+        "stars": {
+          "0": 3
+        },
+        "bestMoves": {
+          "0": 3
+        }
+      }
+    ],
+    "worker": {
+      "script": "http://127.0.0.1:34087/sw.js?v=8.7.239-web-smooth1",
+      "scope": "http://127.0.0.1:34087/",
+      "cacheNames": [
+        "moleculox-web-smooth1-v8-7-239",
+        "moleculox-media-web-smooth1-v8-7-239"
+      ]
+    },
+    "offlinePack": {
+      "completed": 321,
+      "total": 321,
+      "failed": 0,
+      "done": true
+    },
+    "networkServerClosed": true,
+    "restoredProgress": [
+      {
+        "name": "Player 1",
+        "cur": 1,
+        "stars": {
+          "0": 3
+        },
+        "bestMoves": {
+          "0": 3
+        }
+      }
+    ],
+    "offline": {
+      "online": true,
+      "worker": true,
+      "brokenImages": []
+    },
+    "passed": true
+  },
+  "itch-iframe-smoke.json": {
+    "mode": "exact ZIP same-site cross-origin iframe smoke",
+    "webRoot": "/workspace/artifacts/Moleculox-Itch-Smooth",
+    "browser": "156.0.8078.79",
+    "errors": [],
+    "checks": [
+      "guest boot, 801 cards, first level, trusted swipe, cancel, next swipe",
+      "level1 won by real up-left-up touch route and cur/stars saved",
+      "service worker controlled, optional complete media download, offline iframe reload and first level"
+    ],
+    "consoleWarnings": [
+      "Allow attribute will take precedence over 'allowfullscreen'.",
+      "Failed to load resource: net::ERR_FAILED",
+      "Failed to load resource: net::ERR_FAILED",
+      "Failed to load resource: net::ERR_FAILED",
+      "Failed to load resource: net::ERR_FAILED",
+      "Failed to load resource: net::ERR_FAILED",
+      "Failed to load resource: net::ERR_FAILED",
+      "Failed to load resource: net::ERR_FAILED",
+      "Failed to load resource: net::ERR_FAILED",
+      "Failed to load resource: net::ERR_FAILED",
+      "Failed to load resource: net::ERR_FAILED",
+      "Failed to load resource: net::ERR_FAILED",
+      "Failed to load resource: net::ERR_FAILED"
+    ],
+    "storageProbe": {
+      "saved": "ok"
+    },
+    "build": {
+      "id": "8.7.239-web-smooth1",
+      "distribution": "web",
+      "native": false,
+      "qa": false,
+      "open": false,
+      "version": "v8.7.239 · WEB · Smooth 1"
+    },
+    "savedProgress": [
+      {
+        "name": "Player 1",
+        "cur": 1,
+        "stars": {
+          "0": 3
+        },
+        "bestMoves": {
+          "0": 3
+        }
+      }
+    ],
+    "worker": {
+      "script": "http://127.0.0.1:40831/sw.js?v=8.7.239-web-smooth1",
+      "scope": "http://127.0.0.1:40831/",
+      "cacheNames": [
+        "moleculox-web-smooth1-v8-7-239",
+        "moleculox-media-web-smooth1-v8-7-239"
+      ]
+    },
+    "offlinePack": {
+      "completed": 321,
+      "total": 321,
+      "failed": 0,
+      "done": true
+    },
+    "networkServerClosed": true,
+    "restoredProgress": [
+      {
+        "name": "Player 1",
+        "cur": 1,
+        "stars": {
+          "0": 3
+        },
+        "bestMoves": {
+          "0": 3
+        }
+      }
+    ],
+    "offline": {
+      "online": false,
+      "worker": true,
+      "brokenImages": []
+    },
+    "passed": true
+  },
+  "itch-cross-site-restricted-smoke.json": {
+    "mode": "exact ZIP cross-site restricted-storage smoke",
+    "webRoot": "/workspace/artifacts/Moleculox-Itch-Smooth",
+    "browser": "156.0.8078.79",
+    "errors": [],
+    "checks": [
+      "guest boot, 801 cards, first level, trusted swipe, cancel, next swipe"
+    ],
+    "consoleWarnings": [
+      "Allow attribute will take precedence over 'allowfullscreen'.",
+      "Failed to load resource: net::ERR_FAILED",
+      "Failed to load resource: net::ERR_FAILED",
+      "Failed to load resource: net::ERR_FAILED",
+      "Failed to load resource: net::ERR_FAILED",
+      "Failed to load resource: net::ERR_FAILED",
+      "Failed to load resource: net::ERR_FAILED",
+      "requestStorageAccess: Request denied because the embedded site has never been interacted with as a top-level context",
+      "requestStorageAccess: Permission denied.",
+      "[Moleculox] Embedded persistent storage unavailable: NotAllowedError"
+    ],
+    "storageProbe": {
+      "error": "SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document."
+    },
+    "build": {
+      "id": "8.7.239-web-smooth1",
+      "distribution": "web",
+      "native": false,
+      "qa": false,
+      "open": false,
+      "version": "v8.7.239 · WEB · Smooth 1"
+    },
+    "workerDenied": "NotSupportedError: Failed to get ServiceWorkerRegistration objects: The user denied permission to use Service Worker.",
+    "saveWarning": true,
+    "limitations": [
+      "Browser denied third-party localStorage and service workers; gameplay remains available, persistence and offline reload unavailable in this context."
+    ],
+    "passed": true
+  }
+}

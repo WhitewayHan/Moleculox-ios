@@ -1,0 +1,5064 @@
+{
+  "baseline": {
+    "variant": "before",
+    "environment": {
+      "browser": "156.0.8078.79",
+      "cpuRate": 1,
+      "seed": 12345,
+      "portalLevels": [
+        40,
+        85,
+        155,
+        290,
+        297,
+        299,
+        300,
+        302,
+        316,
+        318,
+        320,
+        322,
+        324,
+        325,
+        356,
+        373,
+        377,
+        381,
+        436,
+        440,
+        442,
+        444,
+        445,
+        527,
+        538,
+        573,
+        581,
+        583,
+        591,
+        594,
+        601,
+        612,
+        614,
+        616,
+        618,
+        619,
+        620,
+        622,
+        625,
+        626,
+        627,
+        629,
+        640,
+        649,
+        672,
+        675,
+        680,
+        682,
+        688,
+        692,
+        695,
+        698,
+        709,
+        730,
+        760,
+        770,
+        780,
+        787,
+        788,
+        794
+      ]
+    },
+    "errors": []
+  },
+  "candidate": {
+    "variant": "after",
+    "environment": {
+      "browser": "156.0.8078.79",
+      "cpuRate": 1,
+      "seed": 12345,
+      "portalLevels": [
+        40,
+        85,
+        155,
+        290,
+        297,
+        299,
+        300,
+        302,
+        316,
+        318,
+        320,
+        322,
+        324,
+        325,
+        356,
+        373,
+        377,
+        381,
+        436,
+        440,
+        442,
+        444,
+        445,
+        527,
+        538,
+        573,
+        581,
+        583,
+        591,
+        594,
+        601,
+        612,
+        614,
+        616,
+        618,
+        619,
+        620,
+        622,
+        625,
+        626,
+        627,
+        629,
+        640,
+        649,
+        672,
+        675,
+        680,
+        682,
+        688,
+        692,
+        695,
+        698,
+        709,
+        730,
+        760,
+        770,
+        780,
+        787,
+        788,
+        794
+      ]
+    },
+    "errors": []
+  },
+  "scenarios": [
+    {
+      "view": "mobile",
+      "level": 1,
+      "phases": [
+        {
+          "phase": "idle",
+          "before": {
+            "label": "idle",
+            "duration": 1004,
+            "displayGaps": {
+              "n": 60,
+              "p50": 16.699999999999818,
+              "p95": 16.700000000000728,
+              "max": 16.800000000000182,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "loopGaps": {
+              "n": 3,
+              "p50": 250,
+              "p95": 250,
+              "max": 250,
+              "over25": 3,
+              "over33": 3,
+              "over50": 3
+            },
+            "boardGaps": {
+              "n": 3,
+              "p50": 250,
+              "p95": 250,
+              "max": 250,
+              "over25": 3,
+              "over33": 3,
+              "over50": 3
+            },
+            "activeBoardGaps": null,
+            "fxGaps": null,
+            "boardSelfMs": {
+              "n": 4,
+              "p50": 0.20000000001164153,
+              "p95": 0.29999999998835847,
+              "max": 0.29999999998835847,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 4,
+              "p50": 0,
+              "p95": 0,
+              "max": 0,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": null,
+            "probeLifeNominalMs": null,
+            "peakParts": 0,
+            "moveCount": 0,
+            "portalFrames": 0,
+            "final": {
+              "lv": 0,
+              "moves": 0,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 6,
+                  "y": 3,
+                  "e": "H",
+                  "frozen": false
+                },
+                {
+                  "x": 6,
+                  "y": 1,
+                  "e": "H",
+                  "frozen": false
+                }
+              ],
+              "portals": 0,
+              "pressure": false,
+              "severe": false
+            }
+          },
+          "after": {
+            "label": "idle",
+            "duration": 1003.4000000000233,
+            "displayGaps": {
+              "n": 59,
+              "p50": 16.699999999999818,
+              "p95": 16.800000000000182,
+              "max": 16.800000000000182,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "loopGaps": {
+              "n": 54,
+              "p50": 16.699999999999818,
+              "p95": 33.399999999999636,
+              "max": 33.400000000000546,
+              "over25": 4,
+              "over33": 0,
+              "over50": 0
+            },
+            "boardGaps": {
+              "n": 29,
+              "p50": 33.30000000000018,
+              "p95": 50,
+              "max": 50.099999999999454,
+              "over25": 26,
+              "over33": 2,
+              "over50": 0
+            },
+            "activeBoardGaps": null,
+            "fxGaps": null,
+            "boardSelfMs": {
+              "n": 30,
+              "p50": 0.09999999997671694,
+              "p95": 0.20000000001164153,
+              "max": 0.20000000001164153,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 4,
+              "p50": 0,
+              "p95": 0.09999999997671694,
+              "max": 0.09999999997671694,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": null,
+            "probeLifeNominalMs": null,
+            "peakParts": 0,
+            "moveCount": 0,
+            "portalFrames": 0,
+            "final": {
+              "lv": 0,
+              "moves": 0,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 6,
+                  "y": 3,
+                  "e": "H",
+                  "frozen": false
+                },
+                {
+                  "x": 6,
+                  "y": 1,
+                  "e": "H",
+                  "frozen": false
+                }
+              ],
+              "portals": 0,
+              "pressure": false,
+              "severe": false
+            }
+          }
+        },
+        {
+          "phase": "moves",
+          "before": {
+            "label": "moves",
+            "duration": 1179,
+            "displayGaps": {
+              "n": 66,
+              "p50": 16.699999999999818,
+              "p95": 16.800000000000182,
+              "max": 33.399999999999636,
+              "over25": 3,
+              "over33": 0,
+              "over50": 0
+            },
+            "loopGaps": {
+              "n": 48,
+              "p50": 16.699999999999818,
+              "p95": 83.30000000000018,
+              "max": 83.39999999999964,
+              "over25": 11,
+              "over33": 4,
+              "over50": 3
+            },
+            "boardGaps": {
+              "n": 45,
+              "p50": 16.699999999999818,
+              "p95": 83.30000000000018,
+              "max": 116.69999999999982,
+              "over25": 11,
+              "over33": 4,
+              "over50": 3
+            },
+            "activeBoardGaps": {
+              "n": 11,
+              "p50": 16.699999999999818,
+              "p95": 16.800000000000182,
+              "max": 16.800000000000182,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxGaps": {
+              "n": 26,
+              "p50": 16.699999999999818,
+              "p95": 50.099999999999454,
+              "max": 433.3000000000002,
+              "over25": 8,
+              "over33": 2,
+              "over50": 1
+            },
+            "boardSelfMs": {
+              "n": 46,
+              "p50": 0.1000000000349246,
+              "p95": 0.29999999998835847,
+              "max": 0.5999999999767169,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 29,
+              "p50": 0.1000000000349246,
+              "p95": 0.5999999999767169,
+              "max": 1.599999999976717,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": null,
+            "probeLifeNominalMs": null,
+            "peakParts": 97,
+            "moveCount": 3,
+            "portalFrames": 0,
+            "final": {
+              "lv": 0,
+              "moves": 3,
+              "won": true,
+              "anim": null,
+              "busy": false,
+              "parts": 86,
+              "nonambient": 86,
+              "atoms": [
+                {
+                  "x": 5,
+                  "y": 1,
+                  "e": "H",
+                  "frozen": false
+                },
+                {
+                  "x": 6,
+                  "y": 1,
+                  "e": "H",
+                  "frozen": false
+                }
+              ],
+              "portals": 0,
+              "pressure": false,
+              "severe": false
+            }
+          },
+          "after": {
+            "label": "moves",
+            "duration": 1237.5999999999767,
+            "displayGaps": {
+              "n": 68,
+              "p50": 16.699999999999818,
+              "p95": 33.30000000000018,
+              "max": 33.399999999999636,
+              "over25": 5,
+              "over33": 0,
+              "over50": 0
+            },
+            "loopGaps": {
+              "n": 62,
+              "p50": 16.699999999999818,
+              "p95": 33.399999999999636,
+              "max": 66.60000000000036,
+              "over25": 7,
+              "over33": 1,
+              "over50": 1
+            },
+            "boardGaps": {
+              "n": 57,
+              "p50": 16.699999999999818,
+              "p95": 33.399999999999636,
+              "max": 83.30000000000018,
+              "over25": 11,
+              "over33": 1,
+              "over50": 1
+            },
+            "activeBoardGaps": {
+              "n": 12,
+              "p50": 16.699999999999818,
+              "p95": 16.699999999999818,
+              "max": 16.699999999999818,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxGaps": {
+              "n": 40,
+              "p50": 16.699999999999818,
+              "p95": 33.399999999999636,
+              "max": 316.60000000000036,
+              "over25": 6,
+              "over33": 1,
+              "over50": 1
+            },
+            "boardSelfMs": {
+              "n": 58,
+              "p50": 0.1000000000349246,
+              "p95": 0.5,
+              "max": 0.5,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 43,
+              "p50": 0.1000000000349246,
+              "p95": 0.6999999999534339,
+              "max": 1.599999999976717,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": null,
+            "probeLifeNominalMs": null,
+            "peakParts": 101,
+            "moveCount": 3,
+            "portalFrames": 0,
+            "final": {
+              "lv": 0,
+              "moves": 3,
+              "won": true,
+              "anim": null,
+              "busy": false,
+              "parts": 97,
+              "nonambient": 97,
+              "atoms": [
+                {
+                  "x": 5,
+                  "y": 1,
+                  "e": "H",
+                  "frozen": false
+                },
+                {
+                  "x": 6,
+                  "y": 1,
+                  "e": "H",
+                  "frozen": false
+                }
+              ],
+              "portals": 0,
+              "pressure": false,
+              "severe": false
+            }
+          }
+        },
+        {
+          "phase": "burst",
+          "before": {
+            "label": "burst",
+            "duration": 1802.9000000000233,
+            "displayGaps": {
+              "n": 78,
+              "p50": 16.699999999999818,
+              "p95": 33.399999999999636,
+              "max": 50.099999999999454,
+              "over25": 26,
+              "over33": 3,
+              "over50": 0
+            },
+            "loopGaps": {
+              "n": 40,
+              "p50": 16.699999999999818,
+              "p95": 249.90000000000055,
+              "max": 250.09999999999945,
+              "over25": 17,
+              "over33": 5,
+              "over50": 3
+            },
+            "boardGaps": {
+              "n": 38,
+              "p50": 16.699999999999818,
+              "p95": 250,
+              "max": 300.09999999999945,
+              "over25": 16,
+              "over33": 5,
+              "over50": 3
+            },
+            "activeBoardGaps": null,
+            "fxGaps": {
+              "n": 36,
+              "p50": 16.699999999999818,
+              "p95": 50,
+              "max": 50.099999999999454,
+              "over25": 14,
+              "over33": 2,
+              "over50": 0
+            },
+            "boardSelfMs": {
+              "n": 39,
+              "p50": 0.1000000000349246,
+              "p95": 0.30000000004656613,
+              "max": 0.40000000002328306,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 40,
+              "p50": 0.1000000000349246,
+              "p95": 0.5999999999767169,
+              "max": 0.7000000000116415,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": 524.6000000000349,
+            "probeLifeNominalMs": 1000,
+            "peakParts": 104,
+            "moveCount": 0,
+            "portalFrames": 0,
+            "final": {
+              "lv": 0,
+              "moves": 3,
+              "won": true,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 5,
+                  "y": 1,
+                  "e": "H",
+                  "frozen": false
+                },
+                {
+                  "x": 6,
+                  "y": 1,
+                  "e": "H",
+                  "frozen": false
+                }
+              ],
+              "portals": 0,
+              "pressure": false,
+              "severe": false
+            }
+          },
+          "after": {
+            "label": "burst",
+            "duration": 1808.5,
+            "displayGaps": {
+              "n": 75,
+              "p50": 16.700000000000728,
+              "p95": 33.400000000000546,
+              "max": 49.899999999999636,
+              "over25": 32,
+              "over33": 1,
+              "over50": 0
+            },
+            "loopGaps": {
+              "n": 68,
+              "p50": 33.19999999999982,
+              "p95": 49.899999999999636,
+              "max": 50.100000000000364,
+              "over25": 36,
+              "over33": 4,
+              "over50": 0
+            },
+            "boardGaps": {
+              "n": 63,
+              "p50": 33.29999999999927,
+              "p95": 50,
+              "max": 50.100000000000364,
+              "over25": 36,
+              "over33": 9,
+              "over50": 0
+            },
+            "activeBoardGaps": null,
+            "fxGaps": {
+              "n": 56,
+              "p50": 16.800000000000182,
+              "p95": 33.400000000000546,
+              "max": 33.400000000000546,
+              "over25": 27,
+              "over33": 0,
+              "over50": 0
+            },
+            "boardSelfMs": {
+              "n": 64,
+              "p50": 0.1000000000349246,
+              "p95": 0.29999999998835847,
+              "max": 0.5,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 58,
+              "p50": 0.39999999999417923,
+              "p95": 1.1000000000349246,
+              "max": 1.2999999999883585,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": 1019.1999999999534,
+            "probeLifeNominalMs": 1000,
+            "peakParts": 121,
+            "moveCount": 0,
+            "portalFrames": 0,
+            "final": {
+              "lv": 0,
+              "moves": 3,
+              "won": true,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 5,
+                  "y": 1,
+                  "e": "H",
+                  "frozen": false
+                },
+                {
+                  "x": 6,
+                  "y": 1,
+                  "e": "H",
+                  "frozen": false
+                }
+              ],
+              "portals": 0,
+              "pressure": false,
+              "severe": false
+            }
+          }
+        },
+        {
+          "phase": "burst-motion",
+          "before": {
+            "label": "burst-motion",
+            "duration": 1917.0999999999767,
+            "displayGaps": {
+              "n": 114,
+              "p50": 16.69999999999891,
+              "p95": 16.799999999999272,
+              "max": 16.80000000000109,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "loopGaps": {
+              "n": 40,
+              "p50": 16.69999999999891,
+              "p95": 250,
+              "max": 250,
+              "over25": 6,
+              "over33": 5,
+              "over50": 5
+            },
+            "boardGaps": {
+              "n": 20,
+              "p50": 16.700000000000728,
+              "p95": 250,
+              "max": 300,
+              "over25": 6,
+              "over33": 5,
+              "over50": 5
+            },
+            "activeBoardGaps": {
+              "n": 9,
+              "p50": 16.69999999999891,
+              "p95": 16.80000000000109,
+              "max": 16.80000000000109,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxGaps": {
+              "n": 25,
+              "p50": 16.69999999999891,
+              "p95": 66.69999999999891,
+              "max": 183.29999999999927,
+              "over25": 3,
+              "over33": 2,
+              "over50": 2
+            },
+            "boardSelfMs": {
+              "n": 21,
+              "p50": 0.1000000000349246,
+              "p95": 0.20000000001164153,
+              "max": 0.20000000001164153,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 30,
+              "p50": 0,
+              "p95": 0.40000000002328306,
+              "max": 0.40000000002328306,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": 657.4000000000233,
+            "probeLifeNominalMs": 1000,
+            "peakParts": 19,
+            "moveCount": 1,
+            "portalFrames": 0,
+            "final": {
+              "lv": 0,
+              "moves": 1,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 6,
+                  "y": 8,
+                  "e": "H",
+                  "frozen": false
+                },
+                {
+                  "x": 6,
+                  "y": 1,
+                  "e": "H",
+                  "frozen": false
+                }
+              ],
+              "portals": 0,
+              "pressure": false,
+              "severe": false
+            }
+          },
+          "after": {
+            "label": "burst-motion",
+            "duration": 1876.4000000000233,
+            "displayGaps": {
+              "n": 111,
+              "p50": 16.69999999999891,
+              "p95": 16.799999999999272,
+              "max": 33.29999999999927,
+              "over25": 1,
+              "over33": 0,
+              "over50": 0
+            },
+            "loopGaps": {
+              "n": 85,
+              "p50": 16.700000000000728,
+              "p95": 33.399999999999636,
+              "max": 33.400000000001455,
+              "over25": 26,
+              "over33": 0,
+              "over50": 0
+            },
+            "boardGaps": {
+              "n": 63,
+              "p50": 33.29999999999927,
+              "p95": 33.400000000001455,
+              "max": 33.400000000001455,
+              "over25": 47,
+              "over33": 0,
+              "over50": 0
+            },
+            "activeBoardGaps": {
+              "n": 9,
+              "p50": 16.69999999999891,
+              "p95": 16.80000000000109,
+              "max": 16.80000000000109,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxGaps": {
+              "n": 59,
+              "p50": 16.700000000000728,
+              "p95": 16.799999999999272,
+              "max": 33.29999999999927,
+              "over25": 1,
+              "over33": 0,
+              "over50": 0
+            },
+            "boardSelfMs": {
+              "n": 64,
+              "p50": 0.09999999997671694,
+              "p95": 0.29999999998835847,
+              "max": 0.5,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 63,
+              "p50": 0.09999999997671694,
+              "p95": 0.40000000002328306,
+              "max": 0.6000000000349246,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": 1005.6000000000349,
+            "probeLifeNominalMs": 1000,
+            "peakParts": 19,
+            "moveCount": 1,
+            "portalFrames": 0,
+            "final": {
+              "lv": 0,
+              "moves": 1,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 6,
+                  "y": 8,
+                  "e": "H",
+                  "frozen": false
+                },
+                {
+                  "x": 6,
+                  "y": 1,
+                  "e": "H",
+                  "frozen": false
+                }
+              ],
+              "portals": 0,
+              "pressure": false,
+              "severe": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "view": "mobile",
+      "level": 781,
+      "phases": [
+        {
+          "phase": "idle",
+          "before": {
+            "label": "idle",
+            "duration": 1001.7999999999884,
+            "displayGaps": {
+              "n": 59,
+              "p50": 16.69999999999891,
+              "p95": 16.799999999999272,
+              "max": 16.80000000000109,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "loopGaps": {
+              "n": 3,
+              "p50": 250,
+              "p95": 250.09999999999854,
+              "max": 250.09999999999854,
+              "over25": 3,
+              "over33": 3,
+              "over50": 3
+            },
+            "boardGaps": {
+              "n": 3,
+              "p50": 250,
+              "p95": 250.09999999999854,
+              "max": 250.09999999999854,
+              "over25": 3,
+              "over33": 3,
+              "over50": 3
+            },
+            "activeBoardGaps": null,
+            "fxGaps": null,
+            "boardSelfMs": {
+              "n": 4,
+              "p50": 0.39999999999417923,
+              "p95": 0.5999999999767169,
+              "max": 0.5999999999767169,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 4,
+              "p50": 0,
+              "p95": 0,
+              "max": 0,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": null,
+            "probeLifeNominalMs": null,
+            "peakParts": 0,
+            "moveCount": 0,
+            "portalFrames": 0,
+            "final": {
+              "lv": 780,
+              "moves": 0,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 1,
+                  "y": 8,
+                  "e": "Sb",
+                  "frozen": false
+                },
+                {
+                  "x": 5,
+                  "y": 8,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 3,
+                  "y": 2,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 3,
+                  "y": 5,
+                  "e": "I",
+                  "frozen": false
+                }
+              ],
+              "portals": 0,
+              "pressure": false,
+              "severe": false
+            }
+          },
+          "after": {
+            "label": "idle",
+            "duration": 1007,
+            "displayGaps": {
+              "n": 60,
+              "p50": 16.69999999999891,
+              "p95": 16.700000000000728,
+              "max": 16.799999999999272,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "loopGaps": {
+              "n": 30,
+              "p50": 33.30000000000109,
+              "p95": 33.399999999999636,
+              "max": 33.399999999999636,
+              "over25": 30,
+              "over33": 0,
+              "over50": 0
+            },
+            "boardGaps": {
+              "n": 30,
+              "p50": 33.30000000000109,
+              "p95": 33.399999999999636,
+              "max": 33.399999999999636,
+              "over25": 30,
+              "over33": 0,
+              "over50": 0
+            },
+            "activeBoardGaps": null,
+            "fxGaps": null,
+            "boardSelfMs": {
+              "n": 31,
+              "p50": 0.30000000004656613,
+              "p95": 0.5999999999767169,
+              "max": 2.099999999976717,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 4,
+              "p50": 0,
+              "p95": 0,
+              "max": 0,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": null,
+            "probeLifeNominalMs": null,
+            "peakParts": 0,
+            "moveCount": 0,
+            "portalFrames": 0,
+            "final": {
+              "lv": 780,
+              "moves": 0,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 1,
+                  "y": 8,
+                  "e": "Sb",
+                  "frozen": false
+                },
+                {
+                  "x": 5,
+                  "y": 8,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 3,
+                  "y": 2,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 3,
+                  "y": 5,
+                  "e": "I",
+                  "frozen": false
+                }
+              ],
+              "portals": 0,
+              "pressure": false,
+              "severe": false
+            }
+          }
+        },
+        {
+          "phase": "moves",
+          "before": {
+            "label": "moves",
+            "duration": 1283,
+            "displayGaps": {
+              "n": 76,
+              "p50": 16.69999999999891,
+              "p95": 16.700000000000728,
+              "max": 16.80000000000109,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "loopGaps": {
+              "n": 54,
+              "p50": 16.69999999999891,
+              "p95": 50,
+              "max": 66.70000000000073,
+              "over25": 6,
+              "over33": 3,
+              "over50": 2
+            },
+            "boardGaps": {
+              "n": 30,
+              "p50": 16.700000000000728,
+              "p95": 149.89999999999964,
+              "max": 166.60000000000036,
+              "over25": 6,
+              "over33": 3,
+              "over50": 3
+            },
+            "activeBoardGaps": {
+              "n": 12,
+              "p50": 16.699999999999818,
+              "p95": 16.700000000000728,
+              "max": 16.700000000000728,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxGaps": {
+              "n": 37,
+              "p50": 16.69999999999891,
+              "p95": 83.40000000000146,
+              "max": 100,
+              "over25": 7,
+              "over33": 4,
+              "over50": 3
+            },
+            "boardSelfMs": {
+              "n": 31,
+              "p50": 0.40000000002328306,
+              "p95": 0.6000000000349246,
+              "max": 1,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 39,
+              "p50": 0.09999999997671694,
+              "p95": 0.5,
+              "max": 0.5999999999767169,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": null,
+            "probeLifeNominalMs": null,
+            "peakParts": 25,
+            "moveCount": 3,
+            "portalFrames": 0,
+            "final": {
+              "lv": 780,
+              "moves": 3,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 2,
+                  "y": 8,
+                  "e": "Sb",
+                  "frozen": false
+                },
+                {
+                  "x": 6,
+                  "y": 6,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 3,
+                  "y": 2,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 3,
+                  "y": 5,
+                  "e": "I",
+                  "frozen": false
+                }
+              ],
+              "portals": 0,
+              "pressure": false,
+              "severe": false
+            }
+          },
+          "after": {
+            "label": "moves",
+            "duration": 1339.2000000000116,
+            "displayGaps": {
+              "n": 80,
+              "p50": 16.69999999999891,
+              "p95": 16.700000000000728,
+              "max": 16.80000000000109,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "loopGaps": {
+              "n": 75,
+              "p50": 16.69999999999891,
+              "p95": 16.80000000000109,
+              "max": 66.69999999999891,
+              "over25": 3,
+              "over33": 1,
+              "over50": 1
+            },
+            "boardGaps": {
+              "n": 55,
+              "p50": 16.700000000000728,
+              "p95": 33.400000000001455,
+              "max": 66.69999999999891,
+              "over25": 21,
+              "over33": 1,
+              "over50": 1
+            },
+            "activeBoardGaps": {
+              "n": 13,
+              "p50": 16.69999999999891,
+              "p95": 16.700000000000728,
+              "max": 16.700000000000728,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxGaps": {
+              "n": 65,
+              "p50": 16.69999999999891,
+              "p95": 16.700000000000728,
+              "max": 16.80000000000109,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "boardSelfMs": {
+              "n": 56,
+              "p50": 0.40000000002328306,
+              "p95": 0.6000000000349246,
+              "max": 0.7000000000116415,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 67,
+              "p50": 0.09999999997671694,
+              "p95": 0.5,
+              "max": 0.5,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": null,
+            "probeLifeNominalMs": null,
+            "peakParts": 25,
+            "moveCount": 3,
+            "portalFrames": 0,
+            "final": {
+              "lv": 780,
+              "moves": 3,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 14,
+              "nonambient": 14,
+              "atoms": [
+                {
+                  "x": 2,
+                  "y": 8,
+                  "e": "Sb",
+                  "frozen": false
+                },
+                {
+                  "x": 6,
+                  "y": 6,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 3,
+                  "y": 2,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 3,
+                  "y": 5,
+                  "e": "I",
+                  "frozen": false
+                }
+              ],
+              "portals": 0,
+              "pressure": false,
+              "severe": false
+            }
+          }
+        },
+        {
+          "phase": "burst",
+          "before": {
+            "label": "burst",
+            "duration": 1805.5,
+            "displayGaps": {
+              "n": 108,
+              "p50": 16.69999999999891,
+              "p95": 16.700000000000728,
+              "max": 16.80000000000109,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "loopGaps": {
+              "n": 57,
+              "p50": 16.69999999999891,
+              "p95": 249.89999999999964,
+              "max": 250.10000000000036,
+              "over25": 3,
+              "over33": 3,
+              "over50": 3
+            },
+            "boardGaps": {
+              "n": 7,
+              "p50": 250,
+              "p95": 333.40000000000146,
+              "max": 333.40000000000146,
+              "over25": 7,
+              "over33": 7,
+              "over50": 7
+            },
+            "activeBoardGaps": null,
+            "fxGaps": {
+              "n": 53,
+              "p50": 16.69999999999891,
+              "p95": 16.799999999999272,
+              "max": 16.80000000000109,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "boardSelfMs": {
+              "n": 8,
+              "p50": 0.3999999999650754,
+              "p95": 0.40000000002328306,
+              "max": 0.40000000002328306,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 57,
+              "p50": 0,
+              "p95": 0.40000000002328306,
+              "max": 0.5,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": 898.1000000000349,
+            "probeLifeNominalMs": 1000,
+            "peakParts": 19,
+            "moveCount": 0,
+            "portalFrames": 0,
+            "final": {
+              "lv": 780,
+              "moves": 3,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 2,
+                  "y": 8,
+                  "e": "Sb",
+                  "frozen": false
+                },
+                {
+                  "x": 6,
+                  "y": 6,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 3,
+                  "y": 2,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 3,
+                  "y": 5,
+                  "e": "I",
+                  "frozen": false
+                }
+              ],
+              "portals": 0,
+              "pressure": false,
+              "severe": false
+            }
+          },
+          "after": {
+            "label": "burst",
+            "duration": 1814.5,
+            "displayGaps": {
+              "n": 108,
+              "p50": 16.69999999999891,
+              "p95": 16.700000000000728,
+              "max": 16.80000000000109,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "loopGaps": {
+              "n": 85,
+              "p50": 16.700000000000728,
+              "p95": 33.399999999999636,
+              "max": 33.399999999999636,
+              "over25": 23,
+              "over33": 0,
+              "over50": 0
+            },
+            "boardGaps": {
+              "n": 54,
+              "p50": 33.30000000000109,
+              "p95": 33.399999999999636,
+              "max": 33.400000000001455,
+              "over25": 54,
+              "over33": 0,
+              "over50": 0
+            },
+            "activeBoardGaps": null,
+            "fxGaps": {
+              "n": 61,
+              "p50": 16.69999999999891,
+              "p95": 16.700000000000728,
+              "max": 16.80000000000109,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "boardSelfMs": {
+              "n": 55,
+              "p50": 0.3999999999650754,
+              "p95": 0.5999999999767169,
+              "max": 0.7000000000116415,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 65,
+              "p50": 0,
+              "p95": 0.3999999999650754,
+              "max": 0.5,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": 1006.7999999999884,
+            "probeLifeNominalMs": 1000,
+            "peakParts": 33,
+            "moveCount": 0,
+            "portalFrames": 0,
+            "final": {
+              "lv": 780,
+              "moves": 3,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 2,
+                  "y": 8,
+                  "e": "Sb",
+                  "frozen": false
+                },
+                {
+                  "x": 6,
+                  "y": 6,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 3,
+                  "y": 2,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 3,
+                  "y": 5,
+                  "e": "I",
+                  "frozen": false
+                }
+              ],
+              "portals": 0,
+              "pressure": false,
+              "severe": false
+            }
+          }
+        },
+        {
+          "phase": "burst-motion",
+          "before": {
+            "label": "burst-motion",
+            "duration": 1868.7999999999884,
+            "displayGaps": {
+              "n": 109,
+              "p50": 16.69999999999891,
+              "p95": 16.799999999999272,
+              "max": 50,
+              "over25": 1,
+              "over33": 1,
+              "over50": 0
+            },
+            "loopGaps": {
+              "n": 38,
+              "p50": 16.69999999999891,
+              "p95": 250,
+              "max": 266.6000000000022,
+              "over25": 7,
+              "over33": 6,
+              "over50": 5
+            },
+            "boardGaps": {
+              "n": 17,
+              "p50": 16.80000000000109,
+              "p95": 366.6999999999989,
+              "max": 366.6999999999989,
+              "over25": 8,
+              "over33": 7,
+              "over50": 7
+            },
+            "activeBoardGaps": {
+              "n": 5,
+              "p50": 16.600000000000364,
+              "p95": 16.80000000000109,
+              "max": 16.80000000000109,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxGaps": {
+              "n": 26,
+              "p50": 16.69999999999891,
+              "p95": 50,
+              "max": 116.70000000000073,
+              "over25": 3,
+              "over33": 2,
+              "over50": 1
+            },
+            "boardSelfMs": {
+              "n": 18,
+              "p50": 0.3999999999650754,
+              "p95": 48.70000000001164,
+              "max": 48.70000000001164,
+              "over25": 1,
+              "over33": 1,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 31,
+              "p50": 0.1000000000349246,
+              "p95": 0.30000000004656613,
+              "max": 0.40000000002328306,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": 561.3999999999651,
+            "probeLifeNominalMs": 1000,
+            "peakParts": 47,
+            "moveCount": 1,
+            "portalFrames": 0,
+            "final": {
+              "lv": 780,
+              "moves": 0,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 1,
+                  "y": 8,
+                  "e": "Sb",
+                  "frozen": false
+                },
+                {
+                  "x": 5,
+                  "y": 8,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 3,
+                  "y": 2,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 3,
+                  "y": 5,
+                  "e": "I",
+                  "frozen": false
+                }
+              ],
+              "portals": 0,
+              "pressure": false,
+              "severe": false
+            }
+          },
+          "after": {
+            "label": "burst-motion",
+            "duration": 1877.4000000000233,
+            "displayGaps": {
+              "n": 109,
+              "p50": 16.700000000000728,
+              "p95": 16.700000000000728,
+              "max": 66.70000000000073,
+              "over25": 1,
+              "over33": 1,
+              "over50": 1
+            },
+            "loopGaps": {
+              "n": 87,
+              "p50": 16.700000000000728,
+              "p95": 33.400000000001455,
+              "max": 100,
+              "over25": 20,
+              "over33": 2,
+              "over50": 1
+            },
+            "boardGaps": {
+              "n": 59,
+              "p50": 33.29999999999927,
+              "p95": 33.400000000001455,
+              "max": 122.29999999995198,
+              "over25": 47,
+              "over33": 2,
+              "over50": 1
+            },
+            "activeBoardGaps": {
+              "n": 5,
+              "p50": 16.69999999999891,
+              "p95": 16.700000000000728,
+              "max": 16.700000000000728,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxGaps": {
+              "n": 65,
+              "p50": 16.700000000000728,
+              "p95": 16.700000000000728,
+              "max": 16.799999999999272,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "boardSelfMs": {
+              "n": 60,
+              "p50": 0.29999999998835847,
+              "p95": 0.5,
+              "max": 61.5,
+              "over25": 1,
+              "over33": 1,
+              "over50": 1
+            },
+            "fxSelfMs": {
+              "n": 69,
+              "p50": 0.09999999997671694,
+              "p95": 0.30000000004656613,
+              "max": 0.3999999999650754,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": 1010.2999999999884,
+            "probeLifeNominalMs": 1000,
+            "peakParts": 47,
+            "moveCount": 1,
+            "portalFrames": 0,
+            "final": {
+              "lv": 780,
+              "moves": 0,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 1,
+                  "y": 8,
+                  "e": "Sb",
+                  "frozen": false
+                },
+                {
+                  "x": 5,
+                  "y": 8,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 3,
+                  "y": 2,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 3,
+                  "y": 5,
+                  "e": "I",
+                  "frozen": false
+                }
+              ],
+              "portals": 0,
+              "pressure": false,
+              "severe": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "view": "mobile",
+      "level": 40,
+      "phases": [
+        {
+          "phase": "idle",
+          "before": {
+            "label": "idle",
+            "duration": 1004.8999999999651,
+            "displayGaps": {
+              "n": 60,
+              "p50": 16.700000000000728,
+              "p95": 16.700000000000728,
+              "max": 16.80000000000291,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "loopGaps": {
+              "n": 3,
+              "p50": 250,
+              "p95": 250,
+              "max": 250,
+              "over25": 3,
+              "over33": 3,
+              "over50": 3
+            },
+            "boardGaps": {
+              "n": 3,
+              "p50": 250,
+              "p95": 250,
+              "max": 250,
+              "over25": 3,
+              "over33": 3,
+              "over50": 3
+            },
+            "activeBoardGaps": null,
+            "fxGaps": null,
+            "boardSelfMs": {
+              "n": 4,
+              "p50": 0.39999999999417923,
+              "p95": 0.5999999999767169,
+              "max": 0.5999999999767169,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 4,
+              "p50": 0,
+              "p95": 0.09999999997671694,
+              "max": 0.09999999997671694,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": null,
+            "probeLifeNominalMs": null,
+            "peakParts": 0,
+            "moveCount": 0,
+            "portalFrames": 0,
+            "final": {
+              "lv": 39,
+              "moves": 0,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 4,
+                  "y": 6,
+                  "e": "Ga",
+                  "frozen": false
+                },
+                {
+                  "x": 1,
+                  "y": 4,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 2,
+                  "y": 3,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 2,
+                  "y": 7,
+                  "e": "Br",
+                  "frozen": false
+                }
+              ],
+              "portals": 2,
+              "pressure": false,
+              "severe": false
+            }
+          },
+          "after": {
+            "label": "idle",
+            "duration": 1010.2999999999884,
+            "displayGaps": {
+              "n": 60,
+              "p50": 16.69999999999709,
+              "p95": 16.700000000000728,
+              "max": 16.799999999999272,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "loopGaps": {
+              "n": 30,
+              "p50": 33.30000000000291,
+              "p95": 33.400000000001455,
+              "max": 33.5,
+              "over25": 30,
+              "over33": 0,
+              "over50": 0
+            },
+            "boardGaps": {
+              "n": 30,
+              "p50": 33.30000000000291,
+              "p95": 33.400000000001455,
+              "max": 33.5,
+              "over25": 30,
+              "over33": 0,
+              "over50": 0
+            },
+            "activeBoardGaps": null,
+            "fxGaps": null,
+            "boardSelfMs": {
+              "n": 31,
+              "p50": 0.20000000001164153,
+              "p95": 0.40000000002328306,
+              "max": 0.5,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 4,
+              "p50": 0,
+              "p95": 0,
+              "max": 0,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": null,
+            "probeLifeNominalMs": null,
+            "peakParts": 0,
+            "moveCount": 0,
+            "portalFrames": 0,
+            "final": {
+              "lv": 39,
+              "moves": 0,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 4,
+                  "y": 6,
+                  "e": "Ga",
+                  "frozen": false
+                },
+                {
+                  "x": 1,
+                  "y": 4,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 2,
+                  "y": 3,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 2,
+                  "y": 7,
+                  "e": "Br",
+                  "frozen": false
+                }
+              ],
+              "portals": 2,
+              "pressure": false,
+              "severe": false
+            }
+          }
+        },
+        {
+          "phase": "moves",
+          "before": {
+            "label": "moves",
+            "duration": 1390,
+            "displayGaps": {
+              "n": 81,
+              "p50": 16.69999999999709,
+              "p95": 16.799999999999272,
+              "max": 33.29999999999927,
+              "over25": 1,
+              "over33": 0,
+              "over50": 0
+            },
+            "loopGaps": {
+              "n": 58,
+              "p50": 16.69999999999709,
+              "p95": 66.69999999999709,
+              "max": 133.29999999999927,
+              "over25": 7,
+              "over33": 3,
+              "over50": 3
+            },
+            "boardGaps": {
+              "n": 37,
+              "p50": 16.69999999999709,
+              "p95": 150,
+              "max": 233.20000000000073,
+              "over25": 6,
+              "over33": 4,
+              "over50": 4
+            },
+            "activeBoardGaps": {
+              "n": 16,
+              "p50": 16.69999999999709,
+              "p95": 16.700000000000728,
+              "max": 16.700000000000728,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxGaps": {
+              "n": 30,
+              "p50": 16.69999999999891,
+              "p95": 66.69999999999709,
+              "max": 83.39999999999782,
+              "over25": 5,
+              "over33": 2,
+              "over50": 2
+            },
+            "boardSelfMs": {
+              "n": 38,
+              "p50": 0.20000000001164153,
+              "p95": 1,
+              "max": 3.400000000023283,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 34,
+              "p50": 0.09999999997671694,
+              "p95": 0.5,
+              "max": 0.9000000000232831,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": null,
+            "probeLifeNominalMs": null,
+            "peakParts": 60,
+            "moveCount": 3,
+            "portalFrames": 8,
+            "final": {
+              "lv": 39,
+              "moves": 3,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 5,
+                  "y": 6,
+                  "e": "Ga",
+                  "frozen": false
+                },
+                {
+                  "x": 1,
+                  "y": 4,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 2,
+                  "y": 4,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 6,
+                  "y": 6,
+                  "e": "Br",
+                  "frozen": false
+                }
+              ],
+              "portals": 2,
+              "pressure": false,
+              "severe": false
+            }
+          },
+          "after": {
+            "label": "moves",
+            "duration": 1366.5,
+            "displayGaps": {
+              "n": 73,
+              "p50": 16.700000000000728,
+              "p95": 16.700000000000728,
+              "max": 150.10000000000218,
+              "over25": 1,
+              "over33": 1,
+              "over50": 1
+            },
+            "loopGaps": {
+              "n": 67,
+              "p50": 16.700000000000728,
+              "p95": 16.700000000000728,
+              "max": 150.10000000000218,
+              "over25": 3,
+              "over33": 3,
+              "over50": 2
+            },
+            "boardGaps": {
+              "n": 57,
+              "p50": 16.700000000000728,
+              "p95": 50,
+              "max": 150.10000000000218,
+              "over25": 13,
+              "over33": 3,
+              "over50": 2
+            },
+            "activeBoardGaps": {
+              "n": 19,
+              "p50": 16.69999999999709,
+              "p95": 16.700000000000728,
+              "max": 16.700000000000728,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxGaps": {
+              "n": 47,
+              "p50": 16.700000000000728,
+              "p95": 16.700000000000728,
+              "max": 150.10000000000218,
+              "over25": 1,
+              "over33": 1,
+              "over50": 1
+            },
+            "boardSelfMs": {
+              "n": 58,
+              "p50": 0.20000000001164153,
+              "p95": 1.2000000000116415,
+              "max": 128.5,
+              "over25": 1,
+              "over33": 1,
+              "over50": 1
+            },
+            "fxSelfMs": {
+              "n": 49,
+              "p50": 0.20000000001164153,
+              "p95": 0.7000000000116415,
+              "max": 1,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": null,
+            "probeLifeNominalMs": null,
+            "peakParts": 61,
+            "moveCount": 3,
+            "portalFrames": 8,
+            "final": {
+              "lv": 39,
+              "moves": 3,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 20,
+              "nonambient": 20,
+              "atoms": [
+                {
+                  "x": 5,
+                  "y": 6,
+                  "e": "Ga",
+                  "frozen": false
+                },
+                {
+                  "x": 1,
+                  "y": 4,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 2,
+                  "y": 4,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 6,
+                  "y": 6,
+                  "e": "Br",
+                  "frozen": false
+                }
+              ],
+              "portals": 2,
+              "pressure": true,
+              "severe": false
+            }
+          }
+        },
+        {
+          "phase": "burst",
+          "before": {
+            "label": "burst",
+            "duration": 1807.2000000000116,
+            "displayGaps": {
+              "n": 98,
+              "p50": 16.700000000000728,
+              "p95": 16.799999999999272,
+              "max": 166.60000000000218,
+              "over25": 2,
+              "over33": 1,
+              "over50": 1
+            },
+            "loopGaps": {
+              "n": 27,
+              "p50": 16.700000000000728,
+              "p95": 250,
+              "max": 250,
+              "over25": 12,
+              "over33": 5,
+              "over50": 5
+            },
+            "boardGaps": {
+              "n": 6,
+              "p50": 250,
+              "p95": 350,
+              "max": 350,
+              "over25": 6,
+              "over33": 6,
+              "over50": 6
+            },
+            "activeBoardGaps": null,
+            "fxGaps": {
+              "n": 22,
+              "p50": 16.700000000000728,
+              "p95": 33.400000000001455,
+              "max": 199.90000000000146,
+              "over25": 8,
+              "over33": 1,
+              "over50": 1
+            },
+            "boardSelfMs": {
+              "n": 7,
+              "p50": 0.40000000002328306,
+              "p95": 129.29999999998836,
+              "max": 129.29999999998836,
+              "over25": 1,
+              "over33": 1,
+              "over50": 1
+            },
+            "fxSelfMs": {
+              "n": 26,
+              "p50": 0.1000000000349246,
+              "p95": 0.5,
+              "max": 0.7999999999883585,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": 669.1000000000349,
+            "probeLifeNominalMs": 1000,
+            "peakParts": 58,
+            "moveCount": 0,
+            "portalFrames": 0,
+            "final": {
+              "lv": 39,
+              "moves": 3,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 5,
+                  "y": 6,
+                  "e": "Ga",
+                  "frozen": false
+                },
+                {
+                  "x": 1,
+                  "y": 4,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 2,
+                  "y": 4,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 6,
+                  "y": 6,
+                  "e": "Br",
+                  "frozen": false
+                }
+              ],
+              "portals": 2,
+              "pressure": true,
+              "severe": true
+            }
+          },
+          "after": {
+            "label": "burst",
+            "duration": 1806,
+            "displayGaps": {
+              "n": 107,
+              "p50": 16.700000000000728,
+              "p95": 16.799999999999272,
+              "max": 16.80000000000291,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "loopGaps": {
+              "n": 84,
+              "p50": 16.700000000000728,
+              "p95": 33.400000000001455,
+              "max": 33.5,
+              "over25": 23,
+              "over33": 0,
+              "over50": 0
+            },
+            "boardGaps": {
+              "n": 53,
+              "p50": 33.29999999999927,
+              "p95": 33.400000000001455,
+              "max": 33.5,
+              "over25": 53,
+              "over33": 0,
+              "over50": 0
+            },
+            "activeBoardGaps": null,
+            "fxGaps": {
+              "n": 60,
+              "p50": 16.700000000000728,
+              "p95": 16.700000000000728,
+              "max": 16.80000000000291,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "boardSelfMs": {
+              "n": 54,
+              "p50": 0.20000000001164153,
+              "p95": 0.5,
+              "max": 0.7999999999883585,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 64,
+              "p50": 0.09999999997671694,
+              "p95": 0.5,
+              "max": 0.7000000000116415,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": 1008.2999999999884,
+            "probeLifeNominalMs": 1000,
+            "peakParts": 71,
+            "moveCount": 0,
+            "portalFrames": 0,
+            "final": {
+              "lv": 39,
+              "moves": 3,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 5,
+                  "y": 6,
+                  "e": "Ga",
+                  "frozen": false
+                },
+                {
+                  "x": 1,
+                  "y": 4,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 2,
+                  "y": 4,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 6,
+                  "y": 6,
+                  "e": "Br",
+                  "frozen": false
+                }
+              ],
+              "portals": 2,
+              "pressure": true,
+              "severe": false
+            }
+          }
+        },
+        {
+          "phase": "burst-motion",
+          "before": {
+            "label": "burst-motion",
+            "duration": 2048.9000000000233,
+            "displayGaps": {
+              "n": 106,
+              "p50": 16.700000000000728,
+              "p95": 16.799999999999272,
+              "max": 150,
+              "over25": 3,
+              "over33": 1,
+              "over50": 1
+            },
+            "loopGaps": {
+              "n": 36,
+              "p50": 16.700000000000728,
+              "p95": 250,
+              "max": 316.7000000000007,
+              "over25": 8,
+              "over33": 6,
+              "over50": 6
+            },
+            "boardGaps": {
+              "n": 19,
+              "p50": 16.700000000000728,
+              "p95": 316.7000000000007,
+              "max": 316.7000000000007,
+              "over25": 8,
+              "over33": 7,
+              "over50": 7
+            },
+            "activeBoardGaps": {
+              "n": 7,
+              "p50": 16.69999999999709,
+              "p95": 16.80000000000291,
+              "max": 16.80000000000291,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxGaps": {
+              "n": 22,
+              "p50": 16.700000000000728,
+              "p95": 83.29999999999927,
+              "max": 149.90000000000146,
+              "over25": 4,
+              "over33": 2,
+              "over50": 2
+            },
+            "boardSelfMs": {
+              "n": 20,
+              "p50": 0.25,
+              "p95": 0.6999999999534339,
+              "max": 0.7999999999883585,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 27,
+              "p50": 0.1000000000349246,
+              "p95": 0.6000000000349246,
+              "max": 2.1000000000349246,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": 609.5,
+            "probeLifeNominalMs": 1000,
+            "peakParts": 52,
+            "moveCount": 1,
+            "portalFrames": 0,
+            "final": {
+              "lv": 39,
+              "moves": 4,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 1,
+                  "y": 6,
+                  "e": "Ga",
+                  "frozen": false
+                },
+                {
+                  "x": 1,
+                  "y": 4,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 2,
+                  "y": 4,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 6,
+                  "y": 6,
+                  "e": "Br",
+                  "frozen": false
+                }
+              ],
+              "portals": 2,
+              "pressure": true,
+              "severe": true
+            }
+          },
+          "after": {
+            "label": "burst-motion",
+            "duration": 1879.5999999999767,
+            "displayGaps": {
+              "n": 111,
+              "p50": 16.69999999999709,
+              "p95": 16.799999999999272,
+              "max": 16.80000000000291,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "loopGaps": {
+              "n": 86,
+              "p50": 16.700000000000728,
+              "p95": 33.400000000001455,
+              "max": 33.400000000001455,
+              "over25": 25,
+              "over33": 0,
+              "over50": 0
+            },
+            "boardGaps": {
+              "n": 62,
+              "p50": 33.29999999999927,
+              "p95": 33.400000000001455,
+              "max": 50.099999999998545,
+              "over25": 48,
+              "over33": 1,
+              "over50": 0
+            },
+            "activeBoardGaps": {
+              "n": 7,
+              "p50": 16.69999999999709,
+              "p95": 16.700000000000728,
+              "max": 16.700000000000728,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxGaps": {
+              "n": 60,
+              "p50": 16.69999999999709,
+              "p95": 16.799999999999272,
+              "max": 16.799999999999272,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "boardSelfMs": {
+              "n": 63,
+              "p50": 0.29999999998835847,
+              "p95": 0.40000000002328306,
+              "max": 0.5,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 64,
+              "p50": 0.1000000000349246,
+              "p95": 0.5,
+              "max": 0.7000000000116415,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": 1012.9000000000233,
+            "probeLifeNominalMs": 1000,
+            "peakParts": 58,
+            "moveCount": 1,
+            "portalFrames": 0,
+            "final": {
+              "lv": 39,
+              "moves": 4,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 1,
+                  "y": 6,
+                  "e": "Ga",
+                  "frozen": false
+                },
+                {
+                  "x": 1,
+                  "y": 4,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 2,
+                  "y": 4,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 6,
+                  "y": 6,
+                  "e": "Br",
+                  "frozen": false
+                }
+              ],
+              "portals": 2,
+              "pressure": true,
+              "severe": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "view": "desktop",
+      "level": 1,
+      "phases": [
+        {
+          "phase": "idle",
+          "before": {
+            "label": "idle",
+            "duration": 1005.4000000000233,
+            "displayGaps": {
+              "n": 60,
+              "p50": 16.699999999999818,
+              "p95": 16.700000000000728,
+              "max": 16.700000000000728,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "loopGaps": {
+              "n": 6,
+              "p50": 150.05000000000018,
+              "p95": 166.70000000000073,
+              "max": 166.70000000000073,
+              "over25": 5,
+              "over33": 5,
+              "over50": 5
+            },
+            "boardGaps": {
+              "n": 6,
+              "p50": 150.05000000000018,
+              "p95": 166.70000000000073,
+              "max": 166.70000000000073,
+              "over25": 5,
+              "over33": 5,
+              "over50": 5
+            },
+            "activeBoardGaps": null,
+            "fxGaps": null,
+            "boardSelfMs": {
+              "n": 7,
+              "p50": 0.19999999995343387,
+              "p95": 0.40000000002328306,
+              "max": 0.40000000002328306,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 7,
+              "p50": 0,
+              "p95": 0,
+              "max": 0,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": null,
+            "probeLifeNominalMs": null,
+            "peakParts": 0,
+            "moveCount": 0,
+            "portalFrames": 0,
+            "final": {
+              "lv": 0,
+              "moves": 0,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 6,
+                  "y": 3,
+                  "e": "H",
+                  "frozen": false
+                },
+                {
+                  "x": 6,
+                  "y": 1,
+                  "e": "H",
+                  "frozen": false
+                }
+              ],
+              "portals": 0,
+              "pressure": false,
+              "severe": false
+            }
+          },
+          "after": {
+            "label": "idle",
+            "duration": 1003.7000000000116,
+            "displayGaps": {
+              "n": 60,
+              "p50": 16.699999999999818,
+              "p95": 16.700000000000728,
+              "max": 16.800000000000182,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "loopGaps": {
+              "n": 31,
+              "p50": 33.30000000000018,
+              "p95": 33.5,
+              "max": 50,
+              "over25": 27,
+              "over33": 1,
+              "over50": 0
+            },
+            "boardGaps": {
+              "n": 29,
+              "p50": 33.30000000000018,
+              "p95": 50,
+              "max": 50.100000000000364,
+              "over25": 27,
+              "over33": 2,
+              "over50": 0
+            },
+            "activeBoardGaps": null,
+            "fxGaps": null,
+            "boardSelfMs": {
+              "n": 30,
+              "p50": 0.09999999997671694,
+              "p95": 0.20000000001164153,
+              "max": 0.20000000001164153,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 6,
+              "p50": 0,
+              "p95": 0,
+              "max": 0,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": null,
+            "probeLifeNominalMs": null,
+            "peakParts": 0,
+            "moveCount": 0,
+            "portalFrames": 0,
+            "final": {
+              "lv": 0,
+              "moves": 0,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 6,
+                  "y": 3,
+                  "e": "H",
+                  "frozen": false
+                },
+                {
+                  "x": 6,
+                  "y": 1,
+                  "e": "H",
+                  "frozen": false
+                }
+              ],
+              "portals": 0,
+              "pressure": false,
+              "severe": false
+            }
+          }
+        },
+        {
+          "phase": "moves",
+          "before": {
+            "label": "moves",
+            "duration": 1112.5999999999767,
+            "displayGaps": {
+              "n": 51,
+              "p50": 16.699999999999818,
+              "p95": 33.400000000000546,
+              "max": 83.19999999999982,
+              "over25": 9,
+              "over33": 2,
+              "over50": 2
+            },
+            "loopGaps": {
+              "n": 49,
+              "p50": 16.699999999999818,
+              "p95": 33.400000000000546,
+              "max": 83.19999999999982,
+              "over25": 9,
+              "over33": 2,
+              "over50": 2
+            },
+            "boardGaps": {
+              "n": 49,
+              "p50": 16.699999999999818,
+              "p95": 33.400000000000546,
+              "max": 83.19999999999982,
+              "over25": 9,
+              "over33": 2,
+              "over50": 2
+            },
+            "activeBoardGaps": {
+              "n": 15,
+              "p50": 16.699999999999818,
+              "p95": 16.800000000000182,
+              "max": 16.800000000000182,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxGaps": {
+              "n": 49,
+              "p50": 16.699999999999818,
+              "p95": 33.400000000000546,
+              "max": 83.19999999999982,
+              "over25": 9,
+              "over33": 2,
+              "over50": 2
+            },
+            "boardSelfMs": {
+              "n": 50,
+              "p50": 0.1000000000349246,
+              "p95": 0.9000000000232831,
+              "max": 1.1000000000349246,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 50,
+              "p50": 0.09999999997671694,
+              "p95": 0.7000000000116415,
+              "max": 2.1000000000349246,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": null,
+            "probeLifeNominalMs": null,
+            "peakParts": 105,
+            "moveCount": 3,
+            "portalFrames": 0,
+            "final": {
+              "lv": 0,
+              "moves": 3,
+              "won": true,
+              "anim": null,
+              "busy": false,
+              "parts": 87,
+              "nonambient": 87,
+              "atoms": [
+                {
+                  "x": 5,
+                  "y": 1,
+                  "e": "H",
+                  "frozen": false
+                },
+                {
+                  "x": 6,
+                  "y": 1,
+                  "e": "H",
+                  "frozen": false
+                }
+              ],
+              "portals": 0,
+              "pressure": false,
+              "severe": false
+            }
+          },
+          "after": {
+            "label": "moves",
+            "duration": 1197.399999999965,
+            "displayGaps": {
+              "n": 51,
+              "p50": 16.699999999999818,
+              "p95": 33.399999999999636,
+              "max": 66.69999999999982,
+              "over25": 16,
+              "over33": 2,
+              "over50": 1
+            },
+            "loopGaps": {
+              "n": 50,
+              "p50": 16.699999999999818,
+              "p95": 33.399999999999636,
+              "max": 66.69999999999982,
+              "over25": 17,
+              "over33": 2,
+              "over50": 1
+            },
+            "boardGaps": {
+              "n": 50,
+              "p50": 16.699999999999818,
+              "p95": 33.399999999999636,
+              "max": 66.69999999999982,
+              "over25": 17,
+              "over33": 2,
+              "over50": 1
+            },
+            "activeBoardGaps": {
+              "n": 14,
+              "p50": 16.65000000000009,
+              "p95": 33.399999999999636,
+              "max": 33.399999999999636,
+              "over25": 3,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxGaps": {
+              "n": 48,
+              "p50": 16.699999999999818,
+              "p95": 33.399999999999636,
+              "max": 66.69999999999982,
+              "over25": 16,
+              "over33": 2,
+              "over50": 1
+            },
+            "boardSelfMs": {
+              "n": 51,
+              "p50": 0.19999999995343387,
+              "p95": 1.2000000000116415,
+              "max": 2.1000000000349246,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 49,
+              "p50": 0.1000000000349246,
+              "p95": 0.5,
+              "max": 1.400000000023283,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": null,
+            "probeLifeNominalMs": null,
+            "peakParts": 105,
+            "moveCount": 3,
+            "portalFrames": 0,
+            "final": {
+              "lv": 0,
+              "moves": 3,
+              "won": true,
+              "anim": null,
+              "busy": false,
+              "parts": 99,
+              "nonambient": 99,
+              "atoms": [
+                {
+                  "x": 5,
+                  "y": 1,
+                  "e": "H",
+                  "frozen": false
+                },
+                {
+                  "x": 6,
+                  "y": 1,
+                  "e": "H",
+                  "frozen": false
+                }
+              ],
+              "portals": 0,
+              "pressure": false,
+              "severe": false
+            }
+          }
+        },
+        {
+          "phase": "burst",
+          "before": {
+            "label": "burst",
+            "duration": 1807.2000000000116,
+            "displayGaps": {
+              "n": 37,
+              "p50": 50,
+              "p95": 83.30000000000018,
+              "max": 83.30000000000018,
+              "over25": 36,
+              "over33": 27,
+              "over50": 6
+            },
+            "loopGaps": {
+              "n": 27,
+              "p50": 50,
+              "p95": 166.59999999999945,
+              "max": 183.30000000000018,
+              "over25": 26,
+              "over33": 24,
+              "over50": 9
+            },
+            "boardGaps": {
+              "n": 21,
+              "p50": 50,
+              "p95": 216.59999999999945,
+              "max": 216.60000000000036,
+              "over25": 20,
+              "over33": 18,
+              "over50": 9
+            },
+            "activeBoardGaps": null,
+            "fxGaps": {
+              "n": 23,
+              "p50": 50,
+              "p95": 83.30000000000018,
+              "max": 83.30000000000018,
+              "over25": 22,
+              "over33": 20,
+              "over50": 6
+            },
+            "boardSelfMs": {
+              "n": 22,
+              "p50": 0.1000000000349246,
+              "p95": 0.20000000001164153,
+              "max": 0.5,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 27,
+              "p50": 0.19999999995343387,
+              "p95": 0.8999999999650754,
+              "max": 0.8999999999650754,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": 748.2000000000116,
+            "probeLifeNominalMs": 1000,
+            "peakParts": 106,
+            "moveCount": 0,
+            "portalFrames": 0,
+            "final": {
+              "lv": 0,
+              "moves": 3,
+              "won": true,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 5,
+                  "y": 1,
+                  "e": "H",
+                  "frozen": false
+                },
+                {
+                  "x": 6,
+                  "y": 1,
+                  "e": "H",
+                  "frozen": false
+                }
+              ],
+              "portals": 0,
+              "pressure": false,
+              "severe": false
+            }
+          },
+          "after": {
+            "label": "burst",
+            "duration": 1812.4000000000233,
+            "displayGaps": {
+              "n": 38,
+              "p50": 50,
+              "p95": 83.29999999999927,
+              "max": 83.40000000000055,
+              "over25": 35,
+              "over33": 27,
+              "over50": 5
+            },
+            "loopGaps": {
+              "n": 36,
+              "p50": 50,
+              "p95": 83.29999999999927,
+              "max": 83.40000000000055,
+              "over25": 35,
+              "over33": 27,
+              "over50": 6
+            },
+            "boardGaps": {
+              "n": 36,
+              "p50": 50,
+              "p95": 83.29999999999927,
+              "max": 83.40000000000055,
+              "over25": 35,
+              "over33": 27,
+              "over50": 6
+            },
+            "activeBoardGaps": null,
+            "fxGaps": {
+              "n": 28,
+              "p50": 50,
+              "p95": 83.29999999999927,
+              "max": 83.40000000000055,
+              "over25": 27,
+              "over33": 23,
+              "over50": 4
+            },
+            "boardSelfMs": {
+              "n": 37,
+              "p50": 0.1000000000349246,
+              "p95": 0.7000000000116415,
+              "max": 0.8000000000465661,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 31,
+              "p50": 0.29999999998835847,
+              "p95": 1.099999999976717,
+              "max": 1.5,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": 1038.0999999999767,
+            "probeLifeNominalMs": 1000,
+            "peakParts": 122,
+            "moveCount": 0,
+            "portalFrames": 0,
+            "final": {
+              "lv": 0,
+              "moves": 3,
+              "won": true,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 5,
+                  "y": 1,
+                  "e": "H",
+                  "frozen": false
+                },
+                {
+                  "x": 6,
+                  "y": 1,
+                  "e": "H",
+                  "frozen": false
+                }
+              ],
+              "portals": 0,
+              "pressure": false,
+              "severe": false
+            }
+          }
+        },
+        {
+          "phase": "burst-motion",
+          "before": {
+            "label": "burst-motion",
+            "duration": 1871.7999999999884,
+            "displayGaps": {
+              "n": 87,
+              "p50": 16.700000000000728,
+              "p95": 33.400000000001455,
+              "max": 66.70000000000073,
+              "over25": 20,
+              "over33": 4,
+              "over50": 1
+            },
+            "loopGaps": {
+              "n": 28,
+              "p50": 33.30000000000109,
+              "p95": 166.70000000000073,
+              "max": 183.40000000000146,
+              "over25": 18,
+              "over33": 10,
+              "over50": 8
+            },
+            "boardGaps": {
+              "n": 21,
+              "p50": 50,
+              "p95": 183.40000000000146,
+              "max": 250,
+              "over25": 17,
+              "over33": 11,
+              "over50": 9
+            },
+            "activeBoardGaps": {
+              "n": 6,
+              "p50": 33.30000000000018,
+              "p95": 33.399999999999636,
+              "max": 33.399999999999636,
+              "over25": 5,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxGaps": {
+              "n": 19,
+              "p50": 33.29999999999927,
+              "p95": 50,
+              "max": 50,
+              "over25": 10,
+              "over33": 2,
+              "over50": 0
+            },
+            "boardSelfMs": {
+              "n": 22,
+              "p50": 0.1000000000349246,
+              "p95": 0.7999999999883585,
+              "max": 0.9000000000232831,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 28,
+              "p50": 0,
+              "p95": 0.20000000001164153,
+              "max": 0.29999999998835847,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": 524.7999999999884,
+            "probeLifeNominalMs": 1000,
+            "peakParts": 37,
+            "moveCount": 1,
+            "portalFrames": 0,
+            "final": {
+              "lv": 0,
+              "moves": 1,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 6,
+                  "y": 8,
+                  "e": "H",
+                  "frozen": false
+                },
+                {
+                  "x": 6,
+                  "y": 1,
+                  "e": "H",
+                  "frozen": false
+                }
+              ],
+              "portals": 0,
+              "pressure": false,
+              "severe": false
+            }
+          },
+          "after": {
+            "label": "burst-motion",
+            "duration": 1864.5,
+            "displayGaps": {
+              "n": 93,
+              "p50": 16.700000000000728,
+              "p95": 33.399999999999636,
+              "max": 50,
+              "over25": 14,
+              "over33": 3,
+              "over50": 0
+            },
+            "loopGaps": {
+              "n": 71,
+              "p50": 16.700000000000728,
+              "p95": 50,
+              "max": 66.60000000000036,
+              "over25": 31,
+              "over33": 6,
+              "over50": 1
+            },
+            "boardGaps": {
+              "n": 56,
+              "p50": 33.30000000000109,
+              "p95": 50,
+              "max": 66.60000000000036,
+              "over25": 46,
+              "over33": 6,
+              "over50": 1
+            },
+            "activeBoardGaps": {
+              "n": 7,
+              "p50": 33.29999999999927,
+              "p95": 50,
+              "max": 50,
+              "over25": 4,
+              "over33": 1,
+              "over50": 0
+            },
+            "fxGaps": {
+              "n": 46,
+              "p50": 16.700000000000728,
+              "p95": 33.399999999999636,
+              "max": 50,
+              "over25": 11,
+              "over33": 2,
+              "over50": 0
+            },
+            "boardSelfMs": {
+              "n": 57,
+              "p50": 0.20000000001164153,
+              "p95": 0.7000000000116415,
+              "max": 1.7000000000116415,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 52,
+              "p50": 0.09999999997671694,
+              "p95": 0.29999999998835847,
+              "max": 0.5,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": 1009.1000000000349,
+            "probeLifeNominalMs": 1000,
+            "peakParts": 42,
+            "moveCount": 1,
+            "portalFrames": 0,
+            "final": {
+              "lv": 0,
+              "moves": 1,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 6,
+                  "y": 8,
+                  "e": "H",
+                  "frozen": false
+                },
+                {
+                  "x": 6,
+                  "y": 1,
+                  "e": "H",
+                  "frozen": false
+                }
+              ],
+              "portals": 0,
+              "pressure": false,
+              "severe": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "view": "desktop",
+      "level": 781,
+      "phases": [
+        {
+          "phase": "idle",
+          "before": {
+            "label": "idle",
+            "duration": 1004.6000000000349,
+            "displayGaps": {
+              "n": 26,
+              "p50": 33.399999999999636,
+              "p95": 50,
+              "max": 50,
+              "over25": 25,
+              "over33": 6,
+              "over50": 0
+            },
+            "loopGaps": {
+              "n": 6,
+              "p50": 150.10000000000036,
+              "p95": 183.29999999999927,
+              "max": 183.29999999999927,
+              "over25": 6,
+              "over33": 6,
+              "over50": 6
+            },
+            "boardGaps": {
+              "n": 6,
+              "p50": 150.10000000000036,
+              "p95": 183.29999999999927,
+              "max": 183.29999999999927,
+              "over25": 6,
+              "over33": 6,
+              "over50": 6
+            },
+            "activeBoardGaps": null,
+            "fxGaps": null,
+            "boardSelfMs": {
+              "n": 7,
+              "p50": 0.8000000000465661,
+              "p95": 1.400000000023283,
+              "max": 1.400000000023283,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 7,
+              "p50": 0,
+              "p95": 0,
+              "max": 0,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": null,
+            "probeLifeNominalMs": null,
+            "peakParts": 0,
+            "moveCount": 0,
+            "portalFrames": 0,
+            "final": {
+              "lv": 780,
+              "moves": 0,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 1,
+                  "y": 8,
+                  "e": "Sb",
+                  "frozen": false
+                },
+                {
+                  "x": 5,
+                  "y": 8,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 3,
+                  "y": 2,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 3,
+                  "y": 5,
+                  "e": "I",
+                  "frozen": false
+                }
+              ],
+              "portals": 0,
+              "pressure": false,
+              "severe": false
+            }
+          },
+          "after": {
+            "label": "idle",
+            "duration": 1003.9000000000233,
+            "displayGaps": {
+              "n": 60,
+              "p50": 16.69999999999891,
+              "p95": 16.799999999999272,
+              "max": 16.80000000000109,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "loopGaps": {
+              "n": 29,
+              "p50": 33.30000000000109,
+              "p95": 50,
+              "max": 50.100000000000364,
+              "over25": 27,
+              "over33": 3,
+              "over50": 0
+            },
+            "boardGaps": {
+              "n": 29,
+              "p50": 33.30000000000109,
+              "p95": 50,
+              "max": 50.100000000000364,
+              "over25": 27,
+              "over33": 3,
+              "over50": 0
+            },
+            "activeBoardGaps": null,
+            "fxGaps": null,
+            "boardSelfMs": {
+              "n": 30,
+              "p50": 1,
+              "p95": 5.7000000000116415,
+              "max": 8.100000000034925,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 6,
+              "p50": 0,
+              "p95": 0,
+              "max": 0,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": null,
+            "probeLifeNominalMs": null,
+            "peakParts": 0,
+            "moveCount": 0,
+            "portalFrames": 0,
+            "final": {
+              "lv": 780,
+              "moves": 0,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 1,
+                  "y": 8,
+                  "e": "Sb",
+                  "frozen": false
+                },
+                {
+                  "x": 5,
+                  "y": 8,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 3,
+                  "y": 2,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 3,
+                  "y": 5,
+                  "e": "I",
+                  "frozen": false
+                }
+              ],
+              "portals": 0,
+              "pressure": false,
+              "severe": false
+            }
+          }
+        },
+        {
+          "phase": "moves",
+          "before": {
+            "label": "moves",
+            "duration": 1212.7999999999884,
+            "displayGaps": {
+              "n": 65,
+              "p50": 16.69999999999891,
+              "p95": 33.399999999999636,
+              "max": 33.399999999999636,
+              "over25": 6,
+              "over33": 0,
+              "over50": 0
+            },
+            "loopGaps": {
+              "n": 48,
+              "p50": 16.69999999999891,
+              "p95": 33.399999999999636,
+              "max": 166.6999999999989,
+              "over25": 6,
+              "over33": 1,
+              "over50": 1
+            },
+            "boardGaps": {
+              "n": 45,
+              "p50": 16.69999999999891,
+              "p95": 33.399999999999636,
+              "max": 216.6999999999989,
+              "over25": 6,
+              "over33": 1,
+              "over50": 1
+            },
+            "activeBoardGaps": {
+              "n": 15,
+              "p50": 16.69999999999891,
+              "p95": 33.399999999999636,
+              "max": 33.399999999999636,
+              "over25": 1,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxGaps": {
+              "n": 46,
+              "p50": 16.69999999999891,
+              "p95": 33.399999999999636,
+              "max": 33.399999999999636,
+              "over25": 5,
+              "over33": 0,
+              "over50": 0
+            },
+            "boardSelfMs": {
+              "n": 46,
+              "p50": 1,
+              "p95": 2.8999999999650754,
+              "max": 4,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 48,
+              "p50": 0.09999999997671694,
+              "p95": 0.29999999998835847,
+              "max": 0.5,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": null,
+            "probeLifeNominalMs": null,
+            "peakParts": 39,
+            "moveCount": 3,
+            "portalFrames": 0,
+            "final": {
+              "lv": 780,
+              "moves": 3,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 2,
+                  "y": 8,
+                  "e": "Sb",
+                  "frozen": false
+                },
+                {
+                  "x": 6,
+                  "y": 6,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 3,
+                  "y": 2,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 3,
+                  "y": 5,
+                  "e": "I",
+                  "frozen": false
+                }
+              ],
+              "portals": 0,
+              "pressure": false,
+              "severe": false
+            }
+          },
+          "after": {
+            "label": "moves",
+            "duration": 1281.4000000000233,
+            "displayGaps": {
+              "n": 58,
+              "p50": 16.700000000000728,
+              "p95": 33.400000000001455,
+              "max": 50,
+              "over25": 17,
+              "over33": 1,
+              "over50": 0
+            },
+            "loopGaps": {
+              "n": 56,
+              "p50": 16.700000000000728,
+              "p95": 33.400000000001455,
+              "max": 50,
+              "over25": 18,
+              "over33": 2,
+              "over50": 0
+            },
+            "boardGaps": {
+              "n": 49,
+              "p50": 16.80000000000109,
+              "p95": 33.400000000001455,
+              "max": 50,
+              "over25": 24,
+              "over33": 2,
+              "over50": 0
+            },
+            "activeBoardGaps": {
+              "n": 12,
+              "p50": 16.75000000000091,
+              "p95": 33.400000000001455,
+              "max": 33.400000000001455,
+              "over25": 5,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxGaps": {
+              "n": 55,
+              "p50": 16.700000000000728,
+              "p95": 33.400000000001455,
+              "max": 50,
+              "over25": 17,
+              "over33": 1,
+              "over50": 0
+            },
+            "boardSelfMs": {
+              "n": 50,
+              "p50": 1.150000000023283,
+              "p95": 3.5,
+              "max": 5.2999999999883585,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 56,
+              "p50": 0.09999999997671694,
+              "p95": 0.20000000001164153,
+              "max": 0.20000000001164153,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": null,
+            "probeLifeNominalMs": null,
+            "peakParts": 42,
+            "moveCount": 3,
+            "portalFrames": 0,
+            "final": {
+              "lv": 780,
+              "moves": 3,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 15,
+              "nonambient": 15,
+              "atoms": [
+                {
+                  "x": 2,
+                  "y": 8,
+                  "e": "Sb",
+                  "frozen": false
+                },
+                {
+                  "x": 6,
+                  "y": 6,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 3,
+                  "y": 2,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 3,
+                  "y": 5,
+                  "e": "I",
+                  "frozen": false
+                }
+              ],
+              "portals": 0,
+              "pressure": false,
+              "severe": false
+            }
+          }
+        },
+        {
+          "phase": "burst",
+          "before": {
+            "label": "burst",
+            "duration": 1803.7999999999884,
+            "displayGaps": {
+              "n": 107,
+              "p50": 16.69999999999891,
+              "p95": 16.700000000000728,
+              "max": 16.80000000000109,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "loopGaps": {
+              "n": 59,
+              "p50": 16.700000000000728,
+              "p95": 166.6999999999989,
+              "max": 166.8000000000011,
+              "over25": 5,
+              "over33": 5,
+              "over50": 5
+            },
+            "boardGaps": {
+              "n": 10,
+              "p50": 166.64999999999964,
+              "p95": 300.10000000000036,
+              "max": 300.10000000000036,
+              "over25": 10,
+              "over33": 10,
+              "over50": 10
+            },
+            "activeBoardGaps": null,
+            "fxGaps": {
+              "n": 53,
+              "p50": 16.69999999999891,
+              "p95": 16.700000000000728,
+              "max": 16.799999999999272,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "boardSelfMs": {
+              "n": 11,
+              "p50": 0.9000000000232831,
+              "p95": 1.7999999999883585,
+              "max": 1.7999999999883585,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 59,
+              "p50": 0,
+              "p95": 0.1000000000349246,
+              "max": 0.20000000001164153,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": 899.5,
+            "probeLifeNominalMs": 1000,
+            "peakParts": 19,
+            "moveCount": 0,
+            "portalFrames": 0,
+            "final": {
+              "lv": 780,
+              "moves": 3,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 2,
+                  "y": 8,
+                  "e": "Sb",
+                  "frozen": false
+                },
+                {
+                  "x": 6,
+                  "y": 6,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 3,
+                  "y": 2,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 3,
+                  "y": 5,
+                  "e": "I",
+                  "frozen": false
+                }
+              ],
+              "portals": 0,
+              "pressure": false,
+              "severe": false
+            }
+          },
+          "after": {
+            "label": "burst",
+            "duration": 1808,
+            "displayGaps": {
+              "n": 98,
+              "p50": 16.69999999999891,
+              "p95": 33.29999999999927,
+              "max": 66.60000000000036,
+              "over25": 5,
+              "over33": 1,
+              "over50": 1
+            },
+            "loopGaps": {
+              "n": 80,
+              "p50": 16.700000000000728,
+              "p95": 33.400000000001455,
+              "max": 66.60000000000036,
+              "over25": 21,
+              "over33": 3,
+              "over50": 1
+            },
+            "boardGaps": {
+              "n": 51,
+              "p50": 33.30000000000109,
+              "p95": 50,
+              "max": 66.60000000000036,
+              "over25": 47,
+              "over33": 6,
+              "over50": 1
+            },
+            "activeBoardGaps": null,
+            "fxGaps": {
+              "n": 58,
+              "p50": 16.69999999999891,
+              "p95": 16.80000000000109,
+              "max": 33.29999999999927,
+              "over25": 2,
+              "over33": 0,
+              "over50": 0
+            },
+            "boardSelfMs": {
+              "n": 52,
+              "p50": 0.8999999999941792,
+              "p95": 1.7999999999883585,
+              "max": 7.699999999953434,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 63,
+              "p50": 0,
+              "p95": 0.1000000000349246,
+              "max": 0.29999999998835847,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": 1009.7000000000116,
+            "probeLifeNominalMs": 1000,
+            "peakParts": 34,
+            "moveCount": 0,
+            "portalFrames": 0,
+            "final": {
+              "lv": 780,
+              "moves": 3,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 2,
+                  "y": 8,
+                  "e": "Sb",
+                  "frozen": false
+                },
+                {
+                  "x": 6,
+                  "y": 6,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 3,
+                  "y": 2,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 3,
+                  "y": 5,
+                  "e": "I",
+                  "frozen": false
+                }
+              ],
+              "portals": 0,
+              "pressure": false,
+              "severe": false
+            }
+          }
+        },
+        {
+          "phase": "burst-motion",
+          "before": {
+            "label": "burst-motion",
+            "duration": 1835.9000000000233,
+            "displayGaps": {
+              "n": 107,
+              "p50": 16.69999999999709,
+              "p95": 16.799999999999272,
+              "max": 33.39999999999782,
+              "over25": 2,
+              "over33": 0,
+              "over50": 0
+            },
+            "loopGaps": {
+              "n": 67,
+              "p50": 16.69999999999891,
+              "p95": 150,
+              "max": 166.79999999999927,
+              "over25": 4,
+              "over33": 4,
+              "over50": 4
+            },
+            "boardGaps": {
+              "n": 26,
+              "p50": 16.700000000000728,
+              "p95": 228.3000000000102,
+              "max": 250,
+              "over25": 9,
+              "over33": 8,
+              "over50": 8
+            },
+            "activeBoardGaps": {
+              "n": 6,
+              "p50": 16.69999999999891,
+              "p95": 16.700000000000728,
+              "max": 16.700000000000728,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxGaps": {
+              "n": 62,
+              "p50": 16.699999999998,
+              "p95": 16.700000000000728,
+              "max": 16.80000000000109,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "boardSelfMs": {
+              "n": 27,
+              "p50": 0.8000000000465661,
+              "p95": 2.900000000023283,
+              "max": 23.599999999976717,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 67,
+              "p50": 0.19999999995343387,
+              "p95": 0.30000000004656613,
+              "max": 0.5,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": 887.9000000000233,
+            "probeLifeNominalMs": 1000,
+            "peakParts": 61,
+            "moveCount": 1,
+            "portalFrames": 0,
+            "final": {
+              "lv": 780,
+              "moves": 0,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 1,
+                  "y": 8,
+                  "e": "Sb",
+                  "frozen": false
+                },
+                {
+                  "x": 5,
+                  "y": 8,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 3,
+                  "y": 2,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 3,
+                  "y": 5,
+                  "e": "I",
+                  "frozen": false
+                }
+              ],
+              "portals": 0,
+              "pressure": false,
+              "severe": false
+            }
+          },
+          "after": {
+            "label": "burst-motion",
+            "duration": 1841.600000000035,
+            "displayGaps": {
+              "n": 105,
+              "p50": 16.69999999999891,
+              "p95": 16.799999999999272,
+              "max": 66.70000000000073,
+              "over25": 3,
+              "over33": 1,
+              "over50": 1
+            },
+            "loopGaps": {
+              "n": 84,
+              "p50": 16.700000000000728,
+              "p95": 33.400000000001455,
+              "max": 100.10000000000218,
+              "over25": 19,
+              "over33": 3,
+              "over50": 1
+            },
+            "boardGaps": {
+              "n": 62,
+              "p50": 33.29999999999927,
+              "p95": 50,
+              "max": 75.90000000000146,
+              "over25": 41,
+              "over33": 4,
+              "over50": 1
+            },
+            "activeBoardGaps": {
+              "n": 7,
+              "p50": 16.69999999999891,
+              "p95": 16.700000000000728,
+              "max": 16.700000000000728,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxGaps": {
+              "n": 64,
+              "p50": 16.69999999999891,
+              "p95": 16.700000000000728,
+              "max": 33.29999999999927,
+              "over25": 1,
+              "over33": 0,
+              "over50": 0
+            },
+            "boardSelfMs": {
+              "n": 63,
+              "p50": 0.9000000000232831,
+              "p95": 1.7000000000116415,
+              "max": 20.20000000001164,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 67,
+              "p50": 0.09999999997671694,
+              "p95": 0.20000000001164153,
+              "max": 0.20000000001164153,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": 1022.5999999999767,
+            "probeLifeNominalMs": 1000,
+            "peakParts": 63,
+            "moveCount": 1,
+            "portalFrames": 0,
+            "final": {
+              "lv": 780,
+              "moves": 0,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 1,
+                  "y": 8,
+                  "e": "Sb",
+                  "frozen": false
+                },
+                {
+                  "x": 5,
+                  "y": 8,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 3,
+                  "y": 2,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 3,
+                  "y": 5,
+                  "e": "I",
+                  "frozen": false
+                }
+              ],
+              "portals": 0,
+              "pressure": true,
+              "severe": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "view": "desktop",
+      "level": 40,
+      "phases": [
+        {
+          "phase": "idle",
+          "before": {
+            "label": "idle",
+            "duration": 1002.3999999999651,
+            "displayGaps": {
+              "n": 59,
+              "p50": 16.700000000000728,
+              "p95": 16.700000000000728,
+              "max": 16.700000000000728,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "loopGaps": {
+              "n": 5,
+              "p50": 166.59999999999854,
+              "p95": 166.70000000000073,
+              "max": 166.70000000000073,
+              "over25": 5,
+              "over33": 5,
+              "over50": 5
+            },
+            "boardGaps": {
+              "n": 5,
+              "p50": 166.59999999999854,
+              "p95": 166.70000000000073,
+              "max": 166.70000000000073,
+              "over25": 5,
+              "over33": 5,
+              "over50": 5
+            },
+            "activeBoardGaps": null,
+            "fxGaps": null,
+            "boardSelfMs": {
+              "n": 6,
+              "p50": 0.8999999999941792,
+              "p95": 1.2999999999883585,
+              "max": 1.2999999999883585,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 6,
+              "p50": 0,
+              "p95": 0.1000000000349246,
+              "max": 0.1000000000349246,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": null,
+            "probeLifeNominalMs": null,
+            "peakParts": 0,
+            "moveCount": 0,
+            "portalFrames": 0,
+            "final": {
+              "lv": 39,
+              "moves": 0,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 4,
+                  "y": 6,
+                  "e": "Ga",
+                  "frozen": false
+                },
+                {
+                  "x": 1,
+                  "y": 4,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 2,
+                  "y": 3,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 2,
+                  "y": 7,
+                  "e": "Br",
+                  "frozen": false
+                }
+              ],
+              "portals": 2,
+              "pressure": false,
+              "severe": false
+            }
+          },
+          "after": {
+            "label": "idle",
+            "duration": 1002.8000000000466,
+            "displayGaps": {
+              "n": 58,
+              "p50": 16.69999999999709,
+              "p95": 16.700000000000728,
+              "max": 33.400000000001455,
+              "over25": 1,
+              "over33": 0,
+              "over50": 0
+            },
+            "loopGaps": {
+              "n": 29,
+              "p50": 33.29999999999927,
+              "p95": 33.400000000001455,
+              "max": 50.099999999998545,
+              "over25": 28,
+              "over33": 1,
+              "over50": 0
+            },
+            "boardGaps": {
+              "n": 29,
+              "p50": 33.29999999999927,
+              "p95": 33.400000000001455,
+              "max": 50.099999999998545,
+              "over25": 28,
+              "over33": 1,
+              "over50": 0
+            },
+            "activeBoardGaps": null,
+            "fxGaps": null,
+            "boardSelfMs": {
+              "n": 30,
+              "p50": 0.39999999999417923,
+              "p95": 1,
+              "max": 1.099999999976717,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 4,
+              "p50": 0,
+              "p95": 0.1000000000349246,
+              "max": 0.1000000000349246,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": null,
+            "probeLifeNominalMs": null,
+            "peakParts": 0,
+            "moveCount": 0,
+            "portalFrames": 0,
+            "final": {
+              "lv": 39,
+              "moves": 0,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 4,
+                  "y": 6,
+                  "e": "Ga",
+                  "frozen": false
+                },
+                {
+                  "x": 1,
+                  "y": 4,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 2,
+                  "y": 3,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 2,
+                  "y": 7,
+                  "e": "Br",
+                  "frozen": false
+                }
+              ],
+              "portals": 2,
+              "pressure": true,
+              "severe": false
+            }
+          }
+        },
+        {
+          "phase": "moves",
+          "before": {
+            "label": "moves",
+            "duration": 1326.0999999999767,
+            "displayGaps": {
+              "n": 74,
+              "p50": 16.69999999999709,
+              "p95": 33.29999999999927,
+              "max": 50,
+              "over25": 4,
+              "over33": 1,
+              "over50": 0
+            },
+            "loopGaps": {
+              "n": 69,
+              "p50": 16.69999999999709,
+              "p95": 33.29999999999927,
+              "max": 50,
+              "over25": 4,
+              "over33": 1,
+              "over50": 0
+            },
+            "boardGaps": {
+              "n": 54,
+              "p50": 16.69999999999891,
+              "p95": 33.400000000001455,
+              "max": 149.90000000000146,
+              "over25": 5,
+              "over33": 2,
+              "over50": 1
+            },
+            "activeBoardGaps": {
+              "n": 21,
+              "p50": 16.69999999999709,
+              "p95": 33.400000000001455,
+              "max": 50,
+              "over25": 3,
+              "over33": 1,
+              "over50": 0
+            },
+            "fxGaps": {
+              "n": 68,
+              "p50": 16.69999999999709,
+              "p95": 33.29999999999927,
+              "max": 50,
+              "over25": 4,
+              "over33": 1,
+              "over50": 0
+            },
+            "boardSelfMs": {
+              "n": 55,
+              "p50": 0.7999999999883585,
+              "p95": 2.2000000000116415,
+              "max": 3.300000000046566,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 69,
+              "p50": 0.09999999997671694,
+              "p95": 0.30000000004656613,
+              "max": 0.5,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": null,
+            "probeLifeNominalMs": null,
+            "peakParts": 72,
+            "moveCount": 3,
+            "portalFrames": 7,
+            "final": {
+              "lv": 39,
+              "moves": 3,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 5,
+                  "y": 6,
+                  "e": "Ga",
+                  "frozen": false
+                },
+                {
+                  "x": 1,
+                  "y": 4,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 2,
+                  "y": 4,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 6,
+                  "y": 6,
+                  "e": "Br",
+                  "frozen": false
+                }
+              ],
+              "portals": 2,
+              "pressure": false,
+              "severe": false
+            }
+          },
+          "after": {
+            "label": "moves",
+            "duration": 1381.5,
+            "displayGaps": {
+              "n": 66,
+              "p50": 16.700000000000728,
+              "p95": 33.30000000000291,
+              "max": 50,
+              "over25": 13,
+              "over33": 2,
+              "over50": 0
+            },
+            "loopGaps": {
+              "n": 65,
+              "p50": 16.700000000000728,
+              "p95": 33.30000000000291,
+              "max": 50,
+              "over25": 13,
+              "over33": 2,
+              "over50": 0
+            },
+            "boardGaps": {
+              "n": 58,
+              "p50": 16.700000000000728,
+              "p95": 50,
+              "max": 50,
+              "over25": 18,
+              "over33": 3,
+              "over50": 0
+            },
+            "activeBoardGaps": {
+              "n": 20,
+              "p50": 16.700000000000728,
+              "p95": 33.30000000000291,
+              "max": 33.39999999999782,
+              "over25": 7,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxGaps": {
+              "n": 64,
+              "p50": 16.700000000000728,
+              "p95": 33.30000000000291,
+              "max": 50,
+              "over25": 13,
+              "over33": 2,
+              "over50": 0
+            },
+            "boardSelfMs": {
+              "n": 59,
+              "p50": 0.6000000000349246,
+              "p95": 1.599999999976717,
+              "max": 3.2000000000116415,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 65,
+              "p50": 0.1000000000349246,
+              "p95": 0.29999999998835847,
+              "max": 0.29999999998835847,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": null,
+            "probeLifeNominalMs": null,
+            "peakParts": 74,
+            "moveCount": 3,
+            "portalFrames": 8,
+            "final": {
+              "lv": 39,
+              "moves": 3,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 15,
+              "nonambient": 15,
+              "atoms": [
+                {
+                  "x": 5,
+                  "y": 6,
+                  "e": "Ga",
+                  "frozen": false
+                },
+                {
+                  "x": 1,
+                  "y": 4,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 2,
+                  "y": 4,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 6,
+                  "y": 6,
+                  "e": "Br",
+                  "frozen": false
+                }
+              ],
+              "portals": 2,
+              "pressure": true,
+              "severe": false
+            }
+          }
+        },
+        {
+          "phase": "burst",
+          "before": {
+            "label": "burst",
+            "duration": 1807.2000000000116,
+            "displayGaps": {
+              "n": 106,
+              "p50": 16.700000000000728,
+              "p95": 16.700000000000728,
+              "max": 33.29999999999927,
+              "over25": 1,
+              "over33": 0,
+              "over50": 0
+            },
+            "loopGaps": {
+              "n": 38,
+              "p50": 16.700000000000728,
+              "p95": 166.70000000000073,
+              "max": 166.70000000000073,
+              "over25": 8,
+              "over33": 7,
+              "over50": 7
+            },
+            "boardGaps": {
+              "n": 10,
+              "p50": 158.35000000000036,
+              "p95": 250.09999999999854,
+              "max": 250.09999999999854,
+              "over25": 10,
+              "over33": 10,
+              "over50": 10
+            },
+            "activeBoardGaps": null,
+            "fxGaps": {
+              "n": 30,
+              "p50": 16.69999999999709,
+              "p95": 16.700000000000728,
+              "max": 33.29999999999927,
+              "over25": 1,
+              "over33": 0,
+              "over50": 0
+            },
+            "boardSelfMs": {
+              "n": 11,
+              "p50": 0.5,
+              "p95": 1.2999999999883585,
+              "max": 1.2999999999883585,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 38,
+              "p50": 0.1000000000349246,
+              "p95": 0.30000000004656613,
+              "max": 0.3999999999650754,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": 524.1000000000349,
+            "probeLifeNominalMs": 1000,
+            "peakParts": 58,
+            "moveCount": 0,
+            "portalFrames": 0,
+            "final": {
+              "lv": 39,
+              "moves": 3,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 5,
+                  "y": 6,
+                  "e": "Ga",
+                  "frozen": false
+                },
+                {
+                  "x": 1,
+                  "y": 4,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 2,
+                  "y": 4,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 6,
+                  "y": 6,
+                  "e": "Br",
+                  "frozen": false
+                }
+              ],
+              "portals": 2,
+              "pressure": false,
+              "severe": false
+            }
+          },
+          "after": {
+            "label": "burst",
+            "duration": 1805,
+            "displayGaps": {
+              "n": 107,
+              "p50": 16.700000000000728,
+              "p95": 16.700000000000728,
+              "max": 16.80000000000291,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "loopGaps": {
+              "n": 86,
+              "p50": 16.700000000000728,
+              "p95": 33.400000000001455,
+              "max": 50,
+              "over25": 20,
+              "over33": 1,
+              "over50": 0
+            },
+            "boardGaps": {
+              "n": 53,
+              "p50": 33.29999999999927,
+              "p95": 50,
+              "max": 50,
+              "over25": 51,
+              "over33": 3,
+              "over50": 0
+            },
+            "activeBoardGaps": null,
+            "fxGaps": {
+              "n": 60,
+              "p50": 16.700000000000728,
+              "p95": 16.700000000000728,
+              "max": 16.80000000000291,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "boardSelfMs": {
+              "n": 54,
+              "p50": 0.7999999999883585,
+              "p95": 1.1000000000349246,
+              "max": 1.2000000000116415,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 64,
+              "p50": 0.09999999997671694,
+              "p95": 0.20000000001164153,
+              "max": 0.20000000001164153,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": 1007.5,
+            "probeLifeNominalMs": 1000,
+            "peakParts": 73,
+            "moveCount": 0,
+            "portalFrames": 0,
+            "final": {
+              "lv": 39,
+              "moves": 3,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 5,
+                  "y": 6,
+                  "e": "Ga",
+                  "frozen": false
+                },
+                {
+                  "x": 1,
+                  "y": 4,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 2,
+                  "y": 4,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 6,
+                  "y": 6,
+                  "e": "Br",
+                  "frozen": false
+                }
+              ],
+              "portals": 2,
+              "pressure": true,
+              "severe": false
+            }
+          }
+        },
+        {
+          "phase": "burst-motion",
+          "before": {
+            "label": "burst-motion",
+            "duration": 1849.8000000000466,
+            "displayGaps": {
+              "n": 107,
+              "p50": 16.700000000000728,
+              "p95": 16.700000000000728,
+              "max": 50,
+              "over25": 2,
+              "over33": 1,
+              "over50": 0
+            },
+            "loopGaps": {
+              "n": 51,
+              "p50": 16.700000000000728,
+              "p95": 166.59999999999854,
+              "max": 166.70000000000073,
+              "over25": 8,
+              "over33": 7,
+              "over50": 6
+            },
+            "boardGaps": {
+              "n": 26,
+              "p50": 16.700000000000728,
+              "p95": 166.60000000000218,
+              "max": 300,
+              "over25": 11,
+              "over33": 10,
+              "over50": 8
+            },
+            "activeBoardGaps": {
+              "n": 7,
+              "p50": 16.700000000000728,
+              "p95": 50,
+              "max": 50,
+              "over25": 1,
+              "over33": 1,
+              "over50": 0
+            },
+            "fxGaps": {
+              "n": 44,
+              "p50": 16.700000000000728,
+              "p95": 16.799999999999272,
+              "max": 50,
+              "over25": 2,
+              "over33": 1,
+              "over50": 0
+            },
+            "boardSelfMs": {
+              "n": 27,
+              "p50": 0.5,
+              "p95": 1.599999999976717,
+              "max": 2.800000000046566,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 48,
+              "p50": 0.09999999997671694,
+              "p95": 0.20000000001164153,
+              "max": 0.40000000002328306,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": 790.2999999999884,
+            "probeLifeNominalMs": 1000,
+            "peakParts": 75,
+            "moveCount": 1,
+            "portalFrames": 0,
+            "final": {
+              "lv": 39,
+              "moves": 4,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 1,
+                  "y": 6,
+                  "e": "Ga",
+                  "frozen": false
+                },
+                {
+                  "x": 1,
+                  "y": 4,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 2,
+                  "y": 4,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 6,
+                  "y": 6,
+                  "e": "Br",
+                  "frozen": false
+                }
+              ],
+              "portals": 2,
+              "pressure": true,
+              "severe": true
+            }
+          },
+          "after": {
+            "label": "burst-motion",
+            "duration": 1848.3000000000466,
+            "displayGaps": {
+              "n": 101,
+              "p50": 16.69999999999709,
+              "p95": 33.30000000000291,
+              "max": 33.400000000001455,
+              "over25": 10,
+              "over33": 0,
+              "over50": 0
+            },
+            "loopGaps": {
+              "n": 77,
+              "p50": 16.700000000000728,
+              "p95": 33.400000000001455,
+              "max": 50,
+              "over25": 32,
+              "over33": 1,
+              "over50": 0
+            },
+            "boardGaps": {
+              "n": 61,
+              "p50": 33.29999999999927,
+              "p95": 33.400000000001455,
+              "max": 66.70000000000073,
+              "over25": 46,
+              "over33": 2,
+              "over50": 1
+            },
+            "activeBoardGaps": {
+              "n": 7,
+              "p50": 16.700000000000728,
+              "p95": 33.400000000001455,
+              "max": 33.400000000001455,
+              "over25": 3,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxGaps": {
+              "n": 52,
+              "p50": 16.700000000000728,
+              "p95": 33.400000000001455,
+              "max": 33.400000000001455,
+              "over25": 9,
+              "over33": 0,
+              "over50": 0
+            },
+            "boardSelfMs": {
+              "n": 62,
+              "p50": 0.30000000004656613,
+              "p95": 1,
+              "max": 1.599999999976717,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "fxSelfMs": {
+              "n": 56,
+              "p50": 0.1000000000349246,
+              "p95": 0.20000000001164153,
+              "max": 0.5,
+              "over25": 0,
+              "over33": 0,
+              "over50": 0
+            },
+            "probeLifeWallMs": 1031,
+            "probeLifeNominalMs": 1000,
+            "peakParts": 77,
+            "moveCount": 1,
+            "portalFrames": 0,
+            "final": {
+              "lv": 39,
+              "moves": 4,
+              "won": false,
+              "anim": null,
+              "busy": false,
+              "parts": 0,
+              "nonambient": 0,
+              "atoms": [
+                {
+                  "x": 1,
+                  "y": 6,
+                  "e": "Ga",
+                  "frozen": false
+                },
+                {
+                  "x": 1,
+                  "y": 4,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 2,
+                  "y": 4,
+                  "e": "Br",
+                  "frozen": false
+                },
+                {
+                  "x": 6,
+                  "y": 6,
+                  "e": "Br",
+                  "frozen": false
+                }
+              ],
+              "portals": 2,
+              "pressure": true,
+              "severe": false
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "gameplayOutcomeComparisons": {
+    "count": 24,
+    "keys": [
+      "lv",
+      "moves",
+      "won",
+      "atoms"
+    ],
+    "mismatches": []
+  }
+}

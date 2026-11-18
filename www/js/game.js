@@ -5713,7 +5713,7 @@ function releaseTransientResourcesForSuspend(){
     if(typeof completionResultTimer!=='undefined'&&completionResultTimer){clearTimeout(completionResultTimer);completionResultTimer=null;}
     const stale=document.getElementById('mxNextMoleculeTransition');if(stale){stale.classList.remove('on','leave');stale.style.display='none';}
     const levelFx=document.getElementById('levelTransition');if(levelFx)levelFx.classList.remove('mxOut');
-    if(typeof pd!=='undefined')pd=null;
+    if(typeof pd!=='undefined')resetBoardPointer();
     if(AC&&AC.state==='running'){try{const r=AC.suspend();if(r&&r.catch)r.catch(()=>{});}catch(_e){}}
   }catch(e){console.warn('[stability] suspend cleanup failed',e);}
 }
@@ -10464,8 +10464,8 @@ function showOnlineFinalResult(room){
     '<button class="btn green" id="mOnlineMenu">⌂ '+c.menu+'</button></div>';
   openModal(duelFinalResultScreenHtml(winner,s.playerIndex,{forfeit,subtext})+duelRankResultHtml(rankResult,ranked)+onlineQuickMessageButtonsHtml(true)+actionHtml);
   activateDuelFinalPresentation(kind);animateDuelRankResult();
-  const rematch=$('#mOnlineRematch');if(rematch)rematch.addEventListener('pointerdown',async e=>{e.preventDefault();SFX.play();e.currentTarget.disabled=true;const pool=duelState.pool||duelPoolFor('mixed'),rounds=duelMakeRounds(duelBuildLevels(pool),duelState.gameKind||'classic',pool);const res=await onlinePromiseTimeout(window.MXCloud.rematchDuelRoom(s.code,rounds),12000,'duel/timeout');if(!res||!res.ok)e.currentTarget.disabled=false;},{passive:false});
-  const request=$('#mOnlineRematchRequest');if(request)request.addEventListener('pointerdown',e=>{e.preventDefault();SFX.click();sendOnlineQuickMessage('rematch');e.currentTarget.disabled=true;setTimeout(()=>{if(e.currentTarget)e.currentTarget.disabled=false;},1800);},{passive:false});
+  const rematch=$('#mOnlineRematch');if(rematch)rematch.addEventListener('pointerdown',async e=>{e.preventDefault();const button=e.currentTarget;SFX.play();button.disabled=true;const pool=duelState.pool||duelPoolFor('mixed'),rounds=duelMakeRounds(duelBuildLevels(pool),duelState.gameKind||'classic',pool);const res=await onlinePromiseTimeout(window.MXCloud.rematchDuelRoom(s.code,rounds),12000,'duel/timeout');if(!res||!res.ok)button.disabled=false;},{passive:false});
+  const request=$('#mOnlineRematchRequest');if(request)request.addEventListener('pointerdown',e=>{e.preventDefault();const button=e.currentTarget;SFX.click();sendOnlineQuickMessage('rematch');button.disabled=true;setTimeout(()=>{button.disabled=false;},1800);},{passive:false});
   bindOnlineQuickMessageButtons($('#modalBox'));bindTap('#mOnlineMenu',()=>{SFX.click();exitOnlineDuel(false);});
 }
 function showOnlineDuelConnectionError(reason){
@@ -11317,6 +11317,7 @@ function revealPreparedLevel(levelIndex,token){
   });
 }
 function startLevel(i,mode='campaign',expectedKey=''){
+  resetBoardPointer();
   clearTimeout(startLevel.mechanicBriefingTimer);
   closeSayBubble();
   // R136: hide the entire board/action region during synchronous level preparation.
@@ -11588,6 +11589,7 @@ function tutorialArrowToEl(el,side='right'){
 const TUT_ARROW={0:0,1:1,2:2,3:3};
 
 function loadTutorialPuzzle(tl){
+  resetBoardPointer();
   lv=-1;LV=tl;mid=tl.m;curMol=MOLS[mid];
   levelStartT=performance.now();
   grid=tl.g.map(r=>[...r].map(c=>c==='1'));
@@ -12136,6 +12138,7 @@ function breakTemporaryBarrier(key){
   say(ml("Nano Bariyer çatladı ve ilk çarpışmada dağıldı.","The Nano Barrier cracked and shattered on first collision.","Die Nano-Barriere bekam Risse und zerbrach beim ersten Zusammenstoß.","La Nano Barrera se agrietó y se rompió en la primera colisión.","A Nano Barreira rachou e se desfez na primeira colisão.","ナノバリアはひび割れ、最初の衝突で砕けました。"),'talk',2200,'glow');
 }
 function move(i,d){
+  if(i<0||!atoms[i])return;
   if(hardMoveCapBlocksNextMove())return;
   if(precisionMode&&!precisionExecuting){attemptPrecisionMove(i,d);return;}
   if(onlineDuelConnectionPaused())return;
@@ -16482,6 +16485,13 @@ function renderBoard(t){
 /* ================= FX CANVAS (particles) ================= */
 const fxc=$('#fx'),fctx=fxc.getContext('2d');
 let PARTS=[],DUST=[],lastEmit=0,fxCanvasDirty=true,fxBufferKey='';
+let lastFxRenderT=performance.now();
+function resetFxClock(t=performance.now()){
+  lastFxRenderT=t;
+  for(const p of PARTS)p.updatedAt=t;
+}
+// Particle time pauses with the page rather than catching up after a suspension.
+document.addEventListener('visibilitychange',()=>resetFxClock(),{passive:true});
 function fxResize(){
   const w=Math.max(1,innerWidth||1),h=Math.max(1,innerHeight||1);
   const baseDpr=Math.min(effectiveDpr(),Math.min(innerWidth||9999,innerHeight||9999)<760?1.32:2.0);
@@ -16509,7 +16519,7 @@ function P(o){
   const mobile=mobileGameplayRender();
   const base=performanceLow()?(mobile?70:90):(quality==='low'?(mobile?90:120):quality==='mid'?(mobile?150:210):(mobile?195:300));
   const cap=save.effectLevel==='high'?Math.round(base*1.22):base;
-  if(PARTS.length<cap){PARTS.push(Object.assign({t:0,a:1},o));fxCanvasDirty=true;if(typeof wakeMainLoop==='function')wakeMainLoop();}
+  if(PARTS.length<cap){PARTS.push(Object.assign({t:0,a:1,updatedAt:performance.now()},o));fxCanvasDirty=true;if(typeof wakeMainLoop==='function')wakeMainLoop();}
 }
 function spawnConf(x,y){
   if(!effectsAllowed())return;
@@ -16611,11 +16621,15 @@ function renderFx(t,dt){
     }
   }
   for(let i=PARTS.length-1;i>=0;i--){
-    const p=PARTS[i];p.t+=dt/1000;
+    const p=PARTS[i],previousTime=Number.isFinite(p.updatedAt)?p.updatedAt:t-dt;
+    const elapsed=Math.max(0,Math.min(120,t-previousTime)),previousAge=p.t;
+    p.updatedAt=Math.max(previousTime,t);p.t+=elapsed/1000;
     if(p.d&&p.t<p.d)continue;
     const q=p.t/(p.life||1);
     if(q>=1){PARTS.splice(i,1);continue;}
-    const dts=dt/16.7;
+    // A newly emitted or delayed particle only travels for its actual active time.
+    const activeDt=Math.max(0,elapsed-Math.max(0,(Number(p.d)||0)-previousAge)*1000);
+    const dts=activeDt/16.7;
     fctx.globalAlpha=Math.max(0,(p.amb?0.7:1)*(1-q));
     switch(p.k){
       case 'drop':p.vy+=0.28*dts;p.x+=p.vx*dts;p.y+=p.vy*dts;
@@ -16817,9 +16831,11 @@ function advancedCampaignLevelActive(){
   return !dailyMode&&!duelMode&&!crystalMode&&!chainMode&&!reactorMode&&lv>=301;
 }
 function boardNeedsDecorativeCadence(){
-  // R179 UNIFIED 1–501: no expansion-only scheduling branch. The full campaign
-  // follows the same cadence decision that Levels 1–301 already use.
-  return !motionReduced()&&!!(hintMark||reactorActive()||boardNeedsBioCadence());
+  // Atom bob, selection rings and lab devices are visibly animated even while
+  // the player plans a move. Sampling these at 4 Hz made their motion step.
+  return !motionReduced()&&!!(atoms.length||hintMark||reactorActive()||boardNeedsBioCadence()||
+    movingWalls.length||pressureSystems.length||rotationPads.size||riftPairs.size||portalPairs.size||temporaryBarriers.size||
+    replicatorLabActive()||photonBoostLabActive()||synthesizerLabActive()||repulsorLabActive()||rotatingChamberLabActive());
 }
 function boardNeedsBioCadence(){
   return !!(enzymeGate||(crystalActive()&&crystals.some(c=>!c.collected)));
@@ -16889,7 +16905,7 @@ function loop(t){
   mainLoopRaf=0;
   // Visibility resume explicitly wakes the loop. Do zero periodic RAF/timer work
   // while backgrounded; this is pure battery/thermal savings with no visible loss.
-  if(document.hidden){lastT=t;mainLoopNextDue=0;return;}
+  if(document.hidden){lastT=t;resetFxClock(t);mainLoopNextDue=0;return;}
   const dt=Math.min(50,t-lastT);lastT=t;
   const gameVisible=scr.game.classList.contains('on');
   const realtimeBoard=gameVisible&&boardNeedsRealtime(t);
@@ -16908,19 +16924,16 @@ function loop(t){
   // R284: static screens use four light wakeups per second. Live movement and
   // mechanic animation remain display-synchronised at the selected 60/120 Hz.
   const IDLE_GAME_FRAME_MS=mobileRuntime?250:160,IDLE_MENU_FRAME_MS=250;
-  // R128/R272: atom motion remains display-synced at 60 fps by default. Persistent hint and
-  // Reactor animation use a dedicated 25–30 fps lane; truly static boards use
-  // the battery-friendly idle lane. No visual mechanic is removed.
-  const softBioLane=decorativeBoard&&boardNeedsBioCadence()&&!hintMark&&!reactorActive();
-  const decorativeEvery=softBioLane?(performanceLow()?125:(mobileRuntime?83.3:58)):(performanceLow()?83.3:(mobileRuntime?50:40));
+  // Keep authored decorative motion smooth without raising the live movement target.
+  const decorativeEvery=performanceLow()?50:(1000/30);
   const boardEvery=gameVisible?(realtimeBoard?activeBoardEvery:(decorativeBoard?decorativeEvery:(performanceLow()?150:IDLE_GAME_FRAME_MS))):IDLE_MENU_FRAME_MS;
   // The goal canvas is unchanged during a slide. Avoid redrawing it two or three
   // times while the board needs the mobile GPU; catch it up immediately after.
   const goalEvery=Number.POSITIVE_INFINITY; // R171: GOAL canvas is static; redraw only when level/goal content changes.
-  // Hold any previous landing particles for the short slide window. They resume
-  // afterwards, instead of clearing a full-screen Retina canvas beside the board.
-  const realtimeFx=!mobileMotion&&hasRealtimeFxParts();
-  const perfCadence=(realtimeBoard||realtimeFx)?ACTIVE_FRAME_MS:(gameVisible?Math.min(boardEvery,IDLE_GAME_FRAME_MS):IDLE_MENU_FRAME_MS);
+  // Landing/portal effects continue through the next slide instead of freezing.
+  const realtimeFx=hasRealtimeFxParts();
+  const ambientFxActive=!gameVisible&&!motionReduced()&&!performanceLow()&&save.effects!==false;
+  const perfCadence=(realtimeBoard||realtimeFx)?ACTIVE_FRAME_MS:(gameVisible?Math.min(boardEvery,IDLE_GAME_FRAME_MS):(ambientFxActive?1000/30:IDLE_MENU_FRAME_MS));
   if(gameVisible||PARTS.length)updatePerformanceGovernor(t,perfCadence);else resetPerformanceSampling(t);
   if(gameVisible){
     // R179 UNIFIED 1–501: one board scheduling path for the entire campaign.
@@ -16945,8 +16958,12 @@ function loop(t){
       if(txt!==duelTimerText){duelTimerText=txt;const el=$('#duelTimer');if(el){el.textContent=txt;el.classList.remove('urgent');}}
     }
   }
-  const fxEvery=realtimeFx?(performanceLow()?33.34:ACTIVE_FRAME_MS):(gameVisible?(performanceLow()?300:(performancePressure()?260:IDLE_GAME_FRAME_MS)):IDLE_MENU_FRAME_MS);
-  if(!mobileMotion&&cadenceDue(t,lastFxFrame,fxEvery)){const fxDt=Math.min(120,t-lastFxFrame||dt);lastFxFrame=cadenceStamp(lastFxFrame,t,fxEvery);renderFx(t,fxDt);}
+  const fxEvery=realtimeFx?(performanceLow()?33.34:ACTIVE_FRAME_MS):(ambientFxActive?1000/30:(gameVisible?(performanceLow()?300:(performancePressure()?260:IDLE_GAME_FRAME_MS)):IDLE_MENU_FRAME_MS));
+  if(cadenceDue(t,lastFxFrame,fxEvery)){
+    // Cadence stamps track deadlines; integration must use the actual last draw.
+    const fxDt=Math.min(120,Math.max(0,t-lastFxRenderT));lastFxRenderT=t;
+    lastFxFrame=cadenceStamp(lastFxFrame,t,fxEvery);renderFx(t,fxDt);
+  }
   const liveSync=realtimeBoard||realtimeFx;
   const staticCadence=gameVisible?Math.min(boardEvery,curMol?goalEvery:999,fxEvery):fxEvery;
   // R156: a live atom follows display VSync even on mobile. Canvas drawing stays
@@ -16956,11 +16973,16 @@ function loop(t){
   // At 60 FPS this is intentionally the original R272 scheduling call.
   // 120 FPS opts into display VSync while boardEvery allows 8.33 ms redraws.
   scheduleMainLoop(highRefreshLive?(1000/120):(liveSync?ACTIVE_FRAME_MS:staticCadence),
-    mobileMotion||highRefreshLive||(liveSync&&!mobileRuntime));
+    mobileMotion||highRefreshLive||liveSync);
 }
 
 /* ================= INPUT ================= */
 let pd=null;
+function resetBoardPointer(){
+  const pointerId=pd&&pd.id;
+  pd=null;atomPressIdx=-1;
+  if(pointerId!=null)try{if(board.hasPointerCapture(pointerId))board.releasePointerCapture(pointerId);}catch(_){}
+}
 function nearestTouchableAtom(clientX,clientY,extra=1){
   const r=board.getBoundingClientRect();
   // Touch geometry must follow the CSS-scaled board, never the internal canvas unit.
@@ -17000,7 +17022,8 @@ board.addEventListener('pointerdown',e=>{
   // barrier tool instead of the atom tap/swipe recognizer. This prevents normal
   // finger drift from being misread as a swipe and stores the intended start cell.
   const placingBarrier=barrierMode&&!won;
-  pd={x:e.clientX,y:e.clientY,ai:placingBarrier?-1:nearestTouchableAtom(e.clientX,e.clientY),id:e.pointerId,pointerType:e.pointerType||'touch',barrierCell:placingBarrier?boardCellAt(e.clientX,e.clientY):null};
+  const ai=placingBarrier?-1:nearestTouchableAtom(e.clientX,e.clientY);
+  pd={x:e.clientX,y:e.clientY,ai,atom:atoms[ai],id:e.pointerId,pointerType:e.pointerType||'touch',barrierCell:placingBarrier?boardCellAt(e.clientX,e.clientY):null};
   atomPressIdx=pd.ai;atomPressAt=performance.now();
 },{passive:false});
 // R241 click fallback: some embedded iOS/WebKit shells can synthesize click
@@ -17013,6 +17036,7 @@ board.addEventListener('click',e=>{
 
 board.addEventListener('pointerup',e=>{
   if(!pd||pd.id!==e.pointerId)return;
+  if(pd.ai>=0&&atoms[pd.ai]!==pd.atom){resetBoardPointer();return;}
   atomPressIdx=-1;
   const dx=e.clientX-pd.x,dy=e.clientY-pd.y;
   const dist=Math.max(Math.abs(dx),Math.abs(dy));
@@ -17061,7 +17085,9 @@ board.addEventListener('pointerup',e=>{
   }
   pd=null;
 },{passive:false});
-board.addEventListener('pointercancel',e=>{if(pd&&pd.id===e.pointerId){pd=null;atomPressIdx=-1;}},{passive:true});
+board.addEventListener('pointercancel',e=>{if(pd&&pd.id===e.pointerId)resetBoardPointer();},{passive:true});
+board.addEventListener('lostpointercapture',e=>{if(pd&&pd.id===e.pointerId)resetBoardPointer();},{passive:true});
+window.addEventListener('blur',resetBoardPointer,{passive:true});
 [['#dU',0],['#dR',1],['#dD',2],['#dL',3]].forEach(([id,d])=>{
   $(id).addEventListener('pointerdown',e=>{e.preventDefault();
     if(tutorialActive&&tutorialWaitTap!=null)return;

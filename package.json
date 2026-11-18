@@ -4,10 +4,11 @@
   "private": true,
   "description": "Moleculox R392 native ios release; canon story panels, music shuffle, mobile UI parity; native auth preserved.",
   "scripts": {
-    "check": "node scripts/verify-r376-native.js ios && node --test tests/*.test.mjs && python3 tests/test_ios_native.py && python3 tests/test_web_bundle_patches.py",
+    "check": "node scripts/verify-r376-native.js ios && node --test tests/*.test.mjs && python3 tests/test_ios_native.py && python3 tests/test_web_bundle_patches.py && python3 tests/test_itch_build.py",
     "ios:prepare": "bash scripts/prepare-ios.sh",
     "ios:sync": "npx cap sync ios",
-    "ios:open": "npx cap open ios"
+    "ios:open": "npx cap open ios",
+    "itch:build": "python3 scripts/build-itch.py"
   },
   "dependencies": {
     "@capacitor/core": "7.4.2",

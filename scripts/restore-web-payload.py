@@ -1,9 +1,11 @@
 from pathlib import Path, PurePosixPath
 import hashlib, json, shutil, tarfile, tempfile
-from web_bundle_patches import apply_patches, verify_bundle
+from web_bundle_patches import load_overrides, reviewed_overrides, overlay_reviewed, verify_bundle
 root=Path(__file__).resolve().parents[1]
 parts=json.loads((root/'PAYLOAD-SHA256.json').read_text())
 expected=json.loads((root/'WEB-BUNDLE-SHA256.json').read_text())
+overrides=load_overrides(root,expected)
+approved=reviewed_overrides(root/'www',expected,overrides)
 with tempfile.TemporaryFile() as joined:
  for rel,digest in parts.items():
   p=root/rel
@@ -27,9 +29,9 @@ with tempfile.TemporaryFile() as joined:
      with archive.extractfile(item) as src,target.open('wb') as dest:shutil.copyfileobj(src,dest)
   actual={p.relative_to(stage/'www').as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in (stage/'www').rglob('*') if p.is_file()}
   if actual!=expected:raise SystemExit('Restored web bundle is incomplete or changed')
-  # The archive remains immutable; apply only the reviewed delta after its hashes pass.
-  apply_patches(stage/'www',expected)
-  verify_bundle(stage/'www',expected)
+  # The original archive is immutable; overlay only hash-approved tracked files.
+  overlay_reviewed(stage/'www',approved)
+  verify_bundle(stage/'www',expected,overrides)
   shutil.rmtree(root/'www',ignore_errors=True)
   shutil.move(str(stage/'www'),str(root/'www'))
-print('R392 complete web bundle restored and verified with level-card patch:',len(expected),'files')
+print('R392 web payload restored with exact reviewed overrides:',len(expected),'files')
