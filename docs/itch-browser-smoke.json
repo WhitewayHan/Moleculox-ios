@@ -78,7 +78,10 @@
       "worker": true,
       "brokenImages": []
     },
-    "passed": true
+    "passed": true,
+    "buildManifestSha256": "cee41412d7419196aca28ada0697ae4e7679f058611ae40e6145f811ad24dd77",
+    "executedGameSha256": "bf05d9055258ee19f933875eadf932d882291df1c24367a9e448e136166c1ffc",
+    "archiveSha256": "98b6613f56a612b4f8af1773e1d5b3e378a56991cc99c0bc9a7ea5d12029195b"
   },
   "itch-iframe-smoke.json": {
     "mode": "exact ZIP same-site cross-origin iframe smoke",
@@ -160,7 +163,10 @@
       "worker": true,
       "brokenImages": []
     },
-    "passed": true
+    "passed": true,
+    "buildManifestSha256": "cee41412d7419196aca28ada0697ae4e7679f058611ae40e6145f811ad24dd77",
+    "executedGameSha256": "bf05d9055258ee19f933875eadf932d882291df1c24367a9e448e136166c1ffc",
+    "archiveSha256": "98b6613f56a612b4f8af1773e1d5b3e378a56991cc99c0bc9a7ea5d12029195b"
   },
   "itch-cross-site-restricted-smoke.json": {
     "mode": "exact ZIP cross-site restricted-storage smoke",
@@ -198,6 +204,9 @@
     "limitations": [
       "Browser denied third-party localStorage and service workers; gameplay remains available, persistence and offline reload unavailable in this context."
     ],
-    "passed": true
+    "passed": true,
+    "buildManifestSha256": "cee41412d7419196aca28ada0697ae4e7679f058611ae40e6145f811ad24dd77",
+    "executedGameSha256": "bf05d9055258ee19f933875eadf932d882291df1c24367a9e448e136166c1ffc",
+    "archiveSha256": "98b6613f56a612b4f8af1773e1d5b3e378a56991cc99c0bc9a7ea5d12029195b"
   }
 }

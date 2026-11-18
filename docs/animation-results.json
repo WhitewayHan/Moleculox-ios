@@ -68,7 +68,8 @@
         794
       ]
     },
-    "errors": []
+    "errors": [],
+    "sourceSha256": "ae1ba96d66ae91cbcbd9c31104c10ba961f8d7e276d3a55d7612c5b7f1fcc635"
   },
   "candidate": {
     "variant": "after",
@@ -139,7 +140,8 @@
         794
       ]
     },
-    "errors": []
+    "errors": [],
+    "sourceSha256": "4b62d8bbff57ef6c546368c440f7024ebf365a86e562e5c281776a681e027f2d"
   },
   "scenarios": [
     {
