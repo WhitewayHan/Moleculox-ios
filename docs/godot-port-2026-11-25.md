@@ -21,7 +21,7 @@ Godot paketleme karşılaştırması:
 
 | Ölçüm | İlk standart Godot kaynak paketi | Özgün görsel byte'larıyla paket |
 |---|---:|---:|
-| Kaynak ZIP boyutu | 365.526.300 byte | 118.958.207 byte |
+| Kaynak ZIP boyutu | 365.526.300 byte | 118.958.790 byte |
 | Azalma | — | %67,46 |
 | Kaynak görseller | Godot lossless dönüştürmesi | 544/544 aynı byte |
 

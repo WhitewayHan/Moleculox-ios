@@ -1,0 +1,153 @@
+{
+  "build": {
+    "engine": "Godot 4.6.3",
+    "threadSupport": false,
+    "renderer": "Compatibility",
+    "sourceBranch": "feat/godot-port",
+    "baseline": "8.7.239-web-smooth1",
+    "codeCommit": "d4c5287929f04dd8205f0accf5a88f8bfb3b9279",
+    "artworkEncoding": "original source PNG/WebP bytes",
+    "resourcePack": "index.zip",
+    "files": {
+      "index.apple-touch-icon.png": "656fe81dc7dbe9a77d00fd6a3c30e44ef094d492eb489dcaea91948c5ce7301b",
+      "index.audio.position.worklet.js": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8",
+      "index.audio.worklet.js": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3",
+      "index.html": "b282a64dc3bc565d480ebabaa4693221778a04a4c1c1c9ddbdc633283790c96c",
+      "index.icon.png": "884b17dd6471a4fe386ddccfe203286dfee55cd624cc4e563d70a2bbeb81c3a3",
+      "index.js": "e3f56ee40e6f84371053db06692cfac15e2c8659547b11c6b2dfa1996dabd981",
+      "index.png": "3cb4495c0b98dfbe4b663cbf2b6836473572339beb66d902367893162a70be0e",
+      "index.wasm": "26b61ce95247012ab3dca3ff51e96d1cdbff44ee91a8c20a83e150afca83f1b6",
+      "index.zip": "2a5ddb5a2bed60fd51b25d9c44cbf3fcdc4742727795715de28a873948582fa2",
+      "offline-adapter.js": "e941775141c4ed86fc02d234e4d1fa7ba7eaeacdc599db0351a043723e43b79c",
+      "offline-sw.js": "ed8e50b6d1b3cdaef47a77693683eaf196a3ae2a8aefddc5dafb26f7f7e0ac89"
+    }
+  },
+  "archiveSha256": "2fb44803b44b33f1cb029af3353cf4fc08c7509e15424bdacea631f5ea7fa9f7",
+  "archiveBytes": 128395792,
+  "nativeTests": [
+    {
+      "test": "test_main_flow.gd",
+      "passed": true,
+      "returncode": 0,
+      "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nMAIN FLOW: 29 checks; 0 failures\n"
+    },
+    {
+      "test": "test_all_boards.gd",
+      "passed": true,
+      "returncode": 0,
+      "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nALL BOARDS: 1250 source/mode boards drawn; 801 first-motion paths; PASS\n"
+    },
+    {
+      "test": "test_services.gd",
+      "passed": true,
+      "returncode": 0,
+      "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nPASS services: migration, identity, reserved ledger, merge, atomic backup, escrow recovery, periods, offline rewards, profile limit\n"
+    },
+    {
+      "test": "test_economy_service.gd",
+      "passed": true,
+      "returncode": 0,
+      "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nEconomy service conformance: PASS (0 failures)\n"
+    },
+    {
+      "test": "test_cloud_service.gd",
+      "passed": true,
+      "returncode": 0,
+      "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nCLOUD_NATIVE_TESTS_OK\n"
+    },
+    {
+      "test": "test_online_duel.gd",
+      "passed": true,
+      "returncode": 0,
+      "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nONLINE_DUEL_CONFORMANCE_OK: authoritative simultaneous rounds, hidden results, reconnection, guest progression, queue, context guards, preset messages\n"
+    },
+    {
+      "test": "test_account_sync.gd",
+      "passed": true,
+      "returncode": 0,
+      "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nACCOUNT_SYNC_CONFORMANCE_OK: import/merge/identity, ledger, secure proof, verified rewards, deletion, profile/account guards\n"
+    },
+    {
+      "test": "test_audio_fidelity.gd",
+      "passed": true,
+      "returncode": 0,
+      "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nAudio fidelity: 4296 checks; 165 JS semantic banks, 2277 JS voice-bag decisions, 57 JS music decisions, 484 native MP3 segments; 0 failures\n"
+    },
+    {
+      "test": "test_ui_screens.gd",
+      "passed": true,
+      "returncode": 0,
+      "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nPASS native Godot menus, story navigation and audio construction\n"
+    },
+    {
+      "test": "board_render_test.gd",
+      "passed": true,
+      "returncode": 0,
+      "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nBOARD_RENDER_TEST_PASS\n"
+    }
+  ],
+  "rules": {
+    "engine": "Godot 4.6.3",
+    "fixture": "godot/tests/fixtures/rules-oracle.json.gz",
+    "levels": 801,
+    "firstActions": 19823,
+    "certifiedRouteActions": 9336,
+    "certifiedGoalsVerified": 801,
+    "outcomes": [
+      {
+        "test": "rules_oracle_test.gd",
+        "checks": 70204,
+        "failures": 0
+      },
+      {
+        "test": "rules_gameplay_test.gd",
+        "checks": 19,
+        "failures": 0
+      }
+    ]
+  },
+  "fx": {
+    "recipes": 501,
+    "particles": 15063,
+    "bonds": 3006,
+    "failures": 0
+  },
+  "session": {
+    "checks": 2427,
+    "failures": 0
+  },
+  "browser": {
+    "passed": true,
+    "checks": [
+      "served real Godot resource ZIP from a nested path without COOP/COEP",
+      "cancelled touch then three genuine mobile swipes complete level1 with3stars/bestMoves3/cur1",
+      "saved progress survives full browser reload",
+      "all game files cached, HTTP server stopped, actual Godot offline reload preserved progress"
+    ],
+    "engineErrors": [],
+    "parentOrigin": "http://127.0.0.1:36025",
+    "gameOrigin": "http://127.0.0.1:45659",
+    "crossOriginIsolated": false,
+    "offlineDownload": {
+      "state": "done",
+      "done": 10,
+      "total": 10,
+      "error": ""
+    },
+    "archiveSha256": "2fb44803b44b33f1cb029af3353cf4fc08c7509e15424bdacea631f5ea7fa9f7"
+  },
+  "packaging": {
+    "before": 365526300,
+    "after": 118958790,
+    "reductionPercent": 67.46,
+    "originalImageFiles": 544,
+    "allOriginalImageBytesPreserved": true,
+    "fpsImprovementClaimed": false
+  },
+  "limitations": [
+    "No live account or opponent writes during tests.",
+    "Pixel-perfect UI, all avatar micro animations and physical iPhone/Safari performance are not fully verified.",
+    "Some atom-contact sound parameters use the general sample.",
+    "The previous Smooth ZIP failure on the user itch page remains unconfirmed."
+  ]
+}
