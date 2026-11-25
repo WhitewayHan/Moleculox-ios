@@ -1,0 +1,20 @@
+{
+  "engine": "Godot 4.6.3",
+  "fixture": "godot/tests/fixtures/rules-oracle.json.gz",
+  "levels": 801,
+  "firstActions": 19823,
+  "certifiedRouteActions": 9336,
+  "certifiedGoalsVerified": 801,
+  "outcomes": [
+    {
+      "test": "rules_oracle_test.gd",
+      "checks": 70204,
+      "failures": 0
+    },
+    {
+      "test": "rules_gameplay_test.gd",
+      "checks": 19,
+      "failures": 0
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+; Moleculox native Godot port — source and web baseline retained for parity checks.
+config_version=5
+
+[application]
+config/name="Moleculox"
+config/version="9.0.0-port"
+run/main_scene="res://scenes/main.tscn"
+config/features=PackedStringArray("4.6", "GL Compatibility")
+config/icon="res://assets/icons/icon-192.png"
+
+[autoload]
+Catalog="*res://scripts/catalog.gd"
+Progress="*res://scripts/services/progress_store.gd"
+Economy="*res://scripts/services/economy.gd"
+Cloud="*res://scripts/services/cloud_bridge.gd"
+
+[display]
+window/size/viewport_width=480
+window/size/viewport_height=900
+window/size/window_width_override=480
+window/size/window_height_override=900
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
+[rendering]
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/default_filters/use_nearest_mipmap_filter=false
+textures/canvas_textures/default_texture_filter=2
+
+[audio]
+driver/enable_input=false
