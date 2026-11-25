@@ -21,8 +21,13 @@ def main():
     output = args.output.resolve()
     output.parent.mkdir(parents=True, exist_ok=True)
     env = dict(os.environ)
-    env.setdefault('XDG_DATA_HOME', str(ROOT.parent / '.godot-runtime'))
-    env.setdefault('XDG_CONFIG_HOME', str(Path(env['XDG_DATA_HOME']) / 'config'))
+    # Use the managed workspace templates when present. Standalone projects
+    # otherwise use the editor's normal per-user template installation.
+    workspace_runtime = ROOT.parent / '.godot-runtime'
+    if 'XDG_DATA_HOME' not in env and (workspace_runtime / 'godot/export_templates/4.6.3.stable').is_dir():
+        env['XDG_DATA_HOME'] = str(workspace_runtime)
+    if env.get('XDG_DATA_HOME'):
+        env.setdefault('XDG_CONFIG_HOME', str(Path(env['XDG_DATA_HOME']) / 'config'))
     executable = env.get('GODOT_BIN', 'godot')
     with tempfile.TemporaryDirectory(prefix='moleculox-godot-web-', dir=ROOT.parent) as temporary:
         stage = Path(temporary)

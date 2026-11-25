@@ -1,11 +1,14 @@
 'use strict';
-const fs=require('node:fs'),path=require('node:path'),http=require('node:http');
+const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),crypto=require('node:crypto');
 const {chromium}=require('playwright');
 const root=process.env.WEB_ROOT||'/workspace/artifacts/Moleculox-Godot-Itch-candidate';
 const output=process.env.OUTPUT||'/workspace/artifacts/godot-browser';
 fs.mkdirSync(output,{recursive:true});
 async function main(){
  const requests=[],report={root,console:[],errors:[],failed:[],checks:[],startedAt:new Date().toISOString()};
+ const build=JSON.parse(fs.readFileSync(path.join(root,'BUILD-INFO.json'),'utf8'));
+ for(const[name,expected]of Object.entries(build.files))if(crypto.createHash('sha256').update(fs.readFileSync(path.join(root,name))).digest('hex')!==expected)throw Error('Export integrity mismatch: '+name);
+ report.codeCommit=build.codeCommit;report.archiveSha256=crypto.createHash('sha256').update(fs.readFileSync(root+'.zip')).digest('hex');
  const server=http.createServer((req,res)=>{
   const name=decodeURIComponent(new URL(req.url,'http://localhost').pathname);
   requests.push(name);
@@ -36,7 +39,7 @@ async function main(){
   if(!frame)throw Error('Godot iframe missing');
   report.status=await frame.evaluate(()=>document.getElementById('status')?.innerText||'');
   report.canvas=await frame.locator('#canvas').evaluate(c=>({width:c.width,height:c.height,rect:{x:c.getBoundingClientRect().x,y:c.getBoundingClientRect().y,w:c.getBoundingClientRect().width,h:c.getBoundingClientRect().height}}));
-  report.loadMs=Date.now()-started;
+  report.observedAtMs=Date.now()-started;report.settleWaitMs=8000;
   report.checks.push('served real Godot resource ZIP from a nested path without COOP/COEP');
   if(process.env.INTERACTIVE==='1'){
    await page.touchscreen.tap(240,730);await page.waitForTimeout(1900);
@@ -97,7 +100,7 @@ async function main(){
   fs.writeFileSync(path.join(output,'report.json'),JSON.stringify(report,null,2));
   await browser.close();await new Promise(resolve=>server.close(resolve));await new Promise(resolve=>host.close(resolve));
  }
- console.log(JSON.stringify({passed:report.passed,errors:report.errors,failed:report.failed,loadMs:report.loadMs,status:report.status,console:report.console.slice(-10)}));
+ console.log(JSON.stringify({passed:report.passed,errors:report.errors,failed:report.failed,observedAtMs:report.observedAtMs,status:report.status,checks:report.checks}));
  if(!report.passed)process.exitCode=1;
 }
 main().catch(e=>{console.error(e);process.exitCode=1});
